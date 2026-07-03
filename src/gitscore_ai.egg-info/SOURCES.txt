@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+src/gitscore/__init__.py
+src/gitscore/config.py
+src/gitscore/db/__init__.py
+src/gitscore/db/database.py
+src/gitscore/db/models.py
+src/gitscore/github/__init__.py
+src/gitscore/github/client.py
+src/gitscore/github/schemas.py
+src/gitscore_ai.egg-info/PKG-INFO
+src/gitscore_ai.egg-info/SOURCES.txt
+src/gitscore_ai.egg-info/dependency_links.txt
+src/gitscore_ai.egg-info/top_level.txt
