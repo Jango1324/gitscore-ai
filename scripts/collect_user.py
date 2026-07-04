@@ -15,8 +15,11 @@ print(f"Name: {data['name']}")
 print(f"Followers: {data['followers']}")
 print(f"Public repos: {data['public_repos']}")
 for repo in repos: # loops through all the reposistories accessed by the requests (github rest api)
-    print(f"Repository Name: {repo['name']}")
-    print(f"Language: {repo['language']}")
+    repo_name = repo["name"]
+    languages = client.get_repository_languages(username, repo_name)
+    print(f"Repository Name: {repo_name}")
+    print(f"Primary Language: {repo['language']}")
+    print(f"Languages: {languages}")
     print(f"Stars: {repo['stargazers_count']}")
     print("-" * 30)
 

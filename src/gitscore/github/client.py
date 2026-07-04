@@ -29,3 +29,17 @@ class GitHubClient:
             raise Exception(f"GitHub repositories request failed: {response.status_code}")
         
         return response.json()
+    def get_repository_languages(self, owner, repo):
+        url = f"https://api.github.com/repos/{owner}/{repo}/languages"
+        headers = { "Accept": "application/json", "X-Requested-With": "XMLHttpRequest"}
+        headers = {}
+        if GITHUB_TOKEN:
+            headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
+
+        response = requests.get(url, headers=headers)
+
+        if response.status_code != 200:
+            raise Exception(f"GitHub repositories request failed: {response.status_code}")
+        
+        return response.json()
+    
