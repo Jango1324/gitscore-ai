@@ -26,7 +26,7 @@ for repo in clean_repos:
     print(f"Repository: {repo['name']}")
     print(f"Description: {repo['description']}")
     print(f"Primary Language: {repo['primary_language']}")
-    print(f"Languages: {repo['languages']}")
+    print(f"Languages: {repo['languages']}" )
     print(f"Stars: {repo['stars']}")
     print(f"Forks: {repo['forks']}")
     print(f"Updated: {repo['updated_at']}")
