@@ -1,6 +1,8 @@
 import sys
 from gitscore.github.client import GitHubClient
 from gitscore.github.parser import parse_repo
+from gitscore.feautures.profile import extract_profile_features
+
 
 if len(sys.argv) < 2:
     print("Usage: python scripts/collect_user.py <github_username>")
@@ -21,7 +23,8 @@ for repo in repos: # loops through all the reposistories accessed by the request
     languages = client.get_repository_languages(username, repo_name)
     clean_repo = parse_repo(repo, languages)
     clean_repos.append(clean_repo)
-    
+
+
 for repo in clean_repos:
     print(f"Repository: {repo['name']}")
     print(f"Description: {repo['description']}")
@@ -33,3 +36,5 @@ for repo in clean_repos:
     print(f"URL: {repo['html_url']}")
     print("-" * 40)
 
+features = extract_profile_features(clean_repos)
+print(features)
