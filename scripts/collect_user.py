@@ -21,7 +21,8 @@ clean_repos = []
 for repo in repos: # loops through all the reposistories accessed by the requests (github rest api)
     repo_name = repo["name"]
     languages = client.get_repository_languages(username, repo_name)
-    clean_repo = parse_repo(repo, languages)
+    readme = client.get_repository_readme(username, repo_name)
+    clean_repo = parse_repo(repo, languages, readme)
     clean_repos.append(clean_repo)
 
 
@@ -35,6 +36,8 @@ for repo in clean_repos:
     print(f"Updated: {repo['updated_at']}")
     print(f"URL: {repo['html_url']}")
     print("-" * 40)
+    print(f"Has README: {repo['readme'] is not None}")
+    print(f"README length: {len(repo['readme']) if repo['readme'] else 0}")
 
 features = extract_profile_features(clean_repos)
 print(features)

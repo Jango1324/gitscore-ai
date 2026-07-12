@@ -1,4 +1,4 @@
-def parse_repo(repo, languages):
+def parse_repo(repo, languages, readme):
     return {
         "name": repo["name"],
         "description": repo["description"],
@@ -10,6 +10,7 @@ def parse_repo(repo, languages):
         "updated_at": repo["updated_at"],
         "is_fork": repo["fork"],
         "html_url": repo["html_url"],
+        "readme": readme
     }
 
 def parse_languages(languages):
@@ -19,7 +20,7 @@ def parse_languages(languages):
     percentages = {}
 
     for language, bytes_of_code in languages.items():
-        percentages[language] = (bytes_of_code / total) * 100
+        percentages[language] = round((bytes_of_code / total) * 100,2)
     return percentages
     
 
