@@ -36,8 +36,6 @@ for repo in clean_repos:
     print(f"Updated: {repo['updated_at']}")
     print(f"URL: {repo['html_url']}")
     print("-" * 40)
-    print(f"Has README: {repo['readme'] is not None}")
-    print(f"README length: {len(repo['readme']) if repo['readme'] else 0}")
 
 features = extract_profile_features(clean_repos)
 print(features)
