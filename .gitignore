@@ -6,3 +6,6 @@ data/gitscore.db
 data/raw/
 data/processed/
 .ipynb_checkpoints/
+data/*.db
+data/*.sqlite
+data/*.sqlite3

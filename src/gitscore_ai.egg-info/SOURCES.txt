@@ -5,8 +5,17 @@ src/gitscore/config.py
 src/gitscore/db/__init__.py
 src/gitscore/db/database.py
 src/gitscore/db/models.py
+src/gitscore/feautures/activity.py
+src/gitscore/feautures/deployment.py
+src/gitscore/feautures/languages.py
+src/gitscore/feautures/ml.py
+src/gitscore/feautures/profile.py
+src/gitscore/feautures/profile_features.py
+src/gitscore/feautures/quality.py
+src/gitscore/feautures/readme.py
 src/gitscore/github/__init__.py
 src/gitscore/github/client.py
+src/gitscore/github/parser.py
 src/gitscore/github/schemas.py
 src/gitscore_ai.egg-info/PKG-INFO
 src/gitscore_ai.egg-info/SOURCES.txt
