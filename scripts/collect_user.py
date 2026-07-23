@@ -2,6 +2,7 @@ import sys
 from gitscore.github.client import GitHubClient
 from gitscore.github.parser import parse_repo
 from gitscore.feautures.profile import extract_profile_features
+from gitscore.db.queries import save_user
 
 
 if len(sys.argv) < 2:
@@ -11,6 +12,7 @@ username = sys.argv[1]
 
 client = GitHubClient()
 data = client.get_user(username)
+saved_user = save_user(data)
 repos = client.get_repositories(username)
 
 print(f"Username: {data['login']}")
