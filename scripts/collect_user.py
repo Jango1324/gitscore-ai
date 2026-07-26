@@ -2,7 +2,7 @@ import sys
 from gitscore.github.client import GitHubClient
 from gitscore.github.parser import parse_repo
 from gitscore.feautures.profile import extract_profile_features
-from gitscore.db.queries import save_user
+from gitscore.db.queries import save_user,save_profile_features
 
 
 if len(sys.argv) < 2:
@@ -40,4 +40,14 @@ for repo in clean_repos:
     print("-" * 40)
 
 features = extract_profile_features(clean_repos)
+saved_features = save_profile_features(
+    saved_user.id,
+    features
+)
 print(features)
+print(
+    "Saved feature snapshot:",
+    saved_features.id,
+    saved_features.user_id,
+    saved_features.total_repos
+)

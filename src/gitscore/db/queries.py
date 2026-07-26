@@ -1,5 +1,5 @@
 from gitscore.db.database import SessionLocal
-from gitscore.db.models import User
+from gitscore.db.models import User, ProfileFeature
 from sqlalchemy import select
 from datetime import datetime
 
@@ -29,3 +29,21 @@ def save_user(user_data):
     session.refresh(user)
     session.close()
     return user
+
+def save_profile_features(user_id, features):
+    session = SessionLocal()
+    profile_feature = ProfileFeature(
+        user_id = user_id,
+        total_repos = features["total_repos"],
+        original_repos = features["original_repos"],
+        forked_repos = features["forked_repos"],
+        unique_language_count = features["unique_language_count"],
+        ml_repository_count = features["ml_repository_count"],
+        readme_coverage_ratio = features["readme_coverage_ratio"]
+    )
+    session.add(profile_feature)
+    session.commit()
+    session.refresh(profile_feature)
+    session.close()
+    return profile_feature
+    
