@@ -37,9 +37,39 @@ def save_profile_features(user_id, features):
         total_repos = features["total_repos"],
         original_repos = features["original_repos"],
         forked_repos = features["forked_repos"],
+    
         unique_language_count = features["unique_language_count"],
         ml_repository_count = features["ml_repository_count"],
-        readme_coverage_ratio = features["readme_coverage_ratio"]
+        readme_coverage_ratio = features["readme_coverage_ratio"],
+        most_used_language=features["most_used_language"],
+
+        total_stars=features["total_stars"],
+        average_stars=features["average_stars"],
+        total_forks=features["total_forks"],
+        average_forks=features["average_forks"],
+        repositories_with_description=features["repositories_with_description"],
+        description_coverage_ratio=features["description_coverage_ratio"],
+
+        has_pytorch=features["has_pytorch"],
+        has_huggingface=features["has_huggingface"],
+        has_pandas=features["has_pandas"],
+        has_catboost=features["has_catboost"],
+        has_python=features["has_python"],
+        has_typescript=features["has_typescript"],
+
+
+        ml_keyword_total=features["ml_keyword_total"],
+        python_repository_count=features["python_repository_count"],
+        typescript_repository_count=features["typescript_repository_count"],
+
+        repositories_with_readme=features["repositories_with_readme"],
+        average_readme_length=features["average_readme_length"],
+        repositories_with_installation=features["repositories_with_installation"],
+        repositories_with_usage=features["repositories_with_usage"],
+        repositories_with_demo=features["repositories_with_demo"],
+        repositories_with_badges=features["repositories_with_badges"],
+        repositories_with_license=features["repositories_with_license"],
+        repositories_with_contributing=features["repositories_with_contributing"]
     )
     session.add(profile_feature)
     session.commit()
