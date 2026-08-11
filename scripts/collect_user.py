@@ -3,6 +3,7 @@ from gitscore.github.client import GitHubClient
 from gitscore.github.parser import parse_repo
 from gitscore.feautures.profile import extract_profile_features
 from gitscore.db.queries import save_user,save_profile_features
+from gitscore.scoring.readiness import calculate_readiness_score
 
 
 if len(sys.argv) < 2:
@@ -40,6 +41,15 @@ for repo in clean_repos:
     print("-" * 40)
 
 features = extract_profile_features(clean_repos)
+score = calculate_readiness_score(features)
+print(
+f"{"total_score: "}{score["total_score"]}",
+f"{"ml experience: "}  {score["ml_experience"]}",
+f"{"project_originality: "} {score['project_originality']}",
+f"{"documentation_quality: "}  {score['documentation_quality']}",
+f"{"language_tool_relevance: "}  {score['language_tool_relevance']}",
+f"{"community_signal: "}  {score['community_signal']}")
+
 saved_features = save_profile_features(
     saved_user.id,
     features
