@@ -52,7 +52,8 @@ f"{"community_signal: "}  {score['community_signal']}")
 
 saved_features = save_profile_features(
     saved_user.id,
-    features
+    features,
+    score
 )
 print(features)
 print(

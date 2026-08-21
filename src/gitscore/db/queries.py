@@ -30,7 +30,7 @@ def save_user(user_data):
     session.close()
     return user
 
-def save_profile_features(user_id, features):
+def save_profile_features(user_id, features, score):
     session = SessionLocal()
     profile_feature = ProfileFeature(
         user_id = user_id,
@@ -69,7 +69,8 @@ def save_profile_features(user_id, features):
         repositories_with_demo=features["repositories_with_demo"],
         repositories_with_badges=features["repositories_with_badges"],
         repositories_with_license=features["repositories_with_license"],
-        repositories_with_contributing=features["repositories_with_contributing"]
+        repositories_with_contributing=features["repositories_with_contributing"],
+        readiness_score= score["total_score"]
     )
     session.add(profile_feature)
     session.commit()

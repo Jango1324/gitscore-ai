@@ -77,3 +77,7 @@ class ProfileFeature(Base):
     nullable=False,
     default=datetime.utcnow,
 )
+    readiness_score: Mapped[int] = mapped_column(
+    Integer,
+    nullable=False
+)
