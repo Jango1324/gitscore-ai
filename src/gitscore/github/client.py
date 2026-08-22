@@ -4,6 +4,8 @@ import base64
 
 
 class GitHubClient:
+    def __init__(self):
+             self.session = requests.Session()
     def get_user(self, username):
         url = f"https://api.github.com/users/{username}"
 
@@ -11,7 +13,7 @@ class GitHubClient:
         if GITHUB_TOKEN:
             headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
 
-        response = requests.get(url, headers=headers)
+        response = self.session.get(url, headers=headers)
 
         if response.status_code != 200:
             raise Exception(f"GitHub request failed: {response.status_code}")
@@ -24,7 +26,7 @@ class GitHubClient:
         if GITHUB_TOKEN:
             headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
 
-        response = requests.get(url, headers=headers)
+        response = self.session.get(url, headers=headers)
 
         if response.status_code != 200:
             raise Exception(f"GitHub repositories request failed: {response.status_code}")
@@ -37,7 +39,7 @@ class GitHubClient:
         if GITHUB_TOKEN:
             headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
 
-        response = requests.get(url, headers=headers)
+        response = self.session.get(url, headers=headers)
 
         if response.status_code != 200:
             raise Exception(f"GitHub repositories request failed: {response.status_code}")
@@ -51,7 +53,7 @@ class GitHubClient:
         if GITHUB_TOKEN:
             headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
 
-        response = requests.get(url, headers=headers)
+        response = self.session.get(url, headers=headers)
 
         if response.status_code == 200:
             data =  response.json()
