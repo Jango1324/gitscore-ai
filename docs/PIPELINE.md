@@ -1,15 +1,34 @@
 # GitScore AI — Pipeline (API → Parser → Features → Scoring → DB → ML → UI)
 
-Status: updated 2026-08-31 (Milestone 3 — project hygiene, pipeline
-testing, pre-ML release readiness). This document traces one call to
+Status: updated 2026-09-08 (Milestone 4 — clean Dataset V1
+infrastructure). This document traces one call to
 `analyze_user(username)` end to end and calls out where it deviates
 from what a "GitHub profile readiness pipeline" needs to be correct and
 efficient. Every claim below is backed by a file/line reference and,
 for the behavioral ones, a test in `tests/`. Stage 1 reflects Milestone
-2 (GitHub data collection reliability); Stage 5/6 reflect the
-Milestone 3 database-snapshot-semantics review; `feautures/` paths
-elsewhere have been updated to `features/` (renamed in Milestone 3).
-Other content is unchanged from the 2026-08-30 audit.
+2 (GitHub data collection reliability); Stage 5 reflects the Milestone 3
+database-snapshot-semantics review; Stages 0 / 6 / 6b reflect Milestone
+4 (batch collection input + dataset builder); `feautures/` paths elsewhere
+have been updated to `features/` (renamed in Milestone 3). Other content
+is unchanged from the 2026-08-30 audit.
+
+## Stage 0 — Batch collection input (`scripts/collect_dataset.py`) — Milestone 4
+
+`scripts/collect_dataset.py` no longer holds a hardcoded username list.
+It reads `data/collection/usernames.txt` (or `argv[1]`) via
+`gitscore.dataset.collection_input.load_username_file`: one username per
+line, blank lines and `#` comment lines ignored, inline `#…` stripped,
+case-insensitive de-duplication (first spelling wins), order preserved.
+It then calls `analyze_user()` per username, **continuing across ordinary
+per-user failures** (bad username, transient error, one user's rate
+limit), and prints per-user status plus a final
+succeeded/failed/attempted/elapsed summary and a failure list. Exit code
+`0` = all succeeded, `2` = finished with failures, `1` = could not start.
+Only the exception *type + message* is printed — never the token. The
+real curated list (`usernames.txt`) is gitignored; a comments-only
+template is committed as `data/collection/usernames.example.txt`.
+Confirmed by `tests/test_collection_input.py` and
+`tests/test_collect_dataset_script.py`.
 
 ## Stage 1 — GitHub API collection (`github/client.py`) — updated in Milestone 2
 
@@ -207,17 +226,67 @@ detail, with concrete numbers from the current dev database, in
 `docs/ARCHITECTURE.md` §7a. The dataset-building implication is defined
 in `docs/ML_NOTES.md` §6 — no schema change was made this milestone.
 
-## Stage 6 — Dataset assembly (`scripts/show_dataset.py`)
+## Stage 6 — Raw inspection (`scripts/show_dataset.py`)
 
 `pd.read_sql("SELECT * FROM profile_features", engine)` loads the whole
-table unfiltered. Every row is one full analysis run (one `readiness_score`
-plus every feature that produced it) — i.e. this *is* the training
-dataset described in `docs/ML_NOTES.md`. No dedup by user, no train/test
-split, no versioning of which scoring-rubric version produced each row.
-**Before this becomes the real training dataset**, the dataset builder
-must select only the latest `profile_features` row per `user_id` (see
-`docs/ML_NOTES.md` §6) — not implemented yet, and real dataset
-collection has not started (see `docs/ML_NOTES.md` §7).
+table unfiltered — every column, every row, every historical snapshot.
+As of Milestone 4 this is **an inspection tool only, not the dataset
+path**: it does no dedup, no column selection, no validation. Use
+`scripts/dataset_report.py` / `scripts/build_dataset.py` (Stage 6b) to
+get the actual Dataset V1. `show_dataset.py` is kept for quick "what's in
+the DB right now" checks.
+
+## Stage 6b — Dataset V1 construction (`src/gitscore/dataset/`, `scripts/build_dataset.py`) — Milestone 4
+
+`build_dataset(session_factory=SessionLocal)` in
+`src/gitscore/dataset/builder.py`:
+
+1. **Explicit `select(...)`** over `ProfileFeature` joined to `User` —
+   every feature column, the target (`readiness_score`), plus four
+   internal-only columns (`snapshot_id`, `user_id`, `github_username`,
+   `collected_at`). No `SELECT *`; no "drop columns that look like ids"
+   afterwards.
+2. **Latest valid snapshot per user** — sort by
+   `(collected_at, snapshot_id)` ascending, `groupby("user_id").tail(1)`.
+   The `snapshot_id` tie-break makes the choice deterministic even when a
+   user has two snapshots with the same `collected_at`. This is the
+   query-time policy `docs/ML_NOTES.md` §6 defined in Milestone 3, now
+   implemented.
+3. **Duplicate-user detection** — counts users with >1 snapshot and
+   reports the usernames (does not error; that is what "latest snapshot"
+   resolves).
+4. **Deterministic row order** — ascending `github_username`, applied
+   before `github_username` is dropped.
+5. **Dtype coercion** — numerics via `pd.to_numeric(errors="raise")`,
+   booleans → `bool`, `most_used_language` → pandas `category` over
+   strings with `""` (never null) for any missing value.
+6. **Identifier / timestamp columns removed** — the four internal-only
+   columns are dropped; the returned frame is exactly
+   `schema.DATASET_COLUMNS` (30 features + target).
+7. **`schema.validate_frame`** on the result — exact columns+order, no
+   identifier/timestamp columns, no nulls, numeric/boolean/categorical
+   type checks. Raises `DatasetSchemaError` / `DatasetValidationError`
+   on malformed data. An empty DB yields an empty-but-valid frame.
+
+`scripts/build_dataset.py` runs the builder, prints
+`dataset_quality_report` (unique users, rows before/after selection,
+duplicates, missing values, dtypes, target distribution, numeric summary,
+`most_used_language` distribution, constant/near-constant features), then
+`export_dataset` writes `data/processed/gitscore_dataset_v1.csv`
+deterministically (fixed column + row order, `\n` endings, no index — two
+runs byte-identical) plus a `.meta.json` sidecar (the three version
+stamps + counts + a build timestamp). `data/processed/` is gitignored —
+the CSV is a derived artifact; the SQLite DB is the source of truth.
+`scripts/dataset_report.py` prints the report with no file writes.
+
+Confirmed by `tests/test_dataset_builder.py`,
+`tests/test_dataset_schema.py`, `tests/test_dataset_export.py`,
+`tests/test_dataset_report.py`.
+
+**Not yet done:** no real dataset has been built from real GitHub data —
+the dev DB still holds only the 13 pre-fix rows (`docs/ML_NOTES.md` §7),
+and `SCORING_RUBRIC_VERSION` is a code constant, not a per-row DB column
+(`docs/ML_NOTES.md` §4/§8).
 
 ## Stage 7 — ML (not yet implemented)
 

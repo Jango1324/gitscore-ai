@@ -1,5 +1,208 @@
 # GitScore AI — Dev Changelog
 
+## 2026-09-08 — Milestone 4: Clean Dataset V1 infrastructure
+
+**What changed:**
+
+New package `src/gitscore/dataset/` — the infrastructure to turn persisted
+`ProfileFeature` snapshots into a clean, reproducible, one-row-per-user
+Pandas dataset. **No CatBoost, no UI, no scoring-rubric change, no
+org-repo analysis, no database-schema change, no real dataset collected.**
+
+*Dataset contract (`dataset/schema.py`):*
+- `FEATURE_COLUMNS` — 30 ordered feature names (23 numeric/count + 6
+  boolean + 1 categorical), all sourced from `ProfileFeature`.
+- `CATEGORICAL_FEATURE_COLUMNS = ["most_used_language"]`,
+  `BOOLEAN_FEATURE_COLUMNS` (the six `has_*`), `NUMERIC_FEATURE_COLUMNS`
+  (the rest). The three sets partition `FEATURE_COLUMNS` exactly
+  (asserted by a test).
+- `TARGET_COLUMN = "readiness_score"`; `DATASET_COLUMNS = FEATURE_COLUMNS
+  + [TARGET_COLUMN]` is the exact CSV column order.
+- `EXCLUDED_COLUMNS` — a `{db.column: reason}` map documenting every
+  deliberately-omitted column: `profile_features.id`,
+  `profile_features.user_id`, `profile_features.collected_at`,
+  `users.id`, `users.github_username`, `users.name`, `users.followers`,
+  `users.public_repos`, `users.collected_at`. Identifiers + timestamps +
+  collection metadata + two `users` columns that are not rubric inputs in
+  V1.
+- `INTERNAL_ONLY_COLUMNS` — `snapshot_id`, `user_id`, `github_username`,
+  `collected_at`: pulled by the builder for row-selection/diagnostics
+  only, dropped before the frame is returned. `validate_frame` rejects
+  any of them appearing in a dataset frame.
+- `validate_frame(df, *, allow_empty=True)` — exact column set+order,
+  no forbidden identifier/timestamp columns, no nulls in required
+  columns, numeric columns numeric, boolean columns in {True,False,0,1},
+  categorical column all-strings. Raises `DatasetSchemaError` (shape) or
+  `DatasetValidationError` (values) from `dataset/exceptions.py`.
+
+*Versioning (`dataset/schema.py`, lightweight — constants, not a schema
+change):*
+- `DATASET_VERSION = "v1"` — bump when a row's *meaning* changes.
+- `FEATURE_SCHEMA_VERSION = 1` — bump on any change to `FEATURE_COLUMNS`.
+- `SCORING_RUBRIC_VERSION = 1` — mirrors `scoring/readiness.py`; bump only
+  when weights/thresholds/ladders change. `readiness_score` (the target)
+  is not comparable across rubric versions.
+- All three are written into the export's `.meta.json` sidecar and shown
+  in the quality report. The DB is unchanged; the documented process
+  when the rubric changes is "bump `SCORING_RUBRIC_VERSION`, re-collect,
+  do not mix". Adding a real `scoring_rubric_version` DB column stays a
+  future option (see `docs/ML_NOTES.md` §4) — deliberately not done here.
+
+*Dataset builder (`dataset/builder.py`):*
+- `build_dataset(session_factory=SessionLocal) -> DatasetBuildResult`.
+  Explicit SQLAlchemy `select(...)` naming every column (feature, target,
+  plus the four internal-only columns) — **no `SELECT *`, no post-hoc
+  column dropping.**
+- One row per user = the **latest valid snapshot**: sort by
+  `(collected_at, snapshot_id)` ascending, `groupby("user_id").tail(1)`.
+  The `snapshot_id` tie-break makes selection deterministic even when two
+  snapshots share a `collected_at`.
+- Deterministic dataset row order: ascending `github_username`, applied
+  before `github_username` is dropped.
+- Detects duplicate users (snapshots-per-user > 1) and reports the count
+  + usernames — does not error on them (that's the point of "latest
+  snapshot").
+- `_coerce_dtypes` normalises: numerics via `pd.to_numeric(errors=raise)`,
+  booleans to `bool`, `most_used_language` to pandas `category` over
+  strings with `""` for any missing value (never null).
+- Runs `validate_frame` on its own output; a malformed frame raises
+  rather than returning silently-broken data.
+- Empty database → empty-but-valid frame (right columns, zero rows), not
+  an error.
+- `DatasetBuildResult` carries `frame`, `raw_snapshot_count`,
+  `selected_row_count`, `unique_user_count`, `duplicate_user_count`,
+  `duplicate_usernames`, and the three version properties.
+
+*Quality report (`dataset/report.py`):*
+- `dataset_quality_report(result) -> dict` — versions, unique users,
+  rows before/after latest-snapshot selection, duplicate users, per-column
+  missing-value counts, feature dtypes, target distribution
+  (min/max/mean/std/quantiles + a fixed 0–100 by-tens histogram),
+  `describe()` numeric summary, `most_used_language` value counts
+  (including the `""` sentinel), and constant / near-constant features
+  (dominant value share ≥ 0.95).
+- `format_report(report) -> str` — human-readable text block for the CLIs.
+- Empty-dataset-safe (distribution sections collapse to `{}`).
+
+*Deterministic export (`dataset/export.py`):*
+- `export_dataset(result_or_frame, path=None, *, write_meta=True) -> Path`.
+  Writes `data/processed/gitscore_dataset_v1.csv` by default: fixed column
+  order, fixed row order, `\n` line endings, `index=False`. Two exports of
+  the same database are byte-identical (tested).
+- `<name>.meta.json` sidecar: the three versions, row grain, source,
+  column lists, counts, and a `built_at_utc` timestamp. The timestamp
+  makes the *meta* file non-deterministic on purpose; the CSV is the
+  reproducible artifact. `write_meta=False` skips it.
+- Both land under `data/processed/` (already gitignored).
+
+*Collection input (`dataset/collection_input.py`, replaces the hardcoded
+list in `scripts/collect_dataset.py`):*
+- `parse_usernames(text)` / `load_username_file(path)` — one username per
+  line; ignore blank lines and `#` comment lines; strip inline `#…`
+  comments; de-duplicate case-insensitively (first spelling wins);
+  preserve first-occurrence order. `UsernameFileError` (clear message
+  pointing at the example file) when the file is missing.
+- `scripts/collect_dataset.py` — rewritten. Reads
+  `data/collection/usernames.txt` (or `argv[1]`), continues across
+  ordinary per-user failures, prints per-user status + a final
+  succeeded/failed/attempted/elapsed summary + a failure list. Exit code
+  0 (all ok) / 2 (finished with failures) / 1 (could not start). Only
+  exception *type + message* is printed — never the token (and
+  GitHubClient messages carry URL/status, not credentials; a test pins
+  this).
+- `data/collection/usernames.example.txt` — committed template
+  (comments only, no real list). `data/collection/usernames.txt` is
+  gitignored.
+
+*New scripts:*
+- `scripts/build_dataset.py` — build + report + export (`argv[1]`
+  optional output path). Exits 1 with "nothing exported" on an empty DB.
+- `scripts/dataset_report.py` — report only, no file writes.
+- `scripts/show_dataset.py` — unchanged; still a raw `SELECT *` *inspection*
+  tool, explicitly **not** the dataset path (documented in
+  `docs/PIPELINE.md` Stage 6).
+
+*Tests (`tests/`, +65, suite 166 → 231, all passing, still offline):*
+- `tests/conftest.py` — added `PROFILE_FEATURE_DEFAULTS`, a `SnapshotDB`
+  helper, and the `snapshot_db` fixture: a throwaway per-test SQLite
+  database with the real `User`/`ProfileFeature` schema and an
+  `add_snapshot(username, *, collected_at=None, **feature_overrides)`
+  method. Never touches `data/gitscore.db`.
+- `tests/test_dataset_schema.py` (17) — contract shape (partition
+  complete & disjoint, no id/timestamp columns, excluded-columns map)
+  and every `validate_frame` path (missing/extra/reordered column,
+  identifier present, nulls, non-numeric, null categorical, `""`
+  sentinel allowed, empty allowed/disallowed).
+- `tests/test_dataset_builder.py` (17) — empty DB, latest-snapshot
+  selection incl. `collected_at`-tie → `snapshot_id` tie-break, duplicate
+  detection, deterministic ascending-username row order, repeated builds
+  `assert_frame_equal`, exact column set/order, value round-trip from DB,
+  **no identifier column leaks**, **no timestamp column leaks**,
+  username only affects ordering, `most_used_language` preserved as
+  `category`, `""` sentinel survives, builder validates its own output.
+- `tests/test_dataset_export.py` (6) — CSV+meta written, header == schema
+  columns, byte-for-byte determinism, LF endings, no identifier columns
+  in the header, empty dataset → header-only CSV.
+- `tests/test_dataset_report.py` (8) — empty-safe, before/after counts,
+  target distribution, `""` in language distribution, constant vs
+  near-constant flagging, dtype coverage, no missing values on clean
+  data, formatter mentions versions.
+- `tests/test_collection_input.py` (12) — blank lines, full-line and
+  inline comments, case-insensitive dedup, order preservation, first-token
+  fallback, empty input, `load_username_file` happy path + missing-file
+  error, and that the committed example template parses to zero usernames.
+- `tests/test_collect_dataset_script.py` (5) — continues across per-user
+  failures + reports, all-success → exit 0, missing file → exit 1, empty
+  list → exit 1, and the token is never printed.
+
+*Docs:* this entry; `docs/ARCHITECTURE.md` §1/§11 + new §12;
+`docs/PIPELINE.md` Stages 6/6b/9; `docs/ML_NOTES.md` new §8 (+ §4/§6/§7
+cross-refs); `README.md` (dataset build/report commands, usernames.txt
+input, CSV is a gitignored derived artifact).
+
+**Why:** first step of the ML track from `CLAUDE.md`'s priority order —
+"robust dataset creation" + "ML dataset preparation" — building the
+reproducible pipeline *before* any real collection or model training, so
+the dataset has a defined contract, a leakage policy, versioning, and
+quality tooling from row one.
+
+**Risks / limitations:**
+- **`SCORING_RUBRIC_VERSION` is a code constant, not a DB column.**
+  Nothing stamps the rubric version onto historical rows; the "don't mix
+  rubric versions" policy is enforced by discipline + re-collection, not
+  by the data. Adding the column remains the documented upgrade
+  (`docs/ML_NOTES.md` §4) if the rubric starts changing.
+- The builder trusts `ProfileFeature`'s `nullable=False` columns to
+  actually be non-null (SQLite enforces this). `validate_frame` is the
+  backstop if that ever changes; the null-path test injects the failure
+  via a monkeypatched coercion step rather than a real null (SQLite won't
+  store one).
+- Pre-existing `datetime.utcnow` `DeprecationWarning`s (from
+  `db/models.py`, unchanged this milestone) now surface in the new
+  dataset tests' output. Not an error; not fixed here (would touch the DB
+  layer, out of scope).
+- `data/processed/gitscore_dataset_v1.csv` + `.meta.json` are the only
+  outputs; both are gitignored. No dataset was actually built from real
+  GitHub data — the dev DB still holds only the 13 pre-fix rows
+  (`docs/ML_NOTES.md` §7).
+- CSV floats use pandas' default `repr` (round-trips, deterministic on
+  CPython); no fixed decimal formatting was imposed.
+
+**How to test it:**
+```
+cd gitscore-ai
+pytest
+```
+Expected: 231 passed.
+
+Smoke test (no real collection):
+```
+python scripts/dataset_report.py            # read-only, against data/gitscore.db
+python scripts/build_dataset.py             # writes data/processed/gitscore_dataset_v1.csv (gitignored)
+```
+
+---
+
 ## 2026-08-31 — Milestone 3: Project hygiene, pipeline testing, pre-ML release readiness
 
 **What changed:**

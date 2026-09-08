@@ -1,15 +1,18 @@
 # GitScore AI — ML Notes
 
-Status: updated 2026-08-31 (Milestone 3 — project hygiene, pipeline
-testing, pre-ML release readiness). §6 (dataset snapshot/dedup policy)
-and §7 (old development data policy) are new this milestone. §5 items
+Status: updated 2026-09-08 (Milestone 4 — clean Dataset V1
+infrastructure). §8 (the Dataset V1 definition as implemented) is new
+this milestone; the §6 dedup policy it references is now enforced in
+code (`gitscore.dataset.builder`). §6 (dataset snapshot/dedup policy)
+and §7 (old development data policy) are from Milestone 3. §5 items
 1 and 8 were updated when Milestone 2 fixed the pagination and
 rate-limit issues they originally described; other sections are
 unchanged from the 2026-08-30 audit. No model training code exists in
 the repo yet (`catboost` is not installed, not imported anywhere). This
 document is the pre-training analysis `CLAUDE.md` requires ("Before
 training any model: clearly define X and y, prevent leakage...").
-**Real dataset collection has not started — see §7.**
+**Real dataset collection has not started — see §7. The builder in §8
+exists but has only been run against synthetic/dev data.**
 
 ## 1. What data exists today
 
@@ -173,10 +176,24 @@ Before any `catboost` code is written:
 3. Add a `scoring_rubric_version` column (or equivalent) to
    `ProfileFeature` before iterating on `scoring/readiness.py`, so
    historical rows remain interpretable after the rubric changes.
-4. Split by `user_id`, not by row, once repeated snapshots per user exist.
+   **Milestone 4 status:** a `SCORING_RUBRIC_VERSION` *code constant*
+   exists (`gitscore.dataset.schema`, currently `1`) and is stamped into
+   the export `.meta.json`, but it is **not** a per-row DB column yet —
+   so it identifies the rubric for a whole build, not for individual
+   historical rows collected under different rubric versions. Promote it
+   to a real column here before the rubric first changes.
+4. Split by `user_id`, not by row, once repeated snapshots per user
+   exist. **Milestone 4 status:** `gitscore.dataset.builder` already
+   collapses to one row per user (latest snapshot), so a plain random
+   split of the built dataset is safe *for that dataset*; the by-user
+   rule still applies if a future dataset keeps multiple snapshots per
+   user.
 5. Document preprocessing (categorical handling for `most_used_language`,
    missing-value policy) alongside the CatBoost training script, per
-   `CLAUDE.md`'s AI/ML rules.
+   `CLAUDE.md`'s AI/ML rules. **Milestone 4 status:** the dataset already
+   fixes `most_used_language` as a pandas `category` with `""` (not null)
+   as the "unknown" level, and guarantees zero nulls in every column
+   (`validate_frame`) — the training script inherits that contract.
 6. Report evaluation metrics honestly labeled as "rubric-approximation
    accuracy," not "readiness prediction accuracy."
 
@@ -236,19 +253,18 @@ are the concrete mechanisms by which the current score could also be
 **internally inconsistent** — i.e., misleading even as a relative
 ranking between two GitHub profiles, not just as a hiring predictor.
 
-## 6. Dataset snapshot / dedup policy (Milestone 3)
+## 6. Dataset snapshot / dedup policy (Milestone 3; implemented in Milestone 4)
 
 `save_profile_features()` inserts a new row on every `analyze_user()`
 call — there is no upsert and no unique constraint on
 `ProfileFeature.user_id` (see `docs/ARCHITECTURE.md` §7a for the full
-review). This milestone deliberately does **not** change the schema to
-add an `is_latest` flag or a unique constraint — that's more machinery
-than a not-yet-collected dataset needs right now, and a schema change
-should wait until it's actually required. Instead, the policy is
-enforced at **dataset-build time**, by whatever script eventually reads
-`profile_features` into the training dataset (there is no such script
-yet — `scripts/show_dataset.py` currently just dumps the whole table
-for inspection, see `docs/PIPELINE.md` Stage 6):
+review). The schema is still deliberately **not** changed (no `is_latest`
+flag, no unique constraint). Instead the policy is enforced at
+**dataset-build time** — and as of Milestone 4 it *is* implemented, in
+`gitscore.dataset.builder.build_dataset` (see §8), which does exactly
+step 1 below before anything else. `scripts/show_dataset.py` remains a
+raw-dump inspection tool only (`docs/PIPELINE.md` Stage 6); the dataset
+path is `scripts/build_dataset.py`. The policy:
 
 1. **Select one row per `user_id` before doing anything else** — the
    row with the maximum `collected_at` (equivalently, the maximum `id`,
@@ -310,3 +326,117 @@ and (b) `scripts/init_db.py` recreates the schema from the current
 `models.py` idempotently. It is **not** being done automatically by
 this milestone — it's a recommendation for whoever starts the real
 dataset-collection milestone, not a cleanup task bundled into this one.
+
+## 8. Dataset V1 definition (as implemented — Milestone 4)
+
+`src/gitscore/dataset/` builds the dataset; `src/gitscore/dataset/schema.py`
+is the contract. Nothing below trains a model or changes the rubric.
+
+### 8.1 Row grain
+
+**One row per GitHub user = that user's latest valid `ProfileFeature`
+snapshot** (`max(collected_at)`, `snapshot id` as the deterministic
+tie-break). `gitscore.dataset.builder.build_dataset` enforces this — it
+is the code form of the §6 policy. Rows are ordered by ascending
+`github_username` (then that column is dropped) so the CSV is
+byte-deterministic.
+
+### 8.2 Feature columns (30) — `schema.FEATURE_COLUMNS`
+
+All sourced from `profile_features`. Order is fixed and is part of
+`FEATURE_SCHEMA_VERSION`.
+
+- **Numeric / count (23)** — `total_repos`, `original_repos`,
+  `forked_repos`, `unique_language_count`, `ml_repository_count`,
+  `readme_coverage_ratio`, `python_repository_count`,
+  `typescript_repository_count`, `total_stars`, `average_stars`,
+  `total_forks`, `average_forks`, `repositories_with_description`,
+  `description_coverage_ratio`, `ml_keyword_total`,
+  `repositories_with_readme`, `average_readme_length`,
+  `repositories_with_installation`, `repositories_with_usage`,
+  `repositories_with_demo`, `repositories_with_badges`,
+  `repositories_with_license`, `repositories_with_contributing`.
+- **Boolean (6)** — `has_python`, `has_typescript`, `has_pytorch`,
+  `has_huggingface`, `has_pandas`, `has_catboost`. Stored as `bool`.
+- **Categorical (1)** — `most_used_language`. pandas `category` over
+  strings; the "no language data" level is the empty string `""`
+  (**never null** — see `docs/ARCHITECTURE.md` §5a). A model must treat
+  `""` as its own category, not as missing.
+
+### 8.3 Target — `schema.TARGET_COLUMN`
+
+`readiness_score`: the integer rule-based total from
+`scoring/readiness.py` (§3). Circularity caveat from §3 is unchanged —
+`y = f(X)` for a known hand-written `f`; a model trained on this mostly
+re-derives the rubric.
+
+### 8.4 Excluded columns (leakage / identifiers / metadata) — `schema.EXCLUDED_COLUMNS`
+
+Present in the DB, deliberately **not** in the dataset:
+
+| Column | Why excluded |
+|---|---|
+| `profile_features.id` | snapshot PK — pure row identifier; would leak row identity across a split |
+| `profile_features.user_id` | user identifier / FK — leaks user identity; splits go **by** this, never train **on** it |
+| `profile_features.collected_at` | snapshot timestamp — collection metadata; can leak temporal ordering |
+| `users.id` | user PK — identifier |
+| `users.github_username` | handle — free-text identity (used only to order rows, then dropped) |
+| `users.name` | display name — identity / PII-ish, no generalizable signal |
+| `users.followers` | not an input to the V1 rubric; revisit only with an independent target |
+| `users.public_repos` | not a rubric input; near-duplicate of `total_repos` |
+| `users.collected_at` | collection metadata timestamp |
+
+`build_dataset` pulls `snapshot_id` / `user_id` / `github_username` /
+`collected_at` for selection + diagnostics, then drops them;
+`schema.validate_frame` rejects any of them (or `id`) appearing in a
+dataset frame. Tests
+`tests/test_dataset_builder.py::test_no_identifier_columns_leak_into_the_frame`
+and `::test_no_timestamp_columns_leak_into_the_frame` pin this.
+
+### 8.5 Versioning
+
+Three constants in `schema.py`, written into the export `.meta.json` and
+the quality report:
+
+| Stamp | Value | Bump when |
+|---|---|---|
+| `DATASET_VERSION` | `"v1"` | the meaning of a row changes (source, selection policy, target) |
+| `FEATURE_SCHEMA_VERSION` | `1` | `FEATURE_COLUMNS` changes at all (add/remove/rename/reorder/retype) |
+| `SCORING_RUBRIC_VERSION` | `1` | `scoring/readiness.py` weights/thresholds/ladders change |
+
+**Limitation (see §4 item 3):** `SCORING_RUBRIC_VERSION` is a build-wide
+code constant, not a per-row DB column. It correctly labels a dataset
+built now, but cannot distinguish rows collected under different rubric
+versions after the fact. Promote it to a `ProfileFeature` column before
+the rubric first changes.
+
+### 8.6 Validation rules (`schema.validate_frame`)
+
+Raises `DatasetSchemaError` (shape) or `DatasetValidationError` (values)
+on: wrong column set, wrong column order, any identifier/timestamp column
+present, nulls in any dataset column, non-numeric data in a numeric
+column, non-boolean data in a boolean column, non-string data in the
+categorical column. An empty frame with the right columns is valid
+(`allow_empty=True`). The builder runs this on its own output.
+
+### 8.7 Quality report (`gitscore.dataset.report`)
+
+`dataset_quality_report` returns: the three versions; unique users; rows
+before vs after latest-snapshot selection; duplicate-user count +
+usernames; per-column missing-value counts; feature dtypes; target
+distribution (min/max/mean/std/quantiles + a fixed 0–100 by-tens
+histogram); `describe()` numeric summary; `most_used_language` value
+counts (including `""`); and constant / near-constant features (a feature
+whose single most common value covers ≥ 95 % of rows). Run it with
+`python scripts/dataset_report.py` (no file writes) or as the first
+section of `python scripts/build_dataset.py`.
+
+### 8.8 Export
+
+`gitscore.dataset.export.export_dataset` →
+`data/processed/gitscore_dataset_v1.csv` (deterministic: fixed column
+order, fixed row order, `\n` endings, no index — two builds byte-identical)
+plus `gitscore_dataset_v1.meta.json` (versions, row grain, source, column
+lists, counts, `built_at_utc`). `data/processed/` is gitignored — the CSV
+is a **derived artifact**; the SQLite DB is the source of truth. Rebuild
+it any time from the DB; never hand-edit it.

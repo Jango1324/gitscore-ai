@@ -1,0 +1,20 @@
+# GitScore Dataset V1 -- batch collection input (TEMPLATE)
+#
+# Copy this file to  data/collection/usernames.txt  (which is gitignored)
+# and list the GitHub usernames you want to collect, one per line.
+#
+# Parsing rules:
+#   - blank / whitespace-only lines are ignored
+#   - lines starting with '#' are ignored
+#   - text after a '#' on a line is stripped as an inline comment
+#   - duplicate usernames are removed (case-insensitive; first spelling wins)
+#
+# Then run:
+#   python scripts/collect_dataset.py
+#   (or)  python scripts/collect_dataset.py path/to/other_list.txt
+#
+# Do NOT commit a large real username list. Keep curation deliberate.
+#
+# Example (remove the '#' to activate):
+# torvalds
+# karpathy          # inline comments are fine

@@ -1,5 +1,8 @@
 import sys
+from datetime import datetime
 from pathlib import Path
+
+import pytest
 
 # Allow running `pytest` without an editable install.
 SRC = Path(__file__).resolve().parents[1] / "src"
@@ -197,3 +200,113 @@ class RecordingSleep:
 
     def __call__(self, seconds):
         self.calls.append(seconds)
+
+
+# ---------------------------------------------------------------------------
+# Dataset-layer helpers (Milestone 4)
+# ---------------------------------------------------------------------------
+
+# Every ProfileFeature value column, defaulted to the "no evidence" baseline.
+# Override individual keys per test via `add_snapshot(..., **overrides)`.
+PROFILE_FEATURE_DEFAULTS = {
+    "total_repos": 0,
+    "original_repos": 0,
+    "forked_repos": 0,
+    "unique_language_count": 0,
+    "ml_repository_count": 0,
+    "readme_coverage_ratio": 0.0,
+    "most_used_language": "",
+    "python_repository_count": 0,
+    "typescript_repository_count": 0,
+    "has_python": False,
+    "has_typescript": False,
+    "total_stars": 0,
+    "average_stars": 0.0,
+    "total_forks": 0,
+    "average_forks": 0.0,
+    "repositories_with_description": 0,
+    "description_coverage_ratio": 0.0,
+    "has_pytorch": False,
+    "has_huggingface": False,
+    "has_pandas": False,
+    "has_catboost": False,
+    "ml_keyword_total": 0,
+    "repositories_with_readme": 0,
+    "average_readme_length": 0.0,
+    "repositories_with_installation": 0,
+    "repositories_with_usage": 0,
+    "repositories_with_demo": 0,
+    "repositories_with_badges": 0,
+    "repositories_with_license": 0,
+    "repositories_with_contributing": 0,
+    "readiness_score": 0,
+}
+
+
+class SnapshotDB:
+    """A throwaway SQLite database with the real User/ProfileFeature schema.
+
+    Bound to a temp file, never to the real dev database. `session_factory`
+    is a `SessionLocal`-shaped callable that `build_dataset` accepts
+    directly.
+    """
+
+    def __init__(self, session_factory, engine):
+        self.session_factory = session_factory
+        self._engine = engine
+
+    def add_snapshot(self, username, *, collected_at=None, followers=0,
+                     public_repos=0, **feature_overrides):
+        """Insert one ProfileFeature row for `username` (creating the User on
+        first use). Returns the new snapshot id.
+        """
+        from sqlalchemy import select
+
+        from gitscore.db.models import ProfileFeature, User
+
+        unknown = set(feature_overrides) - set(PROFILE_FEATURE_DEFAULTS)
+        if unknown:
+            raise AssertionError(f"unknown ProfileFeature field(s): {sorted(unknown)}")
+
+        values = {**PROFILE_FEATURE_DEFAULTS, **feature_overrides}
+        session = self.session_factory()
+        try:
+            user = session.scalar(select(User).where(User.github_username == username))
+            if user is None:
+                user = User(
+                    github_username=username,
+                    name=None,
+                    followers=followers,
+                    public_repos=public_repos,
+                )
+                session.add(user)
+                session.flush()
+
+            snapshot = ProfileFeature(
+                user_id=user.id,
+                collected_at=collected_at or datetime(2026, 1, 1, 0, 0, 0),
+                **values,
+            )
+            session.add(snapshot)
+            session.commit()
+            return snapshot.id
+        finally:
+            session.close()
+
+
+@pytest.fixture
+def snapshot_db(tmp_path):
+    """Fresh `SnapshotDB` per test. No connection to data/gitscore.db."""
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+
+    from gitscore.db.database import Base
+    from gitscore.db import models  # noqa: F401  (register mappers on Base)
+
+    engine = create_engine(f"sqlite:///{tmp_path / 'snapshots.db'}")
+    Base.metadata.create_all(engine)
+    factory = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+    try:
+        yield SnapshotDB(factory, engine)
+    finally:
+        engine.dispose()

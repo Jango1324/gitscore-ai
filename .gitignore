@@ -31,6 +31,10 @@ data/*.sqlite3
 data/raw/
 data/processed/
 
+# Batch-collection input: the real curated list is local-only; the
+# committed template is data/collection/usernames.example.txt
+data/collection/usernames.txt
+
 # Future model artifacts (CatBoost etc.) — not produced yet, ignored proactively
 models/
 *.cbm

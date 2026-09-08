@@ -51,7 +51,7 @@ GitHub username
   -> feature engineering             (src/gitscore/features/)
   -> rule-based GitScore             (src/gitscore/scoring/readiness.py)
   -> SQLite persistence              (src/gitscore/db/)
-  -> Pandas dataset (via scripts/show_dataset.py)
+  -> clean Dataset V1 (one row/user) (src/gitscore/dataset/) -> data/processed/*.csv
 ```
 
 There is no web UI or CatBoost model yet — this is a CLI-driven,
@@ -111,13 +111,39 @@ real GitHub API and writes to `data/gitscore.db`):
 python scripts/collect_user.py <github-username>
 ```
 
-Run a small hardcoded batch of users (see the list in the script):
+Batch-collect several users. Usernames come from a file (not hardcoded) —
+copy the template and edit it:
 
 ```bash
+cp data/collection/usernames.example.txt data/collection/usernames.txt
+# add one GitHub username per line; '#' comments and blank lines are ignored
 python scripts/collect_dataset.py
+# or point at another file:
+python scripts/collect_dataset.py path/to/other_list.txt
 ```
 
-Inspect everything collected so far as a Pandas DataFrame:
+`data/collection/usernames.txt` is gitignored; only the
+`.example.txt` template is committed. The batch continues across ordinary
+per-user failures and prints a succeeded/failed/attempted/elapsed summary.
+
+### Building the Dataset V1 artifact
+
+Turn the collected snapshots into a clean, one-row-per-user dataset
+(latest snapshot per user, explicit feature/target selection, schema
+validation):
+
+```bash
+python scripts/dataset_report.py     # data-quality report only, no files written
+python scripts/build_dataset.py      # report + deterministic CSV export
+```
+
+`build_dataset.py` writes `data/processed/gitscore_dataset_v1.csv` (plus a
+`.meta.json` sidecar with the dataset / feature-schema / scoring-rubric
+version stamps). The CSV is a **derived artifact** and is gitignored — the
+SQLite database is the source of truth; rebuild the CSV any time.
+
+Raw inspection of the underlying table (unfiltered `SELECT *`, not the
+dataset path):
 
 ```bash
 python scripts/show_dataset.py
@@ -150,10 +176,19 @@ detail on each):
    package rename, repository hygiene (`.gitignore`, dropped stale
    generated files), scoring and end-to-end pipeline test coverage,
    this README.
+4. **Clean Dataset V1 infrastructure** — `src/gitscore/dataset/`: a
+   defined dataset contract (30 feature columns + `readiness_score`
+   target, documented leakage exclusions, `most_used_language` kept
+   categorical), a builder that selects the latest snapshot per user with
+   schema validation, dataset / feature-schema / scoring-rubric version
+   stamps, a data-quality report, deterministic CSV export, and a
+   file-driven (no longer hardcoded) batch-collection input. No model
+   trained; no rubric or DB-schema change.
 
 **Not yet implemented:** the real training dataset has not been
-collected (existing rows in the local dev database predate the
+collected (the 13 rows in the local dev database predate the
 Milestone 1/2 fixes and must not be used for it — see
-`docs/ML_NOTES.md`), no CatBoost model exists, there is no web UI, and
+`docs/ML_NOTES.md` §7; the builder exists but has only been run on
+synthetic/dev data), no CatBoost model exists, there is no web UI, and
 organization-owned-repository analysis is not implemented. See
 `CLAUDE.md`'s priority order for what's next.
