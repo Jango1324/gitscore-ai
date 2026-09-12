@@ -1,5 +1,412 @@
 # GitScore AI — Dev Changelog
 
+## 2026-09-11 — Milestone 5C: Generalized evidence domain model
+
+**What changed:**
+
+Two new packages, `src/gitscore/concepts/` and `src/gitscore/evidence/`
+— the domain vocabulary future evidence extractors will produce and
+future job matching will consume: `Candidate → Repository →
+Observation → Technical Concept`, with provenance preserved end to end.
+**No deep evidence extraction, no dependency/manifest/Dockerfile/CI/
+notebook parsing, no job-description parsing, no JobRequirementProfile,
+no job matching, no match scores, no alternative-role discovery, no role
+archetypes, no CatBoost, no LLM analysis, no UI, no source-code
+crawling, no database schema change, no org-contribution attribution, no
+pilot recollection.** Repository ranking (Milestone 5B) was not wired
+into this milestone's model either — the two remain independent,
+standalone modules. V1 (`features/*`, `scoring/readiness.py`, Dataset
+V1) is completely unchanged. Existing 257 tests untouched and still
+passing; 65 new tests added (322 total). Everything is in-memory plain
+Python — no SQLAlchemy import anywhere in either new package.
+
+**Why:** Milestone 5A's design established that GitScore needs a
+structured, provenance-backed representation of "what a candidate's
+GitHub evidence shows" *before* any job-matching logic can be built on
+top of it. This milestone builds exactly that representation in
+isolation, so its shape can be validated (by tests and by bridging real
+V1-shaped data into it) before locking anything into a database schema
+or building extractors against it.
+
+*Domain objects introduced:*
+
+| Object | Module | Role |
+|---|---|---|
+| `TechnicalConcept` | `concepts/models.py` | one canonical concept (`concept_id`, `display_name`, `category`, `aliases`, optional `parent_id`/`related_ids`) |
+| `ConceptRegistry` / `default_registry()` | `concepts/registry.py` | immutable, in-memory alias index; built once, never mutated |
+| `resolve_concept(term)` / `ConceptResolution` | `concepts/registry.py` | deterministic term → concept resolution, explicit `matched` flag |
+| `RepositoryIdentity` | `evidence/models.py` | minimal `(owner, name)` reference — not a full repository summary (that's `ranking.RepositoryRankingResult`, kept separate) |
+| `Evidence` | `evidence/models.py` | one provenance-backed observation: repository, evidence type, raw text, normalized concept id, confidence, extractor version, optional file/location/timestamp |
+| `EvidenceType` | `evidence/types.py` | `REPOSITORY_LANGUAGE`, `REPOSITORY_METADATA`, `README`, `DEPENDENCY`, `SOURCE_IMPORT`, `CONFIG`, `DOCKER`, `CI`, `TEST`, `NOTEBOOK`, `DEPLOYMENT` (not all have extractors yet) |
+| `ConfidenceLevel` | `evidence/types.py` | ordinal `WEAK` / `MODERATE` / `STRONG` (see rationale below) |
+| `CandidateConceptSummary` | `evidence/summary.py` | Evidence for one concept, always *derived*, never independently constructed |
+| `RepositoryAnalysisCoverage` | `evidence/profile.py` | `discovered` vs. `analyzed` repository tuples + `is_complete` |
+| `CandidateEvidenceProfile` | `evidence/profile.py` | the full job-independent picture: candidate, coverage, evidence, derived concept summaries, versions |
+
+*Representative concept registry (13 entries, spanning 10 categories —
+proving the mechanism, not a complete ontology):* `language.python`,
+`database.postgresql`, `database.redis`, `ml.framework.pytorch`,
+`framework.react`, `framework.nextjs`, `infra.docker`, `cloud.aws`,
+`platform.cuda`, `robotics.ros2`, `embedded.rtos.freertos`,
+`hdl.verilog`, `toolchain.llvm`. Adding a concept is one new
+`TechnicalConcept(...)` entry in `concepts/registry.py::_CONCEPTS` — no
+change to `ConceptRegistry`, `resolve_concept`, or anything downstream.
+
+*Normalization rules (`concepts/normalize.py`):* lowercase, strip
+periods and commas only, collapse internal whitespace. Deliberately
+narrow — a blanket "strip all punctuation" normalizer would collide
+unrelated concepts (e.g. "C++" and "C"); this rule set was chosen
+specifically because it resolves every example in the milestone brief
+correctly (`Postgres`/`postgresql`/`POSTGRESQL` → `database.postgresql`;
+`React.js`/`ReactJS`/`react` → `framework.react`;
+`torch`/`PyTorch` → `ml.framework.pytorch`;
+`AWS`/`Amazon Web Services` → `cloud.aws`) without merging `C++`/`C`.
+No LLM, no fuzzy matching — exact match against normalized aliases only.
+
+*Unknown-concept policy (Part 3 — explicit choice):* `resolve_concept()`
+returns an **explicit unresolved result** (`matched=False`,
+`concept=None`), not a synthesized "provisional concept" object added
+anywhere. Separately, at the `Evidence`-construction layer, an unmatched
+raw term is given a deterministic, non-registry pseudo-id —
+`"unresolved:<normalized-term>"` — so no observation is ever silently
+dropped (architectural rule 4) while the canonical registry itself is
+never mutated (architectural rule: no dynamic registry mutation from
+unknown input — verified by
+`test_technical_concepts.py::test_resolving_an_unknown_term_does_not_mutate_the_shared_registry`).
+The same literal unknown term always maps to the same unresolved id
+(useful later for tallying which unknown terms recur, for registry
+curation); two *different* spellings of an unknown concept are
+deliberately **not** merged — that would require the fuzzy-matching/
+ontology-building work this milestone is explicitly scoped to avoid.
+
+*Confidence model (Part 5 — ordinal, not float):* `ConfidenceLevel.WEAK
+/ MODERATE / STRONG` (an `IntEnum`, so "strongest evidence" is a plain
+`max()`). Chosen over a float (e.g. `0.87`) because nothing in this
+milestone calibrates a claim like that against any real ground truth —
+a float would assert a precision the system does not have. Confidence
+describes confidence in **the evidence claim**, never candidate skill,
+proficiency, or job fit — e.g. a `STRONG`-confidence dependency-manifest
+observation of `torch` means "we are sure `requirements.txt` declares
+this dependency," not "the candidate is skilled at PyTorch." Stated
+explicitly in code docstrings and in `docs/ARCHITECTURE.md` §14 so it
+can't be misread later.
+
+*Aggregation rules (`evidence/summary.py`):* `CandidateConceptSummary`
+is always built by `summarize_concept()` / `build_concept_summaries()`
+from a pool of `Evidence` — never constructed or mutated directly.
+`evidence_count`, `repositories` (distinct, sorted), and
+`strongest_confidence` (max over the group) are all derived properties,
+computed fresh from `evidence`, not separately stored fields that could
+drift. Deterministic ordering: repository owner → repository name →
+file path → evidence type → raw observation text, applied regardless of
+input order.
+
+*Duplicate policy:* `Evidence` is a frozen, fully hashable dataclass, so
+exact structural duplicates (identical repository, file, evidence type,
+concept, raw text, confidence, extractor version) collapse to one via a
+plain `set()` — both inside `summarize_concept()` and at the whole-profile
+level in `build_candidate_evidence_profile()`. Evidence differing in
+*any* field (different file, different repo, different raw text, even a
+re-run with a new `extractor_version`) is kept as a **separate** item,
+not merged — corroborating evidence should be visible, not silently
+absorbed.
+
+*`CandidateEvidenceProfile` job-independence (Part 7 / architectural
+rule 8):* no field for a target job, match score, required/preferred
+skills, or alternative roles — pinned by
+`test_candidate_evidence_profile.py::test_profile_has_no_job_related_fields`.
+`concept_summaries` is exposed as a `types.MappingProxyType` (read-only
+view), not a plain dict, so external code cannot mutate the derived
+summaries independently of the `Evidence` that produced them —
+structurally enforced, not just documented.
+
+*Discovered vs. analyzed (Part 7):* `RepositoryAnalysisCoverage` carries
+both `discovered` and `analyzed` repository-identity tuples plus
+`is_complete` — the representable form of "GitScore discovered 1,140
+repositories but deeply analyzed 15," laying the groundwork for the
+`INSUFFICIENT_ANALYSIS` semantics from
+`docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` Part 16. Not yet
+connected to Milestone 5B's ranking output — that wiring is explicit
+future work (see Part 24 milestone sequence), not part of this
+milestone's scope.
+
+**Persistence decision (Part 9):** agreed with the requested default —
+**domain model first, persistence later.** No SQLAlchemy table was
+added; `db/models.py`, `db/database.py`, and `db/queries.py` are
+untouched. Justification: (1) no deep-extraction detector exists yet to
+validate the shape against real output — the same mistake that produced
+`ProfileFeature`'s known gaps (no unique constraint, no per-row rubric
+version — `docs/ML_NOTES.md` §4 item 3) would be easy to repeat by
+locking a schema in before the shape has been exercised; (2)
+`CLAUDE.md`'s own DB rule ("prefer Alembic if schema evolution becomes
+non-trivial") argues against introducing migration machinery for a model
+still expected to change; (3) nothing in this milestone's success
+criteria requires cross-process durability — everything is validated by
+unit tests. No database migration was performed.
+
+**Bridging existing V1 information (Part 10), without touching V1:**
+`evidence/v1_bridge.py` (demonstration-only, not imported by
+`pipeline/analyze.py` or any script) shows three concrete examples,
+each backed by a test in `tests/test_v1_evidence_bridge.py`:
+- `parse_repo()`'s `primary_language` → weak `REPOSITORY_LANGUAGE`
+  evidence (and demonstrates the unresolved-concept path: an unrecognized
+  language like "COBOL" still produces Evidence, with an
+  `unresolved:cobol` concept id, never silently dropped).
+- `parse_repo()`'s `readme` text → moderate `README` evidence, one item
+  per matched concept (e.g. "Built using ROS2 for navigation" →
+  `robotics.ros2`).
+- `parse_repo_summary()`'s `topics` (Milestone 5B) → weak
+  `REPOSITORY_METADATA` evidence, for topics that resolve to a known
+  concept (non-technical topics like `"hacktoberfest"` are deliberately
+  skipped, not turned into unresolved evidence — a detector-design
+  choice, not a violation of the no-silent-drop rule, which concerns
+  evidence that *was* extracted).
+`features/ml.py`, `features/readme.py`, `features/languages.py`, and
+`scoring/readiness.py` are byte-for-byte unchanged.
+
+**Versioning:** `CONCEPT_REGISTRY_VERSION = 1`
+(`concepts/registry.py`) — bump when a concept is added/renamed/merged,
+or when `normalize.py`'s normalization rules change (that changes which
+aliases resolve). `EVIDENCE_SCHEMA_VERSION = 1` (`evidence/types.py`) —
+bump when `Evidence`, `CandidateConceptSummary`,
+`CandidateEvidenceProfile`, or `RepositoryAnalysisCoverage` change SHAPE
+(fields added/removed/retyped) — NOT for adding a new `EvidenceType`
+member (additive, non-breaking) or a new concept (that's the registry
+version). `SCORING_RUBRIC_VERSION`, `DATASET_VERSION`
+(`dataset/schema.py`), and `REPOSITORY_RANKING_VERSION`
+(`ranking/config.py`) are untouched — none of this milestone's changes
+meet any of their bump conditions.
+
+**Files changed:**
+- `src/gitscore/concepts/__init__.py`, `models.py`, `normalize.py`,
+  `registry.py` — new package.
+- `src/gitscore/evidence/__init__.py`, `models.py`, `types.py`,
+  `summary.py`, `profile.py`, `v1_bridge.py` — new package.
+- `tests/test_technical_concepts.py`, `test_evidence_models.py`,
+  `test_candidate_concept_summary.py`,
+  `test_candidate_evidence_profile.py`, `test_v1_evidence_bridge.py` —
+  new, 65 tests, all synthetic/in-memory, no network calls, no GitHub
+  token.
+- `docs/ARCHITECTURE.md` — new §14 documenting the domain model, the
+  provenance philosophy, the discovered-vs-analyzed distinction, and the
+  "Evidence Profile != Job Match" / "confidence != proficiency"
+  statements.
+- This changelog entry.
+
+**Unresolved design questions (not decided in this milestone):**
+- Whether `RepositoryAnalysisCoverage.analyzed` should eventually store
+  richer per-repository ranking metadata (score, rank position) rather
+  than plain `RepositoryIdentity` — deferred until a real caller (the
+  future extraction pipeline) needs it.
+- Whether `Evidence.location` (line/cell-level position, currently
+  always `None` — no extractor populates it yet) is the right shape for
+  every future evidence type (e.g. a Dockerfile instruction vs. a
+  notebook cell vs. a source line) or whether it needs to become a
+  structured type per `evidence_type` — left generic and unexercised
+  until Milestone 5D's extractors have real opinions.
+- Whether `ConfidenceLevel`'s 3-level ordinal scale is granular enough
+  once Milestone 5D extractors exist for very different evidence
+  strengths (e.g. a source-import + test-usage combination might
+  deserve more separation from a single dependency-manifest line than
+  "STRONG" vs. "MODERATE" allows) — the 5A design doc's fuller
+  weak/moderate/strong/strongest ladder with numeric combination
+  (Part 13) was deliberately NOT implemented here; reconciling the two
+  is future work, not resolved now.
+- The topics-skip-vs-unresolved asymmetry in `v1_bridge.py` (language
+  always produces evidence, even unresolved; topics silently skip
+  non-matches) is a reasonable per-source design choice but is not
+  itself a governed rule — a future real topics extractor should
+  revisit whether that asymmetry is still right.
+
+**How to test:** `pytest tests/test_technical_concepts.py
+tests/test_evidence_models.py tests/test_candidate_concept_summary.py
+tests/test_candidate_evidence_profile.py tests/test_v1_evidence_bridge.py -v`
+(65 tests, no network/token required).
+
+## 2026-09-11 — Milestone 5B: Deterministic repository ranking
+
+**What changed:**
+
+New package `src/gitscore/ranking/` — a deterministic, job-independent
+repository ranking system that selects which of a candidate's
+repositories are worth a deep (per-repository) fetch later. This is
+Stage 1 (+ an optional Stage 2 relevance boost) of the two-stage
+ranking strategy proposed in
+`docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` Part 11, approved as
+the Milestone 5A design direction. **No CandidateEvidenceProfile
+persistence, no Evidence tables, no JobRequirementProfile, no
+job-description NLP, no deterministic job matching, no alternative-role
+discovery, no CatBoost, no LLM analysis, no UI, no deep source-code
+inspection, no database/schema change, no users recollected.** Existing
+231 tests untouched and still passing; 26 new tests added (257 total).
+
+**Why:** Milestone 4.5's pilot measured the current per-repository
+collection cost directly — `sindresorhus` (1,140 repos) alone consumed
+~34% of the 18-account pilot's ~6,740 GitHub API calls, because
+languages + README are fetched for *every* repository regardless of how
+informative it is. Ranking lets future deep analysis run on a bounded
+top-N instead of the full repository list, without needing any new API
+requests to decide the ranking itself.
+
+**Ranking is deliberately job-independent and not a score.** It answers
+"which repositories best represent this candidate's substantive
+technical work" — never "is this candidate good," "is this candidate
+ML-focused," or "does this candidate fit a job." It has no notion of
+ML relevance, job requirements, or candidate quality. It only decides
+what gets inspected next; the actual evidence-strength and job-matching
+work (Milestones 5C+/6+/7+) is unaffected in shape or meaning by this
+milestone.
+
+*Zero-additional-API-cost fields (`github/parser.py`):*
+- New `parse_repo_summary(repo)` extracts ranking fields — `archived`,
+  `size` (as `size_kb`), `pushed_at`, `topics`, plus the fields
+  `parse_repo()` already captures (`fork`→`is_fork`, `stargazers_count`,
+  `forks_count`, `language`, `description`, `created_at`, `updated_at`,
+  `html_url`) — straight from the repository-list payload
+  `GitHubClient.get_repositories()` already returns. Verified against
+  the live API: `archived`/`size`/`pushed_at`/`topics` are present on
+  every entry today, they were simply never read. `parse_repo()` itself
+  is unchanged (still requires languages+README, still used by the V1
+  pipeline unmodified).
+
+*Ranking formula (`ranking/rank.py`, weights in `ranking/config.py`):*
+- Stage 1 base score = weighted sum of five components, each in
+  `[0, 1]`: `size` (log-scaled against `size_reference_kb=2000`, so raw
+  byte count can't reward vendored/binary bulk beyond a saturation
+  point), `recency` (exponential decay on `pushed_at` — not
+  `updated_at`, which also bumps on stars/issues — with a gentle
+  `recency_half_life_days=730`), `language` (primary language present),
+  `description` (non-blank description present), `stars` (log-scaled
+  against `star_reference=50`, saturating early so a single viral repo
+  cannot dominate). Default weights: size 0.35, recency 0.30, language
+  0.15, description 0.10, stars 0.10 — stars capped at a fifth of the
+  weight mass, per the milestone's "do not let stars dominate"
+  requirement.
+- Multiplicative dampeners (not exclusions — "fork ≠ useless"):
+  `fork_multiplier=0.35`, `archived_multiplier=0.55`, and a
+  `trivial_multiplier=0.25` for repositories at or below
+  `trivial_size_kb_threshold=8` KB (near-empty scaffolds).
+- Optional Stage-2 relevance boost: a caller-supplied plain list of
+  terms (e.g. `["postgresql", "python", "docker"]`) matched against a
+  repo's name/description/language/topics with the same word-boundary
+  regex approach as `features/ml.py`'s `ML_KEYWORDS` (no substring
+  false positives). Multiplies the Stage-1 score by
+  `1 + relevance_boost_weight * (matched_terms / total_terms)`. Ranking
+  with no terms supplied is byte-identical to Stage-1-only — this is
+  explicitly **not** job-description parsing, just a literal,
+  capped keyword-overlap hook for testing the two-stage interface.
+- All weights/thresholds centralized in the frozen `RankingWeights`
+  dataclass (`ranking/config.py`) — nothing is a scattered magic number
+  in `rank.py`.
+
+*Determinism and tie-breaking (`rank.py::_sort_key`):* score descending,
+then `pushed_at` descending (missing/unparseable sorts oldest), then
+repository name ascending case-insensitive. For a fixed `reference_time`
+(resolved once per `rank_repositories()` call and reused for every
+repository scored in that call), the same input always produces the
+same order. Two calls at different real-world times may legitimately
+reorder repositories as recency decays — intended, not nondeterminism.
+
+*Top-N policy:* `DEFAULT_TOP_N = 15`. Fewer than N repositories → all
+are returned, ranked, never padded. More than N → truncated to exactly
+N, keeping the highest-scoring repositories (not an arbitrary prefix).
+
+*Versioning:* `REPOSITORY_RANKING_VERSION = 1` (`ranking/config.py`),
+a new constant, sibling to but independent of `SCORING_RUBRIC_VERSION`
+and `DATASET_VERSION` (`dataset/schema.py`) — neither of those was
+touched.
+
+*New manual-inspection tool:* `scripts/rank_user_repos.py <username>
+[--top N] [--relevance term1,term2,...]` — fetches one user's repo
+listing (same calls `analyze_user()` already makes before any
+per-repository fetch) and prints the top-N ranked repositories with
+their full score/component/multiplier breakdown. Performs no
+per-repository API calls, no persistence, does not call `analyze_user()`.
+
+**N=10 vs 15 vs 20 validation (real accounts, listing-only fetches, no
+per-repository calls):** ranked `Jango1324`, `chris1610`, `jph00`,
+`sindresorhus`, `lucidrains`, `antirez`, `rasbt` (20 to 1,140 total
+repositories). Score drop-off from rank 1→10→15→20 is steep for small
+accounts (`Jango1324`: 0.90 → 0.24 → 0.12 → 0.02 — most real signal is
+already in the top 8-10) and gentle-to-flat for large, prolific accounts
+(`sindresorhus`/`lucidrains`/`rasbt`/`antirez` all stay above ~0.76-0.94
+through rank 20 — everything that far down is still genuinely
+substantial). N=15 was confirmed as a reasonable default: past the
+point of diminishing returns for ordinary/small accounts, and a real,
+predictable cost cap for large ones. Across these 7 accounts, deep
+analysis at N=15 costs an estimated 237 API calls vs. 3,859 for
+analyzing every repository (93.9% reduction; `sindresorhus` alone:
+2,293 → 43, a 98.1% reduction) — using the same 2-calls-per-repository
+cost model measured in the Milestone 4.5 pilot.
+
+**Surprising/notable result (`Jango1324`):** the ranking correctly
+surfaces the account's substantive engineering projects
+(`JPod-ESP32`, `Mentoria`, `Arduino-Based-Media-Player`, `obsidianblog`,
+`House-Of-Memories`) above its forks and trivial repositories, which is
+the core validation this milestone asked for. But the one repository
+Milestone 4.5 identified as this account's single genuine ML-relevant
+work (`Pneumonia-Detection-Ai`, from an educational AI program) ranks
+**16th of 20** — just outside the top-15 cutoff — because it is only
+4 KB with no stars, so on pure substantiveness signals it looks
+trivial. Applying the optional Stage-2 relevance boost with ML-flavored
+terms (`["ai", "machine learning", "pytorch"]`) still does **not** pull
+it into the top 15: the boost is multiplicative on an already
+near-zero base score, so it cannot rescue a repository Stage 1 scores
+as trivial. Documented as a known limitation (see below), not patched —
+patching a specific account's ranking would violate the "do not
+hardcode repository names" instruction this validation was run under.
+
+**Known limitations (deliberately not fixed in this milestone):**
+- `size_kb` cannot distinguish authored code from vendored/binary bulk
+  — observed on `antirez/llama.cpp-deepseek-v4-flash` (317 MB, likely
+  large vendored/model content) scoring as maximally "substantive" on
+  size alone. Log-scaling caps the damage but doesn't eliminate it.
+  Would need content inspection to fix, out of scope for a
+  zero-additional-request Stage 1.
+- The optional relevance boost cannot rescue a repository that Stage 1
+  scores as trivial (see `Pneumonia-Detection-Ai` above) — it can only
+  re-rank *among* repositories Stage 1 already considers reasonably
+  substantive. Whether that's the right behavior for the eventual
+  Stage 2 (once a real Job Requirement Parser exists) is an open
+  product question, not resolved here.
+- Organization-owned work remains invisible at the ranking stage too
+  (`jph00`'s top-ranked personal repos are smaller side projects, not
+  his `fastai`-org work) — consistent with, not a new instance of, the
+  blind spot already documented in Milestone 4.5 and
+  `docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md`.
+- `topics` is parsed and available but not used as a Stage-1
+  substantiveness signal (many genuinely substantial repos never set
+  topics) — only consulted for the optional Stage-2 boost. Not
+  observed populated on any repository across the 7 validation
+  accounts in this pilot-scale sample.
+
+**Files changed:**
+- `src/gitscore/github/parser.py` — added `parse_repo_summary()`
+  (additive; `parse_repo()`/`parse_languages()` unchanged).
+- `src/gitscore/ranking/__init__.py`, `config.py`, `rank.py` — new package.
+- `scripts/rank_user_repos.py` — new manual-inspection script.
+- `tests/test_repo_summary_parsing.py`,
+  `tests/test_repository_ranking.py` — new, 26 tests, all synthetic
+  fixtures, no network calls.
+- `docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` — Part 11 annotated
+  with the approved N=15 default and a pointer to this validation.
+- `docs/ARCHITECTURE.md` — new §13 documenting the ranking module.
+- This changelog entry.
+
+**Risks/limitations:** see "Known limitations" above. Additionally: the
+formula's weights (`RankingWeights` defaults) are a reasoned starting
+point, not calibrated against labeled "this repo is/isn't substantive"
+ground truth — there is no such ground truth yet. `reference_time`
+defaults to wall-clock "now," so repeated runs on the same account over
+time will legitimately reorder repositories as recency decays; this is
+intended, not a bug, but callers needing byte-for-byte reproducibility
+across time must pass an explicit `reference_time`.
+
+**How to test:** `pytest tests/test_repository_ranking.py
+tests/test_repo_summary_parsing.py -v` (26 tests, synthetic fixtures,
+no network/token required). Manual inspection:
+`python scripts/rank_user_repos.py <username> --top 15`.
+
 ## 2026-09-08 — Milestone 4: Clean Dataset V1 infrastructure
 
 **What changed:**

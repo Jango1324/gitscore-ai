@@ -616,3 +616,184 @@ schema change).
   refactored `scripts/collect_dataset.py`
   (`data/collection/usernames.txt`, gitignored; template committed as
   `usernames.example.txt`).
+
+## 13. Repository ranking (`src/gitscore/ranking/`) — Milestone 5B
+
+**Not yet wired into `pipeline/analyze.py` or any collection script.**
+This is a standalone module, validated via `scripts/rank_user_repos.py`
+and its own test suite; `analyze_user()` is completely unchanged and
+still fetches languages/README for every repository. Wiring ranking
+into the collection pipeline (so it actually reduces API cost) is
+explicit future work — see
+`docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` Part 24 (Milestones
+5C/5D).
+
+**Purpose:** decide which of a candidate's repositories are worth a
+deep per-repository fetch, *before* any such fetch happens — Stage 1
+(+ optional Stage 2) of the two-stage ranking strategy from the
+Milestone 5A design (Part 11). It is job-independent, not ML-specific,
+and is not a candidate or job-fit score of any kind — it only decides
+what to look at next.
+
+- `github/parser.py::parse_repo_summary(repo)` — extracts ranking
+  fields (`archived`, `size_kb`, `pushed_at`, `topics`, plus the fields
+  `parse_repo()` already captures) from the raw repo-list payload
+  `GitHubClient.get_repositories()` already returns. Zero additional
+  API requests; `parse_repo()` itself (which needs already-fetched
+  languages + README) is unchanged.
+- `ranking/config.py` — `RankingWeights` (frozen dataclass, every
+  weight/threshold centralized), `DEFAULT_TOP_N = 15`,
+  `REPOSITORY_RANKING_VERSION = 1`. Independent of
+  `SCORING_RUBRIC_VERSION`/`DATASET_VERSION` (`dataset/schema.py`).
+- `ranking/rank.py`:
+  - `score_repository(summary, weights=None, relevance_terms=None, reference_time=None) -> RepositoryRankingResult`
+    — Stage-1 base score (size/recency/language/description/stars
+    components, log-scaled where popularity/size could otherwise
+    dominate) times fork/archived/trivial-size multiplicative
+    dampeners, times an optional Stage-2 relevance-boost multiplier.
+    `RepositoryRankingResult` carries the full `components`/
+    `multipliers` breakdown, not just the final score, specifically so
+    a ranking can be explained after the fact.
+  - `rank_repositories(summaries, top_n=15, weights=None, relevance_terms=None, reference_time=None) -> list[RepositoryRankingResult]`
+    — sorts (score desc, then `pushed_at` desc, then name asc — the
+    deterministic tie-break) and truncates to `top_n`. Fewer than
+    `top_n` repositories → all returned, never padded.
+- Fork/archived repositories are dampened, not excluded — they may
+  still hold real evidence, per the design doc's provenance philosophy.
+  Stars are capped at a fifth of the total weight mass and log-scaled
+  so a single viral repository cannot dominate the ranking.
+- The optional Stage-2 `relevance_terms` parameter is a plain list of
+  caller-supplied strings for testing the two-stage interface — it is
+  explicitly **not** the future Job Requirement Parser and contains no
+  NLP; matching reuses `features/ml.py`'s word-boundary regex approach.
+
+See `docs/CHANGELOG_DEV.md`'s Milestone 5B entry for the full formula,
+the N=10/15/20 validation against real pilot accounts, and known
+limitations (`size_kb` can't distinguish authored code from vendored
+bulk; the relevance boost can't rescue a repository Stage 1 scores as
+trivial; the organization-owned-work blind spot persists at the ranking
+stage too).
+
+## 14. Generalized evidence domain model (`src/gitscore/concepts/`, `src/gitscore/evidence/`) — Milestone 5C
+
+**Not yet wired into `pipeline/analyze.py`, any collection script, or
+Milestone 5B's ranking module.** This is a standalone domain model,
+validated entirely by its own test suite plus a demonstration bridge
+(`evidence/v1_bridge.py`) — nothing in the existing V1 pipeline
+(`features/*`, `scoring/readiness.py`, `pipeline/analyze.py`) is
+imported, changed, or replaced. No SQLAlchemy import exists anywhere in
+either package — see Part 9 of the Milestone 5C plan for why persistence
+was deliberately deferred (domain shape not yet validated against a real
+extractor).
+
+**Where this sits in the eventual pipeline** (only the first two stages
+exist today — Milestone 5B's ranking, standalone; and this milestone's
+domain model, standalone; nothing after "Evidence objects" below has
+been built):
+
+```
+Repository Ranking (Milestone 5B, src/gitscore/ranking/)
+        |  (selects top-N repositories -- see ARCHITECTURE.md §13)
+        v
+future selected repositories             <-- NOT YET CONNECTED to ranking's output
+        |
+        v
+Evidence Extraction                      <-- NOT YET IMPLEMENTED (Milestone 5D+)
+        |  (per-repository detectors: dependency files, README text,
+        |   source imports, ... -- see docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md Part 12)
+        v
+Evidence objects (src/gitscore/evidence/models.py)   <-- THIS MILESTONE
+        |
+        v
+Candidate Evidence Profile (src/gitscore/evidence/profile.py)   <-- THIS MILESTONE
+        |
+        v
+(future) Job Requirement Profile + Deterministic Matcher -> Job Match Result   <-- NOT YET IMPLEMENTED
+```
+
+**Two things this section must state explicitly, per the Milestone 5C
+instructions:**
+
+- **Evidence Profile != Job Match.** `CandidateEvidenceProfile` has no
+  field for a target job, a match score, required/preferred skills, or
+  alternative roles (enforced by a test —
+  `tests/test_candidate_evidence_profile.py::test_profile_has_no_job_related_fields`).
+  It answers "what technical evidence exists," never "is this a good
+  fit for X." Producing a job-conditional result is future work
+  (Milestone 6A+/7A+) that *consumes* this profile; it does not live
+  inside it.
+- **Evidence confidence != candidate proficiency.** `ConfidenceLevel`
+  (`WEAK`/`MODERATE`/`STRONG`) describes how sure GitScore is about the
+  *observation itself* — e.g. "how confident are we that this
+  `requirements.txt` line really declares PyTorch as a dependency" — not
+  how skilled the candidate is with PyTorch, how much they used it, or
+  whether they'd pass an interview on it. A `STRONG`-confidence
+  observation of a dependency says nothing about depth of use.
+
+### 14.1 Provenance philosophy
+
+Every `Evidence` record answers, unconditionally: which repository,
+which file (if applicable), what type of observation, what the raw text
+actually said, which concept it was normalized to, how confident that
+specific claim is, and which extractor/version produced it. This is
+deliberate, not incidental — it is what makes every later number
+GitScore ever produces (a future job-match score, a "strongest
+supporting repositories" list, a recruiter-facing explanation)
+traceable back to a specific, inspectable fact rather than an opaque
+aggregate. `docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` Part 7 is
+the fuller architectural rationale; this milestone is the first concrete
+implementation of that model.
+
+**Evidence is the source of truth; nothing else is.**
+`CandidateConceptSummary` (`evidence/summary.py`) and
+`CandidateEvidenceProfile` (`evidence/profile.py`) are always *derived*
+from a pool of `Evidence` by a module-level function
+(`summarize_concept`, `build_concept_summaries`,
+`build_candidate_evidence_profile`) — there is no code path that
+constructs or mutates either independently of the `Evidence` it should
+reflect. `CandidateEvidenceProfile.concept_summaries` is exposed as a
+`types.MappingProxyType` specifically so this can't be violated by
+accident from outside the package either.
+
+- `src/gitscore/concepts/` — `TechnicalConcept` (`models.py`), a small
+  representative registry + `ConceptRegistry` + `resolve_concept()`
+  (`registry.py`), and pure case/punctuation normalization
+  (`normalize.py`). `CONCEPT_REGISTRY_VERSION = 1`. An unmatched term
+  resolves to a deterministic `"unresolved:<term>"` pseudo-id — never
+  silently dropped, and never written into the registry itself.
+- `src/gitscore/evidence/` — `RepositoryIdentity` + `Evidence`
+  (`models.py`, both frozen and hashable — a pool of `Evidence` can be
+  deduplicated with a plain `set()`), `EvidenceType` + `ConfidenceLevel`
+  (`types.py`, `EVIDENCE_SCHEMA_VERSION = 1`), `CandidateConceptSummary`
+  (`summary.py`), `RepositoryAnalysisCoverage` + `CandidateEvidenceProfile`
+  (`profile.py`), and `v1_bridge.py` (demonstration-only — see below).
+
+### 14.2 Discovered vs. analyzed repositories
+
+`RepositoryAnalysisCoverage` (`evidence/profile.py`) carries both
+`discovered` (every repository GitHub listed) and `analyzed` (the subset
+actually looked at deeply — e.g. Milestone 5B's ranked top-N, once
+wired in) as separate tuples, with `discovered_count`, `analyzed_count`,
+and `is_complete` derived from them. This exists specifically so a
+future explanation layer can state "GitScore discovered 1,140
+repositories but deeply analyzed 15" as a queryable fact on the profile
+itself, supporting the `INSUFFICIENT_ANALYSIS` semantics described in
+`docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` Part 16 — not yet
+implemented, but now representable.
+
+### 14.3 V1 compatibility, not V1 migration
+
+`evidence/v1_bridge.py` demonstrates (via
+`tests/test_v1_evidence_bridge.py`) that information the *existing* V1
+pipeline already produces — a repository's primary language
+(`parse_repo()`), README text (`parse_repo()`), and topics
+(`parse_repo_summary()`, Milestone 5B) — can be represented as `Evidence`
+under the new model. It is not imported by `pipeline/analyze.py` or any
+script; `features/ml.py`, `features/readme.py`, `features/languages.py`,
+and `scoring/readiness.py` are unchanged and continue to run exactly as
+before. This proves the new model *can* eventually subsume V1's
+signals — it does not do so yet.
+
+See `docs/CHANGELOG_DEV.md`'s Milestone 5C entry for the full domain
+model, the confidence-model rationale, the duplicate-evidence policy,
+and open design questions.
