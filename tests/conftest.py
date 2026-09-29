@@ -310,3 +310,75 @@ def snapshot_db(tmp_path):
         yield SnapshotDB(factory, engine)
     finally:
         engine.dispose()
+
+
+# ---------------------------------------------------------------------------
+# Milestone 5D -- V2 evidence-extraction pipeline helpers
+# ---------------------------------------------------------------------------
+
+
+def root_entry(name, entry_type="file"):
+    """Build one Contents-API root-listing entry (see
+    GitHubClient.get_repository_root_contents())."""
+    return {"name": name, "path": name, "type": entry_type}
+
+
+class FakeEvidenceGitHubClient:
+    """Configurable fake GitHubClient for Milestone 5D pipeline tests.
+
+    Shaped like `FakeGitHubClient` above (per-repo results/exceptions
+    keyed by repo name, or by `(repo_name, path)` for per-file fetches),
+    but covers the Milestone 5D surface
+    (`get_repository_readme_with_path`, `get_repository_root_contents`,
+    `get_repository_file`) that `FakeGitHubClient` predates.
+    """
+
+    def __init__(
+        self,
+        repos=None,
+        repos_exc=None,
+        languages=None,
+        languages_exc_for=None,
+        readme=None,
+        readme_exc_for=None,
+        root_contents=None,
+        root_contents_exc_for=None,
+        files=None,
+        files_exc_for=None,
+    ):
+        self._repos = repos if repos is not None else []
+        self._repos_exc = repos_exc
+        self._languages = languages or {}
+        self._languages_exc_for = languages_exc_for or {}
+        self._readme = readme or {}
+        self._readme_exc_for = readme_exc_for or {}
+        self._root_contents = root_contents or {}
+        self._root_contents_exc_for = root_contents_exc_for or {}
+        self._files = files or {}
+        self._files_exc_for = files_exc_for or {}
+
+    def get_repositories(self, username):
+        if self._repos_exc:
+            raise self._repos_exc
+        return self._repos
+
+    def get_repository_languages(self, owner, repo):
+        if repo in self._languages_exc_for:
+            raise self._languages_exc_for[repo]
+        return self._languages.get(repo, {})
+
+    def get_repository_readme_with_path(self, owner, repo):
+        if repo in self._readme_exc_for:
+            raise self._readme_exc_for[repo]
+        return self._readme.get(repo)
+
+    def get_repository_root_contents(self, owner, repo):
+        if repo in self._root_contents_exc_for:
+            raise self._root_contents_exc_for[repo]
+        return self._root_contents.get(repo, [])
+
+    def get_repository_file(self, owner, repo, path):
+        key = (repo, path)
+        if key in self._files_exc_for:
+            raise self._files_exc_for[key]
+        return self._files[key]

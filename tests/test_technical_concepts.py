@@ -157,9 +157,81 @@ def test_resolve_concept_accepts_an_explicit_registry():
 
 
 # ---------------------------------------------------------------------------
+# Milestone 5D.1: source-aware alias safety (readme_unsafe_aliases /
+# readme_safe_aliases())
+# ---------------------------------------------------------------------------
+
+def test_readme_safe_aliases_defaults_to_all_aliases_when_none_marked_unsafe():
+    concept = TechnicalConcept(
+        concept_id="custom.thing", display_name="Thing", category="custom", aliases=("thing", "thingy")
+    )
+    assert concept.readme_safe_aliases() == ("thing", "thingy")
+
+
+def test_readme_safe_aliases_excludes_marked_unsafe_aliases():
+    concept = TechnicalConcept(
+        concept_id="custom.thing",
+        display_name="Thing",
+        category="custom",
+        aliases=("go", "golang"),
+        readme_unsafe_aliases=frozenset({"go"}),
+    )
+    assert concept.readme_safe_aliases() == ("golang",)
+
+
+def test_readme_safe_aliases_is_empty_when_every_alias_is_unsafe():
+    concept = TechnicalConcept(
+        concept_id="custom.thing",
+        display_name="Thing",
+        category="custom",
+        aliases=("c",),
+        readme_unsafe_aliases=frozenset({"c"}),
+    )
+    assert concept.readme_safe_aliases() == ()
+
+
+def test_readme_unsafe_alias_not_present_in_aliases_raises():
+    import pytest
+
+    with pytest.raises(ValueError):
+        TechnicalConcept(
+            concept_id="custom.thing",
+            display_name="Thing",
+            category="custom",
+            aliases=("thing",),
+            readme_unsafe_aliases=frozenset({"typo"}),
+        )
+
+
+def test_registry_concepts_marked_readme_unsafe_still_resolve_via_resolve_concept():
+    # "go", "next", "js", "ts", "c" stay valid resolve_concept() aliases
+    # for structured sources (dependency manifests, language stats) --
+    # only evidence/extraction/readme.py restricts itself further.
+    for term, expected_id in [
+        ("go", "language.go"),
+        ("next", "framework.nextjs"),
+        ("js", "language.javascript"),
+        ("ts", "language.typescript"),
+        ("c", "language.c"),
+    ]:
+        result = resolve_concept(term)
+        assert result.matched
+        assert result.concept.concept_id == expected_id
+
+
+# ---------------------------------------------------------------------------
 # Versioning
 # ---------------------------------------------------------------------------
 
 def test_concept_registry_version_constant_exists_and_is_an_int():
+    # Bumped to 2 in Milestone 5D: new concepts added (languages.py's
+    # GitHub-language set, plus a handful of dependency-manifest-only
+    # concepts) -- see registry.py's versioning policy and
+    # docs/CHANGELOG_DEV.md's Milestone 5D entry.
+    # Bumped to 3 in Milestone 5D.1: `readme_unsafe_aliases` added to
+    # several existing concepts (go/next/js/ts/c) -- a registry-content
+    # change per registry.py's own bump policy, even though it doesn't
+    # change what resolve_concept() itself matches. See
+    # docs/CHANGELOG_DEV.md's Milestone 5D.1 entry.
     assert isinstance(CONCEPT_REGISTRY_VERSION, int)
-    assert CONCEPT_REGISTRY_VERSION == 1
+    assert CONCEPT_REGISTRY_VERSION == 3

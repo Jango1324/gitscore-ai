@@ -1,15 +1,19 @@
 # GitScore AI — Architecture
 
-Status: updated 2026-09-08 (Milestone 4 — clean Dataset V1
-infrastructure). §1, §11 and the new §12 reflect Milestone 4 (the
-`dataset/` package, the dataset builder/report/export, the
-username-file collection input, expanded test suite). §1, §7, §10
-reflect Milestone 3 (package rename, dependency declaration, DB snapshot
-semantics). §3 and §8 reflect Milestone 2 (GitHub data collection
-reliability). Other sections are unchanged from the 2026-08-30 audit
-snapshot — in particular §2's data-flow sketch still shows the
-pre-Milestone-2 "first page only" / `executor.map` shape; §3 and §8 are
-the current truth for the GitHub layer.
+Status: updated 2026-09-27 (Milestone 5D — bounded technical evidence
+extraction). New §15 documents the first real V2 evidence-extraction
+pipeline, connecting Milestone 5B's ranking to Milestone 5C's domain
+model. §1, §11 and §12 reflect Milestone 4 (the `dataset/` package, the
+dataset builder/report/export, the username-file collection input,
+expanded test suite). §1, §7, §10 reflect Milestone 3 (package rename,
+dependency declaration, DB snapshot semantics). §3 and §8 reflect
+Milestone 2 (GitHub data collection reliability). Other sections are
+unchanged from the 2026-08-30 audit snapshot — in particular §2's
+data-flow sketch still shows the pre-Milestone-2 "first page only" /
+`executor.map` shape; §3 and §8 are the current truth for the GitHub
+layer. **All of §1-§14 describe V1 (`pipeline/analyze.py`) and remain
+completely unchanged by Milestone 5D** — see §15 for the new, separate V2
+path.
 
 This document describes what the code **actually does today**, not the
 intended design. Where behavior is a bug rather than a decision, it is
@@ -619,14 +623,13 @@ schema change).
 
 ## 13. Repository ranking (`src/gitscore/ranking/`) — Milestone 5B
 
-**Not yet wired into `pipeline/analyze.py` or any collection script.**
-This is a standalone module, validated via `scripts/rank_user_repos.py`
-and its own test suite; `analyze_user()` is completely unchanged and
-still fetches languages/README for every repository. Wiring ranking
-into the collection pipeline (so it actually reduces API cost) is
-explicit future work — see
-`docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` Part 24 (Milestones
-5C/5D).
+**Still not wired into `pipeline/analyze.py` (V1) or any collection
+script** — that remains intentional; V1's `analyze_user()` is completely
+unchanged and still fetches languages/README for every repository.
+Milestone 5D DID wire this module into a new, separate V2 path
+(`pipeline/evidence.py`, §15) — this section otherwise describes the
+same standalone ranking module Milestone 5B shipped, validated via
+`scripts/rank_user_repos.py` and its own test suite.
 
 **Purpose:** decide which of a candidate's repositories are worth a
 deep per-repository fetch, *before* any such fetch happens — Stage 1
@@ -676,36 +679,37 @@ stage too).
 
 ## 14. Generalized evidence domain model (`src/gitscore/concepts/`, `src/gitscore/evidence/`) — Milestone 5C
 
-**Not yet wired into `pipeline/analyze.py`, any collection script, or
-Milestone 5B's ranking module.** This is a standalone domain model,
-validated entirely by its own test suite plus a demonstration bridge
-(`evidence/v1_bridge.py`) — nothing in the existing V1 pipeline
+**As of Milestone 5D, this domain model IS wired to real extraction** —
+see §15. This section otherwise still describes the model exactly as
+Milestone 5C shipped it (nothing about `Evidence`, `TechnicalConcept`,
+`CandidateConceptSummary`, or `CandidateEvidenceProfile`'s core shape
+changed in Milestone 5D beyond the additive `partially_analyzed` field
+noted in §15.3): validated originally by its own test suite plus a
+demonstration bridge (`evidence/v1_bridge.py`, still present,
+still demonstration-only) — nothing in the existing V1 pipeline
 (`features/*`, `scoring/readiness.py`, `pipeline/analyze.py`) is
-imported, changed, or replaced. No SQLAlchemy import exists anywhere in
-either package — see Part 9 of the Milestone 5C plan for why persistence
-was deliberately deferred (domain shape not yet validated against a real
-extractor).
+imported, changed, or replaced by either 5C or 5D. No SQLAlchemy import
+exists anywhere in either package — persistence remains deliberately
+deferred (Milestone 5C Part 9; still not revisited in 5D).
 
-**Where this sits in the eventual pipeline** (only the first two stages
-exist today — Milestone 5B's ranking, standalone; and this milestone's
-domain model, standalone; nothing after "Evidence objects" below has
-been built):
+**Where this sits in the pipeline, updated for Milestone 5D** (every
+stage below now exists and is connected; see §15 for the full detail):
 
 ```
 Repository Ranking (Milestone 5B, src/gitscore/ranking/)
         |  (selects top-N repositories -- see ARCHITECTURE.md §13)
         v
-future selected repositories             <-- NOT YET CONNECTED to ranking's output
+selected repositories                     <-- CONNECTED in Milestone 5D (§15)
         |
         v
-Evidence Extraction                      <-- NOT YET IMPLEMENTED (Milestone 5D+)
-        |  (per-repository detectors: dependency files, README text,
-        |   source imports, ... -- see docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md Part 12)
+Evidence Extraction (Milestone 5D, src/gitscore/evidence/extraction/)
+        |  (languages, README, requirements.txt/pyproject.toml/package.json,
+        |   Docker -- see §15.2; source imports/tests/CI remain post-MVP)
         v
-Evidence objects (src/gitscore/evidence/models.py)   <-- THIS MILESTONE
+Evidence objects (src/gitscore/evidence/models.py)   <-- Milestone 5C
         |
         v
-Candidate Evidence Profile (src/gitscore/evidence/profile.py)   <-- THIS MILESTONE
+Candidate Evidence Profile (src/gitscore/evidence/profile.py)   <-- Milestone 5C
         |
         v
 (future) Job Requirement Profile + Deterministic Matcher -> Job Match Result   <-- NOT YET IMPLEMENTED
@@ -797,3 +801,447 @@ signals — it does not do so yet.
 See `docs/CHANGELOG_DEV.md`'s Milestone 5C entry for the full domain
 model, the confidence-model rationale, the duplicate-evidence policy,
 and open design questions.
+
+## 15. Bounded technical evidence extraction (`src/gitscore/evidence/extraction/`, `src/gitscore/pipeline/evidence.py`) — Milestone 5D
+
+The first real V2 pipeline: connects Milestone 5B's ranking to Milestone
+5C's domain model with an actual per-repository extraction step, and
+produces `Evidence` from real GitHub data for the first time.
+
+```
+GitHub username
+  -> GitHubClient.get_repositories()        listing, paginated (unchanged, 5B)
+  -> parse_repo_summary()                    per-repo, zero extra calls (5B)
+  -> rank_repositories()                      job-independent ranking, top N (5B)
+  -> top N selected repositories
+  -> per selected repository:
+       get_repository_languages()            1 call
+       get_repository_readme_with_path()      1 call
+       get_repository_root_contents()         1 call -- bounded root listing
+       get_repository_file() x (files present among the 8 supported names)
+  -> extractors -> Evidence[]                (5D, this milestone)
+  -> build_candidate_evidence_profile()       CandidateEvidenceProfile (5C)
+```
+
+Entry point: `gitscore.pipeline.evidence.extract_candidate_evidence(username,
+client=None, top_n=DEFAULT_TOP_N, collected_at=None) -> EvidenceExtractionResult`.
+This is a **new, separate path** — `pipeline/analyze.py::analyze_user()`
+(V1) is byte-for-byte unchanged, still fetches languages/README for
+*every* repository, still produces the historical readiness score, still
+writes to Dataset V1. Nothing in `evidence/extraction/` or
+`pipeline/evidence.py` is imported by V1, and neither imports anything
+from `features/*` or `scoring/readiness.py`.
+
+### 15.1 Repository selection
+
+Exactly Milestone 5B's `rank_repositories(summaries, top_n=DEFAULT_TOP_N)`
+(`DEFAULT_TOP_N = 15`, unchanged) — no new selection logic. `discovered`
+is every repository `get_repositories()` returned; `analyzed` is the
+ranked top N (all of them if the candidate has ≤ N). A repository ranked
+outside the selection is `discovered` but never `analyzed` — this is
+never manually overridden (see §15.6's failure-semantics table and the
+real-account validation in §15.11: `Jango1324/Pneumonia-Detection-Ai`
+stayed outside the top 15 in live validation, exactly as 5B's own
+validation already found, and is reported truthfully as
+discovered-not-analyzed rather than forced in).
+
+### 15.2 Extractors (`src/gitscore/evidence/extraction/`)
+
+| Module | Produces | Extractor version |
+|---|---|---|
+| `languages.py` | `REPOSITORY_LANGUAGE` evidence from `get_repository_languages()` | `language:v1` |
+| `readme.py` | `README` evidence: registry-alias mentions in README text, restricted to each concept's `readme_safe_aliases()` (§15.6) | `readme:v2` |
+| `python_deps.py` | `DEPENDENCY` declarations from `requirements.txt` / `pyproject.toml` | `requirements:v1` / `pyproject:v1` |
+| `js_deps.py` | `DEPENDENCY` declarations from `package.json` (`dependencies` + `devDependencies`) | `npm:v1` |
+| `dependency_evidence.py` | shared declaration -> Evidence resolution (used by both dep modules) | (uses the caller's version) |
+| `docker.py` | `DOCKER` evidence: presence of Dockerfile/compose files | `docker:v1` |
+| `files.py` | root-file discovery (pure filter over one Contents-API listing) | n/a (no Evidence) |
+
+**Not implemented** (explicitly out of scope, per the milestone's
+prompt): source-import scanning, test-directory evidence, CI-workflow
+evidence, notebook content analysis, Terraform/IaC, Maven/Gradle, Cargo,
+Go modules, CMake/Makefile analysis, HDL source analysis, commit-history/
+contribution attribution, job-description parsing or matching of any
+kind. `Pipfile`/`environment.yml` (Part 7's "optional if trivial") were
+evaluated and **not** added — `requirements.txt`/`pyproject.toml`/
+`package.json` already covered every dependency signal actually observed
+across all four real-account validations (§15.11); adding two more manifest
+parsers for zero observed real-world benefit was judged not worth the
+scope.
+
+### 15.3 Evidence-schema change (`EVIDENCE_SCHEMA_VERSION` 1 -> 2)
+
+`RepositoryAnalysisCoverage` (`evidence/profile.py`) gained one additive
+field: `partially_analyzed: tuple[RepositoryIdentity, ...] = ()` — the
+subset of `analyzed` where at least one evidence source for that
+repository could not be inspected (§15.6). It is a genuine SHAPE change
+(new field), which is exactly `EVIDENCE_SCHEMA_VERSION`'s documented bump
+condition (`evidence/types.py`) — bumped to `2`. It is NOT a new coverage
+tier: every `partially_analyzed` repository is still counted in
+`analyzed`/`analyzed_count`/`is_complete` exactly as before this field
+existed. `build_candidate_evidence_profile()` gained one new optional
+keyword, `partially_analyzed=()`, defaulting to the pre-5D behavior.
+`CONCEPT_REGISTRY_VERSION` was independently bumped 1 -> 2 for the new
+concepts added in §15.5/§15.7 (registry content change, per its own
+documented bump condition — unrelated to the schema-shape bump above).
+`SCORING_RUBRIC_VERSION`, `DATASET_VERSION`, and
+`REPOSITORY_RANKING_VERSION` are untouched.
+
+### 15.4 API cost model (real numbers, from §15.11's live validation)
+
+Per selected repository, deep analysis costs a **base of 3 requests**
+(languages + README + one root-listing call) **plus one more request per
+supported manifest/Docker file actually present** at that repository's
+root — never more than 3 + 8 = 11, and in practice far fewer (0-2 extra
+per repo was typical across all four validated accounts). Root discovery
+is the key bound here (Part 3): ONE `GET /repos/{o}/{r}/contents` call
+learns which of the 8 supported filenames exist, instead of guessing at
+every filename individually (which would cost up to 8 requests/repo just
+to *check* for files, most of which don't exist).
+
+Total cost = `ceil(total_repos / 100)` (listing pagination) + `analyzed_count
+× (3 + avg_files_present)`. Since `analyzed_count` is capped at
+`DEFAULT_TOP_N = 15`, **deep-analysis cost is O(N), not O(total repos)** —
+confirmed directly, not just estimated:
+
+| Candidate (real account) | Repos discovered | Repos analyzed | Actual API requests |
+|---|---|---|---|
+| `torvalds` | 12 | 12 (≤ N) | 38 |
+| `karpathy` | 63 | 15 | 54 |
+| `Jango1324` | 20 | 15 | 53 |
+| `sindresorhus` | 1,141 | 15 | 70 |
+
+Approximate model for the three sizes the milestone asks about, `top_n =
+15`, assuming a typical 0-2 extra manifest/Docker requests per selected
+repo (matching the observed range above):
+
+| Total repos | Listing requests | Deep-analysis requests (N=15, bounded) | Approx. total |
+|---|---|---|---|
+| 20 | 1 | ~45-60 | ~46-61 |
+| 100 | 1 | ~45-60 | ~46-61 |
+| 1,000 | 10 | ~45-60 | ~55-70 |
+
+The listing cost grows with total repository count (unavoidable — GitHub
+must enumerate every repository at least once to know what exists); the
+deep-analysis cost does **not** — it is flat, bounded by N, regardless of
+whether the candidate has 20 repos or 1,141. This is not an exaggerated
+claim: `sindresorhus` (1,141 repos) cost 70 total requests end-to-end, in
+the same ballpark as `Jango1324` (20 repos, 53 requests) and `karpathy`
+(63 repos, 54 requests) — the bulk of the difference between them is
+pagination, a handful of requests, not a multiplier on deep analysis.
+
+### 15.5 Language significance policy (`extraction/languages.py`)
+
+A language must be **≥ 5.0%** of a repository's language bytes
+(`MIN_SIGNIFICANT_PERCENTAGE`) to produce evidence at all — percentage-
+based, not a raw byte floor, because GitHub's language-stats endpoint
+already normalizes for repository size (a 5% language in a 50 MB repo and
+a 5% language in a 50 KB repo are equally "a real part of this repo" in a
+way a fixed byte count can't express across repo sizes). A language at
+**≥ 40.0%** (`MODERATE_CONFIDENCE_PERCENTAGE`) gets `MODERATE` confidence
+instead of `WEAK` — confident enough to be the repo's dominant (or
+co-dominant) language, vs. present-but-secondary. Both are module-level
+constants, trivially tunable. An unrecognized-but-meaningful language
+(e.g. `OpenSCAD`, `CMake`, `Makefile`, `Swift`, `Astro`, `QML`, `XSLT`,
+`PostScript` — all observed live in §15.11's validation) still produces
+Evidence with an `unresolved:<language>` id, mirroring
+`evidence/v1_bridge.py`'s existing `primary_language` handling — never
+silently dropped.
+
+### 15.6 README matching policy (`extraction/readme.py`)
+
+Deterministic, alias-aware, case-insensitive, word-boundary matching
+(`(?<![A-Za-z0-9])alias(?![A-Za-z0-9])`, `re.IGNORECASE`) — no fuzzy
+inference, no LLM, no arbitrary substring matching. One Evidence item per
+matched **concept** per repository (never per alias, never per
+occurrence), carrying one bounded ~120-character snippet from the first
+occurrence — never the whole README duplicated once per concept.
+Confidence is `MODERATE` (a mention declares presence/intent, not a
+buildable dependency). Only the resolved path is exercised — an
+unmatched mention produces no evidence (mirrors `v1_bridge.py`'s
+topics-skip precedent: free-form prose has no single scalar value to
+hang an "unresolved" placeholder off of the way a repo's one
+`primary_language` does).
+
+**Milestone 5D.1 — source-aware alias safety.** Unlike every other
+source, this extractor does NOT match against a concept's full
+`aliases` (that's what `resolve_concept()` uses for structured sources —
+dependency manifests, language stats). It matches only
+`concept.readme_safe_aliases()` — `aliases` minus whatever the concept
+marks `readme_unsafe_aliases` in `concepts/registry.py` (data on the
+concept, no per-alias `if` in this module). This exists because
+Milestone 5D's initial live validation found that some aliases are
+completely safe as a package name or a GitHub language-stats value but
+are short and/or ordinary English words that collide constantly with
+free-form prose:
+- **Bare `"go"`** (alias of `language.go`) matched ordinary English
+  ("I **go** for large components", "let it **go**") on
+  `torvalds/1590A` and `karpathy/autoresearch`. Now `readme_unsafe`:
+  bare "Go" mentions produce **no** README evidence (an intentional,
+  documented precision-over-recall choice — there is no context-free
+  way to tell the language apart from the verb without exactly the
+  fuzzy/NLP inference this milestone avoids). `"golang"` remains
+  README-safe and unambiguous ("Written in Golang" still matches); "go"
+  itself is untouched as a `resolve_concept()` alias, so GitHub's
+  language-stats name `"Go"` still resolves via `languages.py`.
+- **Bare `"next"`** (alias of `framework.nextjs`) matched ordinary
+  English ("**Next** Track", "**next** steps") on
+  `Jango1324/Arduino-Based-Media-Player`. Now `readme_unsafe`: bare
+  "next" produces no README evidence, but `"next.js"`/`"nextjs"` remain
+  README-safe (`"Uses Next.js"` still matches), and `"next"` is
+  untouched as a `resolve_concept()` alias — `package.json`'s literal
+  `"next"` dependency key still resolves to `framework.nextjs` exactly
+  as before (§15.7).
+- **`"js"`/`"ts"`** (aliases of `language.javascript`/`language.typescript`)
+  are also `readme_unsafe`: the boundary regex treats `.` as a valid
+  separator, so a bare `"js"` alias gave every `".js"`-suffixed name
+  (Next.js, Vue.js, Node.js, ...) incidental JavaScript evidence — a
+  mention of "Next.js" alone no longer implies "JavaScript" unless the
+  README independently says so. The full words `"javascript"`/
+  `"typescript"` remain README-safe.
+- **Bare `"c"`** (`language.c`'s only alias) is also `readme_unsafe` — a
+  single letter has no safe deterministic form in prose at all, so
+  `language.c` now produces **zero** README evidence
+  (`readme_safe_aliases()` is empty for it); language-stats extraction
+  remains the practical source of C evidence.
+- Pinned by dedicated tests in `tests/test_evidence_extraction_readme.py`
+  (the `test_bare_*_no_longer_matches_*` / `test_*_still_matches_*`
+  pairs) and by `tests/test_technical_concepts.py`'s
+  `readme_safe_aliases()` / `resolve_concept()` regression tests.
+- Other short-and-also-an-English-word aliases already in the registry
+  (e.g. `react`, `flask`, `express`) were **not** evaluated this round —
+  out of this cleanup's scope, which was bounded to the aliases live
+  validation actually flagged plus the explicitly-named `js`/`ts`/`c`
+  short-alias class. A future pass can mark more `readme_unsafe_aliases`
+  entries the same data-driven way if real validation surfaces them.
+
+### 15.7 Dependency mapping (`extraction/dependency_evidence.py`)
+
+**No second "package name -> concept" table.** Package/dependency names
+resolve through the exact same `concepts.registry` aliases every other
+evidence source uses (`resolve_concept(package_name)`) — `torch`,
+`psycopg2-binary`, `next`, etc. are registered there once. Adding a
+mapping is one alias on one `TechnicalConcept` entry in
+`concepts/registry.py`, not a change to any extraction algorithm.
+
+**Unknown dependencies are deliberately NOT turned into `unresolved:`
+Evidence** (unlike languages, §15.5) — they are tracked as a plain list
+of names on `EvidenceExtractionResult.unknown_dependency_names` (a
+pipeline-level diagnostic, not part of `CandidateEvidenceProfile`) and
+otherwise dropped. A dependency manifest can list dozens to hundreds of
+packages (`sindresorhus`'s `package.json` alone produced 185 unknown
+names in live validation — mostly `@scope/package`-style tooling and
+transitive-looking names); turning every one into an Evidence row would
+flood the evidence pool with noise, not signal — exactly what the
+milestone's "do not pretend every dependency is a useful technical
+concept" instruction warns against. This mirrors `v1_bridge.py`'s
+existing topics-skip precedent, not its primary_language-always-evidence
+precedent.
+
+Same-package-in-both-sections policy (`package.json`): `dependencies` is
+canonical; a package listed in both `dependencies` and `devDependencies`
+produces exactly one declaration, from `dependencies`.
+
+### 15.8 Docker semantics (`extraction/docker.py`)
+
+Presence-only, from the same one root-listing call §15.1 already makes —
+no Dockerfile/compose CONTENT is ever read or judged. A `Dockerfile` or
+compose file at the repository root is `STRONG` confidence that Docker/
+containerization is used, and nothing more (confidence-vs-proficiency,
+§14). Multiple present Docker-related files (e.g. both `Dockerfile` and
+`docker-compose.yml`) produce separate Evidence items (different
+`file_path`s, so not exact duplicates) — a repository "has Docker AND has
+a compose setup" is two distinct, separately-provenanced facts, not
+merged into one.
+
+### 15.9 Confidence assignments
+
+| Source | `evidence_type` | Confidence |
+|---|---|---|
+| Repository language, < 40% of bytes | `REPOSITORY_LANGUAGE` | `WEAK` |
+| Repository language, ≥ 40% of bytes | `REPOSITORY_LANGUAGE` | `MODERATE` |
+| README concept mention | `README` | `MODERATE` |
+| Dependency-manifest declaration | `DEPENDENCY` | `STRONG` |
+| Docker/compose file presence | `DOCKER` | `STRONG` |
+
+The existing 3-level `WEAK`/`MODERATE`/`STRONG` ordinal scale
+(Milestone 5C) proved sufficient for every real extractor built this
+milestone — no case was found where two genuinely different
+confidence levels needed to be collapsed into the same tier. Not
+changed.
+
+### 15.10 Failure semantics (`pipeline/evidence.py`)
+
+Every network call in `_analyze_repository()` is isolated in its own
+try/except; one failing source degrades only that source, never aborts
+the rest of that repository's analysis or any other selected repository:
+
+| Situation | Outcome |
+|---|---|
+| README / manifest genuinely absent (404) | Expected absence — no Evidence, NOT recorded as a failure (`get_repository_readme_with_path()` already translates 404 -> `None`; an absent manifest simply never appears in `discover_supported_root_files()`'s result) |
+| Language-stats fetch fails (timeout, 5xx, ...) | Recorded as an `ExtractionFailure` (`source="languages"`); repo added to `partially_analyzed`; other sources for that repo still attempted |
+| README fetch fails (non-404) | Recorded as an `ExtractionFailure` (`source="readme"`) |
+| Root-listing fetch fails | Recorded (`source="root_contents"`); manifest/Docker detection skipped for that repo (nothing to discover files from) — languages/README for that repo are unaffected |
+| A present manifest file fails to fetch | Recorded (`source=<filename>`) |
+| A present manifest file is malformed (bad TOML/JSON) | Recorded (`source=<filename>`, error text from `tomllib.TOMLDecodeError` / `json.JSONDecodeError`) — that ONE file's evidence is skipped, everything else continues |
+| `GitHubRateLimitError`, anywhere | Propagates immediately and aborts the WHOLE run (mirrors V1's existing batch-abort policy, `pipeline/analyze.py` §8) — never caught, never degraded into a partial result |
+
+`RepositoryAnalysisCoverage.partially_analyzed` (§15.3) is the queryable,
+per-repository summary of this table's failure rows.
+`EvidenceExtractionResult.extractor_failures` carries the full detail
+(`repository`, `source`, `error` message) for reporting.
+
+### 15.11 Real-account validation
+
+Run via `scripts/inspect_evidence_profile.py <username>` (inspection
+only — no persistence, no score of any kind) against four accounts
+chosen for diversity, using ONLY the new V2 pipeline:
+
+**Milestone 5D.1 correction:** this table previously swapped the
+"Requests" and "Evidence items" columns for `karpathy` and
+`sindresorhus` (worked around at the time with a footnote instead of
+being fixed). It also now reflects a RE-RUN of all four accounts against
+the fixed README extractor (`readme:v2`) — `Evidence items` and
+`Concepts detected` dropped for every account that had a bare
+`go`/`next`/`js` false positive, confirming the fix; `API requests` is
+unaffected (README matching doesn't change what's fetched, only what's
+extracted from it) and still matches §15.4 exactly, for every row.
+
+| Account | Profile | Repos discovered | Repos analyzed | Actual API requests | Evidence items | Concepts detected | Extractor failures |
+|---|---|---|---|---|---|---|---|
+| `Jango1324` | Python/web, small account | 20 | 15 | 53 | 57 (was 62) | 16 (was 17) | 0 |
+| `torvalds` | C/systems | 12 | 12 | 38 | 31 (was 37) | 14 (was 15) | 0 |
+| `karpathy` | Python/ML | 63 | 15 | 54 | 96 (was 111) | 20 (was 22) | 0 |
+| `sindresorhus` | JS/TS, 1,140+ repos | 1,141 | 15 | 70 | 65 (was 84) | 16 (was 19) | 0 |
+
+("was ..." = the Milestone 5D pre-fix number, kept for a direct
+before/after comparison — not a second measurement to reconcile.)
+
+Zero extractor failures across all four real accounts. The bare
+`go`/`next`/`js` README false positives originally found here (Milestone
+5D) are fixed as of Milestone 5D.1 (§15.6) — confirmed by this re-run:
+`torvalds/1590A` and `karpathy/autoresearch` no longer produce
+`language.go` README evidence, and `Jango1324/Arduino-Based-Media-Player`
+no longer produces `framework.nextjs` README evidence from "Next Track";
+`framework.nextjs` is still correctly detected for `Jango1324` overall,
+from its actual `package.json` dependency (STRONG confidence, unaffected
+by the README-only restriction). No obvious false NEGATIVE was found
+in manual review of the provenance output (every dependency/language/
+Docker signal actually present in a selected repository's root was
+detected) — the only "missing" evidence is entirely explained by the
+top-N selection boundary (§15.1), which is honestly represented via
+`discovered`-not-`analyzed`, never silently absent.
+
+**`Jango1324/Pneumonia-Detection-Ai`** (Part 15's named edge case):
+confirmed still outside the top 15 in this milestone's live run —
+`discovered=yes, analyzed=no`. Not manually forced in; no ranking-weight
+or job-aware special-casing was added for it, per the milestone's
+explicit instruction. It appears in `inspect_evidence_profile.py`'s
+"discovered but NOT analyzed" section for `Jango1324` like any other
+excluded repository.
+
+### 15.12 Known limitations
+
+- README matching's short-alias false positives (bare `go`/`next`/`js`/
+  `ts`/`c`) are fixed as of Milestone 5D.1 by excluding those specific
+  aliases from prose matching (§15.6) — but the underlying limitation is
+  structural, not patched away: bare "Go" (and bare "C") genuinely cannot
+  be told apart from ordinary English by literal, context-free keyword
+  matching, so this milestone chooses to detect them via no README
+  signal at all rather than guess, relying on language-stats/dependency
+  evidence instead. Not fixable within "no fuzzy inference, no LLM"
+  scope; any *other* short-and-also-an-English-word alias not yet
+  evaluated (§15.6's `react`/`flask`/`express` note) could still produce
+  the same class of false positive until reviewed the same way.
+- The concept registry remains small and representative (now ~35
+  concepts across languages, ML/data, web frameworks, ORMs,
+  infrastructure) — most real-world dependency names resolve to
+  `unknown_dependency_names`, by design (§15.7), not registry
+  incompleteness alone.
+- `Pipfile`/`environment.yml`, source imports, test-directory evidence,
+  CI-workflow evidence, and notebook content analysis remain unimplemented
+  (§15.2) — explicitly post-MVP per the Milestone 5A design doc Part 12.
+  A meaningful language like `Jupyter Notebook` IS still detected (via
+  `languages.py`, from GitHub's own language stats), just not the
+  notebooks' cell *content*.
+- `EvidenceExtractionResult`'s diagnostics (`extractor_failures`,
+  `unknown_dependency_names`) are pipeline-level, not persisted anywhere
+  and not part of `CandidateEvidenceProfile` — a future milestone that
+  wants to persist or report on them across runs needs its own decision
+  about where that data lives.
+
+See `docs/CHANGELOG_DEV.md`'s Milestone 5D entry for the full narrative,
+and `scripts/inspect_evidence_profile.py` to reproduce §15.11's numbers
+against any public GitHub account.
+
+## 16. Context-safe concept resolution (Milestone 5D.1)
+
+Milestone 5D's initial real-world validation (§15.11) found that some
+`concepts.registry` aliases are safe for the STRUCTURED sources they were
+added for (a `package.json` dependency key, a GitHub language-stats name)
+but produce false-positive evidence when the exact same alias list is
+matched against FREE-FORM README prose — a fundamentally more ambiguous
+context. Full detail is inline at §15.6 (the fix, per-alias) and §15.11
+(the before/after re-run numbers); this section is the short version.
+
+**Root cause:** one flat `aliases` tuple per `TechnicalConcept`, matched
+identically by every source (`resolve_concept()` for structured sources,
+`readme.py`'s own loop over `concept.aliases` for prose) — there was no
+way for a concept to say "this alias is fine for a package name, not for
+a sentence."
+
+**Fix (`concepts/models.py`):** `TechnicalConcept` gained one new field,
+`readme_unsafe_aliases: frozenset[str]` (validated in `__post_init__` to
+be a subset of `aliases`), and one new method, `readme_safe_aliases()`
+(`aliases` minus `readme_unsafe_aliases`). `resolve_concept()` and every
+structured-source caller (`dependency_evidence.py`, `languages.py`) are
+completely unchanged — they still resolve against the full `aliases`.
+Only `evidence/extraction/readme.py` was changed, to iterate
+`concept.readme_safe_aliases()` instead of `concept.aliases`. This is
+the "source-aware alias metadata" design, not a second parallel
+dependency-alias table (a `DEPENDENCY_CONCEPT_ALIASES`-style mapping was
+considered and rejected — `resolve_concept()` already does exactly the
+right thing for structured sources; the only source that needed
+restricting was README prose).
+
+**Data changed (`concepts/registry.py`, `CONCEPT_REGISTRY_VERSION` 2 ->
+3):** `readme_unsafe_aliases={"go"}` / `{"next"}` / `{"js"}` / `{"ts"}` /
+`{"c"}` on `language.go` / `framework.nextjs` / `language.javascript` /
+`language.typescript` / `language.c` respectively. No concept added,
+renamed, or removed; `normalize_term()` unchanged.
+
+**Extractor version bumped (`readme:v1` -> `readme:v2`,
+`evidence/extraction/readme.py`):** behavior changed (which mentions
+produce evidence), so the version string changed — every other
+extractor's behavior is unchanged, so no other extractor version moved.
+
+**Not bumped, and why:** `EVIDENCE_SCHEMA_VERSION` stays `2` — no field
+was added/removed/retyped on `Evidence`, `CandidateConceptSummary`,
+`CandidateEvidenceProfile`, or `RepositoryAnalysisCoverage` (see
+`evidence/types.py`'s own bump policy: it tracks SHAPE, not extractor
+behavior). `SCORING_RUBRIC_VERSION`, `DATASET_VERSION`, and
+`REPOSITORY_RANKING_VERSION` are untouched, per instruction — nothing in
+this cleanup touches scoring, the dataset schema, or repository ranking.
+
+**Result, confirmed by re-running §15.11's same four accounts against
+the fixed extractor** (see that section's corrected table): `torvalds`
+and `karpathy` no longer produce `language.go` README evidence from
+ordinary English ("I go for...", "let it go"); `Jango1324` no longer
+produces `framework.nextjs` README evidence from "Next Track", while its
+real `package.json` `"next"` dependency still correctly resolves to
+`framework.nextjs` at `STRONG` confidence, unaffected. Zero regressions
+in structured extraction (dependency mapping, language-statistics
+resolution) — covered by dedicated regression tests in
+`tests/test_evidence_extraction_dependency_mapping.py` and
+`tests/test_evidence_extraction_languages.py`.
+
+**Known remaining limitation, unchanged from §15.6/§15.12:** bare "Go"
+in a README (e.g. "Written in Go") still produces no evidence — there is
+no literal, deterministic way to tell it apart from the English verb
+without exactly the fuzzy/NLP inference this project avoids. This is an
+intentional precision-over-recall choice, not an oversight: language-stats
+extraction (`languages.py`) remains the practical, and unaffected, source
+of Go evidence. Bare "C" is the same story. Other short-and-also-an-
+English-word aliases already in the registry (`react`, `flask`,
+`express`, ...) were out of scope for this cleanup and may need the same
+treatment if a future real-account validation flags them.

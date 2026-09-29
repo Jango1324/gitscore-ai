@@ -7,9 +7,15 @@ concept is adding one entry to _CONCEPTS below -- no change to
 normalize.py, ConceptRegistry, or resolve_concept.
 
 Bump CONCEPT_REGISTRY_VERSION whenever:
-  - a concept is added, renamed, or merged/deprecated, or
+  - a concept is added, renamed, or merged/deprecated,
   - normalize.py's normalization rules change (that changes which
-    aliases resolve).
+    aliases resolve), or
+  - a concept's alias-safety metadata changes (`readme_unsafe_aliases`)
+    -- this doesn't change what `resolve_concept()` matches, but it does
+    change what the registry's data means for consumers that read it
+    (see models.py's `TechnicalConcept.readme_safe_aliases()`), which is
+    exactly the kind of registry-content change this version exists to
+    track.
 Never touch SCORING_RUBRIC_VERSION, DATASET_VERSION (dataset/schema.py),
 or REPOSITORY_RANKING_VERSION (ranking/config.py) for any of this --
 this registry is an independent concern.
@@ -26,13 +32,33 @@ from dataclasses import dataclass
 from gitscore.concepts.models import TechnicalConcept
 from gitscore.concepts.normalize import normalize_term
 
-CONCEPT_REGISTRY_VERSION = 1
+CONCEPT_REGISTRY_VERSION = 3
 
 # A small, representative registry spanning several categories -- proves
 # the mechanism (data-driven, no if/elif ladder) without building a full
 # ontology. Aliases are the raw, human-typed forms; normalize_term()
 # is applied to them (and to lookup terms) before comparison, so an
 # alias here does not need to already be lowercase/punctuation-free.
+#
+# Milestone 5D additions (see docs/CHANGELOG_DEV.md's Milestone 5D entry):
+# a representative set of GitHub-reported languages (so
+# evidence/extraction/languages.py has something to resolve real language
+# names against) plus a handful of dependency-manifest-only concepts
+# (frameworks/ORMs that only ever show up as a package name, never as a
+# GitHub "language"). Package/dependency names resolve through THESE SAME
+# aliases via resolve_concept() -- Milestone 5D does not maintain a
+# second, separate "package name -> concept" table; see
+# evidence/extraction/dependency_evidence.py.
+#
+# Milestone 5D.1: a handful of these aliases ("go", "next", "js", "ts",
+# the bare "c") are also common/short enough to collide with ordinary
+# English in free-form README prose (see the real-world false positives
+# this milestone fixed, in docs/CHANGELOG_DEV.md). Those are marked
+# `readme_unsafe_aliases` on the concept below -- they remain valid
+# `resolve_concept()` aliases for structured sources (a package.json
+# key, a GitHub language-stats name), just excluded from
+# evidence/extraction/readme.py's matching. See models.py's
+# `TechnicalConcept.readme_safe_aliases()` for the mechanism.
 _CONCEPTS: tuple[TechnicalConcept, ...] = (
     TechnicalConcept(
         concept_id="language.python",
@@ -41,10 +67,124 @@ _CONCEPTS: tuple[TechnicalConcept, ...] = (
         aliases=("python", "python3"),
     ),
     TechnicalConcept(
+        concept_id="language.javascript",
+        display_name="JavaScript",
+        category="language",
+        aliases=("javascript", "js"),
+        # "js" is a legitimate package/language-stats shorthand but is
+        # also the suffix of ".js"-named frameworks (Next.js, Vue.js,
+        # Node.js) -- the boundary regex treats "." as a valid separator,
+        # so a bare "js" alias would give every one of those README
+        # mentions incidental JavaScript evidence. "javascript" (the full
+        # word) is unambiguous and stays README-safe.
+        readme_unsafe_aliases=frozenset({"js"}),
+    ),
+    TechnicalConcept(
+        concept_id="language.typescript",
+        display_name="TypeScript",
+        category="language",
+        aliases=("typescript", "ts"),
+        # Same short-alias risk as "js" above (e.g. common non-code
+        # abbreviations); "typescript" alone is README-safe.
+        readme_unsafe_aliases=frozenset({"ts"}),
+    ),
+    TechnicalConcept(
+        concept_id="language.java",
+        display_name="Java",
+        category="language",
+        aliases=("java",),
+    ),
+    TechnicalConcept(
+        concept_id="language.c",
+        display_name="C",
+        category="language",
+        aliases=("c",),
+        # "c" is a single letter -- there is no literal, deterministic
+        # way to tell it apart from ordinary prose ("plan a, b, or c").
+        # It has no other alias to fall back to, so language.c produces
+        # NO README evidence at all (readme_safe_aliases() is empty for
+        # this concept) -- a documented limitation, not a bug. GitHub
+        # language-stats extraction (languages.py), which resolves
+        # against the SAME alias unaffected by this restriction, remains
+        # the practical source of C evidence.
+        readme_unsafe_aliases=frozenset({"c"}),
+    ),
+    TechnicalConcept(
+        concept_id="language.cpp",
+        display_name="C++",
+        category="language",
+        aliases=("c++", "cpp"),
+    ),
+    TechnicalConcept(
+        concept_id="language.csharp",
+        display_name="C#",
+        category="language",
+        aliases=("c#", "csharp"),
+    ),
+    TechnicalConcept(
+        concept_id="language.go",
+        display_name="Go",
+        category="language",
+        aliases=("go", "golang"),
+        # Bare "go" is both the language name and an ordinary English
+        # verb ("I go for...", "let it go") -- literally indistinguishable
+        # to context-free, boundary-only matching (Milestone 5D real-world
+        # validation, torvalds/1590A and karpathy/autoresearch both hit
+        # this). "go" stays a valid resolve_concept() alias (GitHub's
+        # language-stats name for this language IS "Go", and that's a
+        # structured, always-safe source) but is excluded from README
+        # prose matching. "golang" is unambiguous and stays README-safe --
+        # "Written in Golang" still produces evidence; bare "Written in
+        # Go" intentionally does not (prefer precision over a guess).
+        readme_unsafe_aliases=frozenset({"go"}),
+    ),
+    TechnicalConcept(
+        concept_id="language.rust",
+        display_name="Rust",
+        category="language",
+        aliases=("rust",),
+    ),
+    TechnicalConcept(
+        concept_id="language.ruby",
+        display_name="Ruby",
+        category="language",
+        aliases=("ruby",),
+    ),
+    TechnicalConcept(
+        concept_id="language.php",
+        display_name="PHP",
+        category="language",
+        aliases=("php",),
+    ),
+    TechnicalConcept(
+        concept_id="language.shell",
+        display_name="Shell",
+        category="language",
+        aliases=("shell", "bash", "shell script"),
+    ),
+    TechnicalConcept(
+        concept_id="language.html",
+        display_name="HTML",
+        category="language",
+        aliases=("html",),
+    ),
+    TechnicalConcept(
+        concept_id="language.css",
+        display_name="CSS",
+        category="language",
+        aliases=("css",),
+    ),
+    TechnicalConcept(
+        concept_id="language.jupyter_notebook",
+        display_name="Jupyter Notebook",
+        category="language",
+        aliases=("jupyter notebook", "ipynb"),
+    ),
+    TechnicalConcept(
         concept_id="database.postgresql",
         display_name="PostgreSQL",
         category="database",
-        aliases=("postgresql", "postgres", "psql", "psycopg2"),
+        aliases=("postgresql", "postgres", "psql", "psycopg2", "psycopg2-binary", "psycopg"),
     ),
     TechnicalConcept(
         concept_id="database.redis",
@@ -59,6 +199,18 @@ _CONCEPTS: tuple[TechnicalConcept, ...] = (
         aliases=("pytorch", "torch"),
     ),
     TechnicalConcept(
+        concept_id="ml.framework.tensorflow",
+        display_name="TensorFlow",
+        category="ml_framework",
+        aliases=("tensorflow",),
+    ),
+    TechnicalConcept(
+        concept_id="data.library.pandas",
+        display_name="pandas",
+        category="data_library",
+        aliases=("pandas",),
+    ),
+    TechnicalConcept(
         concept_id="framework.react",
         display_name="React",
         category="frontend_framework",
@@ -68,7 +220,51 @@ _CONCEPTS: tuple[TechnicalConcept, ...] = (
         concept_id="framework.nextjs",
         display_name="Next.js",
         category="frontend_framework",
+        # "next" (bare) is the real, literal npm package name
+        # `package.json`'s "dependencies" declares Next.js under, so it
+        # stays a resolve_concept() alias -- structured dependency
+        # evidence needs it (Milestone 5D Part 11: dependency names
+        # resolve through this SAME table, no second package-name
+        # mapping). But it is ALSO ordinary English ("Next Track", "next
+        # steps" -- observed live on
+        # Jango1324/Arduino-Based-Media-Player, Milestone 5D real-world
+        # validation), so Milestone 5D.1 excludes it from README prose
+        # matching specifically: "next.js"/"nextjs" (unambiguous,
+        # punctuation- or case-distinguished forms) remain README-safe,
+        # so "Uses Next.js" still produces evidence. See
+        # docs/CHANGELOG_DEV.md's Milestone 5D.1 entry.
         aliases=("next", "next.js", "nextjs"),
+        readme_unsafe_aliases=frozenset({"next"}),
+    ),
+    TechnicalConcept(
+        concept_id="framework.express",
+        display_name="Express",
+        category="backend_framework",
+        aliases=("express", "express.js", "expressjs"),
+    ),
+    TechnicalConcept(
+        concept_id="framework.nestjs",
+        display_name="NestJS",
+        category="backend_framework",
+        aliases=("nestjs", "nest.js", "@nestjs"),
+    ),
+    TechnicalConcept(
+        concept_id="framework.fastapi",
+        display_name="FastAPI",
+        category="backend_framework",
+        aliases=("fastapi",),
+    ),
+    TechnicalConcept(
+        concept_id="framework.flask",
+        display_name="Flask",
+        category="backend_framework",
+        aliases=("flask",),
+    ),
+    TechnicalConcept(
+        concept_id="orm.prisma",
+        display_name="Prisma",
+        category="orm",
+        aliases=("prisma", "@prisma"),
     ),
     TechnicalConcept(
         concept_id="infra.docker",

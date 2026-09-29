@@ -109,6 +109,37 @@ def test_zero_repositories_is_trivially_complete():
 
 
 # ---------------------------------------------------------------------------
+# partially_analyzed (Milestone 5D)
+# ---------------------------------------------------------------------------
+
+
+def test_partially_analyzed_defaults_to_empty():
+    repos = [repo("r1")]
+    profile = build_candidate_evidence_profile("candidate", discovered=repos, analyzed=repos, evidence_items=[])
+    assert profile.coverage.partially_analyzed == ()
+    assert profile.coverage.partially_analyzed_count == 0
+
+
+def test_partially_analyzed_is_a_subset_reported_separately_from_analyzed():
+    repos = [repo("r1"), repo("r2")]
+    profile = build_candidate_evidence_profile(
+        "candidate",
+        discovered=repos,
+        analyzed=repos,
+        evidence_items=[],
+        partially_analyzed=[repo("r1")],
+    )
+
+    assert profile.coverage.partially_analyzed_count == 1
+    assert profile.coverage.partially_analyzed[0].name == "r1"
+    # A partial failure does not demote the repo out of `analyzed`, and
+    # does not change `is_complete` (which only compares discovered vs.
+    # analyzed counts).
+    assert profile.coverage.analyzed_count == 2
+    assert profile.coverage.is_complete is True
+
+
+# ---------------------------------------------------------------------------
 # Determinism
 # ---------------------------------------------------------------------------
 

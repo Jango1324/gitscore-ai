@@ -177,7 +177,11 @@ class GitHubClient:
         response = self._get(url)
         return response.json()
 
-    def get_repository_readme(self, owner, repo_name):
+    def _fetch_readme(self, owner, repo_name):
+        """Shared implementation for get_repository_readme() and
+        get_repository_readme_with_path() (Milestone 5D) so the decode
+        logic exists in exactly one place. Returns (text, path) or None.
+        """
         url = f"https://api.github.com/repos/{owner}/{repo_name}/readme"
         try:
             response = self._get(url)
@@ -186,4 +190,78 @@ class GitHubClient:
 
         data = response.json()
         decoded_bytes = base64.b64decode(data["content"])
-        return decoded_bytes.decode("utf-8")
+        return decoded_bytes.decode("utf-8"), data.get("path") or "README.md"
+
+    def get_repository_readme(self, owner, repo_name):
+        result = self._fetch_readme(owner, repo_name)
+        return result[0] if result else None
+
+    def get_repository_readme_with_path(self, owner, repo_name):
+        """Like get_repository_readme(), but also returns the actual README
+        path GitHub resolved (e.g. "README.md", "docs/README.rst") for
+        provenance. Added for Milestone 5D's evidence extractors --
+        get_repository_readme()'s own signature/behavior is unchanged, so
+        V1 (pipeline/analyze.py, github/parser.py::parse_repo) is unaffected.
+        """
+        return self._fetch_readme(owner, repo_name)
+
+    def get_repository_root_contents(self, owner, repo):
+        """List the repository's root-level directory entries (bounded,
+        non-recursive -- Milestone 5D Part 3's "bounded directory/tree
+        metadata request").
+
+        One request, regardless of how many candidate manifest/Docker
+        filenames a caller is looking for -- see
+        gitscore.evidence.extraction for why this is preferred over
+        probing each candidate filename individually with its own request.
+
+        Uses the Contents API with no explicit `ref`, so it automatically
+        follows the repository's actual default branch (main, master, or
+        anything else) -- no special-casing needed for non-"main" default
+        branches.
+
+        A 404 means the repository has no commits/files yet (a genuinely
+        empty repository) -- an expected condition, not a failure --
+        mirroring get_repository_readme()'s existing "404 -> absence, not
+        failure" convention. Returns an empty list in that case.
+        """
+        url = f"https://api.github.com/repos/{owner}/{repo}/contents"
+        try:
+            response = self._get(url)
+        except GitHubNotFoundError:
+            return []
+
+        payload = response.json()
+        if not isinstance(payload, list):
+            # A directory listing is always a list; a single-file
+            # repository root isn't a real GitHub shape. Treat any other
+            # shape as unexpected rather than silently misinterpreting it.
+            raise GitHubRequestError(
+                f"Unexpected root-contents payload for {owner}/{repo}: {payload!r}"
+            )
+        return payload
+
+    def get_repository_file(self, owner, repo, path):
+        """Fetch and decode one file's text content via the Contents API.
+
+        Callers are expected to already know the file exists (typically
+        from get_repository_root_contents()) -- unlike
+        get_repository_readme(), a 404 here is NOT swallowed into `None`:
+        it would mean the file disappeared between listing and fetch, a
+        real, reportable failure rather than an expected absence.
+        """
+        url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}"
+        response = self._get(url)
+        data = response.json()
+        if data.get("encoding") != "base64" or data.get("content") is None:
+            # The Contents API omits inline content for files over ~1MB
+            # (returns encoding="none"). Manifest/Docker files this
+            # milestone reads are never realistically that large; treat
+            # it as a reportable failure for this file rather than
+            # silently returning nothing.
+            raise GitHubRequestError(
+                f"Unsupported content encoding for {owner}/{repo}/{path}: "
+                f"{data.get('encoding')!r} (file may exceed the Contents API's inline size limit)"
+            )
+        raw_bytes = base64.b64decode(data["content"])
+        return raw_bytes.decode("utf-8")

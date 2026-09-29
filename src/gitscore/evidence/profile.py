@@ -33,13 +33,31 @@ class RepositoryAnalysisCoverage:
     be a representable, queryable fact on the profile itself, not
     something an explanation layer has to reconstruct after the fact.
 
-    Milestone 5C does not populate `analyzed` from a real deep-analysis
-    step (no such extractor exists yet) -- callers pass whatever they
-    have (e.g. an empty tuple, or Milestone 5B's ranked top-N).
+    Milestone 5C did not populate `analyzed` from a real deep-analysis
+    step (no such extractor existed yet) -- callers passed whatever they
+    had (e.g. an empty tuple, or Milestone 5B's ranked top-N). Milestone
+    5D is the first caller with a real extraction step, and with it a
+    real distinction `discovered`/`analyzed` alone cannot express:
+    "attempted, but a source could not be inspected" (e.g. a timeout
+    fetching a repo's languages, or a root-listing fetch that failed) is
+    NOT the same fact as "attempted and everything was cleanly present or
+    cleanly absent." See Milestone 5D Part 12 (docs/CHANGELOG_DEV.md) for
+    the concrete failure semantics this represents.
+
+    `partially_analyzed` (Milestone 5D, minimal additive extension -- see
+    EVIDENCE_SCHEMA_VERSION bump rationale in evidence/types.py) is the
+    SUBSET of `analyzed` where at least one evidence source for that
+    repository could not be inspected (a real failure -- a rate limit
+    aside, which aborts the whole run rather than degrading one
+    repository -- not an expected absence like "no requirements.txt").
+    It does not add a new coverage *tier*: every `partially_analyzed`
+    repository is still counted in `analyzed`/`analyzed_count` and in
+    `is_complete`, exactly as before this field existed.
     """
 
     discovered: tuple[RepositoryIdentity, ...]
     analyzed: tuple[RepositoryIdentity, ...]
+    partially_analyzed: tuple[RepositoryIdentity, ...] = ()
 
     @property
     def discovered_count(self) -> int:
@@ -50,8 +68,17 @@ class RepositoryAnalysisCoverage:
         return len(self.analyzed)
 
     @property
+    def partially_analyzed_count(self) -> int:
+        return len(self.partially_analyzed)
+
+    @property
     def is_complete(self) -> bool:
-        """True if every discovered repository was deeply analyzed."""
+        """True if every discovered repository was deeply analyzed.
+
+        Says nothing about whether every analyzed repository's sources
+        were ALL successfully inspected -- see `partially_analyzed` for
+        that.
+        """
         return self.analyzed_count == self.discovered_count
 
 
@@ -89,6 +116,7 @@ def build_candidate_evidence_profile(
     analyzed,
     evidence_items,
     *,
+    partially_analyzed=(),
     collected_at: datetime | None = None,
 ) -> CandidateEvidenceProfile:
     """The only intended way to construct a CandidateEvidenceProfile.
@@ -96,6 +124,10 @@ def build_candidate_evidence_profile(
     Deduplicates `evidence_items` (see evidence/summary.py's duplicate
     policy), derives `concept_summaries` from the deduplicated set, and
     stamps the current schema/registry versions.
+
+    `partially_analyzed` (Milestone 5D, optional, defaults to `()`) is
+    the subset of `analyzed` where at least one evidence source could not
+    be inspected -- see RepositoryAnalysisCoverage's docstring.
     """
     deduplicated = tuple(sorted(set(evidence_items), key=evidence_sort_key))
     summaries = build_concept_summaries(deduplicated)
@@ -103,7 +135,9 @@ def build_candidate_evidence_profile(
     return CandidateEvidenceProfile(
         candidate=candidate,
         coverage=RepositoryAnalysisCoverage(
-            discovered=tuple(discovered), analyzed=tuple(analyzed)
+            discovered=tuple(discovered),
+            analyzed=tuple(analyzed),
+            partially_analyzed=tuple(partially_analyzed),
         ),
         evidence=deduplicated,
         concept_summaries=MappingProxyType(summaries),

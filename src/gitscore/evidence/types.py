@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from enum import Enum, IntEnum
 
-EVIDENCE_SCHEMA_VERSION = 1
+EVIDENCE_SCHEMA_VERSION = 2
 
 
 class EvidenceType(str, Enum):

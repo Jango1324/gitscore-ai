@@ -1,5 +1,422 @@
 # GitScore AI — Dev Changelog
 
+## 2026-09-28 — Milestone 5D.1: Context-safe concept resolution
+
+**What changed:** A focused correctness fix to Milestone 5D's README
+extractor, requested after real-world validation showed it was treating
+known ordinary-English false positives ("go", "next", the "js" suffix of
+".js"-named frameworks) as accepted behavior instead of fixing them. No
+architecture, pipeline, ranking, evidence model, API strategy, confidence
+system, or extraction-scope change — see `docs/ARCHITECTURE.md` §16 for
+the full design writeup; this entry summarizes.
+
+**Root cause:** `TechnicalConcept.aliases` was one flat list, matched
+identically by every source. A structured source (a `package.json` key,
+a GitHub language-stats name) hands the matcher an already-scoped,
+intentional term, so short aliases like `"go"`/`"next"`/`"js"` are
+completely safe there. Free-form README prose is not scoped at all —
+those same short aliases collide with ordinary English ("I **go** for
+large components", "**Next** Track") or with unrelated `.js`-suffixed
+names ("Next**.js**" incidentally satisfying a bare `"js"` alias).
+
+**Fix — source-aware alias metadata, not a second table:**
+`TechnicalConcept` (`concepts/models.py`) gained
+`readme_unsafe_aliases: frozenset[str]` (validated as a subset of
+`aliases` in `__post_init__`) and a `readme_safe_aliases()` method
+(`aliases` minus `readme_unsafe_aliases`). `concepts/registry.py` marks
+`"go"` (on `language.go`), `"next"` (on `framework.nextjs`), `"js"` (on
+`language.javascript`), `"ts"` (on `language.typescript`), and `"c"` (on
+`language.c`, its only alias) as `readme_unsafe`.
+`evidence/extraction/readme.py` is the ONLY caller of
+`readme_safe_aliases()` — it now matches that restricted list instead of
+the full `aliases`. `resolve_concept()` and every structured-source
+caller (`dependency_evidence.py`, `languages.py`) are byte-for-byte
+unchanged: they still resolve the full alias set, so `package.json`'s
+`"next"` dependency and GitHub's `"Go"` language-stats name keep
+resolving exactly as before. A `DEPENDENCY_CONCEPT_ALIASES`-style second
+mapping was considered and rejected — nothing about structured
+dependency resolution was actually broken, so nothing there needed
+changing.
+
+**README-safe alias policy:** an alias is README-safe by default; it is
+marked unsafe only when it is short and/or an ordinary English word that
+literal, boundary-only, case-insensitive matching cannot tell apart from
+non-technical prose. `"golang"`/`"next.js"`/`"nextjs"`/`"javascript"`/
+`"typescript"` remain README-safe unambiguous forms. `language.c`'s only
+alias (`"c"`, a single letter) has no safe form at all, so it now
+produces **zero** README evidence — a documented limitation (see below),
+not a bug.
+
+**Structured dependency alias policy:** unchanged from Milestone 5D — no
+second package-name table; `resolve_concept()`'s full alias set is
+exactly correct for a manifest declaration, which is unambiguous by
+construction.
+
+**Language-statistics resolution:** unchanged — `languages.py` still
+calls `resolve_concept()` with GitHub's exact language-stats names
+(`"Go"`, `"JavaScript"`, `"TypeScript"`, `"C"`, `"C++"`, ...), which
+resolve through the full alias set, not `readme_safe_aliases()`. Covered
+by a new regression test,
+`test_evidence_extraction_languages.py::test_short_readme_unsafe_aliases_still_resolve_githubs_exact_language_names`.
+
+**Versioning:**
+- `CONCEPT_REGISTRY_VERSION` 2 -> 3 — no concept added/renamed/merged,
+  but the registry's per-alias safety metadata changed, which its own
+  bump policy (`registry.py`) treats as a content change worth tracking.
+- `readme.py`'s `EXTRACTOR_VERSION` `readme:v1` -> `readme:v2` — its
+  matching behavior changed. No other extractor's version moved.
+- `EVIDENCE_SCHEMA_VERSION` stays `2` — no shape change to `Evidence`,
+  `CandidateConceptSummary`, `CandidateEvidenceProfile`, or
+  `RepositoryAnalysisCoverage`.
+- `SCORING_RUBRIC_VERSION`, `DATASET_VERSION`, `REPOSITORY_RANKING_VERSION`
+  untouched, per instruction.
+
+**Tests:** 2 existing version-pin tests updated
+(`test_technical_concepts.py::test_concept_registry_version_constant_exists_and_is_an_int`,
+updated for the 2 -> 3 bump). `test_evidence_extraction_readme.py`'s two
+former "known false positive, accepted" tests replaced with tests
+proving the false positive is GONE (`test_bare_next_no_longer_matches_ordinary_english`,
+`test_bare_go_no_longer_matches_ordinary_english_i_go_for`, `..._let_it_go`,
+`test_written_in_go_bare_form_is_a_documented_limitation_not_detected`),
+plus new tests for the surrounding behavior: `"next steps"`/`"Next Track"`
+still produce no evidence, `"Uses Next.js"` still matches
+`framework.nextjs`, a `Next.js` mention does NOT also produce
+`language.javascript` evidence, an independent `"JavaScript"` mention
+still does, `"golang"` still matches, and bare `"C"` never matches. 6 new
+tests added to `test_technical_concepts.py` for
+`readme_safe_aliases()`/the `__post_init__` subset validation, plus a
+resolve_concept() regression test confirming go/next/js/ts/c are still
+valid structured-source aliases. 1 new regression test each in
+`test_evidence_extraction_languages.py` (GitHub language-stats names) and
+`test_evidence_extraction_dependency_mapping.py` (`"next"` package
+dependency). All new tests are deterministic, offline, no network calls.
+**410 tests total, all passing** (up from 395; no test removed, several
+rewritten in place).
+
+**Real-account re-validation** (the same 4 accounts Milestone 5D's
+original validation used — `Jango1324`, `torvalds`, `karpathy`,
+`sindresorhus` — NOT the 18-account pilot, per instruction), via
+`scripts/inspect_evidence_profile.py`, confirms the false positives are
+gone: `torvalds/1590A` and `karpathy/autoresearch` no longer produce
+`language.go` README evidence; `Jango1324/Arduino-Based-Media-Player` no
+longer produces `framework.nextjs` README evidence from "Next Track", and
+`Jango1324`'s real `package.json` `"next"` dependency still correctly
+resolves to `framework.nextjs` at `STRONG` confidence. `API requests` is
+identical to Milestone 5D's original run for all four accounts (README
+matching doesn't change what's fetched); `Evidence items`/`Concepts
+detected` dropped for every account, as expected. Full corrected
+before/after table: `docs/ARCHITECTURE.md` §15.11 (also fixes that
+table's separate, unrelated Requests/Evidence-items column swap for
+`karpathy`/`sindresorhus`, found while re-measuring). Zero extractor
+failures across all four, both before and after.
+
+**Known remaining limitation (intentional, not fixed):** bare "Go"
+("Written in Go") and bare "C" still produce no README evidence — there
+is no literal, deterministic way to distinguish them from ordinary
+English without the fuzzy/NLP inference this project is scoped to avoid.
+Language-stats extraction remains the practical source for both. Other
+short-and-also-an-English-word registry aliases (`react`, `flask`,
+`express`, ...) were not evaluated this round — out of this cleanup's
+bounded scope — and may need the same `readme_unsafe_aliases` treatment
+if real validation flags them later.
+
+**Files changed:**
+- `src/gitscore/concepts/models.py` — `TechnicalConcept.readme_unsafe_aliases`,
+  `readme_safe_aliases()`, `__post_init__` subset validation.
+- `src/gitscore/concepts/registry.py` — `CONCEPT_REGISTRY_VERSION` 2->3;
+  `readme_unsafe_aliases` on `language.go`, `framework.nextjs`,
+  `language.javascript`, `language.typescript`, `language.c`; updated
+  module/entry docstrings (the old "accepted false positive" comments on
+  `framework.nextjs` no longer describe current behavior).
+- `src/gitscore/evidence/extraction/readme.py` — matches
+  `concept.readme_safe_aliases()` instead of `concept.aliases`;
+  `EXTRACTOR_VERSION` `readme:v1` -> `readme:v2`.
+- `src/gitscore/evidence/extraction/dependency_evidence.py` — clarifying
+  comment only (no behavior change): explains why this module
+  intentionally keeps using the full `aliases` list.
+- `tests/test_technical_concepts.py`, `tests/test_evidence_extraction_readme.py`,
+  `tests/test_evidence_extraction_languages.py`,
+  `tests/test_evidence_extraction_dependency_mapping.py` — see Tests above.
+- `docs/ARCHITECTURE.md` — new §16; §15.6/§15.11/§15.12 updated in place
+  (false positives now documented as fixed, not accepted; validation
+  table corrected and re-measured).
+- This changelog entry.
+
+**How to test:** `pytest` (whole suite, 410 tests, no network/token
+required) or `pytest tests/test_evidence_extraction_readme.py
+tests/test_technical_concepts.py tests/test_evidence_extraction_languages.py
+tests/test_evidence_extraction_dependency_mapping.py -v` for just the
+5D.1-relevant subset. Real-account re-validation:
+`python scripts/inspect_evidence_profile.py <username>` against
+`Jango1324`/`torvalds`/`karpathy`/`sindresorhus` (requires `GITHUB_TOKEN`
+in `.env`).
+
+**Explicitly NOT done this milestone (per instruction — wait for
+approval before starting):** Milestone 6, `JobRequirementProfile`,
+job-description parsing, any deterministic matcher, match scores,
+alternative-role discovery, CatBoost, LLM-based extraction, UI, no
+redesign of the pipeline/ranking/evidence model/API strategy/confidence
+system/extraction scope, no `react`/`flask`/`express`-style alias review
+beyond what was asked. No commit was made.
+
+## 2026-09-27 — Milestone 5D: Bounded technical evidence extraction
+
+**What changed:**
+
+The first real V2 evidence pipeline, connecting Milestone 5B's
+repository ranking to Milestone 5C's Evidence/CandidateEvidenceProfile
+domain model with an actual per-repository extraction step. New package
+`src/gitscore/evidence/extraction/` (`languages.py`, `readme.py`,
+`python_deps.py`, `js_deps.py`, `dependency_evidence.py`, `docker.py`,
+`files.py`) plus a new orchestrating entry point,
+`gitscore.pipeline.evidence.extract_candidate_evidence()`. **No job
+matching, no JobRequirementProfile, no job-description parsing, no match
+scores, no alternative-role discovery, no CatBoost, no LLM extraction, no
+UI, no source-code/test/CI/notebook-content crawling, no recursive
+repository crawling, no database schema change, no pilot recollection.**
+V1 (`features/*`, `scoring/readiness.py`, `pipeline/analyze.py`, Dataset
+V1) is byte-for-byte unchanged. 320 of Milestone 5C's 322 pre-existing
+tests untouched; 2 version-pin tests updated for a deliberate, documented
+version bump (see below); 73 new tests added. Full suite: **395 tests,
+all passing**, no live GitHub calls, no GitHub token required.
+
+**Why:** Milestones 5B and 5C each shipped as standalone, unconnected
+modules by design (validate each piece in isolation before wiring). This
+milestone is the first to connect them end-to-end and prove the whole
+loop — ranking bounds cost, extraction produces real provenance-backed
+Evidence — against real GitHub accounts, not just synthetic fixtures.
+
+**Full design writeup, API cost model (with real measured numbers across
+4 validated accounts), language-significance policy, README-matching
+policy and its two documented known false positives, dependency-mapping
+design, Docker semantics, confidence table, and failure-semantics table:
+see `docs/ARCHITECTURE.md` §15 (new).** This entry summarizes; §15 is the
+authoritative detail.
+
+**The new V2 flow:**
+
+```
+GitHub username
+  -> GitHubClient.get_repositories()        listing (5B, unchanged)
+  -> parse_repo_summary() -> rank_repositories()   top N=15 (5B, unchanged)
+  -> per selected repo: languages + README + ONE root-listing call
+     + get_repository_file() for whichever of 8 supported filenames
+     the root listing showed actually exist
+  -> extractors -> Evidence[]                (THIS MILESTONE)
+  -> build_candidate_evidence_profile()       CandidateEvidenceProfile (5C, unchanged)
+```
+
+**GitHub client additions (`github/client.py`):** `get_repository_readme_with_path()`
+(README text + its resolved path, for provenance),
+`get_repository_root_contents()` (one bounded, non-recursive root-listing
+call — a 404 means a genuinely empty repo, returns `[]`, not a failure),
+`get_repository_file()` (fetch one known-to-exist file by path; unlike
+the README method, a 404 here IS a real reportable failure — the file
+disappeared between listing and fetch). `get_repository_readme()`'s
+existing signature/behavior is unchanged; `_fetch_readme()` is now the
+one shared implementation both README methods call.
+
+**Extractors, versions, and confidence** (full rationale in
+ARCHITECTURE.md §15.5-§15.9):
+
+| Extractor | Evidence type | Confidence | Version |
+|---|---|---|---|
+| `languages.py` | `REPOSITORY_LANGUAGE` | `WEAK` (<40% of bytes) / `MODERATE` (≥40%) | `language:v1` |
+| `readme.py` | `README` | `MODERATE` | `readme:v1` |
+| `python_deps.py` (requirements.txt) | `DEPENDENCY` | `STRONG` | `requirements:v1` |
+| `python_deps.py` (pyproject.toml, `[project.dependencies]` only) | `DEPENDENCY` | `STRONG` | `pyproject:v1` |
+| `js_deps.py` (package.json `dependencies`+`devDependencies`) | `DEPENDENCY` | `STRONG` | `npm:v1` |
+| `docker.py` | `DOCKER` | `STRONG` | `docker:v1` |
+
+Language significance policy: a language must be ≥5.0% of a repo's
+byte total to produce evidence (`MIN_SIGNIFICANT_PERCENTAGE`,
+`languages.py`); ≥40.0% promotes `WEAK` to `MODERATE`
+(`MODERATE_CONFIDENCE_PERCENTAGE`). Percentage-based, not a byte floor,
+because GitHub's language-stats endpoint already normalizes for repo
+size. An unresolved-but-meaningful language still produces
+`unresolved:<name>` evidence (mirrors `v1_bridge.py`'s existing
+`primary_language` handling) — 8 distinct unresolved languages were
+observed live (`cmake`, `makefile`, `openscad`, `qml`, `xslt`, `lua`,
+`astro`, `postscript`, `swift`), confirming the policy works as intended
+rather than silently dropping real signal.
+
+Dependency mapping is **data, not code**: package/dependency names
+resolve through the SAME `concepts.registry` aliases every other source
+uses (`resolve_concept()`) — no second "package name → concept" table.
+Registry additions this milestone: a representative set of GitHub
+language names (`javascript`, `typescript`, `java`, `c`, `cpp`, `csharp`,
+`go`, `rust`, `ruby`, `php`, `shell`, `html`, `css`,
+`jupyter_notebook`) plus a handful of dependency-manifest-only concepts
+(`tensorflow`, `pandas`, `express`, `nestjs`, `fastapi`, `flask`,
+`prisma`) and expanded aliases on `postgresql`
+(`psycopg2`/`psycopg2-binary`/`psycopg`). `CONCEPT_REGISTRY_VERSION`
+bumped 1 → 2 (content change, per its own bump policy). **Unknown**
+dependency names are deliberately NOT turned into `unresolved:` Evidence
+(unlike languages) — tracked only as a plain diagnostic list
+(`EvidenceExtractionResult.unknown_dependency_names`), never written into
+the registry or the Evidence pool, because a manifest can list hundreds
+of irrelevant/niche package names (185 unique unknown names observed on
+`sindresorhus` alone) and turning every one into Evidence would be noise,
+not signal — exactly what the "do not pretend every dependency is a
+useful technical concept" instruction warns against. This mirrors
+`v1_bridge.py`'s existing topics-skip precedent, not its
+always-evidence primary-language precedent.
+
+**Root-file discovery (`files.py`):** ONE `get_repository_root_contents()`
+call per selected repo returns every root entry; `discover_supported_root_files()`
+is a pure, case-sensitive filter against the 8 supported filenames
+(`requirements.txt`, `pyproject.toml`, `package.json`, `Dockerfile`,
+`docker-compose.yml`, `docker-compose.yaml`, `compose.yml`,
+`compose.yaml`) — never a recursive crawl, never one probe-request per
+candidate filename. `Pipfile`/`environment.yml` were evaluated (Part 7's
+"optional if trivial") and deliberately **not** added: none of the four
+validated real accounts had either, and `requirements.txt`/
+`pyproject.toml`/`package.json` already covered every dependency signal
+actually observed.
+
+**pyproject.toml support is deliberately bounded:** only PEP 621's
+`[project] dependencies = [...]` string array, parsed with the stdlib
+`tomllib` (no new dependency — the project already requires Python
+≥3.11). Poetry's `[tool.poetry.dependencies]` table format is explicitly
+NOT supported (a fundamentally different, name-keyed shape) — confirmed
+by a dedicated test. Malformed TOML raises `tomllib.TOMLDecodeError`,
+caught by the orchestration layer and recorded as an extractor failure,
+never crashing candidate analysis.
+
+**Evidence-schema change (`EVIDENCE_SCHEMA_VERSION` 1 → 2):**
+`RepositoryAnalysisCoverage` gained one additive field,
+`partially_analyzed: tuple[RepositoryIdentity, ...] = ()` — the subset of
+`analyzed` where at least one evidence source for that repository could
+not be inspected (a real failure, not an expected absence like "no
+requirements.txt"). This is the smallest compatible extension found
+necessary to represent Milestone 5D Part 14's distinction between "we
+looked and it's not there" and "we couldn't look" — no broader redesign
+of `CandidateEvidenceProfile` was needed. It does not add a new coverage
+tier: a `partially_analyzed` repository is still counted in
+`analyzed`/`analyzed_count`/`is_complete` exactly as before. Two existing
+version-pin tests (`test_evidence_schema_version_constant_exists`,
+`test_concept_registry_version_constant_exists_and_is_an_int`) were
+updated to assert the new values, with comments explaining why each bump
+is legitimate per its own documented policy.
+`SCORING_RUBRIC_VERSION`/`DATASET_VERSION`/`REPOSITORY_RANKING_VERSION`
+are untouched — nothing in this milestone meets any of their bump
+conditions.
+
+**Failure semantics (`pipeline/evidence.py`):** every network call per
+selected repository is isolated in its own try/except — one failing
+source degrades only that source. `README`/manifest absence (404 / not
+in the root listing) is an expected absence, never recorded as a
+failure. A languages/README/root-listing/manifest fetch failure, or a
+malformed manifest (bad TOML/JSON), is recorded as an `ExtractionFailure`
+(`repository`, `source`, `error`) and marks that repository
+`partially_analyzed` — analysis of the rest of that repo and every other
+selected repo continues. `GitHubRateLimitError` is the one exception NOT
+caught anywhere in this path — it propagates immediately and aborts the
+whole run, mirroring V1's existing `pipeline/analyze.py` batch-abort
+policy. `EvidenceExtractionResult` (new, `pipeline/evidence.py`) bundles
+`profile` + `extractor_failures` + `unknown_dependency_names` —
+deliberately NOT part of `CandidateEvidenceProfile` itself, since these
+are pipeline-run diagnostics, not candidate technical evidence.
+
+**API cost — real measured numbers, not just an estimate** (full table
+in ARCHITECTURE.md §15.4): `torvalds` (12 repos) → 38 requests;
+`Jango1324` (20 repos) → 53; `karpathy` (63 repos) → 54; `sindresorhus`
+(1,141 repos) → 70. Deep-analysis cost is bounded by N=15 regardless of
+total repo count — confirmed directly: `sindresorhus` at 1,141 repos
+costs roughly the same as `karpathy` at 63, the difference being a
+handful of extra listing-pagination requests, not a multiplier on deep
+analysis.
+
+**Known false positives, found in live validation** (see
+ARCHITECTURE.md §15.6 for the full original writeup):
+- Bare `"go"` (alias of `language.go`) matches ordinary English ("I
+  **go** for...", "let it **go**") — inherent to context-free keyword
+  matching, not fixable without exactly the fuzzy/NLP inference this
+  milestone is scoped to avoid. Observed on `torvalds/1590A` and
+  `karpathy/autoresearch`.
+- Bare `"next"` (alias of `framework.nextjs`) matches ordinary English
+  ("**Next** Track"). Observed on `Jango1324/Arduino-Based-Media-Player`.
+- A real (and initially test-driven-out) bug, fixed before it shipped:
+  `requirements.txt` parsing originally read a bare VCS/URL requirement
+  (`git+https://...`) as if `git` were a package name. Fixed by skipping
+  any line containing `"://"`.
+
+> **Amendment (Milestone 5D.1, see that entry above):** the "go"/"next"
+> README false positives above were originally *accepted* as documented
+> limitations here. Follow-up real-world validation judged that
+> unacceptable for ordinary English to keep producing known-wrong
+> technical evidence, so Milestone 5D.1 fixed them at the alias level
+> (`readme_unsafe_aliases`) instead — they are no longer current,
+> intended behavior. This paragraph is left as the historical record of
+> what Milestone 5D actually shipped and why; see the Milestone 5D.1
+> entry and `docs/ARCHITECTURE.md` §15.6/§16 for the current, corrected
+> policy.
+
+**Real-account validation (Milestone 5D Part 17/18), V2 pipeline only, no
+score of any kind produced:** `Jango1324`, `torvalds`, `karpathy`,
+`sindresorhus` — chosen for diversity (small Python/web account, C/systems,
+Python/ML, JS/TS at 1,140+ repos). Zero extractor failures across all
+four. Full per-account breakdown (repos discovered/analyzed, evidence by
+type, concepts detected, unresolved concepts, unknown dependency counts,
+representative provenance) in ARCHITECTURE.md §15.11. Reproducible via
+`scripts/inspect_evidence_profile.py <username>` (new, inspection-only —
+no persistence, no job-fit/readiness score).
+
+**`Jango1324/Pneumonia-Detection-Ai` (Part 15's named edge case):**
+confirmed still ranked outside the top 15 in this milestone's real run —
+reported truthfully as `discovered=yes, analyzed=no` in
+`inspect_evidence_profile.py`'s output. Not manually forced into the
+selection; no ranking-weight change or job-aware special-casing was
+added for it, per explicit instruction.
+
+**Files changed:**
+- `src/gitscore/github/client.py` — `get_repository_readme_with_path()`,
+  `get_repository_root_contents()`, `get_repository_file()`,
+  `_fetch_readme()` (shared implementation).
+- `src/gitscore/concepts/registry.py` — `CONCEPT_REGISTRY_VERSION` 1→2;
+  new language + dependency-manifest-only concepts (see above); expanded
+  `database.postgresql` aliases.
+- `src/gitscore/evidence/types.py` — `EVIDENCE_SCHEMA_VERSION` 1→2.
+- `src/gitscore/evidence/profile.py` — `RepositoryAnalysisCoverage.partially_analyzed`
+  (+ `partially_analyzed_count`), `build_candidate_evidence_profile(partially_analyzed=...)`.
+- `src/gitscore/evidence/extraction/__init__.py`, `files.py`,
+  `languages.py`, `readme.py`, `python_deps.py`, `js_deps.py`,
+  `dependency_evidence.py`, `docker.py` — new package.
+- `src/gitscore/pipeline/evidence.py` — new: `extract_candidate_evidence()`,
+  `EvidenceExtractionResult`, `ExtractionFailure`.
+- `scripts/inspect_evidence_profile.py` — new manual inspection/validation tool.
+- `tests/conftest.py` — `FakeEvidenceGitHubClient`, `root_entry()` helper.
+- `tests/test_evidence_extraction_languages.py`,
+  `test_evidence_extraction_readme.py`,
+  `test_evidence_extraction_requirements_txt.py`,
+  `test_evidence_extraction_pyproject_toml.py`,
+  `test_evidence_extraction_package_json.py`,
+  `test_evidence_extraction_dependency_mapping.py`,
+  `test_evidence_extraction_docker.py`, `test_pipeline_evidence.py` — new.
+- `tests/test_candidate_evidence_profile.py` — new `partially_analyzed`
+  coverage tests.
+- `tests/test_evidence_models.py`, `tests/test_technical_concepts.py` —
+  version-pin tests updated for the deliberate 1→2 bumps, with rationale
+  comments.
+- `docs/ARCHITECTURE.md` — new §15 (full design detail); §13/§14 updated
+  to reflect that 5B/5C are now wired together, not just standalone.
+- `docs/PIPELINE.md` — new short section pointing to the V2 path.
+- This changelog entry.
+
+**How to test:** `pytest` (whole suite, 395 tests, no network/token
+required) or `pytest tests/test_pipeline_evidence.py
+tests/test_evidence_extraction_*.py tests/test_candidate_evidence_profile.py -v`
+for just the Milestone 5D-relevant subset. Real-account validation:
+`python scripts/inspect_evidence_profile.py <username>` (requires
+`GITHUB_TOKEN` in `.env` for a reasonable rate limit, per the existing
+`.env.example`).
+
+**Explicitly NOT done this milestone (per instruction — wait for
+approval before starting):** Milestone 6/6A, `JobRequirementProfile`,
+job-description parsing, any deterministic matcher, match scores,
+alternative-role discovery, CatBoost, LLM-based extraction, UI. No commit
+was made.
+
 ## 2026-09-11 — Milestone 5C: Generalized evidence domain model
 
 **What changed:**

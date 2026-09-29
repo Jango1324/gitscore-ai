@@ -299,3 +299,18 @@ be true before this stage is added.
 
 No code exists for either. `CLAUDE.md` explicitly defers these until
 after the MVP is stable — consistent with what's in the repo today.
+
+## V2 pipeline (Milestone 5D) — a separate path, not a replacement
+
+Everything above (Stages 0-6b) is V1: `pipeline/analyze.py::analyze_user()`,
+completely unchanged by Milestone 5D. A second, separate entry point now
+exists: `gitscore.pipeline.evidence.extract_candidate_evidence(username)`,
+which fetches the repository listing, ranks it (Milestone 5B,
+job-independent), deep-analyzes only the top N=15 ranked repositories
+(languages, README, `requirements.txt`/`pyproject.toml`/`package.json`,
+Docker), and returns a `CandidateEvidenceProfile` (Milestone 5C) instead
+of a readiness score. It does not touch `features/*`, `scoring/
+readiness.py`, or Dataset V1. See `docs/ARCHITECTURE.md` §15 for the full
+data flow, extractor list, API cost model, and confidence/failure
+semantics, and `scripts/inspect_evidence_profile.py` to run it against a
+real account.

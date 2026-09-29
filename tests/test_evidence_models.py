@@ -110,5 +110,10 @@ def test_repository_identity_equality_is_structural():
 # ---------------------------------------------------------------------------
 
 def test_evidence_schema_version_constant_exists():
+    # Bumped to 2 in Milestone 5D: RepositoryAnalysisCoverage gained the
+    # additive `partially_analyzed` field (a real SHAPE change) to
+    # represent "attempted but a source could not be inspected" --
+    # see evidence/profile.py's docstring and docs/CHANGELOG_DEV.md's
+    # Milestone 5D entry.
     assert isinstance(EVIDENCE_SCHEMA_VERSION, int)
-    assert EVIDENCE_SCHEMA_VERSION == 1
+    assert EVIDENCE_SCHEMA_VERSION == 2
