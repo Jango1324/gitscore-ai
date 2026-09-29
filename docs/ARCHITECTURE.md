@@ -1245,3 +1245,302 @@ of Go evidence. Bare "C" is the same story. Other short-and-also-an-
 English-word aliases already in the registry (`react`, `flask`,
 `express`, ...) were out of scope for this cleanup and may need the same
 treatment if a future real-account validation flags them.
+
+## 17. Job requirement domain model (`src/gitscore/jobs/`) — Milestone 6A
+
+**Domain model only — no parser, no matcher, no scoring exist yet.**
+This section defines the job-side counterpart to §14's
+`CandidateEvidenceProfile`, the second of the two structured inputs the
+future deterministic matcher will compare:
+
+```
+Raw Job Description (pasted text)
+        |
+        v
+future parser                                   <-- NOT YET IMPLEMENTED
+(LLM-assisted phrase extraction + deterministic
+ concept normalization, docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md
+ Parts 8/18)
+        |
+        v
+JobRequirementProfile (src/gitscore/jobs/profile.py)      <-- THIS MILESTONE
+        |
+        +-- title, company                (informational only, Part 7)
+        +-- raw_text                       (verbatim, preserved)
+        +-- parser_version, schema_version
+        +-- requirements: (JobRequirement, ...)   <-- order preserved exactly as given
+                  |
+                  +-- JobRequirement (src/gitscore/jobs/models.py)
+                        +-- original_text                        (verbatim span)
+                        +-- concept_id: str | None                (resolved concept, "unresolved:<term>", or None)
+                        +-- category: str | None
+                        +-- necessity: Necessity                  (REQUIRED | PREFERRED)
+                        +-- importance: Importance                 (LOW | MEDIUM | HIGH, ordinal)
+                        +-- github_observability: GithubObservability  (NOT_ | PARTIALLY_ | STRONGLY_OBSERVABLE)
+                        +-- parser_confidence: ParserConfidence | None  (LOW | MEDIUM | HIGH, ordinal -- distinct from ConfidenceLevel)
+                        +-- source_span: SourceSpan | None          ((start, end) offsets into raw_text)
+```
+
+And the eventual boundary this milestone sets up but does not cross:
+
+```
+CandidateEvidenceProfile (§14, Milestone 5C/5D)     JobRequirementProfile (this section, Milestone 6A)
+                    |                                              |
+                    +--------------------  future  ----------------+
+                                    deterministic matcher                <-- NOT IMPLEMENTED
+                                    (docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md Part 15)
+```
+
+### 17.1 Why a generic model, not a role enum
+
+The product must support arbitrary technical jobs, including roles never
+anticipated during development (embedded, robotics, compiler engineering,
+HPC, security automation, ...). Nothing in `src/gitscore/jobs/` branches
+on a role name or belongs to a finite role enum: `JobRequirementProfile`
+has only a free-text, informational `title`/`company` (never read by any
+logic in this package), and `JobRequirement` is keyed entirely by
+`concept_id` — the SAME open-ended mechanism `concepts/registry.py`
+already uses for candidate-side evidence (§14). Adding support for a
+previously-unseen job type never requires a new class, a new field, or a
+new branch — only, at most, a new concept-registry entry (already
+governed by `CONCEPT_REGISTRY_VERSION`, §14/§15.7). §17.4's three manual
+examples (backend, robotics, ML) are proof: all three are plain
+`JobRequirementProfile` instances, differing only in which
+`JobRequirement` rows and concept ids they contain.
+
+### 17.2 JobRequirement: one indivisible claim
+
+Mirrors `evidence.models.Evidence`'s shape (frozen, fully hashable,
+plain value object, no synthetic id yet — persistence is not addressed
+by this milestone either) but is NOT a re-skinned `Evidence`: a
+`JobRequirement` is a claim a JOB makes; `Evidence` is an observation
+about a CANDIDATE. Neither object references the other; nothing in
+`src/gitscore/jobs/` imports `gitscore.evidence`, and nothing in
+`gitscore.evidence` imports `gitscore.jobs`.
+
+**The one-claim-per-object rule is the direct fix for Milestone 6A
+Part 1's warning case.** "3+ years of experience building Python backend
+services" must never become one `JobRequirement` with
+`concept_id="language.python"` — that would silently assert
+"3+ years of experience" is as GitHub-observable as "uses Python," which
+it is not. A future parser must instead emit TWO `JobRequirement` rows
+from that one sentence — one technical (`concept_id="language.python"`,
+`github_observability=STRONGLY_OBSERVABLE`), one non-technical
+(`concept_id=None`, `github_observability=NOT_OBSERVABLE`,
+`category="experience"`) — both legitimately sharing the same
+`original_text`/`source_span`. `tests/test_job_requirement_models.py::test_compound_sentence_splits_into_two_separate_requirement_claims`
+demonstrates this split manually; no automatic splitting logic exists.
+
+**Non-technical requirements (Part 6)** — "Bachelor's degree," "excellent
+communication," "eligible to work in Canada," "3+ years of professional
+experience" — are represented with `concept_id=None`, never with an
+invented `TechnicalConcept` id like `skill.communication` or
+`experience.three_years`. They are never discarded: `original_text` and
+`category` (a free-form, uncontrolled label — deliberately not a closed
+enum, for the same "don't build an ontology prematurely" reason
+`TechnicalConcept.category` itself is a plain string, §14) preserve
+exactly what the posting said and roughly what kind of claim it is, so a
+future explanation layer can render "GitHub cannot assess this" rather
+than silently dropping it.
+
+### 17.3 Concept resolution reuses §14's registry exactly — no second table
+
+A technical `JobRequirement.concept_id` is populated by calling the
+EXISTING `gitscore.concepts.registry.resolve_concept()` — the identical
+function/registry candidate-side extractors use (§15.7's dependency
+mapping is the direct precedent: "no second package name -> concept
+table" there; "no second job-requirement -> concept table" here). An
+unanticipated technology named in a job posting (e.g. "warp-level
+primitives") resolves through the SAME `"unresolved:<term>"` policy
+`Evidence` already relies on (§14, Milestone 5C Part 3) — never dropped,
+never silently promoted into a new canonical concept, and never written
+into the registry itself. This directly answers Part 5's question ("is
+the existing `unresolved:<term>` policy appropriate here" — yes) and
+avoids the earlier 5A design draft's separate, never-implemented
+`"provisional:<slug>"` scheme, which would have meant two different
+unresolved-id conventions to keep straight across the codebase for no
+benefit.
+
+`JobRequirement` does not call `resolve_concept()` itself — exactly like
+`Evidence` does not call it either. Resolution is the caller's job (a
+future parser, or — for this milestone — a test); the domain object only
+STORES the resulting `concept_id` string. This keeps `jobs/models.py`
+free of any dependency on resolution mechanics, matching this milestone's
+"domain model only" scope precisely.
+
+**Milestone 6A.1 addendum — VALIDATING that stored string, without
+resolving it.** The initial 6A implementation only checked that a
+non-`None` `concept_id` was a non-empty string — `JobRequirement(...,
+concept_id="whatever.random.string")` constructed cleanly and its
+`is_resolved_concept` property reported `True`, silently treating an
+arbitrary string as if it were a real registered concept. Fixed by
+adding one new function, `concepts.registry.is_valid_concept_id(concept_id,
+registry=None) -> bool` — pure validation of an ALREADY-PRODUCED id
+(`registry.get(concept_id) is not None`, OR the id is exactly what
+`unresolved_concept_id()` would re-produce for its own suffix, checked by
+calling that same function again rather than re-implementing its
+normalization rules) — reusing `is_unresolved_concept_id()`/
+`unresolved_concept_id()` verbatim rather than inventing a second
+unresolved-id grammar. `is_valid_concept_id("Postgres")` is `False` even
+though `resolve_concept("Postgres")` succeeds: the two answer different
+questions ("is this already a valid id" vs. "what does this raw term
+mean"), and only the former belongs in a `__post_init__` validation
+check. `JobRequirement.__post_init__` now calls this helper instead of
+the old bare non-empty-string check; the dependency direction is
+unchanged (`gitscore.jobs` -> `gitscore.concepts`, never the reverse, no
+circular import, no registry mutation, no fuzzy matching). Does not
+change `JOB_REQUIREMENT_SCHEMA_VERSION` (no field added/removed/retyped)
+or `CONCEPT_REGISTRY_VERSION` (no concept/alias/normalization change —
+a new pure helper function, not a registry content change). See
+`docs/CHANGELOG_DEV.md`'s Milestone 6A.1 entry for the full writeup.
+
+### 17.4 Necessity, importance, and GitHub observability are three
+independent axes
+
+Deliberately three separate fields, not one combined "requirement type"
+(contrast the 5A draft's single four-state `requirement_type` — narrowed
+here per this milestone's explicit "do not invent excessive granularity"
+instruction):
+
+- **`Necessity`** (`REQUIRED` | `PREFERRED`, a plain `str` enum, no
+  ordering) — does the posting say this is mandatory or a plus.
+- **`Importance`** (`LOW` < `MEDIUM` < `HIGH`, ordinal `IntEnum`,
+  mirroring `ConfidenceLevel`'s "ordinal, not a float" reasoning — no
+  fake-precision numeric weight is justified by anything the 5A draft
+  actually calibrated) — how much THIS ONE requirement matters,
+  independent of necessity. A job can require both Git (`LOW`
+  importance) and Python (`HIGH` importance) — both `REQUIRED`, but not
+  equally emphasized; collapsing the two axes into one field would lose
+  exactly this distinction.
+- **`GithubObservability`** (`NOT_OBSERVABLE` < `PARTIALLY_OBSERVABLE` <
+  `STRONGLY_OBSERVABLE`, ordinal `IntEnum`) — can a GitHub account
+  plausibly demonstrate this KIND of claim at all, regardless of whether
+  this specific candidate happens to. This is the field that keeps
+  GitScore from ever implying "GitHub can verify everything in a job
+  description" (Milestone 6A Part 4, verbatim) — "5 years of professional
+  experience" can be exactly as `REQUIRED` and `HIGH`-importance as
+  "Python," yet the two must never be scored as if GitHub could speak to
+  both equally; that distinction lives here, in a field orthogonal to
+  necessity/importance, never folded into either.
+
+All three are ordinal-or-plain enums, never floats — consistent with
+`ConfidenceLevel`'s own precedent (§14) and this milestone's explicit
+instruction not to introduce fake-precision weights without strong
+justification.
+
+### 17.5 Parser confidence is a distinct type from evidence confidence
+
+`ParserConfidence` (`LOW` | `MEDIUM` | `HIGH`, ordinal `IntEnum`,
+optional on `JobRequirement`, defaulting to `None`) answers "how sure a
+future parser was that it read this job-description text correctly" —
+e.g. whether "experience with cloud platforms such as AWS or Azure"
+names AWS/Azure as independent requirements, interchangeable
+alternatives, or merely illustrative examples. This is intentionally
+NOT `gitscore.evidence.types.ConfidenceLevel` reused: `ConfidenceLevel`
+answers "how sure are we this CANDIDATE-SIDE observation is real" (a
+claim about GitHub evidence); `ParserConfidence` answers "how sure are we
+we correctly interpreted THIS JOB TEXT" (a claim about job-description
+interpretation). Reusing one enum for both would make a job-parsing
+uncertainty read as if it were a claim about a candidate's GitHub
+activity — exactly the kind of meaning-blurring this milestone's
+instructions warned against. `None` means "no parser has evaluated this
+yet" (true for every `JobRequirement` in this milestone, since none are
+parser-produced) — not "certain."
+
+### 17.6 Provenance: SourceSpan
+
+`SourceSpan` (`start: int`, `end: int`, frozen, hashable) is the smallest
+representation that lets a future explanation layer say "this
+requirement came from exactly this portion of the job description" —
+Milestone 6A Part 8 explicitly scoped this to "manually constructed test
+objects are enough... NOT implementing automatic span extraction yet."
+Two-tier validation, matching where each check can actually be performed:
+`SourceSpan.__post_init__` rejects a locally-nonsensical span (`start <
+0`, `end <= start`) with no knowledge of any document; whether a span
+falls WITHIN a particular posting's text requires knowing that posting's
+length, so `JobRequirementProfile.__post_init__` is what rejects a span
+extending past `len(raw_text)`.
+
+### 17.7 JobRequirementProfile: candidate-independent by construction
+
+Mirrors `CandidateEvidenceProfile`'s own job-independence guarantee
+(§14) in the opposite direction — pinned by
+`tests/test_job_requirement_profile.py::test_profile_has_no_candidate_or_match_fields`,
+the direct counterpart to
+`test_candidate_evidence_profile.py::test_profile_has_no_job_related_fields`.
+Contains no candidate/username, no `Evidence`, no match score, no
+coverage score, no strengths/gaps, no repository references, no
+alternative roles — those are future-matcher concerns that CONSUME this
+profile plus a `CandidateEvidenceProfile`, never fields living inside
+either one.
+
+**Two deliberate policy differences from `CandidateEvidenceProfile`,
+each documented in `jobs/profile.py`'s own docstring so neither reads as
+an unexplained inconsistency:**
+- **Duplicate requirements are REJECTED (raise `ValueError`), not
+  silently deduplicated.** `CandidateEvidenceProfile.evidence` silently
+  collapses exact structural duplicates via `set()` (§14) because
+  repeated identical Evidence is an expected, harmless corroboration
+  artifact (the same detector re-observing the same real fact).
+  `JobRequirementProfile` has no equivalent legitimate source for an
+  EXACT duplicate `JobRequirement` (same text, same span, same
+  everything) — a job posting's requirements are each supposed to be one
+  distinct claim, so an exact duplicate is far more likely a construction
+  bug, which Milestone 6A Part 11 asks domain objects to reject rather
+  than silently absorb. Two requirements sharing the same text but
+  appearing at different `source_span` locations are NOT duplicates and
+  both survive (a genuine JD may restate the same requirement in two
+  sections).
+- **`requirements` preserves EXACTLY the given order, never re-sorted.**
+  `CandidateEvidenceProfile.evidence` IS canonically re-sorted
+  (`evidence_sort_key`, §14) because an evidence pool has no inherent
+  meaningful order. A job posting's requirement order can be informative
+  (earlier requirements are often more prominent) — re-sorting it would
+  destroy real information, so "deterministic" here means "the same
+  input order always produces the same output," not "canonically
+  reordered."
+
+No separate "only intended constructor" builder function exists here
+(contrast `build_candidate_evidence_profile()`, §14) — there is no
+derived/aggregate field to protect (no `concept_summaries` equivalent
+yet); `__post_init__` alone is sufficient to enforce every invariant
+this milestone needs.
+
+### 17.8 Versioning
+
+`JOB_REQUIREMENT_SCHEMA_VERSION = 1` (`jobs/types.py`), a new, fully
+independent constant — introducing it does not bump
+`EVIDENCE_SCHEMA_VERSION`, `CONCEPT_REGISTRY_VERSION`,
+`REPOSITORY_RANKING_VERSION`, `SCORING_RUBRIC_VERSION`, or
+`DATASET_VERSION`; nothing in this milestone touches candidate-evidence
+extraction, the concept registry's data, repository ranking, or V1
+scoring/dataset shape. Bumps when `JobRequirement` or
+`JobRequirementProfile` change SHAPE (a field added/removed/retyped) —
+mirroring `EVIDENCE_SCHEMA_VERSION`'s own policy exactly; adding a new
+enum member to `Necessity`/`Importance`/`GithubObservability`/
+`ParserConfidence` alone does NOT bump it (additive, non-breaking, same
+reasoning as a new `EvidenceType` member).
+
+### 17.9 Manual examples: one model, three unrelated jobs
+
+`tests/test_job_requirement_manual_examples.py` hand-builds full
+`JobRequirementProfile`s for a Backend Software Engineer, a Robotics
+Software Engineer, and a Machine Learning Engineer — deliberately
+choosing jobs with almost no requirement overlap. All three are plain
+`JobRequirementProfile` instances; none required a new class, a new
+field, or a role-specific branch. Notably: `language.python` appears in
+all three at different `Importance` levels (proving concepts, not role
+templates, drive the model); the robotics example's "Linux" resolves via
+the SAME `unresolved:<term>` path as an unrecognized language-stats value
+would (§14) — demonstrating that an unanticipated technology degrades
+gracefully instead of being dropped or crashing, without a single new
+line of resolution code.
+
+### 17.10 What remains explicitly unimplemented
+
+No job-description parser (regex or LLM-based), no URL/job-board
+ingestion, no deterministic matcher, no match/coverage score, no
+strengths/gaps output, no alternative-role discovery, no persistence.
+Every `JobRequirement`/`JobRequirementProfile` produced so far is
+hand-constructed by test code — turning raw job-description text into
+these objects is the next milestone's work, not this one's.

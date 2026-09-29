@@ -13,6 +13,7 @@ from gitscore.concepts.registry import (
     ConceptResolution,
     default_registry,
     is_unresolved_concept_id,
+    is_valid_concept_id,
     resolve_concept,
     unresolved_concept_id,
 )
@@ -24,6 +25,7 @@ __all__ = [
     "TechnicalConcept",
     "default_registry",
     "is_unresolved_concept_id",
+    "is_valid_concept_id",
     "normalize_term",
     "resolve_concept",
     "unresolved_concept_id",

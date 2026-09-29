@@ -1,5 +1,237 @@
 # GitScore AI — Dev Changelog
 
+## 2026-09-28 — Milestone 6A.1: Concept-id invariant review
+
+**What changed:** A tiny correctness fix, not a redesign. Milestone 6A's
+`JobRequirement.__post_init__` only checked that a non-`None`
+`concept_id` was a non-empty string — `JobRequirement(...,
+concept_id="whatever.random.string")` constructed without error, and
+`is_resolved_concept` reported `True` for it, silently treating an
+arbitrary, never-registered string as if it were a real concept.
+
+**Fix:** one new function, `is_valid_concept_id(concept_id,
+registry=None) -> bool` in `concepts/registry.py` (exported from
+`gitscore.concepts`) — pure VALIDATION of an already-produced id, never
+RESOLUTION: it returns `True` only if `concept_id` is (a) a real,
+registered `TechnicalConcept.concept_id`, or (b) exactly what
+`unresolved_concept_id()` would re-produce for its own suffix (checked
+by calling that SAME existing function again, not by inventing a second
+unresolved-id grammar). `is_valid_concept_id("Postgres")` is `False` even
+though `resolve_concept("Postgres")` succeeds — the two answer different
+questions. `JobRequirement.__post_init__` (`jobs/models.py`) now calls
+this helper in place of the old bare non-empty-string check.
+
+**Dependency direction unchanged:** `gitscore.jobs` still only ever
+imports FROM `gitscore.concepts`, never the reverse; `gitscore.concepts`
+still knows nothing about jobs; no circular import; the registry is
+still never mutated; `JobRequirement` still never calls
+`resolve_concept()` or performs any fuzzy/automatic conversion of an
+unknown id — it only validates a string a caller already produced.
+
+**The three intended states, now actually enforced:**
+1. `concept_id=None` — non-conceptual requirement. Valid.
+2. `concept_id` = a real registered `TechnicalConcept.concept_id` (e.g.
+   `"database.postgresql"`). Valid.
+3. `concept_id` = a well-formed `"unresolved:<term>"` id (e.g.
+   `"unresolved:warp-level_primitives"`). Valid.
+4. Anything else (`""`, whitespace, `"unresolved:"`,
+   `"unresolved:   "`, `"garbage"`, `"language.does_not_exist"`,
+   `"whatever.random.string"`, or a raw un-resolved human term like
+   `"Postgres"`) — now rejected with `ValueError` at construction time,
+   previously silently accepted.
+
+**Versioning:** `JOB_REQUIREMENT_SCHEMA_VERSION` stays `1` — no field
+added/removed/retyped on `JobRequirement`/`JobRequirementProfile`, only
+tightened validation of an existing field. `CONCEPT_REGISTRY_VERSION`
+stays `3` — no concept added/renamed/merged, no alias-safety or
+normalization change; a new pure helper function is not a registry
+content change under that constant's documented bump policy.
+`EVIDENCE_SCHEMA_VERSION`, `REPOSITORY_RANKING_VERSION`,
+`SCORING_RUBRIC_VERSION`, `DATASET_VERSION` untouched.
+
+**Tests:** 7 new tests in `tests/test_technical_concepts.py`
+(`is_valid_concept_id`: registered id, well-formed unresolved id,
+malformed unresolved id, arbitrary nonexistent canonical-looking id,
+empty/whitespace/padded string, never-resolves-a-raw-term, explicit
+custom registry). 10 new tests in `tests/test_job_requirement_models.py`
+covering the three valid states plus every invalid state listed above,
+plus two regression tests confirming the existing Postgres/PyTorch
+resolution examples and the compound-requirement (Python +
+professional-experience) example are unchanged. **484 tests total, all
+passing** (up from 467; every prior test, including all of 6A's manual
+job examples, untouched and still green).
+
+**Files changed:**
+- `src/gitscore/concepts/registry.py` — new `is_valid_concept_id()`.
+- `src/gitscore/concepts/__init__.py` — exports it.
+- `src/gitscore/jobs/models.py` — `JobRequirement.__post_init__` uses it;
+  docstring addendum.
+- `tests/test_technical_concepts.py`, `tests/test_job_requirement_models.py`
+  — new tests.
+- `docs/ARCHITECTURE.md` — §17.3 addendum.
+- This changelog entry.
+
+**How to test:** `pytest` (whole suite, 484 tests, no network/token
+required) or `pytest tests/test_technical_concepts.py
+tests/test_job_requirement_models.py -v` for just the 6A.1-relevant
+subset.
+
+**Explicitly NOT done (per instruction):** no parser, no matcher, no
+scoring, no job ingestion, no LLM, no URL ingestion, no persistence, no
+new concept ontology, no new `JobRequirement`/`JobRequirementProfile`
+field, no redesign of any 6A object. No commit was made.
+
+## 2026-09-28 — Milestone 6A: Job requirement domain model
+
+**What changed:** A new package, `src/gitscore/jobs/`, defining the
+job-side structured representation that will eventually sit opposite
+`CandidateEvidenceProfile`:
+
+```
+CandidateEvidenceProfile  +  JobRequirementProfile  -> (future) deterministic matcher
+```
+
+**Domain model only.** No job-description parser (regex or LLM-based),
+no deterministic matcher, no scoring, no URL/job-board ingestion, no
+persistence, and no change of any kind to candidate-evidence extraction,
+the concept registry's data, repository ranking, or V1 scoring/dataset.
+Full design writeup: `docs/ARCHITECTURE.md` §17 (new). This entry
+summarizes.
+
+**Why:** `docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` established
+the two-sided architecture (Part 9) but was never implemented; Milestones
+5B-5D.1 built out the candidate side only. This milestone builds the
+missing job side, in isolation, so its shape can be validated before any
+parser or matcher is built against it — mirroring exactly how Milestone
+5C built the candidate-side domain model before Milestone 5D wired real
+extraction into it.
+
+**Domain objects introduced:**
+
+| Object | Module | Role |
+|---|---|---|
+| `SourceSpan` | `jobs/models.py` | `(start, end)` character offsets into a `JobRequirementProfile.raw_text` — provenance, not automatic span extraction |
+| `JobRequirement` | `jobs/models.py` | one indivisible claim from a job posting: original text, optional resolved concept, category, necessity, importance, GitHub observability, optional parser confidence, optional source span |
+| `Necessity` | `jobs/types.py` | `REQUIRED` \| `PREFERRED` (plain enum, no ordering) |
+| `Importance` | `jobs/types.py` | ordinal `LOW` < `MEDIUM` < `HIGH` — how much this requirement matters, independent of necessity |
+| `GithubObservability` | `jobs/types.py` | ordinal `NOT_OBSERVABLE` < `PARTIALLY_OBSERVABLE` < `STRONGLY_OBSERVABLE` — can GitHub evidence plausibly speak to this KIND of claim at all |
+| `ParserConfidence` | `jobs/types.py` | ordinal `LOW`/`MEDIUM`/`HIGH`, optional — how sure a future parser was it read the job text correctly; deliberately NOT `evidence.types.ConfidenceLevel` reused (see below) |
+| `JobRequirementProfile` | `jobs/profile.py` | one job posting: title/company (informational only), raw text, requirements tuple, parser/schema version |
+
+**Concept-driven, never role-driven:** nothing in `src/gitscore/jobs/`
+branches on a role name, and there is no finite role enum anywhere.
+`JobRequirement` is keyed by `concept_id`, resolved through the EXACT
+SAME `gitscore.concepts.registry.resolve_concept()` every candidate-side
+extractor already uses (Milestone 5D Part 11's "no second package-name
+table" precedent, applied again here: no second job-requirement-to-
+concept table either). An unanticipated technology in a job posting
+resolves via the SAME `"unresolved:<term>"` policy `Evidence` already
+uses (Milestone 5C Part 3) — never dropped, never silently promoted into
+a new canonical concept, never written into the registry. This
+supersedes the original 5A design draft's separate, never-implemented
+`"provisional:<slug>"` proposal (one unresolved-id convention across the
+whole codebase, not two).
+
+**The one-claim-per-JobRequirement rule** is the direct fix for this
+milestone's central warning example: "3+ years of experience building
+Python backend services" must produce TWO `JobRequirement` rows (one
+technical, `concept_id="language.python"`,
+`github_observability=STRONGLY_OBSERVABLE`; one non-technical,
+`concept_id=None`, `github_observability=NOT_OBSERVABLE`), never one row
+asserting both a GitHub-observable concept and a non-observable
+experience claim together. Non-technical requirements ("Bachelor's
+degree," "excellent communication," "eligible to work in Canada") are
+represented with `concept_id=None` and a free-form `category` string —
+never with an invented `TechnicalConcept` id like `skill.communication`.
+
+**Necessity, importance, and GitHub observability are three independent
+axes**, not one combined field — narrower than the 5A draft's four-state
+`requirement_type`, per this milestone's explicit "do not invent
+excessive granularity" instruction. A job can require both Git (`LOW`
+importance) and Python (`HIGH` importance) — both `REQUIRED`, weighted
+very differently.
+
+**Parser confidence is a genuinely separate type from evidence
+confidence** — `ParserConfidence` was added as its own small `IntEnum`
+rather than reusing `ConfidenceLevel`, because the two answer different
+questions (how sure we are a job-text interpretation is correct, vs. how
+sure we are a candidate-side GitHub observation is real); reusing one
+enum for both would blur a job-parsing uncertainty into what would read
+as a claim about a candidate's GitHub activity.
+
+**`JobRequirementProfile` is candidate-independent by construction** —
+no candidate/username, no `Evidence`, no match score, no coverage score,
+no strengths/gaps, no repository references, no alternative roles. Pinned
+by `test_job_requirement_profile.py::test_profile_has_no_candidate_or_match_fields`,
+the direct counterpart to Milestone 5C's
+`test_profile_has_no_job_related_fields`.
+
+**Two deliberate policy differences from `CandidateEvidenceProfile`**
+(both documented in `jobs/profile.py` so neither reads as an
+inconsistency): (1) exact structural duplicate requirements are
+REJECTED (`ValueError`), not silently deduplicated like Evidence —
+Evidence's silent dedup exists for a corroboration model (the same real
+fact re-observed); a job posting's requirements have no equivalent
+legitimate source for an exact duplicate, so one is treated as a
+construction bug. (2) `requirements` preserves the EXACT given order,
+never canonically re-sorted like `Evidence` — a posting's requirement
+order can itself be informative (earlier = often more prominent),
+unlike an evidence pool's order, which carries no meaning.
+
+**Versioning:** `JOB_REQUIREMENT_SCHEMA_VERSION = 1` (`jobs/types.py`),
+a new, fully independent constant. `EVIDENCE_SCHEMA_VERSION`,
+`CONCEPT_REGISTRY_VERSION`, `REPOSITORY_RANKING_VERSION`,
+`SCORING_RUBRIC_VERSION`, and `DATASET_VERSION` are all untouched —
+nothing in this milestone meets any of their bump conditions. Bumps when
+`JobRequirement`/`JobRequirementProfile` change SHAPE; does NOT bump for
+a new enum member (additive), mirroring `EVIDENCE_SCHEMA_VERSION`'s own
+policy.
+
+**Manual examples (Part 12):** `tests/test_job_requirement_manual_examples.py`
+hand-builds full `JobRequirementProfile`s for a Backend Software
+Engineer, a Robotics Software Engineer, and a Machine Learning Engineer
+— deliberately near-zero requirement overlap, no automated parsing, no
+candidate scored against any of them. All three fit the exact same
+`JobRequirementProfile`/`JobRequirement` shape; `language.python` appears
+in all three at different `Importance` levels; the robotics example's
+"Linux" resolves via the same `unresolved:<term>` path an unrecognized
+GitHub language-stats value would.
+
+**Tests:** 57 new tests across
+`tests/test_job_requirement_models.py` (`SourceSpan`/`JobRequirement`:
+technical-resolved, technical-unresolved, non-technical, necessity,
+importance, observability, parser confidence, provenance, invalid
+states, equality/hash),
+`tests/test_job_requirement_profile.py` (`JobRequirementProfile`:
+multiple/mixed requirements, order preservation, description
+preservation, optional title/context, invalid empty description, invalid
+provenance spans, duplicate rejection, candidate-independence), and
+`tests/test_job_requirement_manual_examples.py` (Part 12's three jobs).
+All deterministic, offline, no network calls. **467 tests total, all
+passing** (up from 410; every 5B/5C/5D/5D.1/V1 test untouched and still
+passing).
+
+**Files changed:**
+- `src/gitscore/jobs/__init__.py`, `types.py`, `models.py`, `profile.py`
+  — new package.
+- `tests/test_job_requirement_models.py`,
+  `test_job_requirement_profile.py`,
+  `test_job_requirement_manual_examples.py` — new.
+- `docs/ARCHITECTURE.md` — new §17 (full design detail).
+- This changelog entry.
+
+**How to test:** `pytest` (whole suite, 467 tests, no network/token
+required) or `pytest tests/test_job_requirement_models.py
+tests/test_job_requirement_profile.py
+tests/test_job_requirement_manual_examples.py -v` for just the
+6A-relevant subset.
+
+**Explicitly NOT done this milestone (per instruction — wait for
+approval before starting):** job-description parser (regex or LLM), URL
+ingestion, deterministic matcher, match/coverage scores, strengths/gaps,
+alternative-role discovery, CatBoost, UI, database persistence/migration,
+any change to candidate-evidence extraction. No commit was made.
+
 ## 2026-09-28 — Milestone 5D.1: Context-safe concept resolution
 
 **What changed:** A focused correctness fix to Milestone 5D's README

@@ -363,6 +363,52 @@ def is_unresolved_concept_id(concept_id: str) -> bool:
     return concept_id.startswith(_UNRESOLVED_PREFIX)
 
 
+def is_valid_concept_id(concept_id: str, registry: ConceptRegistry | None = None) -> bool:
+    """Is `concept_id` a well-formed, ALREADY-PRODUCED concept identifier
+    -- either a real registered TechnicalConcept id, or a validly-shaped
+    "unresolved:<term>" placeholder from unresolved_concept_id()?
+
+    Milestone 6A.1: pure VALIDATION of a string that already claims to be
+    a concept id -- never RESOLUTION. It does not look up aliases, does
+    not normalize arbitrary free text, and does not accept a raw
+    human-typed term like "Postgres" (that is resolve_concept()'s job,
+    not this function's): `is_valid_concept_id("Postgres")` is False even
+    though `resolve_concept("Postgres")` succeeds -- the two answer
+    different questions ("is this ALREADY a valid id" vs. "what concept
+    does this raw term mean"). This is what lets a consumer outside this
+    package (gitscore.jobs, Milestone 6A.1) validate an already-produced
+    concept_id without performing resolution itself or duplicating any
+    of this module's id-format rules.
+
+    A concept_id is valid iff:
+    - it is a non-empty string with no leading/trailing whitespace, AND
+    - EITHER it is a real id in `registry` (`registry.get(concept_id) is
+      not None`), OR it is exactly what `unresolved_concept_id()` would
+      re-produce for its own suffix -- i.e. a fixed point of that
+      function, checked by calling it again rather than re-implementing
+      its normalization rules here. `"unresolved:"` / `"unresolved:   "`
+      (empty/whitespace-only term) fail this idempotency check.
+      `"unresolved:python"` PASSES it (structurally well-formed) even
+      though "python" is also independently resolvable elsewhere in the
+      registry -- catching that particular confusion would require
+      performing resolution, which this function deliberately never
+      does.
+
+    Never mutates `registry`; never invents/promotes a new concept.
+    """
+    if not isinstance(concept_id, str) or not concept_id or concept_id != concept_id.strip():
+        return False
+
+    if is_unresolved_concept_id(concept_id):
+        term_guess = concept_id[len(_UNRESOLVED_PREFIX):].replace("_", " ")
+        if not term_guess.strip():
+            return False
+        return unresolved_concept_id(term_guess) == concept_id
+
+    registry = registry or default_registry()
+    return registry.get(concept_id) is not None
+
+
 @dataclass(frozen=True)
 class ConceptResolution:
     """The outcome of resolving one raw term against the registry.

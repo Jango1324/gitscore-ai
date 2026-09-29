@@ -5,6 +5,7 @@ from gitscore.concepts import (
     TechnicalConcept,
     default_registry,
     is_unresolved_concept_id,
+    is_valid_concept_id,
     normalize_term,
     resolve_concept,
     unresolved_concept_id,
@@ -138,6 +139,60 @@ def test_resolving_an_unknown_term_does_not_mutate_the_shared_registry():
 
 def test_default_registry_is_a_stable_shared_instance():
     assert default_registry() is default_registry()
+
+
+# ---------------------------------------------------------------------------
+# Milestone 6A.1: is_valid_concept_id -- VALIDATION of an already-produced
+# id, never RESOLUTION of raw text.
+# ---------------------------------------------------------------------------
+
+def test_is_valid_concept_id_true_for_a_real_registered_id():
+    assert is_valid_concept_id("language.python")
+    assert is_valid_concept_id("database.postgresql")
+    assert is_valid_concept_id("ml.framework.pytorch")
+
+
+def test_is_valid_concept_id_true_for_a_well_formed_unresolved_id():
+    assert is_valid_concept_id(unresolved_concept_id("warp-level primitives"))
+    assert is_valid_concept_id("unresolved:python")  # well-formed, even if "python" is separately resolvable
+    assert is_valid_concept_id(unresolved_concept_id("kubernetes"))
+
+
+def test_is_valid_concept_id_false_for_empty_or_whitespace_unresolved_suffix():
+    assert not is_valid_concept_id("unresolved:")
+    assert not is_valid_concept_id("unresolved:   ")
+
+
+def test_is_valid_concept_id_false_for_arbitrary_nonexistent_canonical_looking_id():
+    # Dotted, canonical-looking, but never actually registered -- must
+    # NOT silently masquerade as a resolved concept.
+    assert not is_valid_concept_id("language.does_not_exist")
+    assert not is_valid_concept_id("whatever.random.string")
+    assert not is_valid_concept_id("garbage")
+
+
+def test_is_valid_concept_id_false_for_empty_or_whitespace_string():
+    assert not is_valid_concept_id("")
+    assert not is_valid_concept_id("   ")
+    assert not is_valid_concept_id(" language.python")  # padding is also malformed
+
+
+def test_is_valid_concept_id_never_resolves_a_raw_human_typed_term():
+    # is_valid_concept_id answers "is this ALREADY a valid id", not
+    # "what concept does this term mean" -- that is resolve_concept()'s
+    # job. A raw alias is not itself a valid concept_id.
+    assert resolve_concept("Postgres").matched
+    assert not is_valid_concept_id("Postgres")
+    assert not is_valid_concept_id("postgres")
+
+
+def test_is_valid_concept_id_accepts_an_explicit_registry():
+    custom = ConceptRegistry(
+        [TechnicalConcept(concept_id="custom.thing", display_name="Thing", category="custom", aliases=("thing",))]
+    )
+    assert is_valid_concept_id("custom.thing", registry=custom)
+    assert not is_valid_concept_id("custom.thing")  # not in the default registry
+    assert not is_valid_concept_id("language.python", registry=custom)  # not in the custom one
 
 
 # ---------------------------------------------------------------------------
