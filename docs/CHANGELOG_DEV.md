@@ -1,5 +1,150 @@
 # GitScore AI — Dev Changelog
 
+## 2026-09-29 — Milestone 7A: Deterministic requirement matching engine
+
+**What changed:** First milestone connecting `CandidateEvidenceProfile`
+(Milestone 5C/5D) and `JobRequirementProfile` (Milestone 6A/6B/6B.1). New
+package `gitscore.matching` (`types.py`, `support.py`, `models.py`,
+`engine.py`) determines, per `JobRequirement`, what the candidate's
+GitHub evidence says about it — `SUPPORTED` / `NOT_OBSERVED` /
+`NOT_ASSESSABLE`. Full design writeup: `docs/ARCHITECTURE.md` §20. This
+entry summarizes.
+
+**Explicitly NOT implemented (per instruction):** overall 0-100 job-fit
+score, weighted aggregation, strengths/gaps prose, hire/reject
+conclusion, alternative-role discovery, persistence, API, UI, CatBoost,
+LLM, job-posting URL ingestion. `JobMatchAnalysis` exposes only plain
+descriptive counts (`supported_count`/`not_observed_count`/
+`not_assessable_count`) — arithmetic a human could reproduce by hand,
+not a weighting decision.
+
+**MatchStatus — three states:** `SUPPORTED`, `NOT_OBSERVED`,
+`NOT_ASSESSABLE`. `NOT_OBSERVED` means "no sufficient evidence found in
+the ANALYZED GitHub evidence" — never "the candidate lacks this skill."
+`NOT_ASSESSABLE` means "not the kind of claim GitHub evidence can speak
+to" — never "the candidate failed this requirement."
+
+**No `PARTIALLY_SUPPORTED`:** considered and rejected, not omitted.
+`ConfidenceLevel` (WEAK/MODERATE/STRONG) answers "how sure are we this
+observation is real," never candidate proficiency or "how much of a
+requirement" is met — no principled, deterministic partial-support
+reading exists in the current evidence model. For an alternative group,
+"some but not all alternatives supported" is not partial support either
+— Milestone 6B.1's OR semantics mean ANY one supported alternative
+already fully satisfies the requirement (`matched_concept_ids` records
+which ones, but `status` stays a plain `SUPPORTED`).
+
+**Normal technical requirement:** looked up directly via
+`CandidateEvidenceProfile.concept(concept_id)` — no fuzzy string
+matching; the parser/registry already normalized every concept id on
+both sides, including `unresolved:<term>` ids (matched by exact string
+equality).
+
+**Alternative group (`alternative_concept_ids`, 6B.1):** `SUPPORTED` if
+ANY alternative has sufficient evidence (true OR — never requires all).
+`matched_concept_ids` retains EVERY alternative that matched (not just
+the first), stored sorted for determinism. Verified against the actual
+ML manual-validation posting: a candidate with ONLY Docker evidence (no
+Kubernetes evidence) against "Docker or Kubernetes" is `SUPPORTED` with
+`matched_concept_ids == ("infra.docker",)` — never requires both.
+
+**Non-observable requirements:** `github_observability ==
+NOT_OBSERVABLE` -> always `NOT_ASSESSABLE`, regardless of any concept
+mapping (defensive; the parser never actually attaches one, but the
+domain model doesn't forbid it).
+
+**`PARTIALLY_OBSERVABLE` — the one non-obvious rule, checked against
+real fixtures, not assumed:** a `PARTIALLY_OBSERVABLE` requirement WITH
+a real concept mapping (`concept_id` or `alternative_concept_ids`) is
+matched exactly like `STRONGLY_OBSERVABLE`. Milestone 6A's own
+hand-built manual examples already contain this combination — "AWS
+experience preferred" (`concept_id="cloud.aws"`, `PARTIALLY_OBSERVABLE`)
+and "Comfortable working in Linux environments"
+(`concept_id="unresolved:linux"`, `PARTIALLY_OBSERVABLE`) — so
+collapsing every `PARTIALLY_OBSERVABLE` requirement to `NOT_ASSESSABLE`
+regardless of concept mapping would make real, checkable evidence
+(a `boto3` dependency, a Dockerfile) permanently unmatchable, which is
+LESS truthful, not the "smallest safe behavior." A `PARTIALLY_OBSERVABLE`
+requirement with NO concept mapping (`category="leadership"` — "Experience
+mentoring junior engineers" in the actual ML posting — or the 6B.1
+"unsafe" alternative-group fallback) IS `NOT_ASSESSABLE`: there is no
+structured evidence surface to check at all, so `NOT_ASSESSABLE` is
+truthful there, not a discount on `SUPPORTED`/`NOT_OBSERVED`.
+
+**Evidence-sufficiency policy (`matching/support.py`):**
+`MINIMUM_SUPPORTING_CONFIDENCE = ConfidenceLevel.WEAK` — ANY qualifying
+Evidence, any confidence tier, is sufficient. A considered decision, not
+an assumption: every extractor already applies its OWN significance
+filter before producing Evidence at all (`languages.py`'s 5%-of-bytes
+floor is the clearest example) — WEAK evidence is "genuinely present,
+just not the dominant signal," not "maybe not real." A stricter floor
+would silently re-apply a second, undocumented significance bar on top
+of each extractor's own, and — with no `PARTIALLY_SUPPORTED` status —
+would misrepresent "observed, but weakly" as "not observed at all."
+Centralized as one named, testable constant so it can be tightened later
+without redesigning the matcher.
+
+**Coverage handling:** `JobMatchAnalysis.coverage` holds the candidate's
+`RepositoryAnalysisCoverage`, copied by reference in ONE place (not
+duplicated onto every `RequirementMatch` — that would be pure
+duplication with no new information per match, mirroring how
+`CandidateEvidenceProfile` itself keeps coverage once, not per
+`Evidence`). No coverage percentage or score computed — only the
+existing `discovered_count`/`analyzed_count`/`is_complete` facts,
+unchanged; deriving a calibrated number from them is Milestone 7B's job.
+
+**Necessity/Importance/ParserConfidence independence:** none of the
+three affect matching status — `RequirementMatch.requirement` retains
+them unchanged for 7B to read later, but REQUIRED vs. PREFERRED, HIGH
+vs. LOW importance, and LOW vs. HIGH parser confidence with identical
+candidate evidence always produce the identical `status`. Verified by
+dedicated tests.
+
+**Whole-profile entry point:** `match_job(candidate_profile, job_profile)
+-> JobMatchAnalysis`, one `RequirementMatch` per requirement, in
+`job_profile.requirements`' own order (never re-sorted — that order is
+meaningful posting order).
+
+**Versioning:** `MATCHER_VERSION = "requirement_matcher:v1"`
+(`matching/types.py`) — a new, independent constant. Does NOT bump
+`JOB_REQUIREMENT_SCHEMA_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+`CONCEPT_REGISTRY_VERSION`, or `JOB_DESCRIPTION_PARSER_VERSION` — purely
+additive; `JobRequirement` and `CandidateEvidenceProfile` are consumed
+exactly as-is, unmodified.
+
+**Tests:** 48 new — `tests/test_matching_engine.py` (42: normal/
+alternative-group matching A-U from the milestone brief, invariants on
+`RequirementMatch`/`JobMatchAnalysis`, threshold/coverage/ordering
+behavior) and `tests/test_matching_manual_examples.py` (6: the real
+Backend/Robotics/ML/Data-Engineer postings, parsed with the real
+`parse_job_description()`, matched against several deliberately mixed
+hand-built candidate profiles). All deterministic, offline, no network
+calls. **686 tests total, all passing** (up from 638).
+
+**Manual validation:** see `docs/ARCHITECTURE.md` §20.6 for the full
+write-up — no false AND for OR groups, non-observable claims never
+became technical gaps, every `SUPPORTED` match traced to real
+attributable Evidence, and no score/coverage-percentage/hire-reject
+conclusion was computed anywhere.
+
+**Files changed:**
+- `src/gitscore/matching/__init__.py`, `types.py`, `support.py`,
+  `models.py`, `engine.py` — new package.
+- `tests/test_matching_engine.py`, `tests/test_matching_manual_examples.py`
+  — new.
+- `docs/ARCHITECTURE.md` — new §20.
+- `docs/CHANGELOG_DEV.md` — this entry.
+
+**How to test:** `python -m pytest` (whole suite, 686 tests, no
+network/token required) or `python -m pytest tests/test_matching_engine.py
+tests/test_matching_manual_examples.py -v` for just the 7A-relevant
+subset.
+
+**Explicitly NOT done this milestone (per instruction):** job-fit score,
+weighted aggregation, strengths/gaps, alternative-role discovery, LLM,
+URL ingestion, persistence, UI, CatBoost, Milestone 7B. No commit was
+made.
+
 ## 2026-09-28 — Milestone 6B.1: Structured alternative requirements
 
 **What changed:** Corrects Milestone 6B's OR-handling before that

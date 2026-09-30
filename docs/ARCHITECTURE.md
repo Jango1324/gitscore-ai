@@ -2053,3 +2053,245 @@ collided under one key regardless of which concepts it actually named.
   (`required`, `preferred`, `experience`, `skills`, ...) — a phrasing
   using a filler word outside that list will leave it attached to the
   segment, which then fails to resolve as a clean technology name.
+
+## 20. Deterministic requirement matching — Milestone 7A
+
+```
+CandidateEvidenceProfile (evidence/profile.py, §14-16)
+        +
+JobRequirementProfile (jobs/profile.py, §17-19)
+        |
+        v
+match_job()                          (matching/engine.py)
+        |
+   (per requirement) match_requirement()
+        |
+        v
+JobMatchAnalysis(requirement_matches=<tuple of RequirementMatch>, coverage=..., matcher_version=...)
+```
+
+New package: `gitscore.matching` (`matching/types.py`, `matching/
+support.py`, `matching/models.py`, `matching/engine.py`). Not to be
+confused with `gitscore.concepts.matching` (§19's shared alias-boundary
+regex, `alias_pattern()`) — an unrelated layer that happens to share the
+word "matching": that module answers "does this alias appear in this
+text"; this package answers "does this candidate's GitHub evidence
+support this job requirement."
+
+**Scope boundary, explicit:** this milestone produces per-requirement
+`SUPPORTED`/`NOT_OBSERVED`/`NOT_ASSESSABLE` verdicts only. NO 0-100
+job-fit score, NO weighted aggregation, NO strengths/gaps prose, NO
+hire/reject conclusion, NO alternative-role discovery. Those are
+Milestone 7B+ concerns that CONSUME `JobMatchAnalysis` — deferred
+because scoring/weighting requires calibration decisions
+(`W_REQUIRED`/`W_PREFERRED`-style formulas, docs/design/
+MILESTONE_5A_JOB_MATCHING_DESIGN.md Part 15) this milestone was not
+asked to make, and because keeping "does evidence exist for this claim"
+separate from "how much should that claim count toward a score" lets 7B
+change the SCORING formula later without ever re-running the matcher.
+
+### 20.1 MatchStatus — three states, not five
+
+`docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` Part 16 (an early,
+never-implemented draft) sketched a five-state status
+(`SUPPORTED`/`WEAK`/`NOT_DETECTED`/`NOT_OBSERVABLE`/
+`INSUFFICIENT_ANALYSIS`). Milestone 7A's actual instructions ask for a
+smaller, principled set instead, and this is what got built:
+
+| Status | Meaning |
+|---|---|
+| `SUPPORTED` | The requirement names >=1 technical concept (single `concept_id`, or — §19 — `alternative_concept_ids`) for which the candidate has sufficient evidence (§20.3). |
+| `NOT_OBSERVED` | The requirement IS technical and IS GitHub-observable, but no sufficient evidence was found in the ANALYZED evidence. Never rendered as "the candidate lacks this skill" — only as "not observed in the analyzed GitHub evidence." `JobMatchAnalysis.coverage` (§20.5) is what tells a future explanation layer how much of the account that even was. |
+| `NOT_ASSESSABLE` | The requirement is not the kind of claim GitHub evidence can meaningfully speak to at all (§20.2). Never rendered as "the candidate failed this requirement." |
+
+**No `PARTIALLY_SUPPORTED`.** Considered and rejected, not merely
+omitted: the only ordinal signal `CandidateConceptSummary` currently
+offers is `ConfidenceLevel` (WEAK/MODERATE/STRONG), which
+`evidence/types.py` itself documents as confidence in the OBSERVATION
+being real, never a measure of candidate proficiency or "how much of a
+requirement" is satisfied — there is no principled, deterministic way to
+read a fractional-support meaning out of it today. For an alternative
+group, "some but not all alternatives supported" is not partial support
+either — 6B.1's OR semantics mean ANY one supported alternative already
+fully satisfies the logical requirement; `RequirementMatch.
+matched_concept_ids` records WHICH alternatives matched (for a future
+explanation layer), but `status` is still a plain `SUPPORTED`.
+`INSUFFICIENT_ANALYSIS` was also considered (the draft design's own
+name for what `RepositoryAnalysisCoverage` — §20.5 — already
+represents) and rejected AS A STATUS: coverage incompleteness is
+preserved as its own structured fact on `JobMatchAnalysis`, not folded
+into the per-requirement status, so a `NOT_OBSERVED` verdict and the
+"how much of the account was analyzed" fact stay independently
+queryable rather than conflated into one enum value.
+
+### 20.2 The NOT_ASSESSABLE decision table
+
+`matching/engine.py`'s `match_requirement()` docstring carries the full
+table; summarized:
+
+| `github_observability` | has a concept mapping (`concept_id` or `alternative_concept_ids`)? | result |
+|---|---|---|
+| `NOT_OBSERVABLE` | either | `NOT_ASSESSABLE` |
+| `PARTIALLY_OBSERVABLE` | no | `NOT_ASSESSABLE` |
+| `PARTIALLY_OBSERVABLE` | yes | checked like `STRONGLY_OBSERVABLE` |
+| `STRONGLY_OBSERVABLE` | no | `NOT_ASSESSABLE` |
+| `STRONGLY_OBSERVABLE` | yes | checked against evidence |
+
+The one non-obvious row: a `PARTIALLY_OBSERVABLE` requirement WITH a
+real concept mapping is matched exactly like a `STRONGLY_OBSERVABLE`
+one. This is deliberate, not "simply treating `PARTIALLY_OBSERVABLE` as
+`STRONGLY_OBSERVABLE`" by accident — it was checked against the ACTUAL
+domain model rather than assumed: Milestone 6A's own hand-built manual
+examples (`tests/test_job_requirement_manual_examples.py`) already
+contain `PARTIALLY_OBSERVABLE` requirements WITH a populated
+`concept_id` — "AWS experience preferred" (`concept_id="cloud.aws"`),
+"Comfortable working in Linux environments"
+(`concept_id="unresolved:linux"`), "Experience deploying models to
+cloud platforms." Collapsing every `PARTIALLY_OBSERVABLE` requirement to
+`NOT_ASSESSABLE` regardless of concept mapping would make real,
+checkable GitHub evidence (a `boto3` dependency, a Dockerfile, a CI
+config) for these permanently unmatchable — strictly LESS truthful than
+checking it, not the "smallest safe behavior." What genuinely IS
+`NOT_ASSESSABLE` under `PARTIALLY_OBSERVABLE` is a requirement with NO
+concept mapping at all — `category="leadership"` ("mentoring junior
+engineers", confirmed in the ML manual-validation fixture, §20.6) and
+the 6B.1 "unsafe" alternative-group fallback (`category=
+"alternative_requirement"`) — there the candidate-evidence model
+genuinely has no structured surface to check (no concept id to look
+up), so `NOT_ASSESSABLE` is the truthful answer, not a discount applied
+on top of `SUPPORTED`/`NOT_OBSERVED`.
+
+`NOT_OBSERVABLE` always wins regardless of concept mapping (defensive —
+the job-side signal that GitHub cannot speak to this AT ALL is never
+second-guessed by a `concept_id` happening to be attached, even though
+the current parser never actually produces that combination).
+
+### 20.3 Evidence-sufficiency policy
+
+`matching/support.py`: `MINIMUM_SUPPORTING_CONFIDENCE =
+ConfidenceLevel.WEAK` — i.e. the presence of ANY qualifying `Evidence`
+for a concept, at any confidence tier, is sufficient for `SUPPORTED`.
+Centralized as one named, testable constant (`has_sufficient_evidence()`)
+rather than assumed inline — considered and NOT simply "any Evidence
+exists":
+
+1. `ConfidenceLevel` answers "how sure are we this observation is
+   real," never candidate skill depth — using it as a skill-depth gate
+   would repeat the exact conflation its own docstring warns against.
+2. Every extractor already applies ITS OWN significance filter before
+   producing Evidence at all — e.g. `evidence/extraction/languages.py`
+   only emits Evidence (WEAK or above) for a language at >= 5% of a
+   repository's bytes. WEAK evidence is not "maybe not real"; it is
+   "genuinely present, just not the dominant signal." A stricter floor
+   here would silently re-apply a SECOND, undocumented significance bar
+   on top of each extractor's own.
+3. With no `PARTIALLY_SUPPORTED` status (§20.1), discarding WEAK
+   evidence would force it into `NOT_OBSERVED` — misrepresenting
+   "observed, but weakly" as "not observed at all."
+
+Kept as one named constant specifically so it CAN be tightened later
+(e.g. if real-world validation shows WEAK-only language evidence alone
+produces false-positive matches) without redesigning the matcher.
+
+### 20.4 Normal and alternative-group matching
+
+Normal technical requirement (`concept_id` set): looked up directly via
+`CandidateEvidenceProfile.concept(concept_id)` — no fuzzy string
+matching anywhere in this package; the parser (§18) and concept registry
+already normalized every concept id on both the job side and the
+candidate side, so the matcher only ever compares canonical concept-id
+strings, including `unresolved:<term>` ids (matched by exact string
+equality, the same deterministic ids `concepts.registry.
+unresolved_concept_id()` already produces on both sides).
+
+Alternative group (`alternative_concept_ids`, §19): EVERY alternative is
+checked; the requirement is `SUPPORTED` if ANY has sufficient evidence
+(true OR semantics — Part 6, directly: "Python or Go" requires evidence
+for EITHER, never both). `RequirementMatch.matched_concept_ids` retains
+EVERY alternative that matched (not just the first), stored sorted —
+"Python or Go" with evidence for both Python and Go produces
+`("language.go", "language.python")` deterministically regardless of
+which was checked first.
+
+Necessity, Importance, and ParserConfidence are read by NOTHING in this
+matching logic — `RequirementMatch.requirement` retains them unchanged
+for Milestone 7B to read later, but a `REQUIRED` vs. `PREFERRED`,
+`HIGH` vs. `LOW` importance, or `LOW` vs. `HIGH` parser-confidence
+requirement with identical candidate evidence always produces the
+identical `status`.
+
+### 20.5 Coverage handling
+
+`JobMatchAnalysis.coverage` is the candidate's own
+`RepositoryAnalysisCoverage` (§16), copied by reference (not
+recomputed) from the matched `CandidateEvidenceProfile` — kept in
+exactly ONE place, not duplicated onto every `RequirementMatch`
+(repeating the identical object per match would be pure duplication
+with no new information per match, mirroring how
+`CandidateEvidenceProfile` itself keeps coverage once rather than
+duplicating it onto every `Evidence` item). This is what lets Milestone
+7B distinguish "Python not observed, every discovered repository was
+analyzed" from "Python not observed, but only 15 of 1,140 repositories
+were" without re-deriving that fact. No coverage PERCENTAGE or score is
+computed here — `discovered_count`/`analyzed_count`/`is_complete` are
+already exposed by `RepositoryAnalysisCoverage` itself (§16); inventing
+a derived number on top of them is explicitly Milestone 7B's job, once
+a calibrated formula exists.
+
+### 20.6 Manual validation (Part 18)
+
+The same four real job postings used for Milestone 6B/6B.1's manual
+parser validation (§18.11 — Backend Software Engineer, Robotics
+Software Engineer, ML Engineer, Data Engineer) run through the REAL
+`parse_job_description()`, then matched against several deliberately
+mixed, hand-built candidate evidence profiles
+(`tests/test_matching_manual_examples.py`). Confirmed across all four:
+
+- "Docker or Kubernetes" (ML): a candidate with ONLY Docker evidence
+  (no Kubernetes evidence at all) is `SUPPORTED`, with
+  `matched_concept_ids == ("infra.docker",)` — never requires both
+  alternatives, the exact false-AND bug class this milestone guards
+  against.
+- "AWS or Azure" (ML, preferred): no candidate evidence for either ->
+  `NOT_OBSERVED`, never `NOT_ASSESSABLE` (it IS a real technical
+  alternative group).
+- "3+ years ... experience", "Bachelor's degree ...", "eligible to work
+  in the United States", "excellent written and verbal communication"
+  (all four postings): all `NOT_ASSESSABLE`, never a technical gap.
+- "mentoring junior engineers" (ML, `category="leadership"`,
+  `PARTIALLY_OBSERVABLE`, no concept mapping): `NOT_ASSESSABLE` — NOT
+  silently promoted to `SUPPORTED` by treating `PARTIALLY_OBSERVABLE`
+  loosely.
+- Every `SUPPORTED` match's `supporting_evidence` traces to real,
+  attributable `Evidence`/`RepositoryIdentity` objects from the
+  hand-built candidate profile — never fabricated, never generated
+  prose.
+- No score, coverage percentage, or hire/reject conclusion is computed
+  anywhere in these tests.
+
+### 20.7 Versioning
+
+`MATCHER_VERSION = "requirement_matcher:v1"` (`matching/types.py`) — a
+NEW, independent constant identifying THIS package's matching rules
+(which statuses exist, what counts as sufficient evidence, how
+alternative groups resolve). Does NOT bump
+`JOB_REQUIREMENT_SCHEMA_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+`CONCEPT_REGISTRY_VERSION`, or `JOB_DESCRIPTION_PARSER_VERSION` — this
+milestone is purely additive: no existing domain-model shape, parser
+behavior, or concept-registry data changed. `JobRequirement` and
+`CandidateEvidenceProfile` are both consumed exactly as-is, unmodified.
+
+### 20.8 Known limitations
+
+- No 0-100 score, weighted aggregation, strengths/gaps prose, or
+  hire/reject conclusion — explicitly deferred to Milestone 7B.
+- No coverage PERCENTAGE — only the existing
+  `discovered_count`/`analyzed_count`/`is_complete` facts are exposed;
+  turning that into a calibrated number is 7B's job.
+- `PARTIALLY_OBSERVABLE` with a concept mapping is matched identically
+  to `STRONGLY_OBSERVABLE` (§20.2) — there is currently no distinct,
+  principled way to require STRONGER evidence for a partially-observable
+  claim than for a strongly-observable one; if a future milestone
+  defines one, this is the extension point.
+- No alternative-role discovery, no persistence, no API, no UI — all
+  explicitly out of scope per this milestone's own instructions.
