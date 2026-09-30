@@ -1343,6 +1343,12 @@ exactly what the posting said and roughly what kind of claim it is, so a
 future explanation layer can render "GitHub cannot assess this" rather
 than silently dropping it.
 
+**Update, Milestone 6B.1:** `JobRequirement` gained a fourth field,
+`alternative_concept_ids: tuple[str, ...] = ()`, for a single logical
+requirement satisfied by ANY ONE of several technical concepts ("Python
+or Go") — mutually exclusive with `concept_id`. `JOB_REQUIREMENT_SCHEMA_VERSION`
+bumped 1 -> 2 as a result. Full detail: §19.
+
 ### 17.3 Concept resolution reuses §14's registry exactly — no second table
 
 A technical `JobRequirement.concept_id` is populated by calling the
@@ -1544,3 +1550,506 @@ strengths/gaps output, no alternative-role discovery, no persistence.
 Every `JobRequirement`/`JobRequirementProfile` produced so far is
 hand-constructed by test code — turning raw job-description text into
 these objects is the next milestone's work, not this one's.
+
+**Update, Milestone 6B (§18): the job-description parser now exists.**
+`gitscore.jobs.parsing.parse_job_description()` turns raw text into a
+`JobRequirementProfile` using this EXACT, unchanged domain model — no
+field was added to `JobRequirement`/`JobRequirementProfile`,
+`JOB_REQUIREMENT_SCHEMA_VERSION` did not move. Everything else in this
+section (§17.1-17.9) still describes the model exactly as it shipped in
+6A/6A.1.
+
+## 18. Job-description parser (`src/gitscore/jobs/parsing/`) — Milestone 6B / 6B.1
+
+**Deterministic, rule-based, zero external dependencies.** Turns raw
+job-description text into a `JobRequirementProfile` (§17, extended in
+6B.1 by one additive field -- see §19) -- no matcher, no scoring, no
+candidate/job comparison of any kind.
+
+```
+Raw Job Description
+        |
+        v
+segment_description()                    (18.2 -- Claim: text + exact span + necessity hint)
+        |
+        v
+per claim:
+  classify_alternative_claim()  (§19)
+    "technical"      --> ONE JobRequirement, alternative_concept_ids set
+    "unsafe"         --> ONE conservative alternative_requirement fallback
+    "not_technical"  --> normal pipeline, exactly as if no "or" were present:
+        find_concept_mentions()  -> known concepts (18.3/18.4)
+        find_conservative_unknown_terms()  -> unresolved:<term> (18.5)
+        find_experience_qualifier()  -> non-technical "experience" claim (18.9)
+        find_non_technical_match()  -> non-technical claim (18.6)
+        |
+        v
+infer_necessity() / infer_importance() / observability_for_*() / confidence_for()   (18.6/18.7/18.8)
+        |
+        v
+deduplicate_requirements()                (18.8, alternative-group-aware since 6B.1)
+        |
+        v
+JobRequirementProfile(raw_text=<verbatim>, requirements=<deduplicated>, parser_version="job_description_parser:v2")
+```
+
+### 18.1 Architecture decision: A (deterministic) over B/C (LLM-assisted)
+
+Milestone 6B's instructions explicitly required evaluating this, not
+defaulting to an LLM just because the product is named GitScore AI.
+Chosen: **Option A, purely deterministic/rule-based** — for exactly the
+same reason the "Good" flow in the milestone brief already IS
+deterministic end-to-end: identify claims -> identify technical
+terms/concepts -> normalize through the EXISTING concept registry ->
+preserve unresolved concepts -> construct generic `JobRequirement`
+objects. Arbitrary-role support does not require language understanding
+of what a role IS — it requires an OPEN concept vocabulary (already
+solved: the registry + `unresolved:<term>`, §14) and conservative,
+generic-vocabulary heuristics for document STRUCTURE (section headings,
+bullets, sentences) and CLAIM SHAPE (necessity/experience/alternative
+wording) — none of which is role-specific. No test in this milestone
+needs a network call or an API key.
+
+**Where a future LLM adapter could plug in, without changing anything
+downstream:** the ONE place free-text judgment is genuinely hard for
+regex is `segmentation.py`'s conservative gate for claims outside a
+recognized section, and `non_technical.py`'s fixed phrase table (a
+posting phrasing a non-technical requirement in a way the curated table
+doesn't cover is silently missed, §18.10). An `LLMClaimExtractor`
+adapter could replace `segment_description()`'s output — a list of
+candidate claim TEXT spans — while every downstream step (concept
+resolution, necessity/importance/observability, dedup,
+`JobRequirementProfile` construction) stays byte-for-byte the same,
+exactly mirroring the existing project boundary
+(`docs/design/MILESTONE_5A_JOB_MATCHING_DESIGN.md` Part 18: LLM only
+ever produces unnormalized candidate phrases, never writes a concept id,
+a score, or Evidence directly). Not built here — no external AI
+dependency was introduced without approval, per instruction.
+
+### 18.2 Segmentation (`segmentation.py`, Part 3)
+
+A fixed, generic table of common JD section headings (Requirements /
+Qualifications / Preferred Qualifications / Nice to Have /
+Responsibilities / ... and a separate SKIP table: Benefits / Perks /
+About Us / Compensation / ...) — about DOCUMENT STRUCTURE, not domain
+content, so it applies unchanged to a backend, robotics, or FPGA
+posting. Every `Claim` carries its EXACT `(start, end)` offset into the
+original description (never reconstructed) plus a `necessity_hint`
+inherited from its section.
+
+Inside a recognized requirement-like section, every bullet/sentence
+becomes a claim unconditionally. Inside a SKIP section, nothing does,
+until the next heading. OUTSIDE any recognized section, a claim is only
+emitted if it contains a known concept mention OR a small, generic
+requirement-vocabulary signal (`experience`, `degree`, `required`,
+`skills`, ...) — this is what keeps "We are a fast-growing startup
+revolutionizing how teams ship software" from ever becoming a
+requirement, confirmed in Milestone 6B's manual validation (§18.11): the
+Backend example's marketing intro and its entire `Benefits:` section
+(including a "React JS meetups" line that would otherwise be a
+`framework.react` false positive) produced zero claims.
+
+**Known limitation:** a section's `necessity_hint` persists until the
+NEXT recognized heading — text appearing after the last real heading in
+a posting inherits whatever section was last open, which is not always
+semantically appropriate (observed directly in manual validation, §18.11
+false positives). Sentence splitting is a conservative
+`(?<=[.!?])\s+(?=[A-Z0-9])` heuristic, not real NLU — it can under-split
+one long sentence into fewer claims than a human would, never silently
+corrupts an offset.
+
+### 18.3 Known-concept extraction (`concepts.py`, Part 5)
+
+Reuses `gitscore.concepts.registry.default_registry()` exactly — no
+second, parser-specific ontology, adding a job-description-recognizable
+technology is still exactly one `TechnicalConcept` registry entry
+(§14/§15.7's "no second table" precedent, applied a third time).
+
+### 18.4 Alias safety (Part 6) — reuses, does not fork, Milestone 5D.1's mechanism
+
+Job-description prose is treated as the SAME free-form-text risk class
+README prose is: a job posting's requirement bullets are still natural
+language, not structured data, so the exact bare `go`/`next`/`js`/`ts`/`c`
+false positives Milestone 5D.1 fixed for README extraction apply equally
+here. `find_concept_mentions()` scans `concept.readme_safe_aliases()` --
+the IDENTICAL per-concept safe-alias set `evidence/extraction/readme.py`
+uses — rather than a second `job_unsafe_aliases` table. The shared
+boundary-regex primitive itself was extracted from `readme.py` into
+`concepts/matching.py::alias_pattern()` (Milestone 6B) specifically so
+both callers use identical matching mechanics, not just identical DATA;
+`readme.py`'s own behavior and tests are unaffected (confirmed:
+`tests/test_evidence_extraction_readme.py` unchanged and passing).
+Explicitly evaluated and rejected: a job-specific safety table — no
+job-description-only false positive distinct from README's has been
+observed (§18.11); if one ever is, `TechnicalConcept` could gain a
+`job_unsafe_aliases` field the same data-driven way, without touching
+this reasoning.
+
+### 18.5 Unresolved/unknown-concept policy (Part 5)
+
+Conservative by design: an unrecognized term is preserved as
+`unresolved:<term>` (the SAME Milestone 5C mechanism, reused via
+`concepts.registry.unresolved_concept_id()` — no second convention) ONLY
+when it appears in a comma-containing list that ALSO contains at least
+one term that already resolved to a known concept in the SAME claim
+(`find_conservative_unknown_terms()`) — e.g. "Kubernetes" in "Python,
+Kubernetes, and Docker". An isolated unrecognized word, or ANY claim with
+zero already-confirmed concepts, is left alone entirely — "ordinary
+prose should not" become `unresolved:*` (Part 5, verbatim).
+
+**Requiring an actual comma** is itself a fix for two real false
+positives found in Milestone 6B's own manual validation (§18.11) before
+the guard was added: a bare "X and Y" with no comma is far more often a
+verb phrase or prose clause than a technology list —
+`"Build and maintain ETL pipelines using Python"` was promoting `"Build"`
+to `unresolved:build`, and `"Proficiency in Python for tooling and
+scripting"` was promoting `"scripting"` — both fixed by requiring a
+comma before the list-scan runs at all (see `tests/test_job_parser.py`'s
+two dedicated regression tests).
+
+**Known limitation (accepted, documented, not fixed):** a standalone
+bullet naming an out-of-registry technology with NO co-occurring known
+concept in the same claim (e.g. a bare `"Kubernetes"` bullet on its own
+line, or `"Familiarity with dbt"`) produces nothing — a real, observed
+false negative (§18.11). Broadening the trigger to "any short,
+capitalized, standalone bullet" was evaluated and explicitly rejected: it
+would misfire on ordinary short phrases with no list-context guard at
+all (e.g. "Fast learner" is exactly as shape-plausible as "Kubernetes"),
+which is precisely the recklessness Part 5 warns against. The accepted
+trade is fewer false positives at the cost of some missed standalone
+technology bullets.
+
+### 18.6 Non-technical requirements (Part 10) and necessity/importance/observability
+
+`non_technical.py` is a small, curated, GENERIC phrase table (education,
+legal/work-authorization, leadership/mentoring, soft-skill/
+communication) — universal HR boilerplate present in virtually every
+technical posting, never a technology name, so it is not "role-specific
+parsing" in the sense the milestone forbids. A match always produces
+`concept_id=None` — never a manufactured `TechnicalConcept` id like
+`skill.communication`.
+
+Necessity (`necessity.py`, Part 7): LOCAL wording in the claim's own
+text (`required`/`must have`/... vs. `preferred`/`a plus`/`nice to
+have`/...) always overrides the claim's section-derived
+`necessity_hint`; with no local wording, the section hint applies
+(REQUIRED for a Requirements/Responsibilities section or no recognized
+section at all; PREFERRED for a Preferred-Qualifications-type section).
+If a claim's text somehow contains BOTH markers, REQUIRED wins — the
+conservative direction.
+
+Importance (`importance.py`, Part 8): `MEDIUM` by default; a small
+explicit strong-emphasis vocabulary (`critical`, `essential`, `expert`,
+...) upgrades to `HIGH`; a small hedge vocabulary (`familiarity with`,
+`exposure to`, ...) downgrades to `LOW`; a `PREFERRED` requirement with
+no strong-emphasis override defaults to `LOW` (a "plus" is inherently
+secondary). Ordinal only — no floating-point weights, per instruction.
+
+Observability (`observability.py`, Part 9): two centralized dict
+lookups, never `if concept == ...`. Every technical concept (resolved or
+`unresolved:*`) defaults to `STRONGLY_OBSERVABLE` uniformly (every
+category in the current small registry IS a concrete, demonstrable
+technology). Non-technical requirements look up their `category` label
+in a small table (`experience`/`education`/`legal`/`soft_skill` ->
+`NOT_OBSERVABLE`; `leadership`/`alternative_requirement` ->
+`PARTIALLY_OBSERVABLE`); an unrecognized category safely defaults to
+`NOT_OBSERVABLE` — never silently overclaims what GitHub can verify.
+
+Parser confidence (`confidence.py`, Part 12): one small mapping by
+extraction "kind" — `resolved_concept`/`experience_qualifier` -> `HIGH`;
+`unresolved_concept_listed`/`non_technical_pattern` -> `MEDIUM`;
+`alternative_fallback` -> `LOW` (deliberately ambiguous by construction,
+never higher).
+
+### 18.7 Alternative/OR requirements (Part 14) — the milestone's central correctness gate
+
+**Final design: structured alternative groups (Milestone 6B.1) — full
+detail in §19.** In brief: an OR-shaped claim like "Python or Go" is
+represented as ONE `JobRequirement` with `alternative_concept_ids =
+("language.go", "language.python")` — never two independent `REQUIRED`
+rows (which would misrepresent OR as AND), and never a text-only
+placeholder the matcher would have to re-parse. `original_text` is still
+preserved verbatim; necessity/importance apply to the GROUP as a whole,
+never per-alternative. `PostgreSQL, MySQL, or MongoDB` and `AWS or Azure`
+work the same way, mixing real registered concepts with conservatively
+promoted `unresolved:<term>` ids where needed. Normal conjunction
+(`"Python and PostgreSQL"`, `"Python, PostgreSQL, and Docker"`) is
+unaffected — those remain independent requirements, exactly as before.
+
+An earlier iteration of this milestone (still visible in
+`docs/CHANGELOG_DEV.md`'s Milestone 6B entry, kept as the historical
+record) implemented a text-only, non-technical placeholder for OR-claims
+instead, following a selection misunderstanding about which of two
+presented options was approved. That iteration was replaced with the
+structured design above before Milestone 6B was committed — see the
+Milestone 6B.1 changelog entry for the correction.
+
+### 18.8 Deduplication (Part 13)
+
+`dedup.py`: technical requirements dedupe on `(concept_id, necessity)` —
+"Strong Python skills" (Requirements) and "Build Python backend
+services" (Responsibilities) both assert "language.python is REQUIRED"
+and collapse to one row. Alternative-group requirements (Milestone 6B.1,
+§19) dedupe on `(alternative_concept_ids, necessity)` — checked BEFORE
+the plain-technical key, since `is_technical` is `True` for both and
+`concept_id` is `None` for a group, so without a dedicated key every
+alternative group with the same necessity would collide regardless of
+WHICH concepts it names (a real bug caught and fixed in 6B.1's own
+tests, `test_alternative_group_never_collides_with_a_single_concept_requirement`).
+Because `alternative_concept_ids` is stored SORTED
+(`JobRequirement.__post_init__`, §19), "Python or Go" and "Go or Python"
+produce the identical key and collapse to one row for free — no
+set-vs-tuple special-casing needed in `dedup.py` itself. Non-technical
+requirements dedupe on
+`(category, necessity, normalized original_text)` — deliberately
+narrower on TEXT so "3+ years of professional experience" and "5 years
+professional Python experience" (different sentences, both
+`category="experience"`) are NEVER merged into each other. This is
+exactly what keeps Part 13's own worked example intact: "Python
+required" and "5 years professional Python experience" — the two
+TECHNICAL Python sub-claims correctly collapse (same fact, restated),
+but the EXPERIENCE sub-claim the second sentence also produces has no
+matching key anywhere and survives untouched (`tests/test_job_parser_extraction.py
+::test_technical_and_experience_claims_from_overlapping_text_both_survive`).
+When two requirements share a key, the HIGHER-`importance` occurrence is
+kept (more informative for a future matcher); ties/no-conflict keep
+first occurrence; output order always follows first occurrence,
+regardless of which occurrence's field values won.
+
+### 18.9 Experience qualifiers (Part 15)
+
+`experience.py`: a bare numeric years-count (`"3+ years"`, `"5 years"`)
+is the core, sufficient trigger — deliberately not requiring the literal
+word "experience" nearby, since `"2+ years working with Kubernetes"`
+never says it. When "experience" (optionally through "of" and a few
+descriptive words) follows shortly after, the captured span extends to
+include it for readability. Always becomes its OWN non-technical
+requirement (`category="experience"`, `concept_id=None`), kept strictly
+separate from whatever technical concept the same sentence mentions —
+the direct mechanism behind Part 1/4's central worked example.
+
+### 18.10 Known limitations
+
+- The non-technical phrase table (§18.6) is fixed and curated — a
+  posting phrasing "must have a degree" in a way the table doesn't cover
+  is silently missed (not promoted to any fake category, just dropped).
+- Section-hint leakage past the last real heading (§18.2).
+- Standalone unknown-technology bullets with no list-context (§18.5).
+- An OR-list where NONE of the alternatives is a registered concept
+  (e.g. "Snowflake or BigQuery" — neither is in the registry) produces
+  nothing at all, by the same conservative "needs an anchor" rule
+  `find_conservative_unknown_terms` already applies to comma-lists (§19).
+- No cross-sentence claim merging: a claim spanning two sentences
+  connected only by pronoun reference ("Experience with Python. It
+  should be recent.") is not stitched back together.
+- No source imports/CI/test-directory-style deep reading of anything —
+  this milestone only ever reads the pasted description text itself.
+
+### 18.11 Manual real-world validation (Part 19)
+
+Four hand-written, LOCAL job descriptions (no scraping) — Backend
+Software Engineer, Robotics Software Engineer, ML Engineer, and Data
+Engineer (the required "substantially different fourth role") — run
+through `parse_job_description()` and inspected directly (see
+`tests/test_job_parser.py`'s `test_manual_validation_*` for the locked-in
+assertions; the fixture text lives in that same file).
+
+**Confirmed correct across all four:** every known concept resolved
+(`language.python`, `language.cpp`, `database.postgresql`,
+`database.redis`, `infra.docker`, `cloud.aws`, `framework.nextjs`,
+`robotics.ros2`, `platform.cuda`, `embedded.rtos.freertos`,
+`ml.framework.pytorch`); every non-technical category fired correctly
+(`experience`, `education`, `legal`, `leadership`, `soft_skill`); every
+genuinely technical `or`-shaped claim ("Docker or Kubernetes", "AWS or
+Azure") produced exactly ONE structured `alternative_concept_ids` group
+and ZERO independent REQUIRED technical rows (Milestone 6B.1, §19); the
+Backend example's entire `Benefits:` section (including a "React JS
+meetups" line) produced zero requirements, confirming the skip-section
+mechanism and proving `framework.react` was never falsely triggered by
+marketing copy.
+
+**Re-run after Milestone 6B.1's structured-alternative fix — two
+concrete improvements over the original 6B run:**
+- "Bachelor's degree in Computer Science, Robotics, or a related field"
+  (Robotics) and "3+ years of experience in data engineering or a
+  related field" (Data Engineer) now correctly categorize as
+  `education`/`experience` (`NOT_OBSERVABLE`) instead of the generic
+  `alternative_requirement` bucket — since neither OR-list contains a
+  registered concept, 6B.1's `classify_alternative_claim()` correctly
+  judges them `"not_technical"` and lets the normal non-technical
+  detectors handle them (§19).
+- "Docker or Kubernetes" (ML) and "AWS or Azure" (ML, Backend) now carry
+  real structured `alternative_concept_ids` instead of an opaque
+  text-only placeholder.
+
+**False positives found and FIXED before this entry was written** (§18.5):
+`unresolved:build` (from "Build and maintain ETL pipelines using
+Python") and `unresolved:scripting` (from "Proficiency in Python for
+tooling and scripting") — both fixed by requiring a comma before the
+conservative unknown-term list-scan runs at all; both are now dedicated
+regression tests.
+
+**False negatives observed and ACCEPTED (documented, not fixed):**
+"Kubernetes" and "dbt" as standalone bullets with no co-occurring known
+concept in the same claim produce nothing (§18.5); "SQL" (not yet a
+registry concept at all) inside "Strong SQL and Python skills" (no
+comma) is not recovered; "Snowflake or BigQuery" (Data Engineer) — an
+OR-list where NEITHER alternative is a registered concept — produces
+nothing at all, the OR-list analog of the same "needs an anchor" rule
+(§19); "Prior experience with control systems or robotics" (Robotics)
+similarly produces nothing (neither side resolves, and no other detector
+matches the remaining text).
+
+No candidate was scored against any of these four postings — this
+milestone produces `JobRequirementProfile`s only.
+
+## 19. Structured alternative requirements — Milestone 6B.1
+
+**Corrects Milestone 6B's OR-handling before it was committed.** 6B
+represented "Python or Go" as a text-only, non-technical placeholder
+(`concept_id=None`, `category="alternative_requirement"`) — safe against
+misrepresenting OR as AND, but the future matcher would have had to
+re-parse `original_text` to recover what the alternatives even were. The
+parser owns text interpretation; the matcher must consume structured
+semantics. This section documents the corrected, final design; §18.7
+points here rather than duplicating it.
+
+### 19.1 Schema extension
+
+`JobRequirement` (`jobs/models.py`) gained one new field:
+
+```
+alternative_concept_ids: tuple[str, ...] = ()
+```
+
+Three, and only three, valid states for a technical-or-not requirement:
+
+| State | `concept_id` | `alternative_concept_ids` |
+|---|---|---|
+| Normal technical requirement | a concept id | `()` |
+| Alternative technical requirement | `None` | `(id_1, id_2, ...)`, >= 2 entries |
+| Non-concept requirement | `None` | `()` |
+
+`concept_id` and a non-empty `alternative_concept_ids` are mutually
+exclusive — `__post_init__` raises if both are set. Each entry is
+validated with the SAME `concepts.registry.is_valid_concept_id()` 6A.1
+introduced for the single-`concept_id` case (no second validation rule,
+per instruction); a set with fewer than 2 entries, or containing a
+duplicate, is rejected. The stored tuple is SORTED, not kept in
+call-order — "Python or Go" and "Go or Python" name the same set of
+options (order is a fact about the sentence, not about the options), so
+canonicalizing the order makes the two phrasings compare/hash equal
+automatically, with no custom `__eq__`/`__hash__` needed. This is what
+lets `dedup.py` and `JobRequirementProfile`'s existing exact-duplicate
+rejection (Milestone 6A) treat both phrasings as identical for free (see
+§18.8, and `tests/test_job_requirement_profile.py::
+test_alternative_group_with_reordered_ids_is_an_exact_duplicate`).
+
+`is_technical` is `True` for a group (it's still fundamentally about a
+technology, just with >1 acceptable answer). `is_resolved_concept` /
+`is_unresolved_concept` stay scoped to the single-`concept_id` case only
+(a group is neither); two new properties cover the group case instead:
+`is_alternative_group` and `has_unresolved_alternative` (true if at
+least one option is an `unresolved:<term>` placeholder — e.g. "Python or
+SomeNewRuntime").
+
+### 19.2 Classification (`alternatives.py`): three outcomes, not two
+
+`classify_alternative_claim()` replaces the old blanket "any claim with
+a standalone 'or' is alternative-shaped" rule with one that requires
+actual evidence the OR joins TECHNICAL alternatives:
+
+1. Split the claim on `or` (and on `,` within each part, for Oxford-style
+   "A, B, or C" enumerations) into segments, stripping a small set of
+   trailing filler/necessity words per segment ("Go required" / "Go
+   experience" -> "Go" — these belong to necessity/importance inference,
+   computed separately from the full claim text, not to the alternative's
+   name).
+2. Resolve each segment in two steps: first `find_concept_mentions()`
+   (prose-SAFE aliases only, §18.4) for a longer segment with a concept
+   embedded in surrounding words; if that finds nothing, clean the
+   segment to its core term and try `resolve_concept()` against the
+   FULL alias set — a deliberate, narrow escalation, justified because a
+   segment produced by splitting a CONFIRMED "X or Y" enumeration (at
+   least one sibling already resolved) is closer to an isolated,
+   structured token than to arbitrary free prose, which is exactly the
+   context Milestone 5D.1's alias-safety restriction was never meant to
+   apply to. This is what lets `"Go"` in `"Python or Go"` resolve to the
+   real `language.go` (bare `"go"` is `readme_unsafe` for free-form prose
+   scanning, but this is not that) instead of a needless
+   `unresolved:go`. A segment that resolves neither way falls to the
+   SAME conservative shape/stopword check `find_conservative_unknown_terms`
+   already uses (§18.5) — passes -> `unresolved:<term>`; fails -> the
+   whole claim is marked unsafe.
+3. Combine: if NO segment resolved to a REAL registered concept anywhere
+   (`any_confirmed` stays `False`), the claim is `"not_technical"` —
+   there is not enough evidence this is a technology enumeration at all,
+   so the caller runs the claim through the exact same pipeline as any
+   other claim (this is the fix for "Bachelor's degree ... or a related
+   field" and "3+ years experience or equivalent education" — both now
+   correctly land in `education`/`experience`, not a fake alternative
+   group, confirmed in the re-run manual validation, §18.11). If at
+   least one segment IS confirmed but at least one OTHER segment failed
+   the shape check, or fewer than 2 distinct ids survive, the claim is
+   `"unsafe"` — falls back to the OLD 6B placeholder
+   (`category="alternative_requirement"`, `parser_confidence=LOW`)
+   rather than either dropping an option or inventing a reckless
+   unresolved id. Otherwise `"technical"` — the caller builds one
+   `JobRequirement` with `alternative_concept_ids` set.
+
+### 19.3 Necessity / importance / observability for a group
+
+Computed ONCE from the full claim text exactly as for any other claim
+(`necessity.py`/`importance.py`, §18.6) — an alternative group is ONE
+logical requirement, so "Python or Go required" has one `REQUIRED`
+necessity, never per-alternative. Observability reuses
+`observability_for_technical()` unmodified (`STRONGLY_OBSERVABLE`) — by
+construction, every id in an `alternative_concept_ids` group is either a
+real registered concept or a conservatively-promoted `unresolved:<term>`,
+the same two shapes a normal technical requirement can have.
+
+### 19.4 Deduplication
+
+Full detail in §18.8. Key point: `is_technical` being `True` for BOTH a
+normal technical requirement and an alternative group (both can have
+`concept_id=None` in the group case) means the dedup key MUST branch on
+`is_alternative_group` before falling back to the plain-technical key —
+missing this was a real bug caught by this milestone's own tests
+(`test_alternative_group_never_collides_with_a_single_concept_requirement`):
+without it, EVERY alternative group with the same necessity would have
+collided under one key regardless of which concepts it actually named.
+
+### 19.5 Versioning
+
+- `JOB_REQUIREMENT_SCHEMA_VERSION` 1 -> 2 — `JobRequirement` gained a
+  field (§19.1), a genuine shape change per `jobs/types.py`'s own bump
+  policy.
+- `JOB_DESCRIPTION_PARSER_VERSION` `"job_description_parser:v1"` ->
+  `"...v2"` — the parser's emitted semantics for OR-claims changed
+  materially (structured groups instead of a text-only placeholder),
+  mirroring the precedent `readme:v1` -> `readme:v2` set (Milestone
+  5D.1: a behavior change to an extractor/parser bumps ITS OWN version
+  string, independent of the domain-model schema version).
+- `CONCEPT_REGISTRY_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+  `REPOSITORY_RANKING_VERSION`, `SCORING_RUBRIC_VERSION`,
+  `DATASET_VERSION` — all untouched; nothing in this correction touches
+  the concept registry's data, candidate evidence, ranking, or V1
+  scoring/dataset.
+
+### 19.6 Known limitations (additive to §18.10)
+
+- An OR-list where NO alternative is a registered concept (e.g.
+  "Snowflake or BigQuery") produces nothing at all — the same
+  conservative "needs a confirmed anchor" rule §18.5 already applies to
+  comma-lists, applied consistently here rather than carved out as a
+  special case.
+- The `"unsafe"` fallback still loses per-concept structure for the ONE
+  segment that failed the shape check, even though the OTHER segment(s)
+  resolved cleanly (e.g. "Python or a genuinely amazing attitude" loses
+  Python's own alternative-group structure, not just "attitude"'s) —
+  accepted because building a partial group would misrepresent what the
+  posting actually offered as alternatives.
+- Trailing-filler stripping (§19.2 step 1) is a small, fixed word list
+  (`required`, `preferred`, `experience`, `skills`, ...) — a phrasing
+  using a filler word outside that list will leave it attached to the
+  segment, which then fails to resolve as a clean technology name.

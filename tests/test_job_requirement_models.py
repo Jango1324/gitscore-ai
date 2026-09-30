@@ -409,3 +409,122 @@ def test_job_requirement_with_different_source_span_is_a_distinct_object():
     a = make_requirement(source_span=SourceSpan(0, 5))
     b = make_requirement(source_span=SourceSpan(10, 15))
     assert a != b
+
+
+# ---------------------------------------------------------------------------
+# Milestone 6B.1: alternative_concept_ids -- structured OR requirements
+# ---------------------------------------------------------------------------
+
+def make_alternative(**overrides):
+    base = dict(
+        original_text="Python or Go",
+        necessity=Necessity.REQUIRED,
+        importance=Importance.HIGH,
+        github_observability=GithubObservability.STRONGLY_OBSERVABLE,
+        concept_id=None,
+        alternative_concept_ids=("language.python", "language.go"),
+    )
+    base.update(overrides)
+    return JobRequirement(**base)
+
+
+def test_alternative_group_is_valid_with_two_or_more_ids():
+    requirement = make_alternative(alternative_concept_ids=("language.python", "language.go"))
+    assert requirement.alternative_concept_ids == ("language.go", "language.python")  # sorted
+
+
+def test_alternative_group_canonicalizes_order_go_or_python_equals_python_or_go():
+    a = make_alternative(alternative_concept_ids=("language.python", "language.go"))
+    b = make_alternative(alternative_concept_ids=("language.go", "language.python"))
+    assert a.alternative_concept_ids == b.alternative_concept_ids
+
+
+def test_alternative_group_supports_three_or_more_ids():
+    requirement = make_alternative(
+        original_text="PostgreSQL, MySQL, or MongoDB",
+        alternative_concept_ids=("database.postgresql", "unresolved:mysql", "unresolved:mongodb"),
+    )
+    assert requirement.alternative_concept_ids == ("database.postgresql", "unresolved:mongodb", "unresolved:mysql")
+
+
+def test_alternative_group_supports_mixed_resolved_and_unresolved():
+    requirement = make_alternative(alternative_concept_ids=("language.python", "unresolved:somenewruntime"))
+    assert requirement.is_alternative_group
+    assert requirement.has_unresolved_alternative
+
+
+def test_fully_resolved_alternative_group_has_no_unresolved_alternative():
+    requirement = make_alternative(alternative_concept_ids=("language.python", "language.go"))
+    assert not requirement.has_unresolved_alternative
+
+
+def test_is_technical_is_true_for_an_alternative_group():
+    requirement = make_alternative()
+    assert requirement.is_technical
+
+
+def test_is_resolved_concept_and_is_unresolved_concept_are_false_for_a_group():
+    # These two properties are scoped to the SINGLE-concept_id case only
+    # -- a group is neither (see is_alternative_group instead).
+    requirement = make_alternative()
+    assert not requirement.is_resolved_concept
+    assert not requirement.is_unresolved_concept
+
+
+def test_non_alternative_requirement_is_not_an_alternative_group():
+    requirement = make_requirement(concept_id="database.postgresql")
+    assert not requirement.is_alternative_group
+    assert requirement.alternative_concept_ids == ()
+    assert not requirement.has_unresolved_alternative
+
+
+# --- invariants: invalid states are rejected ---
+
+def test_concept_id_and_alternative_concept_ids_are_mutually_exclusive():
+    with pytest.raises(ValueError):
+        make_alternative(concept_id="language.python", alternative_concept_ids=("language.python", "language.go"))
+
+
+def test_single_element_alternative_set_is_rejected():
+    with pytest.raises(ValueError):
+        make_alternative(alternative_concept_ids=("language.python",))
+
+
+def test_duplicate_alternatives_are_rejected():
+    with pytest.raises(ValueError):
+        make_alternative(alternative_concept_ids=("language.python", "language.python"))
+
+
+def test_invalid_canonical_concept_id_in_alternatives_is_rejected():
+    with pytest.raises(ValueError):
+        make_alternative(alternative_concept_ids=("language.python", "whatever.random.string"))
+
+
+def test_malformed_unresolved_concept_id_in_alternatives_is_rejected():
+    with pytest.raises(ValueError):
+        make_alternative(alternative_concept_ids=("language.python", "unresolved:"))
+
+
+def test_empty_string_in_alternatives_is_rejected():
+    with pytest.raises(ValueError):
+        make_alternative(alternative_concept_ids=("language.python", ""))
+
+
+def test_alternative_group_reuses_the_existing_concept_id_validation_helper():
+    # Same helper 6A.1 introduced for the single-concept_id case --
+    # confirms there is no second, duplicated validation rule.
+    from gitscore.concepts.registry import is_valid_concept_id
+
+    assert is_valid_concept_id("language.python")
+    assert not is_valid_concept_id("whatever.random.string")
+    with pytest.raises(ValueError):
+        make_alternative(alternative_concept_ids=("language.python", "whatever.random.string"))
+
+
+def test_alternative_group_is_frozen_and_hashable():
+    a = make_alternative()
+    b = make_alternative()
+    with pytest.raises(dataclasses.FrozenInstanceError):
+        a.alternative_concept_ids = ("language.python",)
+    assert a == b
+    assert hash(a) == hash(b)

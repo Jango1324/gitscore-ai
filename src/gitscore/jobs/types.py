@@ -11,7 +11,7 @@ ConfidenceLevel for either would blur two genuinely different concepts
 under one name -- see ParserConfidence's docstring for the specific
 contrast with ConfidenceLevel this milestone was told to avoid.
 
-JOB_REQUIREMENT_SCHEMA_VERSION = 1
+JOB_REQUIREMENT_SCHEMA_VERSION = 2
 
 Bump JOB_REQUIREMENT_SCHEMA_VERSION whenever `JobRequirement` or
 `JobRequirementProfile` (jobs/models.py, jobs/profile.py) change SHAPE
@@ -20,6 +20,18 @@ EVIDENCE_SCHEMA_VERSION's own policy (evidence/types.py). It does NOT
 bump for adding a new member to one of the enums below (additive,
 non-breaking, exactly like adding a new EvidenceType member does not
 bump EVIDENCE_SCHEMA_VERSION either).
+
+Bumped 1 -> 2 in Milestone 6B.1: `JobRequirement` gained
+`alternative_concept_ids: tuple[str, ...] = ()` (a genuine SHAPE
+change -- a new field) to represent a single logical requirement
+satisfied by ANY ONE of several technical concepts ("Python or Go"),
+replacing an initial Milestone 6B implementation that collapsed such a
+claim into a non-technical placeholder with no schema change. See
+`jobs/models.py`'s `JobRequirement` docstring and
+`docs/CHANGELOG_DEV.md`'s Milestone 6B.1 entry for the full design
+writeup and why the additive field is backward-compatible (every
+Milestone 6A/6A.1/6B `JobRequirement` already had this field implicitly
+at its default `()`).
 
 This is a new, independent constant -- introducing it does not bump
 EVIDENCE_SCHEMA_VERSION, CONCEPT_REGISTRY_VERSION,
@@ -31,7 +43,7 @@ from __future__ import annotations
 
 from enum import Enum, IntEnum
 
-JOB_REQUIREMENT_SCHEMA_VERSION = 1
+JOB_REQUIREMENT_SCHEMA_VERSION = 2
 
 
 class Necessity(str, Enum):

@@ -161,6 +161,18 @@ def test_exact_duplicate_requirements_are_rejected():
         )
 
 
+def test_alternative_group_with_reordered_ids_is_an_exact_duplicate():
+    # Milestone 6B.1: alternative_concept_ids is stored sorted, so
+    # "Python or Go" and "Go or Python" built with otherwise-identical
+    # fields (including identical original_text/span, as if the same
+    # sentence were parsed twice) collide as exact duplicates -- the
+    # profile-level rejection Milestone 6A already has, working for free.
+    a = req("Python or Go", concept_id=None, alternative_concept_ids=("language.python", "language.go"))
+    b = req("Python or Go", concept_id=None, alternative_concept_ids=("language.go", "language.python"))
+    with pytest.raises(ValueError):
+        JobRequirementProfile(raw_text="Python or Go required.", requirements=(a, b), parser_version="manual:v1")
+
+
 def test_requirements_differing_by_source_span_are_not_duplicates():
     # Same text/claim mentioned twice in a posting at two different
     # locations is NOT a structural duplicate.
@@ -216,5 +228,9 @@ def test_schema_version_is_stamped_by_default():
 
 
 def test_job_requirement_schema_version_constant():
+    # Bumped to 2 in Milestone 6B.1: JobRequirement gained
+    # alternative_concept_ids (a genuine shape change) -- see
+    # jobs/types.py's versioning policy and docs/CHANGELOG_DEV.md's
+    # Milestone 6B.1 entry.
     assert isinstance(JOB_REQUIREMENT_SCHEMA_VERSION, int)
-    assert JOB_REQUIREMENT_SCHEMA_VERSION == 1
+    assert JOB_REQUIREMENT_SCHEMA_VERSION == 2

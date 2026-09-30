@@ -1,5 +1,341 @@
 # GitScore AI — Dev Changelog
 
+## 2026-09-28 — Milestone 6B.1: Structured alternative requirements
+
+**What changed:** Corrects Milestone 6B's OR-handling before that
+milestone was committed. 6B's OR-handling stop condition was presented
+as an explicit A/B choice; it was implemented as Option A (a text-only,
+non-technical placeholder) following a selection misunderstanding — the
+intended choice was **Option B: a minimal additive schema extension**.
+This milestone implements Option B: `JobRequirement` gained
+`alternative_concept_ids: tuple[str, ...] = ()`, and the parser now
+represents "Python or Go" as ONE requirement with structured semantics
+(`supported(Python) OR supported(Go)`) instead of a placeholder the
+matcher would have had to re-parse `original_text` to interpret. Full
+design writeup: `docs/ARCHITECTURE.md` §19 (new); §18.7/§18.8/§18.10/
+§18.11 updated in place to describe the corrected, final behavior. This
+entry summarizes.
+
+**Schema extension chosen:** `JobRequirement.alternative_concept_ids:
+tuple[str, ...] = ()` (`jobs/models.py`) — the exact shape the 6B report
+had already flagged as the smallest additive option, confirmed on
+inspection to remain the cleanest design (no cleaner alternative was
+found; a `RequirementGroup` wrapper object was considered and rejected
+as unnecessary structural weight for what one additive tuple field
+already expresses). Mutually exclusive with `concept_id` (never both
+populated); requires >= 2 entries (a one-element "alternative" is
+meaningless — use `concept_id`); rejects duplicates; each entry
+validated with the SAME `concepts.registry.is_valid_concept_id()` 6A.1
+introduced (no second, duplicated concept-id validation rule). The
+stored tuple is SORTED at construction (`__post_init__`), not kept in
+whatever order the caller passed — "Python or Go" and "Go or Python" are
+the same logical requirement, so canonicalizing the order makes the two
+phrasings compare/hash equal automatically, which is what lets
+`dedup.py` and `JobRequirementProfile`'s existing exact-duplicate
+rejection (Milestone 6A) treat them as identical for free, with no
+set-vs-tuple special-casing anywhere.
+
+**How "Python or Go" is represented:** ONE `JobRequirement`,
+`concept_id=None`, `alternative_concept_ids=("language.go",
+"language.python")`, necessity/importance/observability/confidence
+computed for the GROUP as a whole from the full claim text (never
+per-alternative) — never two independent `REQUIRED` rows.
+
+**How "Python and PostgreSQL" is represented:** unchanged from 6B — two
+independent `JobRequirement` rows, `concept_id="language.python"` and
+`concept_id="database.postgresql"`, both `REQUIRED`. Conjunction and
+alternation remain explicitly different representations; nothing about
+AND-list handling changed in this milestone.
+
+**Mixed/unknown alternatives:** `alternatives.py`'s `classify_alternative_claim()`
+resolves each OR-segment in two steps — `find_concept_mentions()`
+(prose-safe aliases, same as everywhere else) first, then, only if that
+finds nothing, a narrower escalation: clean the segment to its core term
+and try `resolve_concept()` against the FULL alias set. This escalation
+is deliberate and bounded — a segment produced by splitting a CONFIRMED
+"X or Y" enumeration (at least one sibling already resolved) is closer
+to an isolated, structured token than to arbitrary free prose, which is
+exactly the context Milestone 5D.1's alias-safety restriction was never
+meant to constrain. It's what lets `"Go"` in `"Python or Go"` resolve to
+the real `language.go` (bare `"go"` is `readme_unsafe` for prose
+scanning; this isn't prose scanning) instead of an needless
+`unresolved:go`. A segment resolving neither way falls to the SAME
+conservative shape/stopword check `find_conservative_unknown_terms`
+already uses (Milestone 6B) — passes -> `unresolved:<term>` (e.g.
+`"AWS or Azure"` -> `("cloud.aws", "unresolved:azure")`); fails -> the
+whole claim is marked `"unsafe"` and falls back to the OLD 6B
+placeholder rather than dropping an option or inventing a reckless id
+(e.g. `"Python or a genuinely amazing attitude"`).
+
+**Non-technical "or" is no longer swept into a fake technical bucket:**
+an OR-list with NO confirmed registered concept anywhere in it (e.g.
+"Bachelor's degree in Computer Science or related field", "3+ years
+experience or equivalent education") is now classified `"not_technical"`
+and runs through the exact same pipeline as any other claim — these two
+examples now correctly land in `education`/`experience` categories
+(confirmed in the re-run manual validation, `docs/ARCHITECTURE.md`
+§18.11), instead of 6B's blanket "any 'or' is alternative-shaped" rule.
+No role-specific logic and no giant special-phrase list were added — one
+general rule (does the OR-list contain a confirmed technical concept
+anywhere?), applied uniformly.
+
+**Necessity/importance/observability for a group:** computed once from
+the full claim text, exactly as for any other claim — an alternative
+group is ONE logical requirement. "Python or Go required" ->
+`REQUIRED`. "CUDA or ROCm preferred" -> `PREFERRED`. Observability
+reuses the existing `STRONGLY_OBSERVABLE` technical default unmodified
+— every id in a group is either a real registered concept or a
+conservatively-promoted `unresolved:<term>`, the same two shapes a
+normal technical requirement can have.
+
+**Deduplication:** a REAL BUG was found and fixed while implementing
+this. `is_technical` is `True` for both a normal technical requirement
+and an alternative group, but `concept_id` is `None` for the group case
+— the OLD dedup key (`("technical", concept_id, necessity)`) would have
+collapsed EVERY alternative group sharing a necessity into ONE, losing
+distinct groups like "Python or Go" and "AWS or Azure" entirely. Fixed
+by adding a dedicated key, checked first:
+`("technical_alternative", alternative_concept_ids, necessity)`. Because
+`alternative_concept_ids` is stored sorted, "Python or Go" and "Go or
+Python" collapse to one (same logical requirement, correctly); "Python
+or Go" and "AWS or Azure" do not (different requirements, correctly).
+Caught by this milestone's own new tests, not by inspection alone.
+
+**Provenance:** unchanged in mechanism — the group's `original_text`/
+`source_span` is still the FULL original claim, exact and unmodified
+(Milestone 6A's `SourceSpan`). No fake reconstructed per-alternative
+spans are created; there is no representation for "where inside the
+claim did alternative #2 appear" — the group's span covers the whole
+claim, matching how a compound AND-claim's multiple requirements already
+share one span (Milestone 6B).
+
+**Versioning:**
+- `JOB_REQUIREMENT_SCHEMA_VERSION` 1 -> 2 — `JobRequirement` gained a
+  field, a genuine shape change per `jobs/types.py`'s own bump policy.
+- `JOB_DESCRIPTION_PARSER_VERSION` `"job_description_parser:v1"` ->
+  `"...v2"` — the parser's emitted semantics for OR-claims changed
+  materially, mirroring the `readme:v1` -> `readme:v2` precedent
+  (Milestone 5D.1: a behavior change bumps the extractor/parser's OWN
+  version, independent of the domain-model schema version).
+- `CONCEPT_REGISTRY_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+  `REPOSITORY_RANKING_VERSION`, `SCORING_RUBRIC_VERSION`,
+  `DATASET_VERSION` untouched.
+
+**Tests:** 41 new/changed — `tests/test_job_requirement_models.py` (17
+new: the three valid states, canonicalized ordering, mixed resolved/
+unresolved, mutual-exclusivity and every other invariant, reuse of the
+6A.1 concept-id validator), `tests/test_job_requirement_profile.py` (1
+new: reordered-alternatives-are-an-exact-duplicate; 1 changed: the
+`JOB_REQUIREMENT_SCHEMA_VERSION` pin), `tests/test_job_parser_extraction.py`
+(19 new for `classify_alternative_claim()`, 4 new for the dedup fix),
+`tests/test_job_parser.py` (4 tests rewritten from Option-A to Option-B
+expectations, 2 manual-validation fixtures updated for the corrected
+non-technical-"or" boundary). All deterministic, offline, no network
+calls. **638 tests total, all passing** (up from 597; every V1/5B/5C/
+5D/5D.1/6A/6A.1 test, and every 6B test not describing Option-A-specific
+behavior, untouched and still green).
+
+**Manual validation re-run:** all four Milestone 6B fixtures (Backend,
+Robotics, ML, Data Engineer) re-run against the corrected parser.
+Confirmed improvements: "Bachelor's degree ... or a related field"
+(Robotics) and "3+ years of experience ... or a related field" (Data
+Engineer) now correctly categorize as `education`/`experience` instead
+of the generic `alternative_requirement` bucket; "Docker or Kubernetes"
+and "AWS or Azure" (ML) now carry real `alternative_concept_ids` instead
+of an opaque placeholder. New accepted limitation: "Snowflake or
+BigQuery" (Data Engineer, neither alternative is a registered concept)
+and "control systems or robotics" (Robotics, same reason) now produce
+nothing at all — the OR-list analog of the existing "needs a confirmed
+anchor" rule for comma-lists, applied consistently rather than carved
+out as a special case.
+
+**Files changed:**
+- `src/gitscore/jobs/models.py` — `alternative_concept_ids` field,
+  updated invariants, `is_alternative_group`/`has_unresolved_alternative`
+  properties, `is_technical` extended.
+- `src/gitscore/jobs/types.py` — `JOB_REQUIREMENT_SCHEMA_VERSION` 1 -> 2.
+- `src/gitscore/jobs/parsing/concepts.py` — `clean_list_fragment()`/
+  `GENERIC_LIST_STOPWORDS` promoted to public, shared with
+  `alternatives.py` (no duplicated shape-check logic).
+- `src/gitscore/jobs/parsing/alternatives.py` — rewritten:
+  `classify_alternative_claim()` (three-outcome classification) replaces
+  the old blanket marker-only detection; `contains_alternative_marker()`
+  kept (still used internally).
+- `src/gitscore/jobs/parsing/dedup.py` — alternative-group dedup key
+  (the bug fix above).
+- `src/gitscore/jobs/parsing/parser.py` — orchestrates the three
+  `classify_alternative_claim()` outcomes; `JOB_DESCRIPTION_PARSER_VERSION`
+  v1 -> v2.
+- `tests/test_job_requirement_models.py`, `test_job_requirement_profile.py`,
+  `test_job_parser_extraction.py`, `test_job_parser.py` — see Tests above.
+- `docs/ARCHITECTURE.md` — new §19; §17.2/§18.1/§18.7/§18.8/§18.10/
+  §18.11 updated in place to describe the corrected design.
+- `docs/CHANGELOG_DEV.md` — Milestone 6B's entry amended (Option A no
+  longer described as the approved final design) plus this entry.
+
+**How to test:** `pytest` (whole suite, 638 tests, no network/token
+required) or `pytest tests/test_job_requirement_models.py
+tests/test_job_requirement_profile.py tests/test_job_parser_extraction.py
+tests/test_job_parser.py -v` for just the 6B/6B.1-relevant subset.
+
+**Explicitly NOT done this milestone (per instruction):** matcher,
+match score, evidence coverage, strengths/gaps, alternative-role
+discovery, LLM, URL ingestion, persistence, UI, CatBoost, Milestone 7.
+No commit was made.
+
+## 2026-09-28 — Milestone 6B: Job-description parser
+
+**What changed:** A new subpackage, `src/gitscore/jobs/parsing/`,
+implementing `parse_job_description(description, *, title=None,
+company=None) -> JobRequirementProfile` — the first automatic parser
+turning raw job-description text into Milestone 6A's EXACT, unchanged
+domain model. No matcher, no scoring, no candidate/job comparison, no
+URL ingestion, no external LLM/API, no persistence. Full design
+writeup: `docs/ARCHITECTURE.md` §18 (new). This entry summarizes.
+
+**Why:** 6A/6A.1 defined the job-side domain model in isolation
+(mirroring how 5C defined the candidate-side model before 5D wired real
+extraction into it); this milestone is the first to actually populate it
+from real text.
+
+**Architecture decision (Part 1's evaluation, required before writing
+any code):** deterministic, rule-based (Option A), not LLM-assisted.
+Arbitrary-role support does not require language understanding of what
+a role IS — it requires an open concept vocabulary (already solved:
+`concepts.registry` + `unresolved:<term>`) plus conservative, generic
+heuristics for document structure and claim shape, none of it
+role-specific. No external AI dependency was introduced without
+approval. See §18.1 for the full A/B/C evaluation and the documented
+boundary where a future LLM claim-extraction adapter could plug in
+without changing anything downstream.
+
+**IMPORTANT STOP CONDITION presented before implementing that piece:**
+`JobRequirement.concept_id` is a single scalar — it cannot represent
+"this ONE requirement is satisfied by ANY of {Python, Go}" without a
+schema change. Presented as an explicit A/B choice (Option A: no schema
+change, one conservative non-technical fallback claim; Option B:
+additive `alternative_concept_ids` field). This milestone initially
+implemented Option A following a selection misunderstanding — the
+user's intended choice was Option B. **Corrected in Milestone 6B.1
+(below, same day, before this milestone was committed):** an
+alternative/OR-shaped claim ("Python or Go", "AWS or Azure") is
+represented with structured `alternative_concept_ids`, not a text-only
+placeholder. See the Milestone 6B.1 entry for the final design; this
+entry is left otherwise unchanged as the historical record of what was
+originally built.
+
+**Pipeline (new modules under `jobs/parsing/`):**
+
+| Module | Role |
+|---|---|
+| `segmentation.py` | Part 3: raw text -> `Claim` (exact text + offsets + section-derived necessity hint), via a generic JD section-heading table (Requirements/Preferred/Responsibilities/skip-sections) + bullet/sentence splitting |
+| `concepts.py` | Parts 5/6: known-concept mentions via the EXISTING registry; conservative `unresolved:<term>` promotion (comma-list-co-occurrence gated) |
+| `alternatives.py` | Part 14: OR-shaped claim detection (the correctness gate above) |
+| `experience.py` | Part 15: numeric years-of-experience qualifier detection |
+| `non_technical.py` | Part 10: curated, generic (never role-specific) non-technical phrase table — education/legal/leadership/soft-skill |
+| `necessity.py` | Part 7: local wording overrides section hint; REQUIRED wins on conflict |
+| `importance.py` | Part 8: MEDIUM default, small HIGH/LOW keyword overrides, no floats |
+| `observability.py` | Part 9: two centralized dict lookups (technical category -> always STRONGLY_OBSERVABLE today; non-technical category -> table), never scattered `if concept ==` |
+| `confidence.py` | Part 12: one small mapping by extraction "kind" |
+| `dedup.py` | Part 13: technical dedup key `(concept_id, necessity)`; non-technical key adds normalized text so different experience claims never merge |
+| `parser.py` | orchestrates all of the above; `JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v1"` |
+
+**Alias safety (Part 6) reuses, does not fork, Milestone 5D.1's
+mechanism:** job-description prose is treated as the SAME free-form-text
+risk class README prose is, so `find_concept_mentions()` scans
+`concept.readme_safe_aliases()` — the identical per-concept safe-alias
+set `readme.py` uses. The shared boundary-regex primitive itself was
+extracted from `evidence/extraction/readme.py` into a new
+`concepts/matching.py::alias_pattern()` (pure refactor, confirmed
+zero behavior change: `test_evidence_extraction_readme.py` unchanged and
+still green) so both callers share identical matching mechanics, not
+just identical data. No job-specific alias-safety table was needed — no
+job-description-only false positive distinct from README's was observed
+in manual validation.
+
+**Two real false positives found in manual validation, fixed before this
+entry was written:** `"Build and maintain ETL pipelines using Python"`
+was promoting `"Build"` to `unresolved:build`; `"Proficiency in Python
+for tooling and scripting"` was promoting `"scripting"` similarly. Root
+cause: the conservative unknown-term list-splitter fired on any bare
+`"X and Y"`, and a bare "and" (no comma) is far more often a verb phrase
+than a technology list. Fixed by requiring an actual comma in the claim
+text before the list-scan runs at all — both now have dedicated
+regression tests.
+
+**Versioning:** `JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v1"`
+(new, `jobs/parsing/parser.py`) — the value stamped into
+`JobRequirementProfile.parser_version`, an EXISTING field (Milestone 6A),
+so no schema change was needed to introduce it.
+`JOB_REQUIREMENT_SCHEMA_VERSION` stays `1` (confirmed: `git diff` shows
+zero changes to `jobs/models.py`/`jobs/profile.py`/`jobs/types.py`).
+`CONCEPT_REGISTRY_VERSION` stays `3` (no concept added/renamed; the new
+`concepts/matching.py` is a pure code refactor, not a registry content
+change). `EVIDENCE_SCHEMA_VERSION`, `REPOSITORY_RANKING_VERSION`,
+`SCORING_RUBRIC_VERSION`, `DATASET_VERSION` untouched.
+
+**Manual real-world validation (Part 19):** four hand-written, local job
+descriptions (no scraping) — Backend Software Engineer, Robotics
+Software Engineer, ML Engineer, and Data Engineer (the required
+"substantially different fourth role") — full results in
+`docs/ARCHITECTURE.md` §18.11, locked in as regression tests in
+`tests/test_job_parser.py`'s `test_manual_validation_*`. All known
+concepts resolved correctly; every `or`-shaped claim across all four
+produced exactly one non-technical fallback and zero false
+REQUIRED-technical rows; the Backend example's `Benefits:` section
+(including a "React JS meetups" line) correctly produced zero
+requirements, proving `framework.react` was never triggered by
+marketing copy. Known accepted false negatives (documented, not fixed):
+a standalone "Kubernetes"/"dbt" bullet with no co-occurring known
+concept in the same claim produces nothing; "SQL" (not yet a registry
+concept) inside a comma-less phrase is not recovered.
+
+*(This paragraph describes the original Option A run. The
+`alternative_requirement`-bucket side effect on non-technical "or"
+phrasing it originally reported was ITSELF fixed by Milestone 6B.1's
+structured-alternative correction, which added real evidence-based
+classification instead of a blanket "any 'or'" rule — see that entry.)*
+
+**Tests:** 113 new — `tests/test_concepts_matching.py` (4, the extracted
+shared primitive), `tests/test_job_parser_segmentation.py` (17),
+`tests/test_job_parser_extraction.py` (56, one file per pure function
+module), `tests/test_job_parser.py` (36: input validation, provenance/
+span-correctness, compound requirements, alternatives, non-technical,
+unknown-tech policy, alias-safety regression, the four manual-validation
+fixtures, and a 6A/6A.1 regression check). All deterministic, offline,
+no network calls. **597 tests total, all passing** (up from 484; every
+V1/5B/5C/5D/5D.1/6A/6A.1 test untouched and still green).
+
+**Files changed:**
+- `src/gitscore/concepts/matching.py` — new: `alias_pattern()`, extracted
+  from `evidence/extraction/readme.py`.
+- `src/gitscore/evidence/extraction/readme.py` — uses the extracted
+  helper instead of its own private copy; no behavior change.
+- `src/gitscore/jobs/parsing/__init__.py`, `segmentation.py`,
+  `concepts.py`, `alternatives.py`, `experience.py`, `non_technical.py`,
+  `necessity.py`, `importance.py`, `observability.py`, `confidence.py`,
+  `dedup.py`, `parser.py` — new package.
+- `src/gitscore/jobs/__init__.py` — exports `parse_job_description`,
+  `JOB_DESCRIPTION_PARSER_VERSION`.
+- `tests/test_concepts_matching.py`, `test_job_parser_segmentation.py`,
+  `test_job_parser_extraction.py`, `test_job_parser.py` — new.
+- `docs/ARCHITECTURE.md` — new §18; §17.10 amended with a forward
+  pointer.
+- This changelog entry.
+
+**How to test:** `pytest` (whole suite, 597 tests, no network/token
+required) or `pytest tests/test_concepts_matching.py
+tests/test_job_parser_segmentation.py tests/test_job_parser_extraction.py
+tests/test_job_parser.py -v` for just the 6B-relevant subset.
+
+**Explicitly NOT done this milestone (per instruction — wait for
+approval before starting):** deterministic matcher, match/coverage
+score, strengths/gaps, alternative-role discovery, role archetypes, URL
+ingestion, LinkedIn/Indeed/Glassdoor scraping, external LLM API,
+CatBoost, UI, database persistence, any change to candidate evidence
+extraction, Milestone 7. No commit was made — see Milestone 6B.1 for the
+OR-handling correction applied before this milestone was committed.
+
 ## 2026-09-28 — Milestone 6A.1: Concept-id invariant review
 
 **What changed:** A tiny correctness fix, not a redesign. Milestone 6A's

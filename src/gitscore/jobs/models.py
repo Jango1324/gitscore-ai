@@ -93,6 +93,25 @@ class JobRequirement:
     mutates the registry -- it only checks that whatever id a caller
     already produced is one of the two legitimate shapes.
 
+    Milestone 6B.1 -- `alternative_concept_ids`: a THIRD state, for a
+    single logical requirement satisfied by ANY ONE of several technical
+    concepts ("Python or Go", "PostgreSQL, MySQL, or MongoDB"). Mutually
+    exclusive with `concept_id` (exactly one of the two may be
+    populated -- never both, never neither for a technical requirement).
+    Each element is validated the SAME way a lone `concept_id` is
+    (`is_valid_concept_id()` -- no second validation rule), must number
+    at least two (a one-element "alternative" is meaningless -- use
+    `concept_id` instead), and must contain no duplicates.
+    `__post_init__` stores the tuple SORTED, not in whatever order the
+    caller passed -- "Python or Go" and "Go or Python" are the same
+    logical requirement (order is a fact about the SENTENCE, not about
+    the set of options it describes), so canonicalizing the stored order
+    makes them compare and hash equal automatically, without a custom
+    `__eq__`/`__hash__` override. This is what lets
+    `jobs/parsing/dedup.py` and `JobRequirementProfile`'s own
+    exact-duplicate rejection (Milestone 6A) treat the two phrasings as
+    identical for free.
+
     No `requirement_id`: like `Evidence`, this is a pure value object at
     this stage -- no persistence layer exists yet to need a synthetic
     identifier (Milestone 6A does not touch persistence).
@@ -103,6 +122,7 @@ class JobRequirement:
     importance: Importance
     github_observability: GithubObservability
     concept_id: str | None = None
+    alternative_concept_ids: tuple[str, ...] = ()
     category: str | None = None
     parser_confidence: ParserConfidence | None = None
     source_span: SourceSpan | None = None
@@ -120,29 +140,81 @@ class JobRequirement:
         if self.category is not None and not self.category.strip():
             raise ValueError("JobRequirement.category must not be an empty/whitespace-only string")
 
+        if self.alternative_concept_ids:
+            if self.concept_id is not None:
+                raise ValueError(
+                    "JobRequirement cannot set both concept_id and alternative_concept_ids -- "
+                    "a requirement is either ONE resolved concept or an alternative GROUP, never both"
+                )
+            if len(self.alternative_concept_ids) < 2:
+                raise ValueError(
+                    "JobRequirement.alternative_concept_ids must contain at least 2 entries -- "
+                    "a single alternative is not a group; use concept_id instead"
+                )
+            if len(set(self.alternative_concept_ids)) != len(self.alternative_concept_ids):
+                raise ValueError(
+                    f"JobRequirement.alternative_concept_ids contains a duplicate: "
+                    f"{self.alternative_concept_ids!r}"
+                )
+            for alt_id in self.alternative_concept_ids:
+                if not is_valid_concept_id(alt_id):
+                    raise ValueError(
+                        f"JobRequirement.alternative_concept_ids entry {alt_id!r} is neither a "
+                        "registered TechnicalConcept id nor a valid 'unresolved:<term>' id"
+                    )
+            # Canonical order: the SET of alternatives is the logical
+            # requirement, not the order they were listed in the sentence.
+            object.__setattr__(self, "alternative_concept_ids", tuple(sorted(self.alternative_concept_ids)))
+
     @property
     def is_technical(self) -> bool:
         """False for a requirement with no technical-concept mapping at
         all (Part 6 -- e.g. "3+ years professional experience").
+
+        True for either a single resolved `concept_id` OR an
+        `alternative_concept_ids` group (Milestone 6B.1) -- both are
+        "this requirement is about a technology," just with a different
+        cardinality of acceptable answers.
         """
-        return self.concept_id is not None
+        return self.concept_id is not None or bool(self.alternative_concept_ids)
+
+    @property
+    def is_alternative_group(self) -> bool:
+        """True for a single logical requirement satisfied by ANY ONE of
+        several technical concepts (Milestone 6B.1 Part 14) -- e.g.
+        "Python or Go". Mutually exclusive with a populated `concept_id`.
+        """
+        return bool(self.alternative_concept_ids)
 
     @property
     def is_resolved_concept(self) -> bool:
-        """True only for a technical requirement whose concept_id is a
-        REAL registry concept, not an "unresolved:<term>" placeholder and
-        not a non-technical (concept_id=None) requirement.
+        """True only for a SINGLE-concept technical requirement whose
+        `concept_id` is a REAL registry concept, not an
+        "unresolved:<term>" placeholder, not a non-technical
+        (`concept_id=None`) requirement, and not an alternative group
+        (see `is_alternative_group` / `has_unresolved_alternative` for
+        that third case instead).
 
         Mirrors `Evidence.is_resolved`, split into two properties instead
         of one because JobRequirement has a third state (non-technical)
         Evidence never needs to represent.
         """
-        return self.is_technical and not is_unresolved_concept_id(self.concept_id)
+        return self.concept_id is not None and not is_unresolved_concept_id(self.concept_id)
 
     @property
     def is_unresolved_concept(self) -> bool:
-        """True for a technical requirement naming something outside the
-        current concept registry (an "unresolved:<term>" placeholder) --
-        never true for a non-technical requirement.
+        """True for a SINGLE-concept technical requirement naming
+        something outside the current concept registry (an
+        "unresolved:<term>" placeholder) -- never true for a
+        non-technical requirement or an alternative group.
         """
-        return self.is_technical and is_unresolved_concept_id(self.concept_id)
+        return self.concept_id is not None and is_unresolved_concept_id(self.concept_id)
+
+    @property
+    def has_unresolved_alternative(self) -> bool:
+        """True if this is an alternative group (Milestone 6B.1) where
+        AT LEAST ONE option is an "unresolved:<term>" placeholder rather
+        than a real registered concept -- e.g. "Python or SomeNewRuntime".
+        Always False for a non-alternative requirement.
+        """
+        return any(is_unresolved_concept_id(alt_id) for alt_id in self.alternative_concept_ids)

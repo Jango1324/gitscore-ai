@@ -23,11 +23,20 @@ unambiguous there produces real false-positive evidence here (see
 docs/CHANGELOG_DEV.md's Milestone 5D.1 entry for the real-world
 examples this fixed). The exclusion list itself lives on the concept in
 `concepts/registry.py` -- this module has no per-alias special-casing.
+
+Milestone 6B: the boundary-regex primitive this module used to define
+privately now lives in `concepts/matching.py` (`alias_pattern()`), shared
+with `jobs/parsing/concepts.py` -- job-description prose is the SAME
+free-form-text risk class README prose is (see that module's docstring
+for the full reasoning), so both scan with the identical mechanics. This
+is a pure extraction, not a behavior change -- `readme_safe_aliases()`
+still decides what THIS module scans.
 """
 from __future__ import annotations
 
 import re
 
+from gitscore.concepts.matching import alias_pattern
 from gitscore.concepts.registry import default_registry
 from gitscore.evidence.models import Evidence, RepositoryIdentity
 from gitscore.evidence.types import ConfidenceLevel, EvidenceType
@@ -38,26 +47,6 @@ EXTRACTOR_VERSION = "readme:v2"
 # stored observation is a short, inspectable snippet -- never the whole
 # README duplicated once per concept.
 _SNIPPET_RADIUS = 60
-
-_PATTERN_CACHE: dict[str, "re.Pattern[str]"] = {}
-
-
-def _alias_pattern(alias: str):
-    pattern = _PATTERN_CACHE.get(alias)
-    if pattern is None:
-        # Same word-boundary approach used throughout the codebase
-        # (features/ml.py, ranking/rank.py, evidence/v1_bridge.py): a
-        # standalone token, not a substring inside another word --
-        # "go" must not match inside "mango", "c" must not match inside
-        # "vector". re.IGNORECASE handles case-insensitivity directly
-        # against the original (non-lowercased) text, so the extracted
-        # snippet preserves the README's real casing.
-        pattern = re.compile(
-            r"(?<![A-Za-z0-9])" + re.escape(alias) + r"(?![A-Za-z0-9])",
-            re.IGNORECASE,
-        )
-        _PATTERN_CACHE[alias] = pattern
-    return pattern
 
 
 def _bounded_snippet(text: str, start: int, end: int) -> str:
@@ -94,7 +83,7 @@ def evidence_from_readme(
         match = None
         matched_alias = None
         for alias in concept.readme_safe_aliases():
-            found = _alias_pattern(alias).search(readme_text)
+            found = alias_pattern(alias).search(readme_text)
             if found is not None:
                 match = found
                 matched_alias = alias
