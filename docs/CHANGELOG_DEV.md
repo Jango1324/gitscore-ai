@@ -1,5 +1,160 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-01 — Milestone 7B: GitHub Evidence Alignment & structured assessment
+
+**What changed:** First milestone to turn Milestone 7A's per-requirement
+`SUPPORTED`/`NOT_OBSERVED`/`NOT_ASSESSABLE` verdicts into a single
+human-facing number. New package `gitscore.assessment` (`types.py`,
+`models.py`, `engine.py`): `assess_job(match_analysis) -> JobAssessment`
+consumes an already-computed `JobMatchAnalysis` and derives "GitHub
+Evidence Alignment" plus required/preferred submetrics and explanation
+groupings — no rematching, no GitHub/network/LLM calls. Design approved
+in `docs/design/MILESTONE_7B_SCORING_DESIGN.md` before any code was
+written; full as-built writeup: `docs/ARCHITECTURE.md` §21. This entry
+summarizes.
+
+**GitHub Evidence Alignment — definition:** "Among the job requirements
+GitHub evidence can meaningfully speak to, what percentage are supported
+by evidence found in the candidate's analyzed GitHub material."
+
+```
+assessable_count = supported_count + not_observed_count
+alignment_score  = None                                       if assessable_count == 0
+alignment_score  = round_half_up(100 * supported_count / assessable_count)  otherwise
+```
+
+`NOT_ASSESSABLE` is excluded from the denominator entirely — the one
+load-bearing rule this milestone exists to enforce, implemented in
+exactly one place (`assessment/models.py`'s `_assessable_matches()`,
+reused by every derived property) so there is no second, drifting
+definition of "assessable."
+
+**Rounding — half-up, not Python's `round()`:** Python's builtin
+`round()` uses round-half-to-even (`round(62.5) == 62`,
+`round(63.5) == 64`) — a parity-dependent flip with no product
+justification for a human-facing percentage. `assessment/models.py`'s
+`_round_half_up_percentage()` rounds ties up via pure integer arithmetic
+(`(2*numerator*100 + denominator) // (2*denominator)`, the exact-integer
+form of `floor(n/d + 0.5)`) — no floats anywhere in the computation.
+Pinned by dedicated tests (62.5 -> 63, 72.5 -> 73).
+
+**Required/Preferred — submetrics, never weights:** `Necessity` does not
+weight `alignment_score`. `JobAssessment.required`/`.preferred` each
+expose a `SubscoreFacts(supported, assessable)` — a plain "X of Y" count,
+deliberately not a second percentage. `SubscoreFacts` rejects
+`assessable < 1` by construction (a necessity tier with zero assessable
+requirements is `None` on `JobAssessment`, never `SubscoreFacts(0, 0)` —
+those are different facts). **No cap, no floor, no gate**: a candidate
+with 0-of-2 REQUIRED supported and 6-of-6 PREFERRED supported gets
+`alignment_score == 75`, uncapped — pinned exactly by
+`test_adversarial_case_strong_headline_despite_zero_required_support`.
+The "strong headline hides zero required coverage" problem is resolved
+by making `required` a mandatory co-display fact for any future
+presentation layer, never by silently discounting the number.
+
+**Importance — read, never weighted:** remains available unchanged on
+`RequirementMatch.requirement.importance`, never duplicated onto
+`JobAssessment` or folded into the score. Rejected explicitly: `jobs/
+parsing/importance.py`'s `infer_importance()` already defaults a
+PREFERRED requirement to LOW unless an emphasis phrase overrides it —
+`Importance` is a heuristic partially *derived from* `Necessity`, not an
+independent axis, so weighting by both would compound one parser
+heuristic's uncertainty twice.
+
+**ParserConfidence — metadata only:** affects neither `alignment_score`
+nor coverage. The only aggregate computed from it is
+`JobAssessment.low_parser_confidence_count` — assessable requirements
+only (`SUPPORTED`/`NOT_OBSERVED`) with `parser_confidence ==
+ParserConfidence.LOW`; a `NOT_ASSESSABLE` requirement parsed with LOW
+confidence does not count, and `parser_confidence is None` ("not
+evaluated by any parser") is never counted as LOW.
+
+**Evidence confidence — unchanged from 7A:** does not reopen
+`matching/support.py`'s `MINIMUM_SUPPORTING_CONFIDENCE =
+ConfidenceLevel.WEAK` policy. A `SUPPORTED` match counts as exactly one
+supported assessable requirement regardless of WEAK/MODERATE/STRONG
+evidence strength.
+
+**Repository coverage — passed through unmodified:**
+`JobAssessment.match_analysis.coverage` is 7A's own
+`RepositoryAnalysisCoverage`, not duplicated, not turned into a
+percentage (Milestone 5B's ranker prioritizes the highest-substantiveness
+repositories first, so a raw ratio would understate true coverage and
+claim false precision). **No `coverage_note` presentation string either**
+— a correction made during the Milestone 7B.0 design review: rendering
+coverage prose from the structured facts is a future UI/API layer's job,
+not domain state.
+
+**Explanation groupings:** `supported_matches()`/`not_observed_matches()`/
+`not_assessable_matches()` delegate directly to
+`JobMatchAnalysis.matches_with_status()` — no `RequirementMatch`/
+`Evidence` copied or rebuilt, posting order preserved exactly. Locked
+wording (documented, not stored as strings in the domain model):
+"Supported by GitHub evidence" / "Not observed in analyzed GitHub
+evidence" (never "lacks the skill") / "Not assessable from GitHub"
+(never "failed it"). "Gaps" is deliberately not used anywhere.
+
+**Versioning:** `SCORING_VERSION = "github_evidence_alignment:v1"`
+(`assessment/types.py`) — new, independent. Does NOT bump
+`JOB_REQUIREMENT_SCHEMA_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+`CONCEPT_REGISTRY_VERSION`, `JOB_DESCRIPTION_PARSER_VERSION`, or
+`MATCHER_VERSION` — purely additive; `JobMatchAnalysis` is consumed
+exactly as Milestone 7A produces it. No `EXPLANATION_VERSION` introduced
+(the explanation groupings ARE this package's scoring logic, not a
+separate prose step yet).
+
+**Tests:** 42 new — `tests/test_assessment_engine.py` (33: formula
+correctness, `NOT_ASSESSABLE` denominator exclusion, `None`/0/100 scores,
+half-up rounding vs. Python's `round()`, required/preferred
+`SubscoreFacts` including the pinned adversarial 75-with-0-of-2-required
+case, Necessity/Importance/ParserConfidence/evidence-confidence/coverage
+independence from the score, `low_parser_confidence_count` scoping,
+OR-group single-counting, unresolved-concept handling, grouping-helper
+order/identity, purity of `assess_job()`, `SubscoreFacts`/`JobAssessment`
+invariants, and a check that no prose/presentation field exists anywhere
+on the domain object) and `tests/test_assessment_manual_examples.py` (9:
+the same four real Backend/Robotics/ML/Data-Engineer postings from 7A's
+manual validation, run through the REAL `parse_job_description()` and
+`match_job()`, then `assess_job()`, confirming no rematching, no
+weighting, no coverage percentage, and no hire/reject verdict anywhere
+in the result). All deterministic, offline, no network calls. **728
+tests total, all passing** (up from 686).
+
+**Manual end-to-end validation:** ran all four real postings
+(Backend/Robotics/ML/Data Engineer) through the full
+parse -> match -> assess pipeline. Confirmed: the Backend posting splits
+"3+ years of experience building Python backend services" into a
+technical `language.python` requirement plus a non-technical
+`NOT_ASSESSABLE` experience claim (6A's own splitting rule) — assessable
+set of 5 (python/postgresql/docker/aws/next.js), 2 supported
+(python/docker) -> `alignment_score == 40`, `required ==
+SubscoreFacts(2, 3)`, `preferred == SubscoreFacts(0, 2)`. The ML
+posting's "Docker or Kubernetes" OR group counts as exactly one
+assessable requirement, supported via Docker alone. Repository coverage
+facts (`discovered_count`/`analyzed_count`/`is_complete`) pass through
+unmodified with no synthesized percentage anywhere.
+
+**Files changed:**
+- `src/gitscore/assessment/__init__.py`, `types.py`, `models.py`,
+  `engine.py` — new package.
+- `tests/test_assessment_engine.py`, `tests/test_assessment_manual_examples.py`
+  — new.
+- `docs/ARCHITECTURE.md` — new §21.
+- `docs/design/MILESTONE_7B_SCORING_DESIGN.md` — new, the approved
+  design report.
+- `docs/CHANGELOG_DEV.md` — this entry.
+
+**How to test:** `python -m pytest` (whole suite, 728 tests, no
+network/token required) or `python -m pytest tests/test_assessment_engine.py
+tests/test_assessment_manual_examples.py -v` for just the 7B-relevant
+subset.
+
+**Explicitly NOT done this milestone (per instruction):**
+alternative-role discovery, role archetype ranking, CatBoost/learned
+scoring, recruiter labels, hire/reject recommendations, persistence, API,
+UI, LLM-generated explanation prose, job-posting URL ingestion. No
+existing 7A matching semantics were changed. No commit was made.
+
 ## 2026-09-29 — Milestone 7A: Deterministic requirement matching engine
 
 **What changed:** First milestone connecting `CandidateEvidenceProfile`
