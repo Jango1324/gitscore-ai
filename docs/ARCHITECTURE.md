@@ -2974,3 +2974,241 @@ repository to hand-edit; no unrelated dependency was upgraded.
   emitted by the installed FastAPI/Starlette version during tests — a
   third-party library warning, not a defect in this milestone's code;
   left as-is rather than chasing an unstable newly-renamed package.
+
+## 24. Minimal product frontend — Milestone 8B
+
+New, separate application: `frontend/` (Next.js + TypeScript),
+consuming the Milestone 8A HTTP contract. Contains no GitScore analysis
+logic of its own.
+
+```
+Browser
+    |
+    v
+Next.js frontend (frontend/)        renderer/client only
+    | HTTP (fetch)
+    v
+gitscore.api  /api/v1/analyze        (Milestone 8A, unchanged)
+    |
+    v
+analyze_job_fit()                    (Milestone 7C, unchanged)
+    |
+    v
+pipeline / jobs / matching / assessment   (domain layers, unchanged)
+```
+
+### 24.1 Framework decision
+
+No frontend existed in the repository before this milestone. Selected
+Next.js + TypeScript (App Router) per the milestone's own stated
+default — React is the de facto standard for a product UI like this,
+Next.js needs no separate dev-server/bundler setup, and TypeScript lets
+`frontend/src/types/api.ts` pin the HTTP contract at compile time.
+Styling is one plain global stylesheet (`app/globals.css`) — no Tailwind
+or component-library dependency; nothing about this MVP's visual
+surface area justifies one. Pinned `typescript@^5.9.3` (the latest
+STABLE 5.x release) rather than the newly-released TypeScript 7 major
+version the registry also offers — a deliberate "boring" choice for an
+MVP milestone, not an oversight (TS7 is a recent architecture change
+with less ecosystem track record; nothing here needs its features).
+Testing uses Vitest + React Testing Library (lighter dependency surface
+than Jest + `next/jest` for a project this size) with `jsdom`.
+
+### 24.2 Location / package boundary
+
+`frontend/` is a fully separate application (its own `package.json`,
+`node_modules`, build) — nothing under `src/gitscore/` was touched.
+The two applications communicate ONLY over the HTTP contract Milestone
+8A already froze; `frontend/src/types/api.ts` is a hand-written mirror
+of `gitscore.api.schemas`, never generated from or coupled to the
+Python dataclasses behind it.
+
+### 24.3 API client
+
+`frontend/src/lib/api.ts`: `analyzeJob(request) -> Promise<AnalyzeResponse>`.
+Throws `ApiError` (carries `status`/`code`/`message`/`retryable` from
+the API's own `{"error": {...}}` envelope) for a non-2xx response, or
+`NetworkError` when `fetch()` itself throws (offline, DNS, CORS, the
+backend process isn't running). Base URL:
+`NEXT_PUBLIC_GITSCORE_API_URL`, defaulting to `http://localhost:8000`
+in code when unset — never a hardcoded production URL.
+
+### 24.4 Page/component structure
+
+```
+app/page.tsx                 page shell (h1 + AnalyzePage)
+components/
+  AnalyzePage.tsx             state (idle/loading/success/error), owns the one analyzeJob() call
+  AnalyzeForm.tsx              controlled inputs, client-side shape validation
+  LoadingNotice.tsx            "Analyzing GitHub evidence…" (role="status", aria-live)
+  ErrorBanner.tsx               API/network error message + conditional "Try again"
+  ResultView.tsx                composes every result section, in the required order
+  AlignmentHeadline.tsx        "GitHub Evidence Alignment" / "Not available"
+  SubscoreRow.tsx               Required/Preferred, immediately beneath the headline
+  RepositoryCoverage.tsx       discovered/analyzed counts, no invented percentage
+  RequirementSection.tsx       one of supported/not_observed/not_assessable, shared component
+  EvidenceList.tsx              grouped-by-repository evidence, only API-supplied facts
+  DiagnosticsPanel.tsx          secondary, collapsed <details>, last
+lib/api.ts, lib/labels.ts, lib/validation.ts
+types/api.ts                  the HTTP contract, hand-written
+```
+
+### 24.5 State model
+
+Four states (`idle`/`loading`/`success`/`error`) in one `useState` per
+concern inside `AnalyzePage` — no Redux/Zustand; a one-page form+result
+MVP does not need a state-management framework. "Try again" replays the
+last submitted request (held in a `useRef`) rather than requiring the
+user to retype the form.
+
+### 24.6 Rendering the null/zero distinction (carried through from 7B/8A)
+
+- `AlignmentHeadline`: `alignment === null` renders "Not available" +
+  "No job requirements could be meaningfully assessed from GitHub
+  evidence." — never `0`/`NaN`/`undefined`/`-1`. A non-null value
+  renders as `{n} / 100`.
+- `SubscoreRow`: `required`/`preferred === null` renders "No
+  {required|preferred} requirements were assessable" — never
+  `0 of 0 supported`. Rendered immediately beneath the headline (a flex
+  row, not an accordion) — the adversarial "strong headline despite 0
+  of N required supported" case (Milestone 7B) must stay visible
+  without an extra click.
+- `RepositoryCoverage`: `{analyzed} of {discovered} repositories deeply
+  analyzed` plus a prioritization note when incomplete, or `All {n}
+  discovered repositories were deeply analyzed.` when complete — NEVER
+  a computed percentage (the backend deliberately defines no such
+  semantic, Milestone 5B/7B).
+
+### 24.7 Requirement sections — exact approved wording
+
+`lib/labels.ts::requirementSectionCopy()` is the one place this wording
+lives:
+
+| status | title | explanation |
+|---|---|---|
+| `supported` | "Supported by GitHub evidence" | (none needed) |
+| `not_observed` | "Not observed in analyzed GitHub evidence" | "No supporting evidence was observed in the analyzed GitHub material. This does not mean the candidate lacks the skill." |
+| `not_assessable` | "Not assessable from GitHub" | "GitHub evidence cannot reliably establish these requirements." |
+
+An empty group renders "None." rather than disappearing — the section
+structure stays stable across different analyses. Pinned by
+`ResultView.test.tsx`'s own forbidden-word check: "failed",
+"missing skill", "unqualified", "hire", "reject", "weakness" never
+appear anywhere in a rendered result.
+
+### 24.8 Evidence provenance
+
+`EvidenceList` groups a requirement's `evidence[]` by
+`repository.owner/repository.name`, then renders a friendly label for
+`evidence_type` (`lib/labels.ts`'s cosmetic lookup table — e.g.
+`"dependency"` → "Dependency manifest"; an unrecognized value falls
+back to itself rather than disappearing), `file_path` when present,
+`confidence` capitalized, and `detail` (`raw_observation`). Renders
+ONLY fields `EvidenceItem` actually carries — no repository URL, no
+file URL, no source line, no star count, no commit activity (none of
+that exists on the API response; §23.6's "no fabrication" rule is
+enforced at the UI layer too, not just the API layer).
+
+### 24.9 Error handling
+
+`AnalyzePage` catches `ApiError`/`NetworkError` from `lib/api.ts` and
+renders the API's own safe `message` (or `NetworkError`'s own message)
+via `ErrorBanner` — never a stack trace, raw exception name, or
+backend file path. `ErrorBanner` shows "Try again" only when
+`retryable` is true (`github_rate_limited`/`github_unavailable`/
+`github_upstream_error`/a frontend `NetworkError`) — not for
+`github_user_not_found`/`invalid_request`/`github_auth_configuration_error`/
+`internal_error`, where resubmitting the identical request would just
+fail identically.
+
+### 24.10 Accessibility / responsive
+
+Every input has a real `<label htmlFor>`; invalid fields set
+`aria-invalid`/`aria-describedby` pointing at the inline error text;
+the loading notice is `role="status" aria-live="polite"`; the error
+banner is `role="alert"`; `:focus-visible` has an explicit outline
+(never suppressed). Headings are semantic (`h1` page title, `h2` per
+result section). One `@media (max-width: 600px)` breakpoint stacks the
+form's two-column row and the required/preferred cards vertically —
+desktop is the primary target, per the milestone's own "do not spend
+excessive time on pixel-perfect responsive design" instruction.
+
+### 24.11 Diagnostics placement
+
+`DiagnosticsPanel` is the LAST section rendered, inside a collapsed
+`<details>` (closed by default). A non-zero
+`diagnostics.extraction_failure_count` surfaces one modest, neutrally
+styled sentence OUTSIDE the `<details>` (visible without expanding) —
+"Some repository evidence could not be analyzed (...)" — never implying
+the whole analysis failed; the per-repository partial-failure semantics
+this reflects were already established at Milestone 5D/7C and are not
+reinterpreted here.
+
+### 24.12 Testing strategy
+
+All tests mock the HTTP boundary (`global.fetch`) or bypass it entirely
+-- the real Python backend is never required. Two files:
+
+- `components/__tests__/ResultView.test.tsx` (13 tests): pure rendering
+  against hand-built `AnalyzeResponse` fixtures (`test/fixtures.ts`) --
+  no network involved. Covers the null/zero distinctions, neutral
+  wording, evidence provenance, diagnostics placement/ordering, the
+  forbidden-word sweep, and "no fabricated link" check.
+- `components/__tests__/AnalyzePage.test.tsx` (10 tests): integration
+  through the REAL `AnalyzeForm`/`lib/api.ts`, with `global.fetch`
+  mocked/stubbed per test -- form rendering, validation (blank,
+  oversized), loading state + disabled submit, a full success render,
+  each error-mapping case (not-found/retryable-upstream/generic-
+  500/network-failure), and the retry button re-issuing the same
+  request.
+
+23 tests total, run via `npm test` (Vitest). `npm run type-check`
+(`tsc --noEmit`) is this project's type-check/lint gate — no separate
+ESLint setup was added (a deliberate dependency-minimization choice,
+not an oversight); strict TypeScript already catches the class of bug
+ESLint's most load-bearing rules would.
+
+### 24.13 Local integration smoke test
+
+Backend (`uvicorn`) and frontend (`next dev`) were both run locally and
+a real `POST /api/v1/analyze` for `Jango1324` was issued WITH an
+`Origin: http://localhost:3000` header (reproducing exactly what the
+browser's own CORS preflight + fetch would send) — confirmed
+`access-control-allow-origin: http://localhost:3000` on both the
+preflight `OPTIONS` and the real `POST`, and a normal 200 response body
+(`alignment=67`, `required={2,3}`, `preferred=None`, 2 supported /
+1 not_observed / 0 not_assessable). The interactive browser-automation
+tool available in this session did not respond (timed out after
+repeated attempts) when asked to drive an actual rendered page, so the
+"click through in a real browser" half of this check (visually
+confirming the loading state, the rendered result DOM, and an empty
+browser console) was NOT completed by this session -- see Known
+Limitations below. The scripted check above does verify the real
+CORS/HTTP behavior a browser would rely on; it does not verify the
+React rendering/console in an actual browser window.
+
+### 24.14 Backend/API changes
+
+None. `gitscore.api`'s contract from Milestone 8A was consumed exactly
+as frozen -- no field needed that wasn't already present.
+
+### 24.15 Known limitations
+
+- The interactive browser-automation tool did not respond during this
+  session (see §24.13) -- a human (or a future session with a working
+  browser tool) should still click through the real page once:
+  `uvicorn gitscore.api.app:app --reload` in one terminal,
+  `cd frontend && npm run dev` in another, then
+  `http://localhost:3000` in a browser, to visually confirm the loading
+  spinner, the rendered result, and an empty browser console. Nothing
+  in this milestone's code is suspected to be the cause -- the scripted
+  CORS/HTTP check (§24.13) and all 23 offline tests passed.
+- No ESLint configuration -- `tsc --noEmit` is the enforced
+  type-check/lint gate instead (§24.12's own rationale).
+- No result persistence, no accounts, no job-URL ingestion, no LLM, no
+  alternative-role discovery -- all explicitly out of scope per this
+  milestone's own instructions.
+- Evidence is grouped by repository but not paginated/virtualized -- a
+  candidate with evidence spread across many repositories for one
+  requirement would render a long list; acceptable for this MVP's
+  bounded `top_n` (15) repository analysis.

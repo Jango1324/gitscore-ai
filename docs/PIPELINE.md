@@ -362,3 +362,17 @@ exactly once, serializes its result. No business logic lives in this
 package -- see `docs/ARCHITECTURE.md` §23 for the full request/response
 contract, error mapping, and dependency-injection strategy. Run locally
 with `uvicorn gitscore.api.app:app --reload`.
+
+## Frontend (Milestone 8B) -- `frontend/`
+
+```
+Browser -> Next.js frontend (frontend/) -> HTTP -> gitscore.api -> analyze_job_fit()
+```
+
+A separate Next.js + TypeScript application, consuming the `/api/v1`
+contract above over `fetch()` -- no GitScore logic is reproduced in
+TypeScript. See `docs/ARCHITECTURE.md` §24 for page/component
+structure, the null/zero rendering rules, and testing strategy.
+Run locally: `cd frontend && npm install && npm run dev`
+(`NEXT_PUBLIC_GITSCORE_API_URL` points it at the backend, default
+`http://localhost:8000`).

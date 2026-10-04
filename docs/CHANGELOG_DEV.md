@@ -1,5 +1,140 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-04 — Milestone 8B: Minimal product frontend
+
+**What changed:** First usable browser experience for GitScore. New,
+fully separate application `frontend/` (Next.js + TypeScript) consuming
+the Milestone 8A `/api/v1/analyze` contract — a user enters a GitHub
+username and pastes a job description, and sees GitHub Evidence
+Alignment, required/preferred support, repository coverage, and the
+supported/not-observed/not-assessable requirement groups with evidence
+provenance. No GitScore analysis logic is reproduced in TypeScript; the
+frontend is a renderer/client only. Full as-built writeup:
+`docs/ARCHITECTURE.md` §24. This entry summarizes.
+
+**Framework decision:** no frontend existed before this milestone.
+Selected Next.js + TypeScript (App Router) per the milestone's stated
+default. One plain global stylesheet, no Tailwind/component-library
+dependency. Pinned `typescript@^5.9.3` (latest stable 5.x) rather than
+the newly-released TypeScript 7 major — a deliberate "boring" choice,
+not an oversight. Testing: Vitest + React Testing Library + jsdom
+(lighter than Jest + `next/jest` for a project this size).
+
+**Location:** `frontend/` is fully separate from `src/gitscore/` — its
+own `package.json`/`node_modules`/build. The two applications
+communicate only over the frozen HTTP contract;
+`frontend/src/types/api.ts` is a hand-written mirror of
+`gitscore.api.schemas`, never generated from the Python dataclasses.
+
+**API client:** `lib/api.ts::analyzeJob()` throws `ApiError`
+(status/code/message/retryable from the API's own error envelope) or
+`NetworkError` (fetch itself failed — offline/DNS/CORS/backend down).
+Base URL via `NEXT_PUBLIC_GITSCORE_API_URL`, defaulting to
+`http://localhost:8000` in code — never a hardcoded production URL.
+
+**Component structure:** `AnalyzePage` (state: idle/loading/success/
+error, one `useState` per concern, no Redux/Zustand) composes
+`AnalyzeForm` → `LoadingNotice`/`ErrorBanner`/`ResultView`.
+`ResultView` composes, in the required order: `AlignmentHeadline` →
+`SubscoreRow` (required/preferred, immediately beneath the headline,
+never in an accordion) → `RepositoryCoverage` → `RequirementSection`
+×3 (supported/not_observed/not_assessable) → `DiagnosticsPanel` (last,
+collapsed).
+
+**Null/zero rendering (carried through from 7B/8A):**
+`alignment === null` → "Not available" + explanation, never 0/NaN/-1.
+`required`/`preferred === null` → "No {required|preferred}
+requirements were assessable", never "0 of 0 supported".
+`RepositoryCoverage` never computes a percentage — "N of M repositories
+deeply analyzed" plus a prioritization note when incomplete, or "All N
+discovered repositories were deeply analyzed" when complete.
+
+**Requirement-section wording** (the one place it lives:
+`lib/labels.ts::requirementSectionCopy()`): "Supported by GitHub
+evidence" / "Not observed in analyzed GitHub evidence" (+ "This does
+not mean the candidate lacks the skill.") / "Not assessable from
+GitHub" (+ "GitHub evidence cannot reliably establish these
+requirements."). An empty group renders "None." rather than
+disappearing. Pinned by a forbidden-word sweep: "failed"/"missing
+skill"/"unqualified"/"hire"/"reject"/"weakness" never appear in a
+rendered result.
+
+**Evidence provenance:** grouped by repository, friendly
+`evidence_type` labels (cosmetic lookup table, unrecognized values fall
+back to themselves), confidence capitalized, `file_path`/`detail`
+shown — only fields `EvidenceItem` actually carries. No fabricated
+repository/file URL, source line, star count, or commit activity.
+
+**Error handling:** API/network errors render the API's own safe
+message via `ErrorBanner` — never a stack trace, exception name, or
+backend path. "Try again" shown only when `retryable` is true.
+
+**Accessibility/responsive:** real `<label htmlFor>` on every input,
+`aria-invalid`/`aria-describedby` on validation errors, `role="status"
+aria-live="polite"` loading notice, `role="alert"` error banner,
+visible `:focus-visible`, semantic headings. One `max-width: 600px`
+breakpoint stacks the two-column form row and the required/preferred
+cards — desktop is the primary MVP target.
+
+**Diagnostics:** last section, collapsed `<details>` by default. A
+non-zero `extraction_failure_count` surfaces one modest, neutrally
+styled sentence outside the `<details>` — never implying the whole
+analysis failed.
+
+**Tests:** 23 — `ResultView.test.tsx` (13, pure rendering against
+hand-built fixtures: null/zero distinctions, neutral wording, evidence
+provenance, diagnostics ordering, forbidden-word sweep, no fabricated
+links) and `AnalyzePage.test.tsx` (10, integration through the real
+form/API client with `fetch` mocked: rendering, validation, loading/
+disabled-submit, success render, every error-mapping case, retry).
+`npm run type-check` (`tsc --noEmit`) is the type-check/lint gate — no
+separate ESLint config added (dependency-minimization choice).
+**Backend: 777 tests, unchanged. Frontend: 23/23 passing. Production
+build (`next build`) succeeds.**
+
+**Local integration smoke test:** ran the real backend (`uvicorn`) and
+frontend (`next dev`) together and issued one real
+`POST /api/v1/analyze` for `Jango1324` WITH an `Origin:
+http://localhost:3000` header, reproducing exactly what the browser's
+CORS preflight + fetch would send — confirmed
+`access-control-allow-origin: http://localhost:3000` on both the
+preflight `OPTIONS` and the real `POST`, and a normal 200 response
+(`alignment=67`, `required={2,3}`, 2 supported / 1 not_observed /
+0 not_assessable). The session's interactive browser-automation tool
+did not respond after repeated attempts, so visually clicking through
+the rendered page (loading spinner, rendered DOM, empty console) was
+NOT completed this session — flagged as a known limitation; the
+scripted check above does verify the real CORS/HTTP behavior a browser
+depends on, just not the rendering itself.
+
+**Backend/API changes:** none. Milestone 8A's contract was consumed
+exactly as frozen.
+
+**Files changed:**
+- `frontend/` — new application (`package.json`, `tsconfig.json`,
+  `next.config.ts`, `vitest.config.ts`, `.env.local.example`,
+  `.gitignore`, `src/app/*`, `src/components/*`, `src/lib/*`,
+  `src/types/*`, `src/test/*`).
+- `docs/ARCHITECTURE.md` — new §24.
+- `docs/PIPELINE.md` — new "Frontend" section.
+- `docs/CHANGELOG_DEV.md` — this entry.
+
+**How to test:**
+```
+cd frontend && npm install && npm run test       # 23 tests, offline
+cd frontend && npm run type-check && npm run build
+cd .. && python -m pytest                        # 777 tests, unchanged
+```
+Local dev: terminal 1 `uvicorn gitscore.api.app:app --reload`; terminal
+2 `cd frontend && npm run dev`; browse `http://localhost:3000`.
+
+**Known limitations:** the actual browser click-through (loading
+spinner, rendered result, empty console) was not performed this
+session — the browser-automation tool was unresponsive; a human (or a
+future session) should still do this once. No ESLint config. No result
+persistence, accounts, job-URL ingestion, LLM, or alternative-role
+discovery — all explicitly out of scope. No commit was made.
+
 ## 2026-10-03 — Milestone 8A: Thin backend API
 
 **What changed:** First HTTP transport exposing

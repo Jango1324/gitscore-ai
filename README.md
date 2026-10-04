@@ -161,6 +161,30 @@ GitHub HTTP responses and the persistence layer are faked/mocked at
 their boundaries; see `tests/conftest.py` for the shared fakes and
 `docs/ARCHITECTURE.md` §11 for what each test file covers.
 
+## Running the web app (API + frontend)
+
+The job-fit analysis pipeline (`gitscore.application.analyze_job_fit()`)
+is also exposed as a small HTTP API with a minimal browser frontend —
+see `docs/ARCHITECTURE.md` §23/§24 for the full design.
+
+Terminal 1 — backend (requires the `api` extra: `pip install -e .[api]`):
+
+```bash
+python -m uvicorn gitscore.api.app:app --reload
+```
+
+Terminal 2 — frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Then open `http://localhost:3000`. The frontend talks to the backend
+via `NEXT_PUBLIC_GITSCORE_API_URL` (see `frontend/.env.local.example`),
+defaulting to `http://localhost:8000` if unset.
+
 ## Current project status
 
 Milestones completed so far (see `docs/CHANGELOG_DEV.md` for full
