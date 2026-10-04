@@ -2539,3 +2539,201 @@ migration of `RequirementMatch`, `CandidateEvidenceProfile`, or
   this milestone's own instructions.
 - Exact presentation wording (§21.8) is documented but not yet
   user/legal-reviewed for a real recruiter-facing release.
+
+## 22. End-to-end job-analysis orchestration — Milestone 7C
+
+New package `gitscore.application` (`job_fit.py`):
+`analyze_job_fit(username, job_description, ...) -> JobAnalysisResult`.
+The first package to compose the candidate-side (Milestone 5D) and
+job-side (Milestone 6A-7B) pipelines into one application-level
+operation. Introduces no new analysis logic, no new scoring semantics,
+and no new domain schema — it calls four already-existing stage
+functions, each exactly once, and returns their outputs bundled
+together.
+
+```
+username                              raw job-description text
+    |                                         |
+    v                                         v
+extract_candidate_evidence()          parse_job_description()
+(gitscore.pipeline.evidence,          (gitscore.jobs, 6B)
+ 5D)
+    |                                         |
+    v                                         |
+CandidateEvidenceProfile  ------+--------------+
+                                 v
+                           match_job()  (gitscore.matching, 7A)
+                                 |
+                                 v
+                          JobMatchAnalysis
+                                 |
+                                 v
+                           assess_job()  (gitscore.assessment, 7B)
+                                 |
+                                 v
+                           JobAssessment
+```
+
+### 22.1 Candidate-side entry point reused, not rebuilt
+
+Milestone 5D's `gitscore.pipeline.evidence.extract_candidate_evidence(
+username, client=None, top_n=DEFAULT_TOP_N, collected_at=None) ->
+EvidenceExtractionResult` already composed repository listing ->
+ranking -> bounded deep extraction -> `CandidateEvidenceProfile`
+end-to-end. This milestone found that entry point already complete and
+REUSED it unchanged — no ranking/extraction logic was duplicated into
+`gitscore.application`, and nothing on `EvidenceExtractionResult`,
+`CandidateEvidenceProfile`, `JobRequirementProfile`, `JobMatchAnalysis`,
+or `JobAssessment` needed a schema change to compose. No architectural
+stop condition (§18 of this milestone's own instructions) was hit.
+
+### 22.2 Input contract
+
+```python
+analyze_job_fit(
+    username: str,
+    job_description: str,
+    *,
+    client: GitHubClient | None = None,
+    top_n: int = DEFAULT_TOP_N,
+    job_title: str | None = None,
+    job_company: str | None = None,
+) -> JobAnalysisResult
+```
+
+Only `username`/`job_description` are required — the MVP product
+input stays small. `client`/`top_n` are the existing candidate-analysis
+knobs `extract_candidate_evidence()` already exposes, forwarded
+unchanged (not re-implemented); `job_title`/`job_company` are
+`parse_job_description()`'s own existing optional parameters, forwarded
+the same way. No new configuration object was introduced.
+
+### 22.3 Output contract — `JobAnalysisResult`
+
+```python
+@dataclass(frozen=True)
+class JobAnalysisResult:
+    candidate_profile: CandidateEvidenceProfile
+    job_profile: JobRequirementProfile
+    assessment: JobAssessment
+    extractor_failures: tuple[ExtractionFailure, ...] = ()
+    unknown_dependency_names: tuple[str, ...] = ()
+```
+
+`JobMatchAnalysis` is deliberately NOT a separate field — it is
+reachable unchanged via `assessment.match_analysis` (Milestone 7B kept
+it by reference, never copied). `candidate_profile`/`job_profile` ARE
+kept as their own fields despite `assessment` already existing, because
+neither is fully reachable from the match/assessment objects:
+`JobMatchAnalysis` retains only the candidate's `coverage` (not the
+full `evidence`/`concept_summaries`) and only the job's `title`/
+`company` (not the full `requirements` tuple or `raw_text`) — see
+those two classes' own docstrings (§20, §21). `extractor_failures`/
+`unknown_dependency_names` are `extract_candidate_evidence()`'s own
+Milestone 5D per-run diagnostics, deliberately kept off
+`CandidateEvidenceProfile` itself — carried here unchanged rather than
+dropped.
+
+This gives a future API/UI everything listed in this milestone's Part 6
+— required/preferred facts, supported/not-observed/not-assessable
+groupings, supporting evidence, repository-analysis coverage, and the
+parsed job requirements — without rerunning any stage.
+
+### 22.4 Dependency injection
+
+`client` is forwarded UNCHANGED to `extract_candidate_evidence()`,
+which itself only constructs a real `GitHubClient()` when `client is
+None`. `gitscore.application.job_fit` never constructs a network client
+itself — a caller injects a fake client (e.g. the existing
+`FakeEvidenceGitHubClient` test double) and `analyze_job_fit()` never
+touches the network. No DI framework was introduced.
+
+### 22.5 Pipeline stage sequence and execution order
+
+Each stage runs exactly ONCE — `analyze_job_fit()` never re-parses,
+re-matches, or re-assesses to build a convenience field (pinned by
+`tests/test_application_job_fit.py::test_each_stage_runs_exactly_once`).
+Execution order is deliberately **job parsing before GitHub retrieval**:
+`parse_job_description()` is local, deterministic, and free, so a
+blank or rejected job description fails before any GitHub request is
+made, rather than after already spending part of the candidate's
+rate-limit budget on a request whose result was always going to be
+discarded.
+
+### 22.6 Package boundary / dependency direction
+
+`gitscore.application` depends on `gitscore.pipeline`, `gitscore.jobs`,
+`gitscore.matching`, and `gitscore.assessment`. None of those packages
+import anything from `gitscore.application` — enforced by convention
+(this is the one layer allowed to know about all of them together), the
+same way `gitscore.matching`/`gitscore.assessment` never import from
+each other's callers.
+
+### 22.7 Failure semantics
+
+| Case | Behavior |
+|---|---|
+| Blank/whitespace-only `username` | `ValueError`, raised directly in `job_fit.py` before any I/O — nothing downstream validates it |
+| Blank/whitespace-only `job_description` | `ValueError`, via `JobRequirementProfile.__post_init__`'s existing invariant (reused, not duplicated) |
+| GitHub user not found | `GitHubNotFoundError` propagates unchanged from `extract_candidate_evidence()` |
+| GitHub auth failure / other non-retryable 4xx | `GitHubRequestError` propagates unchanged |
+| GitHub rate limit | `GitHubRateLimitError` propagates unchanged — aborts the whole run, matching 5D's existing policy |
+| GitHub/network failure (retries exhausted) | `GitHubRequestError` propagates unchanged |
+| Zero repositories | NOT a failure — `CandidateEvidenceProfile.evidence == ()`, every technical requirement becomes `NOT_OBSERVED`; `alignment_score` is a real, non-`None` number (e.g. `0`) |
+| Repos exist, none deeply analyzed (e.g. `top_n=0`) | NOT a failure — same degrade-gracefully path as zero repositories |
+| Partial per-repository extraction failure | NOT fatal — isolated by `extract_candidate_evidence()` (5D's existing policy), surfaced via `JobAnalysisResult.extractor_failures`, never swallowed and never escalated into aborting the run |
+| Job description parses to zero requirements | NOT a failure — `assessable_count == 0`, `alignment_score is None` |
+| Zero assessable requirements (all `NOT_ASSESSABLE`) | NOT a failure — `alignment_score is None`, never `0` (§21's own "assessed and found nothing" vs. "nothing was assessable" distinction) |
+
+No `except Exception` anywhere in `job_fit.py` — every GitHub-side
+exception and every input-validation error is a specific, pre-existing
+type, re-raised or raised unchanged, never collapsed into a generic
+failure.
+
+### 22.8 Determinism boundary
+
+`extract_candidate_evidence()` is the only stage that performs GitHub
+I/O. `parse_job_description()`, `match_job()`, and `assess_job()` are
+pure functions of their inputs. Pinned by
+`tests/test_application_job_fit.py::
+test_identical_fake_github_responses_produce_identical_results`: two
+independent `analyze_job_fit()` calls given byte-identical fake GitHub
+responses and identical job text produce `==`-equal
+`CandidateEvidenceProfile`, `JobRequirementProfile`, and `JobAssessment`
+objects.
+
+### 22.9 Smoke path
+
+`scripts/analyze_job.py <username> <job_description_file> [--top N]`
+runs the real pipeline against a real GitHub account and prints a
+concise summary (alignment score, required/preferred "X of Y supported",
+repository coverage, and the supported/not-observed/not-assessable
+requirement groupings by their original job-posting text) — inspection
+only, no persistence, not a polished UI.
+
+Real-account validation: `Jango1324` (the project's own existing test
+account, per `docs/CHANGELOG_DEV.md`'s Milestone 5D entries) against a
+Machine Learning Engineer posting — 20 repositories discovered, 15
+analyzed, no extractor failures, `alignment_score = 50`
+(`required = 2 of 3`, `preferred = 0 of 1`). Not treated as scientific
+validation of the score, per this milestone's own instructions.
+
+### 22.10 Versioning
+
+No new schema/formula version was introduced or bumped.
+`JOB_REQUIREMENT_SCHEMA_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+`CONCEPT_REGISTRY_VERSION`, `JOB_DESCRIPTION_PARSER_VERSION`,
+`MATCHER_VERSION`, and `SCORING_VERSION` are all read, never written,
+by `gitscore.application` — this milestone is pure composition.
+
+### 22.11 Known limitations
+
+- No web API, no frontend, no persistence of a `JobAnalysisResult` —
+  explicitly out of scope per this milestone's own instructions.
+- No alternative-role discovery, no learned/CatBoost scoring, no
+  recruiter labels or hire/reject recommendation, no LLM — same.
+- `analyze_job_fit()` takes exactly one `job_description` per call;
+  analyzing one candidate against several postings means calling it
+  once per posting (each run re-collects GitHub evidence — no
+  cross-call caching of `CandidateEvidenceProfile` exists yet, since
+  nothing in this milestone's scope asked for one).

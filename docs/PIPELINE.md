@@ -314,3 +314,38 @@ readiness.py`, or Dataset V1. See `docs/ARCHITECTURE.md` §15 for the full
 data flow, extractor list, API cost model, and confidence/failure
 semantics, and `scripts/inspect_evidence_profile.py` to run it against a
 real account.
+
+## Job-fit pipeline (Milestone 7A/7B) — built on top of V2, not V1
+
+Given the `CandidateEvidenceProfile` above plus a parsed job posting,
+two more deterministic stages produce a human-facing result:
+`gitscore.matching.match_job(candidate_profile, job_profile)` ->
+`JobMatchAnalysis` (per-requirement `SUPPORTED`/`NOT_OBSERVED`/
+`NOT_ASSESSABLE`), then `gitscore.assessment.assess_job(match_analysis)`
+-> `JobAssessment` ("GitHub Evidence Alignment" and required/preferred
+submetrics). See `docs/ARCHITECTURE.md` §20/§21.
+
+## End-to-end orchestration (Milestone 7C) — `gitscore.application`
+
+`gitscore.application.job_fit.analyze_job_fit(username, job_description)`
+composes every stage above into one call:
+
+```
+username                              raw job-description text
+    |                                         |
+    v                                         v
+extract_candidate_evidence()          parse_job_description()
+    |                                         |
+    v                                         |
+CandidateEvidenceProfile  ------+--------------+
+                                 v
+                           match_job()  ->  JobMatchAnalysis  ->  assess_job()  ->  JobAssessment
+```
+
+It introduces no new analysis logic -- it calls each existing stage
+function exactly once and returns a `JobAnalysisResult` bundling
+`candidate_profile`, `job_profile`, `assessment`,
+`extractor_failures`, and `unknown_dependency_names`. See
+`docs/ARCHITECTURE.md` §22 for the full contract, failure semantics, and
+dependency-injection strategy, and `scripts/analyze_job.py` to run it
+against a real account.

@@ -1,5 +1,138 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-03 — Milestone 7C: End-to-end job-analysis orchestration
+
+**What changed:** First application-level operation that composes the
+whole GitScore job-fit pipeline into one call. New package
+`gitscore.application` (`job_fit.py`):
+`analyze_job_fit(username, job_description, *, client=None, top_n=DEFAULT_TOP_N,
+job_title=None, job_company=None) -> JobAnalysisResult`. No new analysis
+logic, no new scoring semantics, no new domain schema — it calls
+`extract_candidate_evidence()` (5D), `parse_job_description()` (6B),
+`match_job()` (7A), and `assess_job()` (7B) each exactly once and
+returns their outputs bundled together. Full as-built writeup:
+`docs/ARCHITECTURE.md` §22. This entry summarizes.
+
+**Architectural review first:** Milestone 5D's
+`gitscore.pipeline.evidence.extract_candidate_evidence()` already
+composed repository listing -> ranking -> bounded deep extraction ->
+`CandidateEvidenceProfile` end-to-end. This milestone found it already
+complete and REUSED it unchanged — no ranking/extraction logic was
+duplicated into `gitscore.application`, and no existing schema
+(`CandidateEvidenceProfile`, `JobRequirementProfile`,
+`JobMatchAnalysis`, `JobAssessment`) needed a change to compose. No
+architectural stop condition was hit; nothing in this milestone's §18
+"stop before changing established schemas" list applied.
+
+**Package boundary:** `gitscore.application` depends on
+`gitscore.pipeline`, `gitscore.jobs`, `gitscore.matching`, and
+`gitscore.assessment`; none of those import from `gitscore.application`
+— this is the one layer allowed to know about all of them together.
+
+**Output model — `JobAnalysisResult`:** `candidate_profile`,
+`job_profile`, `assessment`, `extractor_failures`,
+`unknown_dependency_names`. No separate `match_analysis` field —
+reachable unchanged via `assessment.match_analysis`. `candidate_profile`/
+`job_profile` ARE kept as their own fields because neither is fully
+reachable from the match/assessment objects (`JobMatchAnalysis` retains
+only `coverage` and `title`/`company`, not the full evidence/concept
+summaries or the full requirements tuple/raw text) — see
+`docs/ARCHITECTURE.md` §22.3.
+
+**Dependency injection:** `client` is forwarded UNCHANGED to
+`extract_candidate_evidence()`, which itself only constructs a real
+`GitHubClient()` when `client is None`. `job_fit.py` never constructs a
+network client itself, so tests inject the existing
+`FakeEvidenceGitHubClient` test double and never touch the network.
+
+**Execution order:** job parsing runs BEFORE GitHub retrieval — local,
+deterministic, free, so a blank/rejected job description fails before
+any GitHub request is made rather than after spending part of the
+candidate's rate-limit budget on a request that was always going to be
+discarded. Each of the four stages runs exactly once — no rematching to
+build a convenience field (pinned by
+`test_each_stage_runs_exactly_once`).
+
+**Failure semantics — reused, not reinvented:** blank `username` raises
+`ValueError` directly (nothing downstream validates it); blank
+`job_description` raises `ValueError` via `JobRequirementProfile`'s own
+existing invariant. Every GitHub-side exception
+(`GitHubNotFoundError`/`GitHubRateLimitError`/`GitHubRequestError`) and
+every partial per-repository extraction failure propagates or is
+surfaced completely unchanged — no `except Exception` anywhere in
+`job_fit.py`. Zero repositories, zero candidate evidence, a job
+description parsing to zero requirements, and zero assessable
+requirements are each a NORMAL successful result (the existing
+components already degrade gracefully through empty collections,
+verified directly rather than assumed) — never collapsed with a true
+I/O failure. Confirmed the `alignment_score is None` ("nothing was
+assessable") vs. `alignment_score == 0` ("assessed, nothing supported")
+distinction survives orchestration in both directions.
+
+**Determinism boundary:** `extract_candidate_evidence()` is the only
+stage with GitHub I/O; `parse_job_description()`/`match_job()`/
+`assess_job()` are pure. Pinned by
+`test_identical_fake_github_responses_produce_identical_results`: two
+independent calls with byte-identical fake GitHub responses and
+identical job text produce `==`-equal results.
+
+**Smoke path:** `scripts/analyze_job.py <username> <job_description_file>
+[--top N]` — prints alignment score, required/preferred "X of Y
+supported", repository coverage, and the supported/not-observed/
+not-assessable groupings by original job-posting text. Inspection only,
+no persistence.
+
+**Real-account validation:** ran `scripts/analyze_job.py Jango1324
+<ML posting>` against the project's own existing test account (used
+previously for 5D's `inspect_evidence_profile.py` validation) with a
+real `GITHUB_TOKEN`. 20 repositories discovered, 15 analyzed, zero
+extractor failures, `alignment_score = 50` (`required = 2 of 3`,
+`preferred = 0 of 1`). Not treated as scientific validation of the
+score, per instruction.
+
+**Versioning:** no schema/formula version introduced or bumped.
+`JOB_REQUIREMENT_SCHEMA_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+`CONCEPT_REGISTRY_VERSION`, `JOB_DESCRIPTION_PARSER_VERSION`,
+`MATCHER_VERSION`, `SCORING_VERSION` are all read, never written, by
+`gitscore.application` — pure composition.
+
+**Tests:** 18 new, `tests/test_application_job_fit.py`, all offline via
+`FakeEvidenceGitHubClient` (no network, no GitHub token): happy path;
+orchestrated result equals direct `extract_candidate_evidence()` ->
+`parse_job_description()` -> `match_job()` -> `assess_job()`
+composition (score, required/preferred, and full `JobAssessment`
+equality); supporting evidence and repository coverage survive
+orchestration; OR-group and `NOT_ASSESSABLE` semantics survive
+orchestration; blank username/job description; GitHub not-found/
+rate-limit/request-error propagation; zero repositories; zero matching
+evidence; zero-requirement job description; zero-assessable-requirement
+job description; partial per-repository extraction failure is
+surfaced, not fatal; determinism across identical fake responses; each
+stage called exactly once. **746 tests total, all passing** (up from
+728).
+
+**Files changed:**
+- `src/gitscore/application/__init__.py`, `job_fit.py` — new package.
+- `scripts/analyze_job.py` — new smoke-path CLI.
+- `tests/test_application_job_fit.py` — new.
+- `docs/ARCHITECTURE.md` — new §22.
+- `docs/PIPELINE.md` — new "Job-fit pipeline" and "End-to-end
+  orchestration" sections.
+- `docs/CHANGELOG_DEV.md` — this entry.
+
+**How to test:** `python -m pytest` (whole suite, 746 tests, no
+network/token required) or `python -m pytest
+tests/test_application_job_fit.py -v` for just the 7C-relevant subset.
+Real-account smoke path (requires `GITHUB_TOKEN` in `.env`):
+`python scripts/analyze_job.py <username> <path-to-job-description.txt> --top 15`.
+
+**Explicitly NOT done this milestone (per instruction):** repository
+ranking, evidence extraction, job parsing, matching, and
+assessment/scoring logic were not redesigned — only composed.
+Alternative-role discovery, web API, frontend, LLM logic, persistence
+of results, and a commit were all explicitly out of scope and not
+done.
+
 ## 2026-10-01 — Milestone 7B: GitHub Evidence Alignment & structured assessment
 
 **What changed:** First milestone to turn Milestone 7A's per-requirement
