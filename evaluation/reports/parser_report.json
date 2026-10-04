@@ -1,0 +1,1934 @@
+{
+  "corpus_version": "8c:v1",
+  "aggregate": {
+    "total_jobs": 15,
+    "total_expected_requirements": 103,
+    "status_counts": {
+      "CORRECT": 54,
+      "MISSING": 45,
+      "WRONG_ALTERNATIVE_STRUCTURE": 4
+    },
+    "tag_counts": {
+      "MISSING": 45,
+      "WRONG_ALTERNATIVE_STRUCTURE": 4
+    },
+    "missed_concepts": {
+      "unresolved:kubernetes": 2,
+      "language.c": 2,
+      "language.go": 2,
+      "language.python": 2,
+      "unresolved:bigquery": 1,
+      "unresolved:snowflake": 1,
+      "unresolved:spi": 1,
+      "unresolved:i2c": 1,
+      "unresolved:uart": 1,
+      "unresolved:angular": 1,
+      "unresolved:vue": 1,
+      "unresolved:flutter": 1,
+      "unresolved:react_native": 1,
+      "unresolved:matlab": 1,
+      "unresolved:simulink": 1,
+      "language.cpp": 1
+    },
+    "total_spurious_requirements": 0,
+    "recall": 0.524,
+    "precision": 1.0,
+    "metric_definitions": {
+      "recall": "(CORRECT + PARTIALLY_CORRECT) / total_expected_requirements -- 'was the right concept/category/alternative-set found at all', independent of necessity/observability nuance (those are reported separately in tag_counts, never hidden inside this one number)",
+      "precision": "(CORRECT + PARTIALLY_CORRECT) / (CORRECT + PARTIALLY_CORRECT + spurious) -- of everything recovered or invented, what fraction had a real gold counterpart"
+    }
+  },
+  "jobs": [
+    {
+      "job_id": "backend_01",
+      "role_family": "backend",
+      "verdicts": [
+        {
+          "claim_text": "3+ years of professional experience building backend services in Python",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "3+ years of professional experience building backend services in Python",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.python",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "3+ years of professional experience building backend services in Python",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "3+ years of professional experience building backend services in Python",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "experience",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with PostgreSQL or MySQL",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with PostgreSQL or MySQL",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "database.postgresql",
+              "unresolved:mysql"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": "mysql is not in the concept registry; expected via the OR-segment escalation path"
+          },
+          "notes": "mysql is not in the concept registry; expected via the OR-segment escalation path"
+        },
+        {
+          "claim_text": "Familiarity with Docker and Kubernetes",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Familiarity with Docker and Kubernetes",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "infra.docker",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Familiarity with Docker and Kubernetes",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with Docker and Kubernetes",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "unresolved:kubernetes",
+            "github_observability": "strongly_observable",
+            "notes": "PREDICTED MISS: no comma in this sentence, so the parser's conservative comma-gated unknown-term policy (jobs/parsing/concepts.py) is expected to drop this entirely rather than promote it to unresolved:kubernetes -- a known, documented design tradeoff, not a surprise bug."
+          },
+          "notes": "PREDICTED MISS: no comma in this sentence, so the parser's conservative comma-gated unknown-term policy (jobs/parsing/concepts.py) is expected to drop this entirely rather than promote it to unresolved:kubernetes -- a known, documented design tradeoff, not a surprise bug."
+        },
+        {
+          "claim_text": "Solid understanding of RESTful API design principles",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Solid understanding of RESTful API design principles",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: no registry concept, no comma-listed unknown term, no non_technical.py pattern match either -- expected to produce ZERO JobRequirement rows for this bullet at all."
+          },
+          "notes": "PREDICTED MISS: no registry concept, no comma-listed unknown term, no non_technical.py pattern match either -- expected to produce ZERO JobRequirement rows for this bullet at all."
+        },
+        {
+          "claim_text": "Bachelor's degree in Computer Science or a related field",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Bachelor's degree in Computer Science or a related field",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "education",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with AWS",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with AWS",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "cloud.aws",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Exposure to GraphQL APIs",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Exposure to GraphQL APIs",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: GraphQL is not in the registry and appears alone (no comma-list, no OR) -- expected to be dropped entirely."
+          },
+          "notes": "PREDICTED MISS: GraphQL is not in the registry and appears alone (no comma-list, no OR) -- expected to be dropped entirely."
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "computer_vision_01",
+      "role_family": "computer_vision",
+      "verdicts": [
+        {
+          "claim_text": "Strong Python programming skills",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Strong Python programming skills",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.python",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with OpenCV for image processing",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with OpenCV for image processing",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: OpenCV is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: OpenCV is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "Experience with PyTorch for deep learning-based vision models",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with PyTorch for deep learning-based vision models",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "ml.framework.pytorch",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Familiarity with CUDA-accelerated training pipelines",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Familiarity with CUDA-accelerated training pipelines",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "platform.cuda",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with Jupyter Notebook-based experimentation",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with Jupyter Notebook-based experimentation",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "language.jupyter_notebook",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Master's degree in Computer Vision, Robotics, or a related field",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Master's degree in Computer Vision, Robotics, or a related field",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "education",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "data_engineering_01",
+      "role_family": "data_engineering",
+      "verdicts": [
+        {
+          "claim_text": "Experience building ETL pipelines using Python",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience building ETL pipelines using Python",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.python",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Strong SQL skills across relational databases",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Strong SQL skills across relational databases",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "strongly_observable",
+            "notes": "PREDICTED MISS: SQL (generic) is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: SQL (generic) is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "Experience with PostgreSQL and Redis",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with PostgreSQL and Redis",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "database.postgresql",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with PostgreSQL and Redis",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with PostgreSQL and Redis",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "database.redis",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "3+ years of experience in data engineering or a related field",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "3+ years of experience in data engineering or a related field",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "experience",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with dbt",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with dbt",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: dbt is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: dbt is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "Experience with Snowflake or BigQuery",
+          "facet": "alternative",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with Snowflake or BigQuery",
+            "necessity": "preferred",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "unresolved:bigquery",
+              "unresolved:snowflake"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": "PREDICTED: same not_technical fallback as other zero-confirmed-concept OR cases -- expected to produce NOTHING, not a real alternative group."
+          },
+          "notes": "PREDICTED: same not_technical fallback as other zero-confirmed-concept OR cases -- expected to produce NOTHING, not a real alternative group."
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "data_science_01",
+      "role_family": "data_science",
+      "verdicts": [
+        {
+          "claim_text": "Experience with Python, pandas, and numpy",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with Python, pandas, and numpy",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.python",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with Python, pandas, and numpy",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with Python, pandas, and numpy",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "data.library.pandas",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with Python, pandas, and numpy",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with Python, pandas, and numpy",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "unresolved:numpy",
+            "github_observability": "strongly_observable",
+            "notes": "numpy is not in the registry, but appears in a genuine COMMA-joined list alongside two already-confirmed concepts (python, pandas), AND is the sentence's final token (no trailing descriptive phrase after it) -- PREDICTED CORRECT via the comma-gated conservative unknown-term policy (jobs/parsing/concepts.py). (Two earlier drafts of this bullet failed for different reasons: 'and numpy' with no comma at all does not satisfy the comma requirement; 'numpy for data analysis' with a trailing phrase after the list fails clean_list_fragment's <=3-word shape check on the final list fragment. Both are real parser-fragility findings in their own right -- see the evaluation report.)"
+          },
+          "notes": "numpy is not in the registry, but appears in a genuine COMMA-joined list alongside two already-confirmed concepts (python, pandas), AND is the sentence's final token (no trailing descriptive phrase after it) -- PREDICTED CORRECT via the comma-gated conservative unknown-term policy (jobs/parsing/concepts.py). (Two earlier drafts of this bullet failed for different reasons: 'and numpy' with no comma at all does not satisfy the comma requirement; 'numpy for data analysis' with a trailing phrase after the list fails clean_list_fragment's <=3-word shape check on the final list fragment. Both are real parser-fragility findings in their own right -- see the evaluation report.)"
+        },
+        {
+          "claim_text": "Experience with statistical modeling and A/B testing",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with statistical modeling and A/B testing",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "partially_observable",
+            "notes": "PREDICTED MISS: no registry concept for statistics/experimentation methodology."
+          },
+          "notes": "PREDICTED MISS: no registry concept for statistics/experimentation methodology."
+        },
+        {
+          "claim_text": "Proficiency in SQL for data analysis",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Proficiency in SQL for data analysis",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "strongly_observable",
+            "notes": "PREDICTED MISS: SQL (generic) is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: SQL (generic) is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "Experience communicating findings to non-technical stakeholders",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience communicating findings to non-technical stakeholders",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "soft_skill",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: does not match non_technical.py's specific soft_skill phrase list (communication skills/written and verbal/interpersonal/teamwork/cross-functional/collaborat*); 'communicating findings to...' is not one of those exact phrases."
+          },
+          "notes": "PREDICTED MISS: does not match non_technical.py's specific soft_skill phrase list (communication skills/written and verbal/interpersonal/teamwork/cross-functional/collaborat*); 'communicating findings to...' is not one of those exact phrases."
+        },
+        {
+          "claim_text": "Experience with scikit-learn",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with scikit-learn",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: scikit-learn is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: scikit-learn is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "Familiarity with Jupyter Notebook workflows",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Familiarity with Jupyter Notebook workflows",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "language.jupyter_notebook",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "devops_cloud_01",
+      "role_family": "devops_cloud",
+      "verdicts": [
+        {
+          "claim_text": "Experience with AWS or Azure",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with AWS or Azure",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "cloud.aws",
+              "unresolved:azure"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Strong experience with Docker and Kubernetes",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Strong experience with Docker and Kubernetes",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "infra.docker",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Strong experience with Docker and Kubernetes",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Strong experience with Docker and Kubernetes",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "unresolved:kubernetes",
+            "github_observability": "strongly_observable",
+            "notes": "PREDICTED MISS: same comma-less-pair pattern as backend_01 -- expected to be dropped entirely rather than promoted to unresolved:kubernetes."
+          },
+          "notes": "PREDICTED MISS: same comma-less-pair pattern as backend_01 -- expected to be dropped entirely rather than promoted to unresolved:kubernetes."
+        },
+        {
+          "claim_text": "Experience with infrastructure-as-code tools such as Terraform",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with infrastructure-as-code tools such as Terraform",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: Terraform is not in the registry and appears alone (no comma-list with an already-confirmed concept)."
+          },
+          "notes": "PREDICTED MISS: Terraform is not in the registry and appears alone (no comma-list with an already-confirmed concept)."
+        },
+        {
+          "claim_text": "Scripting experience in Python or Shell",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Scripting experience in Python or Shell",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "language.python",
+              "language.shell"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with CI/CD tooling such as Jenkins",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with CI/CD tooling such as Jenkins",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: Jenkins is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: Jenkins is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "Relevant cloud certification",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Relevant cloud certification",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: no registry concept, no non_technical.py pattern for 'certification' alone (legal category requires specific phrases like 'security clearance')."
+          },
+          "notes": "PREDICTED MISS: no registry concept, no non_technical.py pattern for 'certification' alone (legal category requires specific phrases like 'security clearance')."
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "embedded_firmware_01",
+      "role_family": "embedded_firmware",
+      "verdicts": [
+        {
+          "claim_text": "Strong C experience in embedded, resource-constrained environments",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Strong C experience in embedded, resource-constrained environments",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.c",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with FreeRTOS or another real-time operating system",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with FreeRTOS or another real-time operating system",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "alternative_requirement",
+            "github_observability": "partially_observable",
+            "notes": "OR-shaped ('FreeRTOS or another RTOS'), but the second segment ('another real-time operating system') has no technology name at all -- clean_list_fragment's <=3-word shape check fails ('another real-time operating' is 4 words), so classify_alternative_claim returns kind='unsafe' and the parser correctly falls back to the Milestone 6B.1 conservative non-technical 'alternative_requirement' placeholder rather than a real alternative_concept_ids group or dropping FreeRTOS entirely. CORRECT, intended behavior -- gold facet fixed to non_technical/alternative_requirement after an initial authoring mistake (first draft wrongly expected a plain technical FreeRTOS row)."
+          },
+          "notes": "OR-shaped ('FreeRTOS or another RTOS'), but the second segment ('another real-time operating system') has no technology name at all -- clean_list_fragment's <=3-word shape check fails ('another real-time operating' is 4 words), so classify_alternative_claim returns kind='unsafe' and the parser correctly falls back to the Milestone 6B.1 conservative non-technical 'alternative_requirement' placeholder rather than a real alternative_concept_ids group or dropping FreeRTOS entirely. CORRECT, intended behavior -- gold facet fixed to non_technical/alternative_requirement after an initial authoring mistake (first draft wrongly expected a plain technical FreeRTOS row)."
+        },
+        {
+          "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "unresolved:spi",
+            "github_observability": "strongly_observable",
+            "notes": "None of SPI/I2C/UART are registered concepts, but they appear in a genuine comma-list alongside each other -- PREDICTED: the comma-gated conservative unknown-term policy requires at least one ALREADY-CONFIRMED registry concept in the same claim to fire at all (find_conservative_unknown_terms only runs when `mentions` is non-empty). Since NONE of SPI/I2C/UART are registered, `mentions` is empty here too -- PREDICTED MISS for all three despite the comma-list shape, because the gating condition needs an existing confirmed concept, not just a comma."
+          },
+          "notes": "None of SPI/I2C/UART are registered concepts, but they appear in a genuine comma-list alongside each other -- PREDICTED: the comma-gated conservative unknown-term policy requires at least one ALREADY-CONFIRMED registry concept in the same claim to fire at all (find_conservative_unknown_terms only runs when `mentions` is non-empty). Since NONE of SPI/I2C/UART are registered, `mentions` is empty here too -- PREDICTED MISS for all three despite the comma-list shape, because the gating condition needs an existing confirmed concept, not just a comma."
+        },
+        {
+          "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "unresolved:i2c",
+            "github_observability": "strongly_observable",
+            "notes": "See unresolved:spi row above -- same predicted-miss reasoning."
+          },
+          "notes": "See unresolved:spi row above -- same predicted-miss reasoning."
+        },
+        {
+          "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "unresolved:uart",
+            "github_observability": "strongly_observable",
+            "notes": "See unresolved:spi row above -- same predicted-miss reasoning."
+          },
+          "notes": "See unresolved:spi row above -- same predicted-miss reasoning."
+        },
+        {
+          "claim_text": "Experience debugging with oscilloscopes and logic analyzers",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience debugging with oscilloscopes and logic analyzers",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "partially_observable",
+            "notes": "PREDICTED MISS: no registry concept for test equipment."
+          },
+          "notes": "PREDICTED MISS: no registry concept for test equipment."
+        },
+        {
+          "claim_text": "Experience with CMake-based build systems",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with CMake-based build systems",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: CMake is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: CMake is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "Exposure to Verilog for hardware/firmware co-design",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Exposure to Verilog for hardware/firmware co-design",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "hdl.verilog",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "frontend_01",
+      "role_family": "frontend",
+      "verdicts": [
+        {
+          "claim_text": "Strong proficiency in JavaScript and TypeScript",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Strong proficiency in JavaScript and TypeScript",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.javascript",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Strong proficiency in JavaScript and TypeScript",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Strong proficiency in JavaScript and TypeScript",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.typescript",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Hands-on experience with React",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Hands-on experience with React",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "framework.react",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with CSS and responsive design",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with CSS and responsive design",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.css",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Familiarity with modern build tooling and automated testing frameworks",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with modern build tooling and automated testing frameworks",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: generic, no specific tool named, no registry concept."
+          },
+          "notes": "PREDICTED MISS: generic, no specific tool named, no registry concept."
+        },
+        {
+          "claim_text": "Experience with Next.js",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with Next.js",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "framework.nextjs",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Knowledge of Vue or Angular",
+          "facet": "alternative",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Knowledge of Vue or Angular",
+            "necessity": "preferred",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "unresolved:angular",
+              "unresolved:vue"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": "Neither Vue nor Angular is in the registry; expected OR-group of two unresolved ids (any_confirmed logic requires at least one REAL concept though -- see notes in report; PREDICTED: classify_alternative_claim requires >=1 confirmed concept to treat this as technical, so with ZERO confirmed concepts this is expected to fall through to not_technical and then produce NOTHING at all, not an alternative group)."
+          },
+          "notes": "Neither Vue nor Angular is in the registry; expected OR-group of two unresolved ids (any_confirmed logic requires at least one REAL concept though -- see notes in report; PREDICTED: classify_alternative_claim requires >=1 confirmed concept to treat this as technical, so with ZERO confirmed concepts this is expected to fall through to not_technical and then produce NOTHING at all, not an alternative group)."
+        },
+        {
+          "claim_text": "Excellent written and verbal communication",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Excellent written and verbal communication",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "soft_skill",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "fullstack_01",
+      "role_family": "fullstack",
+      "verdicts": [
+        {
+          "claim_text": "Proficient in both Python and JavaScript",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Proficient in both Python and JavaScript",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.python",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Proficient in both Python and JavaScript",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Proficient in both Python and JavaScript",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.javascript",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience building REST APIs with Flask or FastAPI",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience building REST APIs with Flask or FastAPI",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "framework.fastapi",
+              "framework.flask"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with React on the frontend",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with React on the frontend",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "framework.react",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Comfortable working with PostgreSQL",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Comfortable working with PostgreSQL",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "database.postgresql",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "2+ years of professional software engineering experience",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "2+ years of professional software engineering experience",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "experience",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with Docker",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with Docker",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "infra.docker",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Familiarity with Next.js",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Familiarity with Next.js",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "framework.nextjs",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "general_swe_01",
+      "role_family": "general_swe",
+      "verdicts": [
+        {
+          "claim_text": "Strong computer science fundamentals, including data structures and algorithms",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Strong computer science fundamentals, including data structures and algorithms",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: general CS fundamentals claim, no registry concept, no non_technical.py pattern."
+          },
+          "notes": "PREDICTED MISS: general CS fundamentals claim, no registry concept, no non_technical.py pattern."
+        },
+        {
+          "claim_text": "Proficiency in at least one of Python, Java, or C++",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Proficiency in at least one of Python, Java, or C++",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "language.cpp",
+              "language.java",
+              "language.python"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with Git-based version control workflows",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with Git-based version control workflows",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "partially_observable",
+            "notes": "Git usage is plausibly inferable from a GitHub account by definition, but there is no 'git' concept in the registry and no non_technical.py category for it -- PREDICTED MISS."
+          },
+          "notes": "Git usage is plausibly inferable from a GitHub account by definition, but there is no 'git' concept in the registry and no non_technical.py category for it -- PREDICTED MISS."
+        },
+        {
+          "claim_text": "Bachelor's degree in Computer Science, Engineering, or equivalent experience",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Bachelor's degree in Computer Science, Engineering, or equivalent experience",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "education",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with distributed systems",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with distributed systems",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "partially_observable",
+            "notes": "PREDICTED MISS: no registry concept named 'distributed systems'."
+          },
+          "notes": "PREDICTED MISS: no registry concept named 'distributed systems'."
+        },
+        {
+          "claim_text": "Familiarity with CI/CD pipelines using Jenkins",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with CI/CD pipelines using Jenkins",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: Jenkins is not in the registry and appears alone, no comma-list."
+          },
+          "notes": "PREDICTED MISS: Jenkins is not in the registry and appears alone, no comma-list."
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "ml_engineering_01",
+      "role_family": "ml_engineering",
+      "verdicts": [
+        {
+          "claim_text": "Expert-level Python",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Expert-level Python",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.python",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Deep experience with PyTorch or TensorFlow",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Deep experience with PyTorch or TensorFlow",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "ml.framework.pytorch",
+              "ml.framework.tensorflow"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "3+ years of professional machine learning engineering experience",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "3+ years of professional machine learning engineering experience",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "experience",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience deploying models with Docker",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience deploying models with Docker",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "infra.docker",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with CUDA for GPU acceleration",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with CUDA for GPU acceleration",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "platform.cuda",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience mentoring junior engineers",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience mentoring junior engineers",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "leadership",
+            "github_observability": "partially_observable",
+            "notes": ""
+          },
+          "notes": ""
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "mobile_01",
+      "role_family": "mobile",
+      "verdicts": [
+        {
+          "claim_text": "2+ years building production mobile applications",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "2+ years building production mobile applications",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "experience",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Strong experience with Swift for iOS development",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Strong experience with Swift for iOS development",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: Swift is not in the registry and appears alone (no comma-list, no OR)."
+          },
+          "notes": "PREDICTED MISS: Swift is not in the registry and appears alone (no comma-list, no OR)."
+        },
+        {
+          "claim_text": "Experience with Kotlin for Android development",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with Kotlin for Android development",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: Kotlin is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: Kotlin is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "Familiarity with REST API integration",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with REST API integration",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: no registry concept for generic REST API integration."
+          },
+          "notes": "PREDICTED MISS: no registry concept for generic REST API integration."
+        },
+        {
+          "claim_text": "Experience with React Native or Flutter",
+          "facet": "alternative",
+          "necessity": "preferred",
+          "status": "WRONG_ALTERNATIVE_STRUCTURE",
+          "tags": [
+            "WRONG_ALTERNATIVE_STRUCTURE"
+          ],
+          "expected": {
+            "claim_text": "Experience with React Native or Flutter",
+            "necessity": "preferred",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "unresolved:flutter",
+              "unresolved:react_native"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": "Neither is a registered concept -- PREDICTED: zero confirmed concepts means classify_alternative_claim treats this as not_technical, so this is expected to produce NOTHING (same mechanism as the Vue/Angular case above)."
+          },
+          "notes": "Neither is a registered concept -- PREDICTED: zero confirmed concepts means classify_alternative_claim treats this as not_technical, so this is expected to produce NOTHING (same mechanism as the Vue/Angular case above)."
+        },
+        {
+          "claim_text": "Knowledge of CI/CD for mobile releases",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Knowledge of CI/CD for mobile releases",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: no registry concept."
+          },
+          "notes": "PREDICTED MISS: no registry concept."
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "robotics_controls_01",
+      "role_family": "robotics_controls",
+      "verdicts": [
+        {
+          "claim_text": "Hands-on experience with ROS2",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Hands-on experience with ROS2",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "robotics.ros2",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Proficiency in Python for robotics tooling and scripting",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Proficiency in Python for robotics tooling and scripting",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.python",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Strong C++ skills for performance-critical robotics code",
+          "facet": "technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Strong C++ skills for performance-critical robotics code",
+            "necessity": "required",
+            "facet": "technical",
+            "concept_id": "language.cpp",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with control systems or state estimation",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with control systems or state estimation",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "partially_observable",
+            "notes": "PREDICTED: no registered concept for either alternative, so any_confirmed is False -> classify_alternative_claim falls through to not_technical -> normal pipeline -> no concept mention, no non_technical.py match, no experience qualifier -> PREDICTED MISS."
+          },
+          "notes": "PREDICTED: no registered concept for either alternative, so any_confirmed is False -> classify_alternative_claim falls through to not_technical -> normal pipeline -> no concept mention, no non_technical.py match, no experience qualifier -> PREDICTED MISS."
+        },
+        {
+          "claim_text": "Experience with MATLAB or Simulink for controls simulation",
+          "facet": "alternative",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with MATLAB or Simulink for controls simulation",
+            "necessity": "preferred",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "unresolved:matlab",
+              "unresolved:simulink"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": "PREDICTED: same not_technical fallback as Vue/Angular/React-Native/Flutter above -- zero confirmed concepts means this is expected to produce NOTHING, not a real alternative group. Recorded as the gold-intended alternative shape for reporting."
+          },
+          "notes": "PREDICTED: same not_technical fallback as Vue/Angular/React-Native/Flutter above -- zero confirmed concepts means this is expected to produce NOTHING, not a real alternative group. Recorded as the gold-intended alternative shape for reporting."
+        },
+        {
+          "claim_text": "Familiarity with PLC programming",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with PLC programming",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: PLC is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: PLC is not in the registry and appears alone."
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "security_01",
+      "role_family": "security",
+      "verdicts": [
+        {
+          "claim_text": "Experience with application security and secure coding practices",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with application security and secure coding practices",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: no registry concept for general secure-coding practice."
+          },
+          "notes": "PREDICTED MISS: no registry concept for general secure-coding practice."
+        },
+        {
+          "claim_text": "Proficiency in Python or Go for tooling development",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "WRONG_ALTERNATIVE_STRUCTURE",
+          "tags": [
+            "WRONG_ALTERNATIVE_STRUCTURE"
+          ],
+          "expected": {
+            "claim_text": "Proficiency in Python or Go for tooling development",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "language.go",
+              "language.python"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": " [ACTUAL: collapsed to the unsafe non-technical alternative_requirement fallback, not a real alternative_concept_ids group]"
+        },
+        {
+          "claim_text": "Experience with penetration testing or vulnerability assessment",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with penetration testing or vulnerability assessment",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED: neither alternative is a registered concept -> any_confirmed is False -> not_technical fallback -> normal pipeline -> no match anywhere -> PREDICTED MISS."
+          },
+          "notes": "PREDICTED: neither alternative is a registered concept -> any_confirmed is False -> not_technical fallback -> normal pipeline -> no match anywhere -> PREDICTED MISS."
+        },
+        {
+          "claim_text": "Familiarity with OAuth and authentication protocols",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Familiarity with OAuth and authentication protocols",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: OAuth is not in the registry and appears alone (the comma is between 'OAuth' and 'authentication protocols', but neither resolves, so the comma-gate's 'at least one already-confirmed concept' precondition is never satisfied)."
+          },
+          "notes": "PREDICTED MISS: OAuth is not in the registry and appears alone (the comma is between 'OAuth' and 'authentication protocols', but neither resolves, so the comma-gate's 'at least one already-confirmed concept' precondition is never satisfied)."
+        },
+        {
+          "claim_text": "Security certification such as OSCP or CISSP",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Security certification such as OSCP or CISSP",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED: neither OSCP nor CISSP is a registered concept -> PREDICTED MISS, same not_technical-fallback mechanism."
+          },
+          "notes": "PREDICTED: neither OSCP nor CISSP is a registered concept -> PREDICTED MISS, same not_technical-fallback mechanism."
+        },
+        {
+          "claim_text": "Experience with cloud security on AWS",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with cloud security on AWS",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "cloud.aws",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "sre_platform_01",
+      "role_family": "sre_platform",
+      "verdicts": [
+        {
+          "claim_text": "3+ years operating production systems at scale",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "3+ years operating production systems at scale",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "experience",
+            "github_observability": "not_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Strong Python or Go programming skills",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "WRONG_ALTERNATIVE_STRUCTURE",
+          "tags": [
+            "WRONG_ALTERNATIVE_STRUCTURE"
+          ],
+          "expected": {
+            "claim_text": "Strong Python or Go programming skills",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "language.go",
+              "language.python"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with Kubernetes for container orchestration",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with Kubernetes for container orchestration",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "strongly_observable",
+            "notes": "PREDICTED MISS: Kubernetes alone (no comma-list, no OR, no already-confirmed sibling concept in this sentence) -- expected to be dropped entirely."
+          },
+          "notes": "PREDICTED MISS: Kubernetes alone (no comma-list, no OR, no already-confirmed sibling concept in this sentence) -- expected to be dropped entirely."
+        },
+        {
+          "claim_text": "Experience with monitoring and observability tooling",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with monitoring and observability tooling",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: no registry concept for generic observability tooling."
+          },
+          "notes": "PREDICTED MISS: no registry concept for generic observability tooling."
+        },
+        {
+          "claim_text": "Experience with Terraform",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with Terraform",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "not_observable",
+            "notes": "PREDICTED MISS: Terraform is not in the registry and appears alone."
+          },
+          "notes": "PREDICTED MISS: Terraform is not in the registry and appears alone."
+        },
+        {
+          "claim_text": "On-call experience and incident response",
+          "facet": "non_technical",
+          "necessity": "preferred",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "On-call experience and incident response",
+            "necessity": "preferred",
+            "facet": "non_technical",
+            "category": "experience",
+            "github_observability": "not_observable",
+            "notes": "Contains 'experience' so find_experience_qualifier likely does NOT fire (no numeric years count present); PREDICTED: no non_technical.py pattern matches 'on-call'/'incident response' either -> PREDICTED MISS, not a real 'experience' qualifier row."
+          },
+          "notes": "Contains 'experience' so find_experience_qualifier likely does NOT fire (no numeric years count present); PREDICTED: no non_technical.py pattern matches 'on-call'/'incident response' either -> PREDICTED MISS, not a real 'experience' qualifier row."
+        }
+      ],
+      "spurious": []
+    },
+    {
+      "job_id": "systems_cpp_01",
+      "role_family": "systems_cpp",
+      "verdicts": [
+        {
+          "claim_text": "Expert-level C or C++",
+          "facet": "alternative",
+          "necessity": "required",
+          "status": "WRONG_ALTERNATIVE_STRUCTURE",
+          "tags": [
+            "WRONG_ALTERNATIVE_STRUCTURE"
+          ],
+          "expected": {
+            "claim_text": "Expert-level C or C++",
+            "necessity": "required",
+            "facet": "alternative",
+            "alternative_concept_ids": [
+              "language.c",
+              "language.cpp"
+            ],
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Deep understanding of memory management and concurrency",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Deep understanding of memory management and concurrency",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "partially_observable",
+            "notes": "PREDICTED MISS: no registry concept for this general systems-programming topic."
+          },
+          "notes": "PREDICTED MISS: no registry concept for this general systems-programming topic."
+        },
+        {
+          "claim_text": "Experience with Linux systems programming",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with Linux systems programming",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "partially_observable",
+            "notes": "PREDICTED MISS: 'Linux' is not in the concept registry (it is an OS, not covered by any _CONCEPTS entry) and appears alone."
+          },
+          "notes": "PREDICTED MISS: 'Linux' is not in the concept registry (it is an OS, not covered by any _CONCEPTS entry) and appears alone."
+        },
+        {
+          "claim_text": "Experience with performance profiling and debugging tools",
+          "facet": "non_technical",
+          "necessity": "required",
+          "status": "MISSING",
+          "tags": [
+            "MISSING"
+          ],
+          "expected": {
+            "claim_text": "Experience with performance profiling and debugging tools",
+            "necessity": "required",
+            "facet": "non_technical",
+            "category": "other",
+            "github_observability": "partially_observable",
+            "notes": "PREDICTED MISS: no registry concept for generic tooling."
+          },
+          "notes": "PREDICTED MISS: no registry concept for generic tooling."
+        },
+        {
+          "claim_text": "Experience with Rust",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with Rust",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "language.rust",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        },
+        {
+          "claim_text": "Experience with LLVM-based toolchains",
+          "facet": "technical",
+          "necessity": "preferred",
+          "status": "CORRECT",
+          "tags": [],
+          "expected": {
+            "claim_text": "Experience with LLVM-based toolchains",
+            "necessity": "preferred",
+            "facet": "technical",
+            "concept_id": "toolchain.llvm",
+            "github_observability": "strongly_observable",
+            "notes": ""
+          },
+          "notes": ""
+        }
+      ],
+      "spurious": []
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "job_id": "mobile_01",
+  "role_family": "mobile",
+  "title": "Mobile Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Mobile Engineer\n\nRequirements:\n- 2+ years building production mobile applications\n- Strong experience with Swift for iOS development\n- Experience with Kotlin for Android development\n- Familiarity with REST API integration\n\nPreferred Qualifications:\n- Experience with React Native or Flutter\n- Knowledge of CI/CD for mobile releases\n"
+}

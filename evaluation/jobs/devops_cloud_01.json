@@ -1,0 +1,8 @@
+{
+  "job_id": "devops_cloud_01",
+  "role_family": "devops_cloud",
+  "title": "DevOps / Cloud Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "DevOps / Cloud Engineer\n\nRequirements:\n- Experience with AWS or Azure\n- Strong experience with Docker and Kubernetes\n- Experience with infrastructure-as-code tools such as Terraform\n- Scripting experience in Python or Shell\n\nPreferred Qualifications:\n- Experience with CI/CD tooling such as Jenkins\n- Relevant cloud certification\n"
+}

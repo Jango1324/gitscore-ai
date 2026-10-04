@@ -1,0 +1,57 @@
+{
+  "job_id": "robotics_controls_01",
+  "corpus_version": "8c:v1",
+  "expected_requirements": [
+    {
+      "claim_text": "Hands-on experience with ROS2",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "robotics.ros2",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Proficiency in Python for robotics tooling and scripting",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.python",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Strong C++ skills for performance-critical robotics code",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.cpp",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with control systems or state estimation",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "partially_observable",
+      "notes": "PREDICTED: no registered concept for either alternative, so any_confirmed is False -> classify_alternative_claim falls through to not_technical -> normal pipeline -> no concept mention, no non_technical.py match, no experience qualifier -> PREDICTED MISS."
+    },
+    {
+      "claim_text": "Experience with MATLAB or Simulink for controls simulation",
+      "necessity": "preferred",
+      "facet": "alternative",
+      "alternative_concept_ids": [
+        "unresolved:matlab",
+        "unresolved:simulink"
+      ],
+      "github_observability": "strongly_observable",
+      "notes": "PREDICTED: same not_technical fallback as Vue/Angular/React-Native/Flutter above -- zero confirmed concepts means this is expected to produce NOTHING, not a real alternative group. Recorded as the gold-intended alternative shape for reporting."
+    },
+    {
+      "claim_text": "Familiarity with PLC programming",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: PLC is not in the registry and appears alone."
+    }
+  ]
+}

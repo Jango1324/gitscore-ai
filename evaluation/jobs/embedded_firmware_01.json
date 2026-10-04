@@ -1,0 +1,8 @@
+{
+  "job_id": "embedded_firmware_01",
+  "role_family": "embedded_firmware",
+  "title": "Embedded Firmware Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Embedded Firmware Engineer\n\nRequirements:\n- Strong C experience in embedded, resource-constrained environments\n- Experience with FreeRTOS or another real-time operating system\n- Familiarity with microcontroller peripherals such as SPI, I2C, and UART\n- Experience debugging with oscilloscopes and logic analyzers\n\nPreferred Qualifications:\n- Experience with CMake-based build systems\n- Exposure to Verilog for hardware/firmware co-design\n"
+}

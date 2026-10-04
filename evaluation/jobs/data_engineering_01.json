@@ -1,0 +1,8 @@
+{
+  "job_id": "data_engineering_01",
+  "role_family": "data_engineering",
+  "title": "Data Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Data Engineer\n\nRequirements:\n- Experience building ETL pipelines using Python\n- Strong SQL skills across relational databases\n- Experience with PostgreSQL and Redis\n- 3+ years of experience in data engineering or a related field\n\nPreferred Qualifications:\n- Experience with dbt\n- Experience with Snowflake or BigQuery\n"
+}

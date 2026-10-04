@@ -1,0 +1,81 @@
+{
+  "job_id": "backend_01",
+  "corpus_version": "8c:v1",
+  "expected_requirements": [
+    {
+      "claim_text": "3+ years of professional experience building backend services in Python",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.python",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "3+ years of professional experience building backend services in Python",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "experience",
+      "github_observability": "not_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with PostgreSQL or MySQL",
+      "necessity": "required",
+      "facet": "alternative",
+      "alternative_concept_ids": [
+        "database.postgresql",
+        "unresolved:mysql"
+      ],
+      "github_observability": "strongly_observable",
+      "notes": "mysql is not in the concept registry; expected via the OR-segment escalation path"
+    },
+    {
+      "claim_text": "Familiarity with Docker and Kubernetes",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "infra.docker",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Familiarity with Docker and Kubernetes",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "unresolved:kubernetes",
+      "github_observability": "strongly_observable",
+      "notes": "PREDICTED MISS: no comma in this sentence, so the parser's conservative comma-gated unknown-term policy (jobs/parsing/concepts.py) is expected to drop this entirely rather than promote it to unresolved:kubernetes -- a known, documented design tradeoff, not a surprise bug."
+    },
+    {
+      "claim_text": "Solid understanding of RESTful API design principles",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: no registry concept, no comma-listed unknown term, no non_technical.py pattern match either -- expected to produce ZERO JobRequirement rows for this bullet at all."
+    },
+    {
+      "claim_text": "Bachelor's degree in Computer Science or a related field",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "education",
+      "github_observability": "not_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with AWS",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "cloud.aws",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Exposure to GraphQL APIs",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: GraphQL is not in the registry and appears alone (no comma-list, no OR) -- expected to be dropped entirely."
+    }
+  ]
+}

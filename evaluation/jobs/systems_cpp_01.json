@@ -1,0 +1,8 @@
+{
+  "job_id": "systems_cpp_01",
+  "role_family": "systems_cpp",
+  "title": "Systems Software Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Systems Software Engineer\n\nRequirements:\n- Expert-level C or C++\n- Deep understanding of memory management and concurrency\n- Experience with Linux systems programming\n- Experience with performance profiling and debugging tools\n\nPreferred Qualifications:\n- Experience with Rust\n- Experience with LLVM-based toolchains\n"
+}

@@ -1,0 +1,8 @@
+{
+  "job_id": "robotics_controls_01",
+  "role_family": "robotics_controls",
+  "title": "Robotics / Controls Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Robotics / Controls Engineer\n\nRequirements:\n- Hands-on experience with ROS2\n- Proficiency in Python for robotics tooling and scripting\n- Strong C++ skills for performance-critical robotics code\n- Experience with control systems or state estimation\n\nPreferred Qualifications:\n- Experience with MATLAB or Simulink for controls simulation\n- Familiarity with PLC programming\n"
+}

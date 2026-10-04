@@ -1,0 +1,8 @@
+{
+  "job_id": "data_science_01",
+  "role_family": "data_science",
+  "title": "Data Scientist",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Data Scientist\n\nRequirements:\n- Experience with Python, pandas, and numpy\n- Experience with statistical modeling and A/B testing\n- Proficiency in SQL for data analysis\n- Experience communicating findings to non-technical stakeholders\n\nPreferred Qualifications:\n- Experience with scikit-learn\n- Familiarity with Jupyter Notebook workflows\n"
+}

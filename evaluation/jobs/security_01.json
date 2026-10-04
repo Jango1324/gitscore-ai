@@ -1,0 +1,8 @@
+{
+  "job_id": "security_01",
+  "role_family": "security",
+  "title": "Security Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Security Engineer\n\nRequirements:\n- Experience with application security and secure coding practices\n- Proficiency in Python or Go for tooling development\n- Experience with penetration testing or vulnerability assessment\n- Familiarity with OAuth and authentication protocols\n\nPreferred Qualifications:\n- Security certification such as OSCP or CISSP\n- Experience with cloud security on AWS\n"
+}

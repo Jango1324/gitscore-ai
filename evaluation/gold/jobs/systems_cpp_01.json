@@ -1,0 +1,57 @@
+{
+  "job_id": "systems_cpp_01",
+  "corpus_version": "8c:v1",
+  "expected_requirements": [
+    {
+      "claim_text": "Expert-level C or C++",
+      "necessity": "required",
+      "facet": "alternative",
+      "alternative_concept_ids": [
+        "language.c",
+        "language.cpp"
+      ],
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Deep understanding of memory management and concurrency",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "partially_observable",
+      "notes": "PREDICTED MISS: no registry concept for this general systems-programming topic."
+    },
+    {
+      "claim_text": "Experience with Linux systems programming",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "partially_observable",
+      "notes": "PREDICTED MISS: 'Linux' is not in the concept registry (it is an OS, not covered by any _CONCEPTS entry) and appears alone."
+    },
+    {
+      "claim_text": "Experience with performance profiling and debugging tools",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "partially_observable",
+      "notes": "PREDICTED MISS: no registry concept for generic tooling."
+    },
+    {
+      "claim_text": "Experience with Rust",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "language.rust",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with LLVM-based toolchains",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "toolchain.llvm",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    }
+  ]
+}

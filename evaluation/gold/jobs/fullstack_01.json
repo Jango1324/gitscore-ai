@@ -1,0 +1,73 @@
+{
+  "job_id": "fullstack_01",
+  "corpus_version": "8c:v1",
+  "expected_requirements": [
+    {
+      "claim_text": "Proficient in both Python and JavaScript",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.python",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Proficient in both Python and JavaScript",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.javascript",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience building REST APIs with Flask or FastAPI",
+      "necessity": "required",
+      "facet": "alternative",
+      "alternative_concept_ids": [
+        "framework.fastapi",
+        "framework.flask"
+      ],
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with React on the frontend",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "framework.react",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Comfortable working with PostgreSQL",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "database.postgresql",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "2+ years of professional software engineering experience",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "experience",
+      "github_observability": "not_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with Docker",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "infra.docker",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Familiarity with Next.js",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "framework.nextjs",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    }
+  ]
+}

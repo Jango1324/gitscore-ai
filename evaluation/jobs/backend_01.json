@@ -1,0 +1,8 @@
+{
+  "job_id": "backend_01",
+  "role_family": "backend",
+  "title": "Backend Software Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Backend Software Engineer\n\nRequirements:\n- 3+ years of professional experience building backend services in Python\n- Experience with PostgreSQL or MySQL\n- Familiarity with Docker and Kubernetes\n- Solid understanding of RESTful API design principles\n- Bachelor's degree in Computer Science or a related field\n\nPreferred Qualifications:\n- Experience with AWS\n- Exposure to GraphQL APIs\n"
+}

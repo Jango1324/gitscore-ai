@@ -1,0 +1,8 @@
+{
+  "job_id": "general_swe_01",
+  "role_family": "general_swe",
+  "title": "Software Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Software Engineer\n\nRequirements:\n- Strong computer science fundamentals, including data structures and algorithms\n- Proficiency in at least one of Python, Java, or C++\n- Experience with Git-based version control workflows\n- Bachelor's degree in Computer Science, Engineering, or equivalent experience\n\nPreferred Qualifications:\n- Experience with distributed systems\n- Familiarity with CI/CD pipelines using Jenkins\n"
+}

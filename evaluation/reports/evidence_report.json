@@ -1,0 +1,244 @@
+{
+  "corpus_version": "8c:v1",
+  "aggregate": {
+    "candidates_evaluated": 4,
+    "ranking_checks": 10,
+    "ranking_prediction_errors": 0,
+    "repository_ranking_misses": 3,
+    "concept_checks": 9,
+    "concept_found": 9,
+    "concept_missing": 0,
+    "concept_missing_bugs": 0,
+    "concept_missing_known_scope_limitations": 0,
+    "false_positives": 1,
+    "total_extractor_failures": 0
+  },
+  "candidates": [
+    {
+      "username": "Jango1324",
+      "discovered_count": 20,
+      "analyzed_count": 15,
+      "is_complete": false,
+      "extractor_failure_count": 0,
+      "ranking_verdicts": [
+        {
+          "username": "Jango1324",
+          "repo": "JPod-ESP32",
+          "expected": "analyzed",
+          "actual": "analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": false,
+          "notes": "C++-dominant (93.8% of language bytes per fixture), small ESP32 firmware project. Chosen independently from the raw repo list/description ('A personalized ESP32 based Jpod...') before inspecting any extracted evidence."
+        },
+        {
+          "username": "Jango1324",
+          "repo": "Pneumonia-Detection-Ai",
+          "expected": "not_analyzed",
+          "actual": "not_analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": true,
+          "notes": "Chosen specifically because this exact repo name was used as an ILLUSTRATIVE example in Milestone 8A's own prompt ('Supported by: pneumonia-detection-ai'). Checking whether that illustrative example actually survives the real ranking cutoff for this account under the current ranker. Genuinely ML-relevant (Python, per raw language field) -- a real retrieval-miss candidate, not a deliberately-deprioritized repo."
+        }
+      ],
+      "concept_verdicts": [
+        {
+          "username": "Jango1324",
+          "repo": "JPod-ESP32",
+          "concept_id": "language.cpp",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        }
+      ],
+      "false_positives": []
+    },
+    {
+      "username": "karpathy",
+      "discovered_count": 63,
+      "analyzed_count": 15,
+      "is_complete": false,
+      "extractor_failure_count": 0,
+      "ranking_verdicts": [
+        {
+          "username": "karpathy",
+          "repo": "micrograd",
+          "expected": "analyzed",
+          "actual": "analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": false,
+          "notes": "Jupyter-Notebook-dominant (90.3% of language bytes), README explicitly describes a 'PyTorch-like API'. Chosen from the raw repo list before inspecting extracted evidence."
+        },
+        {
+          "username": "karpathy",
+          "repo": "llm.c",
+          "expected": "analyzed",
+          "actual": "analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": false,
+          "notes": "Cuda-dominant per GitHub language stats (59.4%), with real C/Python also present above the 5% significance floor, and a requirements.txt declaring torch."
+        },
+        {
+          "username": "karpathy",
+          "repo": "nn-zero-to-hero",
+          "expected": "not_analyzed",
+          "actual": "not_analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": true,
+          "notes": "24,636-star Jupyter-Notebook ML teaching repository ('Neural Networks: Zero to Hero') -- a clearly substantive, directly ML-relevant repo. Chosen specifically to test whether a large, high-value repo falls outside this account's top-15 ranking cutoff (karpathy has 63 repos total). Genuinely relevant -- a real retrieval-miss candidate."
+        }
+      ],
+      "concept_verdicts": [
+        {
+          "username": "karpathy",
+          "repo": "micrograd",
+          "concept_id": "language.jupyter_notebook",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        },
+        {
+          "username": "karpathy",
+          "repo": "micrograd",
+          "concept_id": "language.python",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        },
+        {
+          "username": "karpathy",
+          "repo": "llm.c",
+          "concept_id": "platform.cuda",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        },
+        {
+          "username": "karpathy",
+          "repo": "llm.c",
+          "concept_id": "language.python",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        },
+        {
+          "username": "karpathy",
+          "repo": "llm.c",
+          "concept_id": "language.c",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        },
+        {
+          "username": "karpathy",
+          "repo": "llm.c",
+          "concept_id": "ml.framework.pytorch",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        }
+      ],
+      "false_positives": [
+        {
+          "username": "karpathy",
+          "repo": "llm.c",
+          "concept_id": "language.cpp",
+          "notes": "C++ is present in the raw language stats but at ~3.5% of bytes, below the 5% significance floor -- correctly expected to produce NO evidence, not a miss."
+        }
+      ]
+    },
+    {
+      "username": "sindresorhus",
+      "discovered_count": 1142,
+      "analyzed_count": 15,
+      "is_complete": false,
+      "extractor_failure_count": 0,
+      "ranking_verdicts": [
+        {
+          "username": "sindresorhus",
+          "repo": "got",
+          "expected": "analyzed",
+          "actual": "analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": false,
+          "notes": "TypeScript-only per language stats, with a package.json present."
+        },
+        {
+          "username": "sindresorhus",
+          "repo": "Gifski",
+          "expected": "analyzed",
+          "actual": "analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": false,
+          "notes": "Swift-dominant (85.5% of language bytes). Chosen specifically because Swift is NOT in the concept registry at all -- this is a CONCEPT_REGISTRY_GAP check, not an extraction-bug check."
+        },
+        {
+          "username": "sindresorhus",
+          "repo": "awesome",
+          "expected": "not_analyzed",
+          "actual": "not_analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": false,
+          "notes": "The single most-starred repository on GitHub (514k+ stars) but a pure curated markdown link-list with no real 'language' and trivial engineering substance -- EXPECTED to rank low under the current ranking formula (which deliberately does not let popularity dominate, per ranking/config.py's own documented design). Recorded as a DELIBERATE, correct ranking outcome, not a retrieval miss, despite the enormous star count."
+        },
+        {
+          "username": "sindresorhus",
+          "repo": "execa",
+          "expected": "not_analyzed",
+          "actual": "not_analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": true,
+          "notes": "A genuine, well-engineered, actively maintained JavaScript CLI/process-execution library (7.6k stars) -- substantive real code, not a curated list. Chosen specifically to test whether a legitimate, non-trivial repository still falls outside the top-15 cutoff purely because this account has 1,142 repositories competing for 15 slots. Genuinely relevant -- a real retrieval-miss candidate."
+        }
+      ],
+      "concept_verdicts": [
+        {
+          "username": "sindresorhus",
+          "repo": "got",
+          "concept_id": "language.typescript",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        }
+      ],
+      "false_positives": []
+    },
+    {
+      "username": "torvalds",
+      "discovered_count": 12,
+      "analyzed_count": 12,
+      "is_complete": true,
+      "extractor_failure_count": 0,
+      "ranking_verdicts": [
+        {
+          "username": "torvalds",
+          "repo": "linux",
+          "expected": "analyzed",
+          "actual": "analyzed",
+          "prediction_correct": true,
+          "is_retrieval_miss": false,
+          "notes": "C-dominant per GitHub language stats (~98.9% of a huge byte count). With only 12 total repos, this account has complete coverage regardless of ranking (is_complete=True expected) -- a useful contrast with karpathy/sindresorhus's incomplete coverage."
+        }
+      ],
+      "concept_verdicts": [
+        {
+          "username": "torvalds",
+          "repo": "linux",
+          "concept_id": "language.c",
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
+        }
+      ],
+      "false_positives": []
+    }
+  ]
+}

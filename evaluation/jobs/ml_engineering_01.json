@@ -1,0 +1,8 @@
+{
+  "job_id": "ml_engineering_01",
+  "role_family": "ml_engineering",
+  "title": "Machine Learning Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Machine Learning Engineer\n\nRequirements:\n- Expert-level Python\n- Deep experience with PyTorch or TensorFlow\n- 3+ years of professional machine learning engineering experience\n- Experience deploying models with Docker\n\nPreferred Qualifications:\n- Experience with CUDA for GPU acceleration\n- Experience mentoring junior engineers\n"
+}

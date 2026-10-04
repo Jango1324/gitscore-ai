@@ -1,0 +1,8 @@
+{
+  "job_id": "computer_vision_01",
+  "role_family": "computer_vision",
+  "title": "Computer Vision Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Computer Vision Engineer\n\nRequirements:\n- Strong Python programming skills\n- Experience with OpenCV for image processing\n- Experience with PyTorch for deep learning-based vision models\n- Familiarity with CUDA-accelerated training pipelines\n\nPreferred Qualifications:\n- Experience with Jupyter Notebook-based experimentation\n- Master's degree in Computer Vision, Robotics, or a related field\n"
+}

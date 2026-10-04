@@ -1,0 +1,8 @@
+{
+  "job_id": "sre_platform_01",
+  "role_family": "sre_platform",
+  "title": "Site Reliability Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Site Reliability Engineer\n\nRequirements:\n- 3+ years operating production systems at scale\n- Strong Python or Go programming skills\n- Experience with Kubernetes for container orchestration\n- Experience with monitoring and observability tooling\n\nPreferred Qualifications:\n- Experience with Terraform\n- On-call experience and incident response\n"
+}

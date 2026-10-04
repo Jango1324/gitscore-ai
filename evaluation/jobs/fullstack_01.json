@@ -1,0 +1,8 @@
+{
+  "job_id": "fullstack_01",
+  "role_family": "fullstack",
+  "title": "Full-Stack Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Full-Stack Engineer\n\nRequirements:\n- Proficient in both Python and JavaScript\n- Experience building REST APIs with Flask or FastAPI\n- Experience with React on the frontend\n- Comfortable working with PostgreSQL\n- 2+ years of professional software engineering experience\n\nPreferred Qualifications:\n- Experience with Docker\n- Familiarity with Next.js\n"
+}

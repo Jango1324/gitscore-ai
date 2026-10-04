@@ -1,0 +1,8 @@
+{
+  "job_id": "frontend_01",
+  "role_family": "frontend",
+  "title": "Frontend Engineer",
+  "corpus_version": "8c:v1",
+  "source_note": "Synthetic job description authored for GitScore Milestone 8C evaluation. Not copied or paraphrased from any specific real job posting.",
+  "raw_text": "Frontend Engineer\n\nRequirements:\n- Strong proficiency in JavaScript and TypeScript\n- Hands-on experience with React\n- Experience with CSS and responsive design\n- Familiarity with modern build tooling and automated testing frameworks\n\nPreferred Qualifications:\n- Experience with Next.js\n- Knowledge of Vue or Angular\n- Excellent written and verbal communication\n"
+}

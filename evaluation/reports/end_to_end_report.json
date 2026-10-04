@@ -1,0 +1,250 @@
+{
+  "corpus_version": "8c:v1",
+  "aggregate": {
+    "pairs_evaluated": 12,
+    "assessment_aggregation_errors": 0,
+    "matcher_integrity_errors": 0
+  },
+  "cells": [
+    {
+      "candidate": "karpathy",
+      "job_id": "ml_engineering_01",
+      "expected_direction": "positive",
+      "rationale": "ML-heavy account against an ML Engineer posting.",
+      "alignment_score": 75,
+      "required": [
+        2,
+        3
+      ],
+      "preferred": [
+        1,
+        1
+      ],
+      "assessable_count": 4,
+      "supported_count": 3,
+      "not_observed_count": 1,
+      "not_assessable_count": 2,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "computer_vision_01",
+      "expected_direction": "partial",
+      "rationale": "Shares Python/PyTorch/CUDA with CV, but OpenCV itself is unresolvable (registry gap) and no repo is vision-specific.",
+      "alignment_score": 100,
+      "required": [
+        3,
+        3
+      ],
+      "preferred": [
+        1,
+        1
+      ],
+      "assessable_count": 4,
+      "supported_count": 4,
+      "not_observed_count": 0,
+      "not_assessable_count": 1,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "frontend_01",
+      "expected_direction": "negative",
+      "rationale": "ML account against a frontend posting -- cross-domain, little overlap expected.",
+      "alignment_score": 80,
+      "required": [
+        4,
+        4
+      ],
+      "preferred": [
+        0,
+        1
+      ],
+      "assessable_count": 5,
+      "supported_count": 4,
+      "not_observed_count": 1,
+      "not_assessable_count": 1,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "systems_cpp_01",
+      "expected_direction": "positive",
+      "rationale": "C-heavy systems account against a Systems Software Engineer posting.",
+      "alignment_score": 67,
+      "required": [
+        1,
+        1
+      ],
+      "preferred": [
+        1,
+        2
+      ],
+      "assessable_count": 3,
+      "supported_count": 2,
+      "not_observed_count": 1,
+      "not_assessable_count": 0,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "embedded_firmware_01",
+      "expected_direction": "partial",
+      "rationale": "Shares the C language, but no FreeRTOS/peripheral evidence exists on this account.",
+      "alignment_score": 0,
+      "required": null,
+      "preferred": [
+        0,
+        1
+      ],
+      "assessable_count": 1,
+      "supported_count": 0,
+      "not_observed_count": 1,
+      "not_assessable_count": 1,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "data_science_01",
+      "expected_direction": "negative",
+      "rationale": "Kernel-engineering account against a Data Scientist posting -- cross-domain.",
+      "alignment_score": 25,
+      "required": [
+        1,
+        3
+      ],
+      "preferred": [
+        0,
+        1
+      ],
+      "assessable_count": 4,
+      "supported_count": 1,
+      "not_observed_count": 3,
+      "not_assessable_count": 0,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "frontend_01",
+      "expected_direction": "positive",
+      "rationale": "Prolific JS/TS account against a Frontend Engineer posting.",
+      "alignment_score": 80,
+      "required": [
+        4,
+        4
+      ],
+      "preferred": [
+        0,
+        1
+      ],
+      "assessable_count": 5,
+      "supported_count": 4,
+      "not_observed_count": 1,
+      "not_assessable_count": 1,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "fullstack_01",
+      "expected_direction": "partial",
+      "rationale": "Strong JS/TS/React evidence, but no Python/PostgreSQL evidence on this account.",
+      "alignment_score": 57,
+      "required": [
+        3,
+        5
+      ],
+      "preferred": [
+        1,
+        2
+      ],
+      "assessable_count": 7,
+      "supported_count": 4,
+      "not_observed_count": 3,
+      "not_assessable_count": 1,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "robotics_controls_01",
+      "expected_direction": "negative",
+      "rationale": "Frontend/web account against a Robotics/Controls posting -- cross-domain.",
+      "alignment_score": 33,
+      "required": [
+        1,
+        3
+      ],
+      "preferred": null,
+      "assessable_count": 3,
+      "supported_count": 1,
+      "not_observed_count": 2,
+      "not_assessable_count": 0,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "embedded_firmware_01",
+      "expected_direction": "partial",
+      "rationale": "Has one C++-dominant ESP32 firmware repo, but no FreeRTOS/peripheral-specific evidence.",
+      "alignment_score": 0,
+      "required": null,
+      "preferred": [
+        0,
+        1
+      ],
+      "assessable_count": 1,
+      "supported_count": 0,
+      "not_observed_count": 1,
+      "not_assessable_count": 1,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "ml_engineering_01",
+      "expected_direction": "partial",
+      "rationale": "Has a Pneumonia-Detection-Ai repo by name, but it falls outside the top-15 ranking cutoff -- tests whether a retrieval miss suppresses otherwise-plausible alignment.",
+      "alignment_score": 50,
+      "required": [
+        2,
+        3
+      ],
+      "preferred": [
+        0,
+        1
+      ],
+      "assessable_count": 4,
+      "supported_count": 2,
+      "not_observed_count": 2,
+      "not_assessable_count": 2,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "general_swe_01",
+      "expected_direction": "partial",
+      "rationale": "Multi-domain student account against a broad general-SWE posting.",
+      "alignment_score": 100,
+      "required": [
+        1,
+        1
+      ],
+      "preferred": null,
+      "assessable_count": 1,
+      "supported_count": 1,
+      "not_observed_count": 0,
+      "not_assessable_count": 1,
+      "aggregation_matches": true,
+      "matcher_integrity_ok": true
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "job_id": "mobile_01",
+  "corpus_version": "8c:v1",
+  "expected_requirements": [
+    {
+      "claim_text": "2+ years building production mobile applications",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "experience",
+      "github_observability": "not_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Strong experience with Swift for iOS development",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: Swift is not in the registry and appears alone (no comma-list, no OR)."
+    },
+    {
+      "claim_text": "Experience with Kotlin for Android development",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: Kotlin is not in the registry and appears alone."
+    },
+    {
+      "claim_text": "Familiarity with REST API integration",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: no registry concept for generic REST API integration."
+    },
+    {
+      "claim_text": "Experience with React Native or Flutter",
+      "necessity": "preferred",
+      "facet": "alternative",
+      "alternative_concept_ids": [
+        "unresolved:flutter",
+        "unresolved:react_native"
+      ],
+      "github_observability": "strongly_observable",
+      "notes": "Neither is a registered concept -- PREDICTED: zero confirmed concepts means classify_alternative_claim treats this as not_technical, so this is expected to produce NOTHING (same mechanism as the Vue/Angular case above)."
+    },
+    {
+      "claim_text": "Knowledge of CI/CD for mobile releases",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: no registry concept."
+    }
+  ]
+}
