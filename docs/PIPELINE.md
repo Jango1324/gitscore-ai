@@ -349,3 +349,16 @@ function exactly once and returns a `JobAnalysisResult` bundling
 `docs/ARCHITECTURE.md` §22 for the full contract, failure semantics, and
 dependency-injection strategy, and `scripts/analyze_job.py` to run it
 against a real account.
+
+## HTTP API (Milestone 8A) -- `gitscore.api`
+
+```
+HTTP request -> gitscore.api (transport only) -> analyze_job_fit() -> response
+```
+
+`POST /api/v1/analyze` / `GET /api/v1/health`. Pure transport: validates
+the request shape, calls `gitscore.application.analyze_job_fit()`
+exactly once, serializes its result. No business logic lives in this
+package -- see `docs/ARCHITECTURE.md` §23 for the full request/response
+contract, error mapping, and dependency-injection strategy. Run locally
+with `uvicorn gitscore.api.app:app --reload`.

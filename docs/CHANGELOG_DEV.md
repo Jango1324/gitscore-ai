@@ -1,5 +1,170 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-03 — Milestone 8A: Thin backend API
+
+**What changed:** First HTTP transport exposing
+`gitscore.application.analyze_job_fit()`. New package `gitscore.api`
+(`app.py`, `routes.py`, `schemas.py`, `serialization.py`, `errors.py`):
+`POST /api/v1/analyze` and `GET /api/v1/health`. Contains no business
+logic — the endpoint validates the request shape, calls
+`analyze_job_fit()` exactly once, and serializes its result. Full
+as-built writeup: `docs/ARCHITECTURE.md` §23. This entry summarizes.
+
+**Framework decision:** no HTTP framework existed in the repo before
+this milestone (nothing web-related in `pyproject.toml` or `.venv`).
+Selected FastAPI + Pydantic + uvicorn per the milestone's own stated
+default — typed contracts, generated OpenAPI, offline `TestClient`
+testing, future React/Next.js integration. A brand-new package with
+nothing existing to conflict with; no major architectural change
+required.
+
+**Package boundary:** `gitscore.api` depends on `gitscore.application`;
+nothing in `gitscore.application` or any domain package imports from
+`gitscore.api` — dependency direction stays one-way.
+
+**Endpoint behavior:** `routes.py::analyze()` calls `analyze_job_fit()`
+exactly once and hands its result straight to
+`serialize_job_analysis_result()`. No `parse_job_description`/
+`match_job`/`assess_job`/`extract_candidate_evidence` name is bound
+anywhere in `routes.py` — pinned by a test that checks the module's
+actual bound names, not a text grep. `health()` performs no GitHub or
+database call.
+
+**Request contract — `AnalyzeRequest`:** `github_username` (required,
+1-39 chars — GitHub's own account-name limit) and `job_description`
+(required, 1-20,000 chars), both rejected if blank/whitespace-only
+after stripping; `job_title`/`job_company` (optional, <=200 chars,
+blank coerced to `None`). `top_n`, a custom `GitHubClient`, and every
+other internal `analyze_job_fit()` knob are deliberately NOT exposed.
+
+**Response contract — `AnalyzeResponse`:** a hand-selected shape
+(`analysis`, `assessment`, `required`, `preferred`,
+`repository_analysis`, `requirements` with `supported`/`not_observed`/
+`not_assessable`, `diagnostics`, `versions`) — never a raw
+`dataclasses.asdict(JobAnalysisResult)` dump. `alignment_score`/
+`required`/`preferred` serialize `None` as JSON `null`, never `0`/
+`"N/A"`/`-1`/a fabricated `{"supported": 0, "assessable": 0}`.
+`not_assessable` requirements are always present in the response, never
+omitted for not affecting the score. Every `status` value is one of
+`MatchStatus`'s own neutral strings — never "failed"/"missing_skill"/
+"unqualified"/"gap".
+
+**Evidence serialization:** only fields `Evidence` actually stores —
+`concept_id`, `evidence_type`, `confidence` (lower-cased enum name,
+never a raw int), `repository` (`owner`/`name`), `file_path`, and
+`detail` (`raw_observation`, already extractor-bounded, never a full
+README/manifest dump). No fabricated repository URL (`Evidence`/
+`RepositoryIdentity` have no `source_url` field by design) and no
+`location` (no extractor has ever populated it).
+
+**Error mapping — one structured envelope
+(`{"error": {"code", "message", "retryable"}}`) for every non-2xx
+response:**
+
+| Exception | HTTP | code |
+|---|---|---|
+| Blank/oversized input / stray `ValueError` | 422 | `invalid_request` |
+| `GitHubNotFoundError` | 404 | `github_user_not_found` |
+| `GitHubRateLimitError` | 503 (+`Retry-After`) | `github_rate_limited` |
+| `GitHubRequestError`, status 401/403 | 500 | `github_auth_configuration_error` |
+| `GitHubRequestError`, status in `RETRYABLE_STATUS_CODES` | 502 | `github_upstream_error` |
+| `GitHubRequestError`, status `None` (connection/timeout) | 503 | `github_unavailable` |
+| `GitHubRequestError`, other status | 502 | `github_upstream_error` |
+| Anything else | 500 | `internal_error` |
+
+Rate limiting is modeled as 503, not 429: the caller never talks to
+GitHub directly, so it's GitScore's own server-side credential that's
+exhausted, not the caller's quota. A 401/403 on GitScore's own outbound
+GitHub request is a server configuration problem (bad/missing
+`GITHUB_TOKEN`), not a caller error — 500. No new exception subclasses
+were added to `gitscore.github.exceptions` for HTTP convenience; this
+package branches on `GitHubRequestError.status_code`, the one signal it
+already carries. Nothing is ever leaked to the caller — no stack trace,
+no exception text, no token, no filesystem path; the unexpected-failure
+handler logs the full exception server-side and returns only the
+generic `internal_error` envelope.
+
+**Synchronous/blocking strategy:** `analyze_job_fit()` is synchronous
+(`GitHubClient` is a plain blocking `requests.Session` user). Both
+endpoints are plain `def`, not `async def` — FastAPI's own documented
+mechanism: a sync path-operation function runs in a worker thread pool
+automatically, so a blocking `analyze_job_fit()` call never blocks the
+event loop. Nothing under `gitscore.application`/`gitscore.github` was
+rewritten to be async.
+
+**Dependency injection:** `routes.py::get_github_client()` returns
+`None` in production (so `analyze_job_fit()` constructs its own real
+`GitHubClient()`); tests override it via
+`app.dependency_overrides[get_github_client]` to inject the existing
+`FakeEvidenceGitHubClient` test double — every API test is offline.
+
+**CORS:** explicit local dev origins (`http://localhost:3000`,
+`http://127.0.0.1:3000`), `allow_credentials=False` — never `"*"`
+combined with credentials.
+
+**No persistence:** request → analysis → response; `JobAnalysisResult`/
+`AnalyzeResponse` are never written to the database.
+
+**Versioning:** API is path-versioned (`/api/v1/...`). No analytical
+version constant bumped or duplicated; no separate `API_SCHEMA_VERSION`
+introduced — the path prefix is the versioning signal for this
+milestone.
+
+**Dependency hygiene:** added `fastapi`/`uvicorn[standard]` under a new
+`[project.optional-dependencies] api` extra; added `httpx` under the
+existing `dev` extra (only needed for `TestClient`). No lock file
+exists to hand-edit; no unrelated dependency upgraded.
+
+**Tests:** 31 new — `tests/test_api_serialization.py` (10: pure
+domain -> API conversion on hand-built `JobAnalysisResult`s, no HTTP —
+exact happy-path values, `None`/null for alignment/required/preferred,
+neutral status values, NOT_ASSESSABLE presence, OR-group concept ids,
+evidence shape incl. no fabricated repository URL, diagnostics counts,
+version pass-through, ordinal-enum-as-lowercase-name serialization) and
+`tests/test_api_routes.py` (21: health; valid analyze with full shape;
+optional title/company; null alignment/required/preferred; NOT_OBSERVED/
+NOT_ASSESSABLE presence; OR-group preservation; evidence/diagnostics
+preservation; blank/oversized username/JD rejection; GitHub not-found/
+rate-limit/auth/network/upstream-5xx -> HTTP mapping incl. `Retry-After`;
+sanitized unexpected-failure response with no leakage; `analyze_job_fit`
+called exactly once; `routes.py` binds no domain-stage-function name;
+deterministic serialization). All offline via `FakeEvidenceGitHubClient`
+and FastAPI's `TestClient` — no network, no GitHub token. **777 tests
+total, all passing** (up from 746).
+
+**Real-account validation:** ran the server locally
+(`uvicorn gitscore.api.app:app`) and made one real
+`POST /api/v1/analyze` for `Jango1324` against the same ML Engineer
+posting used in 7C's smoke test, with a real `GITHUB_TOKEN`. HTTP 200;
+`alignment_score=50`, `required={2,3}`, `preferred={0,1}`,
+`repository_analysis={discovered:20, analyzed:15, complete:false}`,
+2 supported / 2 not_observed / 2 not_assessable requirements, zero
+extraction failures — identical to 7C's direct-pipeline result, as
+expected for pure transport. Not treated as scientific validation.
+
+**Files changed:**
+- `src/gitscore/api/__init__.py`, `app.py`, `routes.py`, `schemas.py`,
+  `serialization.py`, `errors.py` — new package.
+- `tests/test_api_routes.py`, `tests/test_api_serialization.py` — new.
+- `pyproject.toml` — new `api` extra (`fastapi`, `uvicorn[standard]`);
+  `httpx` added to `dev`.
+- `docs/ARCHITECTURE.md` — new §23.
+- `docs/PIPELINE.md` — new "HTTP API" section.
+- `docs/CHANGELOG_DEV.md` — this entry.
+
+**How to test:** `python -m pytest` (whole suite, 777 tests, no
+network/token required) or `python -m pytest tests/test_api_routes.py
+tests/test_api_serialization.py -v` for just the 8A-relevant subset.
+Run the server locally (requires the `api` extra installed and
+`GITHUB_TOKEN` in `.env` for real requests):
+`uvicorn gitscore.api.app:app --reload`.
+
+**Explicitly NOT done this milestone (per instruction):** repository
+ranking, evidence extraction, job parsing, matching, and assessment/
+scoring logic were not touched or duplicated — only exposed. No
+frontend, no accounts/auth/OAuth, no persistence, no job-URL ingestion,
+no LLM, no alternative-role discovery. No commit was made.
+
 ## 2026-10-03 — Milestone 7C: End-to-end job-analysis orchestration
 
 **What changed:** First application-level operation that composes the
