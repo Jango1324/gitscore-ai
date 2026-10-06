@@ -1692,8 +1692,12 @@ Conservative by design: an unrecognized term is preserved as
 `concepts.registry.unresolved_concept_id()` — no second convention) ONLY
 when it appears in a comma-containing list that ALSO contains at least
 one term that already resolved to a known concept in the SAME claim
-(`find_conservative_unknown_terms()`) — e.g. "Kubernetes" in "Python,
-Kubernetes, and Docker". An isolated unrecognized word, or ANY claim with
+(`find_conservative_unknown_terms()`) — e.g. "Terraform" in "Python,
+Terraform, and Docker" (Milestone 8D.1 note: this passage's ORIGINAL
+illustrative example was "Kubernetes" — accurate when §18 was written,
+since Kubernetes had no registry entry at the time, but no longer a
+valid "unresolved" example now that `infra.kubernetes` is registered;
+see §25). An isolated unrecognized word, or ANY claim with
 zero already-confirmed concepts, is left alone entirely — "ordinary
 prose should not" become `unresolved:*` (Part 5, verbatim).
 
@@ -1709,15 +1713,19 @@ two dedicated regression tests).
 
 **Known limitation (accepted, documented, not fixed):** a standalone
 bullet naming an out-of-registry technology with NO co-occurring known
-concept in the same claim (e.g. a bare `"Kubernetes"` bullet on its own
+concept in the same claim (e.g. a bare `"Terraform"` bullet on its own
 line, or `"Familiarity with dbt"`) produces nothing — a real, observed
 false negative (§18.11). Broadening the trigger to "any short,
 capitalized, standalone bullet" was evaluated and explicitly rejected: it
 would misfire on ordinary short phrases with no list-context guard at
-all (e.g. "Fast learner" is exactly as shape-plausible as "Kubernetes"),
+all (e.g. "Fast learner" is exactly as shape-plausible as "Terraform"),
 which is precisely the recklessness Part 5 warns against. The accepted
 trade is fewer false positives at the cost of some missed standalone
-technology bullets.
+technology bullets. (Milestone 8D.1 note: this passage's original
+example was a bare `"Kubernetes"` bullet — accurate at the time, but
+Kubernetes is now a registered concept resolved directly by
+`find_concept_mentions()`, with no comma/anchor needed at all; swapped
+to "Terraform," still unregistered as of this milestone. See §25.)
 
 ### 18.6 Non-technical requirements (Part 10) and necessity/importance/observability
 
@@ -3212,3 +3220,226 @@ as frozen -- no field needed that wasn't already present.
   candidate with evidence spread across many repositories for one
   requirement would render a long list; acceptable for this MVP's
   bounded `top_n` (15) repository analysis.
+
+## 25. Registry expansion & parser-precision fixes — Milestone 8D.1
+
+Follows directly from Milestone 8C's real-world evaluation
+(`docs/evaluation/MILESTONE_8C_EVALUATION.md`), which measured the
+pipeline as Milestone 8B left it and recommended, but did not implement,
+a ranked list of fixes. 8D.1 implements the top items from that list.
+**This section is the CURRENT reference for the concept registry and job
+parser** — where §16/§18/§19 above use Kubernetes (or, in one spot,
+Swift/Kotlin) as an "unresolved concept" illustrative example, that was
+accurate when those sections were written but is superseded here.
+
+### 25.1 Concept registry additions (`concepts/registry.py`, `CONCEPT_REGISTRY_VERSION` 3 -> 4)
+
+Five new `TechnicalConcept`s, pure additive data, zero logic change:
+`infra.kubernetes` (aliases `"kubernetes"`, `"k8s"`), `language.sql`
+(generic/vendor-agnostic SQL — distinct from `database.postgresql`),
+`language.swift`, `language.kotlin`, and `framework.react_native`
+(aliases `"react native"`, `"react-native"`, `"reactnative"` — added to
+fix §25.2's collision, not requested standalone). None are marked
+`readme_unsafe_aliases`: unlike `go`/`next`/`js`/`ts` (each marked unsafe
+only after an OBSERVED real-world false positive — see §16), no false
+positive for any of these five has been observed in this project's
+real-world validation, matching the same evidence-based bar
+`rust`/`java`/`ruby` were already held to.
+
+Because `resolve_concept()` and `find_concept_mentions()` are the ONLY
+places any extractor or parser looks up a term, every consumer picks
+these up with ZERO code changes of its own:
+- `evidence/extraction/languages.py` — GitHub reports "SQL"/"Swift"/
+  "Kotlin" as language-stats names, so a repository with significant
+  `.sql`/`.swift`/`.kt` content now produces real
+  `language.sql`/`language.swift`/`language.kotlin` evidence
+  automatically (observed on `sindresorhus/Gifski`, 85.5% Swift — see
+  §25.6).
+- `evidence/extraction/dependency_evidence.py` / `readme.py` — would
+  pick up `infra.kubernetes` the same way if a manifest/README named it;
+  not observed in this milestone's 4 real candidate fixtures (confirmed
+  via a direct grep — zero "kubernetes" mentions in any of them), but
+  the registry change makes it possible with no extractor change.
+  **Explicitly NOT added in 8D.1: Kubernetes YAML/Helm/`Chart.yaml`
+  scanning** — that remains future evidence-extraction scope, not a
+  registry-data concern.
+- `jobs/parsing/concepts.py`'s `find_concept_mentions()` — a job posting
+  naming any of these five directly, with no comma/OR/escalation needed
+  at all, same as any other registered concept (§25.6).
+
+### 25.2 "Most-specific alias wins" — the React Native / React collision fix
+
+**Root cause (found in Milestone 8C's evaluation, Section 6):** "React
+Native" contains "React" as a whole word; `framework.react`'s alias
+`"react"` is README/job-prose-safe, so "Experience with React Native or
+Flutter" resolved as `(framework.react, unresolved:flutter)` instead of
+naming React Native at all — a real `CONCEPT_ALIAS_FALSE_POSITIVE`.
+
+**Fix:** `concepts/matching.py`'s new
+`select_longest_overlapping_matches()` — a generic, data-driven
+conflict resolver, not a per-concept special case. Every concept/alias
+scan in a free-form-text context first collects ALL candidate matches
+(across every concept), then keeps only the ones not fully shadowed by a
+STRICTLY LONGER overlapping match. `framework.react_native`'s
+12-character `"react native"` alias always shadows `framework.react`'s
+5-character `"react"` wherever both would match the same text. Both
+callers of this mechanism were updated to use it:
+- `jobs/parsing/concepts.py`'s `find_concept_mentions()` (job-description
+  prose).
+- `evidence/extraction/readme.py`'s `evidence_from_readme()` (README
+  prose — `EXTRACTOR_VERSION` bumped `readme:v2` -> `readme:v3` for this
+  behavior change). Not exercised by any of the 4 real candidate
+  fixtures (none mention "React Native"), confirmed via test coverage
+  instead (`tests/test_evidence_extraction_readme.py`).
+
+This generalizes to any FUTURE overlapping alias pair without further
+code changes — not just this one collision.
+
+### 25.3 Bounded bare-short-alias recognition (the `torvalds`/embedded-C fix)
+
+**The single highest-value finding in Milestone 8C's report:** `language.c`
+has NO `readme_safe_aliases()` at all (bare `"c"` is a single letter,
+indistinguishable from ordinary prose) — so "Strong C experience in
+embedded, resource-constrained environments" produced ZERO
+`JobRequirement` rows, and `torvalds` (one of the most well-known C
+programmers alive) scored a flat **0** on an embedded-firmware posting
+with "required: None (no required requirements were assessable)" — even
+though the SAME pipeline's language-stats extractor correctly measured
+`language.c` on `torvalds/linux` in the same run.
+
+**Fix — `jobs/parsing/concepts.py`'s `find_bare_short_alias_mentions()`,**
+a narrow, LAST-RESORT fallback (only tried when the normal safe-alias
+scan finds nothing at all), bounded on three axes simultaneously:
+1. Only concepts with `readme_safe_aliases() == ()` are considered
+   (today: uniquely `language.c` — data-driven, not hardcoded to "C"
+   by name).
+2. Only a SINGLE-CHARACTER alias is considered.
+3. The match is CASE-SENSITIVE (the literal uppercase letter) AND a
+   small, fixed, generic skill-context vocabulary word (experience/
+   programming/proficient.../language/development/developer/embedded/
+   skills) must also appear in the same claim.
+
+"a, b, or c" never matches (lowercase, no context word nearby); "Strong
+C experience in embedded, resource-constrained environments" does.
+Produces `concept_id="language.c"` with `parser_confidence=MEDIUM`
+(`confidence.py`'s new `"bare_short_alias_context"` kind — a real
+registry hit, but via a narrower heuristic than a direct alias match).
+
+**A real side effect caught and fixed during this milestone's own
+testing:** naively merging the bare-C mention into the SAME `mentions`
+variable `find_conservative_unknown_terms()` reads would have let an
+unrelated comma-separated clause elsewhere in the sentence (here,
+"resource-constrained environments") get promoted to a fabricated
+`unresolved:resource-constrained_environments` concept — the
+comma-gated promotion policy's gate must stay keyed on a REAL safe-alias
+match, never on this narrower fallback. `parser.py` keeps a separate
+`safe_mentions` variable specifically to prevent this; see that
+function's inline comment.
+
+### 25.4 OR/alternative-group trailing-word and prefix-stripping fixes (`alternatives.py`, `concepts.py`)
+
+Three of Milestone 8C's four `WRONG_ALTERNATIVE_STRUCTURE` cases (§19)
+were all instances of the SAME narrow class of bug — a registry concept
+whose bare alias is `readme_unsafe` (`c`, `go`) sitting next to an
+ordinary descriptive word the existing fixed vocabulary didn't
+anticipate:
+
+- **"Strong Python or Go programming skills"** — `_TRAILING_FILLER`
+  (`alternatives.py`) gained `"programming"` to its fixed vocabulary, so
+  "Go programming skills" now strips down to "Go" (two repeated passes:
+  "skills" then "programming") before segment resolution, instead of
+  stopping at "Go programming" and mis-promoting
+  `unresolved:go_programming`.
+- **"Proficiency in Python or Go for tooling development"** — no
+  trailing-filler word applies here at all ("for tooling development").
+  `_resolve_segment` gained a THIRD escalation step,
+  `concepts.leading_token()`: when `clean_list_fragment`'s whole-fragment
+  shape check fails (too many trailing words), retry resolution against
+  just the FIRST remaining word alone ("Go"). Deliberately asymmetric
+  with the existing step 2: a failed lookup here NEVER promotes a new
+  `unresolved:<term>` id (a one-word slice of an arbitrary sentence is
+  too weak a signal to mint a new unresolved concept from) — it only
+  ever accepts a REAL registry hit.
+- **"Expert-level C or C++"** — `clean_list_fragment`'s prefix-stripper
+  (`concepts.py`'s `_LIST_ITEM_PREFIXES`) gained
+  `expert[- ]level|expert in|advanced|proficient in|strong|solid` (a
+  small, generic, non-technology skill-level-descriptor vocabulary, the
+  same KIND of fixed list `_TRAILING_FILLER`/`_REQUIREMENT_SIGNAL`
+  already use). "Expert-level C" now reduces to "C" and escalates
+  through `resolve_concept()`'s FULL alias set (which, unlike
+  `find_concept_mentions()`, was never restricted by
+  `readme_unsafe_aliases` in the first place — only the safe-alias scan
+  was).
+
+The fourth `WRONG_ALTERNATIVE_STRUCTURE` case ("Experience with React
+Native or Flutter") is §25.2's collision fix, not a trailing/prefix fix.
+
+`JOB_DESCRIPTION_PARSER_VERSION` bumped `job_description_parser:v2` ->
+`v3` for §25.2/§25.3/§25.4's combined parser-output changes.
+`JOB_REQUIREMENT_SCHEMA_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+`MATCHER_VERSION`, and `SCORING_VERSION` are all UNCHANGED — nothing in
+this milestone touches `JobRequirement`'s shape, `Evidence`'s shape, the
+matcher's decision logic, or the assessment formula.
+
+### 25.5 Evaluation corpus: `8c:v1` frozen, `8c:v1.1` added
+
+`evaluation/gold/` (`8c:v1`) is byte-for-byte unchanged — every
+historical number in `docs/evaluation/MILESTONE_8C_EVALUATION.md`
+remains exactly reproducible. `evaluation/gold_v1_1/` is a SEPARATE,
+parallel full snapshot (all 15 job-gold files, all 4 candidate-gold
+files, `matrix.json`) with corpus-wide `corpus_version: "8c:v1.1"`; only
+9 rows across 7 files actually differ in content from `8c:v1` (verified
+programmatically, not by hand-count) — see
+`docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md` for the full list
+and each row's old/new/why. `scripts/evaluate_job_parser.py` and
+`scripts/evaluate_evidence.py` both gained an optional
+`--corpus-version 8c:v1.1` flag (default: unchanged, `8c:v1`) that
+points at the alternate gold directory and writes a separate
+`*_report_v1_1.{json,md}` — every existing call with no flag reproduces
+the exact, byte-for-byte-identical `8c:v1` report.
+
+### 25.6 Net measured effect
+
+`scripts/evaluate_job_parser.py` (Layer A, job parsing) against the
+SAME frozen `8c:v1` gold: CORRECT 54 -> 58, MISSING 45 -> 44,
+WRONG_ALTERNATIVE_STRUCTURE 4 -> 1 (§25.2 fixes 1, §25.3 fixes 1 MISSING
+case, §25.4 fixes the other 2 WRONG_ALTERNATIVE_STRUCTURE cases) —
+**precision drops 1.0 -> 0.892 ENTIRELY because 7 rows' gold premise
+("X is not in the registry") is now stale**, not because of any new
+parser false positive (see `docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md`
+for the full stale-vs-genuine distinction). Against the corrected
+`8c:v1.1`: CORRECT 66, MISSING 37, zero WRONG_ALTERNATIVE_STRUCTURE,
+**precision back to 1.0**, recall 0.524 -> 0.641.
+
+Downstream, measured (not merely predicted) consequences:
+`scripts/evaluate_evidence.py` now finds real `language.swift` evidence
+on `sindresorhus/Gifski` (85.5% Swift) where none was possible before;
+`scripts/evaluate_end_to_end.py`'s `torvalds` x `embedded_firmware_01`
+pair goes from `alignment_score=0`/`required=None` (§18's "flat 0 for a
+real C expert" finding) to `alignment_score=50`/`required=(1,1)` — the
+bare-C fix (§25.3) directly resolving the report's single highest-value
+finding. `torvalds` x `data_science_01` drops 25 -> 20 (one more real,
+assessable, unmet required `language.sql` row — a correct, intentional
+scoring change, not a regression).
+
+### 25.7 Known limitations (carried forward, intentionally NOT fixed in 8D.1)
+
+- The generic registry-gap backlog beyond these five concepts
+  (Terraform, Jenkins, dbt, Snowflake/BigQuery, Flutter, MATLAB/
+  Simulink, PLC, OpenCV, scikit-learn, GraphQL, OAuth, CMake, Azure/GCP,
+  "distributed systems"/"CI/CD" as generic phrases) — 8C's own
+  recommendation was to batch these into a future registry-expansion
+  milestone, not fix piecemeal.
+- The `karpathy/llm.c` README-over-attribution false positive (crediting
+  a third party's separate C#/other-language reimplementation) —
+  unrelated to this milestone's changes, still present, still LOW–MEDIUM
+  severity, still deferred pending its own design pass.
+- Kubernetes YAML/Helm/`Chart.yaml` evidence scanning — explicitly out of
+  scope (§25.1).
+- The top-N repository-retrieval problem (§13 of the 8C report) — a
+  product/architecture decision, not a code fix, deliberately not
+  touched here.
+- `repository ranking`, `top_n`, matcher semantics, the assessment
+  formula, the API contract, the frontend, and alternative-role
+  discovery are all UNCHANGED — none of this milestone's fixes required
+  touching any of them.

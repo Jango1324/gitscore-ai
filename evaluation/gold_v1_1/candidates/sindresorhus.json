@@ -1,0 +1,47 @@
+{
+  "username": "sindresorhus",
+  "corpus_version": "8c:v1.1",
+  "profile_shape": "frontend / web-heavy, extremely prolific (1,142 discovered repositories)",
+  "notes": "Public figure, already used by this project's own prior real-account validation (docs/CHANGELOG_DEV.md, Milestone 5D). Evaluating technical repository evidence only.",
+  "targets": [
+    {
+      "repo": "got",
+      "ranking_expectation": "analyzed",
+      "notes": "TypeScript-only per language stats, with a package.json present.",
+      "expected_concepts": [
+        {
+          "concept_id": "language.typescript",
+          "source": "language_stats"
+        }
+      ],
+      "not_expected_concepts": [],
+      "scope_limitations_observed": []
+    },
+    {
+      "repo": "Gifski",
+      "ranking_expectation": "analyzed",
+      "notes": "Swift-dominant (85.5% of language bytes). 8c:v1.1: now a CONCEPT_REGISTRY coverage check (Swift IS registered) rather than a gap check -- see the 8c:v1.1 CORRECTION note below.",
+      "expected_concepts": [
+        {
+          "concept_id": "language.swift",
+          "source": "language_stats"
+        }
+      ],
+      "not_expected_concepts": [],
+      "scope_limitations_observed": [],
+      "8c_v1_1_correction": "OLD: expected_concepts=[], not_expected_concepts=[{'concept_id': 'language.swift', ...}], scope_limitations_observed=[{'source': 'language_stats', 'classification': 'KNOWN_SCOPE_LIMITATION', 'notes': 'Swift has no TechnicalConcept entry'}]. NEW: expected_concepts=[{'concept_id': 'language.swift', 'source': 'language_stats'}], not_expected_concepts=[], scope_limitations_observed=[]. WHY STALE: this row's entire premise was 'no such concept exists in the registry -- Swift evidence is structurally impossible to produce today.' Milestone 8D.1 registered `language.swift`, and evidence/extraction/languages.py resolves EVERY GitHub-reported language name through the full concept registry with zero extractor changes -- so this repository's existing 85.5%-Swift language stats now resolve to real `language.swift` evidence automatically. This is a genuine, intentional, newly-unlocked evidence-extraction result (decision parity with the Kubernetes candidate-side note in docs/CHANGELOG_DEV.md's Milestone 8D.1 entry), not a parser change and not a bug."
+    },
+    {
+      "repo": "awesome",
+      "ranking_expectation": "not_analyzed",
+      "retrieval_miss_relevant": false,
+      "notes": "The single most-starred repository on GitHub (514k+ stars) but a pure curated markdown link-list with no real 'language' and trivial engineering substance -- EXPECTED to rank low under the current ranking formula (which deliberately does not let popularity dominate, per ranking/config.py's own documented design). Recorded as a DELIBERATE, correct ranking outcome, not a retrieval miss, despite the enormous star count."
+    },
+    {
+      "repo": "execa",
+      "ranking_expectation": "not_analyzed",
+      "retrieval_miss_relevant": true,
+      "notes": "A genuine, well-engineered, actively maintained JavaScript CLI/process-execution library (7.6k stars) -- substantive real code, not a curated list. Chosen specifically to test whether a legitimate, non-trivial repository still falls outside the top-15 cutoff purely because this account has 1,142 repositories competing for 15 slots. Genuinely relevant -- a real retrieval-miss candidate."
+    }
+  ]
+}

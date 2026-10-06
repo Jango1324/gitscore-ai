@@ -325,6 +325,31 @@ two more deterministic stages produce a human-facing result:
 -> `JobAssessment` ("GitHub Evidence Alignment" and required/preferred
 submetrics). See `docs/ARCHITECTURE.md` §20/§21.
 
+### Job-description parser and concept registry — Milestone 8D.1 update
+
+`parse_job_description()`'s shape and the job-fit pipeline above are
+UNCHANGED — 8D.1 only improves what the parser's `concepts/registry.py`
+step resolves and how a handful of OR/alternative-group edge cases
+parse, following up on Milestone 8C's real-world evaluation
+(`docs/evaluation/MILESTONE_8C_EVALUATION.md`). Five new concepts
+registered (`infra.kubernetes`, `language.sql`, `language.swift`,
+`language.kotlin`, `framework.react_native`), a generic "most-specific
+alias wins" fix for overlapping concept matches (e.g. "React Native" no
+longer resolves as plain "React"), a bounded fix for bare single-letter
+language names in job-description prose (the `language.c`/"Strong C
+experience" case), and three OR-group trailing-word/prefix-stripping
+fixes. `CONCEPT_REGISTRY_VERSION` 3 -> 4,
+`JOB_DESCRIPTION_PARSER_VERSION` `v2` -> `v3`,
+`readme.py`'s `EXTRACTOR_VERSION` `v2` -> `v3` (the alias-collision fix
+also applies to README evidence extraction, Stage/§15's extractor
+list). `JOB_REQUIREMENT_SCHEMA_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
+`MATCHER_VERSION`, and `SCORING_VERSION` are all unchanged — `match_job()`
+and `assess_job()` above are unaffected; they simply now receive more
+complete, more accurate input from the parser/extractors. See
+`docs/ARCHITECTURE.md` §25 and
+`docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md` for the full
+detail and before/after benchmark numbers.
+
 ## End-to-end orchestration (Milestone 7C) — `gitscore.application`
 
 `gitscore.application.job_fit.analyze_job_fit(username, job_description)`

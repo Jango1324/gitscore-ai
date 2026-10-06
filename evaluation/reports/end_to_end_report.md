@@ -13,12 +13,12 @@ Matcher integrity errors: 0
 | karpathy | computer_vision_01 | partial | 100 | (3, 3) | (1, 1) | 4 | 0 | 1 | True | True |
 | karpathy | frontend_01 | negative | 80 | (4, 4) | (0, 1) | 4 | 1 | 1 | True | True |
 | torvalds | systems_cpp_01 | positive | 67 | (1, 1) | (1, 2) | 2 | 1 | 0 | True | True |
-| torvalds | embedded_firmware_01 | partial | 0 | None | (0, 1) | 0 | 1 | 1 | True | True |
-| torvalds | data_science_01 | negative | 25 | (1, 3) | (0, 1) | 1 | 3 | 0 | True | True |
+| torvalds | embedded_firmware_01 | partial | 50 | (1, 1) | (0, 1) | 1 | 1 | 1 | True | True |
+| torvalds | data_science_01 | negative | 20 | (1, 4) | (0, 1) | 1 | 4 | 0 | True | True |
 | sindresorhus | frontend_01 | positive | 80 | (4, 4) | (0, 1) | 4 | 1 | 1 | True | True |
 | sindresorhus | fullstack_01 | partial | 57 | (3, 5) | (1, 2) | 4 | 3 | 1 | True | True |
 | sindresorhus | robotics_controls_01 | negative | 33 | (1, 3) | None | 1 | 2 | 0 | True | True |
-| Jango1324 | embedded_firmware_01 | partial | 0 | None | (0, 1) | 0 | 1 | 1 | True | True |
+| Jango1324 | embedded_firmware_01 | partial | 0 | (0, 1) | (0, 1) | 0 | 2 | 1 | True | True |
 | Jango1324 | ml_engineering_01 | partial | 50 | (2, 3) | (0, 1) | 2 | 2 | 2 | True | True |
 | Jango1324 | general_swe_01 | partial | 100 | (1, 1) | None | 1 | 0 | 1 | True | True |
 

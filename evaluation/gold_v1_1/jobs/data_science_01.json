@@ -1,0 +1,71 @@
+{
+  "job_id": "data_science_01",
+  "corpus_version": "8c:v1.1",
+  "expected_requirements": [
+    {
+      "claim_text": "Experience with Python, pandas, and numpy",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.python",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with Python, pandas, and numpy",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "data.library.pandas",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with Python, pandas, and numpy",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "unresolved:numpy",
+      "github_observability": "strongly_observable",
+      "notes": "numpy is not in the registry, but appears in a genuine COMMA-joined list alongside two already-confirmed concepts (python, pandas), AND is the sentence's final token (no trailing descriptive phrase after it) -- PREDICTED CORRECT via the comma-gated conservative unknown-term policy (jobs/parsing/concepts.py). (Two earlier drafts of this bullet failed for different reasons: 'and numpy' with no comma at all does not satisfy the comma requirement; 'numpy for data analysis' with a trailing phrase after the list fails clean_list_fragment's <=3-word shape check on the final list fragment. Both are real parser-fragility findings in their own right -- see the evaluation report.)"
+    },
+    {
+      "claim_text": "Experience with statistical modeling and A/B testing",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "partially_observable",
+      "notes": "PREDICTED MISS: no registry concept for statistics/experimentation methodology."
+    },
+    {
+      "claim_text": "Proficiency in SQL for data analysis",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.sql",
+      "category": "language",
+      "github_observability": "strongly_observable",
+      "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, predicted MISS ('SQL (generic) is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.sql', category='language'. WHY STALE: same reason as data_engineering_01's identical-shape row -- `language.sql` is now a registered concept (Milestone 8D.1), resolved directly by `find_concept_mentions()`. Expected to become CORRECT."
+    },
+    {
+      "claim_text": "Experience communicating findings to non-technical stakeholders",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "soft_skill",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: does not match non_technical.py's specific soft_skill phrase list (communication skills/written and verbal/interpersonal/teamwork/cross-functional/collaborat*); 'communicating findings to...' is not one of those exact phrases."
+    },
+    {
+      "claim_text": "Experience with scikit-learn",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: scikit-learn is not in the registry and appears alone."
+    },
+    {
+      "claim_text": "Familiarity with Jupyter Notebook workflows",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "language.jupyter_notebook",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    }
+  ]
+}

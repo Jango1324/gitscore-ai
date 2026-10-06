@@ -280,11 +280,18 @@ def test_no_fake_technical_concept_ids_are_manufactured_for_non_technical_requir
 # ---------------------------------------------------------------------------
 
 def test_clearly_technical_unknown_term_is_retained_conservatively():
-    profile = parse_job_description("Requirements:\n- Experience with Python, Kubernetes, and Docker\n")
+    # Milestone 8D.1: uses a deliberately synthetic, guaranteed-unregistered
+    # term (not a real technology like Kubernetes, which is now a
+    # registered concept) so this test keeps exercising the "unresolved
+    # term co-listed with known concepts is preserved" behavior regardless
+    # of future registry additions.
+    profile = parse_job_description(
+        "Requirements:\n- Experience with Python, SomeUnknownOrchestrator, and Docker\n"
+    )
     concept_ids = {r.concept_id for r in profile.requirements}
     assert "language.python" in concept_ids
     assert "infra.docker" in concept_ids
-    assert any(cid is not None and cid.startswith("unresolved:kubernetes") for cid in concept_ids)
+    assert any(cid is not None and cid.startswith("unresolved:someunknownorchestrator") for cid in concept_ids)
 
 
 def test_ordinary_unknown_prose_is_not_promoted_to_an_unresolved_concept():
@@ -454,7 +461,7 @@ def test_manual_validation_ml():
     assert technical_docker_or_kubernetes == []  # never a lone, unconditional Docker requirement
     # Milestone 6B.1: structured instead -- a real alternative group.
     docker_group = next(r for r in profile.requirements if r.is_alternative_group and "infra.docker" in r.alternative_concept_ids)
-    assert docker_group.alternative_concept_ids == ("infra.docker", "unresolved:kubernetes")
+    assert docker_group.alternative_concept_ids == ("infra.docker", "infra.kubernetes")
     leadership_rows = [r for r in profile.requirements if r.category == "leadership"]
     assert len(leadership_rows) == 1
 

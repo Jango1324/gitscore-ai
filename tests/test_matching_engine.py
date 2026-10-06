@@ -417,7 +417,10 @@ def test_r_partially_observable_alternative_group_is_checked_normally():
 # ---------------------------------------------------------------------------
 
 def test_s_unresolved_concept_requirement_supported_by_matching_unresolved_evidence():
-    term_id = unresolved_concept_id("Kubernetes Operator")
+    # Milestone 8D.1: a deliberately synthetic, guaranteed-unregistered
+    # term, rather than a real (if differently-granular) technology name
+    # that could itself enter the registry in a future milestone.
+    term_id = unresolved_concept_id("SomeUnknownOrchestrator")
     profile = candidate_profile([ev("r1", term_id)])
     req = requirement(f"{term_id} experience", concept_id=term_id)
     match = match_requirement(req, profile)
@@ -426,7 +429,7 @@ def test_s_unresolved_concept_requirement_supported_by_matching_unresolved_evide
 
 
 def test_s_unresolved_concept_requirement_not_observed_without_matching_evidence():
-    term_id = unresolved_concept_id("Kubernetes Operator")
+    term_id = unresolved_concept_id("SomeUnknownOrchestrator")
     profile = candidate_profile([ev("r1", "language.python")])
     req = requirement(f"{term_id} experience", concept_id=term_id)
     assert match_requirement(req, profile).status == MatchStatus.NOT_OBSERVED

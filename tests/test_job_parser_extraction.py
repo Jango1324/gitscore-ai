@@ -87,9 +87,14 @@ def test_independent_javascript_mention_still_resolves():
 # ---------------------------------------------------------------------------
 
 def test_unknown_term_co_listed_with_known_concept_is_preserved():
-    mentions = find_concept_mentions("Experience with Python, Kubernetes, and Docker")
-    unknown = find_conservative_unknown_terms("Experience with Python, Kubernetes, and Docker", mentions)
-    assert unknown == ("Kubernetes",)
+    # Milestone 8D.1: a deliberately synthetic, guaranteed-unregistered
+    # term -- Kubernetes (the real-world example this test used before)
+    # is now a registered concept, so it is no longer a valid fixture for
+    # "unresolved term" behavior.
+    text = "Experience with Python, SomeUnknownOrchestrator, and Docker"
+    mentions = find_concept_mentions(text)
+    unknown = find_conservative_unknown_terms(text, mentions)
+    assert unknown == ("SomeUnknownOrchestrator",)
 
 
 def test_isolated_unknown_term_with_no_confirming_context_is_not_promoted():

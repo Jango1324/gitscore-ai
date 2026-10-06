@@ -1,0 +1,58 @@
+{
+  "job_id": "general_swe_01",
+  "corpus_version": "8c:v1.1",
+  "expected_requirements": [
+    {
+      "claim_text": "Strong computer science fundamentals, including data structures and algorithms",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: general CS fundamentals claim, no registry concept, no non_technical.py pattern."
+    },
+    {
+      "claim_text": "Proficiency in at least one of Python, Java, or C++",
+      "necessity": "required",
+      "facet": "alternative",
+      "alternative_concept_ids": [
+        "language.cpp",
+        "language.java",
+        "language.python"
+      ],
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with Git-based version control workflows",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "partially_observable",
+      "notes": "Git usage is plausibly inferable from a GitHub account by definition, but there is no 'git' concept in the registry and no non_technical.py category for it -- PREDICTED MISS."
+    },
+    {
+      "claim_text": "Bachelor's degree in Computer Science, Engineering, or equivalent experience",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "education",
+      "github_observability": "not_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with distributed systems",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "partially_observable",
+      "notes": "PREDICTED MISS: no registry concept named 'distributed systems'."
+    },
+    {
+      "claim_text": "Familiarity with CI/CD pipelines using Jenkins",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: Jenkins is not in the registry and appears alone, no comma-list."
+    }
+  ]
+}

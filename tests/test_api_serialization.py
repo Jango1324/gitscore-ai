@@ -196,7 +196,7 @@ def test_or_group_concept_ids_preserved():
 
     or_group = next(r for r in response.requirements.supported if len(r.alternative_concept_ids) > 1)
     assert or_group.concept_id is None
-    assert or_group.alternative_concept_ids == ["infra.docker", "unresolved:kubernetes"]
+    assert or_group.alternative_concept_ids == ["infra.docker", "infra.kubernetes"]
     assert or_group.matched_concept_ids == ["infra.docker"]
 
 

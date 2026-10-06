@@ -223,18 +223,22 @@ def test_non_technical_category_match_is_correct():
 
 
 def test_aggregate_metrics_counts_match_individual_verdicts():
-    raw = "Requirements:\n- Experience with Docker\n- Experience with Kubernetes\n"
+    # Milestone 8D.1: a deliberately synthetic, guaranteed-unregistered
+    # term (Kubernetes -- the real-world example this test used before --
+    # is now a registered concept) so this test keeps exercising genuine
+    # MISSING-classification behavior.
+    raw = "Requirements:\n- Experience with Docker\n- Experience with SomeUnknownOrchestrator\n"
     job = _job("t8", raw)
     gold = {"job_id": "t8", "expected_requirements": [
         _tech_gold("Experience with Docker", "required", "infra.docker"),
-        _tech_gold("Experience with Kubernetes", "required", "unresolved:kubernetes"),
+        _tech_gold("Experience with SomeUnknownOrchestrator", "required", "unresolved:someunknownorchestrator"),
     ]}
     results = [parser_eval.evaluate_job(job, gold)]
     metrics = parser_eval.aggregate_metrics(results)
     assert metrics["total_expected_requirements"] == 2
     assert metrics["status_counts"][tax.CORRECT] == 1
     assert metrics["status_counts"][tax.MISSING] == 1
-    assert metrics["missed_concepts"]["unresolved:kubernetes"] == 1
+    assert metrics["missed_concepts"]["unresolved:someunknownorchestrator"] == 1
 
 
 # ---------------------------------------------------------------------------
@@ -246,7 +250,7 @@ def test_evaluate_job_is_deterministic_across_repeated_runs():
     raw = "Requirements:\n- Experience with Docker or Kubernetes\n- 3+ years of Python experience\n"
     job = _job("t9", raw)
     gold = {"job_id": "t9", "expected_requirements": [
-        _alt_gold("Experience with Docker or Kubernetes", "required", ["infra.docker", "unresolved:kubernetes"]),
+        _alt_gold("Experience with Docker or Kubernetes", "required", ["infra.docker", "infra.kubernetes"]),
         _tech_gold("3+ years of Python experience", "required", "language.python"),
         _nontech_gold("3+ years of Python experience", "required", "experience", "not_observable"),
     ]}

@@ -1,16 +1,16 @@
 {
-  "corpus_version": "8c:v1",
+  "corpus_version": "8c:v1.1",
   "aggregate": {
     "candidates_evaluated": 4,
     "ranking_checks": 10,
     "ranking_prediction_errors": 0,
     "repository_ranking_misses": 3,
-    "concept_checks": 9,
-    "concept_found": 9,
+    "concept_checks": 10,
+    "concept_found": 10,
     "concept_missing": 0,
     "concept_missing_bugs": 0,
     "concept_missing_known_scope_limitations": 0,
-    "false_positives": 2,
+    "false_positives": 1,
     "total_extractor_failures": 0
   },
   "candidates": [
@@ -176,7 +176,7 @@
           "actual": "analyzed",
           "prediction_correct": true,
           "is_retrieval_miss": false,
-          "notes": "Swift-dominant (85.5% of language bytes). Chosen specifically because Swift is NOT in the concept registry at all -- this is a CONCEPT_REGISTRY_GAP check, not an extraction-bug check."
+          "notes": "Swift-dominant (85.5% of language bytes). 8c:v1.1: now a CONCEPT_REGISTRY coverage check (Swift IS registered) rather than a gap check -- see the 8c:v1.1 CORRECTION note below."
         },
         {
           "username": "sindresorhus",
@@ -206,16 +206,18 @@
           "tag": "",
           "classification": "",
           "notes": ""
-        }
-      ],
-      "false_positives": [
+        },
         {
           "username": "sindresorhus",
           "repo": "Gifski",
           "concept_id": "language.swift",
-          "notes": "no such concept exists in the registry -- Swift evidence is structurally impossible to produce today, regardless of extractor correctness. Expected to surface only as an 'unresolved:swift' concept summary, not a registered concept_id."
+          "found": true,
+          "tag": "",
+          "classification": "",
+          "notes": ""
         }
-      ]
+      ],
+      "false_positives": []
     },
     {
       "username": "torvalds",

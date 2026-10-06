@@ -17,6 +17,17 @@ GOLD_JOBS_DIR = EVALUATION_DIR / "gold" / "jobs"
 GOLD_CANDIDATES_DIR = EVALUATION_DIR / "gold" / "candidates"
 CANDIDATE_FIXTURES_DIR = EVALUATION_DIR / "fixtures" / "candidates"
 
+# Milestone 8D.1: the frozen `8c:v1` gold corpus (above) is never edited
+# in place -- see docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md.
+# `8c:v1.1` is a SEPARATE, parallel snapshot directory, used only when a
+# caller explicitly passes `gold_jobs_dir=GOLD_JOBS_DIR_V1_1` (or the
+# matching `--corpus-version v1.1` CLI flag on
+# `scripts/evaluate_job_parser.py`) -- every existing call with no
+# override keeps reading the original, byte-for-byte-unchanged `8c:v1`
+# files, so this addition cannot change `8c:v1`'s own published results.
+GOLD_JOBS_DIR_V1_1 = EVALUATION_DIR / "gold_v1_1" / "jobs"
+GOLD_CANDIDATES_DIR_V1_1 = EVALUATION_DIR / "gold_v1_1" / "candidates"
+
 
 class EvaluationFixtureError(Exception):
     """A corpus/fixture/gold file is missing or malformed.
@@ -45,19 +56,20 @@ def load_job(job_id: str) -> dict:
     return _read_json(JOBS_DIR / f"{job_id}.json")
 
 
-def load_gold_job(job_id: str) -> dict:
-    gold = _read_json(GOLD_JOBS_DIR / f"{job_id}.json")
+def load_gold_job(job_id: str, gold_jobs_dir: Path = GOLD_JOBS_DIR) -> dict:
+    path = gold_jobs_dir / f"{job_id}.json"
+    gold = _read_json(path)
     if gold.get("job_id") != job_id:
         raise EvaluationFixtureError(
-            f"gold/jobs/{job_id}.json job_id mismatch: expected {job_id!r}, got {gold.get('job_id')!r}"
+            f"{path}: job_id mismatch: expected {job_id!r}, got {gold.get('job_id')!r}"
         )
     if "expected_requirements" not in gold:
-        raise EvaluationFixtureError(f"gold/jobs/{job_id}.json missing 'expected_requirements'")
+        raise EvaluationFixtureError(f"{path}: missing 'expected_requirements'")
     return gold
 
 
-def load_job_and_gold(job_id: str) -> tuple[dict, dict]:
-    return load_job(job_id), load_gold_job(job_id)
+def load_job_and_gold(job_id: str, gold_jobs_dir: Path = GOLD_JOBS_DIR) -> tuple[dict, dict]:
+    return load_job(job_id), load_gold_job(job_id, gold_jobs_dir=gold_jobs_dir)
 
 
 def list_candidate_names() -> tuple[str, ...]:
@@ -68,8 +80,8 @@ def load_candidate_fixture(name: str) -> dict:
     return _read_json(CANDIDATE_FIXTURES_DIR / f"{name}.json")
 
 
-def load_gold_candidate(name: str) -> dict:
-    return _read_json(GOLD_CANDIDATES_DIR / f"{name}.json")
+def load_gold_candidate(name: str, gold_candidates_dir: Path = GOLD_CANDIDATES_DIR) -> dict:
+    return _read_json(gold_candidates_dir / f"{name}.json")
 
 
 @dataclass(frozen=True)

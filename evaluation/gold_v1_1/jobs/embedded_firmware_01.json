@@ -1,0 +1,70 @@
+{
+  "job_id": "embedded_firmware_01",
+  "corpus_version": "8c:v1.1",
+  "expected_requirements": [
+    {
+      "claim_text": "Strong C experience in embedded, resource-constrained environments",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.c",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with FreeRTOS or another real-time operating system",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "alternative_requirement",
+      "github_observability": "partially_observable",
+      "notes": "OR-shaped ('FreeRTOS or another RTOS'), but the second segment ('another real-time operating system') has no technology name at all -- clean_list_fragment's <=3-word shape check fails ('another real-time operating' is 4 words), so classify_alternative_claim returns kind='unsafe' and the parser correctly falls back to the Milestone 6B.1 conservative non-technical 'alternative_requirement' placeholder rather than a real alternative_concept_ids group or dropping FreeRTOS entirely. CORRECT, intended behavior -- gold facet fixed to non_technical/alternative_requirement after an initial authoring mistake (first draft wrongly expected a plain technical FreeRTOS row)."
+    },
+    {
+      "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "unresolved:spi",
+      "github_observability": "strongly_observable",
+      "notes": "None of SPI/I2C/UART are registered concepts, but they appear in a genuine comma-list alongside each other -- PREDICTED: the comma-gated conservative unknown-term policy requires at least one ALREADY-CONFIRMED registry concept in the same claim to fire at all (find_conservative_unknown_terms only runs when `mentions` is non-empty). Since NONE of SPI/I2C/UART are registered, `mentions` is empty here too -- PREDICTED MISS for all three despite the comma-list shape, because the gating condition needs an existing confirmed concept, not just a comma."
+    },
+    {
+      "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "unresolved:i2c",
+      "github_observability": "strongly_observable",
+      "notes": "See unresolved:spi row above -- same predicted-miss reasoning."
+    },
+    {
+      "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "unresolved:uart",
+      "github_observability": "strongly_observable",
+      "notes": "See unresolved:spi row above -- same predicted-miss reasoning."
+    },
+    {
+      "claim_text": "Experience debugging with oscilloscopes and logic analyzers",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "partially_observable",
+      "notes": "PREDICTED MISS: no registry concept for test equipment."
+    },
+    {
+      "claim_text": "Experience with CMake-based build systems",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: CMake is not in the registry and appears alone."
+    },
+    {
+      "claim_text": "Exposure to Verilog for hardware/firmware co-design",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "hdl.verilog",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    }
+  ]
+}

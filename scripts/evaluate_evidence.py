@@ -9,11 +9,20 @@ step (ad hoc, already run) for how the fixtures themselves were
 produced.
 
 Usage:
-    python scripts/evaluate_evidence.py
+    python scripts/evaluate_evidence.py                      # 8c:v1 (frozen), the default
+    python scripts/evaluate_evidence.py --corpus-version 8c:v1.1
+
+Milestone 8D.1: `--corpus-version 8c:v1.1` evaluates against
+`evaluation/gold_v1_1/candidates/` instead -- the semantically corrected
+benchmark for the concepts this milestone registered (see
+docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md). The original
+`evaluation/gold/candidates/` (`8c:v1`) is never edited in place; running
+with no flag reproduces the exact, byte-for-byte-unchanged `8c:v1` report.
 
 Exit code: 0 on a successful run (regardless of how many ranking
 misses/evidence misses it finds -- those are measurements), 1 only for
-a harness/fixture-level error.
+a harness/fixture-level error (including an unrecognized
+--corpus-version value).
 """
 from __future__ import annotations
 
@@ -25,17 +34,45 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from evaluation_lib import evidence_eval, report, taxonomy as tax
-from evaluation_lib.loaders import EvaluationFixtureError, list_candidate_names, load_candidate_fixture, load_gold_candidate
+from evaluation_lib.loaders import (
+    GOLD_CANDIDATES_DIR,
+    GOLD_CANDIDATES_DIR_V1_1,
+    EvaluationFixtureError,
+    list_candidate_names,
+    load_candidate_fixture,
+    load_gold_candidate,
+)
 
 REPORT_DIR = REPO_ROOT / "evaluation" / "reports"
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    corpus_version = tax.EVALUATION_CORPUS_VERSION  # "8c:v1"
+    report_suffix = ""
+    if "--corpus-version" in argv:
+        corpus_version = argv[argv.index("--corpus-version") + 1]
+    if corpus_version == "8c:v1.1":
+        gold_candidates_dir = GOLD_CANDIDATES_DIR_V1_1
+        report_suffix = "_v1_1"
+    elif corpus_version == tax.EVALUATION_CORPUS_VERSION:
+        gold_candidates_dir = GOLD_CANDIDATES_DIR
+    else:
+        print(
+            f"HARNESS ERROR: unknown --corpus-version {corpus_version!r} "
+            f"(expected {tax.EVALUATION_CORPUS_VERSION!r} or '8c:v1.1')",
+            file=sys.stderr,
+        )
+        return 1
+
     try:
         names = list_candidate_names()
         if not names:
             raise EvaluationFixtureError("no candidate fixtures found under evaluation/fixtures/candidates/")
-        fixtures_and_gold = [(load_candidate_fixture(n), load_gold_candidate(n)) for n in names]
+        fixtures_and_gold = [
+            (load_candidate_fixture(n), load_gold_candidate(n, gold_candidates_dir=gold_candidates_dir))
+            for n in names
+        ]
     except EvaluationFixtureError as exc:
         print(f"HARNESS ERROR: {exc}", file=sys.stderr)
         return 1
@@ -44,7 +81,7 @@ def main() -> int:
     metrics = evidence_eval.aggregate_metrics(results)
 
     json_report = {
-        "corpus_version": tax.EVALUATION_CORPUS_VERSION,
+        "corpus_version": corpus_version,
         "aggregate": metrics,
         "candidates": [
             {
@@ -60,12 +97,12 @@ def main() -> int:
             for r in results
         ],
     }
-    report.write_json_report(REPORT_DIR / "evidence_report.json", json_report)
+    report.write_json_report(REPORT_DIR / f"evidence_report{report_suffix}.json", json_report)
 
     lines = [
         "# Candidate Evidence Evaluation Report",
         "",
-        f"Corpus version: `{tax.EVALUATION_CORPUS_VERSION}`",
+        f"Corpus version: `{corpus_version}`",
         f"Candidates evaluated: {metrics['candidates_evaluated']}",
         f"Ranking checks: {metrics['ranking_checks']}  |  Prediction errors: {metrics['ranking_prediction_errors']}  |  "
         f"Repository ranking misses (genuine, relevant repo excluded): {metrics['repository_ranking_misses']}",
@@ -108,8 +145,9 @@ def main() -> int:
     if not any(r.false_positives for r in results):
         lines.append("(none)")
 
-    report.write_text_report(REPORT_DIR / "evidence_report.md", lines)
+    report.write_text_report(REPORT_DIR / f"evidence_report{report_suffix}.md", lines)
 
+    print(f"Corpus version: {corpus_version}")
     print(f"Evaluated {metrics['candidates_evaluated']} candidates.")
     print(f"Repository ranking misses: {metrics['repository_ranking_misses']}/{metrics['ranking_checks']}")
     print(f"Concept checks: found={metrics['concept_found']} missing={metrics['concept_missing']} "

@@ -263,13 +263,13 @@ def test_ml_candidate_supports_both_sides_of_or_group_retains_both():
             ev("training-repo", "language.python"),
             ev("training-repo", "ml.framework.pytorch"),
             ev("infra-repo", "infra.docker"),
-            ev("infra-repo", "unresolved:kubernetes"),
+            ev("infra-repo", "infra.kubernetes"),
         ]
     )
     analysis = match_job(candidate, job)
     docker_or_kubernetes = by_alternative_containing(analysis, "infra.docker")
     assert docker_or_kubernetes.status == MatchStatus.SUPPORTED
-    assert docker_or_kubernetes.matched_concept_ids == ("infra.docker", "unresolved:kubernetes")
+    assert docker_or_kubernetes.matched_concept_ids == ("infra.docker", "infra.kubernetes")
     assert {e.repository.name for e in docker_or_kubernetes.supporting_evidence} == {"infra-repo"}
 
 

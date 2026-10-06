@@ -1,0 +1,57 @@
+{
+  "job_id": "ml_engineering_01",
+  "corpus_version": "8c:v1.1",
+  "expected_requirements": [
+    {
+      "claim_text": "Expert-level Python",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.python",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Deep experience with PyTorch or TensorFlow",
+      "necessity": "required",
+      "facet": "alternative",
+      "alternative_concept_ids": [
+        "ml.framework.pytorch",
+        "ml.framework.tensorflow"
+      ],
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "3+ years of professional machine learning engineering experience",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "experience",
+      "github_observability": "not_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience deploying models with Docker",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "infra.docker",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with CUDA for GPU acceleration",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "platform.cuda",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience mentoring junior engineers",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "leadership",
+      "github_observability": "partially_observable",
+      "notes": ""
+    }
+  ]
+}

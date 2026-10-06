@@ -1,0 +1,78 @@
+{
+  "corpus_version": "8c:v1.1",
+  "notes": "Strategically selected candidate x job pairs (Milestone 8C Part 13) -- not a full cross product, and NOT a 'true fit score' ground truth (Part 14). 'expected_direction' is the evaluator's qualitative, pre-registered expectation (positive/partial/negative), used only to sanity-check that the pipeline is directionally discriminating -- never compared as a numeric target.",
+  "pairs": [
+    {
+      "candidate": "karpathy",
+      "job_id": "ml_engineering_01",
+      "expected_direction": "positive",
+      "rationale": "ML-heavy account against an ML Engineer posting."
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "computer_vision_01",
+      "expected_direction": "partial",
+      "rationale": "Shares Python/PyTorch/CUDA with CV, but OpenCV itself is unresolvable (registry gap) and no repo is vision-specific."
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "frontend_01",
+      "expected_direction": "negative",
+      "rationale": "ML account against a frontend posting -- cross-domain, little overlap expected."
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "systems_cpp_01",
+      "expected_direction": "positive",
+      "rationale": "C-heavy systems account against a Systems Software Engineer posting."
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "embedded_firmware_01",
+      "expected_direction": "partial",
+      "rationale": "Shares the C language, but no FreeRTOS/peripheral evidence exists on this account."
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "data_science_01",
+      "expected_direction": "negative",
+      "rationale": "Kernel-engineering account against a Data Scientist posting -- cross-domain."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "frontend_01",
+      "expected_direction": "positive",
+      "rationale": "Prolific JS/TS account against a Frontend Engineer posting."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "fullstack_01",
+      "expected_direction": "partial",
+      "rationale": "Strong JS/TS/React evidence, but no Python/PostgreSQL evidence on this account."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "robotics_controls_01",
+      "expected_direction": "negative",
+      "rationale": "Frontend/web account against a Robotics/Controls posting -- cross-domain."
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "embedded_firmware_01",
+      "expected_direction": "partial",
+      "rationale": "Has one C++-dominant ESP32 firmware repo, but no FreeRTOS/peripheral-specific evidence."
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "ml_engineering_01",
+      "expected_direction": "partial",
+      "rationale": "Has a Pneumonia-Detection-Ai repo by name, but it falls outside the top-15 ranking cutoff -- tests whether a retrieval miss suppresses otherwise-plausible alignment."
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "general_swe_01",
+      "expected_direction": "partial",
+      "rationale": "Multi-domain student account against a broad general-SWE posting."
+    }
+  ]
+}

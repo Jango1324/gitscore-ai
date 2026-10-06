@@ -19,8 +19,14 @@ from gitscore.jobs.types import ParserConfidence
 HIGH_CONFIDENCE_KINDS = frozenset({"resolved_concept", "experience_qualifier"})
 
 # Requires more interpretive judgment: a conservative list-context
-# unknown-term inference, or a curated non-technical phrase match.
-MEDIUM_CONFIDENCE_KINDS = frozenset({"unresolved_concept_listed", "non_technical_pattern"})
+# unknown-term inference, a curated non-technical phrase match, or
+# (Milestone 8D.1) the bounded bare-short-alias context-cue fallback
+# (`jobs/parsing/concepts.py`'s `find_bare_short_alias_mentions`) -- a
+# real registry concept, but reached via a narrower heuristic than a
+# direct alias match, so it earns MEDIUM rather than HIGH confidence.
+MEDIUM_CONFIDENCE_KINDS = frozenset({
+    "unresolved_concept_listed", "non_technical_pattern", "bare_short_alias_context",
+})
 
 # Explicitly ambiguous by construction -- an alternative/OR fallback
 # claim (Part 14) never gets more than LOW confidence, since the parser

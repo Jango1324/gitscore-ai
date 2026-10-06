@@ -1,0 +1,54 @@
+{
+  "job_id": "computer_vision_01",
+  "corpus_version": "8c:v1.1",
+  "expected_requirements": [
+    {
+      "claim_text": "Strong Python programming skills",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.python",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with OpenCV for image processing",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: OpenCV is not in the registry and appears alone."
+    },
+    {
+      "claim_text": "Experience with PyTorch for deep learning-based vision models",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "ml.framework.pytorch",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Familiarity with CUDA-accelerated training pipelines",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "platform.cuda",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with Jupyter Notebook-based experimentation",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "language.jupyter_notebook",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Master's degree in Computer Vision, Robotics, or a related field",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "education",
+      "github_observability": "not_observable",
+      "notes": ""
+    }
+  ]
+}

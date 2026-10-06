@@ -1,0 +1,33 @@
+{
+  "username": "Jango1324",
+  "corpus_version": "8c:v1.1",
+  "profile_shape": "sparse / student-ish, multi-domain (ESP32 firmware, a Keras/TF-style ML project, several web/TS projects)",
+  "notes": "Project's own existing test account, already used as the real-account smoke-test subject in Milestones 7C/8A/8B. Reused here for continuity and conservative API budget, not because GitScore already handles it well.",
+  "targets": [
+    {
+      "repo": "JPod-ESP32",
+      "ranking_expectation": "analyzed",
+      "notes": "C++-dominant (93.8% of language bytes per fixture), small ESP32 firmware project. Chosen independently from the raw repo list/description ('A personalized ESP32 based Jpod...') before inspecting any extracted evidence.",
+      "expected_concepts": [
+        {
+          "concept_id": "language.cpp",
+          "source": "language_stats"
+        }
+      ],
+      "not_expected_concepts": [],
+      "scope_limitations_observed": [
+        {
+          "source": "readme",
+          "classification": "KNOWN_SCOPE_LIMITATION",
+          "notes": "repo has no README at all -- expected absence, not a failure."
+        }
+      ]
+    },
+    {
+      "repo": "Pneumonia-Detection-Ai",
+      "ranking_expectation": "not_analyzed",
+      "retrieval_miss_relevant": true,
+      "notes": "Chosen specifically because this exact repo name was used as an ILLUSTRATIVE example in Milestone 8A's own prompt ('Supported by: pneumonia-detection-ai'). Checking whether that illustrative example actually survives the real ranking cutoff for this account under the current ranker. Genuinely ML-relevant (Python, per raw language field) -- a real retrieval-miss candidate, not a deliberately-deprioritized repo."
+    }
+  ]
+}

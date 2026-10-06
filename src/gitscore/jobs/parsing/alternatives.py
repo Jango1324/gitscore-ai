@@ -62,7 +62,7 @@ import re
 from dataclasses import dataclass, field
 
 from gitscore.concepts.registry import default_registry, resolve_concept, unresolved_concept_id
-from gitscore.jobs.parsing.concepts import clean_list_fragment, find_concept_mentions
+from gitscore.jobs.parsing.concepts import clean_list_fragment, find_concept_mentions, leading_token
 
 _ALTERNATIVE_MARKER = re.compile(r"(?<![A-Za-z0-9])or(?![A-Za-z0-9])", re.IGNORECASE)
 
@@ -78,7 +78,7 @@ _ALTERNATIVE_MARKER = re.compile(r"(?<![A-Za-z0-9])or(?![A-Za-z0-9])", re.IGNORE
 # ("Go experience required").
 _TRAILING_FILLER = re.compile(
     r"\s*(?:is\s+)?(?:required|mandatory|essential|preferred|experience|skills?|"
-    r"knowledge|proficiency)\.?\s*$",
+    r"knowledge|proficiency|programming)\.?\s*$",
     re.IGNORECASE,
 )
 
@@ -127,13 +127,27 @@ def _resolve_segment(segment: str, registry) -> tuple[str, ...] | None:
         return tuple(sorted({m.concept_id for m in mentions}))
 
     core_term = clean_list_fragment(segment)
-    if core_term is None:
-        return None
+    if core_term is not None:
+        escalated = resolve_concept(core_term, registry=registry)
+        if escalated.matched:
+            return (escalated.concept_id,)
+        return (unresolved_concept_id(core_term),)
 
-    escalated = resolve_concept(core_term, registry=registry)
-    if escalated.matched:
-        return (escalated.concept_id,)
-    return (unresolved_concept_id(core_term),)
+    # Milestone 8D.1: `clean_list_fragment` failed its whole-fragment
+    # shape check (too many trailing descriptive words -- e.g. "Go for
+    # tooling development"). Retry against just the FIRST remaining word
+    # alone. Only a REAL registry hit is accepted here -- unlike the
+    # branch above, a failed lookup never promotes an `unresolved:<term>`
+    # id from a one-word slice of an arbitrary sentence (see
+    # `leading_token`'s docstring for why that would be too weak a
+    # signal to mint a new unresolved concept from).
+    leading = leading_token(segment)
+    if leading is not None:
+        escalated = resolve_concept(leading, registry=registry)
+        if escalated.matched:
+            return (escalated.concept_id,)
+
+    return None
 
 
 def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:

@@ -49,7 +49,11 @@ from __future__ import annotations
 from gitscore.concepts.registry import default_registry, unresolved_concept_id
 from gitscore.jobs.models import JobRequirement, SourceSpan
 from gitscore.jobs.parsing.alternatives import classify_alternative_claim
-from gitscore.jobs.parsing.concepts import find_concept_mentions, find_conservative_unknown_terms
+from gitscore.jobs.parsing.concepts import (
+    find_bare_short_alias_mentions,
+    find_concept_mentions,
+    find_conservative_unknown_terms,
+)
 from gitscore.jobs.parsing.confidence import confidence_for
 from gitscore.jobs.parsing.dedup import deduplicate_requirements
 from gitscore.jobs.parsing.experience import find_experience_qualifier
@@ -60,7 +64,7 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v2"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v3"
 
 
 def _requirements_from_claim(claim: Claim, registry) -> list[JobRequirement]:
@@ -110,7 +114,32 @@ def _requirements_from_claim(claim: Claim, registry) -> list[JobRequirement]:
     # through the exact same pipeline as any other claim.
     requirements: list[JobRequirement] = []
 
-    mentions = find_concept_mentions(claim.text, registry=registry)
+    safe_mentions = find_concept_mentions(claim.text, registry=registry)
+    mentions = safe_mentions
+    mention_confidence_kind = "resolved_concept"
+    if not mentions:
+        # Milestone 8D.1: a narrow, last-resort fallback for a concept
+        # with NO readme-safe alias at all (today: bare "c") -- only
+        # tried once the normal safe-alias scan finds nothing at all, so
+        # it never competes with/overrides a direct alias match. See
+        # `find_bare_short_alias_mentions`'s docstring for the full,
+        # bounded gating policy.
+        #
+        # Deliberately NOT folded into `safe_mentions` below: the
+        # comma-gated conservative unknown-term policy
+        # (`find_conservative_unknown_terms`) requires an
+        # already-CONFIRMED mention to fire at all, and that gate must
+        # stay keyed on a real safe-alias match -- letting a bare-C
+        # fallback match ALSO unlock it would let an unrelated,
+        # comma-separated descriptive clause elsewhere in the same
+        # sentence (e.g. "...embedded, resource-constrained
+        # environments") get promoted to a fabricated unresolved
+        # concept, which this bounded fallback must never cause as a
+        # side effect.
+        mentions = find_bare_short_alias_mentions(claim.text, registry=registry)
+        if mentions:
+            mention_confidence_kind = "bare_short_alias_context"
+
     seen_concept_ids: set[str] = set()
     for mention in mentions:
         if mention.concept_id in seen_concept_ids:
@@ -125,12 +154,12 @@ def _requirements_from_claim(claim: Claim, registry) -> list[JobRequirement]:
                 github_observability=observability_for_technical(),
                 concept_id=mention.concept_id,
                 category=concept.category if concept is not None else None,
-                parser_confidence=confidence_for("resolved_concept"),
+                parser_confidence=confidence_for(mention_confidence_kind),
                 source_span=span,
             )
         )
 
-    for term in find_conservative_unknown_terms(claim.text, mentions):
+    for term in find_conservative_unknown_terms(claim.text, safe_mentions):
         concept_id = unresolved_concept_id(term)
         if concept_id in seen_concept_ids:
             continue

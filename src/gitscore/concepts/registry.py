@@ -32,7 +32,7 @@ from dataclasses import dataclass
 from gitscore.concepts.models import TechnicalConcept
 from gitscore.concepts.normalize import normalize_term
 
-CONCEPT_REGISTRY_VERSION = 3
+CONCEPT_REGISTRY_VERSION = 4
 
 # A small, representative registry spanning several categories -- proves
 # the mechanism (data-driven, no if/elif ladder) without building a full
@@ -59,6 +59,25 @@ CONCEPT_REGISTRY_VERSION = 3
 # key, a GitHub language-stats name), just excluded from
 # evidence/extraction/readme.py's matching. See models.py's
 # `TechnicalConcept.readme_safe_aliases()` for the mechanism.
+#
+# Milestone 8D.1 additions (see docs/CHANGELOG_DEV.md's Milestone 8D.1
+# entry and docs/evaluation/MILESTONE_8C_EVALUATION.md Sections 5/6/13):
+# Kubernetes, generic SQL, Swift, Kotlin -- the four highest-frequency,
+# highest-real-world-importance registry gaps the 8C real-world
+# evaluation surfaced, plus `framework.react_native` (added to fix the
+# "React Native" / "React" alias collision 8C Section 6 also found --
+# see `concepts/matching.py`'s `select_longest_overlapping_matches()`,
+# which now prefers this concept's longer, more specific alias over
+# `framework.react`'s bare "react" whenever both would otherwise match
+# the same text). None of "sql"/"swift"/"kotlin"/"react native" were
+# marked `readme_unsafe_aliases`: unlike "go"/"next"/"js"/"ts" (each
+# marked unsafe only after an OBSERVED real-world false positive --
+# torvalds/1590A, Jango1324/Arduino-Based-Media-Player, the Next.js/
+# Vue.js/Node.js compound-framework-name risk), no false positive for
+# any of these four has been observed in this project's real-world
+# validation (karpathy/torvalds/sindresorhus/Jango1324), matching the
+# SAME evidence-based bar `rust`/`java`/`ruby` (also ordinary-ish English
+# words) were already held to, not a new, looser standard.
 _CONCEPTS: tuple[TechnicalConcept, ...] = (
     TechnicalConcept(
         concept_id="language.python",
@@ -157,6 +176,29 @@ _CONCEPTS: tuple[TechnicalConcept, ...] = (
         aliases=("php",),
     ),
     TechnicalConcept(
+        concept_id="language.sql",
+        display_name="SQL",
+        category="language",
+        # Generic/vendor-agnostic SQL -- distinct from `database.postgresql`
+        # (a specific engine). GitHub's own language-stats service reports
+        # "SQL" as a language for repositories with significant .sql
+        # content, so this resolves through languages.py exactly like any
+        # other language, with zero extractor changes needed.
+        aliases=("sql",),
+    ),
+    TechnicalConcept(
+        concept_id="language.swift",
+        display_name="Swift",
+        category="language",
+        aliases=("swift",),
+    ),
+    TechnicalConcept(
+        concept_id="language.kotlin",
+        display_name="Kotlin",
+        category="language",
+        aliases=("kotlin",),
+    ),
+    TechnicalConcept(
         concept_id="language.shell",
         display_name="Shell",
         category="language",
@@ -217,6 +259,18 @@ _CONCEPTS: tuple[TechnicalConcept, ...] = (
         aliases=("react", "react.js", "reactjs"),
     ),
     TechnicalConcept(
+        concept_id="framework.react_native",
+        display_name="React Native",
+        category="mobile_framework",
+        # A longer, more specific alias that textually CONTAINS
+        # `framework.react`'s bare "react" alias -- Milestone 8D.1 fixes
+        # the resulting collision ("React Native" resolving as plain
+        # React) structurally, via `matching.py`'s longest-match-wins
+        # filter, rather than by marking "react" readme_unsafe (which
+        # would also suppress every legitimate bare-React mention).
+        aliases=("react native", "react-native", "reactnative"),
+    ),
+    TechnicalConcept(
         concept_id="framework.nextjs",
         display_name="Next.js",
         category="frontend_framework",
@@ -271,6 +325,12 @@ _CONCEPTS: tuple[TechnicalConcept, ...] = (
         display_name="Docker",
         category="infrastructure",
         aliases=("docker", "dockerfile"),
+    ),
+    TechnicalConcept(
+        concept_id="infra.kubernetes",
+        display_name="Kubernetes",
+        category="infrastructure",
+        aliases=("kubernetes", "k8s"),
     ),
     TechnicalConcept(
         concept_id="cloud.aws",

@@ -1,0 +1,78 @@
+{
+  "username": "karpathy",
+  "corpus_version": "8c:v1.1",
+  "profile_shape": "ML-heavy",
+  "notes": "Public figure, already used by this project's own prior real-account validation (docs/CHANGELOG_DEV.md, Milestone 5D). Evaluating technical repository evidence only.",
+  "targets": [
+    {
+      "repo": "micrograd",
+      "ranking_expectation": "analyzed",
+      "notes": "Jupyter-Notebook-dominant (90.3% of language bytes), README explicitly describes a 'PyTorch-like API'. Chosen from the raw repo list before inspecting extracted evidence.",
+      "expected_concepts": [
+        {
+          "concept_id": "language.jupyter_notebook",
+          "source": "language_stats"
+        },
+        {
+          "concept_id": "language.python",
+          "source": "language_stats"
+        }
+      ],
+      "not_expected_concepts": [],
+      "scope_limitations_observed": [
+        {
+          "source": "notebook",
+          "classification": "KNOWN_SCOPE_LIMITATION",
+          "notes": "demo.ipynb/trace_graph.ipynb content (which plausibly exercises the library) is never inspected -- no notebook-content extractor exists (Milestone 5D scope)."
+        },
+        {
+          "source": "manifest",
+          "classification": "KNOWN_SCOPE_LIMITATION",
+          "notes": "root has setup.py, not one of the supported manifest filenames (requirements.txt/pyproject.toml/package.json) -- out of bounded scope by design."
+        }
+      ]
+    },
+    {
+      "repo": "llm.c",
+      "ranking_expectation": "analyzed",
+      "notes": "Cuda-dominant per GitHub language stats (59.4%), with real C/Python also present above the 5% significance floor, and a requirements.txt declaring torch.",
+      "expected_concepts": [
+        {
+          "concept_id": "platform.cuda",
+          "source": "language_stats"
+        },
+        {
+          "concept_id": "language.python",
+          "source": "language_stats"
+        },
+        {
+          "concept_id": "language.c",
+          "source": "language_stats"
+        },
+        {
+          "concept_id": "ml.framework.pytorch",
+          "source": "dependency"
+        }
+      ],
+      "not_expected_concepts": [
+        {
+          "concept_id": "language.cpp",
+          "notes": "C++ is present in the raw language stats but at ~3.5% of bytes, below the 5% significance floor -- correctly expected to produce NO evidence, not a miss."
+        }
+      ],
+      "scope_limitations_observed": [
+        {
+          "source": "source_code",
+          "classification": "KNOWN_SCOPE_LIMITATION",
+          "notes": "the .cu/.c files themselves are never inspected for content -- language-stats-level evidence only."
+        }
+      ]
+    },
+    {
+      "repo": "nn-zero-to-hero",
+      "ranking_expectation": "not_analyzed",
+      "retrieval_miss_relevant": true,
+      "notes": "24,636-star Jupyter-Notebook ML teaching repository ('Neural Networks: Zero to Hero') -- a clearly substantive, directly ML-relevant repo. Chosen specifically to test whether a large, high-value repo falls outside this account's top-15 ranking cutoff (karpathy has 63 repos total). Genuinely relevant -- a real retrieval-miss candidate."
+    }
+  ]
+}

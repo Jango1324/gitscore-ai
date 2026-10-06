@@ -1,0 +1,73 @@
+{
+  "job_id": "frontend_01",
+  "corpus_version": "8c:v1.1",
+  "expected_requirements": [
+    {
+      "claim_text": "Strong proficiency in JavaScript and TypeScript",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.javascript",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Strong proficiency in JavaScript and TypeScript",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.typescript",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Hands-on experience with React",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "framework.react",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Experience with CSS and responsive design",
+      "necessity": "required",
+      "facet": "technical",
+      "concept_id": "language.css",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Familiarity with modern build tooling and automated testing frameworks",
+      "necessity": "required",
+      "facet": "non_technical",
+      "category": "other",
+      "github_observability": "not_observable",
+      "notes": "PREDICTED MISS: generic, no specific tool named, no registry concept."
+    },
+    {
+      "claim_text": "Experience with Next.js",
+      "necessity": "preferred",
+      "facet": "technical",
+      "concept_id": "framework.nextjs",
+      "github_observability": "strongly_observable",
+      "notes": ""
+    },
+    {
+      "claim_text": "Knowledge of Vue or Angular",
+      "necessity": "preferred",
+      "facet": "alternative",
+      "alternative_concept_ids": [
+        "unresolved:angular",
+        "unresolved:vue"
+      ],
+      "github_observability": "strongly_observable",
+      "notes": "Neither Vue nor Angular is in the registry; expected OR-group of two unresolved ids (any_confirmed logic requires at least one REAL concept though -- see notes in report; PREDICTED: classify_alternative_claim requires >=1 confirmed concept to treat this as technical, so with ZERO confirmed concepts this is expected to fall through to not_technical and then produce NOTHING at all, not an alternative group)."
+    },
+    {
+      "claim_text": "Excellent written and verbal communication",
+      "necessity": "preferred",
+      "facet": "non_technical",
+      "category": "soft_skill",
+      "github_observability": "not_observable",
+      "notes": ""
+    }
+  ]
+}

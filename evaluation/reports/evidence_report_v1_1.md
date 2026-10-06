@@ -1,10 +1,10 @@
 # Candidate Evidence Evaluation Report
 
-Corpus version: `8c:v1`
+Corpus version: `8c:v1.1`
 Candidates evaluated: 4
 Ranking checks: 10  |  Prediction errors: 0  |  Repository ranking misses (genuine, relevant repo excluded): 3
-Concept checks: 9  |  Found: 9  |  Missing: 0 (BUG=0, KNOWN_SCOPE_LIMITATION=0)
-False positives: 2
+Concept checks: 10  |  Found: 10  |  Missing: 0 (BUG=0, KNOWN_SCOPE_LIMITATION=0)
+False positives: 1
 Total extractor failures across all candidates: 0
 
 ## Per-candidate repository coverage
@@ -26,7 +26,7 @@ Total extractor failures across all candidates: 0
 | karpathy | llm.c | analyzed | analyzed | no | Cuda-dominant per GitHub language stats (59.4%), with real C/Python also present |
 | karpathy | nn-zero-to-hero | not_analyzed | not_analyzed | YES | 24,636-star Jupyter-Notebook ML teaching repository ('Neural Networks: Zero to H |
 | sindresorhus | got | analyzed | analyzed | no | TypeScript-only per language stats, with a package.json present. |
-| sindresorhus | Gifski | analyzed | analyzed | no | Swift-dominant (85.5% of language bytes). Chosen specifically because Swift is N |
+| sindresorhus | Gifski | analyzed | analyzed | no | Swift-dominant (85.5% of language bytes). 8c:v1.1: now a CONCEPT_REGISTRY covera |
 | sindresorhus | awesome | not_analyzed | not_analyzed | no | The single most-starred repository on GitHub (514k+ stars) but a pure curated ma |
 | sindresorhus | execa | not_analyzed | not_analyzed | YES | A genuine, well-engineered, actively maintained JavaScript CLI/process-execution |
 | torvalds | linux | analyzed | analyzed | no | C-dominant per GitHub language stats (~98.9% of a huge byte count). With only 12 |
@@ -43,9 +43,9 @@ Total extractor failures across all candidates: 0
 | karpathy | llm.c | language.c | True |  |  |
 | karpathy | llm.c | ml.framework.pytorch | True |  |  |
 | sindresorhus | got | language.typescript | True |  |  |
+| sindresorhus | Gifski | language.swift | True |  |  |
 | torvalds | linux | language.c | True |  |  |
 
 ## False positives (not-expected concept found)
 
 - `karpathy/llm.c` -> unexpectedly found 'language.cpp': C++ is present in the raw language stats but at ~3.5% of bytes, below the 5% significance floor -- correctly expected to produce NO evidence, not a miss.
-- `sindresorhus/Gifski` -> unexpectedly found 'language.swift': no such concept exists in the registry -- Swift evidence is structurally impossible to produce today, regardless of extractor correctness. Expected to surface only as an 'unresolved:swift' concept summary, not a registered concept_id.

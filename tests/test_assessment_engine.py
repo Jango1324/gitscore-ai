@@ -395,11 +395,15 @@ def test_none_parser_confidence_not_counted_as_low():
 # ---------------------------------------------------------------------------
 
 def test_or_group_counts_as_exactly_one_assessable_requirement():
+    # Milestone 8D.1: a deliberately synthetic, guaranteed-unregistered
+    # term (Kubernetes is now a registered concept) to keep demonstrating
+    # this section's "unresolved concepts get no special treatment" claim
+    # with an ACTUALLY-unresolved concept id.
     reqs = [
         requirement(
-            "Docker or Kubernetes",
+            "Docker or SomeUnknownOrchestrator",
             concept_id=None,
-            alternative_concept_ids=("infra.docker", "unresolved:kubernetes"),
+            alternative_concept_ids=("infra.docker", "unresolved:someunknownorchestrator"),
         )
     ]
     assessment = assessment_for(reqs, [ev("repo-a", "infra.docker")])

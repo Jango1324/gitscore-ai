@@ -288,5 +288,8 @@ def test_concept_registry_version_constant_exists_and_is_an_int():
     # change per registry.py's own bump policy, even though it doesn't
     # change what resolve_concept() itself matches. See
     # docs/CHANGELOG_DEV.md's Milestone 5D.1 entry.
+    # Bumped to 4 in Milestone 8D.1: Kubernetes, generic SQL, Swift,
+    # Kotlin, and `framework.react_native` added -- see
+    # docs/CHANGELOG_DEV.md's Milestone 8D.1 entry.
     assert isinstance(CONCEPT_REGISTRY_VERSION, int)
-    assert CONCEPT_REGISTRY_VERSION == 3
+    assert CONCEPT_REGISTRY_VERSION == 4

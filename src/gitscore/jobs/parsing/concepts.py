@@ -27,7 +27,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from gitscore.concepts.matching import alias_pattern
+from gitscore.concepts.matching import alias_pattern, select_longest_overlapping_matches
 from gitscore.concepts.registry import default_registry
 
 # Conservative unknown-technical-term policy (Part 5): promoting every
@@ -42,7 +42,17 @@ from gitscore.concepts.registry import default_registry
 _LIST_SPLIT = re.compile(r",|\band\b", re.IGNORECASE)
 _LIST_ITEM_PREFIXES = re.compile(
     r"^(experience with|knowledge of|familiarity with|proficiency in|"
+    r"expert[- ]level|expert in|advanced|proficient in|strong|solid|"
     r"using|with|in|and|or)\s+",
+    re.IGNORECASE,
+)
+
+# Milestone 8D.1 -- the generic skill-context vocabulary
+# `find_bare_short_alias_mentions` requires somewhere in the claim before
+# it will accept a bare, otherwise-unsafe single-letter alias match (see
+# that function's docstring for the full, bounded gating policy).
+_BARE_ALIAS_CONTEXT_CUES = re.compile(
+    r"\b(experience|programming|proficien\w*|language|development|developer|embedded|skills?)\b",
     re.IGNORECASE,
 )
 GENERIC_LIST_STOPWORDS = frozenset({
@@ -74,6 +84,32 @@ def clean_list_fragment(fragment: str) -> str | None:
     return stripped
 
 
+def leading_token(fragment: str) -> str | None:
+    """The first word of `fragment` after stripping the SAME list-item
+    prefixes `clean_list_fragment` strips, or `None` if nothing is left.
+
+    Milestone 8D.1 -- a narrower sibling of `clean_list_fragment` for
+    `alternatives.py`'s OR-segment resolution: when a segment has TOO
+    MANY trailing descriptive words to pass `clean_list_fragment`'s
+    whole-fragment shape check (e.g. "Go for tooling development"), the
+    technology name is still reliably the FIRST remaining word -- but
+    unlike `clean_list_fragment`, this is intentionally never promoted to
+    a NEW `unresolved:<term>` id by its caller; it is only ever used to
+    retry a REAL registry lookup on just that one word (see
+    `alternatives.py`'s `_resolve_segment`), since guessing a one-word
+    slice of an arbitrary sentence is far too weak a signal to mint a
+    brand-new unresolved concept from.
+    """
+    stripped = _LIST_ITEM_PREFIXES.sub("", fragment.strip()).strip()
+    stripped = stripped.rstrip(".,;:")
+    if not stripped:
+        return None
+    first = stripped.split()[0]
+    if first.lower() in GENERIC_LIST_STOPWORDS:
+        return None
+    return first
+
+
 @dataclass(frozen=True)
 class ConceptMention:
     """One technical-concept mention found in a bounded piece of text.
@@ -97,12 +133,85 @@ def find_concept_mentions(text: str, registry=None) -> tuple[ConceptMention, ...
     claim produces two mentions (`find_concept_mentions` is a low-level
     primitive; `jobs/parsing/parser.py` decides how many JobRequirement
     rows that becomes, e.g. one per distinct concept per claim).
+
+    Milestone 8D.1: candidate matches from every concept/alias are
+    collected FIRST and then passed through
+    `concepts.matching.select_longest_overlapping_matches()` -- the
+    shared "most-specific alias wins" filter -- before being returned, so
+    a short alias that happens to sit inside a longer, more specific
+    one's match (e.g. `framework.react`'s "react" inside
+    `framework.react_native`'s "react native") never shadows it.
     """
     registry = registry or default_registry()
-    mentions: list[ConceptMention] = []
+    candidates: list[tuple[int, int, ConceptMention]] = []
     for concept in registry.all_concepts():
         for alias in concept.readme_safe_aliases():
             for match in alias_pattern(alias).finditer(text):
+                candidates.append(
+                    (
+                        match.start(),
+                        match.end(),
+                        ConceptMention(
+                            concept_id=concept.concept_id,
+                            matched_alias=alias,
+                            start=match.start(),
+                            end=match.end(),
+                        ),
+                    )
+                )
+    return tuple(select_longest_overlapping_matches(candidates))
+
+
+def find_bare_short_alias_mentions(text: str, registry=None) -> tuple[ConceptMention, ...]:
+    """Milestone 8D.1 -- a narrow, CASE-SENSITIVE, context-gated fallback
+    for a registry concept whose alias is short enough that it has NO
+    `readme_safe_aliases()` at all (today: only `language.c`'s bare "c" --
+    see registry.py's comment on why it carries no safer alternative
+    alias). This is the "narrower, context-aware allowance" the
+    real-world evaluation recommended (Milestone 8C, Section 13 fix #1,
+    the `torvalds`/`embedded_firmware_01` finding: "Strong C experience
+    in embedded, resource-constrained environments" produced ZERO
+    `JobRequirement` rows at all) rather than lifting the
+    `readme_unsafe_aliases` restriction everywhere, which Milestone 5D.1
+    added specifically BECAUSE unrestricted bare "c"/"go" matching
+    produced real false positives.
+
+    Deliberately bounded on three independent axes, all required at once:
+      1. Only concepts with `readme_safe_aliases() == ()` are even
+         considered (today, uniquely `language.c`) -- a concept with ANY
+         safe alias already has a safe path and does not need this.
+      2. Only a SINGLE-CHARACTER alias is considered -- bounds this to
+         the one-letter-language problem Section 13 describes, not a
+         general "relax unsafe aliases in job text" rule.
+      3. The EXACT uppercase letter must appear (case-SENSITIVE,
+         unlike every other matcher in this codebase) -- "a, b, or c"
+         never matches; "Strong C experience" does. This alone rules out
+         the overwhelming majority of ordinary lowercase-prose uses of
+         the letter.
+      4. A small, fixed, generic skill-context vocabulary word
+         (experience/programming/proficient.../language/development/
+         developer/embedded/skills) must ALSO appear somewhere in the
+         SAME text -- mirroring the existing generic-vocabulary pattern
+         `jobs/parsing/segmentation.py`'s `_REQUIREMENT_SIGNAL` and
+         `jobs/parsing/alternatives.py`'s `_TRAILING_FILLER` already use,
+         not a new kind of heuristic.
+
+    Callers (`jobs/parsing/parser.py`) only consult this AFTER
+    `find_concept_mentions` returns empty for the same text -- this is a
+    last-resort fallback, never a competing/overriding match.
+    """
+    registry = registry or default_registry()
+    if not _BARE_ALIAS_CONTEXT_CUES.search(text):
+        return ()
+
+    mentions: list[ConceptMention] = []
+    for concept in registry.all_concepts():
+        if concept.readme_safe_aliases():
+            continue
+        for alias in concept.aliases:
+            if alias not in concept.readme_unsafe_aliases or len(alias) != 1:
+                continue
+            for match in re.finditer(r"(?<![A-Za-z0-9])" + re.escape(alias.upper()) + r"(?![A-Za-z0-9])", text):
                 mentions.append(
                     ConceptMention(
                         concept_id=concept.concept_id,

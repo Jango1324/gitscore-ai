@@ -31,17 +31,25 @@ free-form-text risk class README prose is (see that module's docstring
 for the full reasoning), so both scan with the identical mechanics. This
 is a pure extraction, not a behavior change -- `readme_safe_aliases()`
 still decides what THIS module scans.
+
+Milestone 8D.1: candidate per-concept matches are now resolved through
+`concepts.matching.select_longest_overlapping_matches()` before becoming
+Evidence, so a short alias overlapping a longer, more specific one (e.g.
+`framework.react`'s "react" inside `framework.react_native`'s "react
+native") no longer produces a false-positive attribution for the shorter
+concept -- see that function's docstring. `EXTRACTOR_VERSION` bumped
+2 -> 3 for this behavior change.
 """
 from __future__ import annotations
 
 import re
 
-from gitscore.concepts.matching import alias_pattern
+from gitscore.concepts.matching import alias_pattern, select_longest_overlapping_matches
 from gitscore.concepts.registry import default_registry
 from gitscore.evidence.models import Evidence, RepositoryIdentity
 from gitscore.evidence.types import ConfidenceLevel, EvidenceType
 
-EXTRACTOR_VERSION = "readme:v2"
+EXTRACTOR_VERSION = "readme:v3"
 
 # How much surrounding text to keep on each side of a match, so the
 # stored observation is a short, inspectable snippet -- never the whole
@@ -78,19 +86,23 @@ def evidence_from_readme(
         return []
 
     registry = default_registry()
-    evidence = []
+    candidates: list[tuple[int, int, tuple]] = []
     for concept in registry.all_concepts():
-        match = None
-        matched_alias = None
         for alias in concept.readme_safe_aliases():
             found = alias_pattern(alias).search(readme_text)
             if found is not None:
-                match = found
-                matched_alias = alias
+                candidates.append((found.start(), found.end(), (concept, alias, found.start(), found.end())))
                 break
-        if match is None:
-            continue
-        snippet = _bounded_snippet(readme_text, match.start(), match.end())
+
+    # Milestone 8D.1: resolve any overlapping matches ("react" inside
+    # "react native") by keeping only the most specific one -- see
+    # `concepts.matching.select_longest_overlapping_matches()`'s
+    # docstring for the full rationale (shared with
+    # `jobs/parsing/concepts.py`'s `find_concept_mentions`, the SAME
+    # risk class in a different free-form-text context).
+    evidence = []
+    for concept, matched_alias, start, end in select_longest_overlapping_matches(candidates):
+        snippet = _bounded_snippet(readme_text, start, end)
         evidence.append(
             Evidence(
                 repository=RepositoryIdentity(owner=owner, name=repo_name),

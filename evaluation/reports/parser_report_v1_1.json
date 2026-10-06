@@ -1,19 +1,16 @@
 {
-  "corpus_version": "8c:v1",
+  "corpus_version": "8c:v1.1",
   "aggregate": {
     "total_jobs": 15,
     "total_expected_requirements": 103,
     "status_counts": {
-      "CORRECT": 58,
-      "MISSING": 44,
-      "WRONG_ALTERNATIVE_STRUCTURE": 1
+      "CORRECT": 66,
+      "MISSING": 37
     },
     "tag_counts": {
-      "MISSING": 44,
-      "WRONG_ALTERNATIVE_STRUCTURE": 1
+      "MISSING": 37
     },
     "missed_concepts": {
-      "unresolved:kubernetes": 2,
       "unresolved:bigquery": 1,
       "unresolved:snowflake": 1,
       "unresolved:spi": 1,
@@ -21,14 +18,12 @@
       "unresolved:uart": 1,
       "unresolved:angular": 1,
       "unresolved:vue": 1,
-      "unresolved:flutter": 1,
-      "unresolved:react_native": 1,
       "unresolved:matlab": 1,
       "unresolved:simulink": 1
     },
-    "total_spurious_requirements": 7,
-    "recall": 0.563,
-    "precision": 0.892,
+    "total_spurious_requirements": 0,
+    "recall": 0.641,
+    "precision": 1.0,
     "metric_definitions": {
       "recall": "(CORRECT + PARTIALLY_CORRECT) / total_expected_requirements -- 'was the right concept/category/alternative-set found at all', independent of necessity/observability nuance (those are reported separately in tag_counts, never hidden inside this one number)",
       "precision": "(CORRECT + PARTIALLY_CORRECT) / (CORRECT + PARTIALLY_CORRECT + spurious) -- of everything recovered or invented, what fraction had a real gold counterpart"
@@ -110,19 +105,17 @@
           "claim_text": "Familiarity with Docker and Kubernetes",
           "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Familiarity with Docker and Kubernetes",
             "necessity": "required",
             "facet": "technical",
-            "concept_id": "unresolved:kubernetes",
+            "concept_id": "infra.kubernetes",
             "github_observability": "strongly_observable",
-            "notes": "PREDICTED MISS: no comma in this sentence, so the parser's conservative comma-gated unknown-term policy (jobs/parsing/concepts.py) is expected to drop this entirely rather than promote it to unresolved:kubernetes -- a known, documented design tradeoff, not a surprise bug."
+            "notes": "8c:v1.1 CORRECTION. OLD: concept_id='unresolved:kubernetes', predicted MISS ('no comma in this sentence, so the parser's conservative comma-gated unknown-term policy is expected to drop this entirely rather than promote it'). NEW: concept_id='infra.kubernetes'. WHY STALE: the old annotation's premise was 'Kubernetes has no TechnicalConcept entry, so it can only ever be reached (if at all) via the comma-gated unknown-term promotion path, which this comma-less sentence does not satisfy.' Milestone 8D.1 registered `infra.kubernetes` in the concept registry, so `find_concept_mentions()` now resolves 'Kubernetes' directly via its own safe alias -- no comma, no promotion path, and no escalation needed at all. Expected to become CORRECT."
           },
-          "notes": "PREDICTED MISS: no comma in this sentence, so the parser's conservative comma-gated unknown-term policy (jobs/parsing/concepts.py) is expected to drop this entirely rather than promote it to unresolved:kubernetes -- a known, documented design tradeoff, not a surprise bug."
+          "notes": "8c:v1.1 CORRECTION. OLD: concept_id='unresolved:kubernetes', predicted MISS ('no comma in this sentence, so the parser's conservative comma-gated unknown-term policy is expected to drop this entirely rather than promote it'). NEW: concept_id='infra.kubernetes'. WHY STALE: the old annotation's premise was 'Kubernetes has no TechnicalConcept entry, so it can only ever be reached (if at all) via the comma-gated unknown-term promotion path, which this comma-less sentence does not satisfy.' Milestone 8D.1 registered `infra.kubernetes` in the concept registry, so `find_concept_mentions()` now resolves 'Kubernetes' directly via its own safe alias -- no comma, no promotion path, and no escalation needed at all. Expected to become CORRECT."
         },
         {
           "claim_text": "Solid understanding of RESTful API design principles",
@@ -193,14 +186,7 @@
           "notes": "PREDICTED MISS: GraphQL is not in the registry and appears alone (no comma-list, no OR) -- expected to be dropped entirely."
         }
       ],
-      "spurious": [
-        {
-          "claim_text": "Familiarity with Docker and Kubernetes",
-          "concept_id": "infra.kubernetes",
-          "category": "infrastructure",
-          "is_alternative_group": false
-        }
-      ]
+      "spurious": []
     },
     {
       "job_id": "computer_vision_01",
@@ -329,21 +315,20 @@
         },
         {
           "claim_text": "Strong SQL skills across relational databases",
-          "facet": "non_technical",
+          "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Strong SQL skills across relational databases",
             "necessity": "required",
-            "facet": "non_technical",
-            "category": "other",
+            "facet": "technical",
+            "concept_id": "language.sql",
+            "category": "language",
             "github_observability": "strongly_observable",
-            "notes": "PREDICTED MISS: SQL (generic) is not in the registry and appears alone."
+            "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, predicted MISS ('SQL (generic) is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.sql', category='language'. WHY STALE: the old annotation's premise was that generic SQL had no TechnicalConcept entry at all. Milestone 8D.1 registered `language.sql` (alias \"sql\"), so `find_concept_mentions()` now resolves 'SQL' directly. Expected to become CORRECT."
           },
-          "notes": "PREDICTED MISS: SQL (generic) is not in the registry and appears alone."
+          "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, predicted MISS ('SQL (generic) is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.sql', category='language'. WHY STALE: the old annotation's premise was that generic SQL had no TechnicalConcept entry at all. Milestone 8D.1 registered `language.sql` (alias \"sql\"), so `find_concept_mentions()` now resolves 'SQL' directly. Expected to become CORRECT."
         },
         {
           "claim_text": "Experience with PostgreSQL and Redis",
@@ -433,14 +418,7 @@
           "notes": "PREDICTED: same not_technical fallback as other zero-confirmed-concept OR cases -- expected to produce NOTHING, not a real alternative group."
         }
       ],
-      "spurious": [
-        {
-          "claim_text": "Strong SQL skills across relational databases",
-          "concept_id": "language.sql",
-          "category": "language",
-          "is_alternative_group": false
-        }
-      ]
+      "spurious": []
     },
     {
       "job_id": "data_science_01",
@@ -514,21 +492,20 @@
         },
         {
           "claim_text": "Proficiency in SQL for data analysis",
-          "facet": "non_technical",
+          "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Proficiency in SQL for data analysis",
             "necessity": "required",
-            "facet": "non_technical",
-            "category": "other",
+            "facet": "technical",
+            "concept_id": "language.sql",
+            "category": "language",
             "github_observability": "strongly_observable",
-            "notes": "PREDICTED MISS: SQL (generic) is not in the registry and appears alone."
+            "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, predicted MISS ('SQL (generic) is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.sql', category='language'. WHY STALE: same reason as data_engineering_01's identical-shape row -- `language.sql` is now a registered concept (Milestone 8D.1), resolved directly by `find_concept_mentions()`. Expected to become CORRECT."
           },
-          "notes": "PREDICTED MISS: SQL (generic) is not in the registry and appears alone."
+          "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, predicted MISS ('SQL (generic) is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.sql', category='language'. WHY STALE: same reason as data_engineering_01's identical-shape row -- `language.sql` is now a registered concept (Milestone 8D.1), resolved directly by `find_concept_mentions()`. Expected to become CORRECT."
         },
         {
           "claim_text": "Experience communicating findings to non-technical stakeholders",
@@ -583,14 +560,7 @@
           "notes": ""
         }
       ],
-      "spurious": [
-        {
-          "claim_text": "Proficiency in SQL for data analysis",
-          "concept_id": "language.sql",
-          "category": "language",
-          "is_alternative_group": false
-        }
-      ]
+      "spurious": []
     },
     {
       "job_id": "devops_cloud_01",
@@ -635,19 +605,17 @@
           "claim_text": "Strong experience with Docker and Kubernetes",
           "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Strong experience with Docker and Kubernetes",
             "necessity": "required",
             "facet": "technical",
-            "concept_id": "unresolved:kubernetes",
+            "concept_id": "infra.kubernetes",
             "github_observability": "strongly_observable",
-            "notes": "PREDICTED MISS: same comma-less-pair pattern as backend_01 -- expected to be dropped entirely rather than promoted to unresolved:kubernetes."
+            "notes": "8c:v1.1 CORRECTION. OLD: concept_id='unresolved:kubernetes', predicted MISS ('same comma-less-pair pattern as backend_01 -- expected to be dropped entirely rather than promoted'). NEW: concept_id='infra.kubernetes'. WHY STALE: same reason as backend_01's identical-shape row -- the premise that Kubernetes could only ever be reached via the comma-gated unknown-term path no longer holds now that `infra.kubernetes` is a registered concept resolved directly by `find_concept_mentions()`. Expected to become CORRECT."
           },
-          "notes": "PREDICTED MISS: same comma-less-pair pattern as backend_01 -- expected to be dropped entirely rather than promoted to unresolved:kubernetes."
+          "notes": "8c:v1.1 CORRECTION. OLD: concept_id='unresolved:kubernetes', predicted MISS ('same comma-less-pair pattern as backend_01 -- expected to be dropped entirely rather than promoted'). NEW: concept_id='infra.kubernetes'. WHY STALE: same reason as backend_01's identical-shape row -- the premise that Kubernetes could only ever be reached via the comma-gated unknown-term path no longer holds now that `infra.kubernetes` is a registered concept resolved directly by `find_concept_mentions()`. Expected to become CORRECT."
         },
         {
           "claim_text": "Experience with infrastructure-as-code tools such as Terraform",
@@ -723,14 +691,7 @@
           "notes": "PREDICTED MISS: no registry concept, no non_technical.py pattern for 'certification' alone (legal category requires specific phrases like 'security clearance')."
         }
       ],
-      "spurious": [
-        {
-          "claim_text": "Strong experience with Docker and Kubernetes",
-          "concept_id": "infra.kubernetes",
-          "category": "infrastructure",
-          "is_alternative_group": false
-        }
-      ]
+      "spurious": []
     },
     {
       "job_id": "embedded_firmware_01",
@@ -1400,39 +1361,37 @@
         },
         {
           "claim_text": "Strong experience with Swift for iOS development",
-          "facet": "non_technical",
+          "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Strong experience with Swift for iOS development",
             "necessity": "required",
-            "facet": "non_technical",
-            "category": "other",
-            "github_observability": "not_observable",
-            "notes": "PREDICTED MISS: Swift is not in the registry and appears alone (no comma-list, no OR)."
+            "facet": "technical",
+            "concept_id": "language.swift",
+            "category": "language",
+            "github_observability": "strongly_observable",
+            "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, github_observability='not_observable', predicted MISS ('Swift is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.swift', category='language', github_observability='strongly_observable' (every technical concept defaults to STRONGLY_OBSERVABLE, jobs/parsing/observability.py). WHY STALE: the old annotation's premises were (a) Swift had no TechnicalConcept entry, and (b) consequently the claim could only ever become a NOT_OBSERVABLE non-technical placeholder. Milestone 8D.1 registered `language.swift`, so `find_concept_mentions()` resolves 'Swift' directly and the claim is now GitHub-observable like any other language. Expected to become CORRECT."
           },
-          "notes": "PREDICTED MISS: Swift is not in the registry and appears alone (no comma-list, no OR)."
+          "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, github_observability='not_observable', predicted MISS ('Swift is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.swift', category='language', github_observability='strongly_observable' (every technical concept defaults to STRONGLY_OBSERVABLE, jobs/parsing/observability.py). WHY STALE: the old annotation's premises were (a) Swift had no TechnicalConcept entry, and (b) consequently the claim could only ever become a NOT_OBSERVABLE non-technical placeholder. Milestone 8D.1 registered `language.swift`, so `find_concept_mentions()` resolves 'Swift' directly and the claim is now GitHub-observable like any other language. Expected to become CORRECT."
         },
         {
           "claim_text": "Experience with Kotlin for Android development",
-          "facet": "non_technical",
+          "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Experience with Kotlin for Android development",
             "necessity": "required",
-            "facet": "non_technical",
-            "category": "other",
-            "github_observability": "not_observable",
-            "notes": "PREDICTED MISS: Kotlin is not in the registry and appears alone."
+            "facet": "technical",
+            "concept_id": "language.kotlin",
+            "category": "language",
+            "github_observability": "strongly_observable",
+            "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, github_observability='not_observable', predicted MISS ('Kotlin is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.kotlin', category='language', github_observability='strongly_observable'. WHY STALE: same reason as the Swift row above -- `language.kotlin` is now a registered concept (Milestone 8D.1), resolved directly by `find_concept_mentions()`, making the claim GitHub-observable. Expected to become CORRECT."
           },
-          "notes": "PREDICTED MISS: Kotlin is not in the registry and appears alone."
+          "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, github_observability='not_observable', predicted MISS ('Kotlin is not in the registry and appears alone'). NEW: facet='technical', concept_id='language.kotlin', category='language', github_observability='strongly_observable'. WHY STALE: same reason as the Swift row above -- `language.kotlin` is now a registered concept (Milestone 8D.1), resolved directly by `find_concept_mentions()`, making the claim GitHub-observable. Expected to become CORRECT."
         },
         {
           "claim_text": "Familiarity with REST API integration",
@@ -1456,22 +1415,20 @@
           "claim_text": "Experience with React Native or Flutter",
           "facet": "alternative",
           "necessity": "preferred",
-          "status": "WRONG_ALTERNATIVE_STRUCTURE",
-          "tags": [
-            "WRONG_ALTERNATIVE_STRUCTURE"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Experience with React Native or Flutter",
             "necessity": "preferred",
             "facet": "alternative",
             "alternative_concept_ids": [
-              "unresolved:flutter",
-              "unresolved:react_native"
+              "framework.react_native",
+              "unresolved:flutter"
             ],
             "github_observability": "strongly_observable",
-            "notes": "Neither is a registered concept -- PREDICTED: zero confirmed concepts means classify_alternative_claim treats this as not_technical, so this is expected to produce NOTHING (same mechanism as the Vue/Angular case above)."
+            "notes": "8c:v1.1 CORRECTION. OLD: alternative_concept_ids=['unresolved:flutter','unresolved:react_native'], notes stated 'Neither is a registered concept -- PREDICTED: zero confirmed concepts means classify_alternative_claim treats this as not_technical, so this is expected to produce NOTHING'. NEW: alternative_concept_ids=['framework.react_native','unresolved:flutter']. WHY STALE: this gold row's ORIGINAL premise was already known to diverge from the real frozen-v1 parser output -- the 8c:v1 evaluation (docs/evaluation/MILESTONE_8C_EVALUATION.md Section 10) documented that 'React Native' actually resolved as plain `framework.react` (an alias-collision false positive: bare 'react' matches inside 'React Native'), counted as one of v1's 4 WRONG_ALTERNATIVE_STRUCTURE cases. Milestone 8D.1 registers `framework.react_native` AND fixes the collision structurally (`concepts.matching.select_longest_overlapping_matches()` -- the longer, more specific 'react native' alias now wins over the shorter 'react'), so the OR-segment for 'React Native' now resolves to the correct, newly-registered concept instead of either the wrong `framework.react` or the old 'nothing at all' prediction. Flutter remains unregistered by design (not in scope for 8D.1) and correctly stays `unresolved:flutter`. Expected to become CORRECT."
           },
-          "notes": "Neither is a registered concept -- PREDICTED: zero confirmed concepts means classify_alternative_claim treats this as not_technical, so this is expected to produce NOTHING (same mechanism as the Vue/Angular case above)."
+          "notes": "8c:v1.1 CORRECTION. OLD: alternative_concept_ids=['unresolved:flutter','unresolved:react_native'], notes stated 'Neither is a registered concept -- PREDICTED: zero confirmed concepts means classify_alternative_claim treats this as not_technical, so this is expected to produce NOTHING'. NEW: alternative_concept_ids=['framework.react_native','unresolved:flutter']. WHY STALE: this gold row's ORIGINAL premise was already known to diverge from the real frozen-v1 parser output -- the 8c:v1 evaluation (docs/evaluation/MILESTONE_8C_EVALUATION.md Section 10) documented that 'React Native' actually resolved as plain `framework.react` (an alias-collision false positive: bare 'react' matches inside 'React Native'), counted as one of v1's 4 WRONG_ALTERNATIVE_STRUCTURE cases. Milestone 8D.1 registers `framework.react_native` AND fixes the collision structurally (`concepts.matching.select_longest_overlapping_matches()` -- the longer, more specific 'react native' alias now wins over the shorter 'react'), so the OR-segment for 'React Native' now resolves to the correct, newly-registered concept instead of either the wrong `framework.react` or the old 'nothing at all' prediction. Flutter remains unregistered by design (not in scope for 8D.1) and correctly stays `unresolved:flutter`. Expected to become CORRECT."
         },
         {
           "claim_text": "Knowledge of CI/CD for mobile releases",
@@ -1492,20 +1449,7 @@
           "notes": "PREDICTED MISS: no registry concept."
         }
       ],
-      "spurious": [
-        {
-          "claim_text": "Strong experience with Swift for iOS development",
-          "concept_id": "language.swift",
-          "category": "language",
-          "is_alternative_group": false
-        },
-        {
-          "claim_text": "Experience with Kotlin for Android development",
-          "concept_id": "language.kotlin",
-          "category": "language",
-          "is_alternative_group": false
-        }
-      ]
+      "spurious": []
     },
     {
       "job_id": "robotics_controls_01",
@@ -1774,21 +1718,20 @@
         },
         {
           "claim_text": "Experience with Kubernetes for container orchestration",
-          "facet": "non_technical",
+          "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Experience with Kubernetes for container orchestration",
             "necessity": "required",
-            "facet": "non_technical",
-            "category": "other",
+            "facet": "technical",
+            "concept_id": "infra.kubernetes",
+            "category": "infrastructure",
             "github_observability": "strongly_observable",
-            "notes": "PREDICTED MISS: Kubernetes alone (no comma-list, no OR, no already-confirmed sibling concept in this sentence) -- expected to be dropped entirely."
+            "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, predicted MISS ('Kubernetes alone -- no comma-list, no OR, no already-confirmed sibling concept in this sentence -- expected to be dropped entirely'). NEW: facet='technical', concept_id='infra.kubernetes', category='infrastructure'. WHY STALE: the old annotation's premise was that Kubernetes had no path to resolution outside the comma-gated unknown-term policy, which this single-concept sentence (no comma, no sibling) could never satisfy. Milestone 8D.1 registered `infra.kubernetes`, so `find_concept_mentions()` matches 'Kubernetes' directly regardless of comma/sibling context. Expected to become CORRECT."
           },
-          "notes": "PREDICTED MISS: Kubernetes alone (no comma-list, no OR, no already-confirmed sibling concept in this sentence) -- expected to be dropped entirely."
+          "notes": "8c:v1.1 CORRECTION. OLD: facet='non_technical', category='other', no concept_id, predicted MISS ('Kubernetes alone -- no comma-list, no OR, no already-confirmed sibling concept in this sentence -- expected to be dropped entirely'). NEW: facet='technical', concept_id='infra.kubernetes', category='infrastructure'. WHY STALE: the old annotation's premise was that Kubernetes had no path to resolution outside the comma-gated unknown-term policy, which this single-concept sentence (no comma, no sibling) could never satisfy. Milestone 8D.1 registered `infra.kubernetes`, so `find_concept_mentions()` matches 'Kubernetes' directly regardless of comma/sibling context. Expected to become CORRECT."
         },
         {
           "claim_text": "Experience with monitoring and observability tooling",
@@ -1845,14 +1788,7 @@
           "notes": "Contains 'experience' so find_experience_qualifier likely does NOT fire (no numeric years count present); PREDICTED: no non_technical.py pattern matches 'on-call'/'incident response' either -> PREDICTED MISS, not a real 'experience' qualifier row."
         }
       ],
-      "spurious": [
-        {
-          "claim_text": "Experience with Kubernetes for container orchestration",
-          "concept_id": "infra.kubernetes",
-          "category": "infrastructure",
-          "is_alternative_group": false
-        }
-      ]
+      "spurious": []
     },
     {
       "job_id": "systems_cpp_01",

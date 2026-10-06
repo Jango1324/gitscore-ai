@@ -1,5 +1,155 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-06 — Milestone 8D.1: Registry expansion & parser-precision fixes
+
+**What changed:** Follows directly from Milestone 8C's real-world
+evaluation (`docs/evaluation/MILESTONE_8C_EVALUATION.md`), which
+measured the pipeline as 8B left it and recommended, but did not
+implement, a ranked list of fixes. 8D.1 implements the top items from
+that list. Full as-built writeup: `docs/ARCHITECTURE.md` §25. Full
+benchmark/correction record: `docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md`.
+This entry summarizes.
+
+**Registry additions (`concepts/registry.py`, `CONCEPT_REGISTRY_VERSION`
+3 → 4):** five new `TechnicalConcept`s — `infra.kubernetes`,
+`language.sql` (generic/vendor-agnostic, distinct from
+`database.postgresql`), `language.swift`, `language.kotlin`, and
+`framework.react_native` (added specifically to fix the collision
+below). Pure additive data, zero logic change; every extractor/parser
+that calls `resolve_concept()`/`find_concept_mentions()` picks these up
+automatically. None marked `readme_unsafe_aliases` — no observed
+real-world false positive for any of them, the same evidence-based bar
+`rust`/`java`/`ruby` were already held to.
+
+**"Most-specific alias wins" (`concepts/matching.py`):** new
+`select_longest_overlapping_matches()` — a generic, data-driven conflict
+resolver (not a per-concept special case) fixing the real false
+positive 8C's evaluation found: "React Native" satisfies both
+`framework.react`'s bare "react" alias and `framework.react_native`'s
+"react native" alias; the longer, more specific match now always wins.
+Adopted by both free-form-text scanners: `jobs/parsing/concepts.py`'s
+`find_concept_mentions()` and `evidence/extraction/readme.py`'s
+`evidence_from_readme()` (`EXTRACTOR_VERSION` `readme:v2` → `readme:v3`).
+
+**Bounded bare-short-alias fallback (the `torvalds`/embedded-C fix,
+`jobs/parsing/concepts.py::find_bare_short_alias_mentions`):** 8C's
+single highest-value finding — "Strong C experience in embedded,
+resource-constrained environments" produced ZERO `JobRequirement` rows
+at all (`language.c` has no safe alias; bare "c" is indistinguishable
+from prose), scoring `torvalds` a flat 0 on an embedded-firmware
+posting. New last-resort fallback, tried only when the normal scan
+finds nothing, bounded on three axes at once: only concepts with no
+`readme_safe_aliases()` (today: uniquely `language.c`), only a
+single-character alias, case-sensitive exact-letter match AND a small
+fixed skill-context vocabulary word required in the same claim. Kept
+structurally separate from the comma-gated unknown-term promotion path
+(`parser.py`'s `safe_mentions` vs. `mentions`) to avoid a caught side
+effect: letting this fallback also unlock that path would have promoted
+an unrelated comma-separated clause ("resource-constrained
+environments") into a fabricated `unresolved:` concept.
+
+**OR/alternative-group fixes (`alternatives.py`, `concepts.py`):** three
+of 8C's four `WRONG_ALTERNATIVE_STRUCTURE` cases shared one root cause —
+a `readme_unsafe` bare alias (`c`, `go`) next to a descriptive word the
+fixed vocabulary didn't anticipate. `_TRAILING_FILLER` gained
+"programming"; a new `leading_token()` escalation step resolves just the
+first word when the whole-fragment shape check fails (never promotes a
+new `unresolved:` id from it — too weak a signal); `_LIST_ITEM_PREFIXES`
+gained skill-level descriptors (`expert-level`, `advanced`, `proficient
+in`, `strong`, `solid`). `JOB_DESCRIPTION_PARSER_VERSION` `v2` → `v3`.
+
+**Parser benchmark** (`scripts/evaluate_job_parser.py`, 103 expected
+requirements, 15 jobs): same frozen `8c:v1` gold, before → after code:
+CORRECT 54 → 58, WRONG_ALTERNATIVE_STRUCTURE 4 → 1 — the real,
+gold-independent improvement. Precision measured against that same
+frozen gold drops 1.000 → 0.892, but entirely because 7 of its rows'
+premise ("X is not in the registry") is now stale, not from any new
+parser false positive. Against the corrected `8c:v1.1` gold (see
+below): CORRECT 66, MISSING 37, zero WRONG_ALTERNATIVE_STRUCTURE,
+precision back to 1.0, recall 0.524 → 0.641.
+
+**Evaluation corpus — `8c:v1` frozen, `8c:v1.1` added:**
+`evaluation/gold/` is byte-for-byte unchanged (every 8C number stays
+reproducible). `evaluation/gold_v1_1/` is a separate, parallel snapshot;
+exactly 9 rows across 7 files differ in content (8 parser-gold rows
+across 6 job files, all "concept X is now registered" corrections, plus
+1 candidate evidence-gold row — `sindresorhus/Gifski`'s Swift
+expectation, whose sole old premise was "Swift is not in the registry,"
+now false). `scripts/evaluate_job_parser.py` and
+`scripts/evaluate_evidence.py` both gained an optional
+`--corpus-version 8c:v1.1` flag (default unchanged) writing to separate
+`*_report_v1_1.{json,md}` files. Full row-by-row correction list and
+rationale: `docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md`.
+
+**Evidence benchmark result:** regenerating `evidence_report.json/md`
+against frozen `8c:v1` gold with 8D.1 code raised "False positives" 1 →
+2, adding `sindresorhus/Gifski → language.swift` — audited and confirmed
+stale (frozen gold's sole premise was registry absence). Against
+corrected `8c:v1.1`: false positives back to 1 — only the genuine,
+unrelated `karpathy/llm.c → language.cpp` README-over-attribution issue
+remains, left uncorrected and visible by design (not this milestone's
+scope, not a stale-gold artifact). Production extraction code
+(`evidence/extraction/languages.py`) was NOT modified for this —
+Swift evidence resolves automatically through the registry addition
+alone.
+
+**E2E consequences (`scripts/evaluate_end_to_end.py`, no E2E code
+changed):** `torvalds` × `embedded_firmware_01` goes from
+`alignment_score=0`/`required=None` to `alignment_score=50`/
+`required=(1,1)` — 8C's single highest-value finding, resolved. `torvalds`
+× `data_science_01` drops 25 → 20 (`required` `(1,3)` → `(1,4)`, one
+more real, assessable, unmet `language.sql` requirement — intentional,
+not a regression). `Jango1324` × `embedded_firmware_01` stays at 0 but
+`required` goes `None` → `(0,1)` (now a real, explained unmet
+requirement rather than "not assessable").
+
+**Versions:** `CONCEPT_REGISTRY_VERSION` 3 → 4.
+`JOB_DESCRIPTION_PARSER_VERSION` `v2` → `v3`. `readme.py`'s
+`EXTRACTOR_VERSION` `v2` → `v3`. `JOB_REQUIREMENT_SCHEMA_VERSION`,
+`EVIDENCE_SCHEMA_VERSION`, `MATCHER_VERSION`, `SCORING_VERSION` all
+unchanged — `JobRequirement`/`Evidence`'s shape, the matcher, and the
+assessment formula are untouched.
+
+**Tests:** 796/796 backend (pytest), 23/23 frontend, `tsc --noEmit`
+clean, `next build` clean. No production test behavior regressed —
+test fixtures using Kubernetes/Swift/Kotlin/SQL purely as illustrative
+"unresolved concept" examples were swapped for synthetic unknown terms,
+since those four are now real registered concepts (not a weakening of
+unresolved-concept test coverage — a like-for-like substitution).
+
+**Files changed:** `src/gitscore/concepts/{registry,matching}.py`,
+`src/gitscore/jobs/parsing/{concepts,alternatives,confidence,parser}.py`,
+`src/gitscore/evidence/extraction/readme.py`,
+`scripts/{evaluate_job_parser,evaluate_evidence}.py`,
+`scripts/evaluation_lib/loaders.py`, `evaluation/gold_v1_1/` (new),
+`evaluation/reports/{parser,evidence,end_to_end}_report*.{json,md}`
+(regenerated; `*_v1_1` variants new), `tests/test_{job_parser,
+job_parser_extraction,matching_engine,matching_manual_examples,
+technical_concepts,assessment_engine,evaluation_harness,
+api_serialization}.py`, `docs/ARCHITECTURE.md` (new §25),
+`docs/PIPELINE.md`, `docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md`
+(new), `docs/CHANGELOG_DEV.md` (this entry).
+
+**How to test:**
+```
+python -m pytest                                              # 796/796
+python scripts/evaluate_job_parser.py                         # 8c:v1 (frozen)
+python scripts/evaluate_job_parser.py --corpus-version 8c:v1.1
+python scripts/evaluate_evidence.py --corpus-version 8c:v1.1
+cd frontend && npm run test && npx tsc --noEmit && npm run build
+```
+
+**Known limitations:** the generic registry-gap backlog beyond these
+five concepts (Terraform, Jenkins, dbt, Snowflake/BigQuery, Flutter,
+MATLAB/Simulink, PLC, OpenCV, scikit-learn, GraphQL, OAuth, CMake,
+Azure/GCP, generic phrases) — intentionally batched for a future
+registry-expansion milestone, not fixed piecemeal. The
+`karpathy/llm.c` README-over-attribution false positive — unrelated,
+still present, still deferred. Kubernetes YAML/Helm/`Chart.yaml`
+evidence scanning — explicitly out of scope. Top-N repository-retrieval
+behavior, matcher semantics, the assessment formula, the API contract,
+and the frontend are all unchanged. No commit was made.
+
 ## 2026-10-04 — Milestone 8B: Minimal product frontend
 
 **What changed:** First usable browser experience for GitScore. New,

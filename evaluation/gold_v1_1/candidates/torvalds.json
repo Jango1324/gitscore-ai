@@ -1,0 +1,32 @@
+{
+  "username": "torvalds",
+  "corpus_version": "8c:v1.1",
+  "profile_shape": "systems / C-heavy, sparse account (only 12 owned repos -- most of this person's real-world work lives outside their own GitHub account, e.g. the Linux kernel's actual development happens via mailing lists/maintainer trees, not GitHub PRs)",
+  "notes": "Public figure, already used by this project's own prior real-account validation (docs/CHANGELOG_DEV.md, Milestone 5D). Evaluating technical repository evidence only.",
+  "targets": [
+    {
+      "repo": "linux",
+      "ranking_expectation": "analyzed",
+      "notes": "C-dominant per GitHub language stats (~98.9% of a huge byte count). With only 12 total repos, this account has complete coverage regardless of ranking (is_complete=True expected) -- a useful contrast with karpathy/sindresorhus's incomplete coverage.",
+      "expected_concepts": [
+        {
+          "concept_id": "language.c",
+          "source": "language_stats"
+        }
+      ],
+      "not_expected_concepts": [
+        {
+          "concept_id": "language.rust",
+          "notes": "Rust bytes are present (~6.5M) but this is a tiny fraction of the repo's ~1.45B C bytes -- almost certainly still below the 5% significance floor; included as a not-expected check rather than assumed."
+        }
+      ],
+      "scope_limitations_observed": [
+        {
+          "source": "readme",
+          "classification": "KNOWN_SCOPE_LIMITATION",
+          "notes": "the kernel's own README is a short pointer to Documentation/ -- any concept mentions live in nested Documentation/ files, never fetched (no recursive crawling, Milestone 5D policy)."
+        }
+      ]
+    }
+  ]
+}
