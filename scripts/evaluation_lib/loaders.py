@@ -84,6 +84,15 @@ def load_gold_candidate(name: str, gold_candidates_dir: Path = GOLD_CANDIDATES_D
     return _read_json(gold_candidates_dir / f"{name}.json")
 
 
+# Milestone 8D.2 -- NEW gold, introduced by this milestone; does not
+# touch/correct any 8c:v1 or 8c:v1.1 file (see that file's own "notes").
+RETRIEVAL_CASES_PATH = EVALUATION_DIR / "gold" / "retrieval_cases.json"
+
+
+def load_retrieval_cases() -> dict:
+    return _read_json(RETRIEVAL_CASES_PATH)
+
+
 @dataclass(frozen=True)
 class FakeCandidateGitHubClient:
     """Minimal offline stand-in for `GitHubClient`, built from a

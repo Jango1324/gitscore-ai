@@ -163,6 +163,64 @@ def test_repository_coverage_survives_orchestration():
 
 
 # ---------------------------------------------------------------------------
+# Milestone 8D.2 -- analyze_job_fit() uses job-aware repository selection
+# ---------------------------------------------------------------------------
+
+
+def test_analyze_job_fit_recovers_a_job_relevant_repository_outside_top_n():
+    """A repository the frozen generic ranker alone would exclude (it
+    ties with 14 other all-zero-signal repos and loses the name-ascending
+    tie-break) is still pulled into deep analysis by `analyze_job_fit()`
+    because ML_JD requires PyTorch -- and its evidence then flows through
+    match_job()/assess_job() exactly like any other analyzed repository.
+    """
+    repos = [_trivial_repo(f"repo-{i:02d}") for i in range(15)]
+    repos.append(
+        raw_repo(name="zzz-ml-model", description=None, language=None, stargazers_count=0, topics=["pytorch"])
+    )
+    fixture_kwargs = dict(
+        repos=repos,
+        languages={"zzz-ml-model": {"Python": 9000}},
+        root_contents={"zzz-ml-model": [root_entry("requirements.txt")]},
+        files={("zzz-ml-model", "requirements.txt"): "torch==2.5\n"},
+    )
+    client_direct = FakeEvidenceGitHubClient(**fixture_kwargs)
+    client_orchestrated = FakeEvidenceGitHubClient(**fixture_kwargs)
+
+    # Without job context, the candidate-only pipeline never sees it.
+    direct_result = extract_candidate_evidence("octocat", client=client_direct, top_n=15)
+    assert "zzz-ml-model" not in {r.name for r in direct_result.profile.coverage.analyzed}
+
+    # analyze_job_fit() is job-aware end-to-end: ML_JD's "Deep experience
+    # with PyTorch" requirement makes this repo retrievable.
+    result = analyze_job_fit("octocat", ML_JD, client=client_orchestrated, top_n=15)
+    analyzed_names = {r.name for r in result.candidate_profile.coverage.analyzed}
+    assert "zzz-ml-model" in analyzed_names
+
+    pytorch_match = next(
+        m for m in result.assessment.supported_matches() if m.matched_concept_ids == ("ml.framework.pytorch",)
+    )
+    assert pytorch_match.supporting_evidence[0].repository.name == "zzz-ml-model"
+
+
+def test_analyze_job_fit_does_not_recover_irrelevant_repositories():
+    """A job-irrelevant repository (no overlap with ML_JD's technical
+    concepts at all) must not be pulled in just because it exists --
+    job-relevance retrieval is NOT "add every repository ranking
+    excluded."
+    """
+    repos = [_trivial_repo(f"repo-{i:02d}") for i in range(15)]
+    repos.append(_trivial_repo("zzz-recipe-blog"))
+    client = FakeEvidenceGitHubClient(repos=repos)
+
+    result = analyze_job_fit("octocat", ML_JD, client=client, top_n=15)
+
+    analyzed_names = {r.name for r in result.candidate_profile.coverage.analyzed}
+    assert "zzz-recipe-blog" not in analyzed_names
+    assert result.candidate_profile.coverage.analyzed_count == 15
+
+
+# ---------------------------------------------------------------------------
 # F/G: OR semantics and NOT_ASSESSABLE survive orchestration unchanged
 # ---------------------------------------------------------------------------
 

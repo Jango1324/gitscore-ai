@@ -3443,3 +3443,223 @@ scoring change, not a regression).
   formula, the API contract, the frontend, and alternative-role
   discovery are all UNCHANGED — none of this milestone's fixes required
   touching any of them.
+
+## 26. Job-aware repository retrieval — Milestone 8D.2
+
+Follows directly from §25.7's own named limitation ("The top-N
+repository-retrieval problem ... deliberately not touched here") and
+Milestone 8C's report (Section 13): a repository can be genuinely
+relevant to one specific job posting yet still fall outside Milestone
+5B's frozen, job-INDEPENDENT top-N ranking (size/recency/language-
+presence/description-presence/stars) purely because a prolific account
+has too many repositories competing for too few slots --
+`karpathy/nn-zero-to-hero` (24.6k-star ML teaching repo, 63-repo
+account) and `sindresorhus/execa` (7.6k-star library, 1,142-repo
+account) are both real, documented instances. Full detail, measured
+numbers, and known limitations:
+`docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md`.
+
+### 26.1 Architecture: a second, independent retrieval signal
+
+New module `gitscore.ranking.job_relevance` (sibling of `rank.py`/
+`config.py`, which remain completely FROZEN -- not one line changed,
+not one behavior altered): a second, job-relevance retrieval signal,
+unioned deterministically with Milestone 5B's generic ranking rather
+than replacing or reweighting it.
+
+    all repositories
+        |-- generic ranking (5B, frozen)        --> top N  (names unchanged)
+        `-- job relevance (8D.2, new)            --> top K
+                                   |
+                                   v
+                      deterministic union (names first, generic
+                      order preserved, then job-relevant additions
+                      not already present, in relevance order)
+                                   |
+                                   v
+                      bounded deep extraction (5D, unchanged)
+
+`select_repositories()` is the new orchestrator
+(`gitscore.ranking.job_relevance`), called from
+`pipeline.evidence.extract_candidate_evidence()` in place of its old
+direct `rank_repositories()` call. Without job context
+(`job_relevance_terms=None`, the default), it is EXACTLY
+`rank_repositories(summaries, top_n=...)` -- byte-for-byte the pre-8D.2
+behavior, confirmed by every one of the 796 pre-existing tests passing
+unchanged.
+
+### 26.2 Dependency direction (deliberate)
+
+`gitscore.ranking.job_relevance` imports ONLY `gitscore.concepts` (the
+registry/alias-matching primitives `evidence/extraction/readme.py` and
+`jobs/parsing/concepts.py` already use) and its own package's
+`rank.py`/`config.py`. It has **no** dependency on `gitscore.jobs` at
+all. The new `JobRelevanceTerm` dataclass (`concept_ids: tuple[str,
+...]`, `weight: float`) is a small, neutral retrieval-query
+representation -- not the full `JobRequirementProfile`/`JobRequirement`
+domain model -- so `pipeline.evidence.extract_candidate_evidence()`
+(explicitly a candidate-only, job-independent entry point since
+Milestone 5D) never has to import `gitscore.jobs` to accept it, and
+stays usable with zero job context exactly as before.
+
+The ONE new bridging function, `_relevance_terms_from_job_profile()`
+(converts a real `JobRequirementProfile` into
+`tuple[JobRelevanceTerm, ...]`), lives in
+`gitscore.application.job_fit` -- not inside `gitscore.jobs` (which has
+no reason to know retrieval/ranking exists) and not inside
+`gitscore.ranking.job_relevance` (which has no reason to know the job
+domain model exists). `gitscore.application` already documented itself
+as "the one layer allowed to know about all of them together"
+(Milestone 7C); this is that same principle applied to one more
+cross-package bridge. Verified non-circular: `gitscore.jobs` imports
+only `gitscore.concepts` (confirmed by direct inspection of every
+`from gitscore.` import in `jobs/`), so neither `gitscore.ranking` nor
+`gitscore.pipeline` depending on it would create a cycle -- moot here
+anyway, since `job_relevance.py` doesn't depend on `jobs` at all.
+
+Text-scanning (name/description/topics) reuses the SAME shared
+primitives §25.2 introduced for README/job-description prose
+(`concepts.matching.alias_pattern` + `select_longest_overlapping_matches`)
+rather than importing `jobs.parsing.concepts.find_concept_mentions()` --
+mirroring `evidence/extraction/readme.py`'s own collection loop, the
+established pattern in this codebase: share the low-level matching
+PRIMITIVE, let each consumer own its own thin orchestration suited to
+its own output shape.
+
+### 26.3 Relevance signal (cheap, pre-deep-extraction only)
+
+One `JobRelevanceTerm` per TECHNICAL `JobRequirement` (a non-technical
+claim -- years of experience, a degree, communication skills -- never
+produces a term): `concept_ids` is one id, or the full
+`alternative_concept_ids` tuple reused AS-IS for an OR group ("Python or
+Go" -- matching ANY ONE satisfies it, never re-parsed from text);
+`weight` is `REQUIRED_WEIGHT=1.0` or `PREFERRED_WEIGHT=0.5` by
+`Necessity` alone (`Importance` deliberately unused -- no
+fake-precision floating-point weighting beyond this one fixed,
+justified binary distinction).
+
+A repository matches a term, and earns its weight AT MOST ONCE, via
+EITHER:
+- **Structured language field**: `primary_language` resolves (the
+  SAME structured-source resolution `languages.py` evidence already
+  uses -- the FULL alias list, not `readme_safe_aliases()`) to exactly
+  this concept id. The only path that can recover a bare-unsafe-alias
+  concept like `language.c` (mirrors how `language.c` evidence already
+  comes from language stats, never README text).
+- **Safe-alias text match**: name + description + topics, scanned with
+  the SAME `readme_safe_aliases()` + overlap-resolution mechanism
+  README prose uses -- repo metadata is short, human-written free text
+  carrying the IDENTICAL false-positive risk class (a bare "go"/"c"
+  must not match; "React Native" must not misattribute as plain
+  "React").
+- **Bounded unresolved-term text match**: for an `unresolved:<term>`
+  concept id, an exact, word-boundary-safe (never fuzzy) match of the
+  literal term against that same text.
+
+Relevance is explicitly for RETRIEVAL ONLY: `score_repository_relevance()`
+and `RepositorySelection` are never consulted by `match_job()` or
+`assess_job()`, which still run unmodified against whatever Evidence
+the selected repositories' real deep extraction actually produced --
+being selected is never, itself, evidence of satisfying a requirement.
+
+### 26.4 Budget and determinism
+
+`DEFAULT_TOP_N=15` (unchanged, §/Milestone 5B) +
+`DEFAULT_RELEVANCE_TOP_K=10` (new) → `DEFAULT_MAX_SELECTED=25` (new,
+exactly their sum -- a redundant-but-explicit hard cap, never looser
+than the N/K pairing already implies). Zero-relevance repositories
+never enter the relevance top-K at all (score `0.0` is filtered before
+sorting). Tie-break: relevance score descending, then repository name
+ascending/case-insensitive (no recency/size level, unlike `rank.py`'s
+own tie-break -- relevance is a topical-match signal, not a
+substantiveness signal). Ordering policy: generic top-N's own order is
+NEVER reordered; job-relevant additions are appended afterward, in
+relevance order, skipping any repository already present. Fully
+deterministic for fixed inputs (verified by a dedicated test,
+`test_selection_is_deterministic_across_repeated_calls`).
+
+### 26.5 `CandidateEvidenceProfile` semantics under job-aware selection
+
+No schema change: `CandidateEvidenceProfile` gains zero new fields.
+Documented caveat instead (on that class's own docstring and on
+`extract_candidate_evidence()`'s): when
+`extract_candidate_evidence()` is called WITH `job_relevance_terms`,
+the repository set (and therefore `coverage`/`evidence`/
+`concept_summaries`) may differ from a job-independent call for the
+SAME candidate -- the returned instance is a bounded, job-CONDITIONED
+snapshot for that one run, never the universal job-independent profile
+safe to cache/reuse across multiple jobs. Calling with no
+`job_relevance_terms` (the default) still produces the one
+job-independent profile. This milestone adds no caching of any kind --
+only this documented semantics, so a FUTURE caching layer does not
+accidentally treat a job-conditioned profile as universally complete.
+`EvidenceExtractionResult` (the pipeline-level diagnostics wrapper,
+already explicitly NOT part of the domain model) gains one new optional
+field, `repository_selection: RepositorySelection | None`, mirroring how
+`extractor_failures` was added in Milestone 5D -- purely a
+tests/evaluation/debugging diagnostic, never serialized by the HTTP
+API.
+
+### 26.6 Offline evaluation
+
+New, additive harness: `scripts/evaluate_repository_retrieval.py` +
+`scripts/evaluation_lib/retrieval_eval.py` +
+`evaluation/gold/retrieval_cases.json` (NEW gold, corpus version
+`8d2:v1` -- does not touch/correct any `8c:v1`/`8c:v1.1` file).
+`scripts/evaluate_end_to_end.py` itself is UNTOUCHED and still calls
+`extract_candidate_evidence()` with no `job_relevance_terms`, so its
+own published report is byte-for-byte unchanged by this milestone.
+
+7 cases across the project's 4 real candidate fixtures, classified by
+`classify_retrieval_outcome()` (`scripts/evaluation_lib/retrieval_eval.py`)
+into five outcomes that keep a genuinely relevant-but-excluded
+repository structurally distinct from a correct negative control --
+relevance ground truth (`genuinely_relevant`) is never revised just
+because the algorithm fails to recover a relevant repository (a
+post-review correction; see
+`docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md` Section 6 for
+the full rationale and `tests/test_evaluation_harness.py` for the
+regression guard). Of the 4 genuinely relevant cases: 2 RECOVERED
+(`Jango1324/Pneumonia-Detection-Ai` for `ml_engineering_01` and,
+demonstrating alternative-group retrieval end-to-end, for
+`general_swe_01`'s `[language.cpp, language.java, language.python]`
+OR group), 2 MISSED despite job-aware retrieval (measured, not assumed
+-- `karpathy/nn-zero-to-hero` and `sindresorhus/execa` both score
+correctly as genuinely relevant but rank outside the default
+`relevance_top_k=10` on their specific high-repo-count accounts; see
+§26.7). Of the 3 genuinely irrelevant negative controls (the SAME two
+repositories for an unrelated job, plus `sindresorhus/awesome` -- a
+huge-star low-substance repo): all 3 CORRECTLY EXCLUDED, 0
+false-positive additions -- confirming job-relevance does not chase
+star count or any common word.
+
+### 26.7 Known limitations
+
+- **Crowding on high-repo-count accounts**: when many repositories
+  share the SAME single weak signal (e.g. `sindresorhus`'s 992 of
+  1,142 repositories matching `language.javascript` alone for
+  `fullstack_01`), a fixed `relevance_top_k=10` still cannot surface
+  one specific repository among hundreds of ties (`execa` ranks 231st
+  of 992). A term matching multiple concepts (more of the job's
+  requirements at once) ranks higher and fares better
+  (`karpathy/nn-zero-to-hero` ranks 38th of 39 for the SAME reason, one
+  PREFERRED-weight-only match among many 1.0-2.0-scoring siblings).
+  Not fixed in 8D.2 -- the brief's own instruction was conservative
+  defaults, not tuning the budget to pass this evaluation's specific
+  cases.
+- Relevance deliberately does NOT apply Milestone 5B's fork/archived/
+  trivial-size dampeners -- topical match and general substantiveness
+  are different axes; a tiny but genuinely on-topic repository is still
+  retrievable. A low-substance match still only decides whether the
+  repo gets analyzed, never whether it counts as evidence.
+- `jobs/parsing/concepts.py`'s `find_bare_short_alias_mentions()`
+  (§25.3's job-description-prose fallback, gated on a nearby skill-
+  context word) is intentionally NOT extended to repository metadata --
+  a repo name/topic never carries that context vocabulary, so bare `c`
+  remains retrievable only via the structured `primary_language` field
+  here, never via text.
+- No embeddings, no LLM, no fuzzy matching, no CatBoost -- exact,
+  deterministic, boundary-safe matching only, exactly as the milestone
+  required.
+- `rank.py`/`config.py` (Milestone 5B), the matcher, the assessment
+  formula, the API contract, and the frontend are all UNCHANGED.

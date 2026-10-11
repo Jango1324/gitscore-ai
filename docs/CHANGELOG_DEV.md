@@ -1,5 +1,153 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-06 — Milestone 8D.2: Job-aware repository retrieval
+
+**What changed:** Follows directly from Milestone 8C's evaluation
+(Section 13) and Milestone 8D.1's own §25.7 named limitation: Milestone
+5B's generic, job-independent repository ranking can exclude a
+repository that is highly relevant to one SPECIFIC job posting, purely
+because a prolific candidate has too many repositories competing for
+too few analysis slots (e.g. `karpathy/nn-zero-to-hero`, 24.6k stars,
+excluded from a 63-repo account's top-15; `sindresorhus/execa`, 7.6k
+stars, excluded from a 1,142-repo account's top-15). Full writeup:
+`docs/ARCHITECTURE.md` §26. Full evaluation record:
+`docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md`.
+
+**Architecture — a second, independent retrieval signal:** new module
+`gitscore.ranking.job_relevance` adds Stage-2 job-relevance retrieval,
+deterministically UNIONED with Milestone 5B's frozen generic ranking
+(`rank.py`/`config.py` completely untouched, not one weight retuned,
+`REPOSITORY_RANKING_VERSION` stays `1`). Without job context, selection
+is byte-for-byte the pre-8D.2 behavior (confirmed: all 796 pre-existing
+tests pass unchanged). Union policy: generic top-N's own order is never
+reordered; job-relevant additions (not already present) are appended
+afterward in relevance order. Budget: `relevance_top_k=10` alongside
+the existing `top_n=15` → `max_selected=25` total (their exact sum).
+
+**Dependency direction (deliberate):** `gitscore.ranking.job_relevance`
+depends ONLY on `gitscore.concepts` — zero dependency on `gitscore.jobs`.
+The new `JobRelevanceTerm` (`concept_ids: tuple[str, ...]`, `weight:
+float`) is a small, neutral retrieval-query representation, not the
+full `JobRequirementProfile` domain model, so
+`pipeline.evidence.extract_candidate_evidence()` (the candidate-only
+entry point since Milestone 5D) never has to import `gitscore.jobs`.
+The one bridging function, `_relevance_terms_from_job_profile()`, lives
+in `gitscore.application.job_fit` — already documented as "the one
+layer allowed to know about all of them together." Verified
+non-circular: `gitscore.jobs` imports only `gitscore.concepts`
+throughout its package.
+
+**Relevance signal:** one `JobRelevanceTerm` per technical
+`JobRequirement` (non-technical claims never produce one);
+`alternative_concept_ids` reused as-is for OR-group ANY-matching;
+weight REQUIRED=1.0/PREFERRED=0.5 (`Importance` deliberately unused). A
+repository matches via (1) the structured `primary_language` field
+resolving to the exact concept id (recovers even bare-unsafe-alias
+concepts like `language.c`), (2) a `readme_safe_aliases()`-gated,
+overlap-resolved text match against name/description/topics (reusing
+8D.1's `select_longest_overlapping_matches` — "React Native" never
+misattributes as plain "React"; bare "go"/"c" never match), or (3) a
+bounded, exact, word-boundary-safe match for an `unresolved:<term>`
+concept. Relevance is retrieval-only — never consulted by
+`match_job()`/`assess_job()`.
+
+**`CandidateEvidenceProfile` semantics:** no schema change (zero new
+fields). Documented caveat instead: a job-aware call's returned profile
+is a bounded, job-CONDITIONED snapshot that may differ from a
+job-independent call for the same candidate, and must never be cached
+as the universal profile. `EvidenceExtractionResult` (already outside
+the domain model) gains one optional diagnostic field,
+`repository_selection`, not serialized by the HTTP API.
+
+**Offline evaluation:** new, additive harness
+(`scripts/evaluate_repository_retrieval.py`,
+`scripts/evaluation_lib/retrieval_eval.py`,
+`evaluation/gold/retrieval_cases.json`, corpus `8d2:v1`) —
+`scripts/evaluate_end_to_end.py` is untouched and its published report
+is unchanged. 7 gold cases, classified by `classify_retrieval_outcome()`
+into outcomes that keep relevance ground truth separate from the
+observed result (see "Evaluation-integrity correction" below): of 4
+genuinely relevant cases, 2 RECOVERED (`Jango1324/Pneumonia-Detection-Ai`
+for `ml_engineering_01` and, via alternative-group ANY-matching,
+`general_swe_01`) and 2 MISSED despite job-aware retrieval, measured not
+assumed — `karpathy/nn-zero-to-hero` (ranks 38th of 39 relevant repos,
+just outside the top-10 budget) and `sindresorhus/execa` (ranks 231st
+of 992 — an extremely prolific, single-language-dominant account
+defeats a fixed top-10 the same way it already defeated the generic
+top-15); of 3 negative controls, all 3 correctly excluded, 0
+false-positive additions.
+
+**Evaluation-integrity correction (post-review, same milestone, before
+commit):** an earlier pass of this evaluator scored each case against a
+single `expect_recovered` field and had flipped `karpathy/nn-zero-to-hero`
+and `sindresorhus/execa` from `true` to `false` after the algorithm
+failed to recover them, reporting both as "correct" negative-control
+exclusions. Rejected on review: relevance ground truth must never be
+revised because the algorithm failed to recover a genuinely relevant
+repository. Fixed by separating `genuinely_relevant` (ground truth,
+never revised to match the algorithm's output) from `expected_analyzed`
+(a regression pin on the current measured outcome) in
+`evaluation/gold/retrieval_cases.json`, and adding
+`classify_retrieval_outcome()` (`scripts/evaluation_lib/retrieval_eval.py`)
+to turn that pair into five mutually exclusive outcomes
+(`RETRIEVAL_RECOVERED`/`RETRIEVAL_ALREADY_COVERED`/`RETRIEVAL_MISSED_RELEVANT`/
+`RETRIEVAL_CORRECTLY_EXCLUDED`/`RETRIEVAL_FALSE_POSITIVE_ADDITION`) that
+keep a missed relevant repository structurally distinct from a correct
+negative control. 8 new tests in `tests/test_evaluation_harness.py` pin
+this classification (synthetic inputs) and assert, against the real
+gold file, that both known-limitation cases keep `genuinely_relevant:
+true` — a permanent regression guard against this exact conflation.
+No production retrieval code changed (`gitscore.ranking.job_relevance`,
+the 15+10=25 budget, and the matcher/assessment formula are all
+unchanged) — purely an evaluation-harness and documentation fix; the
+regression pin (`expected_analyzed` vs. measured outcome) holds 7/7,
+confirming the implementation's actual behavior never changed, only how
+it is classified and reported.
+
+**Known limitations:** crowding on high-repo-count accounts where many
+repositories share one weak signal (documented above, not fixed —
+enlarging the budget to pass this evaluation's specific cases would be
+tuning to the benchmark, not a principled fix). Relevance deliberately
+skips Milestone 5B's fork/archived/trivial-size dampeners. The bare-C
+job-description-prose fallback (8D.1) is intentionally not extended to
+repo metadata. `scripts/evaluate_end_to_end.py` does not exercise
+job-aware retrieval (by design — its candidate profiles stay
+job-independent, reused across the matrix).
+
+**Versions:** `JOB_RELEVANCE_VERSION = 1` (new, `ranking/job_relevance.py`).
+`REPOSITORY_RANKING_VERSION`, `CONCEPT_REGISTRY_VERSION`,
+`JOB_DESCRIPTION_PARSER_VERSION`, `JOB_REQUIREMENT_SCHEMA_VERSION`,
+`EVIDENCE_SCHEMA_VERSION`, `MATCHER_VERSION`, `SCORING_VERSION` all
+unchanged.
+
+**Tests:** 841/841 backend (796 pre-existing + 45 new: 32 in
+`tests/test_job_relevance.py`, 3 in `tests/test_pipeline_evidence.py`,
+2 in `tests/test_application_job_fit.py`, 8 in
+`tests/test_evaluation_harness.py` for the integrity correction below).
+Frontend untouched and re-verified this milestone: 23/23 tests,
+`tsc --noEmit` clean, `next build` succeeds (no frontend or API code
+changed).
+
+**Files changed:** `src/gitscore/ranking/job_relevance.py` (new),
+`src/gitscore/ranking/__init__.py`, `src/gitscore/pipeline/evidence.py`,
+`src/gitscore/evidence/profile.py` (docstring only), `src/gitscore/application/job_fit.py`,
+`tests/test_job_relevance.py` (new), `tests/test_pipeline_evidence.py`,
+`tests/test_application_job_fit.py`, `tests/test_evaluation_harness.py`,
+`evaluation/gold/retrieval_cases.json`
+(new), `scripts/evaluate_repository_retrieval.py` (new),
+`scripts/evaluation_lib/retrieval_eval.py` (new),
+`scripts/evaluation_lib/loaders.py`, `evaluation/reports/retrieval_report.{json,md}`
+(new), `docs/ARCHITECTURE.md` (new §26), `docs/PIPELINE.md`,
+`docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md` (new),
+`docs/CHANGELOG_DEV.md` (this entry).
+
+**How to test:**
+```
+python -m pytest                                    # 841/841
+python scripts/evaluate_repository_retrieval.py      # new 8D.2 harness
+python scripts/evaluate_end_to_end.py                # unchanged, confirms byte-identical report
+```
+
 ## 2026-10-06 — Milestone 8D.1: Registry expansion & parser-precision fixes
 
 **What changed:** Follows directly from Milestone 8C's real-world

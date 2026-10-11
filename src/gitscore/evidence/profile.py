@@ -96,6 +96,23 @@ class CandidateEvidenceProfile:
     job, no match score, no required/preferred skills, no alternative
     roles. Job-conditional results are a separate object, computed
     later, from this profile plus a job requirement profile.
+
+    Milestone 8D.2 caveat -- SHAPE vs. CONTENT: this class's SHAPE
+    remains unconditionally job-independent (unchanged by 8D.2; no field
+    was added). Its CONTENT is a different matter once
+    `pipeline.evidence.extract_candidate_evidence()` is called WITH
+    `job_relevance_terms`: repository selection then also depends on job
+    relevance (`gitscore.ranking.job_relevance`), so two calls for the
+    SAME candidate against two DIFFERENT jobs may legitimately analyze
+    different repository sets and therefore produce two CandidateEvidenceProfile
+    instances with different `coverage`/`evidence`/`concept_summaries`.
+    A profile built this way is a bounded, job-CONDITIONED snapshot for
+    that one run -- it must never be cached or treated as THE single
+    canonical evidence profile for the candidate. Call
+    `extract_candidate_evidence()` with no `job_relevance_terms` (the
+    default) to get the one job-independent profile safe to reuse/cache
+    across multiple jobs; this milestone does not add any such caching
+    itself, only this documented caveat for a future one.
     """
 
     candidate: str

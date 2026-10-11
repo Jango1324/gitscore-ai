@@ -305,15 +305,35 @@ after the MVP is stable — consistent with what's in the repo today.
 Everything above (Stages 0-6b) is V1: `pipeline/analyze.py::analyze_user()`,
 completely unchanged by Milestone 5D. A second, separate entry point now
 exists: `gitscore.pipeline.evidence.extract_candidate_evidence(username)`,
-which fetches the repository listing, ranks it (Milestone 5B,
-job-independent), deep-analyzes only the top N=15 ranked repositories
-(languages, README, `requirements.txt`/`pyproject.toml`/`package.json`,
-Docker), and returns a `CandidateEvidenceProfile` (Milestone 5C) instead
-of a readiness score. It does not touch `features/*`, `scoring/
-readiness.py`, or Dataset V1. See `docs/ARCHITECTURE.md` §15 for the full
-data flow, extractor list, API cost model, and confidence/failure
-semantics, and `scripts/inspect_evidence_profile.py` to run it against a
-real account.
+which fetches the repository listing, selects repositories for deep
+analysis (Milestone 5B's job-independent generic ranking, optionally
+unioned with Milestone 8D.2's job-relevance retrieval -- see below),
+deep-analyzes only the selected repositories (languages, README,
+`requirements.txt`/`pyproject.toml`/`package.json`, Docker), and returns
+a `CandidateEvidenceProfile` (Milestone 5C) instead of a readiness
+score. It does not touch `features/*`, `scoring/readiness.py`, or
+Dataset V1. See `docs/ARCHITECTURE.md` §15 for the full data flow,
+extractor list, API cost model, and confidence/failure semantics, and
+`scripts/inspect_evidence_profile.py` to run it against a real account.
+
+### Job-aware repository retrieval — Milestone 8D.2 update
+
+`extract_candidate_evidence()` gained one new optional parameter,
+`job_relevance_terms` -- omitted (the default), repository selection is
+EXACTLY Milestone 5B's frozen generic ranking, byte-for-byte unchanged.
+When supplied (only by `analyze_job_fit()`, below, which has a real job
+to be aware of), selection becomes the deterministic union of that
+generic top-N and a second, independent "does this repository look
+relevant to THIS job" signal (`gitscore.ranking.job_relevance`), bounded
+at 15+10=25 repositories total. Exists because Milestone 5B's generic,
+job-independent ranking can and does exclude a repository that is
+highly relevant to one specific job posting on a prolific account (8C's
+own documented finding). `CandidateEvidenceProfile`'s shape is
+unchanged; its CONTENT may now differ between two calls for the same
+candidate against two different jobs -- see
+`docs/ARCHITECTURE.md` §26.5 for the documented caching caveat this
+implies, and §26 for the full design. `rank_repositories()`/
+`RankingWeights` (Milestone 5B) are completely untouched.
 
 ## Job-fit pipeline (Milestone 7A/7B) — built on top of V2, not V1
 
@@ -359,13 +379,21 @@ composes every stage above into one call:
 username                              raw job-description text
     |                                         |
     v                                         v
-extract_candidate_evidence()          parse_job_description()
-    |                                         |
+extract_candidate_evidence()  <--terms--  parse_job_description()
+    |                           (8D.2)         |
     v                                         |
 CandidateEvidenceProfile  ------+--------------+
                                  v
                            match_job()  ->  JobMatchAnalysis  ->  assess_job()  ->  JobAssessment
 ```
+
+Milestone 8D.2 adds the `<--terms--` edge: `job_description` is still
+parsed first (same fail-fast reasoning as before), and its parsed
+`JobRequirementProfile` is now also converted into job-relevance terms
+and passed into `extract_candidate_evidence()`, so repository selection
+is job-aware end-to-end for this one caller. `match_job()`/`assess_job()`
+are unaffected -- they still only ever see whatever Evidence the
+selected repositories' real deep extraction produced.
 
 It introduces no new analysis logic -- it calls each existing stage
 function exactly once and returns a `JobAnalysisResult` bundling

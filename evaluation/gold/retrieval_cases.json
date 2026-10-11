@@ -1,0 +1,62 @@
+{
+  "corpus_version": "8d2:v1",
+  "notes": "Milestone 8D.2 -- job-aware repository-retrieval gold. NEW gold, introduced by this milestone; does not correct or touch any 8c:v1/8c:v1.1 file. Each case names one candidate x job x repository triple. `genuinely_relevant` is an INDEPENDENT ground-truth judgment -- is this repository actually relevant to this job's real parsed requirements -- authored BEFORE/WITHOUT regard to whether the current implementation happens to recover it, and it is never revised just because the algorithm fails to recover a genuinely relevant repository (see docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md Section 6 for the review finding that corrected this file: two cases were briefly mis-encoded as if 'not recovered' meant 'not relevant', which this schema makes structurally impossible to repeat). `expected_analyzed` is a SEPARATE regression pin -- does the CURRENT implementation, as measured, actually end up analyzing this repository -- and is allowed to diverge from `genuinely_relevant` (a relevant repo can still be correctly reported as unrecovered; see evaluation_lib/retrieval_eval.py's `classify_retrieval_outcome()`, which turns (genuinely_relevant, expected_analyzed) into five mutually exclusive outcomes and keeps 'missed relevant repository' structurally distinct from 'correct negative control'). `genuinely_relevant: true` cases are drawn from Milestone 8C's own documented genuine ranking misses (retrieval_miss_relevant: true in evaluation/gold/candidates/*.json) paired with a job whose requirements plausibly make that specific repository relevant -- never assumed to hold for every job, and a job pairing that makes the SAME repository irrelevant (e.g. karpathy/frontend_01) gets its own `genuinely_relevant: false` case instead. Candidate names are lowercase fixture stems (evaluation/fixtures/candidates/<name>.json); job_ids reference evaluation/jobs/<job_id>.json's raw_text, parsed fresh by the real parser in this evaluator -- never re-derived from evaluation/gold/jobs/ or evaluation/gold_v1_1/jobs/ gold annotations.",
+  "cases": [
+    {
+      "candidate": "jango1324",
+      "job_id": "ml_engineering_01",
+      "repo": "Pneumonia-Detection-Ai",
+      "genuinely_relevant": true,
+      "expected_analyzed": true,
+      "rationale": "8C's own documented genuine ranking miss (retrieval_miss_relevant=true, gold/candidates/jango1324.json). This repo's GitHub-reported primary_language is Python; ml_engineering_01 requires language.python (REQUIRED) -- recoverable via the cheap structured language-field signal alone, no description/topics needed. Genuinely relevant AND successfully recovered by job-aware retrieval."
+    },
+    {
+      "candidate": "jango1324",
+      "job_id": "general_swe_01",
+      "repo": "Pneumonia-Detection-Ai",
+      "genuinely_relevant": true,
+      "expected_analyzed": true,
+      "rationale": "general_swe_01's sole technical requirement is an alternative group ['language.cpp','language.java','language.python'] (Proficiency in at least one of Python, Java, or C++) -- demonstrates ANY-side alternative-group relevance end-to-end (Part 4), not just in isolated unit tests. Genuinely relevant AND recovered via the same language.python match as the ml_engineering_01 case."
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "computer_vision_01",
+      "repo": "nn-zero-to-hero",
+      "genuinely_relevant": true,
+      "expected_analyzed": false,
+      "rationale": "GENUINELY RELEVANT -- this is a real ML-education repository and this repo's primary_language is 'Jupyter Notebook', which DOES earn real, correct relevance (score 0.5, the PREFERRED weight for computer_vision_01's language.jupyter_notebook term -- confirmed via score_repository_relevance() directly). It is still NOT ANALYZED (expected_analyzed=false) because karpathy's account has 39 total repositories scoring >0 for this job (mostly 1.0-2.0, matching the REQUIRED language.python/ml.framework.pytorch/platform.cuda terms), and this repo ranks 38th of 39 by score -- far outside the default relevance_top_k=10. This MUST be reported as a missed relevant repository (classify_retrieval_outcome -> RETRIEVAL_MISSED_RELEVANT), never as a correctly-excluded negative control -- the relevance signal correctly identifies it as relevant; the fixed top-10 budget still excludes it because so many OTHER repos score higher. Increasing relevance_top_k specifically to recover this one case would be tuning the budget to this evaluation rather than choosing it on its own merits (Milestone brief: 'conservative defaults based on the existing top_n=15 behavior') -- documented as a known limitation instead (docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md)."
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "frontend_01",
+      "repo": "nn-zero-to-hero",
+      "genuinely_relevant": false,
+      "expected_analyzed": false,
+      "rationale": "GENUINE NEGATIVE CONTROL for the same repository as the case above: frontend_01's required concepts are language.javascript/language.typescript/framework.react/language.css -- none of which this Jupyter-Notebook ML repo's language field or free text plausibly satisfies. Demonstrates recovery is JOB-SPECIFIC, never a blanket 'always retrieve this repo' rule (Milestone brief's explicit warning), and that the SAME repository can be genuinely relevant to one job (the case above) and genuinely irrelevant to another."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "fullstack_01",
+      "repo": "execa",
+      "genuinely_relevant": true,
+      "expected_analyzed": false,
+      "rationale": "GENUINELY RELEVANT -- a well-engineered, widely-used JavaScript process-execution library, and this repo's primary_language is JavaScript, which DOES earn real, correct relevance (score 1.0, matching fullstack_01's REQUIRED language.javascript term -- confirmed via score_repository_relevance() directly). It is still NOT ANALYZED (expected_analyzed=false) because sindresorhus has 1,142 repositories and 992 of them score >0 for this job (the account is overwhelmingly JavaScript/TypeScript, so a single language-field match is a very weak discriminator here) -- execa ties at score 1.0 with hundreds of others and ranks 231st of 992 by the deterministic name-ascending tie-break, far outside relevance_top_k=10. This MUST be reported as a missed relevant repository (RETRIEVAL_MISSED_RELEVANT), never as a correctly-excluded negative control. This is the SAME underlying problem 8C's own evaluation named for this exact account/repository (an extremely prolific account defeats any small fixed cutoff) -- Stage-2 retrieval narrows but does not eliminate it for a single-weak-signal match on a 1000+-repository account; a stronger/more specific job requirement (matching execa's own topics -- 'exec', 'spawn', 'child-process' -- none of which any job in this corpus names) or a larger budget would be needed, and is documented as a known limitation rather than forced via a larger default (docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md)."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "robotics_controls_01",
+      "repo": "execa",
+      "genuinely_relevant": false,
+      "expected_analyzed": false,
+      "rationale": "GENUINE NEGATIVE CONTROL for the same repository: robotics_controls_01 requires robotics.ros2/language.python/language.cpp -- none of which a JavaScript process-execution library's language field or free text (topics: binary, child-process, exec, nodejs, shell, spawn...) plausibly satisfies."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "frontend_01",
+      "repo": "awesome",
+      "genuinely_relevant": false,
+      "expected_analyzed": false,
+      "rationale": "GENUINE NEGATIVE CONTROL against a hugely-starred but genuinely low-substance repository (a curated markdown link-list, no real 'language', gold/candidates/sindresorhus.json's own documented DELIBERATE deprioritization -- not a retrieval miss). Must not be pulled in by job relevance either: its description/topics (awesome, awesome-list, lists, resources, unicorns) share no concept with frontend_01's JS/TS/React/CSS requirements. Confirms job-aware retrieval does not simply chase star count or any common word."
+    }
+  ]
+}

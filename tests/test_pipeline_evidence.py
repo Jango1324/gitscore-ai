@@ -11,6 +11,7 @@ from conftest import FakeEvidenceGitHubClient, raw_repo, root_entry
 
 from gitscore.github.exceptions import GitHubRateLimitError, GitHubRequestError
 from gitscore.pipeline.evidence import extract_candidate_evidence
+from gitscore.ranking.job_relevance import JobRelevanceTerm
 
 
 def _trivial_repo(name):
@@ -105,6 +106,57 @@ def test_only_selected_repositories_receive_deep_fetches():
     # Every piece of language evidence must belong to a selected repo.
     evidenced_repo_names = {item.repository.name for item in result.profile.evidence}
     assert evidenced_repo_names <= analyzed_names
+
+
+# ---------------------------------------------------------------------------
+# Milestone 8D.2 -- job-aware retrieval (job_relevance_terms)
+# ---------------------------------------------------------------------------
+
+
+def test_candidate_only_call_is_unaffected_by_job_relevance_feature_existing():
+    # No job_relevance_terms at all -- byte-for-byte the pre-8D.2
+    # behavior, confirming the candidate-only entry point still works
+    # with zero job context.
+    repos = [_trivial_repo(f"repo-{i:02d}") for i in range(20)]
+    client = FakeEvidenceGitHubClient(repos=repos)
+
+    result = extract_candidate_evidence("octocat", client=client, top_n=15)
+
+    assert result.profile.coverage.analyzed_count == 15
+    assert result.repository_selection is not None
+    assert result.repository_selection.job_relevant_additions == ()
+    assert result.repository_selection.names == result.repository_selection.generic_names
+
+
+def test_job_relevant_repository_outside_top_n_is_analyzed():
+    repos = [_trivial_repo(f"repo-{i:02d}") for i in range(15)]
+    repos.append(raw_repo(name="zzz-hidden-gem", description=None, language=None, stargazers_count=0, topics=["pytorch"]))
+    client = FakeEvidenceGitHubClient(repos=repos)
+    terms = (JobRelevanceTerm(concept_ids=("ml.framework.pytorch",), weight=1.0),)
+
+    generic_result = extract_candidate_evidence("octocat", client=client, top_n=15)
+    job_aware_result = extract_candidate_evidence("octocat", client=client, top_n=15, job_relevance_terms=terms)
+
+    generic_names = {r.name for r in generic_result.profile.coverage.analyzed}
+    job_aware_names = {r.name for r in job_aware_result.profile.coverage.analyzed}
+
+    assert "zzz-hidden-gem" not in generic_names
+    assert "zzz-hidden-gem" in job_aware_names
+    assert job_aware_result.repository_selection.job_relevant_additions == ("zzz-hidden-gem",)
+
+
+def test_job_relevant_addition_receives_the_same_deep_extraction():
+    repos = [_trivial_repo(f"repo-{i:02d}") for i in range(15)]
+    repos.append(raw_repo(name="zzz-hidden-gem", description=None, language=None, stargazers_count=0, topics=["pytorch"]))
+    client = FakeEvidenceGitHubClient(
+        repos=repos, languages={"zzz-hidden-gem": {"Python": 5000}}
+    )
+    terms = (JobRelevanceTerm(concept_ids=("ml.framework.pytorch",), weight=1.0),)
+
+    result = extract_candidate_evidence("octocat", client=client, top_n=15, job_relevance_terms=terms)
+
+    evidenced_names = {item.repository.name for item in result.profile.evidence}
+    assert "zzz-hidden-gem" in evidenced_names
 
 
 # ---------------------------------------------------------------------------

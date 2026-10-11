@@ -3,8 +3,8 @@
     GitHub username                      raw job-description text
         |                                         |
         v                                         v
-    extract_candidate_evidence()          parse_job_description()
-    (gitscore.pipeline.evidence)          (gitscore.jobs)
+    extract_candidate_evidence()  <--terms--  parse_job_description()
+    (gitscore.pipeline.evidence)     (8D.2)   (gitscore.jobs)
         |                                         |
         v                                         |
     CandidateEvidenceProfile  --------+------------+
@@ -29,11 +29,26 @@ next. See each stage's own package (`gitscore.pipeline.evidence`,
 `gitscore.jobs`, `gitscore.matching`, `gitscore.assessment`) for what it
 actually computes.
 
+Milestone 8D.2 adds the one new edge in the diagram above: job parsing
+now runs BEFORE evidence extraction not only for the fail-fast reason
+described below, but because `_relevance_terms_from_job_profile()`
+(this module) converts the parsed `JobRequirementProfile` into
+`gitscore.ranking.job_relevance.JobRelevanceTerm`s and passes them into
+`extract_candidate_evidence(..., job_relevance_terms=...)`, so repository
+selection can also consider job relevance. This is still pure
+composition, not new analysis logic: the actual relevance SCORING lives
+in `gitscore.ranking.job_relevance`, not here.
+
 Dependency direction: `gitscore.application` depends on
 `gitscore.pipeline`, `gitscore.jobs`, `gitscore.matching`, and
 `gitscore.assessment`. None of those packages import anything from
 `gitscore.application` -- this is the one layer allowed to know about
-all of them together.
+all of them together, which is why the `JobRequirementProfile` ->
+`JobRelevanceTerm` bridge (`_relevance_terms_from_job_profile`, below)
+lives here rather than inside `gitscore.jobs` (which has no reason to
+know retrieval/ranking exists) or `gitscore.ranking.job_relevance`
+(which has no reason to know the job domain model exists) -- see that
+module's own docstring for the full rationale.
 
 External vs. deterministic boundary: `extract_candidate_evidence()` is
 the ONLY stage here that performs GitHub I/O. `parse_job_description()`,
@@ -64,14 +79,50 @@ from gitscore.assessment import JobAssessment, assess_job
 from gitscore.evidence.profile import CandidateEvidenceProfile
 from gitscore.github.client import GitHubClient
 from gitscore.jobs import JobRequirementProfile, parse_job_description
+from gitscore.jobs.types import Necessity
 from gitscore.matching import match_job
 from gitscore.pipeline.evidence import ExtractionFailure, extract_candidate_evidence
 from gitscore.ranking.config import DEFAULT_TOP_N
+from gitscore.ranking.job_relevance import JobRelevanceTerm, PREFERRED_WEIGHT, REQUIRED_WEIGHT
 
 
 def _require_non_blank(value: str, field_name: str) -> None:
     if not value or not value.strip():
         raise ValueError(f"{field_name} must not be empty/whitespace-only")
+
+
+def _relevance_terms_from_job_profile(job_profile: JobRequirementProfile) -> tuple[JobRelevanceTerm, ...]:
+    """Milestone 8D.2 -- bridge `JobRequirementProfile` (`gitscore.jobs`)
+    to the neutral `JobRelevanceTerm` retrieval-query representation
+    `extract_candidate_evidence()` actually accepts
+    (`gitscore.ranking.job_relevance`).
+
+    Lives HERE, not inside `gitscore.jobs` or `gitscore.ranking`,
+    precisely because this module is already "the one layer allowed to
+    know about all of them together" (see the module docstring above):
+    `gitscore.jobs` stays unaware retrieval/ranking exists at all, and
+    `gitscore.ranking.job_relevance` stays unaware the job domain model
+    exists at all -- see that module's own docstring, "dependency
+    direction," and
+    `docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md` for the full
+    rationale.
+
+    A non-technical requirement (`is_technical` False -- no `concept_id`,
+    no `alternative_concept_ids`) never produces a term (Part 6 of the
+    milestone brief: years-of-experience/degree/communication-skill
+    claims must never influence repository retrieval). Necessity maps to
+    a fixed weight (`REQUIRED_WEIGHT`/`PREFERRED_WEIGHT`); `Importance`
+    is deliberately NOT consulted (see `job_relevance.py`'s own
+    docstring for why).
+    """
+    terms = []
+    for requirement in job_profile.requirements:
+        if not requirement.is_technical:
+            continue
+        concept_ids = requirement.alternative_concept_ids or (requirement.concept_id,)
+        weight = REQUIRED_WEIGHT if requirement.necessity == Necessity.REQUIRED else PREFERRED_WEIGHT
+        terms.append(JobRelevanceTerm(concept_ids=concept_ids, weight=weight))
+    return tuple(terms)
 
 
 @dataclass(frozen=True)
@@ -140,8 +191,11 @@ def analyze_job_fit(
     _require_non_blank(username, "username")
 
     job_profile = parse_job_description(job_description, title=job_title, company=job_company)
+    relevance_terms = _relevance_terms_from_job_profile(job_profile)
 
-    evidence_result = extract_candidate_evidence(username, client=client, top_n=top_n)
+    evidence_result = extract_candidate_evidence(
+        username, client=client, top_n=top_n, job_relevance_terms=relevance_terms
+    )
 
     match_analysis = match_job(evidence_result.profile, job_profile)
     assessment = assess_job(match_analysis)

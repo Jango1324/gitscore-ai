@@ -1,0 +1,216 @@
+{
+  "corpus_version": "8d2:v1",
+  "aggregate": {
+    "cases_evaluated": 7,
+    "prediction_matches_expected": 7,
+    "prediction_mismatches_expected": 0,
+    "genuinely_relevant_cases": 4,
+    "relevant_recovered_by_job_awareness": 2,
+    "relevant_already_covered_by_generic_ranking": 0,
+    "relevant_missed_despite_job_awareness": 2,
+    "negative_control_cases": 3,
+    "negative_controls_correctly_excluded": 3,
+    "negative_controls_with_false_positive_addition": 0
+  },
+  "cases": [
+    {
+      "candidate": "jango1324",
+      "job_id": "ml_engineering_01",
+      "repo": "Pneumonia-Detection-Ai",
+      "genuinely_relevant": true,
+      "expected_analyzed": true,
+      "generic_analyzed": false,
+      "job_aware_analyzed": true,
+      "newly_recovered": true,
+      "outcome": "RETRIEVAL_RECOVERED",
+      "prediction_correct": true,
+      "rationale": "8C's own documented genuine ranking miss (retrieval_miss_relevant=true, gold/candidates/jango1324.json). This repo's GitHub-reported primary_language is Python; ml_engineering_01 requires language.python (REQUIRED) -- recoverable via the cheap structured language-field signal alone, no description/topics needed. Genuinely relevant AND successfully recovered by job-aware retrieval."
+    },
+    {
+      "candidate": "jango1324",
+      "job_id": "general_swe_01",
+      "repo": "Pneumonia-Detection-Ai",
+      "genuinely_relevant": true,
+      "expected_analyzed": true,
+      "generic_analyzed": false,
+      "job_aware_analyzed": true,
+      "newly_recovered": true,
+      "outcome": "RETRIEVAL_RECOVERED",
+      "prediction_correct": true,
+      "rationale": "general_swe_01's sole technical requirement is an alternative group ['language.cpp','language.java','language.python'] (Proficiency in at least one of Python, Java, or C++) -- demonstrates ANY-side alternative-group relevance end-to-end (Part 4), not just in isolated unit tests. Genuinely relevant AND recovered via the same language.python match as the ml_engineering_01 case."
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "computer_vision_01",
+      "repo": "nn-zero-to-hero",
+      "genuinely_relevant": true,
+      "expected_analyzed": false,
+      "generic_analyzed": false,
+      "job_aware_analyzed": false,
+      "newly_recovered": false,
+      "outcome": "RETRIEVAL_MISSED_RELEVANT",
+      "prediction_correct": true,
+      "rationale": "GENUINELY RELEVANT -- this is a real ML-education repository and this repo's primary_language is 'Jupyter Notebook', which DOES earn real, correct relevance (score 0.5, the PREFERRED weight for computer_vision_01's language.jupyter_notebook term -- confirmed via score_repository_relevance() directly). It is still NOT ANALYZED (expected_analyzed=false) because karpathy's account has 39 total repositories scoring >0 for this job (mostly 1.0-2.0, matching the REQUIRED language.python/ml.framework.pytorch/platform.cuda terms), and this repo ranks 38th of 39 by score -- far outside the default relevance_top_k=10. This MUST be reported as a missed relevant repository (classify_retrieval_outcome -> RETRIEVAL_MISSED_RELEVANT), never as a correctly-excluded negative control -- the relevance signal correctly identifies it as relevant; the fixed top-10 budget still excludes it because so many OTHER repos score higher. Increasing relevance_top_k specifically to recover this one case would be tuning the budget to this evaluation rather than choosing it on its own merits (Milestone brief: 'conservative defaults based on the existing top_n=15 behavior') -- documented as a known limitation instead (docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md)."
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "frontend_01",
+      "repo": "nn-zero-to-hero",
+      "genuinely_relevant": false,
+      "expected_analyzed": false,
+      "generic_analyzed": false,
+      "job_aware_analyzed": false,
+      "newly_recovered": false,
+      "outcome": "RETRIEVAL_CORRECTLY_EXCLUDED",
+      "prediction_correct": true,
+      "rationale": "GENUINE NEGATIVE CONTROL for the same repository as the case above: frontend_01's required concepts are language.javascript/language.typescript/framework.react/language.css -- none of which this Jupyter-Notebook ML repo's language field or free text plausibly satisfies. Demonstrates recovery is JOB-SPECIFIC, never a blanket 'always retrieve this repo' rule (Milestone brief's explicit warning), and that the SAME repository can be genuinely relevant to one job (the case above) and genuinely irrelevant to another."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "fullstack_01",
+      "repo": "execa",
+      "genuinely_relevant": true,
+      "expected_analyzed": false,
+      "generic_analyzed": false,
+      "job_aware_analyzed": false,
+      "newly_recovered": false,
+      "outcome": "RETRIEVAL_MISSED_RELEVANT",
+      "prediction_correct": true,
+      "rationale": "GENUINELY RELEVANT -- a well-engineered, widely-used JavaScript process-execution library, and this repo's primary_language is JavaScript, which DOES earn real, correct relevance (score 1.0, matching fullstack_01's REQUIRED language.javascript term -- confirmed via score_repository_relevance() directly). It is still NOT ANALYZED (expected_analyzed=false) because sindresorhus has 1,142 repositories and 992 of them score >0 for this job (the account is overwhelmingly JavaScript/TypeScript, so a single language-field match is a very weak discriminator here) -- execa ties at score 1.0 with hundreds of others and ranks 231st of 992 by the deterministic name-ascending tie-break, far outside relevance_top_k=10. This MUST be reported as a missed relevant repository (RETRIEVAL_MISSED_RELEVANT), never as a correctly-excluded negative control. This is the SAME underlying problem 8C's own evaluation named for this exact account/repository (an extremely prolific account defeats any small fixed cutoff) -- Stage-2 retrieval narrows but does not eliminate it for a single-weak-signal match on a 1000+-repository account; a stronger/more specific job requirement (matching execa's own topics -- 'exec', 'spawn', 'child-process' -- none of which any job in this corpus names) or a larger budget would be needed, and is documented as a known limitation rather than forced via a larger default (docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md)."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "robotics_controls_01",
+      "repo": "execa",
+      "genuinely_relevant": false,
+      "expected_analyzed": false,
+      "generic_analyzed": false,
+      "job_aware_analyzed": false,
+      "newly_recovered": false,
+      "outcome": "RETRIEVAL_CORRECTLY_EXCLUDED",
+      "prediction_correct": true,
+      "rationale": "GENUINE NEGATIVE CONTROL for the same repository: robotics_controls_01 requires robotics.ros2/language.python/language.cpp -- none of which a JavaScript process-execution library's language field or free text (topics: binary, child-process, exec, nodejs, shell, spawn...) plausibly satisfies."
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "frontend_01",
+      "repo": "awesome",
+      "genuinely_relevant": false,
+      "expected_analyzed": false,
+      "generic_analyzed": false,
+      "job_aware_analyzed": false,
+      "newly_recovered": false,
+      "outcome": "RETRIEVAL_CORRECTLY_EXCLUDED",
+      "prediction_correct": true,
+      "rationale": "GENUINE NEGATIVE CONTROL against a hugely-starred but genuinely low-substance repository (a curated markdown link-list, no real 'language', gold/candidates/sindresorhus.json's own documented DELIBERATE deprioritization -- not a retrieval miss). Must not be pulled in by job relevance either: its description/topics (awesome, awesome-list, lists, resources, unicorns) share no concept with frontend_01's JS/TS/React/CSS requirements. Confirms job-aware retrieval does not simply chase star count or any common word."
+    }
+  ],
+  "pairs": [
+    {
+      "candidate": "jango1324",
+      "job_id": "ml_engineering_01",
+      "generic_analyzed_count": 15,
+      "job_aware_analyzed_count": 16,
+      "job_aware_additions": [
+        "Pneumonia-Detection-Ai"
+      ],
+      "max_selected_observed": 16
+    },
+    {
+      "candidate": "jango1324",
+      "job_id": "general_swe_01",
+      "generic_analyzed_count": 15,
+      "job_aware_analyzed_count": 16,
+      "job_aware_additions": [
+        "Pneumonia-Detection-Ai"
+      ],
+      "max_selected_observed": 16
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "computer_vision_01",
+      "generic_analyzed_count": 15,
+      "job_aware_analyzed_count": 22,
+      "job_aware_additions": [
+        "arxiv-sanity-lite",
+        "arxiv-sanity-preserver",
+        "cryptos",
+        "examples",
+        "neuraltalk2",
+        "pytorch-made",
+        "pytorch-normalizing-flows"
+      ],
+      "max_selected_observed": 22
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "frontend_01",
+      "generic_analyzed_count": 15,
+      "job_aware_analyzed_count": 22,
+      "job_aware_additions": [
+        "forestjs",
+        "lifejs",
+        "notpygamejs",
+        "recurrentjs",
+        "reinforcejs",
+        "svmjs",
+        "tsnejs"
+      ],
+      "max_selected_observed": 22
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "fullstack_01",
+      "generic_analyzed_count": 15,
+      "job_aware_analyzed_count": 25,
+      "job_aware_additions": [
+        "acosh",
+        "class-names",
+        "gulp-react",
+        "ink-box",
+        "is-docker",
+        "is-inside-container",
+        "react-dom-pragma",
+        "react-extras",
+        "sublime-jsrun",
+        "unstated-debug"
+      ],
+      "max_selected_observed": 25
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "robotics_controls_01",
+      "generic_analyzed_count": 15,
+      "job_aware_analyzed_count": 22,
+      "job_aware_additions": [
+        "Dagbladet-bildeserier.bundle",
+        "editorconfig-sublime",
+        "fullname-native",
+        "pwuid",
+        "sublime-jsrun",
+        "weechat-notification-center",
+        "whisper.cpp"
+      ],
+      "max_selected_observed": 22
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "frontend_01",
+      "generic_analyzed_count": 15,
+      "job_aware_analyzed_count": 25,
+      "job_aware_additions": [
+        "add-module-exports-webpack-plugin",
+        "atom-autoprefixer",
+        "atom-perfectionist",
+        "broccoli-autoprefixer",
+        "broccoli-cssnano",
+        "broccoli-csso",
+        "broccoli-strip-css-comments",
+        "broccoli-stylus",
+        "broccoli-uncss",
+        "class-names"
+      ],
+      "max_selected_observed": 25
+    }
+  ]
+}

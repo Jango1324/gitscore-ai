@@ -3,8 +3,10 @@
     GitHub username
         -> GitHubClient.get_repositories()            listing (paginated)
         -> parse_repo_summary()                        per-repo, zero extra calls (5B)
-        -> rank_repositories()                          job-independent ranking (5B)
-        -> top N selected repositories
+        -> select_repositories()                        generic ranking (5B) +
+                                                          optional job-relevance
+                                                          retrieval (8D.2)
+        -> selected repositories (bounded)
         -> bounded deep extraction per selected repo:
              languages, README, root-file discovery,
              requirements.txt / pyproject.toml / package.json, Docker
@@ -17,12 +19,16 @@ repository, still produces the historical readiness score, still writes
 to Dataset V1. Nothing in this module is imported by `analyze.py` or any
 V1 script, and this module imports nothing from `features/*` or
 `scoring/readiness.py`. See `docs/ARCHITECTURE.md`'s Milestone 5D section
-for the full design rationale and API-cost model.
+for the full design rationale and API-cost model, and its Milestone 8D.2
+section for `select_repositories()`'s job-relevance addition.
 
-Deep-analysis cost is bounded by `top_n`, not by the candidate's total
-repository count (Milestone 5D Part 3) -- exactly one root-listing
-request per selected repository decides which manifest/Docker files
-exist, instead of guessing at every candidate filename individually.
+Deep-analysis cost is bounded, not by the candidate's total repository
+count (Milestone 5D Part 3) -- exactly one root-listing request per
+selected repository decides which manifest/Docker files exist, instead
+of guessing at every candidate filename individually. Milestone 8D.2's
+optional `job_relevance_terms` widens the bound from `top_n` to at most
+`top_n + relevance_top_k` (see `ranking.job_relevance.select_repositories()`),
+never removes it.
 """
 from __future__ import annotations
 
@@ -43,7 +49,7 @@ from gitscore.github.client import GitHubClient
 from gitscore.github.exceptions import GitHubError, GitHubRateLimitError
 from gitscore.github.parser import parse_repo_summary
 from gitscore.ranking.config import DEFAULT_TOP_N
-from gitscore.ranking.rank import rank_repositories
+from gitscore.ranking.job_relevance import JobRelevanceTerm, RepositorySelection, select_repositories
 
 # One (filename, parser, extractor_version, exceptions-that-mean-"malformed")
 # entry per supported manifest. Adding a manifest format is one new tuple
@@ -74,7 +80,11 @@ class ExtractionFailure:
 class EvidenceExtractionResult:
     """Everything `extract_candidate_evidence()` produces for one candidate.
 
-    `profile` is the job-independent `CandidateEvidenceProfile` (5C).
+    `profile` is `CandidateEvidenceProfile` (5C) -- see that class's own
+    docstring for an important Milestone 8D.2 caveat: it is
+    UNCONDITIONALLY job-independent in SHAPE, but when this run was
+    given `job_relevance_terms`, its `coverage`/`evidence` CONTENT may
+    differ from a job-independent run for the exact same candidate.
     `extractor_failures` and `unknown_dependency_names` are pipeline-level
     diagnostics for reporting/validation (Milestone 5D Part 17-19) -- they
     are deliberately NOT part of `CandidateEvidenceProfile` itself, so
@@ -82,11 +92,21 @@ class EvidenceExtractionResult:
     diagnostics) that isn't about the candidate's technical evidence.
     `RepositoryAnalysisCoverage.partially_analyzed` (on `profile.coverage`)
     is the queryable, per-repository summary of the same failures.
+
+    `repository_selection` (Milestone 8D.2, optional) is the
+    `gitscore.ranking.job_relevance.RepositorySelection` this run's
+    repository set came from -- which repos the frozen Stage-1 generic
+    ranking picked vs. which, if any, Stage-2 job-relevance retrieval
+    added, and why (`RepositoryRelevanceResult.reasons`). Like
+    `extractor_failures`, this is a pipeline-level diagnostic, never
+    part of `CandidateEvidenceProfile` itself, and is NOT serialized by
+    the HTTP API -- it exists for tests/evaluation/debugging only.
     """
 
     profile: CandidateEvidenceProfile
     extractor_failures: tuple[ExtractionFailure, ...] = ()
     unknown_dependency_names: tuple[str, ...] = ()
+    repository_selection: RepositorySelection | None = None
 
 
 def _process_manifest(client, owner, repo_name, discovered_files, filename, parse_fn, malformed_exceptions, extractor_version):
@@ -191,14 +211,29 @@ def extract_candidate_evidence(
     client: GitHubClient | None = None,
     top_n: int = DEFAULT_TOP_N,
     collected_at: datetime | None = None,
+    job_relevance_terms: tuple[JobRelevanceTerm, ...] | None = None,
 ) -> EvidenceExtractionResult:
     """Run the full V2 evidence pipeline for one GitHub username.
 
-    Deep extraction only runs on the `top_n` repositories `rank_repositories()`
-    selects (all of them, if the candidate has `top_n` or fewer) -- a
-    repository ranked outside that selection is `discovered` but not
-    `analyzed`. That is a truthful, expected outcome of the ranking budget,
-    never manually overridden here (Milestone 5D Part 15).
+    Deep extraction only runs on the repositories
+    `gitscore.ranking.job_relevance.select_repositories()` selects (all
+    of them, if the candidate has `top_n` or fewer) -- a repository
+    outside that selection is `discovered` but not `analyzed`. That is a
+    truthful, expected outcome of the ranking budget, never manually
+    overridden here (Milestone 5D Part 15).
+
+    `job_relevance_terms` (Milestone 8D.2, optional) is this candidate-
+    only entry point's SOLE new parameter: omitted or `None` (the
+    default), repository selection is exactly `rank_repositories()`'s
+    frozen Milestone 5B output, byte-for-byte unchanged from before this
+    milestone -- this function remains fully usable with no job context
+    at all. When supplied (by `gitscore.application.job_fit.analyze_job_fit()`,
+    the one caller that has a job to be aware of), repository selection
+    also considers Stage-2 job-relevance retrieval; see
+    `select_repositories()`'s own docstring for the deterministic union
+    policy and budget, and `CandidateEvidenceProfile`'s docstring for
+    why the RESULTING profile is a job-CONDITIONED snapshot in that case,
+    not the universal job-independent one.
 
     A `GitHubRateLimitError` raised at any point aborts the whole run and
     propagates to the caller -- nothing is silently partial-returned past
@@ -210,8 +245,8 @@ def extract_candidate_evidence(
     discovered = tuple(RepositoryIdentity(owner=username, name=repo["name"]) for repo in repos_raw)
 
     summaries = [parse_repo_summary(repo) for repo in repos_raw]
-    ranked = rank_repositories(summaries, top_n=top_n)
-    selected_names = [result.name for result in ranked]
+    selection = select_repositories(summaries, top_n=top_n, job_relevance_terms=job_relevance_terms)
+    selected_names = list(selection.names)
 
     all_evidence: list[Evidence] = []
     all_failures: list[ExtractionFailure] = []
@@ -243,4 +278,5 @@ def extract_candidate_evidence(
         profile=profile,
         extractor_failures=tuple(all_failures),
         unknown_dependency_names=tuple(sorted(unknown_dependency_names)),
+        repository_selection=selection,
     )

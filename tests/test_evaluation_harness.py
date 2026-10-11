@@ -21,16 +21,18 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import pytest
 
-from evaluation_lib import parser_eval, taxonomy as tax
+from evaluation_lib import parser_eval, retrieval_eval, taxonomy as tax
 from evaluation_lib.loaders import (
     EvaluationFixtureError,
     build_fake_client,
     list_candidate_names,
     list_job_ids,
+    load_candidate_fixture,
     load_gold_candidate,
     load_gold_job,
     load_job,
     load_job_and_gold,
+    load_retrieval_cases,
 )
 
 
@@ -306,3 +308,126 @@ def test_matcher_integrity_rejects_out_of_scope_matched_ids():
         coverage=RepositoryAnalysisCoverage(discovered=(), analyzed=()), matcher_version="test:v1",
     )
     assert _matcher_integrity_ok(analysis) is True
+
+
+# ---------------------------------------------------------------------------
+# retrieval_eval classification algorithm (Milestone 8D.2)
+# ---------------------------------------------------------------------------
+# Pins classify_retrieval_outcome() -- the pure function that MUST keep
+# "a genuinely relevant repository the fixed budget still excludes"
+# (RETRIEVAL_MISSED_RELEVANT) structurally distinct from "a genuinely
+# irrelevant repository correctly excluded" (RETRIEVAL_CORRECTLY_EXCLUDED).
+# Review-driven correction: an earlier version of this harness conflated
+# the two by flipping a genuinely relevant repository's gold annotation
+# to "not relevant" once the algorithm failed to recover it. See
+# docs/evaluation/MILESTONE_8D2_JOB_AWARE_RETRIEVAL.md Section 6.
+
+
+def test_recovered_outcome_when_newly_added_by_job_relevance():
+    outcome = retrieval_eval.classify_retrieval_outcome(
+        genuinely_relevant=True, generic_analyzed=False, newly_recovered=True
+    )
+    assert outcome == retrieval_eval.RETRIEVAL_RECOVERED
+
+
+def test_already_covered_outcome_when_relevant_repo_was_already_in_generic_top_n():
+    outcome = retrieval_eval.classify_retrieval_outcome(
+        genuinely_relevant=True, generic_analyzed=True, newly_recovered=False
+    )
+    assert outcome == retrieval_eval.RETRIEVAL_ALREADY_COVERED
+
+
+def test_missed_relevant_outcome_when_relevant_repo_is_never_analyzed():
+    # The core guarantee: a genuinely relevant repository that neither
+    # the generic ranker nor job-aware retrieval ever analyzes MUST be
+    # reported as a miss, never silently reclassified as a correct
+    # negative control just because the observed outcome is "excluded."
+    outcome = retrieval_eval.classify_retrieval_outcome(
+        genuinely_relevant=True, generic_analyzed=False, newly_recovered=False
+    )
+    assert outcome == retrieval_eval.RETRIEVAL_MISSED_RELEVANT
+    assert outcome != retrieval_eval.RETRIEVAL_CORRECTLY_EXCLUDED
+
+
+def test_correctly_excluded_outcome_when_irrelevant_repo_is_never_added():
+    outcome = retrieval_eval.classify_retrieval_outcome(
+        genuinely_relevant=False, generic_analyzed=False, newly_recovered=False
+    )
+    assert outcome == retrieval_eval.RETRIEVAL_CORRECTLY_EXCLUDED
+
+
+def test_false_positive_outcome_when_irrelevant_repo_is_newly_added():
+    outcome = retrieval_eval.classify_retrieval_outcome(
+        genuinely_relevant=False, generic_analyzed=False, newly_recovered=True
+    )
+    assert outcome == retrieval_eval.RETRIEVAL_FALSE_POSITIVE_ADDITION
+
+
+def test_aggregate_metrics_keeps_missed_relevant_separate_from_negative_controls():
+    results = [
+        retrieval_eval.RetrievalCaseResult(
+            candidate="a", job_id="j1", repo="relevant-but-missed",
+            genuinely_relevant=True, expected_analyzed=False,
+            generic_analyzed=False, job_aware_analyzed=False, newly_recovered=False,
+            outcome=retrieval_eval.RETRIEVAL_MISSED_RELEVANT, prediction_correct=True, rationale="",
+        ),
+        retrieval_eval.RetrievalCaseResult(
+            candidate="a", job_id="j2", repo="genuinely-irrelevant",
+            genuinely_relevant=False, expected_analyzed=False,
+            generic_analyzed=False, job_aware_analyzed=False, newly_recovered=False,
+            outcome=retrieval_eval.RETRIEVAL_CORRECTLY_EXCLUDED, prediction_correct=True, rationale="",
+        ),
+    ]
+    metrics = retrieval_eval.aggregate_metrics(results)
+    # The "missed" repo must count toward the RELEVANT bucket, never the
+    # negative-control bucket -- the exact distinction this milestone's
+    # review required and the exact bug this test guards against.
+    assert metrics["genuinely_relevant_cases"] == 1
+    assert metrics["relevant_missed_despite_job_awareness"] == 1
+    assert metrics["negative_control_cases"] == 1
+    assert metrics["negative_controls_correctly_excluded"] == 1
+    assert metrics["negative_controls_with_false_positive_addition"] == 0
+
+
+def test_real_retrieval_gold_preserves_relevance_truth_for_known_limitation_cases():
+    # Guards the gold FILE itself: karpathy/nn-zero-to-hero and
+    # sindresorhus/execa are real, documented known-limitation cases --
+    # genuinely relevant repositories the default budget still excludes.
+    # `genuinely_relevant` must stay `true` even though `expected_analyzed`
+    # is `false` for both -- a future editor must never collapse this
+    # back into a single `expect_recovered: false` field.
+    cases = {(c["candidate"], c["job_id"], c["repo"]): c for c in load_retrieval_cases()["cases"]}
+
+    karpathy_case = cases[("karpathy", "computer_vision_01", "nn-zero-to-hero")]
+    assert karpathy_case["genuinely_relevant"] is True
+    assert karpathy_case["expected_analyzed"] is False
+
+    execa_case = cases[("sindresorhus", "fullstack_01", "execa")]
+    assert execa_case["genuinely_relevant"] is True
+    assert execa_case["expected_analyzed"] is False
+
+
+def test_real_known_limitation_cases_are_classified_missed_not_excluded():
+    # End-to-end version of the test above: runs the REAL pipeline
+    # against the real offline fixtures and confirms the evaluator
+    # itself reports these two cases as RETRIEVAL_MISSED_RELEVANT, never
+    # RETRIEVAL_CORRECTLY_EXCLUDED.
+
+    gold = load_retrieval_cases()
+    targets = {
+        ("karpathy", "computer_vision_01", "nn-zero-to-hero"),
+        ("sindresorhus", "fullstack_01", "execa"),
+    }
+    cases = [c for c in gold["cases"] if (c["candidate"], c["job_id"], c["repo"]) in targets]
+    assert len(cases) == 2
+
+    candidate_names = {c["candidate"] for c in cases}
+    job_ids = {c["job_id"] for c in cases}
+    fixtures = {name: load_candidate_fixture(name) for name in candidate_names}
+    jobs = {job_id: load_job(job_id) for job_id in job_ids}
+
+    results = retrieval_eval.evaluate_cases(cases, fixtures, jobs)
+    for result in results:
+        assert result.genuinely_relevant is True
+        assert result.outcome == retrieval_eval.RETRIEVAL_MISSED_RELEVANT
+        assert result.outcome != retrieval_eval.RETRIEVAL_CORRECTLY_EXCLUDED
