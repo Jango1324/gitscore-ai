@@ -151,3 +151,106 @@ def test_observation_snippet_is_bounded_not_the_whole_readme():
     assert len(evidence) == 1
     assert len(evidence[0].raw_observation) < len(huge_text)
     assert "postgresql" in evidence[0].raw_observation.lower()
+
+
+# ---------------------------------------------------------------------------
+# Milestone 8D.3 -- evidence attribution (section-heading + adjacency-cue
+# context filtering, gitscore.evidence.extraction.readme_context)
+# ---------------------------------------------------------------------------
+
+
+def test_known_false_positive_regression_karpathy_llm_c_notable_forks():
+    # The milestone's driving real-world case: a trimmed, faithful
+    # reproduction of karpathy/llm.c's actual "## notable forks" section
+    # (evaluation/fixtures/candidates/karpathy.json), which lists OTHER
+    # people's separate, externally-linked ports -- including three C++
+    # mentions -- none of which are evidence that llm.c itself uses C++
+    # (GitHub's own language stats put C++ at ~3.5% of llm.c's bytes,
+    # below languages.py's 5% significance floor).
+    text = (
+        "# llm.c\n\n"
+        "LLMs in simple, pure C/CUDA with no need for 245MB of PyTorch. "
+        "I'd like this repo to only maintain C and CUDA code. Ports to "
+        "other languages or repos are very welcome, but should be done "
+        "in separate repos.\n\n"
+        "## notable forks\n\n"
+        "- CUDA C++\n"
+        "  - [llm.cpp](https://example.com) by @someone: a port of this "
+        "project using the CUDA C++ Core Libraries\n\n"
+        "- C++/CUDA\n"
+        "  - [llm.cpp](https://example.com) by @someone: a port of this "
+        "project using Eigen, supporting CPU/CUDA.\n\n"
+        "- WebGPU C++\n"
+        "  - [gpu.cpp](https://example.com) by @someone: a library for "
+        "portable GPU compute in C++ using native WebGPU.\n"
+    )
+    evidence = evidence_from_readme("karpathy", "llm.c", text, "README.md")
+    concept_ids = {item.concept_id for item in evidence}
+    assert "language.cpp" not in concept_ids
+    # The genuine, non-forks-section mentions survive.
+    assert "platform.cuda" in concept_ids
+    assert "ml.framework.pytorch" in concept_ids
+
+
+def test_cpp_mentioned_outside_any_excluded_section_still_matches():
+    # Positive control: the same alias, the same concept, but as a
+    # genuine top-level implementation statement -- must still produce
+    # evidence. Proves the fix is about WHERE a mention sits, not a
+    # blacklist on "C++" itself.
+    evidence = evidence_from_readme("octocat", "repo", "Written in C++ for performance.", "README.md")
+    assert [item.concept_id for item in evidence] == ["language.cpp"]
+
+
+def test_genuine_mention_elsewhere_survives_even_when_forks_section_also_matches():
+    # If the SAME alias also appears legitimately outside the excluded
+    # section, that occurrence must still produce evidence -- excluding
+    # one occurrence must not discard the whole concept.
+    text = (
+        "Written in C++ for the core engine.\n\n"
+        "## notable forks\n\n"
+        "- a C++ port by someone else\n"
+    )
+    evidence = evidence_from_readme("octocat", "repo", text, "README.md")
+    assert [item.concept_id for item in evidence] == ["language.cpp"]
+
+
+def test_dependency_style_statement_still_matches_outside_excluded_context():
+    # Positive control: genuine dependency-flavored README statement.
+    evidence = evidence_from_readme("octocat", "repo", "Requires PyTorch 2.0 or later.", "README.md")
+    assert [item.concept_id for item in evidence] == ["ml.framework.pytorch"]
+
+
+def test_comparison_only_mention_is_excluded():
+    # Negative control: mentioned only in a direct, directional
+    # comparison ("unlike X") -- not evidence this repo uses X.
+    evidence = evidence_from_readme(
+        "octocat", "repo", "Unlike TensorFlow, this project has no GPU dependency.", "README.md"
+    )
+    assert "ml.framework.tensorflow" not in {item.concept_id for item in evidence}
+
+
+def test_external_reference_section_mention_is_excluded():
+    # Negative control: external project/reference section.
+    text = "# myproject\n\n## References\n\n- Built on ideas from the Rust compiler.\n"
+    evidence = evidence_from_readme("octocat", "repo", text, "README.md")
+    assert "language.rust" not in {item.concept_id for item in evidence}
+
+
+def test_explicit_non_use_statement_is_excluded():
+    # Negative control: explicit statement the technology is NOT used.
+    evidence = evidence_from_readme(
+        "octocat", "repo", "This project does not use TensorFlow anywhere.", "README.md"
+    )
+    assert "ml.framework.tensorflow" not in {item.concept_id for item in evidence}
+
+
+def test_future_intention_without_implementation_is_excluded():
+    # Negative control: planned, not implemented.
+    evidence = evidence_from_readme(
+        "octocat", "repo", "A Rust rewrite is on the roadmap.", "README.md"
+    )
+    assert "language.rust" not in {item.concept_id for item in evidence}
+
+
+def test_extractor_version_bumped_for_8d3():
+    assert EXTRACTOR_VERSION == "readme:v4"

@@ -1,5 +1,128 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-11 — Milestone 8D.3: Evidence attribution precision
+
+**What changed:** Fixes the known `karpathy/llm.c` -> `language.cpp`
+false positive already flagged (not fixed) in
+`evaluation/gold_v1_1/candidates/karpathy.json`'s `not_expected_concepts`.
+Root cause traced to actual evidence provenance, not assumed: `llm.c`'s
+real README has a "## notable forks" section listing OTHER people's
+separate, externally-linked ports (a C# port, a C++/CUDA port, a Go
+port, ...) — "C++" appears there three times, textually real, but never
+a claim that `llm.c` itself uses C++ (GitHub's own language stats put
+C++ at ~3.5% of `llm.c`'s bytes, below `languages.py`'s 5% significance
+floor). `extraction/readme.py`'s alias matcher had no notion of WHERE in
+the document a match sat — a provenance/attribution gap, not a
+matching-correctness bug. Confirmed NOT isolated to this one repo: the
+identical pattern independently exists in `karpathy/llama2.c`'s own
+"notable forks" section (a `llama2.ts` TypeScript port by a different
+author) and in most of `sindresorhus`'s small-library READMEs (a
+ubiquitous "## Related" section linking to the author's OTHER
+packages). Full writeup: `docs/ARCHITECTURE.md` §27. Full evaluation
+record: `docs/evaluation/MILESTONE_8D3_EVIDENCE_ATTRIBUTION.md`.
+
+**Fix — a new, source-aware attribution layer, not a technology
+blacklist:** new module `gitscore.evidence.extraction.readme_context`
+adds two deterministic, bounded signals checked per alias occurrence
+before it becomes Evidence: (1) a section-heading denylist (`"notable
+forks"`, `"related"`, `"acknowledgements"`, `"references"`, ... —
+normalized, markdown-emphasis-stripped headings; code-fence-aware so a
+shell comment is never mistaken for a heading), and (2) a small,
+curated, DIRECTIONAL set of negation/future-intent cues ("does not use
+X", "X is on the roadmap") checked in a fixed 60-character window
+immediately before/after the match. `readme.py`'s matching loop changed
+from one `.search()` per alias to `.finditer()` over every occurrence,
+skipping excluded ones — a concept's first occurrence being excluded no
+longer discards the whole concept; a later genuine occurrence (or the
+concept's next alias) is still tried. Same design spirit as Milestone
+5D.1's `readme_unsafe_aliases` (a per-ALIAS denylist) on an orthogonal
+axis (a per-CONTEXT denylist) — no per-technology special-casing,
+generalizes to any concept.
+
+**Precision/recall tradeoff — presented, not silently chosen:** a
+whole-sentence cue scan was prototyped and REJECTED. Generic comparison
+cues ("instead of", "rather than", "versus", "compared to") are
+directionally ambiguous at sentence scope — "Built in Python instead of
+C" affirms Python and negates C in the SAME sentence; a whole-sentence
+scan keyed on "instead of" would wrongly suppress the genuine Python
+mention too, with no principled way to tell which side of the sentence
+the matched term is on without the sentence-structure parsing this
+milestone's "no NLP" constraint forbids. Decision: restrict adjacency
+cues to a small, bounded, DIRECTIONAL set (where the cue's position
+relative to the match unambiguously determines what it negates) in a
+fixed small window, and exclude the ambiguous comparison cues entirely
+— a documented, intentional limitation (§27.5), not an oversight.
+
+**Evaluation (`python scripts/evaluate_evidence.py --corpus-version
+8c:v1.1`):** False positives `1 -> 0`. Concept checks unchanged, `10/10`
+found both before and after — zero recall regression, confirmed by
+direct inspection that every `expected_concepts` entry across all 4
+gold candidates sources from `language_stats`/`dependency`, never
+`readme`, so this extractor change could only ever affect false
+positives in this benchmark. The original frozen `8c:v1` benchmark
+(`evaluation/gold/`, `evaluation/reports/evidence_report.*`) is left
+un-regenerated in committed form, per "keep the original 8C benchmark
+and historical reports intact" — re-running it locally shows the same
+drop (`2 -> 1`) plus one pre-existing, unrelated stale entry
+(`sindresorhus/Gifski` -> `language.swift`, predating that concept's
+registration).
+
+**End-to-end consequence, verified not assumed
+(`scripts/evaluate_end_to_end.py`, also left un-regenerated in
+committed form):** re-running locally shows exactly one cell changes —
+`karpathy` x `frontend_01` (an intentionally cross-domain "negative"
+scenario) drops from alignment `80` to `60`, required `(4,4) -> (3,4)`.
+Traced directly to `karpathy/llama2.c`'s own "notable forks" section
+(the `llama2.ts` TypeScript-port mention) — the exact same mechanism as
+the driving `llm.c` case, previously inflating this account's apparent
+frontend-skill alignment on an explicitly negative-control pair. The
+score moving further in the correct direction for a labeled-negative
+scenario is the intended effect of fixing a false positive.
+
+**Known limitations:** comparison cues are intentionally not exclusion
+cues (§27.3/§27.5); the adjacency window is a fixed 60 characters, not a
+real sentence boundary; the heading denylist is a bounded, curated set,
+partly evidence-grounded and partly a documented, modest generalization
+of the same README convention; a separate, out-of-scope false-positive
+mechanism was observed (a project name like `llama.cpp` incidentally
+satisfying the `"cpp"` alias via its `.`-separated suffix, unrelated to
+attribution context) and left for a future milestone; heading detection
+only recognizes ATX (`# heading`) markdown syntax, not Setext.
+
+**Versions:** `EXTRACTOR_VERSION` (`extraction/readme.py`) `readme:v3`
+-> `readme:v4`. `EVIDENCE_SCHEMA_VERSION`, `CONCEPT_REGISTRY_VERSION`,
+`REPOSITORY_RANKING_VERSION`, `JOB_RELEVANCE_VERSION`,
+`JOB_DESCRIPTION_PARSER_VERSION`, `JOB_REQUIREMENT_SCHEMA_VERSION`,
+`MATCHER_VERSION`, `SCORING_VERSION` all unchanged — no concept added/
+renamed/removed, no domain-model shape change, no matcher/assessment
+change.
+
+**Tests:** 864/864 backend (841 pre-existing + 23 new: 14 in
+`tests/test_evidence_extraction_readme_context.py` (new), 9 added to
+`tests/test_evidence_extraction_readme.py` — the `karpathy/llm.c`
+regression, positive controls for genuine implementation/dependency
+statements and a surviving-elsewhere mention, and negative controls for
+comparison/external-reference/explicit-non-use/future-intent). Frontend/
+API/contract untouched this milestone — no frontend re-verification run
+(nothing shared-contract-relevant changed).
+
+**Files changed:** `src/gitscore/evidence/extraction/readme_context.py`
+(new), `src/gitscore/evidence/extraction/readme.py`,
+`tests/test_evidence_extraction_readme_context.py` (new),
+`tests/test_evidence_extraction_readme.py`,
+`evaluation/reports/evidence_report_v1_1.{json,md}` (regenerated — the
+only report files updated; `evidence_report.*` and
+`end_to_end_report.*` deliberately left as committed),
+`docs/ARCHITECTURE.md` (new §27), `docs/PIPELINE.md`,
+`docs/evaluation/MILESTONE_8D3_EVIDENCE_ATTRIBUTION.md` (new),
+`docs/CHANGELOG_DEV.md` (this entry).
+
+**How to test:**
+```
+python -m pytest                                        # 864/864
+python scripts/evaluate_evidence.py --corpus-version 8c:v1.1   # False positives: 0
+```
+
 ## 2026-10-06 — Milestone 8D.2: Job-aware repository retrieval
 
 **What changed:** Follows directly from Milestone 8C's evaluation

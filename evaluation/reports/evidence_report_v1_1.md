@@ -4,7 +4,7 @@ Corpus version: `8c:v1.1`
 Candidates evaluated: 4
 Ranking checks: 10  |  Prediction errors: 0  |  Repository ranking misses (genuine, relevant repo excluded): 3
 Concept checks: 10  |  Found: 10  |  Missing: 0 (BUG=0, KNOWN_SCOPE_LIMITATION=0)
-False positives: 1
+False positives: 0
 Total extractor failures across all candidates: 0
 
 ## Per-candidate repository coverage
@@ -48,4 +48,4 @@ Total extractor failures across all candidates: 0
 
 ## False positives (not-expected concept found)
 
-- `karpathy/llm.c` -> unexpectedly found 'language.cpp': C++ is present in the raw language stats but at ~3.5% of bytes, below the 5% significance floor -- correctly expected to produce NO evidence, not a miss.
+(none)

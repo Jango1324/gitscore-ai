@@ -39,6 +39,22 @@ Evidence, so a short alias overlapping a longer, more specific one (e.g.
 native") no longer produces a false-positive attribution for the shorter
 concept -- see that function's docstring. `EXTRACTOR_VERSION` bumped
 2 -> 3 for this behavior change.
+
+Milestone 8D.3 -- evidence ATTRIBUTION, not just matching. A
+textually-correct alias match can still be the wrong thing to attribute
+to this repository: a README's "## notable forks" section lists OTHER
+people's separate repositories, each with its own tech stack (the
+`karpathy/llm.c` -> `language.cpp` false positive this milestone fixes).
+Every alias occurrence (not just the first, previously found via a
+single `.search()`) is now checked against
+`readme_context.is_non_implementation_mention()` -- see that module's
+docstring for the full policy (section-heading denylist + bounded
+local adjacency cues for negation/future-intent). An alias whose first
+occurrence is excluded now falls through to its next occurrence, and if
+every occurrence of one alias is excluded, to the concept's next alias
+-- "no safe evidence found yet" no longer means "give up on this
+concept entirely." `EXTRACTOR_VERSION` bumped 3 -> 4 for this behavior
+change.
 """
 from __future__ import annotations
 
@@ -46,10 +62,11 @@ import re
 
 from gitscore.concepts.matching import alias_pattern, select_longest_overlapping_matches
 from gitscore.concepts.registry import default_registry
+from gitscore.evidence.extraction.readme_context import build_context, is_non_implementation_mention
 from gitscore.evidence.models import Evidence, RepositoryIdentity
 from gitscore.evidence.types import ConfidenceLevel, EvidenceType
 
-EXTRACTOR_VERSION = "readme:v3"
+EXTRACTOR_VERSION = "readme:v4"
 
 # How much surrounding text to keep on each side of a match, so the
 # stored observation is a short, inspectable snippet -- never the whole
@@ -86,12 +103,27 @@ def evidence_from_readme(
         return []
 
     registry = default_registry()
+    context = build_context(readme_text)
     candidates: list[tuple[int, int, tuple]] = []
     for concept in registry.all_concepts():
         for alias in concept.readme_safe_aliases():
-            found = alias_pattern(alias).search(readme_text)
-            if found is not None:
-                candidates.append((found.start(), found.end(), (concept, alias, found.start(), found.end())))
+            # Milestone 8D.3: scan every occurrence of this alias (not
+            # just the first) and skip any that
+            # `is_non_implementation_mention` flags -- a concept's first
+            # textual occurrence being excluded (e.g. inside a "##
+            # notable forks" section) no longer means the whole concept
+            # is skipped; a later, genuine occurrence of the SAME alias
+            # still counts, and if every occurrence of this alias is
+            # excluded, the next alias is still tried below.
+            selected = None
+            for match in alias_pattern(alias).finditer(readme_text):
+                if not is_non_implementation_mention(readme_text, match.start(), match.end(), context):
+                    selected = match
+                    break
+            if selected is not None:
+                candidates.append(
+                    (selected.start(), selected.end(), (concept, alias, selected.start(), selected.end()))
+                )
                 break
 
     # Milestone 8D.1: resolve any overlapping matches ("react" inside

@@ -10,7 +10,7 @@
     "concept_missing": 0,
     "concept_missing_bugs": 0,
     "concept_missing_known_scope_limitations": 0,
-    "false_positives": 1,
+    "false_positives": 0,
     "total_extractor_failures": 0
   },
   "candidates": [
@@ -144,14 +144,7 @@
           "notes": ""
         }
       ],
-      "false_positives": [
-        {
-          "username": "karpathy",
-          "repo": "llm.c",
-          "concept_id": "language.cpp",
-          "notes": "C++ is present in the raw language stats but at ~3.5% of bytes, below the 5% significance floor -- correctly expected to produce NO evidence, not a miss."
-        }
-      ]
+      "false_positives": []
     },
     {
       "username": "sindresorhus",

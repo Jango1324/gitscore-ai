@@ -335,6 +335,22 @@ candidate against two different jobs -- see
 implies, and §26 for the full design. `rank_repositories()`/
 `RankingWeights` (Milestone 5B) are completely untouched.
 
+### README evidence attribution — Milestone 8D.3 update
+
+`extraction/readme.py` (§15.6/§15.9's README source in the Stage/§15
+extractor list) now distinguishes a textually-correct alias match from
+a match that's safe to ATTRIBUTE to the repository: a mention under a
+"## notable forks"/"## related"/etc. heading, or immediately adjacent to
+a negation/future-intent phrase ("does not use X", "X is on the
+roadmap"), no longer produces Evidence -- see
+`docs/ARCHITECTURE.md` §27 and
+`docs/evaluation/MILESTONE_8D3_EVIDENCE_ATTRIBUTION.md` for the full
+root cause (the `karpathy/llm.c` -> `language.cpp` false positive) and
+before/after numbers. `EXTRACTOR_VERSION` `readme:v3` -> `readme:v4`.
+Every other extractor, the matcher, the assessment formula, the job
+parser, and M5B ranking / 8D.2 job-aware retrieval are unaffected --
+this is a README-extraction-only, additive precision fix.
+
 ## Job-fit pipeline (Milestone 7A/7B) — built on top of V2, not V1
 
 Given the `CandidateEvidenceProfile` above plus a parsed job posting,
