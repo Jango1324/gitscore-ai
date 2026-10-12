@@ -1,0 +1,373 @@
+{
+  "pairs": [
+    {
+      "candidate": "karpathy",
+      "job_id": "ml_engineering_01",
+      "committed_report_alignment": 75,
+      "old_alignment": 75,
+      "new_alignment": 75,
+      "old_required": [
+        2,
+        3
+      ],
+      "new_required": [
+        2,
+        3
+      ],
+      "old_preferred": [
+        1,
+        1
+      ],
+      "new_preferred": [
+        1,
+        1
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [
+        "arxiv-sanity-lite",
+        "arxiv-sanity-preserver",
+        "covid-sanity",
+        "examples",
+        "pytorch-made",
+        "tf-agent"
+      ],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 21
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "computer_vision_01",
+      "committed_report_alignment": 100,
+      "old_alignment": 100,
+      "new_alignment": 100,
+      "old_required": [
+        3,
+        3
+      ],
+      "new_required": [
+        3,
+        3
+      ],
+      "old_preferred": [
+        1,
+        1
+      ],
+      "new_preferred": [
+        1,
+        1
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [
+        "arxiv-sanity-lite",
+        "arxiv-sanity-preserver",
+        "cryptos",
+        "examples",
+        "neuraltalk2",
+        "pytorch-made",
+        "pytorch-normalizing-flows"
+      ],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 22
+    },
+    {
+      "candidate": "karpathy",
+      "job_id": "frontend_01",
+      "committed_report_alignment": 80,
+      "old_alignment": 60,
+      "new_alignment": 60,
+      "old_required": [
+        3,
+        4
+      ],
+      "new_required": [
+        3,
+        4
+      ],
+      "old_preferred": [
+        0,
+        1
+      ],
+      "new_preferred": [
+        0,
+        1
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [
+        "forestjs",
+        "lifejs",
+        "notpygamejs",
+        "recurrentjs",
+        "reinforcejs",
+        "svmjs",
+        "tsnejs"
+      ],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 22
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "systems_cpp_01",
+      "committed_report_alignment": 67,
+      "old_alignment": 67,
+      "new_alignment": 67,
+      "old_required": [
+        1,
+        1
+      ],
+      "new_required": [
+        1,
+        1
+      ],
+      "old_preferred": [
+        1,
+        2
+      ],
+      "new_preferred": [
+        1,
+        2
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [],
+      "baseline_analyzed_count": 12,
+      "job_aware_analyzed_count": 12
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "embedded_firmware_01",
+      "committed_report_alignment": 50,
+      "old_alignment": 50,
+      "new_alignment": 50,
+      "old_required": [
+        1,
+        1
+      ],
+      "new_required": [
+        1,
+        1
+      ],
+      "old_preferred": [
+        0,
+        1
+      ],
+      "new_preferred": [
+        0,
+        1
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [],
+      "baseline_analyzed_count": 12,
+      "job_aware_analyzed_count": 12
+    },
+    {
+      "candidate": "torvalds",
+      "job_id": "data_science_01",
+      "committed_report_alignment": 20,
+      "old_alignment": 20,
+      "new_alignment": 20,
+      "old_required": [
+        1,
+        4
+      ],
+      "new_required": [
+        1,
+        4
+      ],
+      "old_preferred": [
+        0,
+        1
+      ],
+      "new_preferred": [
+        0,
+        1
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [],
+      "baseline_analyzed_count": 12,
+      "job_aware_analyzed_count": 12
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "frontend_01",
+      "committed_report_alignment": 80,
+      "old_alignment": 80,
+      "new_alignment": 80,
+      "old_required": [
+        4,
+        4
+      ],
+      "new_required": [
+        4,
+        4
+      ],
+      "old_preferred": [
+        0,
+        1
+      ],
+      "new_preferred": [
+        0,
+        1
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [
+        "add-module-exports-webpack-plugin",
+        "atom-autoprefixer",
+        "atom-perfectionist",
+        "broccoli-autoprefixer",
+        "broccoli-cssnano",
+        "broccoli-csso",
+        "broccoli-strip-css-comments",
+        "broccoli-stylus",
+        "broccoli-uncss",
+        "class-names"
+      ],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 25
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "fullstack_01",
+      "committed_report_alignment": 57,
+      "old_alignment": 57,
+      "new_alignment": 57,
+      "old_required": [
+        3,
+        5
+      ],
+      "new_required": [
+        3,
+        5
+      ],
+      "old_preferred": [
+        1,
+        2
+      ],
+      "new_preferred": [
+        1,
+        2
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [
+        "acosh",
+        "class-names",
+        "gulp-react",
+        "ink-box",
+        "is-docker",
+        "is-inside-container",
+        "react-dom-pragma",
+        "react-extras",
+        "sublime-jsrun",
+        "unstated-debug"
+      ],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 25
+    },
+    {
+      "candidate": "sindresorhus",
+      "job_id": "robotics_controls_01",
+      "committed_report_alignment": 33,
+      "old_alignment": 33,
+      "new_alignment": 33,
+      "old_required": [
+        1,
+        3
+      ],
+      "new_required": [
+        1,
+        3
+      ],
+      "old_preferred": null,
+      "new_preferred": null,
+      "changed": false,
+      "newly_analyzed_repos": [
+        "Dagbladet-bildeserier.bundle",
+        "editorconfig-sublime",
+        "fullname-native",
+        "pwuid",
+        "sublime-jsrun",
+        "weechat-notification-center",
+        "whisper.cpp"
+      ],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 22
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "embedded_firmware_01",
+      "committed_report_alignment": 0,
+      "old_alignment": 0,
+      "new_alignment": 0,
+      "old_required": [
+        0,
+        1
+      ],
+      "new_required": [
+        0,
+        1
+      ],
+      "old_preferred": [
+        0,
+        1
+      ],
+      "new_preferred": [
+        0,
+        1
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 15
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "ml_engineering_01",
+      "committed_report_alignment": 50,
+      "old_alignment": 50,
+      "new_alignment": 50,
+      "old_required": [
+        2,
+        3
+      ],
+      "new_required": [
+        2,
+        3
+      ],
+      "old_preferred": [
+        0,
+        1
+      ],
+      "new_preferred": [
+        0,
+        1
+      ],
+      "changed": false,
+      "newly_analyzed_repos": [
+        "Pneumonia-Detection-Ai"
+      ],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 16
+    },
+    {
+      "candidate": "Jango1324",
+      "job_id": "general_swe_01",
+      "committed_report_alignment": 100,
+      "old_alignment": 100,
+      "new_alignment": 100,
+      "old_required": [
+        1,
+        1
+      ],
+      "new_required": [
+        1,
+        1
+      ],
+      "old_preferred": null,
+      "new_preferred": null,
+      "changed": false,
+      "newly_analyzed_repos": [
+        "Pneumonia-Detection-Ai"
+      ],
+      "baseline_analyzed_count": 15,
+      "job_aware_analyzed_count": 16
+    }
+  ]
+}
