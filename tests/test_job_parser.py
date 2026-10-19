@@ -438,12 +438,18 @@ def test_manual_validation_robotics():
     concept_ids = {r.concept_id for r in profile.requirements}
     assert {"language.cpp", "language.python", "robotics.ros2", "platform.cuda", "embedded.rtos.freertos"} <= concept_ids
     # "control systems or robotics" -- neither side is a registered
-    # concept, so this is correctly judged NOT a technical alternative
-    # group at all (Milestone 6B.1: no confirmed concept anywhere in the
-    # OR-list). It must never assert a fake technical concept, and (a
-    # known, documented limitation) produces no row at all since no
-    # other detector matches it either.
-    assert not any("control systems or robotics" in r.original_text for r in profile.requirements)
+    # concept NOR shaped like a specific named technology (both are
+    # lowercase descriptive phrases), so this is correctly judged NOT a
+    # technical alternative group at all (Milestone 6B.1: no confirmed
+    # concept anywhere in the OR-list; Milestone 9A: no shape-confirmed
+    # unresolved alternative either). It must never assert a fake
+    # technical concept -- but Milestone 9A's last-resort placeholder
+    # now preserves the claim instead of silently dropping it entirely.
+    unresolved_rows = [r for r in profile.requirements if "control systems or robotics" in r.original_text]
+    assert len(unresolved_rows) == 1
+    assert unresolved_rows[0].concept_id is None
+    assert unresolved_rows[0].category == "unresolved_requirement"
+    assert unresolved_rows[0].github_observability == GithubObservability.PARTIALLY_OBSERVABLE
     legal_rows = [r for r in profile.requirements if r.category == "legal"]
     assert len(legal_rows) == 1
     assert legal_rows[0].github_observability == GithubObservability.NOT_OBSERVABLE

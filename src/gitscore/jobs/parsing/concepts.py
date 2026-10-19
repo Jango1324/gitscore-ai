@@ -61,6 +61,18 @@ GENERIC_LIST_STOPWORDS = frozenset({
     "field", "degree", "knowledge", "understanding", "background", "a plus",
 })
 
+# Milestone 9A -- a generic, domain-neutral "enumeration of specific
+# examples" cue. Used ONLY to gate `find_conservative_unknown_terms`'s
+# new no-confirmed-sibling branch (see that function's docstring): a
+# comma/"and"-joined list introduced by one of these phrases ("...
+# peripherals such as SPI, I2C, and UART") is a much stronger structural
+# signal that the list enumerates NAMED items than a bare comma alone
+# (which also appears in ordinary prose, e.g. "Write clean, maintainable,
+# and well-tested code").
+_ENUMERATION_CUE = re.compile(
+    r"\b(?:such as|including|like|e\.g\.|for example)\b", re.IGNORECASE
+)
+
 
 def clean_list_fragment(fragment: str) -> str | None:
     """Strip common list-item prefixes/punctuation from `fragment` and
@@ -82,6 +94,38 @@ def clean_list_fragment(fragment: str) -> str | None:
     if len(stripped.split()) > 3:
         return None
     return stripped
+
+
+def looks_like_specific_technology_name(term: str) -> bool:
+    """Milestone 9A -- does `term` look like ONE specific named
+    technology/product (shape only, never meaning) rather than ordinary
+    descriptive English?
+
+    True iff every whitespace-separated word starts with an uppercase
+    letter ("Vue", "Angular", "MATLAB", "Simulink", "Snowflake",
+    "BigQuery", "SPI", "I2C", "UART", "PLC" all pass) AND the term does
+    not end in a possessive "'s" (excludes "Bachelor's"/"Master's" --
+    capitalized, but never a technology name in this domain).
+
+    This is the ONE new heuristic Milestone 9A adds, used ONLY to decide
+    whether an ALREADY-STRUCTURALLY-CONFIRMED enumeration/alternative (an
+    explicit "or", or a comma list introduced by an enumeration cue like
+    "such as") is safe to promote to `unresolved:<term>` placeholder(s)
+    -- never to decide whether a claim is a requirement at all, and never
+    applied to an isolated word with no such structural context. Ordinary
+    lowercase descriptive phrases ("control systems", "a related field",
+    "write clean") correctly fail this check and keep falling through
+    exactly as before Milestone 9A -- see
+    docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md for the
+    concrete gold-fixture evidence both halves of this rule guard
+    against.
+    """
+    words = term.split()
+    if not words:
+        return False
+    if term.rstrip(".,;:").endswith("'s"):
+        return False
+    return all(word[:1].isupper() for word in words)
 
 
 def leading_token(fragment: str) -> str | None:
@@ -247,9 +291,36 @@ def find_conservative_unknown_terms(text: str, mentions: tuple[ConceptMention, .
     conservative trade: it accepts missing a genuine comma-less
     technology list (a real but rarer phrasing) to avoid the much more
     common false-positive shape.
+
+    Milestone 9A: when `mentions` is empty -- no already-CONFIRMED real
+    concept anywhere in the claim at all -- this function additionally
+    accepts a comma/"and"-joined list immediately following an explicit
+    enumeration cue ("such as", "including", "like", "e.g.", "for
+    example"), e.g. "... microcontroller peripherals such as SPI, I2C,
+    and UART". This is a SEPARATE, narrower path from the one above:
+    scanning only STARTS after the cue (so a long lead-in clause before
+    the first comma, e.g. "Familiarity with microcontroller peripherals
+    such as SPI", does not hide "SPI" behind an over-length fragment the
+    way the sibling-confirmed path's fragment-boundary approach would),
+    and every extracted term must ALSO pass
+    `looks_like_specific_technology_name` -- `clean_list_fragment`'s
+    plain <=3-word/stopword shape check alone is not enough here (it
+    also accepts ordinary descriptive English like "a related field" or
+    "control systems", which must never be promoted to a fabricated
+    unresolved concept -- see
+    docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md). The
+    original sibling-confirmed behavior below (`mentions` non-empty) is
+    completely unchanged by this addition.
     """
-    if not mentions or "," not in text:
+    if "," not in text:
         return ()
+
+    if not mentions:
+        cue_match = _ENUMERATION_CUE.search(text)
+        if cue_match is None:
+            return ()
+        terms = _split_list_terms(text[cue_match.end():])
+        return tuple(t for t in terms if looks_like_specific_technology_name(t))
 
     covered = [(m.start, m.end) for m in mentions]
 
@@ -282,5 +353,42 @@ def _consider_fragment(fragment: str, offset: int, is_covered, terms: list[str],
     if stripped.lower() in seen:
         return
 
+    seen.add(stripped.lower())
+    terms.append(stripped)
+
+
+def contains_enumeration_cue(text: str) -> bool:
+    """Milestone 9A -- does `text` contain an explicit "the following is
+    an enumeration of examples" cue ("such as", "including", "like",
+    "e.g.", "for example")? Exposed publicly so `jobs/parsing/parser.py`
+    can reuse the exact same cue `find_conservative_unknown_terms` uses,
+    rather than duplicating the pattern.
+    """
+    return _ENUMERATION_CUE.search(text) is not None
+
+
+def _split_list_terms(text: str) -> list[str]:
+    """Milestone 9A -- every `clean_list_fragment`-shaped item in a
+    comma/"and"-joined list within `text`, in order, deduplicated
+    case-insensitively. No covered-span exclusion (unlike
+    `_consider_fragment`'s use in the sibling-confirmed path above) --
+    this is only ever called on text already sliced to start right
+    after an enumeration cue (`find_conservative_unknown_terms`'s new
+    no-sibling branch), where there is no CONFIRMED mention to exclude.
+    """
+    terms: list[str] = []
+    seen: set[str] = set()
+    cursor = 0
+    for part_match in _LIST_SPLIT.finditer(text):
+        _append_clean_term(text[cursor:part_match.start()], terms, seen)
+        cursor = part_match.end()
+    _append_clean_term(text[cursor:], terms, seen)
+    return terms
+
+
+def _append_clean_term(fragment: str, terms: list[str], seen: set[str]) -> None:
+    stripped = clean_list_fragment(fragment)
+    if stripped is None or stripped.lower() in seen:
+        return
     seen.add(stripped.lower())
     terms.append(stripped)

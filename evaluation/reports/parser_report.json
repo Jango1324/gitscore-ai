@@ -4,31 +4,22 @@
     "total_jobs": 15,
     "total_expected_requirements": 103,
     "status_counts": {
-      "CORRECT": 58,
-      "MISSING": 44,
+      "CORRECT": 64,
+      "MISSING": 38,
       "WRONG_ALTERNATIVE_STRUCTURE": 1
     },
     "tag_counts": {
-      "MISSING": 44,
+      "MISSING": 38,
       "WRONG_ALTERNATIVE_STRUCTURE": 1
     },
     "missed_concepts": {
       "unresolved:kubernetes": 2,
-      "unresolved:bigquery": 1,
-      "unresolved:snowflake": 1,
-      "unresolved:spi": 1,
-      "unresolved:i2c": 1,
-      "unresolved:uart": 1,
-      "unresolved:angular": 1,
-      "unresolved:vue": 1,
       "unresolved:flutter": 1,
-      "unresolved:react_native": 1,
-      "unresolved:matlab": 1,
-      "unresolved:simulink": 1
+      "unresolved:react_native": 1
     },
-    "total_spurious_requirements": 7,
-    "recall": 0.563,
-    "precision": 0.892,
+    "total_spurious_requirements": 19,
+    "recall": 0.621,
+    "precision": 0.771,
     "metric_definitions": {
       "recall": "(CORRECT + PARTIALLY_CORRECT) / total_expected_requirements -- 'was the right concept/category/alternative-set found at all', independent of necessity/observability nuance (those are reported separately in tag_counts, never hidden inside this one number)",
       "precision": "(CORRECT + PARTIALLY_CORRECT) / (CORRECT + PARTIALLY_CORRECT + spurious) -- of everything recovered or invented, what fraction had a real gold counterpart"
@@ -415,10 +406,8 @@
           "claim_text": "Experience with Snowflake or BigQuery",
           "facet": "alternative",
           "necessity": "preferred",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Experience with Snowflake or BigQuery",
             "necessity": "preferred",
@@ -438,6 +427,12 @@
           "claim_text": "Strong SQL skills across relational databases",
           "concept_id": "language.sql",
           "category": "language",
+          "is_alternative_group": false
+        },
+        {
+          "claim_text": "Experience with dbt",
+          "concept_id": null,
+          "category": "unresolved_requirement",
           "is_alternative_group": false
         }
       ]
@@ -588,6 +583,12 @@
           "claim_text": "Proficiency in SQL for data analysis",
           "concept_id": "language.sql",
           "category": "language",
+          "is_alternative_group": false
+        },
+        {
+          "claim_text": "Experience with scikit-learn",
+          "concept_id": null,
+          "category": "unresolved_requirement",
           "is_alternative_group": false
         }
       ]
@@ -772,10 +773,8 @@
           "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
           "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
             "necessity": "required",
@@ -790,10 +789,8 @@
           "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
           "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
             "necessity": "required",
@@ -808,10 +805,8 @@
           "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
           "facet": "technical",
           "necessity": "required",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
             "necessity": "required",
@@ -875,7 +870,14 @@
           "notes": ""
         }
       ],
-      "spurious": []
+      "spurious": [
+        {
+          "claim_text": "Experience with CMake-based build systems",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
+        }
+      ]
     },
     {
       "job_id": "frontend_01",
@@ -983,10 +985,8 @@
           "claim_text": "Knowledge of Vue or Angular",
           "facet": "alternative",
           "necessity": "preferred",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Knowledge of Vue or Angular",
             "necessity": "preferred",
@@ -1270,7 +1270,20 @@
           "notes": "PREDICTED MISS: Jenkins is not in the registry and appears alone, no comma-list."
         }
       ],
-      "spurious": []
+      "spurious": [
+        {
+          "claim_text": "Strong computer science fundamentals, including data structures and algorithms",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
+        },
+        {
+          "claim_text": "Experience with distributed systems",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
+        }
+      ]
     },
     {
       "job_id": "ml_engineering_01",
@@ -1504,6 +1517,12 @@
           "concept_id": "language.kotlin",
           "category": "language",
           "is_alternative_group": false
+        },
+        {
+          "claim_text": "Familiarity with REST API integration",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
         }
       ]
     },
@@ -1581,10 +1600,8 @@
           "claim_text": "Experience with MATLAB or Simulink for controls simulation",
           "facet": "alternative",
           "necessity": "preferred",
-          "status": "MISSING",
-          "tags": [
-            "MISSING"
-          ],
+          "status": "CORRECT",
+          "tags": [],
           "expected": {
             "claim_text": "Experience with MATLAB or Simulink for controls simulation",
             "necessity": "preferred",
@@ -1617,7 +1634,20 @@
           "notes": "PREDICTED MISS: PLC is not in the registry and appears alone."
         }
       ],
-      "spurious": []
+      "spurious": [
+        {
+          "claim_text": "Experience with control systems or state estimation",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
+        },
+        {
+          "claim_text": "Familiarity with PLC programming",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
+        }
+      ]
     },
     {
       "job_id": "security_01",
@@ -1731,7 +1761,20 @@
           "notes": ""
         }
       ],
-      "spurious": []
+      "spurious": [
+        {
+          "claim_text": "Experience with penetration testing or vulnerability assessment",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
+        },
+        {
+          "claim_text": "Security certification such as OSCP or CISSP",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
+        }
+      ]
     },
     {
       "job_id": "sre_platform_01",
@@ -1851,6 +1894,12 @@
           "concept_id": "infra.kubernetes",
           "category": "infrastructure",
           "is_alternative_group": false
+        },
+        {
+          "claim_text": "Experience with Terraform",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
         }
       ]
     },
@@ -1964,7 +2013,14 @@
           "notes": ""
         }
       ],
-      "spurious": []
+      "spurious": [
+        {
+          "claim_text": "Experience with Linux systems programming",
+          "concept_id": null,
+          "category": "unresolved_requirement",
+          "is_alternative_group": false
+        }
+      ]
     }
   ]
 }

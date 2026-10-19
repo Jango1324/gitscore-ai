@@ -62,7 +62,12 @@ import re
 from dataclasses import dataclass, field
 
 from gitscore.concepts.registry import default_registry, resolve_concept, unresolved_concept_id
-from gitscore.jobs.parsing.concepts import clean_list_fragment, find_concept_mentions, leading_token
+from gitscore.jobs.parsing.concepts import (
+    clean_list_fragment,
+    find_concept_mentions,
+    leading_token,
+    looks_like_specific_technology_name,
+)
 
 _ALTERNATIVE_MARKER = re.compile(r"(?<![A-Za-z0-9])or(?![A-Za-z0-9])", re.IGNORECASE)
 
@@ -150,6 +155,41 @@ def _resolve_segment(segment: str, registry) -> tuple[str, ...] | None:
     return None
 
 
+def _shaped_term(segment: str, *, allow_leading_token: bool) -> str | None:
+    """Milestone 9A -- the segment's core term for the ALL-UNRESOLVED
+    OR-group rescue below, or `None` if there isn't a plausible one.
+
+    Tries the same two-step escalation `_resolve_segment` already uses
+    (whole-fragment `clean_list_fragment`, then -- only if that fails on
+    an over-long fragment, e.g. "Simulink for controls simulation" --
+    `leading_token`'s single-leading-word extraction, gated by
+    `allow_leading_token`). Unlike `_resolve_segment`'s own
+    `leading_token` branch, this does NOT require the term to already be
+    a real registry concept: it only answers "is there a plausible
+    specific-technology-shaped term here at all" (checked by the caller
+    via `looks_like_specific_technology_name`) -- never a resolution
+    decision by itself.
+
+    `allow_leading_token` MUST be `False` for the OR-list's FIRST segment
+    (see `classify_alternative_claim`): ordinary English capitalizes the
+    first word of a sentence/claim regardless of whether it names a
+    technology ("Security certification such as OSCP" -- "Security" is
+    capitalized only because it starts the claim, not because it is a
+    product name), so `leading_token`'s raw, unstripped first word is
+    NOT a trustworthy shape signal there. A later segment's leading word
+    (right after an "or"/comma, e.g. "Simulink" in "...MATLAB or
+    Simulink for controls simulation") has no such sentence-initial
+    capitalization rule working against it -- genuine capitalization
+    there IS a real signal.
+    """
+    term = clean_list_fragment(segment)
+    if term is not None:
+        return term
+    if not allow_leading_token:
+        return None
+    return leading_token(segment)
+
+
 def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
     if not contains_alternative_marker(text):
         return AlternativeClaim(kind="not_technical")
@@ -161,14 +201,31 @@ def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
 
     any_confirmed = False
     unsafe = False
+    all_shaped = True
     ordered_ids: list[str] = []
     seen_ids: set[str] = set()
 
-    for segment in segments:
+    for index, segment in enumerate(segments):
         segment_ids = _resolve_segment(segment, registry)
+        shaped_term = _shaped_term(segment, allow_leading_token=index > 0)
+        segment_shaped = shaped_term is not None and looks_like_specific_technology_name(shaped_term)
+
         if segment_ids is None:
-            unsafe = True
-            continue
+            if not segment_shaped:
+                unsafe = True
+                all_shaped = False
+                continue
+            # Milestone 9A: `_resolve_segment` gave up on this segment
+            # (its own leading_token escalation only accepts a REAL
+            # registry match), but the segment is still unambiguously
+            # shaped like ONE specific named technology -- safe to
+            # promote to an unresolved placeholder in this narrower
+            # rescue, used only when every OTHER segment in the list is
+            # ALSO either a real concept or shaped this way (see the
+            # `all_shaped`/`any_confirmed` check below).
+            segment_ids = (unresolved_concept_id(shaped_term),)
+        elif not segment_shaped:
+            all_shaped = False
 
         for concept_id in segment_ids:
             if not concept_id.startswith("unresolved:"):
@@ -177,11 +234,15 @@ def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
                 seen_ids.add(concept_id)
                 ordered_ids.append(concept_id)
 
-    if not any_confirmed:
-        # Nothing in this OR-list is a REAL registered concept -- not
+    if not any_confirmed and not all_shaped:
+        # Nothing in this OR-list is a REAL registered concept, AND at
+        # least one segment either failed to resolve at all or isn't
+        # shaped like a specific named technology (Milestone 9A) -- not
         # enough evidence this is a technology enumeration at all (e.g.
-        # "Bachelor's degree ... or a related field"). Let the normal
-        # per-claim pipeline handle it instead.
+        # "Bachelor's degree ... or a related field", "control systems
+        # or state estimation" -- both correctly stay `not_technical`,
+        # see docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md).
+        # Let the normal per-claim pipeline handle it instead.
         return AlternativeClaim(kind="not_technical")
     if unsafe or len(ordered_ids) < 2:
         return AlternativeClaim(kind="unsafe")

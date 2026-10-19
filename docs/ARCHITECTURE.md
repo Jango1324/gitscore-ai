@@ -3835,3 +3835,65 @@ effect of fixing a false positive, not a regression.
 See `docs/evaluation/MILESTONE_8D3_EVIDENCE_ATTRIBUTION.md` for the full
 before/after detail, provenance trace, and positive/negative control
 inventory.
+
+## 28. Lossless job requirement preservation — Milestone 9A
+
+**Fixes a high-severity bug found by M8E's consolidated evaluation:** a
+requirement bullet whose only technical content was unregistered could
+produce **zero** `JobRequirement` rows at all — not even an
+`unresolved:<term>` placeholder — e.g. `"Knowledge of Vue or Angular"`
+and `"...SPI, I2C, and UART"`. Root cause (§18/§19's
+`classify_alternative_claim` and `find_conservative_unknown_terms`):
+both required an already-CONFIRMED real registry concept somewhere in
+the claim before considering ANY unresolved term for promotion,
+discarding everything else — correct for distinguishing a genuine
+technology enumeration from ordinary HR prose ("Bachelor's degree ... or
+a related field"), but too conservative for an OR-list/comma-list where
+every item happens to be unregistered.
+
+**Fix, two additive pieces, no schema/matcher/scoring change (full
+design rationale and the user-approved alternatives considered:
+`docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md`):**
+
+1. A new shape-only helper,
+   `jobs.parsing.concepts.looks_like_specific_technology_name()` (every
+   word capitalized, not a possessive `'s`) — used to let
+   `classify_alternative_claim` mint an all-unresolved
+   `alternative_concept_ids` group, and `find_conservative_unknown_terms`
+   mint individual `unresolved:<term>` rows from an enumeration-cue
+   (`"such as"`/`"including"`/...) comma list, in BOTH cases only when
+   there is zero confirmed sibling AND every item passes the shape
+   check. Never a vocabulary list — shape only, so `"control systems or
+   state estimation"` and `"Bachelor's ... or a related field"`
+   correctly keep falling through exactly as before.
+2. A new, last-resort `category="unresolved_requirement"` placeholder
+   (`concept_id=None`, `PARTIALLY_OBSERVABLE`, `LOW` confidence —
+   mirrors §19's existing `alternative_requirement` precedent exactly)
+   for anything (1) still can't shape-confirm, gated by one of three
+   narrow structural signals (an "or", a cue-gated comma list, or a
+   short claim led by an unambiguous technical lead-in phrase like
+   `"experience with"`). `concept_id=None` forces the UNCHANGED matcher
+   (§20) to `NOT_ASSESSABLE` regardless of observability, so this can
+   never be scored `SUPPORTED`.
+
+A subtlety found and fixed during implementation: a segment's raw
+leading word is only a trustworthy "looks like a technology" signal
+when it does NOT coincide with the sentence-initial word of the whole
+claim (ordinary English always capitalizes a sentence's first word,
+regardless of whether that word names a technology) — without this
+restriction, `"Security certification such as OSCP or CISSP"` was
+incorrectly promoted to a fabricated `unresolved:security`.
+
+`JOB_DESCRIPTION_PARSER_VERSION` bumped `v3 -> v4` (parser output
+changes on identical input for the affected claim shapes).
+`JOB_REQUIREMENT_SCHEMA_VERSION` is unchanged — no new field, only one
+new documented `category` string value, the same kind of additive
+change `"alternative_requirement"` itself was in Milestone 6B.1.
+
+See `docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md` for the
+full root-cause trace, before/after recall/precision numbers on the
+frozen `evaluation/gold/` corpora, the complete invariant-by-invariant
+check, and disclosed residual limitations (a technical requirement with
+no named technology AND no qualifying lead-in phrase, e.g. "Experience
+designing distributed systems", is still silently dropped by design —
+flagged for 9B, not fixed here).

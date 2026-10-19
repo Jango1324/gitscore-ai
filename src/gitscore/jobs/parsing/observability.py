@@ -36,6 +36,14 @@ NON_TECHNICAL_CATEGORY_OBSERVABILITY: dict[str, GithubObservability] = {
     "soft_skill": GithubObservability.NOT_OBSERVABLE,
     "leadership": GithubObservability.PARTIALLY_OBSERVABLE,
     "alternative_requirement": GithubObservability.PARTIALLY_OBSERVABLE,
+    # Milestone 9A -- the last-resort "we could not confidently resolve
+    # this, but it survived segmentation's requirement gate and looks
+    # structurally like a technical enumeration/claim" placeholder
+    # (jobs/parsing/parser.py's `_unresolved_requirement_fallback`).
+    # Mirrors "alternative_requirement"'s own precedent exactly: plausibly
+    # a technology, never confidently checkable from this placeholder
+    # alone (no concept_id attached -- see jobs/models.py).
+    "unresolved_requirement": GithubObservability.PARTIALLY_OBSERVABLE,
 }
 NON_TECHNICAL_DEFAULT_OBSERVABILITY = GithubObservability.NOT_OBSERVABLE
 

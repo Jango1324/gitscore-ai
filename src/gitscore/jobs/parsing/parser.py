@@ -43,13 +43,47 @@ alternatives could be safely represented" case; a claim with NO
 confirmed technical concept anywhere in its OR-list (e.g. "Bachelor's
 degree ... or a related field") is not treated as alternative-shaped at
 all -- it flows through the exact same pipeline as any other claim.
+
+**Milestone 9A -- requirement preservation:** fixes the high-severity
+bug M8E identified ("Knowledge of Vue or Angular", "SPI, I2C, and UART"
+silently producing ZERO `JobRequirement` rows -- not even a MISSING
+marker). Two additive changes, both detailed in
+`docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md`:
+
+1. `classify_alternative_claim()` and `find_conservative_unknown_terms()`
+   now ALSO mint `unresolved:<term>` concept id(s) for an OR-list or
+   enumeration-cue-introduced comma list with ZERO real confirmed
+   concepts, provided every item is shaped like a specific named
+   technology (`concepts.looks_like_specific_technology_name` --
+   capitalization/acronym shape, never a vocabulary list). This is
+   exactly what the pre-existing frozen gold fixtures
+   (`evaluation/gold/jobs/frontend_01.json`,
+   `embedded_firmware_01.json`, ...) already expected.
+2. `_requirements_from_claim`'s new LAST-RESORT fallback (bottom of this
+   function): if every detector above STILL produced nothing for a
+   claim that carries one of three narrow structural signals
+   (`_unresolved_requirement_signal` -- an "or", an enumeration-cue
+   comma list, or a narrow technical lead-in phrase), emit exactly ONE
+   `category="unresolved_requirement"` placeholder (`concept_id=None` --
+   never fabricates a technology) instead of zero rows. This is the
+   safety net for everything (1) still can't shape-confirm (e.g. "control
+   systems or state estimation", "Experience with dbt").
+
+Both changes are purely additive to claims that previously produced
+ZERO requirement rows (or, for (1), where `any_confirmed` was already
+`False`) -- a claim that already produced at least one row under the
+pre-9A parser is completely unaffected.
 """
 from __future__ import annotations
 
+import re
+
 from gitscore.concepts.registry import default_registry, unresolved_concept_id
 from gitscore.jobs.models import JobRequirement, SourceSpan
-from gitscore.jobs.parsing.alternatives import classify_alternative_claim
+from gitscore.jobs.parsing.alternatives import classify_alternative_claim, contains_alternative_marker
 from gitscore.jobs.parsing.concepts import (
+    clean_list_fragment,
+    contains_enumeration_cue,
     find_bare_short_alias_mentions,
     find_concept_mentions,
     find_conservative_unknown_terms,
@@ -64,7 +98,51 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v3"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v4"
+
+# Milestone 9A -- a narrow, unambiguous technical lead-in used ONLY to
+# gate the last-resort `unresolved_requirement` placeholder
+# (`_unresolved_requirement_signal` below). Deliberately NOT the full
+# `jobs.parsing.concepts._LIST_ITEM_PREFIXES` table: that table's bare
+# filler alternatives ("with"/"using"/"in"/"and"/"or"/"strong"/"solid"/
+# "advanced") are safe for stripping one word off an ALREADY-CONFIRMED
+# list item, but far too weak a signal to single-handedly justify
+# flagging an entire bare claim as an unresolved technical requirement
+# (e.g. "Strong communication" must never match).
+_TECHNICAL_LEAD_IN = re.compile(
+    r"^(?:experience with|knowledge of|familiarity with|proficiency in|proficient in|expert in)\s+",
+    re.IGNORECASE,
+)
+
+
+def _unresolved_requirement_signal(text: str) -> bool:
+    """Milestone 9A -- is `text`'s structural shape strong enough to
+    justify the last-resort `unresolved_requirement` placeholder (see
+    `_requirements_from_claim`)? Exactly three, deliberately narrow
+    shapes, never a general "contains a technical-sounding word" scan:
+
+    1. An explicit alternative marker ("Vue or Angular", "control
+       systems or state estimation").
+    2. A comma list introduced by an enumeration cue ("...peripherals
+       such as SPI, I2C, and UART").
+    3. A single bare claim led by a narrow, unambiguous technical
+       lead-in phrase, with a short, non-generic remainder
+       ("Experience with dbt", "Familiarity with PLC programming").
+
+    See docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md for the
+    concrete false-positive cases (ordinary responsibility prose like
+    "Write clean, maintainable, and well-tested code", which has commas
+    but no enumeration cue and no qualifying lead-in) this narrowness is
+    built to exclude.
+    """
+    if contains_alternative_marker(text):
+        return True
+    if "," in text and contains_enumeration_cue(text):
+        return True
+    lead_in = _TECHNICAL_LEAD_IN.match(text)
+    if lead_in is None:
+        return False
+    return clean_list_fragment(text[lead_in.end():]) is not None
 
 
 def _requirements_from_claim(claim: Claim, registry) -> list[JobRequirement]:
@@ -203,6 +281,34 @@ def _requirements_from_claim(claim: Claim, registry) -> list[JobRequirement]:
                 concept_id=None,
                 category=category,
                 parser_confidence=confidence_for("non_technical_pattern"),
+                source_span=span,
+            )
+        )
+
+    if not requirements and _unresolved_requirement_signal(claim.text):
+        # Milestone 9A -- every detector above produced NOTHING for this
+        # claim, yet it already survived segmentation's requirement gate
+        # AND carries one of the narrow structural signals
+        # `_unresolved_requirement_signal` checks for. Rather than let
+        # the claim silently disappear with no row and no trace at all
+        # (the M8E-identified high-severity bug this milestone fixes),
+        # preserve exactly ONE conservative, non-fabricating placeholder:
+        # `concept_id=None` (never invents a specific technology --
+        # contrast the `unresolved:<term>` ids minted above, which DO
+        # name a specific, if unregistered, technology once the parser
+        # is confident enough one is actually being enumerated).
+        # `concept_id=None` forces `MatchStatus.NOT_ASSESSABLE` in
+        # `matching.engine.match_requirement` regardless of
+        # `github_observability`, so this can never be scored SUPPORTED.
+        requirements.append(
+            JobRequirement(
+                original_text=claim.text,
+                necessity=necessity,
+                importance=importance,
+                github_observability=observability_for_non_technical("unresolved_requirement"),
+                concept_id=None,
+                category="unresolved_requirement",
+                parser_confidence=confidence_for("unresolved_requirement_fallback"),
                 source_span=span,
             )
         )

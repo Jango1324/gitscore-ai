@@ -1,5 +1,82 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-19 — Milestone 9A: Lossless job requirement parsing
+
+**What changed:** Fixes the M8E-identified high-severity bug (entire
+requirement bullets — `"Knowledge of Vue or Angular"`, `"...SPI, I2C,
+and UART"` — silently producing ZERO `JobRequirement` rows, not even an
+`unresolved:<term>` placeholder). Root cause: `classify_alternative_claim`
+discarded its own computed per-segment `unresolved:<term>` ids whenever
+no segment was a *real* registered concept, and
+`find_conservative_unknown_terms`'s comma-gated unknown-term policy
+required an already-confirmed sibling concept to fire at all — so an
+OR-list or comma-enumeration where *every* item was unregistered lost
+the whole claim. Full root-cause trace, design options presented to and
+approved by the user, and results:
+`docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md`.
+
+**Fix — two additive pieces, no schema/matcher/scoring change:**
+(1) `jobs/parsing/alternatives.py` and `jobs/parsing/concepts.py` now
+ALSO mint `unresolved:<term>` concept id(s) for an OR-list or
+enumeration-cue comma-list with zero real confirmed concepts, provided
+every item is shaped like a specific named technology (new
+`looks_like_specific_technology_name()` — capitalization/acronym shape,
+never a vocabulary list) — matching what the pre-existing frozen gold
+fixtures already expected for `Vue`/`Angular`/`SPI`/`I2C`/`UART`/
+`MATLAB`/`Simulink`/`Snowflake`/`BigQuery`. (2) `jobs/parsing/parser.py`
+gained a new last-resort `category="unresolved_requirement"` placeholder
+(`concept_id=None` — never fabricates a technology) for anything (1)
+still can't shape-confirm (e.g. `"control systems or state estimation"`,
+`"Experience with dbt"`), fired only by one of three narrow structural
+signals (an "or", an enumeration-cue comma list, or a short claim led
+by an unambiguous technical lead-in phrase). `concept_id=None` forces
+the existing, UNCHANGED matcher to `NOT_ASSESSABLE` regardless of
+observability, so neither piece can ever be scored `SUPPORTED`.
+
+**A false positive caught during implementation, not shipped:** the
+first version of (1) let a segment's raw leading word rescue an
+over-long OR-segment regardless of position — which promoted
+`"Security certification such as OSCP or CISSP"` into a fabricated
+`unresolved:security`, since `"Security"` is capitalized only because
+it starts the sentence. Fixed by restricting that specific rescue path
+to non-first OR-segments (a word right after "or"/a comma has no
+sentence-initial-capitalization ambiguity); covered by a regression
+test.
+
+**How the new logic works:** see
+`docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md` §3 for the
+full per-piece design and §3.1/§3.2 for the two subtlety fixes
+(sentence-initial capitalization; slicing the comma-enumeration search
+to start after the cue so the first listed item, e.g. "SPI", isn't lost
+behind a long lead-in clause).
+
+**Risks / limitations:** a technical requirement with no named
+technology and no qualifying lead-in phrase (e.g. "Experience designing
+distributed systems") is still silently dropped — fixing it would need
+a much broader heuristic explicitly out of scope per the brief. The
+frozen parser-evaluation gold corpora were deliberately NOT edited, so
+the harness's precision metric drops (0.892->0.771 on `8c:v1`) purely
+because gold never annotated sentences that previously produced zero
+rows — every one of the 12 newly "spurious" rows was manually confirmed
+to carry `concept_id=None`, never a fabricated technology. Recall
+improved on both corpora (0.563->0.621 on `8c:v1`, 0.641->0.699 on
+`8c:v1.1`).
+
+**How to test it:** `python -m pytest tests/test_job_requirement_preservation.py -v`
+(12 new gold examples) and `python -m pytest` (876 passed, full suite);
+`python scripts/evaluate_job_parser.py` / `--corpus-version 8c:v1.1`
+for the recall/precision numbers above.
+
+**Files affected:** `src/gitscore/jobs/parsing/{concepts,alternatives,
+observability,confidence,parser}.py`, `tests/test_job_parser.py` (one
+pre-existing test updated — it pinned the old bug as a "known
+limitation"), `tests/test_job_requirement_preservation.py` (new),
+`evaluation/reports/parser_report*.{json,md}` (regenerated),
+`docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md` (new).
+`JOB_DESCRIPTION_PARSER_VERSION` bumped `v3 -> v4`.
+`JOB_REQUIREMENT_SCHEMA_VERSION` unchanged (`2`) — no new field, only
+one new documented `category` string value.
+
 ## 2026-10-11 — Milestone 8D.3: Evidence attribution precision
 
 **What changed:** Fixes the known `karpathy/llm.c` -> `language.cpp`

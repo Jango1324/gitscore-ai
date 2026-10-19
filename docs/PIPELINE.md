@@ -386,6 +386,24 @@ complete, more accurate input from the parser/extractors. See
 `docs/evaluation/MILESTONE_8D1_PARSER_IMPROVEMENTS.md` for the full
 detail and before/after benchmark numbers.
 
+### Job-description parser — Milestone 9A update (lossless requirement preservation)
+
+Same shape, one new parser behavior: a requirement bullet whose only
+technical content is unregistered (`"Knowledge of Vue or Angular"`,
+`"...SPI, I2C, and UART"`, `"Experience with dbt"`) no longer produces
+ZERO `JobRequirement` rows. It now either mints a shape-confirmed
+`unresolved:<term>` concept/alternative-group (when the item is
+capitalized/acronym-shaped, matching what frozen gold already expected)
+or, failing that, a new non-fabricating `category="unresolved_requirement"`
+placeholder (`concept_id=None`) — which the UNCHANGED matcher/assessment
+stages above always resolve to `NOT_ASSESSABLE`, never `SUPPORTED`.
+`match_job()`/`assess_job()` themselves are unaffected; they simply now
+receive a requirement row, where before there was none, for these
+specific claim shapes. `JOB_DESCRIPTION_PARSER_VERSION` `v3` -> `v4`;
+every other version constant is unchanged. See `docs/ARCHITECTURE.md`
+§28 and `docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md` for
+the full root-cause trace and before/after numbers.
+
 ## End-to-end orchestration (Milestone 7C) — `gitscore.application`
 
 `gitscore.application.job_fit.analyze_job_fit(username, job_description)`

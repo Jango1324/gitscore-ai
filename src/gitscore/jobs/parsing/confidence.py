@@ -31,7 +31,11 @@ MEDIUM_CONFIDENCE_KINDS = frozenset({
 # Explicitly ambiguous by construction -- an alternative/OR fallback
 # claim (Part 14) never gets more than LOW confidence, since the parser
 # deliberately declined to interpret which of several options applies.
-LOW_CONFIDENCE_KINDS = frozenset({"alternative_fallback"})
+# Milestone 9A's `unresolved_requirement` last-resort placeholder
+# (jobs/parsing/parser.py) joins this bucket for the identical reason:
+# the parser could not confidently resolve the claim's technical content
+# at all, only that it looked structurally requirement-shaped.
+LOW_CONFIDENCE_KINDS = frozenset({"alternative_fallback", "unresolved_requirement_fallback"})
 
 
 def confidence_for(kind: str) -> ParserConfidence:
