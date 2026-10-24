@@ -432,10 +432,30 @@ selected repositories' real deep extraction produced.
 It introduces no new analysis logic -- it calls each existing stage
 function exactly once and returns a `JobAnalysisResult` bundling
 `candidate_profile`, `job_profile`, `assessment`,
-`extractor_failures`, and `unknown_dependency_names`. See
-`docs/ARCHITECTURE.md` §22 for the full contract, failure semantics, and
-dependency-injection strategy, and `scripts/analyze_job.py` to run it
-against a real account.
+`extractor_failures`, `unknown_dependency_names`, and (Milestone 9C)
+`unparsed_claims`. See `docs/ARCHITECTURE.md` §22 for the full contract,
+failure semantics, and dependency-injection strategy, and
+`scripts/analyze_job.py` to run it against a real account.
+
+### Parser diagnostics and presentation-layer interpretation status — Milestone 9C
+
+`analyze_job_fit()` now calls `parse_job_description_with_diagnostics()`
+(new sibling of the unchanged `parse_job_description()`) instead of
+`parse_job_description()` -- the ONE change to this function's body.
+This surfaces `UnparsedClaim`s (claims segmentation judged requirement-
+shaped for which zero `JobRequirement` rows were ever produced) as a
+pipeline-level diagnostic, exactly like `extractor_failures` above.
+`match_job()`/`assess_job()` are completely unaffected -- the
+`JobRequirementProfile` they receive is byte-for-byte identical to what
+`parse_job_description()` itself would have produced. Separately,
+`gitscore.api.serialization` gained a presentation-only
+`interpretation_status` classification (`"recognized"` /
+`"non_technical"` / `"unparsed_placeholder"`) that distinguishes
+GitScore's own parser uncertainty from a genuinely non-technical
+requirement within the existing `NOT_ASSESSABLE` status -- no new
+`MatchStatus`, no scoring-formula change. See `docs/ARCHITECTURE.md`
+§29 and `docs/evaluation/MILESTONE_9C_ASSESSMENT_TRANSPARENCY.md` for
+the full design audit and before/after detail.
 
 ## HTTP API (Milestone 8A) -- `gitscore.api`
 
@@ -448,7 +468,11 @@ the request shape, calls `gitscore.application.analyze_job_fit()`
 exactly once, serializes its result. No business logic lives in this
 package -- see `docs/ARCHITECTURE.md` §23 for the full request/response
 contract, error mapping, and dependency-injection strategy. Run locally
-with `uvicorn gitscore.api.app:app --reload`.
+with `uvicorn gitscore.api.app:app --reload`. Milestone 9C added four
+additive response fields (`requirements.*[].category`/
+`.interpretation_status`, `assessment.uninterpreted_requirement_count`,
+`unparsed_claims`) -- see `docs/ARCHITECTURE.md` §29.2; no existing
+field changed meaning or shape.
 
 ## Frontend (Milestone 8B) -- `frontend/`
 
@@ -462,4 +486,7 @@ TypeScript. See `docs/ARCHITECTURE.md` §24 for page/component
 structure, the null/zero rendering rules, and testing strategy.
 Run locally: `cd frontend && npm install && npm run dev`
 (`NEXT_PUBLIC_GITSCORE_API_URL` points it at the backend, default
-`http://localhost:8000`).
+`http://localhost:8000`). Milestone 9C split the `not_assessable`
+requirement group into two labeled subsections, added a headline
+caveat, and added a fourth `UnparsedClaimsSection` -- see
+`docs/ARCHITECTURE.md` §29.3.

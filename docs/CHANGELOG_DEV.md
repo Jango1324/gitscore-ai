@@ -1,5 +1,90 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-24 — Milestone 9C: Assessment transparency & requirement coverage
+
+**What changed:** Makes two pre-existing, Milestone-9B-measured
+transparency gaps VISIBLE without touching the matcher, the scoring
+formula, the concept registry, or `JobRequirementProfile`/
+`JobRequirement`'s own schema. (1) A new `parse_job_description_with_diagnostics()`
+sibling of the unchanged `parse_job_description()` reports every claim
+segmentation judged requirement-shaped for which the parser's own
+per-claim detector chain still produced ZERO `JobRequirement` rows (a
+new `UnparsedClaim`, text + source span only) — this is strictly worse
+than the Milestone 9A `unresolved_requirement` placeholder, which DOES
+produce a real, inspectable row; Milestone 9B measured 6 of 26 (23%) of
+an independent benchmark hitting this gap. (2) The API/frontend gained
+a presentation-only `interpretation_status` ("recognized" /
+"non_technical" / "unparsed_placeholder") distinguishing GitScore's OWN
+parser uncertainty from a genuinely non-technical requirement within
+the existing, unchanged `NOT_ASSESSABLE` status — both previously
+rendered with the identical generic sentence.
+
+**Why:** A recruiter reading "Not assessable from GitHub" for both
+"Bachelor's degree" and a requirement GitScore's own parser simply
+couldn't interpret was being told two different facts (one about the
+job posting, one about GitScore's own reading of it) in identical
+words. A requirement that silently vanished before even reaching the
+domain model had, until now, no trace anywhere a user or developer
+could inspect.
+
+**Design process:** Four STOP-point decisions (diagnostics
+representation, API field design, UI scope, silent-drop-gap scope) were
+presented with options, migration implications, and test impact before
+any implementation — all four recommended options approved. Full
+write-up: `docs/evaluation/MILESTONE_9C_ASSESSMENT_TRANSPARENCY.md`.
+
+**How the new logic works:** `jobs/parsing/parser.py`'s
+`parse_job_description()` and the new `parse_job_description_with_diagnostics()`
+now share one internal `_parse()` implementation — `parse_job_description()`
+itself is byte-for-byte unchanged (confirmed against all 30 Milestone
+9B corpus entries). `gitscore.api.serialization._interpretation_status()`
+is the ONE place the recognized/non_technical/unparsed_placeholder rule
+is computed, from fields the domain model already carries
+(`RequirementMatch.status` + `JobRequirement.category`) — introduces no
+new `MatchStatus`. The frontend's `not_assessable` section now renders
+two distinctly-worded subsections from `interpretation_status`, a small
+headline caveat count, and a fourth, clearly separate
+`UnparsedClaimsSection` for `unparsed_claims` — omitted entirely when
+empty (the normal case).
+
+**Risks / limitations:** the underlying 23%-of-corpus silent-drop rate
+is NOT reduced by this milestone (visibility only, by approved design)
+— `unparsed_claims` reports it, nothing resolves it. A factual error
+was found and corrected in `MILESTONE_9B_EVALUATION_INTEGRITY.md` during
+this milestone's own regression testing (`m9b-005` was misreported as a
+`FALLBACK_MATCH`; it is actually a `SILENT_DROP_GAP` — that report's
+aggregate numbers were already correct, only its prose naming which six
+entries was wrong). See `docs/evaluation/MILESTONE_9C_ASSESSMENT_TRANSPARENCY.md`
+§11 for the full remaining-risks list.
+
+**How to test it:**
+```
+python -m pytest                                              # 920 passed (904 + 16 new)
+python scripts/evaluate_m9b_preservation.py                   # byte-identical to pre-9C
+python scripts/evaluate_m9b_retrieval_sensitivity.py           # byte-identical to pre-9C
+cd frontend && npm run type-check && npm test && npm run build
+```
+
+**Files affected:** `src/gitscore/jobs/parsing/parser.py`,
+`src/gitscore/jobs/parsing/__init__.py`, `src/gitscore/jobs/__init__.py`,
+`src/gitscore/application/job_fit.py`, `src/gitscore/api/{schemas,serialization}.py`,
+`tests/test_job_parser_diagnostics.py` (new),
+`tests/{test_api_serialization,test_application_job_fit}.py`,
+`frontend/src/types/api.ts`, `frontend/src/lib/labels.ts`,
+`frontend/src/components/{RequirementSection,AlignmentHeadline,ResultView}.tsx`,
+`frontend/src/components/UnparsedClaimsSection.tsx` (new),
+`frontend/src/test/fixtures.ts`,
+`frontend/src/components/__tests__/ResultView.test.tsx`,
+`docs/ARCHITECTURE.md` §29 (new), `docs/PIPELINE.md`,
+`docs/evaluation/MILESTONE_9C_ASSESSMENT_TRANSPARENCY.md` (new),
+`docs/evaluation/MILESTONE_9B_EVALUATION_INTEGRITY.md` (one factual
+correction). No file under `src/gitscore/matching/`, `src/gitscore/assessment/`,
+`src/gitscore/concepts/`, `src/gitscore/ranking/`, or any frozen
+`evaluation/gold*/` directory was modified.
+`JOB_DESCRIPTION_PARSER_VERSION`/`JOB_REQUIREMENT_SCHEMA_VERSION`/
+`MATCHER_VERSION`/`SCORING_VERSION`/`CONCEPT_REGISTRY_VERSION` all
+unchanged.
+
 ## 2026-10-24 — Milestone 9B: Evaluation integrity, requirement coverage & retrieval-sensitive testing
 
 **What changed:** Evaluation-only milestone — no production code under

@@ -6,9 +6,18 @@ matching, no scoring. See `jobs/parsing/parser.py`'s module docstring for
 the full pipeline diagram and `docs/ARCHITECTURE.md`'s Milestone 6B
 section for the complete design write-up.
 """
-from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION, parse_job_description
+from gitscore.jobs.parsing.parser import (
+    JOB_DESCRIPTION_PARSER_VERSION,
+    ParsedJobDescription,
+    UnparsedClaim,
+    parse_job_description,
+    parse_job_description_with_diagnostics,
+)
 
 __all__ = [
     "JOB_DESCRIPTION_PARSER_VERSION",
+    "ParsedJobDescription",
+    "UnparsedClaim",
     "parse_job_description",
+    "parse_job_description_with_diagnostics",
 ]

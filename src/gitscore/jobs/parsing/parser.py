@@ -77,6 +77,7 @@ pre-9A parser is completely unaffected.
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
 
 from gitscore.concepts.registry import default_registry, unresolved_concept_id
 from gitscore.jobs.models import JobRequirement, SourceSpan
@@ -316,6 +317,74 @@ def _requirements_from_claim(claim: Claim, registry) -> list[JobRequirement]:
     return requirements
 
 
+@dataclass(frozen=True)
+class UnparsedClaim:
+    """Milestone 9C -- one claim `segmentation.py` judged requirement-
+    shaped (it survived the SAME conservative gate every real
+    `JobRequirement` already passes through -- no new, looser trigger
+    is introduced here) for which `_requirements_from_claim` STILL
+    produced zero rows.
+
+    This is a strictly more severe gap than the `category=
+    "unresolved_requirement"` placeholder (Milestone 9A): that
+    placeholder means the parser recognized the claim as requirement-
+    shaped and preserved a trace of it (a real `JobRequirement` row,
+    `concept_id=None`, inspectable via `match_job()`/`assess_job()`).
+    An `UnparsedClaim` means NOTHING was preserved at all -- there is no
+    `JobRequirement`, no `RequirementMatch`, nothing for the matcher or
+    assessment layer to ever see. `original_text`/`source_span` are
+    retained so a caller can still show the user exactly what was
+    missed, without inventing a concept, category, or observability
+    for it (there is nothing here to attach a status to -- see
+    `docs/evaluation/MILESTONE_9C_ASSESSMENT_TRANSPARENCY.md` for why
+    this is reported as a plain text diagnostic rather than forced into
+    the existing `MatchStatus`/`JobRequirement` shapes).
+
+    Deliberately NOT part of `JobRequirementProfile` (which stays
+    byte-for-byte unchanged, `JOB_REQUIREMENT_SCHEMA_VERSION` untouched)
+    -- mirrors `evidence/extraction`'s own `ExtractionFailure` /
+    `extractor_failures` precedent (Milestone 5D): a pipeline-level
+    diagnostic, never domain state.
+    """
+
+    text: str
+    source_span: SourceSpan
+
+
+def _parse(
+    description: str,
+    *,
+    title: str | None,
+    company: str | None,
+) -> tuple[JobRequirementProfile, tuple[UnparsedClaim, ...]]:
+    """The one real parsing implementation -- shared, unchanged, by both
+    `parse_job_description()` and `parse_job_description_with_diagnostics()`
+    (Milestone 9C) so there is exactly one place this logic lives, never
+    two independently-drifting copies.
+    """
+    registry = default_registry()
+    claims = segment_description(description)
+
+    all_requirements: list[JobRequirement] = []
+    unparsed_claims: list[UnparsedClaim] = []
+    for claim in claims:
+        requirements = _requirements_from_claim(claim, registry)
+        if not requirements:
+            unparsed_claims.append(UnparsedClaim(text=claim.text, source_span=SourceSpan(claim.start, claim.end)))
+        all_requirements.extend(requirements)
+
+    deduplicated = deduplicate_requirements(all_requirements)
+
+    profile = JobRequirementProfile(
+        raw_text=description,
+        requirements=deduplicated,
+        parser_version=JOB_DESCRIPTION_PARSER_VERSION,
+        title=title,
+        company=company,
+    )
+    return profile, tuple(unparsed_claims)
+
+
 def parse_job_description(
     description: str,
     *,
@@ -331,20 +400,46 @@ def parse_job_description(
     empty/whitespace-only `description` raises `ValueError` -- via
     `JobRequirementProfile.__post_init__`'s existing invariant, not a
     duplicated check here.
+
+    Byte-for-byte unchanged by Milestone 9C: every existing caller
+    (including every `scripts/evaluate_*.py` harness) keeps calling this
+    exact function with this exact signature and gets this exact return
+    type back. See `parse_job_description_with_diagnostics()` for the
+    new, additive sibling that also reports unparsed claims.
     """
-    registry = default_registry()
-    claims = segment_description(description)
+    profile, _unparsed_claims = _parse(description, title=title, company=company)
+    return profile
 
-    all_requirements: list[JobRequirement] = []
-    for claim in claims:
-        all_requirements.extend(_requirements_from_claim(claim, registry))
 
-    deduplicated = deduplicate_requirements(all_requirements)
+@dataclass(frozen=True)
+class ParsedJobDescription:
+    """Milestone 9C -- `parse_job_description()`'s result PLUS the
+    pipeline-level diagnostic `parse_job_description()` itself never
+    exposes. `profile` is byte-for-byte identical to what
+    `parse_job_description(description, title=title, company=company)`
+    would return for the same input -- this wrapper adds information,
+    it never changes what the domain model contains.
+    """
 
-    return JobRequirementProfile(
-        raw_text=description,
-        requirements=deduplicated,
-        parser_version=JOB_DESCRIPTION_PARSER_VERSION,
-        title=title,
-        company=company,
-    )
+    profile: JobRequirementProfile
+    unparsed_claims: tuple[UnparsedClaim, ...] = ()
+
+
+def parse_job_description_with_diagnostics(
+    description: str,
+    *,
+    title: str | None = None,
+    company: str | None = None,
+) -> ParsedJobDescription:
+    """Milestone 9C -- the diagnostics-aware sibling of
+    `parse_job_description()`, used by
+    `gitscore.application.job_fit.analyze_job_fit()` so a caller that
+    wants visibility into claims the parser could not interpret at all
+    (distinct from the Milestone 9A `unresolved_requirement` placeholder,
+    which DOES produce a real, inspectable `JobRequirement` row -- see
+    `UnparsedClaim`'s own docstring) can get it, without changing
+    `parse_job_description()`'s existing signature/behavior for every
+    other caller.
+    """
+    profile, unparsed_claims = _parse(description, title=title, company=company)
+    return ParsedJobDescription(profile=profile, unparsed_claims=unparsed_claims)

@@ -3897,3 +3897,150 @@ check, and disclosed residual limitations (a technical requirement with
 no named technology AND no qualifying lead-in phrase, e.g. "Experience
 designing distributed systems", is still silently dropped by design —
 flagged for 9B, not fixed here).
+
+## 29. Assessment transparency: parser diagnostics and presentation-layer interpretation status — Milestone 9C
+
+Milestone 9B's own benchmark (`docs/evaluation/MILESTONE_9B_EVALUATION_INTEGRITY.md`)
+measured two distinct transparency gaps rather than merely naming them:
+6 of 26 independently-authored requirement claims (23%) produce **zero**
+`JobRequirement` rows at all (a strictly worse outcome than the
+Milestone 9A `unresolved_requirement` placeholder, which DOES produce a
+real row), and the API/frontend had no way to distinguish that
+placeholder from a genuinely non-technical claim (both collapsed into
+the identical `not_assessable` presentation). This milestone adds
+visibility into both gaps WITHOUT touching the matcher
+(`gitscore.matching`), the scoring formula (`gitscore.assessment`), the
+concept registry, or `JobRequirementProfile`/`JobRequirement`'s own
+schema — `JOB_REQUIREMENT_SCHEMA_VERSION`, `MATCHER_VERSION`, and
+`SCORING_VERSION` are all unchanged. See
+`docs/evaluation/MILESTONE_9C_ASSESSMENT_TRANSPARENCY.md` for the full
+Phase 1 design audit, the four approved design decisions, and before/
+after examples.
+
+### 29.1 `UnparsedClaim` — a pipeline-level diagnostic, not domain state
+
+`jobs/parsing/parser.py` gained `UnparsedClaim` (`text`, `source_span`)
+and `parse_job_description_with_diagnostics()`, a new sibling of
+`parse_job_description()` that ALSO reports every claim
+`segment_description()` judged requirement-shaped for which the
+existing, UNCHANGED per-claim detector chain
+(`_requirements_from_claim`) still produced zero `JobRequirement` rows.
+Both functions now share one internal `_parse()` implementation, so
+there is exactly one place this logic lives — `parse_job_description()`
+itself is BYTE-FOR-BYTE unchanged in signature and behavior; every
+existing caller (including every `scripts/evaluate_*.py` harness and
+the whole Milestone 9B benchmark) is unaffected, confirmed directly by
+re-running `scripts/evaluate_m9b_preservation.py`/
+`scripts/evaluate_m9b_retrieval_sensitivity.py` after this milestone and
+diffing their output against the pre-9C committed reports — byte-
+identical.
+
+Mirrors the exact precedent `evidence/extraction`'s `ExtractionFailure`/
+`extractor_failures` set in Milestone 5D: a pipeline-level diagnostic,
+deliberately NOT a field on `JobRequirementProfile` (which would have
+required a `JOB_REQUIREMENT_SCHEMA_VERSION` bump and touched every
+hand-built `JobRequirementProfile` test fixture in the suite). Carried
+through `gitscore.application.job_fit.JobAnalysisResult.unparsed_claims`
+(additive field, default `()`), which `analyze_job_fit()` now populates
+by calling `parse_job_description_with_diagnostics()` instead of
+`parse_job_description()` — the only change to that function's body.
+
+An `UnparsedClaim` is categorically different from a
+`category="unresolved_requirement"` placeholder: the placeholder IS a
+real `JobRequirement` (`concept_id=None`, inspectable via
+`match_job()`/`assess_job()`, always `NOT_ASSESSABLE`). An
+`UnparsedClaim` has no concept, no category, no observability, and
+never reaches the matcher or assessment layer at all — there is
+nothing to attach a status to. No new, looser detection trigger was
+introduced to produce these: a claim appears here only if it ALREADY
+survived segmentation's existing, unmodified conservative gate (the
+same gate every real `JobRequirement` already passes through) and still
+produced nothing — confirmed by
+`tests/test_job_parser_diagnostics.py::test_unparsed_claims_never_flags_ordinary_prose_or_headings`
+and reproduced exactly against all 6 of Milestone 9B's own known
+silent-drop corpus entries
+(`test_unparsed_claims_reproduces_every_m9b_known_silent_drop`).
+
+### 29.2 `interpretation_status` — presentation-layer, not a new `MatchStatus`
+
+`RequirementOut`/`RequirementItem` (API schema) gained two additive
+fields: `category` (raw passthrough of `JobRequirement.category`, kept
+for transparency/debugging) and `interpretation_status` — the field a
+frontend should actually branch its presentation on, computed ONCE in
+`gitscore.api.serialization._interpretation_status()`:
+
+| `interpretation_status` | When |
+|---|---|
+| `"recognized"` | `RequirementMatch.status != NOT_ASSESSABLE` (covers both `SUPPORTED` and `NOT_OBSERVED` — the requirement had a structured, GitHub-observable concept mapping the matcher could evaluate) |
+| `"unparsed_placeholder"` | `NOT_ASSESSABLE` AND `category in {"unresolved_requirement", "alternative_requirement"}` — GitScore's OWN parser uncertainty (the Milestone 9A last-resort placeholder, or the Milestone 6B.1 "unsafe" OR-group fallback) |
+| `"non_technical"` | `NOT_ASSESSABLE` AND any other category (education/experience/legal/soft_skill/leadership/...) — a genuine claim GitHub evidence cannot speak to at all |
+
+Introduces **no new `MatchStatus` member** — `matching/types.py` is
+completely untouched, satisfying this milestone's explicit constraint
+not to "incorrectly classify parsing failures as NOT_OBSERVED or
+inherently NOT_ASSESSABLE" by instead adding a strictly-presentation
+refinement of WHY an existing, unchanged `NOT_ASSESSABLE` was reached.
+The classification rule lives in exactly one tested, Python place
+(`tests/test_api_serialization.py`'s Milestone 9C tests) — the frontend
+never re-derives it from `category` itself.
+
+`AssessmentOut`/`Assessment` also gained `uninterpreted_requirement_count`
+— the count of `not_assessable` requirements whose
+`interpretation_status == "unparsed_placeholder"`. Purely informational:
+`github_evidence_alignment` and `assessable_requirement_count` (and the
+underlying half-up-percentage formula in `assessment/models.py`) are
+byte-for-byte unchanged — confirmed directly by
+`tests/test_api_serialization.py::test_uninterpreted_requirement_count_never_affects_alignment_or_assessable_count`,
+which independently recomputes the formula and compares.
+
+### 29.3 Frontend: a split presentation, not a new status
+
+`RequirementSection.tsx`'s `not_assessable` branch now renders two
+`<h3>` subsections inside the SAME outer `<h2>` "Not assessable from
+GitHub" section — "Genuinely non-technical requirements" and "Could not
+be confidently interpreted" — using `interpretation_status` to split the
+list, never re-deriving the classification from `category` in
+TypeScript. `supported`/`not_observed` are rendered exactly as before
+this milestone. `AlignmentHeadline.tsx` gained an optional, purely
+additive caveat line ("N requirements could not be confidently
+interpreted by GitScore's parser — see below") shown only when
+`uninterpreted_requirement_count > 0`; `alignment` itself is unchanged.
+A new `UnparsedClaimsSection.tsx` renders a FOURTH, clearly separate
+list ("Statements GitScore could not parse as requirements") for
+`AnalyzeResponse.unparsed_claims` — no status, no evidence, raw text
+only — positioned after the three requirement groups and before
+`DiagnosticsPanel`, and omitted entirely when empty (the normal case for
+most postings), unlike the three requirement groups which always render
+with a "None." empty-state.
+
+### 29.4 Versions
+
+`JOB_DESCRIPTION_PARSER_VERSION`, `JOB_REQUIREMENT_SCHEMA_VERSION`,
+`MATCHER_VERSION`, `SCORING_VERSION`, `CONCEPT_REGISTRY_VERSION`,
+`REPOSITORY_RANKING_VERSION`, and `JOB_RELEVANCE_VERSION` are all
+UNCHANGED — this milestone adds visibility, never changes analytical
+semantics. No API version constant exists in this codebase to bump
+(versioning is path-based, `/api/v1/`); every new field is additive and
+backward-compatible (a client ignoring `category`/`interpretation_status`/
+`uninterpreted_requirement_count`/`unparsed_claims` sees identical
+behavior to before this milestone).
+
+### 29.5 Known limitations
+
+- The 23% silent-drop rate itself is NOT reduced by this milestone —
+  per the approved design decision, M9C adds VISIBILITY only (an
+  `UnparsedClaim` is reported, not resolved into a placeholder). No new
+  classification/detection logic was added to `jobs/parsing/`.
+- `UnparsedClaim` carries no `necessity`/`importance`/observability —
+  there is genuinely nothing upstream of segmentation to derive them
+  from (the whole point of this gap is that the per-claim detector
+  chain never ran far enough to compute them).
+- The frontend's two `not_assessable` subsections are both always
+  rendered (with a "None." empty-state) when `not_assessable` is
+  non-empty, mirroring the existing policy for the three top-level
+  groups — this means a posting with ONLY genuinely non-technical
+  requirements still shows an empty "Could not be confidently
+  interpreted" subsection. Judged acceptable (consistent with the
+  pre-existing "never hide an empty group" policy) rather than
+  introducing a new, inconsistent hide-when-empty rule for just this
+  one case.

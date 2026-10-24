@@ -30,7 +30,7 @@ describe("ResultView", () => {
 
   it("renders null alignment as 'Not available', never 0/NaN/-1 (F)", () => {
     const response = makeAnalyzeResponse({
-      assessment: { github_evidence_alignment: null, assessable_requirement_count: 0 },
+      assessment: { github_evidence_alignment: null, assessable_requirement_count: 0, uninterpreted_requirement_count: 0 },
     });
     render(<ResultView result={response} />);
 
@@ -161,5 +161,107 @@ describe("ResultView", () => {
 
     const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(0);
+  });
+
+  // -------------------------------------------------------------------
+  // Milestone 9C
+  // -------------------------------------------------------------------
+
+  it("splits not_assessable into two distinctly-worded subsections", () => {
+    const response = makeAnalyzeResponse({
+      requirements: {
+        supported: [],
+        not_observed: [],
+        not_assessable: [
+          makeRequirement({
+            text: "Bachelor's degree in Computer Science",
+            status: "not_assessable",
+            concept_id: null,
+            category: "education",
+            interpretation_status: "non_technical",
+          }),
+          makeRequirement({
+            text: "Experience with Terraform",
+            status: "not_assessable",
+            concept_id: null,
+            category: "unresolved_requirement",
+            interpretation_status: "unparsed_placeholder",
+          }),
+        ],
+      },
+    });
+    render(<ResultView result={response} />);
+
+    const outerSection = screen.getByRole("heading", { name: "Not assessable from GitHub" }).closest("section")!;
+    const nonTechHeading = within(outerSection).getByRole("heading", { name: "Genuinely non-technical requirements" });
+    const placeholderHeading = within(outerSection).getByRole("heading", { name: "Could not be confidently interpreted" });
+
+    const nonTechSubsection = nonTechHeading.closest(".requirement-subsection") as HTMLElement;
+    const placeholderSubsection = placeholderHeading.closest(".requirement-subsection") as HTMLElement;
+
+    expect(within(nonTechSubsection).getByText("Bachelor's degree in Computer Science")).toBeInTheDocument();
+    expect(within(nonTechSubsection).queryByText("Experience with Terraform")).not.toBeInTheDocument();
+
+    expect(within(placeholderSubsection).getByText("Experience with Terraform")).toBeInTheDocument();
+    expect(within(placeholderSubsection).queryByText("Bachelor's degree in Computer Science")).not.toBeInTheDocument();
+
+    // The two subsections must never share identical explanatory
+    // wording -- one is a fact about the posting, the other about
+    // GitScore's own parser.
+    expect(
+      within(placeholderSubsection).getByText(/GitScore's own parser could not confidently interpret/),
+    ).toBeInTheDocument();
+    expect(
+      within(nonTechSubsection).queryByText(/GitScore's own parser could not confidently interpret/),
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows the headline caveat when requirements could not be confidently interpreted", () => {
+    const response = makeAnalyzeResponse({
+      assessment: { github_evidence_alignment: 67, assessable_requirement_count: 3, uninterpreted_requirement_count: 2 },
+    });
+    render(<ResultView result={response} />);
+
+    expect(
+      screen.getByText("2 requirements could not be confidently interpreted by GitScore's parser -- see below."),
+    ).toBeInTheDocument();
+  });
+
+  it("omits the headline caveat entirely when nothing was uninterpreted", () => {
+    render(<ResultView result={makeAnalyzeResponse()} />);
+    expect(screen.queryByText(/could not be confidently interpreted by GitScore's parser/)).not.toBeInTheDocument();
+  });
+
+  it("renders the unparsed-claims section with raw text and no status/evidence", () => {
+    const response = makeAnalyzeResponse({
+      unparsed_claims: [{ text: "Experience designing distributed systems" }],
+    });
+    render(<ResultView result={response} />);
+
+    const section = screen
+      .getByRole("heading", { name: "Statements GitScore could not parse as requirements" })
+      .closest("section")!;
+    expect(within(section).getByText("Experience designing distributed systems")).toBeInTheDocument();
+  });
+
+  it("omits the unparsed-claims section entirely when there are none (the normal case)", () => {
+    render(<ResultView result={makeAnalyzeResponse()} />);
+    expect(
+      screen.queryByRole("heading", { name: "Statements GitScore could not parse as requirements" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders the unparsed-claims section after not_assessable and before diagnostics", () => {
+    const response = makeAnalyzeResponse({
+      unparsed_claims: [{ text: "Experience designing distributed systems" }],
+    });
+    render(<ResultView result={response} />);
+
+    const notAssessableHeading = screen.getByRole("heading", { name: "Not assessable from GitHub" });
+    const unparsedHeading = screen.getByRole("heading", { name: "Statements GitScore could not parse as requirements" });
+    const detailsSummary = screen.getByText("Analysis details");
+
+    expect(notAssessableHeading.compareDocumentPosition(unparsedHeading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(unparsedHeading.compareDocumentPosition(detailsSummary) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 });

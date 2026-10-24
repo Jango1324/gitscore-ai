@@ -17,7 +17,13 @@ Job Requirement Profile != Match Result. Nothing in this package knows
 what a candidate's GitHub evidence looks like.
 """
 from gitscore.jobs.models import JobRequirement, SourceSpan
-from gitscore.jobs.parsing import JOB_DESCRIPTION_PARSER_VERSION, parse_job_description
+from gitscore.jobs.parsing import (
+    JOB_DESCRIPTION_PARSER_VERSION,
+    ParsedJobDescription,
+    UnparsedClaim,
+    parse_job_description,
+    parse_job_description_with_diagnostics,
+)
 from gitscore.jobs.profile import JobRequirementProfile
 from gitscore.jobs.types import (
     JOB_REQUIREMENT_SCHEMA_VERSION,
@@ -35,7 +41,10 @@ __all__ = [
     "JobRequirement",
     "JobRequirementProfile",
     "Necessity",
+    "ParsedJobDescription",
     "ParserConfidence",
     "SourceSpan",
+    "UnparsedClaim",
     "parse_job_description",
+    "parse_job_description_with_diagnostics",
 ]

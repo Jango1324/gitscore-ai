@@ -78,7 +78,7 @@ from dataclasses import dataclass
 from gitscore.assessment import JobAssessment, assess_job
 from gitscore.evidence.profile import CandidateEvidenceProfile
 from gitscore.github.client import GitHubClient
-from gitscore.jobs import JobRequirementProfile, parse_job_description
+from gitscore.jobs import JobRequirementProfile, UnparsedClaim, parse_job_description_with_diagnostics
 from gitscore.jobs.types import Necessity
 from gitscore.matching import match_job
 from gitscore.pipeline.evidence import ExtractionFailure, extract_candidate_evidence
@@ -145,6 +145,17 @@ class JobAnalysisResult:
     `extract_candidate_evidence()`'s own per-run diagnostics (Milestone
     5D) -- deliberately kept off `CandidateEvidenceProfile` itself, so
     carried here unchanged rather than dropped or re-derived.
+
+    `unparsed_claims` (Milestone 9C) is the job-side analog: claims
+    `segment_description()` judged requirement-shaped for which the
+    parser's own per-claim detector chain still produced ZERO
+    `JobRequirement` rows -- see `jobs.parsing.parser.UnparsedClaim`'s
+    own docstring for why this is a strictly more severe gap than a
+    `category="unresolved_requirement"` placeholder (which DOES produce
+    a real, inspectable row). A pipeline-level diagnostic, exactly like
+    `extractor_failures`/`unknown_dependency_names` above -- never part
+    of `job_profile`/`JobRequirementProfile` itself, and never affects
+    `assessment.alignment_score` or any matcher/scoring semantics.
     """
 
     candidate_profile: CandidateEvidenceProfile
@@ -152,6 +163,7 @@ class JobAnalysisResult:
     assessment: JobAssessment
     extractor_failures: tuple[ExtractionFailure, ...] = ()
     unknown_dependency_names: tuple[str, ...] = ()
+    unparsed_claims: tuple[UnparsedClaim, ...] = ()
 
 
 def analyze_job_fit(
@@ -190,7 +202,8 @@ def analyze_job_fit(
     """
     _require_non_blank(username, "username")
 
-    job_profile = parse_job_description(job_description, title=job_title, company=job_company)
+    parsed = parse_job_description_with_diagnostics(job_description, title=job_title, company=job_company)
+    job_profile = parsed.profile
     relevance_terms = _relevance_terms_from_job_profile(job_profile)
 
     evidence_result = extract_candidate_evidence(
@@ -204,6 +217,7 @@ def analyze_job_fit(
         candidate_profile=evidence_result.profile,
         job_profile=job_profile,
         assessment=assessment,
+        unparsed_claims=parsed.unparsed_claims,
         extractor_failures=evidence_result.extractor_failures,
         unknown_dependency_names=evidence_result.unknown_dependency_names,
     )

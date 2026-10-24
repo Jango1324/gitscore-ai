@@ -426,7 +426,7 @@ def test_each_stage_runs_exactly_once():
     import gitscore.application.job_fit as job_fit_module
 
     real_extract = job_fit_module.extract_candidate_evidence
-    real_parse = job_fit_module.parse_job_description
+    real_parse = job_fit_module.parse_job_description_with_diagnostics
     real_match = job_fit_module.match_job
     real_assess = job_fit_module.assess_job
 
@@ -447,7 +447,7 @@ def test_each_stage_runs_exactly_once():
         return real_assess(*args, **kwargs)
 
     job_fit_module.extract_candidate_evidence = counting_extract
-    job_fit_module.parse_job_description = counting_parse
+    job_fit_module.parse_job_description_with_diagnostics = counting_parse
     job_fit_module.match_job = counting_match
     job_fit_module.assess_job = counting_assess
     try:
@@ -455,7 +455,7 @@ def test_each_stage_runs_exactly_once():
         job_fit_module.analyze_job_fit("octocat", BACKEND_JD, client=client, top_n=15)
     finally:
         job_fit_module.extract_candidate_evidence = real_extract
-        job_fit_module.parse_job_description = real_parse
+        job_fit_module.parse_job_description_with_diagnostics = real_parse
         job_fit_module.match_job = real_match
         job_fit_module.assess_job = real_assess
 

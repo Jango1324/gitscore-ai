@@ -1,5 +1,11 @@
+import { uninterpretedCaveat } from "@/lib/labels";
+
 interface AlignmentHeadlineProps {
   alignment: number | null;
+  /** Milestone 9C, additive -- count of requirements GitScore's own
+   * parser could not confidently interpret. Purely a caveat note; never
+   * changes `alignment` itself. */
+  uninterpretedCount?: number;
 }
 
 /**
@@ -9,7 +15,7 @@ interface AlignmentHeadlineProps {
  * 0/NaN/undefined/-1 (Milestone 8A's own null-vs-zero distinction,
  * carried through to the UI).
  */
-export function AlignmentHeadline({ alignment }: AlignmentHeadlineProps) {
+export function AlignmentHeadline({ alignment, uninterpretedCount = 0 }: AlignmentHeadlineProps) {
   return (
     <section className="alignment-headline" aria-labelledby="alignment-heading">
       <h2 id="alignment-heading">GitHub Evidence Alignment</h2>
@@ -25,6 +31,9 @@ export function AlignmentHeadline({ alignment }: AlignmentHeadlineProps) {
           <span className="alignment-number">{alignment}</span>
           <span className="alignment-scale"> / 100</span>
         </p>
+      )}
+      {uninterpretedCount > 0 && (
+        <p className="alignment-uninterpreted-caveat">{uninterpretedCaveat(uninterpretedCount)}</p>
       )}
     </section>
   );

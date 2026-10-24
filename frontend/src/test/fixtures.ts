@@ -9,6 +9,8 @@ export function makeRequirement(overrides: Partial<RequirementItem> = {}): Requi
     github_observability: "strongly_observable",
     parser_confidence: "high",
     concept_id: "infra.docker",
+    category: "infrastructure",
+    interpretation_status: "recognized",
     alternative_concept_ids: [],
     matched_concept_ids: [],
     evidence: [],
@@ -20,7 +22,7 @@ export function makeRequirement(overrides: Partial<RequirementItem> = {}): Requi
 export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): AnalyzeResponse {
   return {
     analysis: { github_username: "octocat", job_title: "Backend Software Engineer", job_company: null },
-    assessment: { github_evidence_alignment: 40, assessable_requirement_count: 5 },
+    assessment: { github_evidence_alignment: 40, assessable_requirement_count: 5, uninterpreted_requirement_count: 0 },
     required: { supported: 2, assessable: 3 },
     preferred: { supported: 0, assessable: 2 },
     repository_analysis: { discovered: 20, analyzed: 15, partially_analyzed: 0, complete: false },
@@ -81,6 +83,8 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
           importance: "medium",
           github_observability: "not_observable",
           concept_id: null,
+          category: "experience",
+          interpretation_status: "non_technical",
         }),
         makeRequirement({
           text: "Excellent written and verbal communication",
@@ -89,9 +93,12 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
           github_observability: "not_observable",
           parser_confidence: "medium",
           concept_id: null,
+          category: "soft_skill",
+          interpretation_status: "non_technical",
         }),
       ],
     },
+    unparsed_claims: [],
     diagnostics: { extraction_failure_count: 0, unknown_dependency_count: 0 },
     versions: {
       matcher: "requirement_matcher:v1",

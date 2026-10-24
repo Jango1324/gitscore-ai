@@ -14,9 +14,25 @@ from gitscore.api.serialization import serialize_job_analysis_result
 from gitscore.application import JobAnalysisResult
 from gitscore.assessment import assess_job
 from gitscore.evidence import ConfidenceLevel, Evidence, EvidenceType, RepositoryIdentity, build_candidate_evidence_profile
-from gitscore.jobs import parse_job_description
+from gitscore.jobs import parse_job_description, parse_job_description_with_diagnostics
 from gitscore.matching import match_job
 from gitscore.pipeline.evidence import ExtractionFailure
+
+# Milestone 9C -- one claim of each interpretation_status kind, in one
+# posting: a recognized technical requirement (Docker), a genuinely
+# non-technical claim (communication), GitScore's own two non-fabricating
+# placeholder shapes (the bare-lead-in "unresolved_requirement" and the
+# Milestone 6B.1 "unsafe" OR-group "alternative_requirement"), and one
+# claim that produces ZERO JobRequirement rows at all (an UnparsedClaim).
+# Exact behavior verified directly against the real parser before writing
+# any assertion below -- never assumed.
+MIXED_INTERPRETATION_JD = """Requirements:
+- Experience with Docker
+- Excellent written and verbal communication
+- Experience with Terraform
+- Proficiency in Python, Rust, or an equally performant systems language
+- Experience designing distributed systems
+"""
 
 BACKEND_JD = """Backend Software Engineer
 
@@ -72,7 +88,13 @@ def build_result(raw_text, title, evidence_items, *, extractor_failures=(), unkn
     candidate_profile = build_candidate_evidence_profile(
         "octocat", discovered=repos, analyzed=repos, evidence_items=evidence_items
     )
-    job_profile = parse_job_description(raw_text, title=title)
+    # Milestone 9C: uses the diagnostics-aware parse so `unparsed_claims`
+    # is populated too -- `.profile` is pinned byte-identical to
+    # `parse_job_description()`'s own output
+    # (tests/test_job_parser_diagnostics.py), so every existing
+    # assertion in this file is unaffected.
+    parsed = parse_job_description_with_diagnostics(raw_text, title=title)
+    job_profile = parsed.profile
     match_analysis = match_job(candidate_profile, job_profile)
     assessment = assess_job(match_analysis)
     return JobAnalysisResult(
@@ -81,6 +103,7 @@ def build_result(raw_text, title, evidence_items, *, extractor_failures=(), unkn
         assessment=assessment,
         extractor_failures=tuple(extractor_failures),
         unknown_dependency_names=tuple(unknown_dependency_names),
+        unparsed_claims=parsed.unparsed_claims,
     )
 
 
@@ -297,3 +320,111 @@ def test_ordinal_enums_serialize_as_lowercase_names_not_raw_ints():
         if requirement.parser_confidence is not None:
             assert requirement.parser_confidence in {"low", "medium", "high"}
         assert requirement.status in {"supported", "not_observed", "not_assessable"}
+
+
+# ---------------------------------------------------------------------------
+# Milestone 9C -- category / interpretation_status / uninterpreted count /
+# unparsed_claims
+# ---------------------------------------------------------------------------
+
+
+def _by_text(items, text):
+    return next(r for r in items if r.text == text)
+
+
+def test_recognized_technical_requirement_gets_recognized_interpretation_status():
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    docker = _by_text(response.requirements.not_observed, "Experience with Docker")
+    assert docker.status == "not_observed"
+    assert docker.interpretation_status == "recognized"
+    assert docker.category == "infrastructure"
+
+
+def test_genuinely_non_technical_requirement_gets_non_technical_interpretation_status():
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    comms = _by_text(response.requirements.not_assessable, "Excellent written and verbal communication")
+    assert comms.status == "not_assessable"
+    assert comms.interpretation_status == "non_technical"
+    assert comms.category == "soft_skill"
+
+
+def test_bare_lead_in_placeholder_gets_unparsed_placeholder_interpretation_status():
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    terraform = _by_text(response.requirements.not_assessable, "Experience with Terraform")
+    assert terraform.status == "not_assessable"
+    assert terraform.interpretation_status == "unparsed_placeholder"
+    assert terraform.category == "unresolved_requirement"
+    assert terraform.concept_id is None
+
+
+def test_unsafe_alternative_group_fallback_also_gets_unparsed_placeholder_status():
+    """The Milestone 6B.1 'unsafe' OR-group fallback (category=
+    'alternative_requirement') is a DIFFERENT parser mechanism from the
+    Milestone 9A bare-lead-in placeholder, but both represent the same
+    user-facing fact (GitScore could not confidently interpret this
+    claim) and so must both classify as 'unparsed_placeholder' -- never
+    treated as two different presentation concepts.
+    """
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    unsafe = _by_text(
+        response.requirements.not_assessable,
+        "Proficiency in Python, Rust, or an equally performant systems language",
+    )
+    assert unsafe.interpretation_status == "unparsed_placeholder"
+    assert unsafe.category == "alternative_requirement"
+
+
+def test_uninterpreted_requirement_count_counts_only_placeholders_not_genuine_non_technical():
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    # Terraform + the unsafe OR fallback = 2 placeholders; the
+    # communication claim is genuinely non-technical and must NOT be
+    # counted here.
+    assert response.assessment.uninterpreted_requirement_count == 2
+
+
+def test_uninterpreted_requirement_count_never_affects_alignment_or_assessable_count():
+    """The headline guarantee of this whole milestone: the new count is
+    purely informational. Recomputed independently here (not just
+    trusted) against the exact same formula `assessment.models` already
+    uses, to confirm nothing about the SCORE changed.
+    """
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    assessable = result.assessment.assessable_count
+    supported = result.assessment.match_analysis.supported_count
+    expected_alignment = round(100 * supported / assessable) if assessable else None
+
+    assert response.assessment.assessable_requirement_count == assessable
+    # Docker is the only assessable requirement in this posting (the two
+    # placeholders and the non-technical claim are all NOT_ASSESSABLE,
+    # excluded from the denominator exactly as before this milestone).
+    assert assessable == 1
+    assert response.assessment.github_evidence_alignment == expected_alignment
+
+
+def test_unparsed_claims_serialized_as_a_separate_list_never_merged_into_not_assessable():
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    assert [c.text for c in response.unparsed_claims] == ["Experience designing distributed systems"]
+    # Never duplicated into requirements.not_assessable -- that list only
+    # ever contains real RequirementOut rows with a real status.
+    not_assessable_texts = {r.text for r in response.requirements.not_assessable}
+    assert "Experience designing distributed systems" not in not_assessable_texts
+
+
+def test_unparsed_claims_is_empty_list_not_omitted_when_there_are_none():
+    result = build_result(BACKEND_JD, "Backend Software Engineer", [])
+    response = serialize_job_analysis_result(result)
+    assert response.unparsed_claims == []

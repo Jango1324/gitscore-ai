@@ -91,6 +91,27 @@ class RequirementOut(BaseModel):
     ("supported" / "not_observed" / "not_assessable") -- never
     "failed"/"missing_skill"/"unqualified" (Milestone 8A Part 9/10: a
     7A/7B product-semantics requirement, not a new decision made here).
+
+    `category` (Milestone 9C, additive) is the raw passthrough of
+    `JobRequirement.category` -- present for transparency/debugging, not
+    itself the field a frontend should branch its presentation on.
+
+    `interpretation_status` (Milestone 9C, additive) is the ONE new
+    DERIVED field a frontend should actually use: "recognized" (the
+    requirement has a structured, GitHub-observable concept mapping --
+    covers both `supported` and `not_observed`, and a `not_assessable`
+    requirement can never be "recognized"), "non_technical" (a genuine
+    `not_assessable` claim GitHub evidence cannot speak to at all --
+    education/experience/legal/soft-skill/leadership, or the Milestone
+    6B.1 "unsafe" alternative-group fallback), or "unparsed_placeholder"
+    (a `not_assessable` requirement that is GitScore's OWN parser
+    uncertainty -- the Milestone 9A non-fabricating placeholder,
+    `category in {"unresolved_requirement", "alternative_requirement"}`).
+    Computed ONCE, server-side (`gitscore.api.serialization`), so this
+    classification rule lives in exactly one tested place -- never
+    duplicated in frontend TypeScript. Introduces NO new `MatchStatus`:
+    `status` is unchanged; this is a presentation-only refinement of
+    WHY a `not_assessable` status was reached.
     """
 
     text: str
@@ -100,6 +121,8 @@ class RequirementOut(BaseModel):
     github_observability: str
     parser_confidence: str | None
     concept_id: str | None
+    category: str | None
+    interpretation_status: str
     alternative_concept_ids: list[str]
     matched_concept_ids: list[str]
     evidence: list[EvidenceOut]
@@ -117,8 +140,19 @@ class AnalysisMetaOut(BaseModel):
 
 
 class AssessmentOut(BaseModel):
+    """`uninterpreted_requirement_count` (Milestone 9C, additive) is the
+    count of `not_assessable` requirements whose
+    `interpretation_status == "unparsed_placeholder"` (GitScore's OWN
+    parser uncertainty, never a genuinely non-technical claim).
+    Informational only: never read by, and never affects,
+    `github_evidence_alignment` or `assessable_requirement_count` --
+    those two fields and the underlying formula are byte-for-byte
+    unchanged by this milestone.
+    """
+
     github_evidence_alignment: int | None
     assessable_requirement_count: int
+    uninterpreted_requirement_count: int
 
 
 class RepositoryAnalysisOut(BaseModel):
@@ -139,6 +173,18 @@ class DiagnosticsOut(BaseModel):
     unknown_dependency_count: int
 
 
+class UnparsedClaimOut(BaseModel):
+    """Milestone 9C, additive -- one claim the parser's segmentation
+    step judged requirement-shaped for which NO `JobRequirement` was
+    ever produced at all (see `gitscore.jobs.parsing.parser.UnparsedClaim`'s
+    own docstring). Deliberately just the raw original text -- there is
+    no status, concept, necessity, or observability to attach, because
+    nothing downstream of segmentation ever saw this claim.
+    """
+
+    text: str
+
+
 class VersionsOut(BaseModel):
     matcher: str
     scoring: str
@@ -157,6 +203,13 @@ class AnalyzeResponse(BaseModel):
     `assessment.models.SubscoreFacts`'s docstring). Same for
     `assessment.github_evidence_alignment` (Part 12): `None` stays
     `null`, never coerced to `0`/`"N/A"`/`-1`.
+
+    `unparsed_claims` (Milestone 9C, additive) is usually empty -- it is
+    populated only for the claims `UnparsedClaimOut` itself describes
+    (segmentation judged them requirement-shaped; nothing downstream
+    produced a row). It is a SEPARATE list from `requirements.*`
+    entirely -- never merged into `not_assessable`, which still only
+    ever contains real `RequirementOut` rows.
     """
 
     analysis: AnalysisMetaOut
@@ -165,6 +218,7 @@ class AnalyzeResponse(BaseModel):
     preferred: SubscoreOut | None
     repository_analysis: RepositoryAnalysisOut
     requirements: RequirementGroupsOut
+    unparsed_claims: list[UnparsedClaimOut]
     diagnostics: DiagnosticsOut
     versions: VersionsOut
 

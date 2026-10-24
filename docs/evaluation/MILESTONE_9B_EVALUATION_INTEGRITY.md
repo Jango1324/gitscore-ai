@@ -140,15 +140,25 @@ m9b-030's comma-heavy soft-skill sentence).
 
 | Entry | Claim | Why it drops |
 |---|---|---|
+| m9b-005 | "Familiarity with Snowflake is a plus" | the lead-in phrase matches ("Familiarity with"), but the remainder ("Snowflake is a plus") is 4 words — `clean_list_fragment`'s `<=3-word` shape check fails because of the trailing "is a plus" clause, so the Piece 2 placeholder never fires |
 | m9b-006 | "The ideal candidate has used Snowflake extensively" | no comma, no OR, no qualifying lead-in phrase at all |
 | m9b-008 | "Hands-on experience with PLC programming and SCADA systems" | `find_conservative_unknown_terms` requires an actual **comma**; this is a bare "X and Y" |
 | m9b-014 | "Experience designing distributed systems" | no named technology, "designing" is not in the narrow lead-in table |
 | m9b-015 | "Experience building reliable distributed services" | same — the brief's own named example |
 | m9b-016 | "Ability to design and implement scalable backend architectures" | same category, different phrasing |
 
-(m9b-005, "Familiarity with Snowflake is a plus", correctly resolved to
-the `unresolved_requirement` fallback — it is *not* a silent drop; it is
-listed in the metric-5 table above as a FALLBACK_MATCH.)
+**Correction (found during Milestone 9C's own regression testing against
+this benchmark):** this report originally stated m9b-005 resolved to the
+`unresolved_requirement` fallback (a `FALLBACK_MATCH`). Direct
+re-verification against the real parser shows this was wrong — m9b-005
+is a genuine `SILENT_DROP_GAP`, for the reason given in the table above.
+The corpus's own `wrapping`/`ideal_outcome`/`acceptable_fallback`
+annotation for m9b-005 was not edited (per this project's own rule
+against revising gold after seeing output) — only this report's
+PROSE description of the measured result was corrected. The headline
+numbers in §4 (`9_silent_drop_count: {"accepted_by_corpus": 0,
+"flagged_as_gap": 6}`) were already correct; only this section's
+earlier text undercounted which six entries they were.
 
 These six are exactly M9A's own disclosed residual limitation (§7 of
 that report: "a technical-sounding requirement with no named technology

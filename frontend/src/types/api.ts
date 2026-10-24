@@ -35,6 +35,17 @@ export type RequirementStatus = "supported" | "not_observed" | "not_assessable";
 
 export type Necessity = "required" | "preferred";
 
+/** Milestone 9C -- WHY a requirement's `status` is what it is, without
+ * introducing a new status value. "recognized" covers both `supported`
+ * and `not_observed` (the requirement had a structured, GitHub-
+ * observable concept mapping the matcher could evaluate). Within
+ * `not_assessable`, "non_technical" is a genuine claim GitHub evidence
+ * cannot speak to at all; "unparsed_placeholder" is GitScore's OWN
+ * parser uncertainty -- never rendered identically to a genuine
+ * non-technical claim. This is the field the UI should branch on;
+ * `category` (below) is raw passthrough for transparency/debugging. */
+export type InterpretationStatus = "recognized" | "non_technical" | "unparsed_placeholder";
+
 export interface RequirementItem {
   text: string;
   status: RequirementStatus;
@@ -43,9 +54,22 @@ export interface RequirementItem {
   github_observability: string;
   parser_confidence: string | null;
   concept_id: string | null;
+  /** Milestone 9C, additive. Raw `JobRequirement.category` passthrough. */
+  category: string | null;
+  /** Milestone 9C, additive. See `InterpretationStatus`'s own doc comment. */
+  interpretation_status: InterpretationStatus;
   alternative_concept_ids: string[];
   matched_concept_ids: string[];
   evidence: EvidenceItem[];
+}
+
+/** Milestone 9C, additive -- one claim segmentation judged requirement-
+ * shaped for which NO RequirementItem was ever produced at all. No
+ * status, concept, or necessity -- nothing downstream of segmentation
+ * ever saw this claim. Always a SEPARATE list from `requirements.*`,
+ * never merged into `not_assessable`. */
+export interface UnparsedClaim {
+  text: string;
 }
 
 export interface Subscore {
@@ -63,6 +87,11 @@ export interface Assessment {
   /** `null` when nothing was assessable -- NEVER 0/"N/A"/-1. */
   github_evidence_alignment: number | null;
   assessable_requirement_count: number;
+  /** Milestone 9C, additive -- count of `not_assessable` requirements
+   * whose `interpretation_status === "unparsed_placeholder"`.
+   * Informational only: never affects `github_evidence_alignment` or
+   * `assessable_requirement_count`. */
+  uninterpreted_requirement_count: number;
 }
 
 export interface RepositoryAnalysis {
@@ -99,6 +128,9 @@ export interface AnalyzeResponse {
   preferred: Subscore | null;
   repository_analysis: RepositoryAnalysis;
   requirements: RequirementGroups;
+  /** Milestone 9C, additive -- usually empty. See `UnparsedClaim`'s own
+   * doc comment. */
+  unparsed_claims: UnparsedClaim[];
   diagnostics: Diagnostics;
   versions: Versions;
 }
