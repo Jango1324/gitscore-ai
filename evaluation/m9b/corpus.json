@@ -1,0 +1,600 @@
+{
+  "corpus_version": "9b:v1",
+  "notes": "Milestone 9B Phase 1 -- requirement-preservation benchmark. ADDITIVE corpus: does NOT modify evaluation/gold/ (8c:v1) or evaluation/gold_v1_1/ (8c:v1.1), which remain frozen and untouched. Every entry's `ideal_outcome` / `acceptable_fallback` / `is_requirement` / `is_technical` / `or_and_structure` / `ambiguity_notes` fields were authored by reading the claim text alone and reasoning about what a maximally-correct, non-fabricating parser SHOULD produce -- never by running parse_job_description() first and copying its output. The evaluator (scripts/evaluation_lib/preservation_eval.py) is a separate step that runs the REAL parser against each entry's `wrapped_text` afterward and classifies agreement/disagreement; any mismatch is a genuine, reportable finding, not a corpus error to be revised away. See docs/evaluation/MILESTONE_9B_EVALUATION_INTEGRITY.md Section 2 for the full annotation policy.",
+  "schema": {
+    "id": "stable identifier, never reused for a different claim once published",
+    "category": "one of the Milestone 9B brief's required coverage categories (see docs)",
+    "source_text": "the exact claim text as it would appear in a job posting bullet/sentence",
+    "wrapping": "how source_text is embedded into a full raw_text passed to parse_job_description() -- 'requirements_bullet' (inside a 'Requirements:' section, necessity_hint=REQUIRED), 'preferred_bullet' (inside 'Preferred Qualifications:'), 'benefits_bullet' (inside a SKIP section -- must never become a requirement regardless of content), 'bare_heading' (the text itself is a section heading), 'intro_prose' (ordinary marketing/intro prose before any recognized heading), 'outside_section_sentence' (a sentence with no heading context at all, testing segmentation's generic-vocabulary gate)",
+    "is_requirement": "independent judgment: does this claim assert something a job posting means as a requirement/qualification at all (true), or is it structural/marketing prose that must never become a JobRequirement (false)",
+    "is_technical": "independent judgment: is the requirement (if any) about a specific technology/tool/concept GitHub evidence could in principle speak to, vs. a professional/legal/soft-skill claim",
+    "or_and_structure": "'none' | 'or' | 'and_list' -- the claim's own logical structure, judged from the English alone",
+    "ideal_outcome": "what a maximally correct, non-fabricating parser SHOULD produce for this claim -- the ceiling this benchmark measures against",
+    "acceptable_fallback": "a DEGRADED but still-honest outcome this corpus accepts as 'not a failure' even though it falls short of ideal_outcome (e.g. a generic non-fabricating placeholder instead of a specific unresolved:<term> id) -- null when no such fallback is distinguished from failure",
+    "ambiguity_notes": "present only when more than one annotation is genuinely defensible; states the alternative reading and why one was chosen",
+    "notes": "free-form annotator commentary"
+  },
+  "entries": [
+    {
+      "id": "m9b-001",
+      "category": "registered_technical_concept",
+      "source_text": "Strong experience with Python and PostgreSQL",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "and_list",
+      "ideal_outcome": {
+        "type": "recognized_concepts",
+        "concept_ids": ["language.python", "database.postgresql"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": null,
+      "notes": "Two independent, conjunctive technical claims naming registered concepts. Baseline sanity case -- the parser has handled this shape since Milestone 6B."
+    },
+    {
+      "id": "m9b-002",
+      "category": "registered_technical_concept",
+      "source_text": "Required: Docker and Kubernetes experience in production environments",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "and_list",
+      "ideal_outcome": {
+        "type": "recognized_concepts",
+        "concept_ids": ["infra.docker", "infra.kubernetes"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": null,
+      "notes": "Both concepts registered since Milestone 8D.1. 'in production environments' is descriptive, not a second requirement."
+    },
+    {
+      "id": "m9b-003",
+      "category": "unregistered_named_technology",
+      "source_text": "Experience with Terraform",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "unresolved_concept",
+        "concept_ids": ["unresolved:terraform"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": {
+        "type": "unresolved_requirement_placeholder",
+        "category": "unresolved_requirement",
+        "github_observability": "partially_observable"
+      },
+      "ambiguity_notes": "Terraform is unambiguously one specific, named infrastructure product -- an ideal parser would mint unresolved:terraform directly, exactly as it would for a registered concept. The current design (Milestone 9A) only promotes a BARE single term to a real unresolved:<term> id when it appears inside an OR-list or a cue-gated comma-enumeration; a lone bare term after a lead-in phrase instead receives the generic, non-specific unresolved_requirement placeholder. Both outcomes are honest (neither fabricates a wrong concept), but the placeholder loses the specific technology name -- scored as an accepted fallback, not full credit, by this corpus's metric #3 (unknown-concept preservation).",
+      "notes": "Directly one of M8E's two original motivating examples' sibling cases."
+    },
+    {
+      "id": "m9b-004",
+      "category": "unregistered_named_technology",
+      "source_text": "Experience with dbt",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "unresolved_concept",
+        "concept_ids": ["unresolved:dbt"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": {
+        "type": "unresolved_requirement_placeholder",
+        "category": "unresolved_requirement",
+        "github_observability": "partially_observable"
+      },
+      "notes": "Named explicitly in the Milestone 9B brief as an example to investigate. Same shape/reasoning as m9b-003."
+    },
+    {
+      "id": "m9b-005",
+      "category": "unknown_single_term",
+      "source_text": "Familiarity with Snowflake is a plus",
+      "wrapping": "preferred_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "unresolved_concept",
+        "concept_ids": ["unresolved:snowflake"],
+        "necessity": "preferred",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": {
+        "type": "unresolved_requirement_placeholder",
+        "category": "unresolved_requirement",
+        "github_observability": "partially_observable"
+      },
+      "ambiguity_notes": "'Familiarity with' is in the narrow technical-lead-in list; 'is a plus' is hedge/preference wording, correctly PREFERRED rather than REQUIRED regardless of which outcome fires.",
+      "notes": "A lone unregistered noun-phrase preceded by a recognized technical lead-in and followed by hedge wording -- tests that necessity inference and the Milestone 9A placeholder logic compose correctly."
+    },
+    {
+      "id": "m9b-006",
+      "category": "unknown_single_term",
+      "source_text": "The ideal candidate has used Snowflake extensively",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "unresolved_concept",
+        "concept_ids": ["unresolved:snowflake"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": null,
+      "ambiguity_notes": "Deliberately phrased WITHOUT any of the narrow lead-in phrases ('experience with' / 'knowledge of' / 'familiarity with' / 'proficiency in' / 'proficient in' / 'expert in') the parser's last-resort placeholder requires, and without a comma/OR list -- this is the single hardest, most realistic phrasing of 'names one specific unregistered technology in ordinary sentence structure'. No acceptable_fallback is defined: this corpus takes the position that SOME trace is still owed even here, so a true silent drop (zero rows) counts as a genuine MISSING/SILENT_DROP finding, not an accepted degradation -- this is expected to currently fail and is the headline example for the residual gap M9A's own report (Section 7) already disclosed.",
+      "notes": "Intentionally adversarial phrasing to surface the known residual silent-drop gap, not a gotcha against the parser -- the point is to measure it, not to engineer a pass."
+    },
+    {
+      "id": "m9b-007",
+      "category": "unknown_and_list",
+      "source_text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "and_list",
+      "ideal_outcome": {
+        "type": "unresolved_concepts",
+        "concept_ids": ["unresolved:spi", "unresolved:i2c", "unresolved:uart"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": null,
+      "notes": "M8E's second original motivating example, verbatim. Three independent AND-conjoined unregistered acronyms introduced by an explicit enumeration cue ('such as') -- the exact shape Milestone 9A's Piece 1 cue-gated branch targets."
+    },
+    {
+      "id": "m9b-008",
+      "category": "unknown_and_list",
+      "source_text": "Hands-on experience with PLC programming and SCADA systems",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "and_list",
+      "ideal_outcome": {
+        "type": "unresolved_concepts",
+        "concept_ids": ["unresolved:plc", "unresolved:scada"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": {
+        "type": "unresolved_requirement_placeholder",
+        "category": "unresolved_requirement",
+        "github_observability": "partially_observable"
+      },
+      "ambiguity_notes": "No comma in 'PLC programming and SCADA systems' -- only a bare 'X and Y'. find_conservative_unknown_terms requires an actual comma before it even considers the no-sibling cue-gated branch, so the ideal per-term unresolved:<term> outcome is NOT expected to fire here even though the terms are just as shape-valid as the SPI/I2C/UART case. The accepted fallback is the generic placeholder (triggered via the alternative-marker-free, non-comma 'experience with'-style lead-in check only if the claim is short enough) -- this entry exists specifically to test the comma-vs-no-comma boundary the 9A design deliberately drew.",
+      "notes": "Stress-tests the documented 'requires an actual comma' guard (ARCHITECTURE.md Section 18.5) with realistic embedded/robotics vocabulary rather than the already-covered SPI/I2C/UART case."
+    },
+    {
+      "id": "m9b-009",
+      "category": "unknown_or_group",
+      "source_text": "Knowledge of Vue or Angular",
+      "wrapping": "preferred_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "or",
+      "ideal_outcome": {
+        "type": "unresolved_alternative_group",
+        "concept_ids": ["unresolved:angular", "unresolved:vue"],
+        "necessity": "preferred",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": {
+        "type": "alternative_requirement_placeholder",
+        "category": "alternative_requirement",
+        "github_observability": "partially_observable"
+      },
+      "notes": "M8E's first original motivating example, verbatim (frontend_01's own frozen gold already expects exactly this ideal outcome)."
+    },
+    {
+      "id": "m9b-010",
+      "category": "unknown_or_group",
+      "source_text": "Experience with MATLAB or Simulink for controls simulation",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "or",
+      "ideal_outcome": {
+        "type": "unresolved_alternative_group",
+        "concept_ids": ["unresolved:matlab", "unresolved:simulink"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": {
+        "type": "alternative_requirement_placeholder",
+        "category": "alternative_requirement",
+        "github_observability": "partially_observable"
+      },
+      "notes": "Second alternative shaped 'or'-list with a longer trailing descriptive clause on the second segment ('Simulink for controls simulation') -- tests the leading_token rescue path (Milestone 9A Section 3.1's fix) on a non-first segment, where it is legitimate to trust capitalization."
+    },
+    {
+      "id": "m9b-011",
+      "category": "unknown_or_group",
+      "source_text": "Experience with Snowflake or BigQuery",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "or",
+      "ideal_outcome": {
+        "type": "unresolved_alternative_group",
+        "concept_ids": ["unresolved:bigquery", "unresolved:snowflake"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": {
+        "type": "alternative_requirement_placeholder",
+        "category": "alternative_requirement",
+        "github_observability": "partially_observable"
+      },
+      "notes": "Data-engineering-domain OR-group, already named as a known case in M8C/M8E's own documented registry gaps."
+    },
+    {
+      "id": "m9b-012",
+      "category": "mixed_known_and_unknown",
+      "source_text": "Experience with React, Vue, and GraphQL",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "and_list",
+      "ideal_outcome": {
+        "type": "mixed_concepts",
+        "concept_ids": ["framework.react", "unresolved:vue", "unresolved:graphql"],
+        "necessity": "required",
+        "github_observability": "strongly_observable"
+      },
+      "acceptable_fallback": null,
+      "notes": "React is registered; Vue and GraphQL are not, but both sit in a comma list alongside a confirmed sibling (React) -- this is the sibling-confirmed branch of find_conservative_unknown_terms, which existed before Milestone 9A and is a regression control, not a new case."
+    },
+    {
+      "id": "m9b-013",
+      "category": "mixed_known_and_unknown",
+      "source_text": "Proficiency in Python, Rust, or an equally performant systems language",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "or",
+      "ideal_outcome": {
+        "type": "alternative_group_with_unsafe_segment",
+        "concept_ids": ["language.python", "language.rust"],
+        "necessity": "required",
+        "github_observability": "partially_observable"
+      },
+      "acceptable_fallback": {
+        "type": "alternative_requirement_placeholder",
+        "category": "alternative_requirement",
+        "github_observability": "partially_observable"
+      },
+      "ambiguity_notes": "Two segments resolve cleanly (Python, Rust); the third ('an equally performant systems language') is a genuine open-ended descriptive clause, not a specific unnamed product -- it correctly fails looks_like_specific_technology_name's shape check (lowercase, multi-word, no proper-noun shape). Per the documented Milestone 6B.1 'unsafe' policy, losing Python/Rust's OWN alternative-group structure here (collapsing the whole claim to the conservative placeholder) is the DESIGNED, correct behavior, not a defect -- building a partial two-of-three group would misrepresent what the posting actually offered as its full set of acceptable alternatives. This corpus records the placeholder as the IDEAL outcome for this specific case, not merely an accepted fallback, because preserving partial alternative-group structure would be actively worse.",
+      "notes": "A deliberately adversarial mixed case testing the 'unsafe' classification path (alternatives.py), included because it is the one scenario in this corpus where losing structure is the CORRECT choice, illustrating why the benchmark must not reflexively treat every placeholder as a loss."
+    },
+    {
+      "id": "m9b-014",
+      "category": "technical_competency_no_named_product",
+      "source_text": "Experience designing distributed systems",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "competency_placeholder",
+        "category": "unresolved_requirement",
+        "necessity": "required",
+        "github_observability": "partially_observable"
+      },
+      "acceptable_fallback": null,
+      "ambiguity_notes": "This is technical in substance (distributed-systems design is a real, GitHub-observable-in-principle engineering competency -- a candidate's repositories could plausibly show microservices, consensus code, message queues, etc.) but names NO specific product or concept at all -- there is nothing for a concept registry entry to even target. The only honest, non-fabricating outcome is a category-level placeholder that flags 'GitHub might partially speak to this, but nothing concrete was identified' (PARTIALLY_OBSERVABLE, concept_id=None) -- never NOT_OBSERVABLE (that would wrongly claim GitHub evidence is categorically irrelevant to system design) and never a fabricated concept_id (there is no specific technology to fabricate). Named explicitly in the Milestone 9A report Section 7 as the hardest residual case and in this milestone's own brief.",
+      "notes": "The brief's own named example. Per ARCHITECTURE.md Section 18/9A, the CURRENT parser produces zero rows for this claim (no lead-in phrase in the narrow _TECHNICAL_LEAD_IN table matches 'designing', and there is no comma/OR structure) -- expected to be measured as a genuine MISSING/SILENT_DROP finding against this corpus's ideal_outcome, which is the entire point of including it: Phase 1 must measure this gap honestly, not design around it."
+    },
+    {
+      "id": "m9b-015",
+      "category": "technical_competency_no_named_product",
+      "source_text": "Experience building reliable distributed services",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "competency_placeholder",
+        "category": "unresolved_requirement",
+        "necessity": "required",
+        "github_observability": "partially_observable"
+      },
+      "acceptable_fallback": null,
+      "notes": "The brief's own second named example; same reasoning as m9b-014, included separately so the benchmark's silent-drop COUNT (metric 9) reflects more than one instance of this category rather than looking like a single outlier."
+    },
+    {
+      "id": "m9b-016",
+      "category": "technical_competency_no_named_product",
+      "source_text": "Ability to design and implement scalable backend architectures",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "competency_placeholder",
+        "category": "unresolved_requirement",
+        "necessity": "required",
+        "github_observability": "partially_observable"
+      },
+      "acceptable_fallback": null,
+      "notes": "Third instance of the same named-product-free technical-competency category, phrased without any 'experience with/knowledge of' lead-in at all -- a slightly different, equally realistic phrasing of the same underlying gap."
+    },
+    {
+      "id": "m9b-017",
+      "category": "professional_experience",
+      "source_text": "3+ years of professional software engineering experience",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": false,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "non_technical",
+        "category": "experience",
+        "necessity": "required",
+        "github_observability": "not_observable"
+      },
+      "acceptable_fallback": null,
+      "notes": "Canonical experience-qualifier claim; regression control for find_experience_qualifier(), unchanged since Milestone 6B."
+    },
+    {
+      "id": "m9b-018",
+      "category": "education",
+      "source_text": "Bachelor's degree in Computer Science or a related field",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": false,
+      "or_and_structure": "or",
+      "ideal_outcome": {
+        "type": "non_technical",
+        "category": "education",
+        "necessity": "required",
+        "github_observability": "not_observable"
+      },
+      "acceptable_fallback": null,
+      "ambiguity_notes": "Contains 'or', but neither side ('Computer Science' / 'a related field') names a specific technology -- must stay education/NOT_OBSERVABLE, never an alternative_concept_ids technical group and never a fabricated unresolved:computer_science. This is the exact negative control Milestone 9A's own Piece 1 shape-check (looks_like_specific_technology_name's possessive-'s exclusion plus the generic multi-word lowercase shape) is designed to keep correctly non-technical.",
+      "notes": "Direct regression control against over-eager OR-list promotion."
+    },
+    {
+      "id": "m9b-019",
+      "category": "certification",
+      "source_text": "Security certification such as OSCP or CISSP",
+      "wrapping": "preferred_bullet",
+      "is_requirement": true,
+      "is_technical": false,
+      "or_and_structure": "or",
+      "ideal_outcome": {
+        "type": "non_technical",
+        "category": "leadership",
+        "necessity": "preferred",
+        "github_observability": "partially_observable",
+        "notes_on_category": "no existing non_technical.py category is a perfect semantic fit for 'holds an industry certification' -- this corpus does not insist on one specific category label, only on: concept_id=None (never a fabricated unresolved:security/unresolved:oscp/unresolved:cissp), and PARTIALLY_OBSERVABLE-or-weaker observability (a certification is genuinely outside direct GitHub observability, but adjacent security work, e.g. a documented pentest tool, is loosely plausible -- NOT_OBSERVABLE would also be defensible)."
+      },
+      "acceptable_fallback": {
+        "type": "unresolved_requirement_placeholder",
+        "category": "unresolved_requirement",
+        "github_observability": "partially_observable"
+      },
+      "ambiguity_notes": "This is the exact false-positive case Milestone 9A's own Section 3.1 found and fixed during implementation (the sentence-initial 'Security' was being promoted to a fabricated unresolved:security + unresolved:cissp alternative group before the fix). The CORRECT outcome must NOT name OSCP/CISSP as technical concepts at all -- a security certification is a credential, not a GitHub-observable technology, even though OSCP/CISSP are specific proper nouns that would otherwise pass the capitalization shape check. This is the corpus's deliberate stress-test that the shape heuristic's known blind spot (shape-only, never meaning) is still contained by the sentence-initial-capitalization guard.",
+      "notes": "The brief's own named example (OSCP/CISSP)."
+    },
+    {
+      "id": "m9b-020",
+      "category": "certification",
+      "source_text": "CISSP certification preferred",
+      "wrapping": "preferred_bullet",
+      "is_requirement": true,
+      "is_technical": false,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "non_technical",
+        "category": null,
+        "necessity": "preferred",
+        "github_observability": "not_observable",
+        "notes_on_category": "No OR-list and no comma/enumeration cue here at all, so none of the Milestone 9A placeholder triggers apply regardless of category table coverage -- a bare 'X certification preferred' sentence. concept_id=None is still mandatory; this entry independently tests the single-certification-no-list shape, where a silent drop is arguably the CURRENT honest (if impoverished) outcome rather than a bug, since nothing about 'CISSP certification preferred' matches any of the three narrow Piece 2 structural signals (no alternative marker, no comma, and the sentence does not start with the narrow lead-in phrase table)."
+      },
+      "acceptable_fallback": {
+        "type": "silent_drop",
+        "category": null,
+        "github_observability": null
+      },
+      "ambiguity_notes": "Unlike every other entry in this corpus, a silent drop is explicitly listed as an ACCEPTED (not merely tolerated) outcome here -- this is deliberate: a bare non-technical certification mention with no list/OR/lead-in structure at all is exactly the kind of claim the Milestone 9A brief's own 'do not assume all unknown technical requirements can be safely resolved' caution protects, and it is NOT technical in the first place, so even an honest placeholder would be slightly wrong framing (PARTIALLY_OBSERVABLE implies some GitHub relevance; a bare certification credential has none). This entry exists to show the benchmark does not reflexively treat every silent drop as a defect -- severity depends on whether the dropped content was itself a technical, GitHub-relevant claim.",
+      "notes": "Companion/contrast case to m9b-019, isolating the single-certification-no-OR shape."
+    },
+    {
+      "id": "m9b-021",
+      "category": "soft_skill",
+      "source_text": "Strong communication skills",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": false,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "non_technical",
+        "category": "soft_skill",
+        "necessity": "required",
+        "github_observability": "not_observable"
+      },
+      "acceptable_fallback": null,
+      "ambiguity_notes": "The brief's own named false-positive-risk example for the Milestone 9A lead-in-phrase gate: 'Strong' must never be treated as a technical lead-in (it is not in the narrow _TECHNICAL_LEAD_IN table, only in the much broader, deliberately-excluded _LIST_ITEM_PREFIXES table) -- this is a negative control, not an ambiguous case.",
+      "notes": "Direct regression control confirming the narrow lead-in table (Milestone 9A) does not swallow ordinary soft-skill prose."
+    },
+    {
+      "id": "m9b-022",
+      "category": "soft_skill",
+      "source_text": "Experience building strong relationships with stakeholders",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": false,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "non_technical",
+        "category": "soft_skill",
+        "necessity": "required",
+        "github_observability": "not_observable"
+      },
+      "acceptable_fallback": {
+        "type": "silent_drop",
+        "category": null,
+        "github_observability": null
+      },
+      "ambiguity_notes": "The brief's own named example, and a deliberately adversarial one: it starts with 'Experience building', which superficially resembles the technical-competency phrasing in m9b-014/015 ('Experience building reliable distributed services'). The correct discriminator is semantic (stakeholder relationships are a people-skill, not an engineering competency), which the current parser cannot judge -- it has no non_technical.py phrase-table entry for 'relationships with stakeholders' specifically, so a silent drop is the realistic, acceptable (if imperfect) current outcome; the risk this entry flags is the OPPOSITE failure mode -- a future broadening of the technical-lead-in or competency-placeholder heuristics must not start matching this sentence as if it were technical. is_technical=false is the one invariant that must never flip.",
+      "notes": "Explicitly a negative control against over-broadening any future fix for m9b-014/015/016's residual gap -- 'building services' is technical; 'building relationships' is not, and no future heuristic should blur that line."
+    },
+    {
+      "id": "m9b-023",
+      "category": "soft_skill",
+      "source_text": "Ability to work independently and collaborate across teams",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": false,
+      "or_and_structure": "and_list",
+      "ideal_outcome": {
+        "type": "non_technical",
+        "category": "soft_skill",
+        "necessity": "required",
+        "github_observability": "not_observable"
+      },
+      "acceptable_fallback": {
+        "type": "silent_drop",
+        "category": null,
+        "github_observability": null
+      },
+      "notes": "Contains 'and' but no comma and no technical content -- a second negative control against the AND-list unresolved-term promotion path ever firing on purely descriptive soft-skill conjunctions."
+    },
+    {
+      "id": "m9b-024",
+      "category": "non_requirement_prose",
+      "source_text": "We are a fast-growing startup revolutionizing how teams ship software, backed by top-tier investors.",
+      "wrapping": "intro_prose",
+      "is_requirement": false,
+      "is_technical": false,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "excluded",
+        "necessity": null,
+        "github_observability": null
+      },
+      "acceptable_fallback": null,
+      "notes": "Classic marketing-intro prose preceding any recognized heading -- must produce zero requirement rows. Direct regression control, same family as the Milestone 6B Backend-posting marketing intro already validated."
+    },
+    {
+      "id": "m9b-025",
+      "category": "non_requirement_prose",
+      "source_text": "Enjoy React JS meetups, a fully stocked kitchen, and unlimited PTO.",
+      "wrapping": "benefits_bullet",
+      "is_requirement": false,
+      "is_technical": false,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "excluded",
+        "necessity": null,
+        "github_observability": null
+      },
+      "acceptable_fallback": null,
+      "ambiguity_notes": "Deliberately contains 'React JS', a real registered concept alias (framework.react) -- the correct behavior is EXCLUSION because this bullet sits inside a 'Benefits:' skip-section, not because the concept match itself is wrong. This is the exact documented Milestone 6B regression case (ARCHITECTURE.md Section 18.2) proving the skip-section mechanism overrides concept detection, reused here verbatim as a standing regression control rather than re-derived.",
+      "notes": "Lifted from the project's own already-validated Backend-posting fixture, included to keep this guarantee under this milestone's own corpus rather than relying solely on the original, separately-run test."
+    },
+    {
+      "id": "m9b-026",
+      "category": "heading_or_section_intro",
+      "source_text": "Requirements:",
+      "wrapping": "bare_heading",
+      "is_requirement": false,
+      "is_technical": false,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "excluded",
+        "necessity": null,
+        "github_observability": null
+      },
+      "acceptable_fallback": null,
+      "notes": "A section heading itself is consumed by segmentation as structure, never as claim text -- it must never become a JobRequirement with original_text=='Requirements:'."
+    },
+    {
+      "id": "m9b-027",
+      "category": "heading_or_section_intro",
+      "source_text": "What You'll Do",
+      "wrapping": "bare_heading",
+      "is_requirement": false,
+      "is_technical": false,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "excluded",
+        "necessity": null,
+        "github_observability": null
+      },
+      "acceptable_fallback": null,
+      "ambiguity_notes": "'What You'll Do' is NOT in segmentation.py's fixed heading-table (which recognizes 'Responsibilities' but not this exact common phrasing) -- an independent, pre-implementation reading of this heading-shaped line still judges is_requirement=false (it is clearly a section label, not a claim), so if the current segmenter fails to recognize it as a heading and instead treats the FOLLOWING bullets' necessity_hint incorrectly, that is a genuine, reportable finding about heading-table coverage, not a corpus-design question.",
+      "notes": "A deliberately realistic heading phrasing NOT already covered by the existing frozen 8c:v1 gold's heading examples, to test generalization of the fixed heading table rather than re-confirming an already-known-good case."
+    },
+    {
+      "id": "m9b-028",
+      "category": "ambiguous_language",
+      "source_text": "Experience with modern cloud platforms",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "competency_placeholder",
+        "category": "unresolved_requirement",
+        "necessity": "required",
+        "github_observability": "partially_observable"
+      },
+      "acceptable_fallback": null,
+      "ambiguity_notes": "Genuinely ambiguous by design: 'modern cloud platforms' could mean AWS/Azure/GCP specifically (in which case the ideal outcome would arguably be an alternative_concept_ids group over cloud.aws + two unresolved ids) or could mean no specific platform at all, just general cloud-infrastructure familiarity. This corpus deliberately does NOT manufacture a specific vendor list the sentence never named -- 'modern cloud platforms' names a CATEGORY, not a product, so the honest ideal outcome is the same category-level, non-fabricating placeholder as the no-named-product competency cases (m9b-014/015/016), with the ambiguity itself recorded here rather than resolved by guessing which vendors were implied.",
+      "notes": "A genuinely-ambiguous entry per the brief's explicit request for 'ambiguous language that should produce uncertainty rather than fabricated concepts' -- the gold annotation's job here is to document the uncertainty, not eliminate it."
+    },
+    {
+      "id": "m9b-029",
+      "category": "ambiguous_language",
+      "source_text": "Comfortable working across the stack",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": true,
+      "or_and_structure": "none",
+      "ideal_outcome": {
+        "type": "competency_placeholder",
+        "category": "unresolved_requirement",
+        "necessity": "required",
+        "github_observability": "partially_observable"
+      },
+      "acceptable_fallback": {
+        "type": "silent_drop",
+        "category": null,
+        "github_observability": null
+      },
+      "ambiguity_notes": "'The stack' is informal shorthand with no fixed referent -- it could mean frontend+backend web technologies, or something entirely different depending on the posting's domain (this sentence alone, with no surrounding job context, cannot disambiguate). Judged technical because 'working across the stack' is still an engineering claim GitHub could partially speak to (a full-stack repository portfolio), but genuinely too vague to deserve full credit if dropped -- a silent drop here is a more defensible, lower-severity gap than for m9b-014/015/016's much more concrete 'distributed systems'/'backend architectures' phrasing, hence the explicit acceptable_fallback here where those three have none.",
+      "notes": "Second ambiguous-language entry, deliberately given a DIFFERENT severity posture than m9b-028 to avoid the benchmark implying all ambiguous cases are equally important to fix."
+    },
+    {
+      "id": "m9b-030",
+      "category": "registered_technical_concept",
+      "source_text": "Write clean, maintainable, and well-tested code",
+      "wrapping": "requirements_bullet",
+      "is_requirement": true,
+      "is_technical": false,
+      "or_and_structure": "and_list",
+      "ideal_outcome": {
+        "type": "non_technical",
+        "category": null,
+        "necessity": "required",
+        "github_observability": "not_observable",
+        "notes_on_category": "No existing non_technical.py category is a perfect fit ('code quality' is not one of the curated phrase-table entries); concept_id=None and no fabricated unresolved:clean/unresolved:maintainable/unresolved:well_tested is the one invariant that matters here, not which category string (if any) ends up attached."
+      },
+      "acceptable_fallback": {
+        "type": "silent_drop",
+        "category": null,
+        "github_observability": null
+      },
+      "ambiguity_notes": "Contains TWO commas and the word 'and' -- structurally resembles a technology enumeration ('X, Y, and Z') closely enough that this is the canonical adversarial case the comma-gated unknown-term promotion logic must resist. 'Clean', 'maintainable', and 'well-tested' are all lowercase adjectives, correctly failing looks_like_specific_technology_name's capitalization shape check, so no unresolved:clean/unresolved:maintainable/unresolved:well_tested should ever be minted. This is the exact adversarial sentence Milestone 9A's own Section 6 (invariant 7) explicitly stress-tested.",
+      "notes": "Direct regression control, lifted from Milestone 9A's own disclosed stress-test sentence, re-asserted here as a standing corpus entry rather than only a one-off mention in a prior milestone's report."
+    }
+  ]
+}

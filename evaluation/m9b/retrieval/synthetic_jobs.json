@@ -1,0 +1,27 @@
+{
+  "corpus_version": "9b:v1",
+  "notes": "Milestone 9B Phase 2 -- synthetic job postings, paired with evaluation/m9b/retrieval/synthetic_candidates.json. Authored to exercise a specific retrieval-sensitivity mechanism each (see each job's own `test_intent`), never copied/paraphrased from a real posting.",
+  "jobs": {
+    "m9b_rust_or_go_backend_01": {
+      "job_id": "m9b_rust_or_go_backend_01",
+      "title": "Backend Engineer (Synthetic, Milestone 9B)",
+      "test_intent": "A REQUIRED alternative-group requirement (Rust or Go) satisfiable only by a repository (aaa-rust-microtool) that the generic ranker excludes on crowded_polyglot_dev, but that job-aware retrieval recovers via the structured primary_language signal. Demonstrates genuinely NEW evidence causing a real NOT_OBSERVED -> SUPPORTED flip and a real alignment_score change.",
+      "candidate": "crowded_polyglot_dev",
+      "raw_text": "Backend Engineer (Synthetic, Milestone 9B)\n\nRequirements:\n- Proficiency in Rust or Go\n- Strong experience with JavaScript\n- Strong experience with Python\n- 3+ years of professional software engineering experience\n"
+    },
+    "m9b_kotlin_preferred_01": {
+      "job_id": "m9b_kotlin_preferred_01",
+      "title": "Platform Engineer (Synthetic, Milestone 9B)",
+      "test_intent": "A PREFERRED, single-concept requirement (Kotlin) satisfiable only by a repository (kotlin-microtool) the generic ranker excludes on the SAME crowded_polyglot_dev candidate -- but this time job-aware retrieval ALSO fails to recover it, because 21 other repositories on the account each score a full REQUIRED-weight 1.0 for this job's javascript/python terms while kotlin-microtool scores only the PREFERRED weight 0.5, so the fixed relevance_top_k=10 budget fills entirely with 1.0-scorers before kotlin-microtool is ever considered. Demonstrates a genuinely relevant repository still crowded out under the bounded top-K budget, with no alignment_score change as a result.",
+      "candidate": "crowded_polyglot_dev",
+      "raw_text": "Platform Engineer (Synthetic, Milestone 9B)\n\nRequirements:\n- Strong experience with JavaScript\n- Strong experience with Python\n- 3+ years of professional software engineering experience\n\nPreferred Qualifications:\n- Familiarity with Kotlin is a plus\n"
+    },
+    "m9b_redundant_rust_01": {
+      "job_id": "m9b_redundant_rust_01",
+      "title": "Systems Engineer (Synthetic, Milestone 9B)",
+      "test_intent": "A REQUIRED single-concept requirement (Rust) that is ALREADY supported generically on redundant_recovery_dev via polyglot-service's 20% Rust byte-share (above the 5% significance floor), while a second, Rust-only repository (aaa-rust-only-mini) sits outside the generic top-15 and IS recovered by job-aware retrieval. Demonstrates retrieval succeeding (a new repository is genuinely analyzed) while contributing only redundant evidence -- no requirement flips, no alignment_score change.",
+      "candidate": "redundant_recovery_dev",
+      "raw_text": "Systems Engineer (Synthetic, Milestone 9B)\n\nRequirements:\n- Strong experience with Rust\n- Strong experience with JavaScript\n- 3+ years of professional software engineering experience\n"
+    }
+  }
+}

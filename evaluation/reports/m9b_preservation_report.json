@@ -1,0 +1,376 @@
+{
+  "corpus_version": "9b:v1",
+  "parser_version_under_test": "job_description_parser:v4",
+  "metrics": {
+    "total_entries": 30,
+    "total_requirement_entries": 26,
+    "total_non_requirement_entries": 4,
+    "verdict_counts": {
+      "IDEAL_MATCH": 13,
+      "FALLBACK_MATCH": 7,
+      "SILENT_DROP_GAP": 6,
+      "CORRECTLY_EXCLUDED": 4
+    },
+    "metrics": {
+      "1_genuine_requirement_preservation_recall": {
+        "value": 0.615,
+        "numerator": 16,
+        "denominator": 26,
+        "definition": "fraction of real requirements that produced >=1 JobRequirement row, of any honest shape"
+      },
+      "2_correctly_structured_technical_requirements": {
+        "value": 0.5,
+        "numerator": 9,
+        "denominator": 18,
+        "definition": "fraction of technical requirements matching their ideal_outcome exactly (full structural credit)"
+      },
+      "3_unknown_concept_preservation": {
+        "value": 0.5,
+        "numerator": 5,
+        "denominator": 10,
+        "definition": "fraction of entries whose ideal outcome names a specific unresolved:<term> id that actually produced that exact id"
+      },
+      "4_unknown_or_and_structural_correctness": {
+        "value": 0.833,
+        "numerator": 5,
+        "denominator": 6,
+        "definition": "of metric 3's entries that are OR- or AND-structured, fraction with the fully correct group/list structure"
+      },
+      "5_correct_unparsed_placeholder_preservation": {
+        "value": 0.643,
+        "numerator": 9,
+        "denominator": 14,
+        "definition": "of entries whose ideal or accepted-fallback outcome is a non-fabricating placeholder, fraction that landed on exactly that placeholder"
+      },
+      "6_spurious_requirement_creation": {
+        "value": 0,
+        "definition": "raw count of JobRequirement rows produced for an is_requirement=false entry (should always be 0)"
+      },
+      "7_incorrect_technology_fabrication": {
+        "value": 0,
+        "definition": "raw count of entries where a REAL, wrong concept id was attached -- kept separate from metric 6 and from any placeholder metric by design"
+      },
+      "8_exact_source_span_correctness": {
+        "value": 1.0,
+        "numerator": 16,
+        "denominator": 16,
+        "definition": "of entries producing >=1 row, fraction whose source_span exactly matches the claim's true position in the wrapped text"
+      },
+      "9_silent_drop_count": {
+        "value": {
+          "accepted_by_corpus": 0,
+          "flagged_as_gap": 6
+        },
+        "definition": "raw counts of real requirements producing zero rows, split by whether this corpus's own annotation accepts that as non-failure"
+      },
+      "10_correctly_excluded_non_requirement_prose": {
+        "value": 1.0,
+        "numerator": 4,
+        "denominator": 4,
+        "definition": "fraction of is_requirement=false entries (headings/prose) that correctly produced zero rows for that exact text"
+      }
+    }
+  },
+  "verdicts": [
+    {
+      "id": "m9b-001",
+      "category": "registered_technical_concept",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 2,
+      "actual_summary": "language.python; database.postgresql",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-002",
+      "category": "registered_technical_concept",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 2,
+      "actual_summary": "infra.docker; infra.kubernetes",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-003",
+      "category": "unregistered_named_technology",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "FALLBACK_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='unresolved_requirement'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-004",
+      "category": "unregistered_named_technology",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "FALLBACK_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='unresolved_requirement'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-005",
+      "category": "unknown_single_term",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "SILENT_DROP_GAP",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-006",
+      "category": "unknown_single_term",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "SILENT_DROP_GAP",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-007",
+      "category": "unknown_and_list",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 3,
+      "actual_summary": "unresolved:spi; unresolved:i2c; unresolved:uart",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-008",
+      "category": "unknown_and_list",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "SILENT_DROP_GAP",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-009",
+      "category": "unknown_or_group",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "ALT['unresolved:angular', 'unresolved:vue']",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-010",
+      "category": "unknown_or_group",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "ALT['unresolved:matlab', 'unresolved:simulink']",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-011",
+      "category": "unknown_or_group",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "ALT['unresolved:bigquery', 'unresolved:snowflake']",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-012",
+      "category": "mixed_known_and_unknown",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 3,
+      "actual_summary": "framework.react; unresolved:vue; unresolved:graphql",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-013",
+      "category": "mixed_known_and_unknown",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='alternative_requirement'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-014",
+      "category": "technical_competency_no_named_product",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "SILENT_DROP_GAP",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-015",
+      "category": "technical_competency_no_named_product",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "SILENT_DROP_GAP",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-016",
+      "category": "technical_competency_no_named_product",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "SILENT_DROP_GAP",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-017",
+      "category": "professional_experience",
+      "is_requirement": true,
+      "is_technical": false,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='experience'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-018",
+      "category": "education",
+      "is_requirement": true,
+      "is_technical": false,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='education'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-019",
+      "category": "certification",
+      "is_requirement": true,
+      "is_technical": false,
+      "verdict": "FALLBACK_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='unresolved_requirement'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-020",
+      "category": "certification",
+      "is_requirement": true,
+      "is_technical": false,
+      "verdict": "FALLBACK_MATCH",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-021",
+      "category": "soft_skill",
+      "is_requirement": true,
+      "is_technical": false,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='soft_skill'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-022",
+      "category": "soft_skill",
+      "is_requirement": true,
+      "is_technical": false,
+      "verdict": "FALLBACK_MATCH",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-023",
+      "category": "soft_skill",
+      "is_requirement": true,
+      "is_technical": false,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='soft_skill'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-024",
+      "category": "non_requirement_prose",
+      "is_requirement": false,
+      "is_technical": false,
+      "verdict": "CORRECTLY_EXCLUDED",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-025",
+      "category": "non_requirement_prose",
+      "is_requirement": false,
+      "is_technical": false,
+      "verdict": "CORRECTLY_EXCLUDED",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-026",
+      "category": "heading_or_section_intro",
+      "is_requirement": false,
+      "is_technical": false,
+      "verdict": "CORRECTLY_EXCLUDED",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-027",
+      "category": "heading_or_section_intro",
+      "is_requirement": false,
+      "is_technical": false,
+      "verdict": "CORRECTLY_EXCLUDED",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-028",
+      "category": "ambiguous_language",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "IDEAL_MATCH",
+      "actual_row_count": 1,
+      "actual_summary": "category='unresolved_requirement'",
+      "span_correct": true
+    },
+    {
+      "id": "m9b-029",
+      "category": "ambiguous_language",
+      "is_requirement": true,
+      "is_technical": true,
+      "verdict": "FALLBACK_MATCH",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    },
+    {
+      "id": "m9b-030",
+      "category": "registered_technical_concept",
+      "is_requirement": true,
+      "is_technical": false,
+      "verdict": "FALLBACK_MATCH",
+      "actual_row_count": 0,
+      "actual_summary": "(none)",
+      "span_correct": null
+    }
+  ]
+}

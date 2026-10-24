@@ -1,0 +1,899 @@
+{
+  "fixtures": [
+    {
+      "candidate": "crowded_polyglot_dev",
+      "corpus_version": "9b:v1",
+      "synthetic": true,
+      "notes": "SYNTHETIC fixture (not a real GitHub account) -- constructed for Milestone 9B Phase 2 specifically because M8E's own measurement (12/12 real-fixture matrix pairs, 0 score changes) showed the existing REAL fixtures cannot demonstrate a genuinely NEW requirement flip from job-aware retrieval; every real recovered repository's evidence happened to be redundant with evidence already present generically. This fixture engineers a repository (aaa-rust-microtool) whose language is NOT present anywhere else in the account, so its recovery can only ever supply genuinely new evidence, never redundant evidence -- see Job A (m9b_rust_or_go_backend_01) and Job B (m9b_kotlin_preferred_01) in synthetic_jobs.json for the two scenarios this fixture is used for.",
+      "top_n": 15,
+      "repos_raw": [
+        {
+          "name": "js-service-01",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-01"
+        },
+        {
+          "name": "js-service-02",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-02"
+        },
+        {
+          "name": "js-service-03",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-03"
+        },
+        {
+          "name": "js-service-04",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-04"
+        },
+        {
+          "name": "js-service-05",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-05"
+        },
+        {
+          "name": "js-service-06",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-06"
+        },
+        {
+          "name": "js-service-07",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-07"
+        },
+        {
+          "name": "js-service-08",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-08"
+        },
+        {
+          "name": "js-service-09",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-09"
+        },
+        {
+          "name": "js-service-10",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/js-service-10"
+        },
+        {
+          "name": "py-service-01",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-01"
+        },
+        {
+          "name": "py-service-02",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-02"
+        },
+        {
+          "name": "py-service-03",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-03"
+        },
+        {
+          "name": "py-service-04",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-04"
+        },
+        {
+          "name": "py-service-05",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-05"
+        },
+        {
+          "name": "py-service-06",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-06"
+        },
+        {
+          "name": "py-service-07",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-07"
+        },
+        {
+          "name": "py-service-08",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-08"
+        },
+        {
+          "name": "py-service-09",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-09"
+        },
+        {
+          "name": "py-service-10",
+          "description": "A production Python backend microservice.",
+          "language": "Python",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/py-service-10"
+        },
+        {
+          "name": "viral-js-framework",
+          "description": "A wildly popular JavaScript framework.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 5000,
+          "stargazers_count": 80000,
+          "forks_count": 0,
+          "topics": [
+            "framework"
+          ],
+          "created_at": "2026-10-05T00:00:00Z",
+          "updated_at": "2026-10-05T00:00:00Z",
+          "pushed_at": "2026-10-05T00:00:00Z",
+          "html_url": "https://github.com/synthetic/viral-js-framework"
+        },
+        {
+          "name": "aaa-rust-microtool",
+          "description": null,
+          "language": "Rust",
+          "fork": false,
+          "archived": false,
+          "size": 15,
+          "stargazers_count": 0,
+          "forks_count": 0,
+          "topics": [],
+          "created_at": "2015-06-01T00:00:00Z",
+          "updated_at": "2015-06-01T00:00:00Z",
+          "pushed_at": "2015-06-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/aaa-rust-microtool"
+        },
+        {
+          "name": "kotlin-microtool",
+          "description": null,
+          "language": "Kotlin",
+          "fork": false,
+          "archived": false,
+          "size": 15,
+          "stargazers_count": 0,
+          "forks_count": 0,
+          "topics": [],
+          "created_at": "2015-06-01T00:00:00Z",
+          "updated_at": "2015-06-01T00:00:00Z",
+          "pushed_at": "2015-06-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/kotlin-microtool"
+        },
+        {
+          "name": "offtopic-notes-repo",
+          "description": "Just some personal notes.",
+          "language": null,
+          "fork": false,
+          "archived": false,
+          "size": 5,
+          "stargazers_count": 0,
+          "forks_count": 0,
+          "topics": [
+            "notes"
+          ],
+          "created_at": "2015-06-01T00:00:00Z",
+          "updated_at": "2015-06-01T00:00:00Z",
+          "pushed_at": "2015-06-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/offtopic-notes-repo"
+        }
+      ],
+      "selected": {
+        "js-service-01": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-02": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-03": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-04": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-05": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-06": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-07": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-08": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-09": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "js-service-10": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "py-service-01": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-02": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-03": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-04": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-05": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-06": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-07": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-08": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-09": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "py-service-10": {
+          "languages": {
+            "Python": 100000
+          }
+        },
+        "viral-js-framework": {
+          "languages": {
+            "JavaScript": 500000
+          }
+        },
+        "aaa-rust-microtool": {
+          "languages": {
+            "Rust": 20000
+          }
+        },
+        "kotlin-microtool": {
+          "languages": {
+            "Kotlin": 20000
+          }
+        },
+        "offtopic-notes-repo": {
+          "languages": {}
+        }
+      }
+    },
+    {
+      "candidate": "redundant_recovery_dev",
+      "corpus_version": "9b:v1",
+      "synthetic": true,
+      "notes": "SYNTHETIC fixture -- constructed to demonstrate the OTHER outcome job-aware retrieval can produce: a repository that IS genuinely recovered (newly analyzed) by job-aware retrieval, but whose evidence is REDUNDANT with evidence a generically-selected repository already supplied (polyglot-service carries 20% Rust alongside 80% JavaScript, already clearing the 5% significance floor and already inside the generic top-15). Used by Job C (m9b_redundant_rust_01) in synthetic_jobs.json -- retrieval succeeds, a new repository is analyzed, but the alignment score does not change, because the requirement it could have flipped was already SUPPORTED before retrieval ran.",
+      "top_n": 15,
+      "repos_raw": [
+        {
+          "name": "fixture2-service-01",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-01"
+        },
+        {
+          "name": "fixture2-service-02",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-02"
+        },
+        {
+          "name": "fixture2-service-03",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-03"
+        },
+        {
+          "name": "fixture2-service-04",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-04"
+        },
+        {
+          "name": "fixture2-service-05",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-05"
+        },
+        {
+          "name": "fixture2-service-06",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-06"
+        },
+        {
+          "name": "fixture2-service-07",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-07"
+        },
+        {
+          "name": "fixture2-service-08",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-08"
+        },
+        {
+          "name": "fixture2-service-09",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-09"
+        },
+        {
+          "name": "fixture2-service-10",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-10"
+        },
+        {
+          "name": "fixture2-service-11",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-11"
+        },
+        {
+          "name": "fixture2-service-12",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-12"
+        },
+        {
+          "name": "fixture2-service-13",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-13"
+        },
+        {
+          "name": "fixture2-service-14",
+          "description": "A production JavaScript backend microservice.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/fixture2-service-14"
+        },
+        {
+          "name": "polyglot-service",
+          "description": "A JavaScript service with a Rust extension module.",
+          "language": "JavaScript",
+          "fork": false,
+          "archived": false,
+          "size": 600,
+          "stargazers_count": 50,
+          "forks_count": 0,
+          "topics": [
+            "backend"
+          ],
+          "created_at": "2026-10-01T00:00:00Z",
+          "updated_at": "2026-10-01T00:00:00Z",
+          "pushed_at": "2026-10-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/polyglot-service"
+        },
+        {
+          "name": "aaa-rust-only-mini",
+          "description": null,
+          "language": "Rust",
+          "fork": false,
+          "archived": false,
+          "size": 15,
+          "stargazers_count": 0,
+          "forks_count": 0,
+          "topics": [],
+          "created_at": "2015-06-01T00:00:00Z",
+          "updated_at": "2015-06-01T00:00:00Z",
+          "pushed_at": "2015-06-01T00:00:00Z",
+          "html_url": "https://github.com/synthetic/aaa-rust-only-mini"
+        }
+      ],
+      "selected": {
+        "fixture2-service-01": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-02": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-03": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-04": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-05": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-06": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-07": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-08": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-09": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-10": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-11": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-12": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-13": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "fixture2-service-14": {
+          "languages": {
+            "JavaScript": 100000
+          }
+        },
+        "polyglot-service": {
+          "languages": {
+            "JavaScript": 800000,
+            "Rust": 200000
+          }
+        },
+        "aaa-rust-only-mini": {
+          "languages": {
+            "Rust": 50000
+          }
+        }
+      }
+    }
+  ]
+}

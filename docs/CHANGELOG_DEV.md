@@ -1,5 +1,107 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-24 — Milestone 9B: Evaluation integrity, requirement coverage & retrieval-sensitive testing
+
+**What changed:** Evaluation-only milestone — no production code under
+`src/gitscore/` was modified. Adds three new, additive evaluation
+capabilities, none of which touch the frozen `evaluation/gold/`
+(`8c:v1`) or `evaluation/gold_v1_1/` (`8c:v1.1`) corpora:
+
+1. **Requirement-preservation benchmark** (`evaluation/m9b/corpus.json`,
+   `corpus_version: "9b:v1"`, 30 independently-authored examples) +
+   `scripts/evaluation_lib/preservation_eval.py` +
+   `scripts/evaluate_m9b_preservation.py`, reporting ten DISTINCT
+   metrics (never merged into one precision number) covering genuine
+   preservation recall, technical structural correctness,
+   unknown-concept preservation, OR/AND structural correctness,
+   placeholder preservation, spurious-requirement count, fabrication
+   count, source-span correctness, silent-drop count, and
+   non-requirement-prose exclusion. Result: zero fabricated
+   technologies and zero spurious rows across every entry, including
+   four adversarial cases specifically built to try to break M9A's
+   non-fabrication invariant (all held) — but 6 of 26 real requirement
+   claims (23%) still silently drop, all sharing M9A's own already-
+   disclosed residual limitation (a technical requirement naming no
+   specific product and using no qualifying lead-in phrase, e.g.
+   `"Experience designing distributed systems"`). This is the first
+   milestone to *count* that gap rather than only name it.
+2. **Retrieval-sensitive end-to-end evaluation**
+   (`evaluation/m9b/retrieval/synthetic_{candidates,jobs}.json`,
+   explicitly marked `"synthetic": true`) +
+   `scripts/evaluation_lib/retrieval_sensitivity_eval.py` +
+   `scripts/evaluate_m9b_retrieval_sensitivity.py`. M8E's own
+   consolidated evaluation found 0 of 12 real-fixture matrix pairs
+   change `alignment_score` under job-aware retrieval (M8D.2) — every
+   real recovery happened to be redundant. Two synthetic candidate
+   fixtures, engineered so a repository's recovery can supply evidence
+   found nowhere else on the account, demonstrate for the first time
+   that the full mechanism (retrieval success → new evidence → new
+   requirement support → score change) genuinely fires when the right
+   conditions hold: one case produces a real `67 → 100` alignment flip
+   from a single newly-recovered repository; a second shows a
+   genuinely relevant PREFERRED-weight repository still crowded out of
+   the fixed `relevance_top_k=10` budget by REQUIRED-weight
+   competitors (no score change, correctly); a third reproduces the
+   realistic "recovered but redundant" case the real fixtures already
+   showed. Re-ran (unchanged) `evaluate_repository_retrieval.py` /
+   `evaluate_end_to_end_job_aware.py` fresh and cited those real-fixture
+   numbers rather than duplicating them.
+3. **Evaluation-integrity safeguard tooling**
+   (`scripts/check_evaluation_staleness.py`) — generalizes the manual
+   "recompute fresh, diff against the committed file, never overwrite
+   it" process M8D.3/M8E/M9A each used ad hoc into one reusable,
+   read-only script (pinned never to write to any committed report by
+   `tests/test_m9b_evaluation_integrity.py`). Found the already-known,
+   already-disclosed `evidence_report.json` staleness (unchanged) PLUS
+   a genuinely new finding: the committed `end_to_end_report.json` is
+   stale in **5 of 12 cells**, not the 1 cell M8E/M9A each previously
+   confirmed — the other 4 are a previously-unmeasured, fully-explained
+   consequence of M9A's own (already correctly shipped) parser fix
+   making several SPI/I2C/UART/Vue/Angular-family requirements visible
+   and assessable in jobs that previously silently dropped them
+   entirely. Not a bug — flagged for M9C to either regenerate the file
+   with a clear changelog note or add an automated staleness banner.
+
+**Why:** The product promise — "identify observable GitHub evidence
+supporting the candidate's alignment with specific requirements, while
+clearly distinguishing missing evidence from missing skills" — depends
+on two things this milestone measures directly for the first time:
+whether M9A's requirement-preservation fix generalizes beyond its own
+12 unit-test examples (it does, with zero fabrication but a measurable,
+bounded residual gap), and whether job-aware retrieval (M8D.2) can ever
+actually change a real alignment score, not just change which
+repositories get analyzed (it can, under the right conditions — M8E's
+own real-fixture matrix just never happened to contain those
+conditions).
+
+**Files affected:** `evaluation/m9b/` (new: `corpus.json`,
+`retrieval/synthetic_candidates.json`, `retrieval/synthetic_jobs.json`),
+`scripts/evaluation_lib/{preservation_eval,retrieval_sensitivity_eval}.py`
+(new), `scripts/evaluate_m9b_{preservation,retrieval_sensitivity}.py`
+(new), `scripts/check_evaluation_staleness.py` (new),
+`tests/test_m9b_{preservation_eval,retrieval_sensitivity,evaluation_integrity}.py`
+(new, 28 tests), `evaluation/reports/m9b_{preservation,retrieval_sensitivity}_report.{json,md}`
+(new), `docs/evaluation/MILESTONE_9B_EVALUATION_INTEGRITY.md` (new).
+No file under `src/`, `evaluation/gold/`, or `evaluation/gold_v1_1/`
+was modified. `JOB_DESCRIPTION_PARSER_VERSION`,
+`JOB_REQUIREMENT_SCHEMA_VERSION`, `MATCHER_VERSION`, `SCORING_VERSION`,
+and `CONCEPT_REGISTRY_VERSION` are all unchanged.
+
+**Risks / limitations:** see
+`docs/evaluation/MILESTONE_9B_EVALUATION_INTEGRITY.md` §11 for the full
+prioritized product-risk analysis; the two headline items are the
+23%-of-corpus silent-drop residual gap (§4.1/§11 risk #1) and the newly
+measured `end_to_end_report.json` staleness (§10.2/§11 risk #2), both
+explicitly deferred to M9C rather than fixed here.
+
+**How to test it:**
+```
+python -m pytest                                              # 904 passed (876 + 28 new)
+python scripts/evaluate_m9b_preservation.py
+python scripts/evaluate_m9b_retrieval_sensitivity.py
+python scripts/check_evaluation_staleness.py
+```
+
 ## 2026-10-19 — Milestone 9A: Lossless job requirement parsing
 
 **What changed:** Fixes the M8E-identified high-severity bug (entire

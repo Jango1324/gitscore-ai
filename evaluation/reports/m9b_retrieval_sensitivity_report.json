@@ -1,0 +1,122 @@
+{
+  "corpus_version": "9b:v1",
+  "metrics": {
+    "cases_evaluated": 3,
+    "retrieval_successes": 2,
+    "cases_with_new_evidence": 1,
+    "cases_with_new_requirement_support": 1,
+    "cases_with_score_change": 1,
+    "cases_with_unjustified_score_behavior": 0
+  },
+  "star_dominance_check": {
+    "popular_repo": "viral-js-framework",
+    "popular_repo_stars": 80000,
+    "popular_repo_relevance_score": 1.0,
+    "ordinary_repo": "js-service-01",
+    "ordinary_repo_stars": 50,
+    "ordinary_repo_relevance_score": 1.0,
+    "scores_equal_despite_star_gap": true
+  },
+  "cases": [
+    {
+      "job_id": "m9b_rust_or_go_backend_01",
+      "candidate": "crowded_polyglot_dev",
+      "test_intent": "A REQUIRED alternative-group requirement (Rust or Go) satisfiable only by a repository (aaa-rust-microtool) that the generic ranker excludes on crowded_polyglot_dev, but that job-aware retrieval recovers via the structured primary_language signal. Demonstrates genuinely NEW evidence causing a real NOT_OBSERVED -> SUPPORTED flip and a real alignment_score change.",
+      "generic_selected_count": 15,
+      "job_aware_selected_count": 16,
+      "job_relevant_additions": [
+        "aaa-rust-microtool"
+      ],
+      "retrieval_success_A": true,
+      "new_evidence_concepts_B": [
+        "language.rust"
+      ],
+      "newly_supported_requirements_C": [
+        "Proficiency in Rust or Go"
+      ],
+      "still_not_observed": [],
+      "not_assessable_count": 1,
+      "alignment_before": 67,
+      "alignment_after": 100,
+      "required_before": [
+        2,
+        3
+      ],
+      "required_after": [
+        3,
+        3
+      ],
+      "preferred_before": null,
+      "preferred_after": null,
+      "score_changed_D": true,
+      "score_change_justified": true,
+      "justification_note": "score change fully explained by newly-SUPPORTED requirement(s): ('Proficiency in Rust or Go',)"
+    },
+    {
+      "job_id": "m9b_kotlin_preferred_01",
+      "candidate": "crowded_polyglot_dev",
+      "test_intent": "A PREFERRED, single-concept requirement (Kotlin) satisfiable only by a repository (kotlin-microtool) the generic ranker excludes on the SAME crowded_polyglot_dev candidate -- but this time job-aware retrieval ALSO fails to recover it, because 21 other repositories on the account each score a full REQUIRED-weight 1.0 for this job's javascript/python terms while kotlin-microtool scores only the PREFERRED weight 0.5, so the fixed relevance_top_k=10 budget fills entirely with 1.0-scorers before kotlin-microtool is ever considered. Demonstrates a genuinely relevant repository still crowded out under the bounded top-K budget, with no alignment_score change as a result.",
+      "generic_selected_count": 15,
+      "job_aware_selected_count": 15,
+      "job_relevant_additions": [],
+      "retrieval_success_A": false,
+      "new_evidence_concepts_B": [],
+      "newly_supported_requirements_C": [],
+      "still_not_observed": [
+        "Familiarity with Kotlin is a plus"
+      ],
+      "not_assessable_count": 1,
+      "alignment_before": 67,
+      "alignment_after": 67,
+      "required_before": [
+        2,
+        2
+      ],
+      "required_after": [
+        2,
+        2
+      ],
+      "preferred_before": [
+        0,
+        1
+      ],
+      "preferred_after": [
+        0,
+        1
+      ],
+      "score_changed_D": false,
+      "score_change_justified": true,
+      "justification_note": "no score change and no new support -- consistent (redundant recovery or no recovery)"
+    },
+    {
+      "job_id": "m9b_redundant_rust_01",
+      "candidate": "redundant_recovery_dev",
+      "test_intent": "A REQUIRED single-concept requirement (Rust) that is ALREADY supported generically on redundant_recovery_dev via polyglot-service's 20% Rust byte-share (above the 5% significance floor), while a second, Rust-only repository (aaa-rust-only-mini) sits outside the generic top-15 and IS recovered by job-aware retrieval. Demonstrates retrieval succeeding (a new repository is genuinely analyzed) while contributing only redundant evidence -- no requirement flips, no alignment_score change.",
+      "generic_selected_count": 15,
+      "job_aware_selected_count": 16,
+      "job_relevant_additions": [
+        "aaa-rust-only-mini"
+      ],
+      "retrieval_success_A": true,
+      "new_evidence_concepts_B": [],
+      "newly_supported_requirements_C": [],
+      "still_not_observed": [],
+      "not_assessable_count": 1,
+      "alignment_before": 100,
+      "alignment_after": 100,
+      "required_before": [
+        2,
+        2
+      ],
+      "required_after": [
+        2,
+        2
+      ],
+      "preferred_before": null,
+      "preferred_after": null,
+      "score_changed_D": false,
+      "score_change_justified": true,
+      "justification_note": "no score change and no new support -- consistent (redundant recovery or no recovery)"
+    }
+  ]
+}
