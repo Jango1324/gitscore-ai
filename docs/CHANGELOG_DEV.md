@@ -1,5 +1,107 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-24 — Milestone 9D: Product validation & trustworthiness pilot
+
+**What changed:** Nothing in `src/gitscore/` or `frontend/` — this is a
+validation-only milestone. Added one new, additive evaluation script
+(`scripts/evaluate_m9d_pilot_cohort.py`, mirroring the M8E precedent of
+adding a small harness when needed for a fair measurement) that runs the
+real, unmodified `extract_candidate_evidence()` →
+`parse_job_description_with_diagnostics()` → `match_job()` →
+`assess_job()` composition against an 8-scenario pilot cohort (6 pairs
+reused from the frozen `evaluation/gold/matrix.json`, 2 new pairs for
+DevOps/platform and non-assessable-heavy scenarios), capturing full
+per-requirement evidence detail and `unparsed_claims` diagnostics that
+the existing `evaluate_end_to_end*.py` scripts do not report. Reviewed
+the job description, GitHub evidence, API contract, and every frontend
+component in the result-rendering path independently (never using
+GitScore's own output as ground truth) and audited the end-to-end
+product workflow (submission, loading/error/empty states, result
+organization, evidence traceability) against the existing API/frontend
+source and test suites.
+
+**Why:** M9C's own §12 explicitly recommended this milestone's scope
+("user-test the new UI copy... this milestone implemented the approved
+design; it has not been validated against real user reactions") and
+asked that M9D not start before it was explicitly scoped. This milestone
+answers the product-level questions the prior, more code-focused
+milestones (M7A-M9C) were not asked to answer: are GitScore's
+evidence-grounded conclusions technically defensible against an
+independent review, and does the product's interface communicate
+alignment vs. hiring probability, and parser uncertainty, clearly enough
+for a real user.
+
+**Findings (see
+`docs/evaluation/MILESTONE_9D_PRODUCT_VALIDATION.md` for full detail):**
+1. **New:** the headline `uninterpreted_requirement_count` caveat
+   excludes `unparsed_claims` entirely (confirmed in
+   `api/schemas.py`/`api/serialization.py`) — a reader can see "1
+   requirement could not be confidently interpreted" at the top while 2
+   more claims that never became a row at all sit in a separate section
+   further down, undercounting the real interpretive uncertainty.
+2. **New:** on a real pairing (`sindresorhus × devops_cloud_01`), the
+   existing, already-documented `WEAK`-evidence-sufficiency policy
+   combined with a very large, topically-unrelated account (1,142
+   repos) produces a 75% "GitHub Evidence Alignment" score built
+   substantially from incidental README mentions and one unrelated
+   tiny repository — a concrete, real-evidence demonstration of a risk
+   this project's own architecture docs already flagged as theoretical.
+3. **Re-confirmed on fresh pairs:** M9B's measured 23% requirement
+   silent-drop rate continues to inflate/deflate `alignment_score` by
+   shrinking the assessable denominator without a visible trace in the
+   scored breakdown (e.g. `karpathy × computer_vision_01` reports a
+   clean 100 on a pairing the frozen matrix itself pre-registered as
+   only "partial," caused by the OpenCV requirement vanishing entirely).
+4. Evidence citations are textually traceable but not clickable links
+   to GitHub (`EvidenceList.tsx`); required/preferred items are not
+   visually grouped within a status section. Both minor, confirmed in
+   code.
+5. **New:** identical requirement text renders multiple times — in one
+   confirmed pattern, the exact same sentence appears under both
+   "Supported" and "Not observed" simultaneously — because
+   `RequirementSection.tsx` renders only `requirement.text`, never the
+   `concept_id` the API already provides to distinguish rows born from
+   the same raw sentence. Confirmed systemic: present in 4 of the 8
+   pilot pairs (`evaluation/reports/m9d_pilot_cohort_report.json`).
+6. A full human-review pilot protocol (5 tasks, questionnaire,
+   observation sheet, pre-registered success criteria) was produced but
+   not run — no participants were recruited or simulated.
+7. A new offline, fixture-backed harness
+   (`scripts/m9d_serve_offline_fixture.py`) served the real FastAPI app
+   over an actual HTTP request this session (zero live GitHub calls) and
+   confirmed the live API process matches its documented contract —
+   browser-level click-through was attempted (Next.js dev server
+   confirmed running) but could not complete: this session's Chrome
+   browser-automation tool did not respond.
+
+**Risks / limitations:** browser-rendered click-through was not
+completed this session (see the main report §11) — the live backend/API
+process itself was verified over a real request, which is a step beyond
+pure source reading, but actual rendered appearance and information
+density remain unverified. Small, fixed corpus (4 real accounts, 15
+synthetic jobs, 8 pilot pairs); no ground-truth hiring-outcome label
+exists or was invented anywhere in this milestone.
+
+**How to test it:**
+```
+python -m pytest                                    # 920 passed (unchanged)
+cd frontend && npm test                               # 29 passed (unchanged)
+cd scripts && python evaluate_m9d_pilot_cohort.py
+python scripts/m9d_serve_offline_fixture.py torvalds --port 8011   # live API, offline
+```
+
+**Files affected:** `scripts/evaluate_m9d_pilot_cohort.py` (new),
+`scripts/m9d_serve_offline_fixture.py` (new),
+`evaluation/reports/m9d_pilot_cohort_report.json` (new),
+`docs/evaluation/MILESTONE_9D_PRODUCT_VALIDATION.md` (new),
+`docs/evaluation/M9D_HUMAN_PILOT_PROTOCOL.md` (new),
+`docs/CHANGELOG_DEV.md` (this entry). No file under `src/gitscore/` or
+`frontend/` was modified. No frozen gold under `evaluation/gold/`,
+`evaluation/gold_v1_1/`, or `evaluation/m9b/` was modified.
+`JOB_DESCRIPTION_PARSER_VERSION`/`JOB_REQUIREMENT_SCHEMA_VERSION`/
+`MATCHER_VERSION`/`SCORING_VERSION`/`CONCEPT_REGISTRY_VERSION` all
+unchanged.
+
 ## 2026-10-24 — Milestone 9C: Assessment transparency & requirement coverage
 
 **What changed:** Makes two pre-existing, Milestone-9B-measured

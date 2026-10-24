@@ -1,0 +1,1843 @@
+[
+  {
+    "candidate": "torvalds",
+    "job_id": "systems_cpp_01",
+    "job_title": "Systems Software Engineer",
+    "discovered_count": 12,
+    "analyzed_count": 12,
+    "is_complete": true,
+    "alignment_score": 67,
+    "required": [
+      1,
+      1
+    ],
+    "preferred": [
+      1,
+      2
+    ],
+    "assessable_count": 3,
+    "supported_count": 2,
+    "not_observed_count": 1,
+    "not_assessable_count": 1,
+    "low_parser_confidence_count": 0,
+    "requirements": [
+      {
+        "text": "Expert-level C or C++",
+        "necessity": "required",
+        "category": null,
+        "concept_id": null,
+        "alternative_concept_ids": [
+          "language.c",
+          "language.cpp"
+        ],
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.c",
+          "language.cpp"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "AudioNoise",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 58.10% (38250 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "GuitarPedal",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 45.34% (840458 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "HunspellColorize",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 95.42% (4525 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "ScrollWheel",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 85.27% (11530 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "libdc-for-dirk",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 98.00% (1374766 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "libgit2",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 98.36% (7731824 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "libgit2",
+            "evidence_type": "readme",
+            "concept_id": "language.cpp",
+            "confidence": 2,
+            "raw_observation": "README mentions 'c++': ...re the bindings to libgit2 that are currently available: * C++ * libqgit2, Qt bindings <https://projects.kde.org/proje...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "linux",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 97.83% (1452222612 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "pesconvert",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 95.73% (12452 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "subsurface-for-dirk",
+            "evidence_type": "repository_language",
+            "concept_id": "language.cpp",
+            "confidence": 2,
+            "raw_observation": "C++: 55.60% (2736799 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "subsurface-for-dirk",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 1,
+            "raw_observation": "C: 24.50% (1205956 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "test-tlb",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 93.24% (5816 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "uemacs",
+            "evidence_type": "repository_language",
+            "concept_id": "language.c",
+            "confidence": 2,
+            "raw_observation": "C: 99.07% (383365 bytes)",
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "text": "Experience with Linux systems programming",
+        "necessity": "required",
+        "category": "unresolved_requirement",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Experience with Rust",
+        "necessity": "preferred",
+        "category": "language",
+        "concept_id": "language.rust",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.rust"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "libgit2",
+            "evidence_type": "readme",
+            "concept_id": "language.rust",
+            "confidence": 2,
+            "raw_observation": "README mentions 'rust': ...> * Ruby * Rugged <https://github.com/libgit2/rugged> * Rust * git2-rs <https://github.com/rust-lang/git2-rs> * Swif...",
+            "file_path": "README.md"
+          }
+        ]
+      },
+      {
+        "text": "Experience with LLVM-based toolchains",
+        "necessity": "preferred",
+        "category": "compiler_toolchain",
+        "concept_id": "toolchain.llvm",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      }
+    ],
+    "unparsed_claims": [
+      {
+        "text": "Deep understanding of memory management and concurrency"
+      },
+      {
+        "text": "Experience with performance profiling and debugging tools"
+      }
+    ],
+    "scenario": "strong_observable_alignment"
+  },
+  {
+    "candidate": "torvalds",
+    "job_id": "data_science_01",
+    "job_title": "Data Scientist",
+    "discovered_count": 12,
+    "analyzed_count": 12,
+    "is_complete": true,
+    "alignment_score": 20,
+    "required": [
+      1,
+      4
+    ],
+    "preferred": [
+      0,
+      1
+    ],
+    "assessable_count": 5,
+    "supported_count": 1,
+    "not_observed_count": 4,
+    "not_assessable_count": 1,
+    "low_parser_confidence_count": 0,
+    "requirements": [
+      {
+        "text": "Experience with Python, pandas, and numpy",
+        "necessity": "required",
+        "category": "language",
+        "concept_id": "language.python",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.python"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "AudioNoise",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 38.17% (25134 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "AudioNoise",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...t by doing anything actually *clever*. Also note that the python visualizer tool has been basically written by vibe-coding....",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "GuitarPedal",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 33.51% (621188 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "GuitarPedal",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python3': ...less of platform, you'll need the basics: - git - make - python3 - cmake and a 32-bit arm cross-build environment. On Lin...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "libgit2",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...it2/libgit2sharp) (.NET), [pygit2](http://www.pygit2.org/) (Python) and [NodeGit](http://nodegit.org) (Node) allow you to buil...",
+            "file_path": "README.md"
+          }
+        ]
+      },
+      {
+        "text": "Experience with Python, pandas, and numpy",
+        "necessity": "required",
+        "category": "data_library",
+        "concept_id": "data.library.pandas",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Experience with Python, pandas, and numpy",
+        "necessity": "required",
+        "category": null,
+        "concept_id": "unresolved:numpy",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Proficiency in SQL for data analysis",
+        "necessity": "required",
+        "category": "language",
+        "concept_id": "language.sql",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Experience with scikit-learn",
+        "necessity": "preferred",
+        "category": "unresolved_requirement",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Familiarity with Jupyter Notebook workflows",
+        "necessity": "preferred",
+        "category": "language",
+        "concept_id": "language.jupyter_notebook",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      }
+    ],
+    "unparsed_claims": [
+      {
+        "text": "Experience with statistical modeling and A/B testing"
+      },
+      {
+        "text": "Experience communicating findings to non-technical stakeholders"
+      }
+    ],
+    "scenario": "weak_observable_alignment"
+  },
+  {
+    "candidate": "Jango1324",
+    "job_id": "embedded_firmware_01",
+    "job_title": "Embedded Firmware Engineer",
+    "discovered_count": 20,
+    "analyzed_count": 15,
+    "is_complete": false,
+    "alignment_score": 0,
+    "required": [
+      0,
+      4
+    ],
+    "preferred": [
+      0,
+      1
+    ],
+    "assessable_count": 5,
+    "supported_count": 0,
+    "not_observed_count": 5,
+    "not_assessable_count": 2,
+    "low_parser_confidence_count": 0,
+    "requirements": [
+      {
+        "text": "Strong C experience in embedded, resource-constrained environments",
+        "necessity": "required",
+        "category": "language",
+        "concept_id": "language.c",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Experience with FreeRTOS or another real-time operating system",
+        "necessity": "required",
+        "category": "alternative_requirement",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+        "necessity": "required",
+        "category": null,
+        "concept_id": "unresolved:spi",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+        "necessity": "required",
+        "category": null,
+        "concept_id": "unresolved:i2c",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Familiarity with microcontroller peripherals such as SPI, I2C, and UART",
+        "necessity": "required",
+        "category": null,
+        "concept_id": "unresolved:uart",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Experience with CMake-based build systems",
+        "necessity": "preferred",
+        "category": "unresolved_requirement",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Exposure to Verilog for hardware/firmware co-design",
+        "necessity": "preferred",
+        "category": "hardware_description",
+        "concept_id": "hdl.verilog",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      }
+    ],
+    "unparsed_claims": [
+      {
+        "text": "Experience debugging with oscilloscopes and logic analyzers"
+      }
+    ],
+    "scenario": "embedded_firmware_role"
+  },
+  {
+    "candidate": "karpathy",
+    "job_id": "computer_vision_01",
+    "job_title": "Computer Vision Engineer",
+    "discovered_count": 63,
+    "analyzed_count": 15,
+    "is_complete": false,
+    "alignment_score": 100,
+    "required": [
+      3,
+      3
+    ],
+    "preferred": [
+      1,
+      1
+    ],
+    "assessable_count": 4,
+    "supported_count": 4,
+    "not_observed_count": 0,
+    "not_assessable_count": 1,
+    "low_parser_confidence_count": 0,
+    "requirements": [
+      {
+        "text": "Strong Python programming skills",
+        "necessity": "required",
+        "category": "language",
+        "concept_id": "language.python",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.python"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "autoresearch",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 83.41% (41273 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "autoresearch",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...chat). The core idea is that you're not touching any of the Python files like you normally would as a researcher. Instead, you...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "build-nanogpt",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 75.63% (34801 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "build-nanogpt",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...guage model, and all of this is about modeling and learning Python. I'm very good in syntax, however I struggle with Python du...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "char-rnn",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...t.github.com/karpathy/d4dee566867f8291f086) that I wrote in Python/numpy. The code in this repo additionally: allows for multi...",
+            "file_path": "Readme.md"
+          },
+          {
+            "repo": "hn-time-capsule",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 100.00% (58439 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "hn-time-capsule",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...: ```bash # Run all stages for today minus 10 years uv run python pipeline.py all # Run with a limit (for testing) uv run py...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "jobs",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...without needing to run any code. Regenerate it with `uv run python make_prompt.py`. ## Setup ``` uv sync uv run playwright i...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "llama2.c",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 44.08% (77028 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "llama2.c",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...m into the llama2.c format. For this we need to install the python dependencies (`pip install -r requirements.txt`) and then u...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "llm-council",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 44.36% (24729 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "llm-council",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...al) Edit `backend/config.py` to customize the council: ```python COUNCIL_MODELS = [ \"openai/gpt-5.1\", \"google/gemini...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "llm.c",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 13.51% (158852 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "llm.c",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...nually as follows: ```bash pip install -r requirements.txt python dev/data/tinyshakespeare.py python train_gpt2.py ``` ## qu...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "micrograd",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 9.74% (6530 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "micrograd",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...mple showing a number of possible supported operations: ```python from micrograd.engine import Value a = Value(-4.0) b = Val...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "minGPT",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 74.80% (52326 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "minGPT",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...e's how you'd instantiate a GPT-2 (124M param version): ```python from mingpt.model import GPT model_config = GPT.get_default...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "nanoGPT",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 100.00% (51670 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "nanoGPT",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...it from raw text into one large stream of integers: ```sh python data/shakespeare_char/prepare.py ``` This creates a `train...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "nanochat",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 77.42% (354788 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "nanochat",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...ctive (run `source .venv/bin/activate`), and chat: ```bash python -m scripts.chat_cli ``` Get it to write stories or poems....",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "reader3",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 60.95% (13925 bytes)",
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "text": "Experience with PyTorch for deep learning-based vision models",
+        "necessity": "required",
+        "category": "ml_framework",
+        "concept_id": "ml.framework.pytorch",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "ml.framework.pytorch"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "autoresearch",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'pytorch': ...orms. - **Self-contained.** No external dependencies beyond PyTorch and a few small packages. No distributed training, no compl...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "autoresearch",
+            "evidence_type": "dependency",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 3,
+            "raw_observation": "torch==2.9.1",
+            "file_path": "pyproject.toml"
+          },
+          {
+            "repo": "build-nanogpt",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'pytorch': ...lash attention, fixed with a recent PR. Earlier version of PyTorch may have difficulty converting from uint16 to long. Inside...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "char-rnn",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'torch': ...ithub.io/2015/05/21/rnn-effectiveness/). If you are new to Torch/Lua/Neural Nets, it might be helpful to know that this code...",
+            "file_path": "Readme.md"
+          },
+          {
+            "repo": "llama2.c",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'pytorch': ...? Well, now you can! Train the Llama 2 LLM architecture in PyTorch then inference it with one simple 700-line C file ([run.c](...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "llama2.c",
+            "evidence_type": "dependency",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 3,
+            "raw_observation": "torch==2.0.1",
+            "file_path": "requirements.txt"
+          },
+          {
+            "repo": "llm.c",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'pytorch': ...lm.c LLMs in simple, pure C/CUDA with no need for 245MB of PyTorch or 107MB of cPython. Current focus is on pretraining, in pa...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "llm.c",
+            "evidence_type": "dependency",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 3,
+            "raw_observation": "torch",
+            "file_path": "requirements.txt"
+          },
+          {
+            "repo": "micrograd",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'pytorch': ...DAG and a small neural networks library on top of it with a PyTorch-like API. Both are tiny, with about 100 and 50 lines of cod...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "minGPT",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'pytorch': ...# minGPT ![mingpt](mingpt.jpg) A PyTorch re-implementation of [GPT](https://github.com/openai/gpt-2)...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "nanoGPT",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'pytorch': ...formers datasets tiktoken wandb tqdm ``` Dependencies: - [pytorch](https://pytorch.org) <3 - [numpy](https://numpy.org/instal...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "nanochat",
+            "evidence_type": "readme",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 2,
+            "raw_observation": "README mentions 'pytorch': ...and get more creative. - Most of the code is fairly vanilla PyTorch so it should run on anything that supports that - xpu, mps,...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "nanochat",
+            "evidence_type": "dependency",
+            "concept_id": "ml.framework.pytorch",
+            "confidence": 3,
+            "raw_observation": "torch==2.9.1",
+            "file_path": "pyproject.toml"
+          }
+        ]
+      },
+      {
+        "text": "Familiarity with CUDA-accelerated training pipelines",
+        "necessity": "required",
+        "category": "platform",
+        "concept_id": "platform.cuda",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "platform.cuda"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "build-nanogpt",
+            "evidence_type": "readme",
+            "concept_id": "platform.cuda",
+            "confidence": 2,
+            "raw_observation": "README mentions 'cuda': ...ors in some version of PyTorch. So we want e.g. the device `cuda:3` to get stripped to `cuda`. Currently, device `mps` (Appl...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "char-rnn",
+            "evidence_type": "readme",
+            "concept_id": "platform.cuda",
+            "confidence": 2,
+            "raw_observation": "README mentions 'cuda': ...stall nn ``` If you'd like to train on an NVIDIA GPU using CUDA (this can be to about 15x faster), you'll of course need th...",
+            "file_path": "Readme.md"
+          },
+          {
+            "repo": "llama2.c",
+            "evidence_type": "readme",
+            "concept_id": "platform.cuda",
+            "confidence": 2,
+            "raw_observation": "README mentions 'cuda': ...1+ files from export, later deprecate \"version 0\" - run.cu (CUDA) investigate and merge - add more tests inside [test.c](tes...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "llm.c",
+            "evidence_type": "repository_language",
+            "concept_id": "platform.cuda",
+            "confidence": 2,
+            "raw_observation": "Cuda: 66.21% (778454 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "llm.c",
+            "evidence_type": "readme",
+            "concept_id": "platform.cuda",
+            "confidence": 2,
+            "raw_observation": "README mentions 'cuda': ...# llm.c LLMs in simple, pure C/CUDA with no need for 245MB of PyTorch or 107MB of cPython. Curr...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "nanochat",
+            "evidence_type": "readme",
+            "concept_id": "platform.cuda",
+            "confidence": 2,
+            "raw_observation": "README mentions 'cuda': ...ment. To install: ```bash uv sync --extra gpu # Use for CUDA (A100/H100/etc.) uv sync --extra cpu # (or) Use for CPU-...",
+            "file_path": "README.md"
+          }
+        ]
+      },
+      {
+        "text": "Experience with Jupyter Notebook-based experimentation",
+        "necessity": "preferred",
+        "category": "language",
+        "concept_id": "language.jupyter_notebook",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.jupyter_notebook"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "autoresearch",
+            "evidence_type": "repository_language",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 1,
+            "raw_observation": "Jupyter Notebook: 16.59% (8208 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "build-nanogpt",
+            "evidence_type": "repository_language",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 1,
+            "raw_observation": "Jupyter Notebook: 24.37% (11211 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "llama2.c",
+            "evidence_type": "readme",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 2,
+            "raw_observation": "README mentions 'ipynb': ...esearch.google.com/github/karpathy/llama2.c/blob/master/run.ipynb) First, navigate to the folder where you keep your project...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "llm.c",
+            "evidence_type": "readme",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 2,
+            "raw_observation": "README mentions 'ipynb': ...e of how to parse and plot these logfiles is in [dev/vislog.ipynb](dev/vislog.ipynb). ## repo A few more words on what I wa...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "micrograd",
+            "evidence_type": "repository_language",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 2,
+            "raw_observation": "Jupyter Notebook: 90.26% (60484 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "micrograd",
+            "evidence_type": "readme",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 2,
+            "raw_observation": "README mentions 'ipynb': ...of dg/db ``` ### Training a neural net The notebook `demo.ipynb` provides a full demo of training an 2-layer neural network...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "minGPT",
+            "evidence_type": "repository_language",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 1,
+            "raw_observation": "Jupyter Notebook: 25.20% (17632 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "minGPT",
+            "evidence_type": "readme",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 2,
+            "raw_observation": "README mentions 'ipynb': ...racter-level language model on some input text file - `demo.ipynb` shows a minimal usage of the `GPT` and `Trainer` in a note...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "nanochat",
+            "evidence_type": "repository_language",
+            "concept_id": "language.jupyter_notebook",
+            "confidence": 1,
+            "raw_observation": "Jupyter Notebook: 19.27% (88299 bytes)",
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "text": "Master's degree in Computer Vision, Robotics, or a related field",
+        "necessity": "preferred",
+        "category": "education",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      }
+    ],
+    "unparsed_claims": [
+      {
+        "text": "Experience with OpenCV for image processing"
+      }
+    ],
+    "scenario": "ml_computer_vision_role"
+  },
+  {
+    "candidate": "sindresorhus",
+    "job_id": "frontend_01",
+    "job_title": "Frontend Engineer",
+    "discovered_count": 1142,
+    "analyzed_count": 15,
+    "is_complete": false,
+    "alignment_score": 67,
+    "required": [
+      4,
+      4
+    ],
+    "preferred": [
+      0,
+      2
+    ],
+    "assessable_count": 6,
+    "supported_count": 4,
+    "not_observed_count": 2,
+    "not_assessable_count": 1,
+    "low_parser_confidence_count": 0,
+    "requirements": [
+      {
+        "text": "Strong proficiency in JavaScript and TypeScript",
+        "necessity": "required",
+        "category": "language",
+        "concept_id": "language.javascript",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.javascript"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "electron-dl",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "JavaScript: 95.95% (12096 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "eslint-node-test",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "JavaScript: 100.00% (1445510 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "eslint-node-test",
+            "evidence_type": "readme",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'javascript': ...': 'error' } } ]); ``` The example scopes the plugin to JavaScript files. Add TypeScript extensions only when your ESLint conf...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "eslint-plugin-unicorn",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "JavaScript: 100.00% (7510540 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "eslint-plugin-unicorn",
+            "evidence_type": "readme",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'javascript': ...> > More than 300 powerful ESLint rules Most rules target JavaScript and TypeScript, but [some also lint CSS, HTML, JSON, Markdo...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "file-type",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "JavaScript: 93.58% (386115 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "got",
+            "evidence_type": "readme",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'javascript': ...s native [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) and no longer provides a CommonJS export. If...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "image-dimensions",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "JavaScript: 100.00% (43470 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "image-dimensions",
+            "evidence_type": "readme",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'javascript': ...ons > Get the dimensions of an image *Works in any modern JavaScript environment (browsers, Node.js, Bun, Deno, etc).* Supporti...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "ky",
+            "evidence_type": "readme",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'javascript': ....stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) Shortcut for send...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "sindresorhus.github.com",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 1,
+            "raw_observation": "JavaScript: 19.58% (40412 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "spdx-license-list",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "JavaScript: 82.73% (2563 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "sublime-autoprefixer",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 1,
+            "raw_observation": "JavaScript: 25.39% (1261 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "type-fest",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 1,
+            "raw_observation": "JavaScript: 14.72% (116631 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "type-fest",
+            "evidence_type": "readme",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'javascript': ...es a [`class`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). - [`Constructor`](source/basic.d.ts) -...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "wallpaper",
+            "evidence_type": "repository_language",
+            "concept_id": "language.javascript",
+            "confidence": 2,
+            "raw_observation": "JavaScript: 93.18% (13953 bytes)",
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "text": "Strong proficiency in JavaScript and TypeScript",
+        "necessity": "required",
+        "category": "language",
+        "concept_id": "language.typescript",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.typescript"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "electron-dl",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^6.0.3 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "eslint-node-test",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^6.0.3 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "eslint-node-test",
+            "evidence_type": "readme",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'typescript': ...resorhus/a39789f98801d908bbc7ff3ecc99d99c#how-can-i-make-my-typescript-project-output-esm).** ## Usage Use a [preset config](#pr...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "eslint-plugin-unicorn",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^6.0.3 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "eslint-plugin-unicorn",
+            "evidence_type": "readme",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'typescript': ...300 powerful ESLint rules Most rules target JavaScript and TypeScript, but [some also lint CSS, HTML, JSON, Markdown, TOML, and Y...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "file-type",
+            "evidence_type": "readme",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'typescript': ...hub.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c). For TypeScript + CommonJS, see [`load-esm`](https://github.com/Borewit/loa...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "got",
+            "evidence_type": "repository_language",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "TypeScript: 100.00% (1643039 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "got",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^5.9.3 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "got",
+            "evidence_type": "readme",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'typescript': ...stics Channel](documentation/diagnostics-channel.md) - [x] [TypeScript support](documentation/typescript.md) - [x] [AWS](documenta...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "image-dimensions",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^5.3.3 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "ky",
+            "evidence_type": "repository_language",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "TypeScript: 100.00% (762980 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "ky",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^5.9.3 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "ky",
+            "evidence_type": "readme",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'typescript': ...Schema](https://standardschema.dev) (Zod, Valibot, etc.) - TypeScript niceties (e.g., `.json()` supports generics and defaults to...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "ow",
+            "evidence_type": "repository_language",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "TypeScript: 99.77% (234613 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "ow",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^5.9.3 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "ow",
+            "evidence_type": "readme",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'typescript': ...> Function argument validation for humans ## Why use Ow? TypeScript only validates types at compile time. Once compiled, your p...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "sindresorhus.github.com",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^6.0.3 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "spdx-license-list",
+            "evidence_type": "repository_language",
+            "concept_id": "language.typescript",
+            "confidence": 1,
+            "raw_observation": "TypeScript: 17.27% (535 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "type-fest",
+            "evidence_type": "repository_language",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "TypeScript: 85.28% (675807 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "type-fest",
+            "evidence_type": "dependency",
+            "concept_id": "language.typescript",
+            "confidence": 3,
+            "raw_observation": "typescript@^5.9.2 (devDependencies)",
+            "file_path": "package.json"
+          },
+          {
+            "repo": "type-fest",
+            "evidence_type": "readme",
+            "concept_id": "language.typescript",
+            "confidence": 2,
+            "raw_observation": "README mentions 'typescript': ...st\" height=\"300\"> <br> <br> <b>A collection of essential TypeScript types</b> <br> <br> <br> <br> <hr> <div align=\"center...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "wallpaper",
+            "evidence_type": "repository_language",
+            "concept_id": "language.typescript",
+            "confidence": 1,
+            "raw_observation": "TypeScript: 6.82% (1022 bytes)",
+            "file_path": null
+          }
+        ]
+      },
+      {
+        "text": "Hands-on experience with React",
+        "necessity": "required",
+        "category": "frontend_framework",
+        "concept_id": "framework.react",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "framework.react"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "ky",
+            "evidence_type": "readme",
+            "concept_id": "framework.react",
+            "confidence": 2,
+            "raw_observation": "README mentions 'react': ...s package directly. #### How do I use this with a web app (React, Vue.js, etc.) that uses server-side rendering (SSR)? Node...",
+            "file_path": "readme.md"
+          }
+        ]
+      },
+      {
+        "text": "Experience with CSS and responsive design",
+        "necessity": "required",
+        "category": "language",
+        "concept_id": "language.css",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.css"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "eslint-plugin-unicorn",
+            "evidence_type": "readme",
+            "concept_id": "language.css",
+            "confidence": 2,
+            "raw_observation": "README mentions 'css': ...rules target JavaScript and TypeScript, but [some also lint CSS, HTML, JSON, Markdown, TOML, and YAML](#non-javascript-file...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "sublime-autoprefixer",
+            "evidence_type": "readme",
+            "concept_id": "language.css",
+            "confidence": 2,
+            "raw_observation": "README mentions 'css': ...# sublime-autoprefixer > Sublime plugin to prefix your CSS or SCSS You shouldn't have to care about vendor prefixes....",
+            "file_path": "readme.md"
+          }
+        ]
+      },
+      {
+        "text": "Experience with Next.js",
+        "necessity": "preferred",
+        "category": "frontend_framework",
+        "concept_id": "framework.nextjs",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Knowledge of Vue or Angular",
+        "necessity": "preferred",
+        "category": null,
+        "concept_id": null,
+        "alternative_concept_ids": [
+          "unresolved:angular",
+          "unresolved:vue"
+        ],
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Excellent written and verbal communication",
+        "necessity": "preferred",
+        "category": "soft_skill",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      }
+    ],
+    "unparsed_claims": [
+      {
+        "text": "Familiarity with modern build tooling and automated testing frameworks"
+      }
+    ],
+    "scenario": "frontend_mobile_role"
+  },
+  {
+    "candidate": "sindresorhus",
+    "job_id": "devops_cloud_01",
+    "job_title": "DevOps / Cloud Engineer",
+    "discovered_count": 1142,
+    "analyzed_count": 15,
+    "is_complete": false,
+    "alignment_score": 75,
+    "required": [
+      3,
+      4
+    ],
+    "preferred": null,
+    "assessable_count": 4,
+    "supported_count": 3,
+    "not_observed_count": 1,
+    "not_assessable_count": 0,
+    "low_parser_confidence_count": 0,
+    "requirements": [
+      {
+        "text": "Experience with AWS or Azure",
+        "necessity": "required",
+        "category": null,
+        "concept_id": null,
+        "alternative_concept_ids": [
+          "cloud.aws",
+          "unresolved:azure"
+        ],
+        "status": "supported",
+        "matched_concept_ids": [
+          "cloud.aws"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "file-type",
+            "evidence_type": "readme",
+            "concept_id": "cloud.aws",
+            "confidence": 2,
+            "raw_observation": "README mentions 'aws': ...rmine the file type of a file stored on [Amazon S3](https://aws.amazon.com/s3): ```js import {S3Client} from '@aws-sdk/cli...",
+            "file_path": "readme.md"
+          },
+          {
+            "repo": "got",
+            "evidence_type": "readme",
+            "concept_id": "cloud.aws",
+            "confidence": 2,
+            "raw_observation": "README mentions 'aws': ...x] [TypeScript support](documentation/typescript.md) - [x] [AWS](documentation/tips.md#aws) - [x] [Testing](documentation/t...",
+            "file_path": "readme.md"
+          }
+        ]
+      },
+      {
+        "text": "Strong experience with Docker and Kubernetes",
+        "necessity": "required",
+        "category": "infrastructure",
+        "concept_id": "infra.docker",
+        "alternative_concept_ids": null,
+        "status": "supported",
+        "matched_concept_ids": [
+          "infra.docker"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "got",
+            "evidence_type": "readme",
+            "concept_id": "infra.docker",
+            "confidence": 2,
+            "raw_observation": "README mentions 'docker': ...which enables us to build a full control interfaces for our docker stack. > > \u2014 <a href=\"https://github.com/danielkalen\">Danie...",
+            "file_path": "readme.md"
+          }
+        ]
+      },
+      {
+        "text": "Strong experience with Docker and Kubernetes",
+        "necessity": "required",
+        "category": "infrastructure",
+        "concept_id": "infra.kubernetes",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Scripting experience in Python or Shell",
+        "necessity": "required",
+        "category": null,
+        "concept_id": null,
+        "alternative_concept_ids": [
+          "language.python",
+          "language.shell"
+        ],
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.python"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "sublime-autoprefixer",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 71.05% (3529 bytes)",
+            "file_path": null
+          }
+        ]
+      }
+    ],
+    "unparsed_claims": [
+      {
+        "text": "Experience with infrastructure-as-code tools such as Terraform"
+      },
+      {
+        "text": "Experience with CI/CD tooling such as Jenkins"
+      },
+      {
+        "text": "Relevant cloud certification"
+      }
+    ],
+    "scenario": "devops_platform_role__NEW_PAIR"
+  },
+  {
+    "candidate": "Jango1324",
+    "job_id": "general_swe_01",
+    "job_title": "Software Engineer",
+    "discovered_count": 20,
+    "analyzed_count": 15,
+    "is_complete": false,
+    "alignment_score": 100,
+    "required": [
+      1,
+      1
+    ],
+    "preferred": null,
+    "assessable_count": 1,
+    "supported_count": 1,
+    "not_observed_count": 0,
+    "not_assessable_count": 3,
+    "low_parser_confidence_count": 0,
+    "requirements": [
+      {
+        "text": "Strong computer science fundamentals, including data structures and algorithms",
+        "necessity": "required",
+        "category": "unresolved_requirement",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Proficiency in at least one of Python, Java, or C++",
+        "necessity": "required",
+        "category": null,
+        "concept_id": null,
+        "alternative_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "4.0rceof4_bcc_solution-final-",
+            "evidence_type": "repository_language",
+            "concept_id": "language.cpp",
+            "confidence": 1,
+            "raw_observation": "C++: 6.74% (5080505 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "4.0rceof4_bcc_solution-final-",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 89.01% (67084377 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "4.0rceof4_bcc_solution-final-",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python3': ...\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u044b\u0439 fallback \u043a \u0448\u0430\u0431\u043b\u043e\u043d\u0443. - \u041f\u0440\u043e\u0441\u0442\u0430\u044f \u0432\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u043c\u043e\u0441\u0442\u044c: `python3 main.py` (\u043f\u043e\u0441\u043b\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438 \u0437\u0430\u0432\u0438\u0441\u0438\u043c\u043e\u0441\u0442\u0435\u0439 \u0438 \u0437\u0430\u043f\u0443\u0441\u043a\u0430 LM Studio)...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "Arduino-Based-Media-Player",
+            "evidence_type": "repository_language",
+            "concept_id": "language.cpp",
+            "confidence": 2,
+            "raw_observation": "C++: 56.68% (1761 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "Arduino-Based-Media-Player",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 43.32% (1346 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "Arduino-Based-Media-Player",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...Software Used ### Arduino * LiquidCrystal * IRremote ### Python * pyserial * pyautogui * spotipy ## Project Architecture...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "Auto-Job-Apply",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 100.00% (1 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "Competitive-Programming-answers-to-problems",
+            "evidence_type": "repository_language",
+            "concept_id": "language.java",
+            "confidence": 2,
+            "raw_observation": "Java: 100.00% (11410 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "JPod-ESP32",
+            "evidence_type": "repository_language",
+            "concept_id": "language.cpp",
+            "confidence": 2,
+            "raw_observation": "C++: 93.82% (21192 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "JPod-ESP32",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 6.18% (1396 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "Jango1324",
+            "evidence_type": "readme",
+            "concept_id": "language.java",
+            "confidence": 2,
+            "raw_observation": "README mentions 'java': ...ering\", \"ML & AI\" ], languages: [ \"Java\", \"Python\", \"TypeScript\", \"JavaScri...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "Jango1324",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...\"ML & AI\" ], languages: [ \"Java\", \"Python\", \"TypeScript\", \"JavaScript\", \"SQL\"...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "Smart-Website",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 26.79% (3765 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "claw-code",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 7.13% (88697 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "claw-code",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...do under pressure: I sat down, ported the core features to Python from scratch, and pushed it before the sun came up. The wh...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "gitscore-ai",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 93.08% (717586 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "gitscore-ai",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...e history of what's been fixed and why. ## Setup Requires Python 3.11+. ```bash python -m venv .venv # activate it: # Wind...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "hive",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "Python: 97.31% (3853885 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "hive",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...ribute and submit PRs ## Quick Start ### Prerequisites - Python 3.11+ for agent development - Claude Code, Codex CLI, or Cu...",
+            "file_path": "README.md"
+          }
+        ]
+      },
+      {
+        "text": "Bachelor's degree in Computer Science, Engineering, or equivalent experience",
+        "necessity": "required",
+        "category": "education",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Experience with distributed systems",
+        "necessity": "preferred",
+        "category": "unresolved_requirement",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      }
+    ],
+    "unparsed_claims": [
+      {
+        "text": "Experience with Git-based version control workflows"
+      },
+      {
+        "text": "Familiarity with CI/CD pipelines using Jenkins"
+      }
+    ],
+    "scenario": "limited_github_evidence"
+  },
+  {
+    "candidate": "torvalds",
+    "job_id": "sre_platform_01",
+    "job_title": "Site Reliability Engineer",
+    "discovered_count": 12,
+    "analyzed_count": 12,
+    "is_complete": true,
+    "alignment_score": 50,
+    "required": [
+      1,
+      2
+    ],
+    "preferred": null,
+    "assessable_count": 2,
+    "supported_count": 1,
+    "not_observed_count": 1,
+    "not_assessable_count": 2,
+    "low_parser_confidence_count": 0,
+    "requirements": [
+      {
+        "text": "3+ years operating production systems at scale",
+        "necessity": "required",
+        "category": "experience",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Strong Python or Go programming skills",
+        "necessity": "required",
+        "category": null,
+        "concept_id": null,
+        "alternative_concept_ids": [
+          "language.go",
+          "language.python"
+        ],
+        "status": "supported",
+        "matched_concept_ids": [
+          "language.python"
+        ],
+        "supporting_evidence": [
+          {
+            "repo": "AudioNoise",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 38.17% (25134 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "AudioNoise",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...t by doing anything actually *clever*. Also note that the python visualizer tool has been basically written by vibe-coding....",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "GuitarPedal",
+            "evidence_type": "repository_language",
+            "concept_id": "language.python",
+            "confidence": 1,
+            "raw_observation": "Python: 33.51% (621188 bytes)",
+            "file_path": null
+          },
+          {
+            "repo": "GuitarPedal",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python3': ...less of platform, you'll need the basics: - git - make - python3 - cmake and a 32-bit arm cross-build environment. On Lin...",
+            "file_path": "README.md"
+          },
+          {
+            "repo": "libgit2",
+            "evidence_type": "readme",
+            "concept_id": "language.python",
+            "confidence": 2,
+            "raw_observation": "README mentions 'python': ...it2/libgit2sharp) (.NET), [pygit2](http://www.pygit2.org/) (Python) and [NodeGit](http://nodegit.org) (Node) allow you to buil...",
+            "file_path": "README.md"
+          }
+        ]
+      },
+      {
+        "text": "Experience with Kubernetes for container orchestration",
+        "necessity": "required",
+        "category": "infrastructure",
+        "concept_id": "infra.kubernetes",
+        "alternative_concept_ids": null,
+        "status": "not_observed",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      },
+      {
+        "text": "Experience with Terraform",
+        "necessity": "preferred",
+        "category": "unresolved_requirement",
+        "concept_id": null,
+        "alternative_concept_ids": null,
+        "status": "not_assessable",
+        "matched_concept_ids": [],
+        "supporting_evidence": []
+      }
+    ],
+    "unparsed_claims": [
+      {
+        "text": "Experience with monitoring and observability tooling"
+      },
+      {
+        "text": "On-call experience and incident response"
+      }
+    ],
+    "scenario": "substantial_non_assessable_requirements__NEW_PAIR"
+  }
+]
