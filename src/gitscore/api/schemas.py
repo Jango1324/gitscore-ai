@@ -112,6 +112,24 @@ class RequirementOut(BaseModel):
     duplicated in frontend TypeScript. Introduces NO new `MatchStatus`:
     `status` is unchanged; this is a presentation-only refinement of
     WHY a `not_assessable` status was reached.
+
+    `concept_label` (Milestone 9E, additive) is a short, human-readable
+    label for `concept_id` (e.g. `"infra.kubernetes"` ->
+    `"Kubernetes"`), read via
+    `gitscore.concepts.registry.concept_display_label()`. `None` exactly
+    when `concept_id` is `None` (a non-technical claim, an alternative
+    group, or an unparsed-placeholder row -- none of those have a single
+    resolved concept to label). Added because one job-posting sentence
+    can legitimately produce MULTIPLE `JobRequirement` rows sharing
+    identical `text` (one per matched concept -- Milestone 9A/6B.1's own
+    documented "one row per concept" design, e.g. "Docker and
+    Kubernetes" -> two rows, both `text="Strong experience with Docker
+    and Kubernetes"`) which previously had no way to be told apart in
+    the UI, including across contradictory statuses (one `supported`,
+    the other `not_observed`) -- see
+    `docs/evaluation/MILESTONE_9E_ASSESSMENT_CLARITY.md` Workstream B.
+    Never changes `concept_id`/`matched_concept_ids`/`status` -- purely
+    an additional display string.
     """
 
     text: str
@@ -121,6 +139,7 @@ class RequirementOut(BaseModel):
     github_observability: str
     parser_confidence: str | None
     concept_id: str | None
+    concept_label: str | None
     category: str | None
     interpretation_status: str
     alternative_concept_ids: list[str]
@@ -143,16 +162,41 @@ class AssessmentOut(BaseModel):
     """`uninterpreted_requirement_count` (Milestone 9C, additive) is the
     count of `not_assessable` requirements whose
     `interpretation_status == "unparsed_placeholder"` (GitScore's OWN
-    parser uncertainty, never a genuinely non-technical claim).
-    Informational only: never read by, and never affects,
-    `github_evidence_alignment` or `assessable_requirement_count` --
-    those two fields and the underlying formula are byte-for-byte
-    unchanged by this milestone.
+    parser uncertainty, never a genuinely non-technical claim). These
+    claims DID survive parsing far enough to become a real
+    `JobRequirement` row -- they are visible in `requirements.not_assessable`.
+
+    `unparsed_claim_count` (Milestone 9E, additive) is the count of
+    `AnalyzeResponse.unparsed_claims` -- claims that survived
+    segmentation's requirement-shaped gate but for which NO
+    `JobRequirement` row was EVER produced at all (a strictly more
+    severe gap than the placeholder above -- see
+    `gitscore.jobs.parsing.parser.UnparsedClaim`'s own docstring). These
+    claims are NOT requirements and must never be described as such --
+    they never reached the matcher, have no status, concept, or
+    necessity, and `UnparsedClaim` deliberately carries none.
+
+    These two counts are kept DELIBERATELY SEPARATE rather than summed
+    into one number (`docs/evaluation/MILESTONE_9D_PRODUCT_VALIDATION.md`
+    §6.1 found the prior single-count headline caveat undercounted the
+    real interpretive uncertainty by excluding `unparsed_claims`
+    entirely): one counts real, inspectable `JobRequirement` rows
+    GitScore could not confidently interpret; the other counts text that
+    never became a row at all and is not a confirmed job requirement.
+    Collapsing them into a single "N requirements" figure would
+    misrepresent the second category as the first. See
+    `docs/evaluation/MILESTONE_9E_ASSESSMENT_CLARITY.md` Workstream A.
+
+    Both counts are purely informational: neither is read by, nor
+    affects, `github_evidence_alignment` or `assessable_requirement_count`
+    -- those two fields and the underlying formula remain byte-for-byte
+    unchanged.
     """
 
     github_evidence_alignment: int | None
     assessable_requirement_count: int
     uninterpreted_requirement_count: int
+    unparsed_claim_count: int
 
 
 class RepositoryAnalysisOut(BaseModel):

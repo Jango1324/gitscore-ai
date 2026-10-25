@@ -5,13 +5,42 @@ import { EvidenceList } from "@/components/EvidenceList";
 interface RequirementSectionProps {
   status: RequirementStatus;
   requirements: RequirementItem[];
+  /** Milestone 9E Workstream B, additive, optional (defaults to empty --
+   * existing callers/tests that don't pass it see identical rendering
+   * to before this milestone). `text` values that appear more than once
+   * across the WHOLE result (see `ResultView.findDuplicateRequirementTexts`),
+   * not just within this one section/subsection. When a row's `text` is
+   * in this set AND it has a `concept_label`, the label is appended so
+   * two rows sharing identical text (one job-posting sentence, multiple
+   * matched concepts -- e.g. "Docker and Kubernetes") never read as an
+   * unexplained duplicate or, worse, a self-contradiction when they land
+   * under different statuses. */
+  duplicateTexts?: ReadonlySet<string>;
+}
+
+/** The exact text to render for one requirement row: `requirement.text`
+ * unchanged, UNLESS it is one of several rows across the result sharing
+ * identical text AND this row has a `concept_label` to disambiguate it
+ * with -- never alters `requirement.text` itself, never applied when no
+ * label exists (never fabricates a distinguishing label). */
+function disambiguatedRequirementText(requirement: RequirementItem, duplicateTexts: ReadonlySet<string>): string {
+  if (requirement.concept_label && duplicateTexts.has(requirement.text)) {
+    return `${requirement.text} (${requirement.concept_label})`;
+  }
+  return requirement.text;
 }
 
 /** Shared rendering for one flat list of requirements -- used both by
  * the plain supported/not_observed sections and by each of
  * not_assessable's two subsections (Milestone 9C), so the actual `<li>`
  * markup/evidence rendering exists in exactly one place. */
-function RequirementItemsList({ requirements }: { requirements: RequirementItem[] }) {
+function RequirementItemsList({
+  requirements,
+  duplicateTexts = new Set(),
+}: {
+  requirements: RequirementItem[];
+  duplicateTexts?: ReadonlySet<string>;
+}) {
   if (requirements.length === 0) {
     return <p className="empty-note">None.</p>;
   }
@@ -19,7 +48,7 @@ function RequirementItemsList({ requirements }: { requirements: RequirementItem[
     <ul className="requirement-list">
       {requirements.map((requirement, index) => (
         <li key={index} className="requirement-item">
-          <p className="requirement-text">{requirement.text}</p>
+          <p className="requirement-text">{disambiguatedRequirementText(requirement, duplicateTexts)}</p>
           <span className="requirement-necessity">{necessityLabel(requirement.necessity)}</span>
           <EvidenceList evidence={requirement.evidence} />
         </li>
@@ -37,9 +66,11 @@ function RequirementItemsList({ requirements }: { requirements: RequirementItem[
 function NotAssessableSubsection({
   kind,
   requirements,
+  duplicateTexts,
 }: {
   kind: Exclude<InterpretationStatus, "recognized">;
   requirements: RequirementItem[];
+  duplicateTexts: ReadonlySet<string>;
 }) {
   const { title, explanation } = notAssessableSubsectionCopy(kind);
   const headingId = `requirement-subsection-${kind}`;
@@ -47,7 +78,7 @@ function NotAssessableSubsection({
     <div className="requirement-subsection" aria-labelledby={headingId}>
       <h3 id={headingId}>{title}</h3>
       <p className="requirement-section-explanation">{explanation}</p>
-      <RequirementItemsList requirements={requirements} />
+      <RequirementItemsList requirements={requirements} duplicateTexts={duplicateTexts} />
     </div>
   );
 }
@@ -65,7 +96,7 @@ function NotAssessableSubsection({
  * placeholder). `supported`/`not_observed` are rendered exactly as
  * before this milestone.
  */
-export function RequirementSection({ status, requirements }: RequirementSectionProps) {
+export function RequirementSection({ status, requirements, duplicateTexts = new Set() }: RequirementSectionProps) {
   const { title, explanation } = requirementSectionCopy(status);
   const headingId = `requirement-section-${status}`;
 
@@ -79,8 +110,12 @@ export function RequirementSection({ status, requirements }: RequirementSectionP
           <p className="empty-note">None.</p>
         ) : (
           <>
-            <NotAssessableSubsection kind="non_technical" requirements={nonTechnical} />
-            <NotAssessableSubsection kind="unparsed_placeholder" requirements={unparsedPlaceholder} />
+            <NotAssessableSubsection kind="non_technical" requirements={nonTechnical} duplicateTexts={duplicateTexts} />
+            <NotAssessableSubsection
+              kind="unparsed_placeholder"
+              requirements={unparsedPlaceholder}
+              duplicateTexts={duplicateTexts}
+            />
           </>
         )}
       </section>
@@ -91,7 +126,7 @@ export function RequirementSection({ status, requirements }: RequirementSectionP
     <section className="requirement-section" aria-labelledby={headingId}>
       <h2 id={headingId}>{title}</h2>
       {explanation && <p className="requirement-section-explanation">{explanation}</p>}
-      <RequirementItemsList requirements={requirements} />
+      <RequirementItemsList requirements={requirements} duplicateTexts={duplicateTexts} />
     </section>
   );
 }

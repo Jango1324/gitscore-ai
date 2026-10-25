@@ -26,6 +26,7 @@ from gitscore.api.schemas import (
 )
 from gitscore.application.job_fit import JobAnalysisResult
 from gitscore.assessment.models import SubscoreFacts
+from gitscore.concepts.registry import concept_display_label
 from gitscore.evidence.models import Evidence, RepositoryIdentity
 from gitscore.jobs.parsing.parser import UnparsedClaim
 from gitscore.matching.models import RequirementMatch
@@ -59,6 +60,17 @@ def _interpretation_status(match: RequirementMatch) -> str:
     if match.requirement.category in _UNPARSED_PLACEHOLDER_CATEGORIES:
         return "unparsed_placeholder"
     return "non_technical"
+
+
+def _concept_label(concept_id: str | None) -> str | None:
+    """Milestone 9E -- `None` exactly when `concept_id` is `None`
+    (non-technical claim / alternative group / unparsed placeholder);
+    otherwise `concept_display_label(concept_id)`. See
+    `RequirementOut.concept_label`'s own docstring for why this exists.
+    """
+    if concept_id is None:
+        return None
+    return concept_display_label(concept_id)
 
 
 def _enum_name(value) -> str:
@@ -98,6 +110,7 @@ def serialize_requirement_match(match: RequirementMatch) -> RequirementOut:
             _enum_name(requirement.parser_confidence) if requirement.parser_confidence is not None else None
         ),
         concept_id=requirement.concept_id,
+        concept_label=_concept_label(requirement.concept_id),
         category=requirement.category,
         interpretation_status=_interpretation_status(match),
         alternative_concept_ids=list(requirement.alternative_concept_ids),
@@ -137,6 +150,7 @@ def serialize_job_analysis_result(result: JobAnalysisResult) -> AnalyzeResponse:
             github_evidence_alignment=assessment.alignment_score,
             assessable_requirement_count=assessment.assessable_count,
             uninterpreted_requirement_count=uninterpreted_count,
+            unparsed_claim_count=len(result.unparsed_claims),
         ),
         required=serialize_subscore(assessment.required),
         preferred=serialize_subscore(assessment.preferred),

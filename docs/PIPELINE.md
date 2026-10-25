@@ -457,6 +457,27 @@ requirement within the existing `NOT_ASSESSABLE` status -- no new
 §29 and `docs/evaluation/MILESTONE_9C_ASSESSMENT_TRANSPARENCY.md` for
 the full design audit and before/after detail.
 
+### Assessment clarity -- Milestone 9E
+
+Milestone 9D's product-validation pilot found the M9C headline caveat
+(`uninterpreted_requirement_count`) structurally excluded
+`unparsed_claims` from the count a reader sees next to the score.
+`gitscore.api.serialization` now also computes `unparsed_claim_count`
+(a plain `len(result.unparsed_claims)`) as a SEPARATE, additive
+`AssessmentOut` field -- never summed with `uninterpreted_requirement_count`,
+since the two count category-different facts (a real row GitScore could
+not interpret, vs. text that never became a row at all). Separately,
+`RequirementOut` gained `concept_label` (`gitscore.concepts.registry.concept_display_label()`)
+so a frontend can disambiguate two distinct `JobRequirement` rows that
+share identical `original_text` (one job-posting sentence, multiple
+matched concepts -- the documented, intentional Milestone 9A/6B.1 "one
+row per concept" design) without re-deriving a label from the raw
+concept id itself. Neither change touches `gitscore.matching`,
+`gitscore.assessment`, `gitscore.jobs.parsing`, or the concept
+registry's content -- see `docs/ARCHITECTURE.md` §30 and
+`docs/evaluation/MILESTONE_9E_ASSESSMENT_CLARITY.md` for the full root-
+cause analysis and before/after examples.
+
 ## HTTP API (Milestone 8A) -- `gitscore.api`
 
 ```
@@ -472,7 +493,9 @@ with `uvicorn gitscore.api.app:app --reload`. Milestone 9C added four
 additive response fields (`requirements.*[].category`/
 `.interpretation_status`, `assessment.uninterpreted_requirement_count`,
 `unparsed_claims`) -- see `docs/ARCHITECTURE.md` §29.2; no existing
-field changed meaning or shape.
+field changed meaning or shape. Milestone 9E added two more, equally
+additive fields: `requirements.*[].concept_label` and
+`assessment.unparsed_claim_count` -- see `docs/ARCHITECTURE.md` §30.
 
 ## Frontend (Milestone 8B) -- `frontend/`
 
@@ -489,4 +512,9 @@ Run locally: `cd frontend && npm install && npm run dev`
 `http://localhost:8000`). Milestone 9C split the `not_assessable`
 requirement group into two labeled subsections, added a headline
 caveat, and added a fourth `UnparsedClaimsSection` -- see
-`docs/ARCHITECTURE.md` §29.3.
+`docs/ARCHITECTURE.md` §29.3. Milestone 9E added a second, separate
+headline caveat for `unparsed_claim_count`, a `concept_label` suffix
+that disambiguates duplicate-looking requirement text (including
+across contradictory statuses), a GitHub repository link on each
+evidence citation, and a calibrated, non-numeric description of each
+evidence type -- see `docs/ARCHITECTURE.md` §30.

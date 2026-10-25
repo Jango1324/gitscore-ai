@@ -26,6 +26,34 @@ export function evidenceTypeLabel(evidenceType: string): string {
   return EVIDENCE_TYPE_LABELS[evidenceType] ?? evidenceType;
 }
 
+/**
+ * Milestone 9E Workstream C -- a short, calibrated, one-sentence
+ * description of what a given `evidence_type` actually represents,
+ * shown alongside its label. Never a numeric strength/confidence score
+ * (none is invented here) -- just a plain-language statement of the
+ * KIND of observation this is, so a reader can judge for themselves
+ * whether (for example) a README mention is as strong a signal as a
+ * dependency-manifest declaration, rather than treating every
+ * "supported" requirement as equally well-evidenced.
+ */
+const EVIDENCE_TYPE_DESCRIPTIONS: Record<string, string> = {
+  repository_language: "The repository's own reported language composition (GitHub language statistics).",
+  repository_metadata: "Repository-level metadata (such as its description or topics), not its code content.",
+  readme: "A text mention found in the repository's README -- may describe the candidate's own usage, or only a reference, comparison, or example.",
+  dependency: "An explicit dependency declared in a project manifest (e.g. requirements.txt, package.json).",
+  source_import: "An import statement found directly in source code.",
+  config: "A configuration file present in the repository.",
+  docker: "Docker/containerization files present in the repository.",
+  ci: "CI configuration present in the repository.",
+  test: "Test files present in the repository.",
+  notebook: "A Jupyter notebook present in the repository.",
+  deployment: "Deployment configuration present in the repository.",
+};
+
+export function evidenceTypeDescription(evidenceType: string): string | null {
+  return EVIDENCE_TYPE_DESCRIPTIONS[evidenceType] ?? null;
+}
+
 export function confidenceLabel(confidence: string): string {
   return confidence.length > 0 ? confidence[0]!.toUpperCase() + confidence.slice(1) : confidence;
 }
@@ -91,10 +119,32 @@ export function notAssessableSubsectionCopy(
 /** Milestone 9C -- the small, non-alarming caveat shown near the
  * alignment headline when GitScore's own parser uncertainty may be
  * affecting what could be assessed. Singular/plural handled once here,
- * not duplicated at each call site. */
+ * not duplicated at each call site. Covers ONLY claims that became a
+ * real requirement row (`interpretation_status === "unparsed_placeholder"`)
+ * -- see `unparsedClaimsCaveat()` below for the separate, strictly more
+ * severe category this deliberately does NOT include (Milestone 9E
+ * Workstream A; `docs/evaluation/MILESTONE_9D_PRODUCT_VALIDATION.md`
+ * §6.1 found the prior single-count headline undercounted real
+ * interpretive uncertainty by excluding that category entirely). */
 export function uninterpretedCaveat(count: number): string {
   const plural = count === 1 ? "requirement" : "requirements";
   return `${count} ${plural} could not be confidently interpreted by GitScore's parser -- see below.`;
+}
+
+/** Milestone 9E Workstream A -- the second, SEPARATE headline caveat for
+ * `assessment.unparsed_claim_count`: statements the job posting appears
+ * to contain that never became a requirement row at all (no status, no
+ * concept -- see `UnparsedClaimsSection`). Deliberately says
+ * "statements," never "requirements" -- these are not confirmed job
+ * requirements, just text GitScore could not interpret well enough to
+ * assess at all. Kept as its own sentence rather than summed with
+ * `uninterpretedCaveat()`'s count: the two categories are not the same
+ * fact (one produced an inspectable row, this one did not), and forcing
+ * them into one number would misrepresent the more severe category as
+ * the less severe one. */
+export function unparsedClaimsCaveat(count: number): string {
+  const plural = count === 1 ? "statement" : "statements";
+  return `${count} additional ${plural} in the job posting could not be parsed as a requirement at all -- see below.`;
 }
 
 /** Milestone 9C -- heading/explanation for the fourth, clearly separate

@@ -1,5 +1,134 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-25 — Milestone 9E: Assessment clarity & trust corrections
+
+**What changed:** Fixes three confirmed, M9D-measured presentation
+defects — WITHOUT touching the matcher, scoring formula, concept
+registry content, parser semantics, or retrieval/ranking.
+
+1. **Headline undercounted interpretive uncertainty (Workstream A).**
+   `AssessmentOut`/`Assessment` gained `unparsed_claim_count` (additive)
+   — a plain `len(unparsed_claims)` passthrough — rendered as a SECOND,
+   separate headline caveat (`AlignmentHeadline.tsx`,
+   `unparsedClaimsCaveat()` in `lib/labels.ts`), deliberately never
+   summed with the existing `uninterpreted_requirement_count`: the two
+   counts measure category-different facts (a real row GitScore could
+   not interpret, vs. text that never became a row at all), and a claim
+   is structurally counted by at most one of them, never both.
+2. **Duplicate-looking requirement text, including across contradictory
+   statuses (Workstream B).** Confirmed NOT a matcher/parser bug — two
+   rows sharing identical text is the intentional Milestone 9A/6B.1
+   "one row per matched concept" design. New
+   `gitscore.concepts.registry.concept_display_label()` (additive) and
+   `RequirementOut.concept_label` (additive) expose a short,
+   human-readable label (e.g. "infra.kubernetes" → "Kubernetes"); the
+   frontend now appends it to a requirement's displayed text whenever
+   that exact text repeats anywhere in the result (`ResultView.findDuplicateRequirementTexts()`),
+   so "Strong experience with Docker and Kubernetes" renders as
+   "...(Docker)" and "...(Kubernetes)" instead of appearing to
+   contradict itself under "Supported" and "Not observed" at once.
+3. **Evidence provenance and strength (Workstream C).** `EvidenceList.tsx`
+   now links each cited repository to `https://github.com/{owner}/{name}`
+   (`lib/github.ts`, new) — built only from fields the API already
+   returns, repository-root only (never a file-specific/branch-guessed
+   deep link, since no default-branch fact exists anywhere in the
+   domain model). Each evidence item also shows a short, calibrated,
+   non-numeric description of what its `evidence_type` represents
+   (`evidenceTypeDescription()`, `lib/labels.ts`) — no new strength
+   score was invented.
+4. **`karpathy × computer_vision_01` re-verified, not re-fixed
+   (Workstream D).** Confirmed live that the omitted "OpenCV" requirement
+   was already visible in `unparsed_claims` (M9C), but the pre-9E
+   headline caveat never surfaced it (`uninterpreted_requirement_count`
+   was `0` for this posting). Workstream A's fix now surfaces it; the
+   score itself (100, required 3/3, preferred 1/1) is confirmed
+   byte-identical before and after — this milestone does not resolve the
+   underlying 23%-silent-drop gap (M9B/M9C), only makes the existing
+   diagnostic visible instead of silent.
+
+**Why:** M9D's own product-validation pilot
+(`docs/evaluation/MILESTONE_9D_PRODUCT_VALIDATION.md`) found and ranked
+these as its top prioritized improvements (§9: risks #1, #4, #11) and
+recommended this exact scope as the next milestone (§10), explicitly
+deprioritizing the evidence-weighting calibration risk (#2) and the
+23%-silent-drop disposition decision (#3) until after a human pilot runs.
+
+**Root causes (traced directly in source, not assumed):**
+- Workstream A: `api/serialization.py`'s pre-9E `uninterpreted_count`
+  only summed `not_assessable` rows with
+  `interpretation_status == "unparsed_placeholder"`, structurally
+  excluding `JobAnalysisResult.unparsed_claims` (M9C's own, strictly
+  more severe diagnostic for claims that never became a row at all).
+- Workstream B: `RequirementSection.tsx`'s `RequirementItemsList`
+  rendered only `requirement.text`, never `concept_id`/`matched_concept_ids`
+  — confirmed, live, against `devops_cloud_01`
+  ("Docker and Kubernetes" → `infra.docker` + `infra.kubernetes`, two
+  correct, distinct rows) and `data_science_01`
+  ("Python, pandas, and numpy" → `language.python` +
+  `data.library.pandas` + `unresolved:numpy`, three correct, distinct
+  rows).
+- Workstream C: `EvidenceList.tsx` had zero `<a href>` anywhere (the
+  pre-existing regression test explicitly pinned zero links); evidence
+  type was labeled but never explained.
+- Workstream D: `_unresolved_requirement_signal()`'s narrow lead-in
+  check does not match "Experience with OpenCV for image processing"
+  (remainder "OpenCV for image processing" fails `clean_list_fragment`'s
+  shape check), so the claim produces zero rows and becomes an
+  `UnparsedClaim` — correctly, per M9A/9C's existing, unmodified design.
+
+**Scoring/matching invariants:** `gitscore.matching`, `gitscore.assessment`,
+`gitscore.jobs.parsing`, and `gitscore.concepts.registry`'s `_CONCEPTS`/
+`resolve_concept()` are byte-for-byte unchanged.
+`scripts/evaluate_m9b_preservation.py`,
+`scripts/evaluate_m9b_retrieval_sensitivity.py`, and
+`scripts/evaluate_m9d_pilot_cohort.py` were all re-run after full
+implementation; every report diffed byte-identical against the pre-9E
+committed version.
+
+**Risks / limitations:** The 23%-silent-drop disposition decision (M9C
+§12, M9D §9/§10) remains unresolved — raised a third time, still open.
+The `sindresorhus × devops_cloud_01` evidence-weighting calibration risk
+(M9D §6.3) is unchanged — this milestone makes the evidence easier to
+verify and more honestly labeled, not differently weighted. No
+file/line-specific evidence link exists (would need a default-branch
+fact not present in the current domain model). The M9D human pilot has
+still not been run — now even more relevant, since the screens it
+specifies as materials (Task 1/Task 4) render differently after this
+milestone.
+
+**How to test it:**
+```
+python -m pytest                                      # 934 passed (920 + 14 new)
+cd frontend && npx vitest run                          # 36 passed (29 + 7 new)
+cd frontend && npm run type-check                      # clean
+cd frontend && npm run build                           # succeeds
+python scripts/evaluate_m9b_preservation.py            # byte-identical
+python scripts/evaluate_m9b_retrieval_sensitivity.py   # byte-identical
+cd scripts && python evaluate_m9d_pilot_cohort.py      # byte-identical
+```
+
+**Files affected:** `src/gitscore/concepts/registry.py`
+(`concept_display_label()`, new), `src/gitscore/concepts/__init__.py`
+(re-export), `src/gitscore/api/schemas.py`
+(`RequirementOut.concept_label`, `AssessmentOut.unparsed_claim_count`),
+`src/gitscore/api/serialization.py` (`_concept_label()`, wiring);
+`tests/test_technical_concepts.py` (+5),
+`tests/test_api_serialization.py` (+9); `frontend/src/types/api.ts`,
+`frontend/src/lib/labels.ts`, new `frontend/src/lib/github.ts`,
+`frontend/src/components/AlignmentHeadline.tsx`,
+`frontend/src/components/ResultView.tsx`,
+`frontend/src/components/RequirementSection.tsx`,
+`frontend/src/components/EvidenceList.tsx`,
+`frontend/src/test/fixtures.ts`,
+`frontend/src/components/__tests__/ResultView.test.tsx` (+12, 1
+updated); `docs/ARCHITECTURE.md` (§30, new), `docs/PIPELINE.md`,
+`docs/evaluation/MILESTONE_9E_ASSESSMENT_CLARITY.md` (new),
+`docs/CHANGELOG_DEV.md` (this entry).
+`JOB_DESCRIPTION_PARSER_VERSION`/`JOB_REQUIREMENT_SCHEMA_VERSION`/
+`MATCHER_VERSION`/`SCORING_VERSION`/`CONCEPT_REGISTRY_VERSION`/
+`EVIDENCE_SCHEMA_VERSION`/`REPOSITORY_RANKING_VERSION`/
+`JOB_RELEVANCE_VERSION` all unchanged.
+
 ## 2026-10-24 — Milestone 9D: Product validation & trustworthiness pilot
 
 **What changed:** Nothing in `src/gitscore/` or `frontend/` — this is a

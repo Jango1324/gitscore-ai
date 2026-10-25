@@ -1,4 +1,4 @@
-import { uninterpretedCaveat } from "@/lib/labels";
+import { uninterpretedCaveat, unparsedClaimsCaveat } from "@/lib/labels";
 
 interface AlignmentHeadlineProps {
   alignment: number | null;
@@ -6,6 +6,12 @@ interface AlignmentHeadlineProps {
    * parser could not confidently interpret. Purely a caveat note; never
    * changes `alignment` itself. */
   uninterpretedCount?: number;
+  /** Milestone 9E, additive -- count of statements that never became a
+   * requirement row at all (`assessment.unparsed_claim_count`). A
+   * SEPARATE caveat from `uninterpretedCount` -- see `unparsedClaimsCaveat()`
+   * in `lib/labels.ts` for why the two are never summed into one number.
+   * Purely informational; never changes `alignment`. */
+  unparsedClaimCount?: number;
 }
 
 /**
@@ -15,7 +21,11 @@ interface AlignmentHeadlineProps {
  * 0/NaN/undefined/-1 (Milestone 8A's own null-vs-zero distinction,
  * carried through to the UI).
  */
-export function AlignmentHeadline({ alignment, uninterpretedCount = 0 }: AlignmentHeadlineProps) {
+export function AlignmentHeadline({
+  alignment,
+  uninterpretedCount = 0,
+  unparsedClaimCount = 0,
+}: AlignmentHeadlineProps) {
   return (
     <section className="alignment-headline" aria-labelledby="alignment-heading">
       <h2 id="alignment-heading">GitHub Evidence Alignment</h2>
@@ -34,6 +44,9 @@ export function AlignmentHeadline({ alignment, uninterpretedCount = 0 }: Alignme
       )}
       {uninterpretedCount > 0 && (
         <p className="alignment-uninterpreted-caveat">{uninterpretedCaveat(uninterpretedCount)}</p>
+      )}
+      {unparsedClaimCount > 0 && (
+        <p className="alignment-unparsed-claims-caveat">{unparsedClaimsCaveat(unparsedClaimCount)}</p>
       )}
     </section>
   );

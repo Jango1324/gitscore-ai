@@ -4044,3 +4044,151 @@ behavior to before this milestone).
   pre-existing "never hide an empty group" policy) rather than
   introducing a new, inconsistent hide-when-empty rule for just this
   one case.
+
+## 30. Assessment clarity: a second headline caveat, requirement-text disambiguation, and evidence-link/calibration presentation — Milestone 9E
+
+Milestone 9D's product-validation pilot (`docs/evaluation/MILESTONE_9D_PRODUCT_VALIDATION.md`)
+found three confirmed, demonstrated presentation defects on top of the
+already-correct M9C transparency layer: (A) the headline's
+`uninterpreted_requirement_count` caveat structurally excluded
+`unparsed_claims`, undercounting real interpretive uncertainty by up to
+2 of 3 claims in one live reproduction; (B) two distinct `JobRequirement`
+rows sharing identical `original_text` (the documented, intentional
+"one row per matched concept" design, Milestone 9A/6B.1) rendered with
+no way to tell them apart, including the same sentence appearing under
+"Supported" and "Not observed" simultaneously; (C) evidence citations
+had no link back to the actual GitHub repository and no explanation of
+what different `evidence_type`s actually represent as signals. This
+milestone fixes all three WITHOUT touching the matcher, scoring formula,
+concept registry content, parser semantics, or retrieval/ranking — see
+`docs/evaluation/MILESTONE_9E_ASSESSMENT_CLARITY.md` for the full root-
+cause analysis, before/after examples, and remaining risks.
+
+### 30.1 Workstream A — a second, separate headline caveat
+
+`AssessmentOut`/`Assessment` gained `unparsed_claim_count` (additive) —
+a plain `len(JobAnalysisResult.unparsed_claims)` passthrough, computed in
+`serialize_job_analysis_result()`. Deliberately kept SEPARATE from
+Milestone 9C's `uninterpreted_requirement_count` rather than summed into
+one number: the two count category-different facts (a real,
+inspectable `JobRequirement` row GitScore could not confidently
+interpret, vs. text that never became a row at all) and a claim is
+structurally counted by at most one of them, never both (`jobs/parsing/parser.py::_parse()`'s
+own per-claim loop makes this mutually exclusive; confirmed at the API
+layer by `tests/test_api_serialization.py::test_unparsed_claim_count_and_uninterpreted_requirement_count_never_overlap`).
+`AlignmentHeadline.tsx` gained a second, independent caveat paragraph
+(`unparsedClaimsCaveat()`, `lib/labels.ts`) rendered whenever
+`unparsed_claim_count > 0`, worded with "statements," never
+"requirements" — these are explicitly not confirmed job requirements.
+Neither caveat count is read by, or affects, `alignment_score` or
+`assessable_requirement_count`.
+
+### 30.2 Workstream B — disambiguating duplicate-looking requirement text
+
+Confirmed NOT a matcher/parser defect: identical `original_text` across
+multiple rows is the intentional, already-documented "one row per
+matched concept" design (§20/§28). The gap was purely that no UI ever
+read the `concept_id`s the API already carried to tell such rows apart.
+
+`gitscore.concepts.registry.concept_display_label(concept_id)` (new,
+additive function) returns a real concept's existing `TechnicalConcept.display_name`
+(no new data — reads a field that already existed), or, for an
+`"unresolved:<term>"` placeholder, a title-cased re-rendering of the
+same raw term already encoded in the id — never fabricating information
+about an unregistered term. `RequirementOut.concept_label: str | None`
+(new, additive field; `None` exactly when `concept_id` is `None`) is
+computed from this in `api/serialization.py`.
+
+`ResultView.tsx` computes, once per render, which `requirement.text`
+values repeat across the WHOLE result (all three groups, not just one
+section — the cross-status case, e.g. the same sentence appearing under
+both "Supported" and "Not observed," is the one M9D flagged as most
+confusing) via `findDuplicateRequirementTexts()`, and threads that set
+down through `RequirementSection`/`NotAssessableSubsection` into
+`RequirementItemsList`. A row's displayed text gains a
+`" ({concept_label})"` suffix only when its text is in that duplicate
+set AND it has a `concept_label` — e.g. "Strong experience with Docker
+and Kubernetes" renders as "...(Docker)" and "...(Kubernetes)" in their
+respective sections. Never applied when no label exists (a genuinely
+non-technical row stays bare); never changes `requirement.text` itself,
+`concept_id`, `matched_concept_ids`, or `status`.
+
+### 30.3 Workstream C — evidence links and source-type calibration
+
+`frontend/src/lib/github.ts` (new) — `repositoryUrl(owner, name)`
+constructs `https://github.com/{owner}/{name}` from
+`RepositoryIdentity` fields the API already returns (the candidate's
+own account, already confirmed to exist earlier in the pipeline) — not
+a fabricated URL, a deterministic, public path convention.
+`EvidenceList.tsx` now links each repository name to this URL.
+Deliberately repository-root-only, never a file-specific deep link: no
+default-branch fact exists anywhere in the domain model
+(`evidence.models.Evidence` has no `source_url` field by design), and
+guessing one risks a dead/misleading link — exactly the fabrication this
+milestone's own instructions rule out. `file_path` continues to render
+as plain text, unchanged.
+
+`lib/labels.ts` gained `evidenceTypeDescription(evidenceType)`: a short,
+calibrated, one-sentence, non-numeric description of what each
+`evidence_type` represents (e.g. a dependency declaration vs. a README
+mention that "may describe the candidate's own usage, or only a
+reference, comparison, or example"), rendered beneath each evidence
+item's existing type/confidence line. No new strength/competence score
+of any kind was introduced — this is explanatory text about an existing
+field's meaning, not a new metric. `MINIMUM_SUPPORTING_CONFIDENCE`
+(`matching/support.py`) and the scoring formula are completely
+unaffected; the evidence-sufficiency/weighting calibration risk M9D §6.3
+identified (`sindresorhus × devops_cloud_01`) is explicitly NOT resolved
+by this milestone (M9D's own §10 deprioritized it pending human-pilot
+results) — this workstream makes the underlying evidence easier to
+verify and more honestly labeled, nothing more.
+
+### 30.4 Workstream D — `karpathy × computer_vision_01` re-verified, not re-fixed
+
+Confirmed live: the posting's "Experience with OpenCV for image
+processing" requirement is NOT invisible to diagnostics — it already
+appears in `unparsed_claims` (Milestone 9C's existing mechanism,
+unchanged). Before this milestone, `uninterpreted_requirement_count`
+was `0` for this exact posting (no placeholder row exists — the claim
+never became a row of any kind), so the headline caveat rendered
+nothing at all despite a required posting bullet going unassessed. After
+Workstream A's fix, the SAME unchanged diagnostic now surfaces at the
+headline ("1 additional statement... could not be parsed as a
+requirement at all"). `alignment_score` (100), `required` (3 of 3), and
+`preferred` (1 of 1) are confirmed byte-identical before and after — this
+milestone does not reduce the underlying 23% silent-drop gap (M9B/M9C),
+does not register OpenCV, and does not widen any parser heuristic (all
+explicitly out of scope for 9E). A reader who does not read past the
+headline number still sees a perfect 100 for an incompletely-assessed
+posting — documented as a still-open risk for M9F, not claimed resolved
+by a generic disclaimer.
+
+### 30.5 Versions
+
+`JOB_DESCRIPTION_PARSER_VERSION`, `JOB_REQUIREMENT_SCHEMA_VERSION`,
+`MATCHER_VERSION`, `SCORING_VERSION`, `CONCEPT_REGISTRY_VERSION`,
+`EVIDENCE_SCHEMA_VERSION`, `REPOSITORY_RANKING_VERSION`, and
+`JOB_RELEVANCE_VERSION` are all UNCHANGED. Every new field
+(`assessment.unparsed_claim_count`, `requirements.*[].concept_label`) is
+additive and backward-compatible — a client ignoring either sees
+identical behavior to before this milestone.
+
+### 30.6 Known limitations
+
+- The 23% silent-drop rate (M9B) and the evidence-sufficiency/weighting
+  calibration risk (M9D §6.3) are both unchanged — this milestone adds
+  visibility and verifiability, never changes the underlying analytical
+  semantics that produce either risk. See
+  `docs/evaluation/MILESTONE_9E_ASSESSMENT_CLARITY.md` §9 for the full,
+  still-open risk register.
+- `concept_label` disambiguates by CONCEPT only; a duplicate pair where
+  one row is a genuinely non-technical split of the same compound
+  sentence (`concept_id = None`, e.g. one `JobRequirement` for the
+  technical half of a sentence and a separate one for its "3+ years of
+  experience" half) is correctly left bare on the non-technical side —
+  there is no concept to label it with, and the existing section/status
+  split already distinguishes the two.
+- Evidence links go to the repository root only; no file/line-specific
+  deep link exists (would require a default-branch fact nowhere in the
+  current domain model — an additive change left for a future, explicitly
+  scoped proposal, not attempted here).

@@ -423,6 +423,42 @@ def is_unresolved_concept_id(concept_id: str) -> bool:
     return concept_id.startswith(_UNRESOLVED_PREFIX)
 
 
+def concept_display_label(concept_id: str) -> str:
+    """Milestone 9E -- a short, human-readable label for an ALREADY-VALID
+    `concept_id`, distinct from the dotted machine-readable id itself
+    (e.g. `"infra.kubernetes"` -> `"Kubernetes"`).
+
+    For a real registered concept, this is exactly
+    `TechnicalConcept.display_name` -- no new data, just a read of a
+    field that already existed. For an `"unresolved:<term>"` placeholder
+    (Milestone 5C/6A/9A), there is no registered `display_name` to read,
+    so this reconstructs a readable label directly from the SAME raw
+    term `unresolved_concept_id()` already encoded into the id (replacing
+    underscores with spaces and title-casing it) -- never inventing new
+    information about the term, just re-rendering what the parser already
+    captured. Added for Milestone 9E's requirement-disambiguation display
+    (`docs/evaluation/MILESTONE_9E_ASSESSMENT_CLARITY.md`, Workstream B):
+    when two distinct `JobRequirement` rows share identical
+    `original_text` (one logical sentence, multiple matched concepts --
+    e.g. "Docker and Kubernetes"), a frontend needs a short label to tell
+    the rows apart without re-deriving one from the raw concept_id string.
+
+    Raises `ValueError` if `concept_id` is not a valid, already-produced
+    concept id at all (mirrors `is_valid_concept_id()`'s own contract) --
+    a programming error, never expected for a `concept_id` already
+    produced by this codebase's own parser/matcher.
+    """
+    if is_unresolved_concept_id(concept_id):
+        term = concept_id[len(_UNRESOLVED_PREFIX) :].replace("_", " ").strip()
+        if not term:
+            raise ValueError(f"{concept_id!r} is not a valid unresolved concept id -- empty term")
+        return term.title()
+    concept = default_registry().get(concept_id)
+    if concept is None:
+        raise ValueError(f"{concept_id!r} is not a registered concept id")
+    return concept.display_name
+
+
 def is_valid_concept_id(concept_id: str, registry: ConceptRegistry | None = None) -> bool:
     """Is `concept_id` a well-formed, ALREADY-PRODUCED concept identifier
     -- either a real registered TechnicalConcept id, or a validly-shaped

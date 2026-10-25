@@ -54,6 +54,14 @@ export interface RequirementItem {
   github_observability: string;
   parser_confidence: string | null;
   concept_id: string | null;
+  /** Milestone 9E, additive. Short human-readable label for `concept_id`
+   * (e.g. "infra.kubernetes" -> "Kubernetes"). `null` exactly when
+   * `concept_id` is `null`. Exists so a UI can disambiguate two distinct
+   * requirement rows that share identical `text` (one job-posting
+   * sentence can legitimately produce one row per matched concept --
+   * e.g. "Docker and Kubernetes"), including when they land under
+   * different, even contradictory, statuses. */
+  concept_label: string | null;
   /** Milestone 9C, additive. Raw `JobRequirement.category` passthrough. */
   category: string | null;
   /** Milestone 9C, additive. See `InterpretationStatus`'s own doc comment. */
@@ -88,10 +96,18 @@ export interface Assessment {
   github_evidence_alignment: number | null;
   assessable_requirement_count: number;
   /** Milestone 9C, additive -- count of `not_assessable` requirements
-   * whose `interpretation_status === "unparsed_placeholder"`.
+   * whose `interpretation_status === "unparsed_placeholder"`. These DID
+   * become a real requirement row (visible in `requirements.not_assessable`).
    * Informational only: never affects `github_evidence_alignment` or
    * `assessable_requirement_count`. */
   uninterpreted_requirement_count: number;
+  /** Milestone 9E, additive -- count of `AnalyzeResponse.unparsed_claims`:
+   * claims that never became a requirement row at all (a strictly more
+   * severe gap than the placeholder above). Kept as a SEPARATE count,
+   * deliberately never summed with `uninterpreted_requirement_count` --
+   * see `unparsedClaimsCaveat()` in `lib/labels.ts`. These are NOT
+   * confirmed job requirements and must never be labeled as such. */
+  unparsed_claim_count: number;
 }
 
 export interface RepositoryAnalysis {

@@ -1,8 +1,11 @@
 """Milestone 5C: gitscore.concepts (TechnicalConcept, registry, resolve_concept)."""
+import pytest
+
 from gitscore.concepts import (
     CONCEPT_REGISTRY_VERSION,
     ConceptRegistry,
     TechnicalConcept,
+    concept_display_label,
     default_registry,
     is_unresolved_concept_id,
     is_valid_concept_id,
@@ -167,6 +170,37 @@ def test_is_valid_concept_id_false_for_arbitrary_nonexistent_canonical_looking_i
     # Dotted, canonical-looking, but never actually registered -- must
     # NOT silently masquerade as a resolved concept.
     assert not is_valid_concept_id("language.does_not_exist")
+
+
+# ---------------------------------------------------------------------------
+# Milestone 9E: concept_display_label -- a short human-readable label for
+# an already-valid concept id (requirement-disambiguation display).
+# ---------------------------------------------------------------------------
+
+
+def test_concept_display_label_reads_the_registered_display_name_for_a_real_concept():
+    assert concept_display_label("infra.kubernetes") == "Kubernetes"
+    assert concept_display_label("infra.docker") == "Docker"
+    assert concept_display_label("language.python") == "Python"
+
+
+def test_concept_display_label_derives_a_title_cased_label_for_an_unresolved_concept():
+    assert concept_display_label(unresolved_concept_id("numpy")) == "Numpy"
+    assert concept_display_label(unresolved_concept_id("azure")) == "Azure"
+    # Multi-word unknown terms: the normalizer's space->underscore encoding
+    # is reversed back into a readable, space-separated label.
+    assert concept_display_label(unresolved_concept_id("some new framework")) == "Some New Framework"
+
+
+def test_concept_display_label_is_deterministic_for_the_same_unresolved_term():
+    assert concept_display_label(unresolved_concept_id("SPI")) == concept_display_label(unresolved_concept_id("spi"))
+
+
+def test_concept_display_label_raises_for_an_invalid_concept_id():
+    with pytest.raises(ValueError):
+        concept_display_label("language.does_not_exist")
+    with pytest.raises(ValueError):
+        concept_display_label("unresolved:")
     assert not is_valid_concept_id("whatever.random.string")
     assert not is_valid_concept_id("garbage")
 

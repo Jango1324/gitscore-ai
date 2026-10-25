@@ -9,6 +9,7 @@ export function makeRequirement(overrides: Partial<RequirementItem> = {}): Requi
     github_observability: "strongly_observable",
     parser_confidence: "high",
     concept_id: "infra.docker",
+    concept_label: "Docker",
     category: "infrastructure",
     interpretation_status: "recognized",
     alternative_concept_ids: [],
@@ -22,7 +23,12 @@ export function makeRequirement(overrides: Partial<RequirementItem> = {}): Requi
 export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): AnalyzeResponse {
   return {
     analysis: { github_username: "octocat", job_title: "Backend Software Engineer", job_company: null },
-    assessment: { github_evidence_alignment: 40, assessable_requirement_count: 5, uninterpreted_requirement_count: 0 },
+    assessment: {
+      github_evidence_alignment: 40,
+      assessable_requirement_count: 5,
+      uninterpreted_requirement_count: 0,
+      unparsed_claim_count: 0,
+    },
     required: { supported: 2, assessable: 3 },
     preferred: { supported: 0, assessable: 2 },
     repository_analysis: { discovered: 20, analyzed: 15, partially_analyzed: 0, complete: false },
@@ -32,6 +38,7 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
           text: "3+ years of experience building Python backend services",
           status: "supported",
           concept_id: "language.python",
+          concept_label: "Python",
           matched_concept_ids: ["language.python"],
           evidence: [
             {
@@ -62,18 +69,24 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
         }),
       ],
       not_observed: [
-        makeRequirement({ text: "Experience with PostgreSQL", concept_id: "database.postgresql" }),
+        makeRequirement({
+          text: "Experience with PostgreSQL",
+          concept_id: "database.postgresql",
+          concept_label: "PostgreSQL",
+        }),
         makeRequirement({
           text: "Experience with AWS",
           necessity: "preferred",
           importance: "low",
           concept_id: "cloud.aws",
+          concept_label: "AWS",
         }),
         makeRequirement({
           text: "Experience with Next.js",
           necessity: "preferred",
           importance: "low",
           concept_id: "framework.nextjs",
+          concept_label: "Next.js",
         }),
       ],
       not_assessable: [
@@ -83,6 +96,7 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
           importance: "medium",
           github_observability: "not_observable",
           concept_id: null,
+          concept_label: null,
           category: "experience",
           interpretation_status: "non_technical",
         }),
@@ -93,6 +107,7 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
           github_observability: "not_observable",
           parser_confidence: "medium",
           concept_id: null,
+          concept_label: null,
           category: "soft_skill",
           interpretation_status: "non_technical",
         }),

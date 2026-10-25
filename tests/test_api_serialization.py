@@ -428,3 +428,162 @@ def test_unparsed_claims_is_empty_list_not_omitted_when_there_are_none():
     result = build_result(BACKEND_JD, "Backend Software Engineer", [])
     response = serialize_job_analysis_result(result)
     assert response.unparsed_claims == []
+
+
+# ---------------------------------------------------------------------------
+# Milestone 9E Workstream A -- unparsed_claim_count: a SEPARATE headline
+# count from uninterpreted_requirement_count, never double-counting the
+# same source claim, never summed into one number.
+# ---------------------------------------------------------------------------
+
+
+def test_unparsed_claim_count_is_zero_when_there_are_no_unparsed_claims():
+    result = build_result(BACKEND_JD, "Backend Software Engineer", [])
+    response = serialize_job_analysis_result(result)
+    assert response.assessment.unparsed_claim_count == 0
+    assert response.unparsed_claims == []
+
+
+def test_unparsed_claim_count_is_one_for_a_single_unparsed_claim():
+    # MIXED_INTERPRETATION_JD's "Experience designing distributed systems"
+    # is the one claim that survives segmentation but produces zero rows.
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+    assert response.assessment.unparsed_claim_count == 1
+    assert [c.text for c in response.unparsed_claims] == ["Experience designing distributed systems"]
+
+
+def test_unparsed_claim_count_counts_multiple_distinct_claims():
+    jd = """Requirements:
+- Experience with Docker
+- Experience designing distributed systems
+- Ability to design and implement scalable backend architectures
+"""
+    result = build_result(jd, None, [])
+    response = serialize_job_analysis_result(result)
+    # Two genuinely distinct unparsed claims, both preserved verbatim.
+    assert response.assessment.unparsed_claim_count == 2
+    assert {c.text for c in response.unparsed_claims} == {
+        "Experience designing distributed systems",
+        "Ability to design and implement scalable backend architectures",
+    }
+
+
+def test_unparsed_claim_count_never_double_counts_a_duplicated_claim_at_two_source_spans():
+    # The SAME unparseable sentence appearing twice at two different
+    # source offsets must be counted twice (two real, distinct claims
+    # from the posting), never collapsed into one -- unparsed_claims is
+    # never deduplicated by text.
+    jd = """Requirements:
+- Experience designing distributed systems
+
+Preferred Qualifications:
+- Experience designing distributed systems
+"""
+    result = build_result(jd, None, [])
+    response = serialize_job_analysis_result(result)
+    assert response.assessment.unparsed_claim_count == 2
+    assert [c.text for c in response.unparsed_claims] == [
+        "Experience designing distributed systems",
+        "Experience designing distributed systems",
+    ]
+
+
+def test_unparsed_claim_count_and_uninterpreted_requirement_count_never_overlap():
+    # MIXED_INTERPRETATION_JD has exactly 2 unparsed_placeholder rows
+    # (Terraform, the unsafe OR fallback) and exactly 1 unparsed_claim
+    # ("Experience designing distributed systems") -- a claim is either a
+    # real, inspectable row (counted by uninterpreted_requirement_count)
+    # or produced zero rows (counted by unparsed_claim_count), never both.
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    assert response.assessment.uninterpreted_requirement_count == 2
+    assert response.assessment.unparsed_claim_count == 1
+
+    placeholder_texts = {
+        r.text for r in response.requirements.not_assessable if r.interpretation_status == "unparsed_placeholder"
+    }
+    unparsed_claim_texts = {c.text for c in response.unparsed_claims}
+    assert placeholder_texts.isdisjoint(unparsed_claim_texts)
+
+    # Neither count affects the score.
+    assert response.assessment.github_evidence_alignment == result.assessment.alignment_score
+
+
+def test_unparsed_claim_count_does_not_affect_alignment_or_assessable_count():
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    assessable = result.assessment.assessable_count
+    supported = result.assessment.match_analysis.supported_count
+    expected_alignment = round(100 * supported / assessable) if assessable else None
+
+    assert response.assessment.assessable_requirement_count == assessable
+    assert response.assessment.github_evidence_alignment == expected_alignment
+
+
+# ---------------------------------------------------------------------------
+# Milestone 9E Workstream B -- concept_label: disambiguating identical
+# requirement text across distinct JobRequirement rows.
+# ---------------------------------------------------------------------------
+
+
+def test_concept_label_present_for_a_resolved_technical_requirement():
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    docker = _by_text(response.requirements.not_observed, "Experience with Docker")
+    assert docker.concept_id == "infra.docker"
+    assert docker.concept_label == "Docker"
+
+
+def test_concept_label_is_none_for_non_technical_and_placeholder_requirements():
+    result = build_result(MIXED_INTERPRETATION_JD, None, [])
+    response = serialize_job_analysis_result(result)
+
+    comms = _by_text(response.requirements.not_assessable, "Excellent written and verbal communication")
+    terraform = _by_text(response.requirements.not_assessable, "Experience with Terraform")
+    unsafe = _by_text(
+        response.requirements.not_assessable,
+        "Proficiency in Python, Rust, or an equally performant systems language",
+    )
+
+    assert comms.concept_id is None and comms.concept_label is None
+    assert terraform.concept_id is None and terraform.concept_label is None
+    # An alternative group has no single concept_id either.
+    assert unsafe.concept_id is None and unsafe.concept_label is None
+
+
+def test_concept_label_disambiguates_duplicate_text_rows_from_an_enumeration_list():
+    # "Docker and Kubernetes" -> two distinct JobRequirement rows sharing
+    # identical original_text, one per matched concept (M9A/6B.1 "one row
+    # per concept" design) -- this is the exact M9D-reported duplicate-
+    # looking-requirement scenario, disambiguated via concept_label.
+    jd = """Requirements:
+- Strong experience with Docker and Kubernetes
+"""
+    result = build_result(jd, None, [ev("infra-repo", "infra.docker", EvidenceType.DOCKER, ConfidenceLevel.STRONG)])
+    response = serialize_job_analysis_result(result)
+
+    docker_row = next(r for r in response.requirements.supported if r.concept_id == "infra.docker")
+    kubernetes_row = next(r for r in response.requirements.not_observed if r.concept_id == "infra.kubernetes")
+
+    assert docker_row.text == kubernetes_row.text == "Strong experience with Docker and Kubernetes"
+    assert docker_row.concept_label == "Docker"
+    assert kubernetes_row.concept_label == "Kubernetes"
+    assert docker_row.concept_label != kubernetes_row.concept_label
+
+
+def test_concept_label_for_an_unresolved_concept_in_a_comma_enumeration():
+    # "Python, pandas, and numpy" -- numpy has no registry entry, so its
+    # row carries an "unresolved:numpy" concept_id; concept_label still
+    # renders a readable label rather than the raw id string.
+    jd = """Requirements:
+- Experience with Python, pandas, and numpy
+"""
+    result = build_result(jd, None, [])
+    response = serialize_job_analysis_result(result)
+
+    numpy_row = next(r for r in response.requirements.not_observed if r.concept_id == "unresolved:numpy")
+    assert numpy_row.concept_label == "Numpy"

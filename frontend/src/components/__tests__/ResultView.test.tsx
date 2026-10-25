@@ -30,7 +30,12 @@ describe("ResultView", () => {
 
   it("renders null alignment as 'Not available', never 0/NaN/-1 (F)", () => {
     const response = makeAnalyzeResponse({
-      assessment: { github_evidence_alignment: null, assessable_requirement_count: 0, uninterpreted_requirement_count: 0 },
+      assessment: {
+        github_evidence_alignment: null,
+        assessable_requirement_count: 0,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 0,
+      },
     });
     render(<ResultView result={response} />);
 
@@ -156,11 +161,125 @@ describe("ResultView", () => {
     }
   });
 
-  it("never fabricates a repository URL or file URL not present in the API response", () => {
+  // -------------------------------------------------------------------
+  // Milestone 9E Workstream C -- evidence repository links and
+  // calibrated evidence-type descriptions
+  // -------------------------------------------------------------------
+
+  it("links each evidence repository to GitHub using only the API's own owner/name, never a fabricated or file-specific URL", () => {
     render(<ResultView result={makeAnalyzeResponse()} />);
 
-    const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(0);
+    const links = screen.getAllByRole("link");
+    expect(links.length).toBeGreaterThan(0);
+    for (const link of links) {
+      const href = link.getAttribute("href")!;
+      // Repository root only -- never a /blob/<branch>/<path> deep link
+      // (no default-branch fact exists to build one from safely).
+      expect(href).toMatch(/^https:\/\/github\.com\/[^/]+\/[^/]+$/);
+    }
+
+    const dockerItem = screen.getByText("Familiarity with Docker").closest("li")!;
+    const link = within(dockerItem).getByRole("link", { name: "octocat/api-service" });
+    expect(link).toHaveAttribute("href", "https://github.com/octocat/api-service");
+    // The Dockerfile path is still shown as plain text, never turned
+    // into a (guessed-branch) link.
+    expect(within(dockerItem).getByText(/— Dockerfile/)).toBeInTheDocument();
+  });
+
+  it("shows a calibrated, non-numeric description of what each evidence type represents", () => {
+    render(<ResultView result={makeAnalyzeResponse()} />);
+
+    const dockerItem = screen.getByText("Familiarity with Docker").closest("li")!;
+    expect(
+      within(dockerItem).getByText(/Docker\/containerization files present in the repository/),
+    ).toBeInTheDocument();
+
+    const supportedSection = screen.getByRole("heading", { name: "Supported by GitHub evidence" }).closest("section")!;
+    const pythonItem = within(supportedSection)
+      .getByText(/3\+ years of experience building Python backend services/)
+      .closest("li")!;
+    expect(
+      within(pythonItem).getByText(/language composition/),
+    ).toBeInTheDocument();
+  });
+
+  // -------------------------------------------------------------------
+  // Milestone 9E Workstream B -- duplicate-looking requirement text is
+  // disambiguated with a concept label, including across statuses.
+  // -------------------------------------------------------------------
+
+  it("appends a concept label to duplicate requirement text that appears under different, even contradictory, statuses", () => {
+    const response = makeAnalyzeResponse({
+      requirements: {
+        supported: [
+          makeRequirement({
+            text: "Strong experience with Docker and Kubernetes",
+            status: "supported",
+            concept_id: "infra.docker",
+            concept_label: "Docker",
+            matched_concept_ids: ["infra.docker"],
+            evidence: [
+              {
+                concept_id: "infra.docker",
+                evidence_type: "docker",
+                confidence: "strong",
+                repository: { owner: "octocat", name: "infra-repo" },
+                file_path: null,
+                detail: "root file present: Dockerfile",
+              },
+            ],
+          }),
+        ],
+        not_observed: [
+          makeRequirement({
+            text: "Strong experience with Docker and Kubernetes",
+            status: "not_observed",
+            concept_id: "infra.kubernetes",
+            concept_label: "Kubernetes",
+          }),
+        ],
+        not_assessable: [],
+      },
+    });
+    render(<ResultView result={response} />);
+
+    const supportedSection = screen.getByRole("heading", { name: "Supported by GitHub evidence" }).closest("section")!;
+    const notObservedSection = screen
+      .getByRole("heading", { name: "Not observed in analyzed GitHub evidence" })
+      .closest("section")!;
+
+    expect(
+      within(supportedSection).getByText("Strong experience with Docker and Kubernetes (Docker)"),
+    ).toBeInTheDocument();
+    expect(
+      within(notObservedSection).getByText("Strong experience with Docker and Kubernetes (Kubernetes)"),
+    ).toBeInTheDocument();
+    // Never the bare, ambiguous text once a label is available to
+    // disambiguate it.
+    expect(within(supportedSection).queryByText("Strong experience with Docker and Kubernetes")).not.toBeInTheDocument();
+  });
+
+  it("does not append a concept label to requirement text that is not duplicated anywhere in the result", () => {
+    render(<ResultView result={makeAnalyzeResponse()} />);
+
+    // "Familiarity with Docker" is unique across the whole fixture --
+    // must render exactly as-is, no "(Docker)" appended.
+    expect(screen.getByText("Familiarity with Docker")).toBeInTheDocument();
+    expect(screen.queryByText("Familiarity with Docker (Docker)")).not.toBeInTheDocument();
+  });
+
+  it("does not append a label when a duplicate row has no concept_label to disambiguate with", () => {
+    // "3+ years of experience building Python backend services" is
+    // deliberately duplicated in the base fixture: once SUPPORTED
+    // (language.python, concept_label "Python") and once NOT_ASSESSABLE
+    // (a split non-technical experience claim, concept_label null).
+    render(<ResultView result={makeAnalyzeResponse()} />);
+
+    const notAssessableSection = screen.getByRole("heading", { name: "Not assessable from GitHub" }).closest("section")!;
+    // The non-technical row has no concept to label -- rendered bare.
+    expect(
+      within(notAssessableSection).getByText("3+ years of experience building Python backend services"),
+    ).toBeInTheDocument();
   });
 
   // -------------------------------------------------------------------
@@ -218,7 +337,12 @@ describe("ResultView", () => {
 
   it("shows the headline caveat when requirements could not be confidently interpreted", () => {
     const response = makeAnalyzeResponse({
-      assessment: { github_evidence_alignment: 67, assessable_requirement_count: 3, uninterpreted_requirement_count: 2 },
+      assessment: {
+        github_evidence_alignment: 67,
+        assessable_requirement_count: 3,
+        uninterpreted_requirement_count: 2,
+        unparsed_claim_count: 0,
+      },
     });
     render(<ResultView result={response} />);
 
@@ -230,6 +354,53 @@ describe("ResultView", () => {
   it("omits the headline caveat entirely when nothing was uninterpreted", () => {
     render(<ResultView result={makeAnalyzeResponse()} />);
     expect(screen.queryByText(/could not be confidently interpreted by GitScore's parser/)).not.toBeInTheDocument();
+  });
+
+  // -------------------------------------------------------------------
+  // Milestone 9E Workstream A -- the second, separate unparsed-claims
+  // headline caveat (never summed with the uninterpreted-requirement count)
+  // -------------------------------------------------------------------
+
+  it("shows the unparsed-claims headline caveat separately from the uninterpreted-requirement caveat", () => {
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 50,
+        assessable_requirement_count: 2,
+        uninterpreted_requirement_count: 1,
+        unparsed_claim_count: 2,
+      },
+    });
+    render(<ResultView result={response} />);
+
+    expect(
+      screen.getByText("1 requirement could not be confidently interpreted by GitScore's parser -- see below."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "2 additional statements in the job posting could not be parsed as a requirement at all -- see below.",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("omits the unparsed-claims headline caveat when there are none", () => {
+    render(<ResultView result={makeAnalyzeResponse()} />);
+    expect(screen.queryByText(/could not be parsed as a requirement at all/)).not.toBeInTheDocument();
+  });
+
+  it("renders the unparsed-claims caveat using 'statements', never 'requirements' (not a confirmed requirement)", () => {
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 100,
+        assessable_requirement_count: 1,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 1,
+      },
+    });
+    render(<ResultView result={response} />);
+
+    const caveat = screen.getByText(/could not be parsed as a requirement at all/);
+    expect(caveat.textContent).toContain("statement");
+    expect(caveat.textContent).not.toMatch(/\brequirements\b/);
   });
 
   it("renders the unparsed-claims section with raw text and no status/evidence", () => {
