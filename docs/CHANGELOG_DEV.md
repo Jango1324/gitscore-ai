@@ -1,5 +1,77 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-25 — Milestone 9G: Headline coverage-gap visibility
+
+**What changed:** Frontend-only. Implements the one M9F-approved,
+presentation-only design (Option C) — nothing under `src/gitscore/` was
+touched. `AlignmentHeadline.tsx` now shows a small, non-alarming
+`"Known coverage gaps"` badge beside the score (or "Not available")
+whenever a known interpretation gap exists — derived entirely from two
+counts the API already returns (`assessment.uninterpreted_requirement_count`,
+M9C; `assessment.unparsed_claim_count`, M9E), combined with a plain
+boolean OR (`hasKnownCoverageGap()`, `lib/labels.ts`) that never
+double-counts, since the two counts are already guaranteed mutually
+exclusive per source claim. Alongside the badge: a fixed, generic
+sentence ("This score excludes job-description text GitScore could not
+interpret.") and, when real claim text is available, a concrete,
+verbatim excerpt naming the first unparsed claim (truncated past 140
+characters for very long claims, with a plain "+N more" count for
+additional ones) — reusing `AnalyzeResponse.unparsed_claims[].text`,
+never synthesizing text. The two pre-existing M9C/M9E caveat sentences
+are unchanged and still render alongside the new badge/summary. When no
+gap is known, nothing new renders — the product never claims
+"Complete"/"Fully analyzed"/"100% requirements interpreted," since
+absence of a known diagnostic is not proof of exhaustive parsing.
+
+**Why:** M9F's design review (`docs/evaluation/MILESTONE_9F_REQUIREMENT_COVERAGE_DESIGN.md`)
+found that closing the silent-drop gap at the parser level would NOT,
+by itself, change `karpathy × computer_vision_01`'s `100` (the OpenCV
+row would be `NOT_ASSESSABLE`, already excluded from the denominator) —
+only a presentation change can move or qualify that number. All three
+of M9F's approval questions were answered: adopt presentation-only
+disclosure now (approved); scope a technical-competency detector as a
+separate, evaluation-first milestone (approved, not started); reject
+unconditional preservation of every segmented claim as a formal
+requirement (approved, rejected with cause).
+
+**Before/after (`karpathy × computer_vision_01`, real, live-verified
+values):** before — a bare "100 / 100" with no on-page indication
+anything was uncertain; after — "100 / 100 [Known coverage gaps]" plus
+"Potential requirement not interpreted: \"Experience with OpenCV for
+image processing\"" directly at the headline. The `100` itself is
+confirmed byte-identical before and after — this is a presentation
+change only.
+
+**Risks / limitations:** the badge cannot distinguish REQUIRED from
+PREFERRED gaps (`UnparsedClaim` carries no necessity field at all, by
+construction — inventing one would violate this milestone's own
+no-invented-criticality constraint). The "qualified headline" sub-option
+(e.g. "100 — based on 4 of 5 extracted requirements") was not
+implemented, only the badge + excerpt combination. Browser click-through
+was attempted (offline-fixture backend + Next.js dev server both
+confirmed listening) but this session's Chrome browser-automation tool
+did not respond — the same limitation M9D's and M9E's sessions each
+hit; verification instead relies on 10 new RTL tests plus a clean
+type-check/build. The 23%-silent-drop rate itself is unreduced — only
+more visible.
+
+**How to test it:**
+```
+cd frontend && npx vitest run       # 46 passed (36 + 10 new)
+cd frontend && npm run type-check   # clean
+cd frontend && npm run build        # succeeds
+python -m pytest                    # 934 passed (unchanged -- no backend touched)
+```
+
+**Files affected:** `frontend/src/lib/labels.ts`,
+`frontend/src/components/AlignmentHeadline.tsx`,
+`frontend/src/components/ResultView.tsx`, `frontend/src/app/globals.css`,
+`frontend/src/components/__tests__/ResultView.test.tsx` (+10);
+`docs/ARCHITECTURE.md` (§31, new), `docs/PIPELINE.md`,
+`docs/evaluation/MILESTONE_9G_HEADLINE_COVERAGE_VISIBILITY.md` (new),
+`docs/CHANGELOG_DEV.md` (this entry). No file under `src/gitscore/`
+touched. No API field added, renamed, or retyped.
+
 ## 2026-10-25 — Milestone 9F: Requirement coverage & score validity (design review)
 
 **What changed:** Nothing in `src/gitscore/` or `frontend/` — a

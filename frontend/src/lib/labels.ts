@@ -6,7 +6,7 @@
  * new status/category -- an unrecognized value still renders (falls
  * back to the raw value) rather than disappearing.
  */
-import type { InterpretationStatus, RequirementStatus } from "@/types/api";
+import type { InterpretationStatus, RequirementStatus, UnparsedClaim } from "@/types/api";
 
 const EVIDENCE_TYPE_LABELS: Record<string, string> = {
   repository_language: "Language usage",
@@ -145,6 +145,71 @@ export function uninterpretedCaveat(count: number): string {
 export function unparsedClaimsCaveat(count: number): string {
   const plural = count === 1 ? "statement" : "statements";
   return `${count} additional ${plural} in the job posting could not be parsed as a requirement at all -- see below.`;
+}
+
+/**
+ * Milestone 9G -- the one, combined boolean signal a frontend needs to
+ * decide whether the headline should visually flag a known coverage
+ * gap at all. Derived ONLY from the two counts M9C/9E already compute
+ * and already guarantee are mutually exclusive per source claim (a
+ * claim is counted by at most one of them, never both -- see
+ * `tests/test_api_serialization.py::test_unparsed_claim_count_and_uninterpreted_requirement_count_never_overlap`)
+ * -- so this OR never double-counts the same underlying gap. No new
+ * backend field: both inputs already exist on `Assessment`.
+ */
+export function hasKnownCoverageGap(uninterpretedCount: number, unparsedClaimCount: number): boolean {
+  return uninterpretedCount > 0 || unparsedClaimCount > 0;
+}
+
+/** Milestone 9G -- the short, non-alarming badge text shown beside the
+ * alignment score whenever `hasKnownCoverageGap()` is true. Deliberately
+ * NOT "Incorrect"/"Invalid"/"Unreliable"/"Unqualified" -- this flags
+ * that the score's underlying extraction is known to be incomplete,
+ * never that the score itself, or the candidate, failed anything. */
+export const KNOWN_COVERAGE_GAP_LABEL = "Known coverage gaps";
+
+const COVERAGE_GAP_EXCERPT_MAX_LENGTH = 140;
+
+function truncateClaimExcerpt(text: string): string {
+  if (text.length <= COVERAGE_GAP_EXCERPT_MAX_LENGTH) {
+    return text;
+  }
+  return `${text.slice(0, COVERAGE_GAP_EXCERPT_MAX_LENGTH).trimEnd()}…`;
+}
+
+/** Milestone 9G -- the general, always-present sentence shown whenever
+ * a known coverage gap exists, regardless of which kind (a real
+ * `unparsed_placeholder` row or a fully-unparsed claim). Deliberately
+ * generic and present even when no concrete claim text is available to
+ * quote (see `coverageGapExample()` below for the specific-text line,
+ * which IS conditional on available text) -- this sentence alone never
+ * implies which specific requirement, if any, was missed. */
+export function coverageGapSummary(): string {
+  return "This score excludes job-description text GitScore could not interpret.";
+}
+
+/**
+ * Milestone 9G -- names the actual text of the first `UnparsedClaim`
+ * (verbatim, never synthesized -- there is nothing else to name: an
+ * `UnparsedClaim` carries no necessity/category/concept to classify it
+ * with, so this deliberately never claims the claim was "required" or
+ * "critical"). Returns `null` when `claims` is empty -- "where
+ * available" means never fabricating an example when none exists; the
+ * generic `coverageGapSummary()` sentence, plus the existing
+ * `uninterpretedCaveat()`/`unparsedClaimsCaveat()` counts, already cover
+ * that case. Shows only the FIRST claim's text (truncated if very long
+ * -- the untruncated original remains visible, unchanged, in
+ * `UnparsedClaimsSection` further down the page) plus a plain count of
+ * any additional ones, rather than listing every diagnostic in the
+ * headline.
+ */
+export function coverageGapExample(claims: UnparsedClaim[]): string | null {
+  if (claims.length === 0) {
+    return null;
+  }
+  const [first, ...rest] = claims;
+  const more = rest.length > 0 ? ` (+${rest.length} more -- see below)` : "";
+  return `Potential requirement not interpreted: "${truncateClaimExcerpt(first!.text)}"${more}`;
 }
 
 /** Milestone 9C -- heading/explanation for the fourth, clearly separate

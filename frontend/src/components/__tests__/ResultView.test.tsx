@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 
+import { AlignmentHeadline } from "@/components/AlignmentHeadline";
 import { ResultView } from "@/components/ResultView";
 import { makeAnalyzeResponse, makeRequirement } from "@/test/fixtures";
 
@@ -434,5 +435,237 @@ describe("ResultView", () => {
 
     expect(notAssessableHeading.compareDocumentPosition(unparsedHeading) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(unparsedHeading.compareDocumentPosition(detailsSummary) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  // -------------------------------------------------------------------
+  // Milestone 9G -- headline coverage-gap visibility
+  // -------------------------------------------------------------------
+
+  it("1. shows the coverage-gap badge and a concrete excerpt for a high-alignment result with an unparsed claim (karpathy x computer_vision_01)", () => {
+    // Real values live-verified against the actual karpathy offline
+    // fixture via the real running API (see MILESTONE_9F_REQUIREMENT_COVERAGE_DESIGN.md
+    // Section 5.1) -- required 3/3, preferred 1/1, alignment 100,
+    // uninterpreted_requirement_count 0, unparsed_claim_count 1, the
+    // OpenCV claim. Reproduced here as an offline fixture; no live
+    // GitHub or API call is made by this test.
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 100,
+        assessable_requirement_count: 4,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 1,
+      },
+      required: { supported: 3, assessable: 3 },
+      preferred: { supported: 1, assessable: 1 },
+      unparsed_claims: [{ text: "Experience with OpenCV for image processing" }],
+    });
+    render(<ResultView result={response} />);
+
+    const headline = screen.getByRole("heading", { name: "GitHub Evidence Alignment" }).closest("section")!;
+    expect(within(headline).getByText("100")).toBeInTheDocument();
+    expect(within(headline).getByText("Known coverage gaps")).toBeInTheDocument();
+    expect(
+      within(headline).getByText('Potential requirement not interpreted: "Experience with OpenCV for image processing"'),
+    ).toBeInTheDocument();
+    expect(within(headline).getByText("This score excludes job-description text GitScore could not interpret.")).toBeInTheDocument();
+  });
+
+  it("2. shows the coverage-gap badge for a high-alignment result with only an uninterpreted placeholder (no unparsed claim text)", () => {
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 90,
+        assessable_requirement_count: 9,
+        uninterpreted_requirement_count: 2,
+        unparsed_claim_count: 0,
+      },
+      unparsed_claims: [],
+    });
+    render(<ResultView result={response} />);
+
+    const headline = screen.getByRole("heading", { name: "GitHub Evidence Alignment" }).closest("section")!;
+    expect(within(headline).getByText("90")).toBeInTheDocument();
+    expect(within(headline).getByText("Known coverage gaps")).toBeInTheDocument();
+    expect(within(headline).getByText("This score excludes job-description text GitScore could not interpret.")).toBeInTheDocument();
+    // No concrete example line -- there is no unparsed-claim text to quote.
+    expect(within(headline).queryByText(/Potential requirement not interpreted/)).not.toBeInTheDocument();
+    // The pre-existing, unchanged M9C caveat still renders.
+    expect(
+      within(headline).getByText("2 requirements could not be confidently interpreted by GitScore's parser -- see below."),
+    ).toBeInTheDocument();
+  });
+
+  it("3. shows the badge once and both pre-existing caveats when both kinds of gaps are present simultaneously", () => {
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 60,
+        assessable_requirement_count: 5,
+        uninterpreted_requirement_count: 1,
+        unparsed_claim_count: 2,
+      },
+      unparsed_claims: [{ text: "First unparsed statement" }, { text: "Second unparsed statement" }],
+    });
+    render(<ResultView result={response} />);
+
+    const headline = screen.getByRole("heading", { name: "GitHub Evidence Alignment" }).closest("section")!;
+    // Exactly one badge, not one per gap kind.
+    expect(within(headline).getAllByText("Known coverage gaps")).toHaveLength(1);
+    expect(
+      within(headline).getByText('Potential requirement not interpreted: "First unparsed statement" (+1 more -- see below)'),
+    ).toBeInTheDocument();
+    expect(within(headline).queryByText(/Second unparsed statement/)).not.toBeInTheDocument();
+    expect(
+      within(headline).getByText("1 requirement could not be confidently interpreted by GitScore's parser -- see below."),
+    ).toBeInTheDocument();
+    expect(
+      within(headline).getByText("2 additional statements in the job posting could not be parsed as a requirement at all -- see below."),
+    ).toBeInTheDocument();
+  });
+
+  it("4. shows no badge, no excerpt, and no 'complete'/'fully analyzed' affirmation when no gaps are detected", () => {
+    render(<ResultView result={makeAnalyzeResponse()} />);
+
+    const headline = screen.getByRole("heading", { name: "GitHub Evidence Alignment" }).closest("section")!;
+    expect(within(headline).queryByText("Known coverage gaps")).not.toBeInTheDocument();
+    expect(within(headline).queryByText(/excludes job-description text/)).not.toBeInTheDocument();
+    expect(within(headline).queryByText(/Potential requirement not interpreted/)).not.toBeInTheDocument();
+    // Absence of a gap must never be rendered as a positive claim of
+    // exhaustiveness (M9F Section 5.4).
+    const text = headline.textContent ?? "";
+    expect(text).not.toMatch(/\bComplete\b/);
+    expect(text).not.toMatch(/Fully analyzed/i);
+    expect(text).not.toMatch(/100% requirements interpreted/i);
+  });
+
+  it("5. shows the badge beside 'Not available' when alignment is null but a known gap exists (zero assessable requirements)", () => {
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: null,
+        assessable_requirement_count: 0,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 1,
+      },
+      required: null,
+      preferred: null,
+      unparsed_claims: [{ text: "Experience with a totally novel, unregistered platform" }],
+    });
+    render(<ResultView result={response} />);
+
+    const headline = screen.getByRole("heading", { name: "GitHub Evidence Alignment" }).closest("section")!;
+    expect(within(headline).getByText("Not available")).toBeInTheDocument();
+    expect(within(headline).getByText("Known coverage gaps")).toBeInTheDocument();
+    expect(
+      within(headline).getByText('Potential requirement not interpreted: "Experience with a totally novel, unregistered platform"'),
+    ).toBeInTheDocument();
+  });
+
+  it("6. names only the first of several unparsed claims and shows an accurate '+N more' count", () => {
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 50,
+        assessable_requirement_count: 2,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 4,
+      },
+      unparsed_claims: [
+        { text: "Claim one" },
+        { text: "Claim two" },
+        { text: "Claim three" },
+        { text: "Claim four" },
+      ],
+    });
+    render(<ResultView result={response} />);
+
+    const headline = screen.getByRole("heading", { name: "GitHub Evidence Alignment" }).closest("section")!;
+    expect(
+      within(headline).getByText('Potential requirement not interpreted: "Claim one" (+3 more -- see below)'),
+    ).toBeInTheDocument();
+    for (const other of ["Claim two", "Claim three", "Claim four"]) {
+      expect(within(headline).queryByText(new RegExp(other))).not.toBeInTheDocument();
+    }
+  });
+
+  it("7. truncates a very long unparsed-claim excerpt in the headline while preserving the full text further down the page", () => {
+    const longClaim =
+      "Experience architecting, operating, and continuously improving a highly available, horizontally " +
+      "scalable, multi-region distributed systems platform serving millions of daily active users worldwide";
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 80,
+        assessable_requirement_count: 4,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 1,
+      },
+      unparsed_claims: [{ text: longClaim }],
+    });
+    render(<ResultView result={response} />);
+
+    const headline = screen.getByRole("heading", { name: "GitHub Evidence Alignment" }).closest("section")!;
+    const headlineExcerpt = headline.querySelector(".alignment-coverage-gap-example")!.textContent!;
+    expect(headlineExcerpt).not.toContain(longClaim);
+    expect(headlineExcerpt).toContain("…");
+    expect(headlineExcerpt.length).toBeLessThan(longClaim.length);
+
+    // The full, untruncated original text is still shown verbatim in
+    // the separate unparsed-claims section further down the page.
+    const unparsedSection = screen
+      .getByRole("heading", { name: "Statements GitScore could not parse as requirements" })
+      .closest("section")!;
+    expect(within(unparsedSection).getByText(longClaim)).toBeInTheDocument();
+  });
+
+  it("8. AlignmentHeadline renders safely with no coverage-gap props supplied at all (missing/empty diagnostics)", () => {
+    render(<AlignmentHeadline alignment={42} />);
+
+    expect(screen.getByText("42")).toBeInTheDocument();
+    expect(screen.queryByText("Known coverage gaps")).not.toBeInTheDocument();
+    expect(screen.queryByText(/excludes job-description text/)).not.toBeInTheDocument();
+  });
+
+  it("9. never classifies an unparsed claim's own excerpt as 'required' or 'critical' (no criticality invented)", () => {
+    const response = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 100,
+        assessable_requirement_count: 3,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 1,
+      },
+      unparsed_claims: [{ text: "Experience with OpenCV for image processing" }],
+    });
+    render(<ResultView result={response} />);
+
+    const headline = screen.getByRole("heading", { name: "GitHub Evidence Alignment" }).closest("section")!;
+    const excerptText = headline.querySelector(".alignment-coverage-gap-example")!.textContent!;
+    expect(excerptText).not.toMatch(/\brequired\b/i);
+    expect(excerptText).not.toMatch(/\bcritical\b/i);
+    const badgeText = headline.querySelector(".coverage-gap-badge")!.textContent!;
+    expect(badgeText).not.toMatch(/\brequired\b/i);
+    expect(badgeText).not.toMatch(/\bcritical\b/i);
+  });
+
+  it("10. leaves the alignment score's own numerical value completely unchanged by the coverage-gap presentation", () => {
+    const withoutGap = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 100,
+        assessable_requirement_count: 4,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 0,
+      },
+    });
+    const withGap = makeAnalyzeResponse({
+      assessment: {
+        github_evidence_alignment: 100,
+        assessable_requirement_count: 4,
+        uninterpreted_requirement_count: 0,
+        unparsed_claim_count: 1,
+      },
+      unparsed_claims: [{ text: "Experience with OpenCV for image processing" }],
+    });
+
+    const { unmount } = render(<ResultView result={withoutGap} />);
+    expect(screen.getByText("100")).toBeInTheDocument();
+    unmount();
+
+    render(<ResultView result={withGap} />);
+    expect(screen.getByText("100")).toBeInTheDocument();
   });
 });

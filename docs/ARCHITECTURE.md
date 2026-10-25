@@ -4192,3 +4192,84 @@ identical behavior to before this milestone.
   deep link exists (would require a default-branch fact nowhere in the
   current domain model — an additive change left for a future, explicitly
   scoped proposal, not attempted here).
+
+## 31. Headline coverage-gap visibility — Milestone 9G
+
+Milestone 9F (`docs/evaluation/MILESTONE_9F_REQUIREMENT_COVERAGE_DESIGN.md`)
+reviewed three designs for the 23%-silent-drop-gap's long-term
+disposition and recommended, pending explicit approval: adopt a
+presentation-only coverage-gap disclosure (no schema/API/matcher/
+scoring change); scope a narrow technical-competency detector as a
+SEPARATE, evaluation-first milestone; formally reject unconditional
+preservation of every segmented claim as a formal requirement row
+(demonstrated, live, to convert a real non-technical sentence
+misplaced under a "Requirements:" heading into a formal,
+indistinguishable-from-real requirement row). All three were approved
+exactly as recommended. This milestone implements ONLY the first.
+
+**No backend file was touched** — `gitscore.api.schemas`,
+`gitscore.api.serialization`, `gitscore.matching`, `gitscore.assessment`,
+and `gitscore.jobs.parsing` are all byte-for-byte unchanged. The two
+counts this feature needs (`assessment.uninterpreted_requirement_count`,
+Milestone 9C; `assessment.unparsed_claim_count`, Milestone 9E) and the
+one piece of verbatim text it needs
+(`AnalyzeResponse.unparsed_claims[].text`, Milestone 9C) already
+existed — the small, optional `has_coverage_gap`-style additive field
+M9F's own §8.4 flagged as "the only open question" was deliberately
+NOT added, per this milestone's explicit scope.
+
+`lib/labels.ts` (frontend) gained `hasKnownCoverageGap(uninterpretedCount,
+unparsedClaimCount): boolean` (a plain OR of the two existing counts --
+never double-counts, since M9E's own test already guarantees the two
+counts are mutually exclusive per source claim), `coverageGapSummary()`
+(a fixed, generic sentence shown whenever the boolean is true, for
+either gap kind), and `coverageGapExample(claims)` (names the first
+`UnparsedClaim`'s VERBATIM text, truncated past 140 characters -- the
+untruncated original remains visible, unchanged, in
+`UnparsedClaimsSection` further down the page -- plus a plain "+N more"
+count when more than one exists; returns `null`, never a fabricated
+example, when `claims` is empty).
+
+`AlignmentHeadline.tsx` renders a `"Known coverage gaps"` badge beside
+the score (or "Not available") whenever `hasKnownCoverageGap()` is
+true, followed by the summary sentence and, when available, the
+concrete excerpt -- ABOVE the two pre-existing, byte-for-byte unchanged
+M9C/9E caveat sentences, never replacing them (those remain the only
+PRECISE per-category counts; the new badge/summary are a visibility
+layer on top, not a substitute). Deliberately NEVER renders any
+"Complete"/"Fully analyzed"/"100% requirements interpreted" affirmation
+when no gap is known -- absence of a known diagnostic is not proof of
+exhaustive parsing (M9F §5.4). The badge/example text never contains
+"required" or "critical" -- `UnparsedClaim` structurally carries no
+necessity field at all (necessity is computed by `infer_necessity()`,
+never reached for a claim producing zero rows), so there is nothing to
+classify with, and this milestone's own constraint explicitly forbids
+inventing one.
+
+`ResultView.tsx` passes the SAME `result.unparsed_claims` array into
+both `AlignmentHeadline` (for the concrete excerpt) and
+`UnparsedClaimsSection` (for the full list) -- one array, two
+presentation purposes, never a second fetch or a duplicated field.
+
+**Verification:** 10 new React Testing Library tests
+(`ResultView.test.tsx`) cover every scenario this milestone's own brief
+named, including the real, live-verified `karpathy × computer_vision_01`
+values (required 3/3, preferred 1/1, alignment 100, one unparsed claim —
+"Experience with OpenCV for image processing") reproduced as an offline
+fixture. Browser click-through was attempted (the offline-fixture
+backend and Next.js dev server were both started and confirmed
+listening) but this session's Chrome browser-automation tool did not
+respond — the same limitation M9D's and M9E's sessions each hit; per
+this milestone's own instruction, this did not block it. See
+`docs/evaluation/MILESTONE_9G_HEADLINE_COVERAGE_VISIBILITY.md` for the
+full before/after examples, every test scenario, and remaining
+limitations.
+
+**Not implemented, per explicit scope:** any technical-competency
+detector (M9F Q2, left for a separate, evaluation-first milestone); the
+"qualified headline" sub-option (e.g. "100 — based on 4 of 5 extracted
+requirements"); any change distinguishing REQUIRED from PREFERRED gaps
+in the badge/excerpt (not knowable from the data — see above). The 23%
+silent-drop rate itself remains exactly as measured in M9B, unreduced —
+this milestone only makes an already-existing, already-measured gap
+more visible at the one place a reader looks first.

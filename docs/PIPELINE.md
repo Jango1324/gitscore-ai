@@ -517,4 +517,8 @@ headline caveat for `unparsed_claim_count`, a `concept_label` suffix
 that disambiguates duplicate-looking requirement text (including
 across contradictory statuses), a GitHub repository link on each
 evidence citation, and a calibrated, non-numeric description of each
-evidence type -- see `docs/ARCHITECTURE.md` §30.
+evidence type -- see `docs/ARCHITECTURE.md` §30. Milestone 9G added a
+`"Known coverage gaps"` badge beside the headline score itself, plus a
+generic summary sentence and a concrete, verbatim excerpt of the first
+unparsed claim's text -- all derived entirely from fields the API
+already returns, no backend change -- see `docs/ARCHITECTURE.md` §31.

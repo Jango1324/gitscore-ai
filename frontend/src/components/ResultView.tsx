@@ -61,6 +61,12 @@ function findDuplicateRequirementTexts(result: AnalyzeResponse): ReadonlySet<str
  * `findDuplicateRequirementTexts()` once here to disambiguate
  * duplicate-looking requirement rows (Workstream B) -- passed down to
  * every `RequirementSection` rather than re-derived per section.
+ *
+ * Milestone 9G passes `result.unparsed_claims` through to
+ * `AlignmentHeadline` as well as `UnparsedClaimsSection` -- the SAME
+ * array, read twice for two different purposes (a concrete headline
+ * excerpt vs. the full list further down) -- never a second fetch or a
+ * duplicated backend field.
  */
 export function ResultView({ result }: ResultViewProps) {
   const duplicateTexts = findDuplicateRequirementTexts(result);
@@ -70,6 +76,7 @@ export function ResultView({ result }: ResultViewProps) {
         alignment={result.assessment.github_evidence_alignment}
         uninterpretedCount={result.assessment.uninterpreted_requirement_count}
         unparsedClaimCount={result.assessment.unparsed_claim_count}
+        unparsedClaims={result.unparsed_claims}
       />
       <SubscoreRow required={result.required} preferred={result.preferred} />
       <RepositoryCoverage coverage={result.repository_analysis} />
