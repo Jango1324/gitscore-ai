@@ -1,5 +1,53 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-25 — Milestone 9F: Requirement coverage & score validity (design review)
+
+**What changed:** Nothing in `src/gitscore/` or `frontend/` — a
+design-and-evaluation-only milestone. Live-traced all six of M9B's
+measured silent-drop requirement claims through every internal parser
+gate (`_unresolved_requirement_signal`, `_TECHNICAL_LEAD_IN`,
+`clean_list_fragment`, `find_conservative_unknown_terms`) and
+classified them into a precise five-category taxonomy; evaluated three
+design alternatives (unconditional preservation, a scoped
+technical-competency detector, presentation-only safeguards) against
+false-positive risk, scoring impact, and schema/API implications;
+re-verified live (real `karpathy` fixture, real running API) exactly
+what `karpathy × computer_vision_01`'s 100 does and does not represent;
+proposed a new positive/negative control set for evaluating a future
+verb-led competency detector (design content only, no corpus file
+committed).
+
+**Why:** M9B, M9C, M9D, and M9E each raised the same still-open
+question (the 23% silent-drop gap's long-term disposition) without a
+final answer. This milestone exists to make that decision explicit
+rather than deferring it a fifth time.
+
+**Key finding:** closing the silent-drop gap (via either alternative
+design evaluated) would NOT, by itself, change `karpathy ×
+computer_vision_01`'s `alignment_score` of 100 — the resulting row would
+be `NOT_ASSESSABLE` (excluded from the denominator by the EXISTING,
+unchanged formula), not `NOT_OBSERVED`. Only a presentation-layer
+change can actually move or qualify that specific number.
+
+**Recommendation (see `docs/evaluation/MILESTONE_9F_REQUIREMENT_COVERAGE_DESIGN.md`
+for full detail, trade-off tables, and three explicit approval
+questions):** adopt presentation-only coverage disclosure (a visible
+"partial coverage" signal, naming the specific unparsed claim) as the
+next implementation milestone, requiring no schema/matcher/scoring
+change; separately scope evaluation-only work for a narrow,
+verb-led competency detector gated on zero false positives against a
+new negative-control set; formally reject unconditional preservation
+(demonstrated, live, to convert a real non-technical sentence
+misplaced under a "Requirements:" heading into a formal,
+indistinguishable-from-real requirement row).
+
+**Files affected:** `docs/evaluation/MILESTONE_9F_REQUIREMENT_COVERAGE_DESIGN.md`
+(new), `docs/CHANGELOG_DEV.md` (this entry). No file under `src/gitscore/`
+or `frontend/` touched. No frozen gold modified.
+
+**DO NOT COMMIT. DO NOT PUSH. Awaiting approval on §9's three
+questions before any implementation begins.**
+
 ## 2026-10-25 — Milestone 9E: Assessment clarity & trust corrections
 
 **What changed:** Fixes three confirmed, M9D-measured presentation
