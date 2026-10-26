@@ -1,0 +1,30 @@
+Opportunity
+
+SOTI’s growth and success is a result of commitment to innovation through entrepreneurial culture and leadership. Employees are driven to make an impact, offer a unique value and most importantly, be part of a winning team. As a successful candidate, you’ll get the chance to work with leading edge technologies and take on complex and interesting projects as part of fast-paced, highly collaborative and agile teams.
+
+The technologies you learn during an internship at SOTI range from learning to develop middle tier services using languages like C#, or deepening your knowledge of databases by leveraging SQL and learning how to build high performance apps using storage procedures. Depending on the area you work in, you may get an opportunity to learn about technologies such as data analytics, machine learning, fault tolerant computing, building high end scalable solutions, or vision systems.
+
+What you will learn:
+
+- Enhance your programming skills by working in a team alongside experienced team members
+- Gain an understanding of how various roles work together to deliver software products: Developers, Architects, Quality Assurance, User Experience, Product Management, Software Development, Marketing, etc.
+- Gain an understanding of how user requirements are gathered, and the various processes used to translate real-world problems into software solutions
+- Understand the tools and processes used to develop professional software products e.g. Jira, Git
+- Understand the testing processes and frameworks used to deliver high quality software products
+
+Required skills:
+
+- Knowledge of algorithms, data structures and database fundamentals
+- Basic knowledge of Software Development Life Cycle concepts
+- Strong math, analytic and problem-solving skills
+- Basic knowledge of programming in one or more of the following programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua, Haskell
+- Most importantly curiosity, a desire to learn and be a part of a team
+
+About SOTI
+
+It all started with a classic story about one developer’s vision. While Carl Rodrigues, President and CEO of SOTI, was an IT consultant, he developed solutions for managing mobile device screens from a desktop. An innovation that has put him ahead in what is now one of the largest growing markets – Enterprise Mobility Management (EMM).
+With a passion for innovation, and a relentless drive for quality, Carl now leads one of the fastest growing, profitable, and self-sustaining companies in Canada, and continues to build on the company's early lead in the enterprise mobility market.
+
+Today, more than 17,000 enterprise customers around the world depend on us to secure, manage, and support their mobile operations, with millions of devices managed worldwide. SOTI’s two decades of success has built strong partnerships with leading mobile platform providers and device manufacturers. At SOTI, we have demonstrated commitment to staying at the forefront of mobility management and security. We are deeply committed to researching and developing solutions that address today’s toughest mobility challenges. We strive to go where nobody has gone before.
+
+#LI-RJ1

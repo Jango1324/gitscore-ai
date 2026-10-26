@@ -1,0 +1,955 @@
+{
+  "corpus_version": "m10a:v1",
+  "source_note": "Real-world job postings. Plain-text transcriptions provided by the project owner (evaluation/m10/source/*.txt) -- NOT claimed byte-exact to the original postings; see docs/evaluation/MILESTONE_10A_REALWORLD_PARSING_FAILURES.md Section 0/F for exactly what fidelity is and is not guaranteed (valid UTF-8, no BOM, real Unicode punctuation preserved -- but not verified against the original listing itself). Unlike evaluation/m9b/corpus.json (individually-authored sentences wrapped into a synthetic posting), each entry here preserves the FULL, REAL, multi-section document structure -- this milestone's own finding is specifically about cross-section/heading behavior that a single-sentence-at-a-time corpus structurally cannot surface. CORRECTION (post-first-draft): this file's labels (is_requirement, category_annotation, ideal_outcome, acceptable_fallback) were FORMALIZED INTO THIS FILE AFTER diagnostic parser runs against both real postings had already been observed in the same working session -- NOT before, unlike M9B's own corpus. They are RETROSPECTIVE evaluation judgments, not a blind pre-registration; do not cite this file as evidence of pre-parser independence. See tests/test_m10a_evaluation_integrity.py's own module docstring and MILESTONE_10A_REALWORLD_PARSING_FAILURES.md Section 0/D for the full, honest account.",
+  "postings": [
+    {
+      "id": "m10a-soti",
+      "source_file": "evaluation/m10/source/soti_raw.txt",
+      "role_title": "Software Engineering Intern",
+      "sections": [
+        {
+          "heading_text": "Opportunity",
+          "category": "company_information",
+          "recognized_by_current_parser": false,
+          "notes": "Culture/mission narrative plus a 'what you might learn' technology-exposure paragraph. Not in any heading table (_REQUIRED_HEADINGS/_PREFERRED_HEADINGS/_RESPONSIBILITY_HEADINGS/_SKIP_HEADINGS)."
+        },
+        {
+          "heading_text": "What you will learn:",
+          "category": "learning_opportunities",
+          "recognized_by_current_parser": false,
+          "notes": "No heading category for 'things the candidate will learn/be exposed to' exists at all today -- distinct from both REQUIRED and RESPONSIBILITY."
+        },
+        {
+          "heading_text": "Required skills:",
+          "category": "required_qualifications",
+          "recognized_by_current_parser": false,
+          "notes": "Semantically a required-qualifications section. NOT an exact match for any _REQUIRED_HEADINGS entry (\"requirements\"/\"required qualifications\"/\"qualifications\"/\"minimum qualifications\"/\"basic qualifications\"/\"must have(s)\") -- \"required skills\" uses a different noun."
+        },
+        {
+          "heading_text": "About SOTI",
+          "category": "company_information",
+          "recognized_by_current_parser": false,
+          "notes": "Company history/bio. Not an exact match for _SKIP_HEADINGS's \"about us\"/\"about the company\" (company-name-specific heading)."
+        }
+      ],
+      "claims": [
+        {
+          "id": "m10a-soti-01",
+          "section": "Opportunity",
+          "text": "The technologies you learn during an internship at SOTI range from learning to develop middle tier services using languages like C#, or deepening your knowledge of databases by leveraging SQL and learning how to build high performance apps using storage procedures.",
+          "is_requirement": false,
+          "category_annotation": "learning_opportunities",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Explicitly frames C#/SQL as POSSIBLE learning exposure during the internship (\"the technologies you learn... range from...\"), never a candidate qualification. Must produce zero JobRequirement rows."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE FALSE POSITIVE: current parser produces a REQUIRED alternative_concept_ids=('language.csharp','language.sql') row from this exact sentence."
+        },
+        {
+          "id": "m10a-soti-02",
+          "section": "What you will learn:",
+          "text": "Enhance your programming skills by working in a team alongside experienced team members",
+          "is_requirement": false,
+          "category_annotation": "learning_opportunities",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Describes a learning activity the intern will do, not a qualification the candidate must already have."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim",
+            "rationale": "If a trace is produced at all despite this being a non-requirement, a bare diagnostic (never a scored row) is the only tolerable outcome."
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim (tolerable, not ideal -- ideally this section is never claim-gated as a requirement source at all)."
+        },
+        {
+          "id": "m10a-soti-03",
+          "section": "What you will learn:",
+          "text": "Gain an understanding of how various roles work together to deliver software products: Developers, Architects, Quality Assurance, User Experience, Product Management, Software Development, Marketing, etc.",
+          "is_requirement": false,
+          "category_annotation": "learning_opportunities",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Describes organizational-role exposure, not a technical skill requirement."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim."
+        },
+        {
+          "id": "m10a-soti-04",
+          "section": "What you will learn:",
+          "text": "Gain an understanding of how user requirements are gathered, and the various processes used to translate real-world problems into software solutions",
+          "is_requirement": false,
+          "category_annotation": "learning_opportunities",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Learning-outcome narrative, not a requirement. Also note: the word 'requirements' here refers to USER requirements gathering as a process the intern will learn about -- not a job requirement."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE, HIGHER SEVERITY: this sentence never even becomes a segmentation Claim at all (zero trace anywhere -- not requirements, not unparsed_claims). Worse than the acceptable_fallback, though the underlying semantic judgment (no requirement) happens to be satisfied by accident, not by design."
+        },
+        {
+          "id": "m10a-soti-05",
+          "section": "What you will learn:",
+          "text": "Understand the tools and processes used to develop professional software products e.g. Jira, Git",
+          "is_requirement": false,
+          "category_annotation": "learning_opportunities",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Learning-outcome narrative naming example tools the intern will be exposed to, not a requirement that the candidate already know Jira/Git."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE, HIGHER SEVERITY: never becomes a Claim at all -- zero trace anywhere, same as m10a-soti-04."
+        },
+        {
+          "id": "m10a-soti-06",
+          "section": "What you will learn:",
+          "text": "Understand the testing processes and frameworks used to deliver high quality software products",
+          "is_requirement": false,
+          "category_annotation": "learning_opportunities",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE, HIGHER SEVERITY: never becomes a Claim at all -- zero trace anywhere."
+        },
+        {
+          "id": "m10a-soti-07",
+          "section": "Required skills:",
+          "text": "Required skills:",
+          "is_requirement": false,
+          "category_annotation": "ambiguous",
+          "ideal_outcome": {
+            "type": "heading_recognized_not_a_claim",
+            "rationale": "This is a SECTION HEADING, not a requirement sentence at all. A correctly-recognized heading never becomes its own Claim."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE FALSE POSITIVE: because \"required skills\" is not in _REQUIRED_HEADINGS, this heading line itself is treated as ordinary body text (triggers the bare 'skills?' keyword in _REQUIREMENT_SIGNAL) and becomes its own spurious Claim, landing in unparsed_claims."
+        },
+        {
+          "id": "m10a-soti-08",
+          "section": "Required skills:",
+          "text": "Knowledge of algorithms, data structures and database fundamentals",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "competency_placeholder",
+            "concept_ids": null,
+            "category": "unresolved_requirement",
+            "necessity": "required",
+            "github_observability": "partially_observable",
+            "rationale": "Genuine technical competency, no single named product -- the maximally-correct, non-fabricating outcome is the existing conservative placeholder shape, never a fabricated concept."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim",
+            "rationale": "Tolerable (not ideal) given this is the SAME root-cause category (gerund/noun-phrase competency with no named product) M9F already evaluated and explicitly deferred."
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim (acceptable_fallback met, ideal_outcome not met). Matches M9F's category-3 taxonomy exactly."
+        },
+        {
+          "id": "m10a-soti-09",
+          "section": "Required skills:",
+          "text": "Basic knowledge of Software Development Life Cycle concepts",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "competency_placeholder",
+            "concept_ids": null,
+            "category": "unresolved_requirement",
+            "necessity": "required",
+            "github_observability": "partially_observable"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim. Additional structural note: _TECHNICAL_LEAD_IN never even gets a chance here -- the claim starts with 'Basic knowledge of', not the exact anchored 'knowledge of' the regex requires."
+        },
+        {
+          "id": "m10a-soti-10",
+          "section": "Required skills:",
+          "text": "Strong math, analytic and problem-solving skills",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "competency_placeholder",
+            "concept_ids": null,
+            "category": "unresolved_requirement",
+            "necessity": "required",
+            "github_observability": "partially_observable"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim."
+        },
+        {
+          "id": "m10a-soti-11",
+          "section": "Required skills:",
+          "text": "Basic knowledge of programming in one or more of the following programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua, Haskell",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "alternative_group",
+            "alternative_concept_ids": [
+              "language.c",
+              "language.cpp",
+              "language.java",
+              "language.javascript",
+              "language.sql",
+              "unresolved:ruby",
+              "unresolved:rust",
+              "unresolved:lua",
+              "unresolved:haskell"
+            ],
+            "necessity": "required",
+            "github_observability": "strongly_observable",
+            "rationale": "A genuine ANY-of-9 technology enumeration. The maximally-correct outcome preserves ANY-of semantics across every real, named technology -- fabricating zero extra options (no 'unresolved:one'/'unresolved:more' artifacts from the idiomatic 'one or more')."
+          },
+          "acceptable_fallback": {
+            "type": "unresolved_requirement_placeholder",
+            "category": "alternative_requirement",
+            "necessity": "required",
+            "github_observability": "partially_observable",
+            "rationale": "The existing conservative 'unsafe' fallback is tolerable (preserves a trace, fabricates nothing) but loses the ANY-of-9 structure entirely."
+          },
+          "notes": "CONFIRMED LIVE: currently resolves to the 'unsafe' conservative placeholder (category='alternative_requirement', concept_id=None) -- acceptable_fallback met, zero fabrication (unlike an illustrative reconstruction tried earlier in this investigation, which DID fabricate an 'unresolved:one' option for a differently-punctuated version of this idiom -- see MILESTONE_10A doc Section 3 for why the exact phrasing determines which of the two failure modes fires). ideal_outcome (full 9-language alternative group) is NOT met."
+        },
+        {
+          "id": "m10a-soti-12",
+          "section": "Required skills:",
+          "text": "Most importantly curiosity, a desire to learn and be a part of a team",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "non_technical_placeholder",
+            "category": "soft_skill",
+            "necessity": "required",
+            "github_observability": "not_observable",
+            "rationale": "A genuine, if vague, soft-skill/personality-trait requirement -- GitHub evidence cannot speak to curiosity or desire-to-learn at all. The maximally correct outcome is the existing soft_skill non-technical placeholder, matching how 'teamwork'/'communication skills' are already handled elsewhere in this exact posting (m10a-man-12)."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim",
+            "rationale": "A bare diagnostic trace is tolerable if the non-technical pattern table does not happen to cover this exact phrasing."
+          },
+          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a segmentation Claim at all -- zero trace anywhere, not even unparsed_claims. Root cause: contains none of segmentation's outside-heading _REQUIREMENT_SIGNAL trigger words ('curiosity'/'desire'/'team' are not in that list; 'team' alone is not a trigger either), and 'Required skills:' (the heading immediately above it) was never recognized, so this bullet is judged by the same loose, accidental gate as ordinary prose."
+        }
+      ]
+    },
+    {
+      "id": "m10a-manulife",
+      "source_file": "evaluation/m10/source/manulife_raw.txt",
+      "role_title": "Software Engineering Co-op",
+      "sections": [
+        {
+          "heading_text": "(no heading -- opening narrative)",
+          "category": "company_information",
+          "recognized_by_current_parser": "n/a",
+          "notes": "Intro paragraphs before any heading."
+        },
+        {
+          "heading_text": "Position Responsibilities:",
+          "category": "responsibilities",
+          "recognized_by_current_parser": false,
+          "notes": "Not an exact match for _RESPONSIBILITY_HEADINGS (\"responsibilities\"/\"what you'll do\"/\"what you will do\"/\"the role\"/\"duties\"/\"key responsibilities\") -- \"Position Responsibilities\" has an extra leading word."
+        },
+        {
+          "heading_text": "Required Qualifications:",
+          "category": "required_qualifications",
+          "recognized_by_current_parser": true,
+          "notes": "Exact match for _REQUIRED_HEADINGS. Correctly recognized."
+        },
+        {
+          "heading_text": "Preferred Qualifications:",
+          "category": "preferred_qualifications",
+          "recognized_by_current_parser": true,
+          "notes": "Exact match for _PREFERRED_HEADINGS. Correctly recognized -- but see Section field 'necessity_hint_sticky_from_here' below: because every heading AFTER this one fails to match, every claim for the REST OF THE DOCUMENT inherits this section's PREFERRED necessity_hint."
+        },
+        {
+          "heading_text": "When you join our team:",
+          "category": "company_information",
+          "recognized_by_current_parser": false,
+          "notes": "Benefits-adjacent narrative. Not in any heading table."
+        },
+        {
+          "heading_text": "Application instructions:",
+          "category": "legal_administrative",
+          "recognized_by_current_parser": false,
+          "notes": "Not in any heading table."
+        },
+        {
+          "heading_text": "(salary disclosure, unheaded)",
+          "category": "legal_administrative",
+          "recognized_by_current_parser": "n/a",
+          "notes": "Pay-transparency disclosure paragraph, no heading of its own."
+        },
+        {
+          "heading_text": "About Manulife and John Hancock",
+          "category": "company_information",
+          "recognized_by_current_parser": false,
+          "notes": "Company-name-specific heading; not an exact match for _SKIP_HEADINGS's generic 'about us'/'about the company'."
+        },
+        {
+          "heading_text": "(EEO/legal boilerplate, unheaded)",
+          "category": "legal_administrative",
+          "recognized_by_current_parser": "n/a",
+          "notes": "Equal-opportunity/accommodation legal text, no heading of its own in this posting."
+        },
+        {
+          "heading_text": "Working Arrangement",
+          "category": "ambiguous",
+          "recognized_by_current_parser": false,
+          "notes": "Final line, posting is truncated at this heading in the provided transcription -- category genuinely unknown without the text that would have followed it."
+        }
+      ],
+      "necessity_hint_sticky_from_here": {
+        "starting_claim": "Exposure to software frameworks, libraries, or development tools",
+        "rationale": "CONFIRMED LIVE: every single claim from here through the end of the 54-line posting -- spanning 'When you join our team', 'Application instructions', the salary disclosure, 'About Manulife and John Hancock', the entire EEO/accommodation paragraph, and 'Working Arrangement' -- carries necessity_hint=PREFERRED, because current_kind is never reset once a heading fails to match, and it was last successfully set by 'Preferred Qualifications:'. This is Root Cause 2 in docs/evaluation/MILESTONE_10A_REALWORLD_PARSING_FAILURES.md, and it is the single most consequential finding of this corpus."
+      },
+      "claims": [
+        {
+          "id": "m10a-man-01",
+          "section": "(opening narrative)",
+          "text": "As a Software Engineering Co-op, you’ll gain hands-on experience developing applications and systems that support business and customer solutions.",
+          "is_requirement": false,
+          "category_annotation": "company_information",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Role-narrative prose describing the position, not a specific qualification bullet. No named technology."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-02",
+          "section": "Position Responsibilities:",
+          "text": "Position Responsibilities:",
+          "is_requirement": false,
+          "category_annotation": "ambiguous",
+          "ideal_outcome": {
+            "type": "heading_recognized_not_a_claim"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim",
+            "rationale": "A heading becoming a diagnostic-only claim (not a scored requirement) is tolerable, unlike SOTI's 'Required skills:' which is read-only text here too, consistent."
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim (acceptable, not ideal)."
+        },
+        {
+          "id": "m10a-man-03",
+          "section": "Position Responsibilities:",
+          "text": "Contribute to a team of engineers focused on building scalable, reliable applications",
+          "is_requirement": false,
+          "category_annotation": "responsibilities",
+          "ideal_outcome": {
+            "type": "no_scored_requirement",
+            "rationale": "A duty/responsibility statement, not a candidate qualification to assess evidence against. GitHub evidence has nothing to verify here regardless."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim",
+            "rationale": "At minimum, a responsibility bullet should leave SOME trace that it was read, even though it should never become a scored requirement."
+          },
+          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a segmentation Claim at all -- zero trace anywhere. Does not even meet the acceptable_fallback."
+        },
+        {
+          "id": "m10a-man-04",
+          "section": "Position Responsibilities:",
+          "text": "Support application development, testing, and debugging efforts",
+          "is_requirement": false,
+          "category_annotation": "responsibilities",
+          "ideal_outcome": {
+            "type": "no_scored_requirement"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere."
+        },
+        {
+          "id": "m10a-man-05",
+          "section": "Position Responsibilities:",
+          "text": "Assist in feature development and system enhancements",
+          "is_requirement": false,
+          "category_annotation": "responsibilities",
+          "ideal_outcome": {
+            "type": "no_scored_requirement"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere."
+        },
+        {
+          "id": "m10a-man-06",
+          "section": "Position Responsibilities:",
+          "text": "Collaborate with engineering and business teams to build user-focused solutions",
+          "is_requirement": false,
+          "category_annotation": "responsibilities",
+          "ideal_outcome": {
+            "type": "no_scored_requirement"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere, despite containing 'collaborat*', which IS a recognized soft_skill keyword inside non_technical.py's own pattern table -- but that table is only ever consulted AFTER a Claim already exists; segmentation's own, different, narrower outside-heading gate (_REQUIREMENT_SIGNAL) does not include 'collaborat*' at all, so this sentence never reaches that stage."
+        },
+        {
+          "id": "m10a-man-07",
+          "section": "Position Responsibilities:",
+          "text": "Participate in code reviews and maintain code quality standards",
+          "is_requirement": false,
+          "category_annotation": "responsibilities",
+          "ideal_outcome": {
+            "type": "no_scored_requirement"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere."
+        },
+        {
+          "id": "m10a-man-08",
+          "section": "Position Responsibilities:",
+          "text": "Support deployment, monitoring, and ongoing application maintenance",
+          "is_requirement": false,
+          "category_annotation": "responsibilities",
+          "ideal_outcome": {
+            "type": "no_scored_requirement"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere. All SIX 'Position Responsibilities' bullets (m10a-man-03 through 08) are completely, silently erased -- a full section, 100% invisible, not even partially mitigated by the existing unparsed_claims diagnostic."
+        },
+        {
+          "id": "m10a-man-09",
+          "section": "Required Qualifications:",
+          "text": "Currently pursuing an undergraduate degree in Computer Science, Engineering, or a related field",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "non_technical_placeholder",
+            "category": "education",
+            "necessity": "required",
+            "github_observability": "not_observable",
+            "rationale": "A genuine education requirement, correctly NOT_OBSERVABLE -- GitHub evidence cannot speak to enrollment status at all."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE: already correct today -- category='education', necessity=required, NOT_OBSERVABLE. No defect here."
+        },
+        {
+          "id": "m10a-man-10",
+          "section": "Required Qualifications:",
+          "text": "Experience with at least one programming language (e.g., Java, Python, Go, JavaScript)",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "alternative_group",
+            "alternative_concept_ids": [
+              "language.go",
+              "language.java",
+              "language.javascript",
+              "language.python"
+            ],
+            "necessity": "required",
+            "github_observability": "strongly_observable",
+            "rationale": "An ANY-ONE-of-4 requirement -- 'at least one of' is explicit OR semantics. The maximally correct outcome is a SINGLE alternative-group row, satisfied if the candidate shows evidence for ANY ONE of the four."
+          },
+          "acceptable_fallback": {
+            "type": "unresolved_requirement_placeholder",
+            "category": "alternative_requirement",
+            "necessity": "required",
+            "github_observability": "partially_observable",
+            "rationale": "A conservative, non-fabricating placeholder that preserves necessity and a trace, even if it loses the ANY-of structure, is tolerable. FOUR INDEPENDENT REQUIRED ROWS IS NOT AN ACCEPTABLE FALLBACK -- it materially changes assessment semantics (see notes)."
+          },
+          "notes": "CONFIRMED LIVE, MATERIAL FAIRNESS DEFECT (distinct failure mode from the SOTI 'one or more of' case -- this phrasing contains NO literal 'or' at all, using '(e.g., ...)' instead, so classify_alternative_claim's contains_alternative_marker() check never even fires). Produces FOUR SEPARATE, INDEPENDENTLY-ASSESSED required rows (language.java, language.python, language.javascript, unresolved:go) under the existing 'one row per matched concept per claim' design -- meaning a candidate who knows only Python would show 1 of 4 REQUIRED rows supported, not the correct '1 of 1 any-of-group satisfied.' This DIRECTLY SHRINKS the required subscore for a candidate who legitimately meets this requirement -- a false-negative fairness defect, the opposite direction from every other finding in this corpus (which inflate scores or lose traces, never unfairly penalize a qualified candidate)."
+        },
+        {
+          "id": "m10a-man-11",
+          "section": "Required Qualifications:",
+          "text": "Familiarity with version control systems (e.g., Git, Bitbucket)",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "competency_or_unresolved_terms",
+            "unresolved_terms": [
+              "git",
+              "bitbucket"
+            ],
+            "necessity": "required",
+            "github_observability": "partially_observable",
+            "rationale": "Genuine named-tool requirement (Git, Bitbucket), neither currently registered in the concept registry. A maximally correct outcome preserves both as unresolved:<term> placeholders, or at minimum ONE conservative placeholder, never zero rows."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim (acceptable, not ideal). Note: 'version control systems' is itself a real, GitHub-observable-in-principle competency (a candidate's own commit history IS version-control evidence) with no named product required at all to assess it in principle -- flagged as a second-order design question, not a defect of this specific parser path."
+        },
+        {
+          "id": "m10a-man-12",
+          "section": "Required Qualifications:",
+          "text": "Strong communication skills and willingness to learn in a collaborative environment",
+          "is_requirement": true,
+          "category_annotation": "required_qualifications",
+          "ideal_outcome": {
+            "type": "non_technical_placeholder",
+            "category": "soft_skill",
+            "necessity": "required",
+            "github_observability": "not_observable"
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE: already correct today -- category='soft_skill', necessity=required, NOT_OBSERVABLE. No defect."
+        },
+        {
+          "id": "m10a-man-13",
+          "section": "Preferred Qualifications:",
+          "text": "Exposure to software frameworks, libraries, or development tools",
+          "is_requirement": true,
+          "category_annotation": "preferred_qualifications",
+          "ideal_outcome": {
+            "type": "competency_placeholder",
+            "category": "unresolved_requirement",
+            "necessity": "preferred",
+            "github_observability": "partially_observable",
+            "rationale": "Vague, no named product -- correct necessity here IS preferred, since the heading correctly set it (unlike every later claim in this posting)."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE: already correct -- category='unresolved_requirement', necessity=preferred (correctly derived from the properly-recognized 'Preferred Qualifications:' heading, not yet affected by the sticky-hint defect, which only starts affecting claims AFTER this section)."
+        },
+        {
+          "id": "m10a-man-14",
+          "section": "Preferred Qualifications:",
+          "text": "Understanding of software development lifecycle and best practices",
+          "is_requirement": true,
+          "category_annotation": "preferred_qualifications",
+          "ideal_outcome": {
+            "type": "competency_placeholder",
+            "category": "unresolved_requirement",
+            "necessity": "preferred",
+            "github_observability": "partially_observable"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: currently an unparsed_claim (acceptable, not ideal) -- 'Understanding of' is not one of the six recognized technical lead-in phrases, same gap as SOTI's 'Strong understanding of'."
+        },
+        {
+          "id": "m10a-man-15",
+          "section": "Preferred Qualifications:",
+          "text": "Familiarity with APIs, web services, or application architecture",
+          "is_requirement": true,
+          "category_annotation": "preferred_qualifications",
+          "ideal_outcome": {
+            "type": "competency_placeholder",
+            "category": "unresolved_requirement",
+            "necessity": "preferred",
+            "github_observability": "partially_observable",
+            "rationale": "Vague, no single named product; 'or' here is NOT a real technology enumeration (APIs/web services/application architecture are generic nouns, not named products) -- the maximally correct outcome is still the existing conservative non-fabricating placeholder, never a structured alternative group of fake 'technologies'."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE: already correct -- category='unresolved_requirement', necessity=preferred. The bare 'or' correctly does NOT get treated as a real alternative group here, because none of the three OR-segments resolves to (or shape-passes as) a real named technology -- classify_alternative_claim correctly falls through to not_technical. This is a useful POSITIVE control: 'or' alone is not always harmful."
+        },
+        {
+          "id": "m10a-man-16",
+          "section": "When you join our team:",
+          "text": "When you join our team:",
+          "is_requirement": false,
+          "category_annotation": "ambiguous",
+          "ideal_outcome": {
+            "type": "heading_recognized_not_a_claim"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim. necessity_hint from here on is the STICKY 'preferred' value -- see posting-level 'necessity_hint_sticky_from_here' note."
+        },
+        {
+          "id": "m10a-man-17",
+          "section": "When you join our team:",
+          "text": "We’ll empower you to learn and grow the career you want.",
+          "is_requirement": false,
+          "category_annotation": "company_information",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable outcome, correct result via the loose gate rejecting it for lack of a trigger word -- accidental, not deliberate)."
+        },
+        {
+          "id": "m10a-man-18",
+          "section": "When you join our team:",
+          "text": "We’ll recognize and support you in a flexible environment where well-being and inclusion are more than just words.",
+          "is_requirement": false,
+          "category_annotation": "company_information",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-19",
+          "section": "When you join our team:",
+          "text": "As part of our global team, we’ll support you in shaping the future you want to see.",
+          "is_requirement": false,
+          "category_annotation": "company_information",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-20",
+          "section": "When you join our team:",
+          "text": "As part of our co-op program, you will gain early access to Manulife John Hancock’s premier early talent program, GRO, tailored to graduating students!",
+          "is_requirement": false,
+          "category_annotation": "company_information",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-21",
+          "section": "When you join our team:",
+          "text": "This program is designed to launch your career with the support, structure, and opportunities you need to thrive.",
+          "is_requirement": false,
+          "category_annotation": "company_information",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-22",
+          "section": "Application instructions:",
+          "text": "Application instructions:",
+          "is_requirement": false,
+          "category_annotation": "ambiguous",
+          "ideal_outcome": {
+            "type": "heading_recognized_not_a_claim"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim."
+        },
+        {
+          "id": "m10a-man-23",
+          "section": "Application instructions:",
+          "text": "Submit your resume, cover letter, academic transcript, and work term evaluation (if any) in one PDF file.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Application-process instruction, not a candidate qualification."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-24",
+          "section": "Application instructions:",
+          "text": "Note: Applications are reviewed on a rolling basis.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-25",
+          "section": "(salary disclosure, unheaded)",
+          "text": "Please note the salary range is expected to be between $52,650 CAD to $70,200 CAD.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Pay-transparency disclosure, not a candidate qualification of any kind."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-26",
+          "section": "(salary disclosure, unheaded)",
+          "text": "The actual salary will vary depending on local market conditions, geography and relevant job-related factors such as knowledge, skills, qualifications, experience, and education/training.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "Pure compensation-methodology disclosure. The words 'knowledge, skills, qualifications, experience, and education' here describe FACTORS THE EMPLOYER CONSIDERS WHEN SETTING PAY, not a requirement being stated to the candidate."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE FALSE POSITIVE: produces a PREFERRED, category='unresolved_requirement' row -- a pay-transparency disclosure sentence rendered as a scored, necessity-bearing candidate requirement. Root cause: comma + 'such as' enumeration cue triggers _unresolved_requirement_signal's second check, and the STICKY preferred hint (this posting's Root Cause 2) supplies the necessity with no local override."
+        },
+        {
+          "id": "m10a-man-27",
+          "section": "(salary disclosure, unheaded)",
+          "text": "The annual salary will be pro-rated based on the length of the work-term.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-28",
+          "section": "(salary disclosure, unheaded)",
+          "text": "#LI-Hybrid",
+          "is_requirement": false,
+          "category_annotation": "ambiguous",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "An applicant-tracking-system tag, not natural-language content at all."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable, if slightly absurd that an ATS tag becomes a diagnostic entry at all)."
+        },
+        {
+          "id": "m10a-man-29",
+          "section": "(unheaded)",
+          "text": "This posting supports an ongoing hiring initiative for existing and/or future vacancies.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "A statement about the POSTING/REQ itself, not about the candidate at all."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE FALSE POSITIVE: produces a PREFERRED, category='unresolved_requirement' row. Root cause: 'and/or' contains a word-boundary-matched literal 'or' (surrounded by '/' and a space, both non-alphanumeric), firing contains_alternative_marker() purely on an idiomatic administrative phrase with zero technical content, plus the sticky preferred hint."
+        },
+        {
+          "id": "m10a-man-30",
+          "section": "(unheaded)",
+          "text": "We use data and analytics technologies, such as artificial intelligence (AI), and automated processing tools, to analyze and process the information you provide to us or third parties in the application process.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "An applicant-data-processing/privacy disclosure (how the EMPLOYER uses AI/automation to process applications), not a technical requirement of the candidate."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE FALSE POSITIVE: produces a PREFERRED, category='unresolved_requirement' row purely from the comma+'such as' enumeration-cue shape, with zero semantic connection to any candidate skill, plus the sticky preferred hint."
+        },
+        {
+          "id": "m10a-man-31",
+          "section": "(unheaded)",
+          "text": "For more information, please refer to our personal information collection statement.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-32",
+          "section": "About Manulife and John Hancock",
+          "text": "About Manulife and John Hancock",
+          "is_requirement": false,
+          "category_annotation": "ambiguous",
+          "ideal_outcome": {
+            "type": "heading_recognized_not_a_claim"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim."
+        },
+        {
+          "id": "m10a-man-33",
+          "section": "About Manulife and John Hancock",
+          "text": "Manulife Financial Corporation is a leading international financial services provider, helping people make their decisions easier and lives better.",
+          "is_requirement": false,
+          "category_annotation": "company_information",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-34",
+          "section": "About Manulife and John Hancock",
+          "text": "To learn more about us, visit https://www.manulife.com/en/about/our-story.html.",
+          "is_requirement": false,
+          "category_annotation": "company_information",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "A sentence pointing to a URL for more company information. Contains no technical requirement of any kind."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE, MOST CONCRETE FALSE POSITIVE IN THIS CORPUS: produces a PREFERRED, concept_id='language.html' row. Root cause: concepts.matching.alias_pattern()'s word-boundary regex (?<![A-Za-z0-9])html(?![A-Za-z0-9]) treats the '.html' file extension in the URL as a standalone token, because the characters surrounding it ('.' before, '.' after, both from the URL/sentence punctuation) are non-alphanumeric -- identical to how it would treat the English word 'html' in prose. A job posting literally has its own company-bio URL misread as 'requires HTML language experience.'"
+        },
+        {
+          "id": "m10a-man-35",
+          "section": "(EEO/legal boilerplate, unheaded)",
+          "text": "Manulife is an Equal Opportunity Employer.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-36",
+          "section": "(EEO/legal boilerplate, unheaded)",
+          "text": "At Manulife/John Hancock, we embrace our diversity.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-37",
+          "section": "(EEO/legal boilerplate, unheaded)",
+          "text": "We strive to attract and develop a workforce that is as diverse as the customers we serve and to foster an inclusive work environment that embraces the strength of cultures and individuals.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-38",
+          "section": "(EEO/legal boilerplate, unheaded)",
+          "text": "We are committed to fair recruitment, retention, advancement and compensation and we administer all of our practices and programs without discrimination on the basis of race, ancestry, place of origin, colour, ethnic origin, citizenship, religion or religious beliefs, creed, sex (including pregnancy and pregnancy-related conditions), sexual orientation, genetic characteristics, veteran status, gender identity, gender expression, age, marital status, family status, disability, or any other ground protected by applicable law.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row",
+            "rationale": "A textbook EEO/anti-discrimination clause -- the ORIGINAL reported symptom for this posting. Must never become a candidate qualification of any kind, in either direction."
+          },
+          "acceptable_fallback": null,
+          "notes": "CONFIRMED LIVE FALSE POSITIVE (the originally-reported defect): produces a PREFERRED, category='unresolved_requirement' row. Root cause: two of the many 'or's in this long protected-characteristics list ('religion or religious beliefs', '...disability, or any other ground...') trigger contains_alternative_marker(), firing _unresolved_requirement_signal's first check -- combined with the sticky preferred hint supplying necessity, since no local required/preferred marker word appears in this sentence at all."
+        },
+        {
+          "id": "m10a-man-39",
+          "section": "(EEO/legal boilerplate, unheaded)",
+          "text": "It is our priority to remove barriers to provide equal access to employment.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-40",
+          "section": "(EEO/legal boilerplate, unheaded)",
+          "text": "A Human Resources representative will work with applicants who request a reasonable accommodation during the application process.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-41",
+          "section": "(EEO/legal boilerplate, unheaded)",
+          "text": "All information shared during the accommodation request process will be stored and used in a manner that is consistent with applicable laws and Manulife/John Hancock policies.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-42",
+          "section": "(EEO/legal boilerplate, unheaded)",
+          "text": "To request a reasonable accommodation in the application process, contact hr@manulife.com.",
+          "is_requirement": false,
+          "category_annotation": "legal_administrative",
+          "ideal_outcome": {
+            "type": "no_requirement_row"
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim (acceptable)."
+        },
+        {
+          "id": "m10a-man-43",
+          "section": "Working Arrangement",
+          "text": "Working Arrangement",
+          "is_requirement": false,
+          "category_annotation": "ambiguous",
+          "ideal_outcome": {
+            "type": "heading_recognized_not_a_claim",
+            "rationale": "A heading -- but this transcription is truncated here, so what it would have introduced is genuinely unknown."
+          },
+          "acceptable_fallback": {
+            "type": "unparsed_claim"
+          },
+          "notes": "CONFIRMED LIVE: unparsed_claim. Posting ends here in the provided transcription."
+        }
+      ]
+    }
+  ]
+}

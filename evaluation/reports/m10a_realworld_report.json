@@ -1,0 +1,956 @@
+{
+  "corpus_version": "m10a:v1",
+  "postings": [
+    {
+      "posting_id": "m10a-soti",
+      "claim_count": 12,
+      "false_positive_requirements": 1,
+      "invisible_genuine_qualifications": 1,
+      "invisible_responsibilities_or_duties": 0,
+      "malformed_alternative_groups": 0,
+      "meets_ideal_count": 6,
+      "meets_fallback_only_count": 4,
+      "neither_ideal_nor_fallback": [
+        "m10a-soti-01",
+        "m10a-soti-12"
+      ],
+      "verdicts": [
+        {
+          "id": "m10a-soti-01",
+          "is_requirement": false,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "required"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            [
+              "language.csharp",
+              "language.sql"
+            ]
+          ],
+          "false_positive_requirement": true,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-soti-02",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-soti-03",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-soti-04",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-soti-05",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-soti-06",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-soti-07",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-soti-08",
+          "is_requirement": true,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-soti-09",
+          "is_requirement": true,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-soti-10",
+          "is_requirement": true,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-soti-11",
+          "is_requirement": true,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "required"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-soti-12",
+          "is_requirement": true,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": true,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        }
+      ]
+    },
+    {
+      "posting_id": "m10a-manulife",
+      "claim_count": 43,
+      "false_positive_requirements": 5,
+      "invisible_genuine_qualifications": 0,
+      "invisible_responsibilities_or_duties": 6,
+      "malformed_alternative_groups": 1,
+      "meets_ideal_count": 29,
+      "meets_fallback_only_count": 2,
+      "neither_ideal_nor_fallback": [
+        "m10a-man-03",
+        "m10a-man-04",
+        "m10a-man-05",
+        "m10a-man-06",
+        "m10a-man-07",
+        "m10a-man-08",
+        "m10a-man-10",
+        "m10a-man-26",
+        "m10a-man-29",
+        "m10a-man-30",
+        "m10a-man-34",
+        "m10a-man-38"
+      ],
+      "verdicts": [
+        {
+          "id": "m10a-man-01",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-02",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-03",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": true,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-04",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": true,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-05",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": true,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-06",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": true,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-07",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": true,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-08",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": false,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": true,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-09",
+          "is_requirement": true,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "required"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-10",
+          "is_requirement": true,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "required",
+            "required",
+            "required",
+            "required"
+          ],
+          "row_concept_ids": [
+            "language.java",
+            "language.python",
+            "language.javascript",
+            "unresolved:go"
+          ],
+          "row_alternative_ids": [
+            [],
+            [],
+            [],
+            []
+          ],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": true,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-11",
+          "is_requirement": true,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-12",
+          "is_requirement": true,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "required"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-13",
+          "is_requirement": true,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "preferred"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-14",
+          "is_requirement": true,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-15",
+          "is_requirement": true,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "preferred"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-16",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-17",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-18",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-19",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-20",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-21",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-22",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-23",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-24",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-25",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-26",
+          "is_requirement": false,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "preferred"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": true,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-27",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-28",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-29",
+          "is_requirement": false,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "preferred"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": true,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-30",
+          "is_requirement": false,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "preferred"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": true,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-31",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-32",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-33",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-34",
+          "is_requirement": false,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "preferred"
+          ],
+          "row_concept_ids": [
+            "language.html"
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": true,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-35",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-36",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-37",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-38",
+          "is_requirement": false,
+          "has_row": true,
+          "has_unparsed_claim": false,
+          "row_necessity": [
+            "preferred"
+          ],
+          "row_concept_ids": [
+            null
+          ],
+          "row_alternative_ids": [
+            []
+          ],
+          "false_positive_requirement": true,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": false,
+          "meets_fallback": false
+        },
+        {
+          "id": "m10a-man-39",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-40",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-41",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-42",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        },
+        {
+          "id": "m10a-man-43",
+          "is_requirement": false,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
+          "invisible_genuine_qualification": false,
+          "invisible_responsibility_or_duty": false,
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
+        }
+      ]
+    }
+  ]
+}
