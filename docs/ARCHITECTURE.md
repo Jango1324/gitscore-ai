@@ -4273,3 +4273,80 @@ in the badge/excerpt (not knowable from the data — see above). The 23%
 silent-drop rate itself remains exactly as measured in M9B, unreduced —
 this milestone only makes an already-existing, already-measured gap
 more visible at the one place a reader looks first.
+
+## 32. Safe section-state handling — Milestone 10B
+
+**Fixes the single highest-severity defect M10A traced**
+(`docs/evaluation/MILESTONE_10A_REALWORLD_PARSING_FAILURES.md` Root
+Cause 2): `jobs/parsing/segmentation.py`'s `current_kind` was reassigned
+ONLY on an exact heading-table match — any other heading-shaped line
+(a real section boundary the small, generic table simply doesn't
+recognize, e.g. "Working Arrangement:", "When you join our team:")
+fell through silently, leaving a stale REQUIRED/PREFERRED section kind
+to keep applying to everything after it — company bio, legal/EEO text,
+salary disclosures, even a blog-post URL — producing scored, fabricated
+`JobRequirement` rows with a necessity the posting never actually
+stated.
+
+**Design: internal `_SectionKind.UNKNOWN`, zero schema/API/matcher/
+scoring change.** Full design review, root-cause trace, options
+evaluation (A/B/C), and before/after measurement:
+`docs/evaluation/MILESTONE_10B_SECTION_STATE_SAFETY.md`. Three pieces,
+all internal to the parsing package:
+
+1. `jobs/parsing/segmentation.py` — a colon-terminated, NON-bulleted,
+   table-unmatched line resets `current_kind` to a new
+   `_SectionKind.UNKNOWN` member, but ONLY when `current_kind` was
+   already a real recognized kind (REQUIRED/PREFERRED/RESPONSIBILITY/
+   SKIP) — never from `None` (preserves the separate, pre-existing
+   "no section at all → default REQUIRED" Milestone 6B policy
+   untouched). The bullet exemption matters: a bulleted colon lead-in
+   inside an already-open section ("- Experience with the following:")
+   is a list item, never a section boundary — real headings are never
+   bulleted. `UNKNOWN` content is admitted by the SAME existing
+   `_looks_like_requirement` heuristic gate `None` already uses (no new
+   gate), and `_SECTION_NECESSITY_HINT` is never consulted for it — so
+   `UNKNOWN` can never silently default to REQUIRED or PREFERRED "for
+   lack of a third enum value." `Claim.necessity_hint` widens to
+   `Necessity | None`.
+2. `jobs/parsing/necessity.py` — `infer_necessity()` widens its return
+   type to `Necessity | None`; its LOCAL-marker-wins precedence
+   (Milestone 6B Part 7) is completely unchanged, so an explicit
+   "required"/"a plus" in the claim's own text still resolves correctly
+   even with no section hint at all.
+3. `jobs/parsing/parser.py` — `_requirements_from_claim` short-circuits
+   to `[]` the moment `infer_necessity()` returns `None`, BEFORE running
+   any detector. `_parse`'s pre-existing "zero requirements produced →
+   `UnparsedClaim`" fallback (Milestone 9C) absorbs every one of these
+   claims — no new diagnostic type, no `JobRequirementProfile` schema
+   change, no `AnalyzeResponse` API change. `JOB_DESCRIPTION_PARSER_VERSION`
+   bumps `v4` → `v5` (a metadata string, per this package's own existing
+   convention for a parsing-decision-logic change).
+
+**Measured, real-world result** (the exact two postings M10A sourced):
+Manulife's 5 documented false-positive `JobRequirement` rows (§4.1 of
+the M10A report) drop to **0**, with **zero new false positives**
+introduced; `meets_ideal_outcome` rises from 29/43 to 34/43. SOTI is
+**provably unaffected** (byte-identical before/after) — it never
+exhibited this specific defect (every unrecognized heading in it
+occurs while `current_kind` was already `None`, not a stale real
+section). `scripts/evaluate_m9b_preservation.py`'s full metric set is
+byte-identical except the `parser_version_under_test` string — every
+M9B corpus template uses only a recognized heading or none at all, so
+this fix is provably orthogonal to it. The frozen 8c:v1/8c:v1.1 parser
+evaluations (`evaluation/gold/jobs/`, `evaluation/gold_v1_1/jobs/`) are
+likewise byte-identical. Full backend suite: 947 pre-existing tests
+unchanged + 28 new focused tests
+(`tests/test_m10b_section_state_safety.py`, parametrized directly over
+the independently-authored `evaluation/m10b/section_state_controls.json`
+control corpus) = 975 passed.
+
+**Explicitly NOT addressed, per Phase 4 scope boundary** (left for
+separately-scoped, separately-approved future work, exactly as M10A's
+own §8 decisions recorded): the narrow heading-recognition vocabulary
+itself (M10A Root Cause 1 — "Required skills" vs. "Required
+Qualifications"); the Manulife "at least one programming language
+(e.g., ...)" OR-structure loss (Root Cause 4); the "one or more of"
+idiom-blind splitting (Root Cause 5). None of these three is touched or
+preemptively solved by this milestone — confirmed by the unchanged SOTI
+numbers, which exhibit Root Causes 1/4/5 but not 2.

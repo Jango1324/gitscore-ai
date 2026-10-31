@@ -73,6 +73,20 @@ Both changes are purely additive to claims that previously produced
 ZERO requirement rows (or, for (1), where `any_confirmed` was already
 `False`) -- a claim that already produced at least one row under the
 pre-9A parser is completely unaffected.
+
+**Milestone 10B -- safe section-state handling.** `_requirements_from_claim`
+now short-circuits to `[]` when `infer_necessity()` returns `None`
+(`jobs/parsing/necessity.py`) -- a claim admitted from text following
+an unrecognized heading (`_SectionKind.UNKNOWN`, `segmentation.py`)
+with no local REQUIRED/PREFERRED marker in its own text. See
+`docs/evaluation/MILESTONE_10B_SECTION_STATE_SAFETY.md` for the full
+design review: this removes the previous sticky-necessity-inheritance
+failure mode (a stale REQUIRED/PREFERRED kind silently applying to
+everything after an unrecognized heading) WITHOUT expanding the
+heading-recognition vocabulary, WITHOUT a new diagnostic type (the
+existing `UnparsedClaim` absorbs the newly-short-circuited claims), and
+WITHOUT any `JobRequirement` schema, matcher, or scoring-formula
+change. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v4` -> `v5` accordingly.
 """
 from __future__ import annotations
 
@@ -99,7 +113,7 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v4"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v5"
 
 # Milestone 9A -- a narrow, unambiguous technical lead-in used ONLY to
 # gate the last-resort `unresolved_requirement` placeholder
@@ -148,6 +162,15 @@ def _unresolved_requirement_signal(text: str) -> bool:
 
 def _requirements_from_claim(claim: Claim, registry) -> list[JobRequirement]:
     necessity = infer_necessity(claim.text, claim.necessity_hint)
+    if necessity is None:
+        # Milestone 10B -- the claim was admitted from an unrecognized
+        # (UNKNOWN) section and carries no local REQUIRED/PREFERRED
+        # marker in its own text, so no necessity can be responsibly
+        # assigned. Returning [] here (rather than fabricating REQUIRED
+        # or PREFERRED) routes the claim through `_parse`'s EXISTING
+        # "zero requirements produced -> UnparsedClaim" fallback below --
+        # no new diagnostic type, no JobRequirement schema change.
+        return []
     importance = infer_importance(claim.text, necessity)
     span = SourceSpan(claim.start, claim.end)
 
@@ -324,6 +347,16 @@ class UnparsedClaim:
     `JobRequirement` already passes through -- no new, looser trigger
     is introduced here) for which `_requirements_from_claim` STILL
     produced zero rows.
+
+    Milestone 10B: this now ALSO covers a claim admitted from an
+    unrecognized (`_SectionKind.UNKNOWN`) section with no local
+    REQUIRED/PREFERRED marker in its own text -- `infer_necessity`
+    returned `None`, and `_requirements_from_claim` short-circuits to
+    `[]` before running any detector, for exactly the same reason: no
+    responsible, non-fabricated row can be produced. This is a
+    generalization of this class's existing meaning ("the parser could
+    not responsibly produce a `JobRequirement` for this"), not a second,
+    different kind of gap -- no new field, no new type.
 
     This is a strictly more severe gap than the `category=
     "unresolved_requirement"` placeholder (Milestone 9A): that

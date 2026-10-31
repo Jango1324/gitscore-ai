@@ -1,5 +1,102 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-31 — Milestone 10B: Safe section-state handling
+
+**What changed:** Fixes M10A's highest-severity traced defect
+(`docs/evaluation/MILESTONE_10A_REALWORLD_PARSING_FAILURES.md` Root
+Cause 2) with a narrow, design-reviewed-first fix
+(`docs/evaluation/MILESTONE_10B_SECTION_STATE_SAFETY.md`). Three files
+under `src/gitscore/jobs/parsing/`:
+- `segmentation.py` — new internal `_SectionKind.UNKNOWN` member. A
+  colon-terminated, non-bulleted, table-unmatched heading-shaped line
+  now resets `current_kind` to `UNKNOWN` instead of silently leaving a
+  stale REQUIRED/PREFERRED kind in effect — but ONLY when
+  `current_kind` was already a real recognized kind (never from `None`,
+  preserving the separate, pre-existing "no section at all → default
+  REQUIRED" policy untouched) and ONLY for a non-bulleted line (a
+  bulleted colon lead-in inside an already-open section, e.g.
+  "- Experience with the following:", is a list item, never a section
+  boundary — found and fixed during approval review, before
+  implementation). `Claim.necessity_hint` widens to `Necessity | None`.
+- `necessity.py` — `infer_necessity()`'s return type widens to
+  `Necessity | None`; its local-marker-wins precedence (Milestone 6B
+  Part 7) is completely unchanged.
+- `parser.py` — `_requirements_from_claim()` short-circuits to `[]`
+  when necessity is `None`, routing the claim through the EXISTING
+  Milestone 9C `UnparsedClaim` mechanism (no new diagnostic type).
+  `JOB_DESCRIPTION_PARSER_VERSION` bumps `v4` → `v5`.
+
+**Why:** M10A found that once ANY heading failed to match the small,
+generic heading table, the previously-open section's necessity kept
+applying to everything after it for the rest of the document — company
+bio, legal/EEO text, salary disclosures, even a blog-post `.html` URL —
+producing scored, fabricated `JobRequirement` rows (e.g. a Manulife
+salary-disclosure sentence scored as a `PREFERRED` requirement). The
+mission was explicit that `UNKNOWN` must never default to REQUIRED or
+PREFERRED merely because the `Necessity` enum has only two values, and
+that no `JobRequirement` schema/API/matcher/scoring change be made
+without a separate STOP/approval — both honored: zero new public types,
+zero schema bumps beyond the parser's own version string, zero matcher
+or scoring-formula changes.
+
+**Before/after (real postings, the exact two M10A sourced):** Manulife
+— false-positive `JobRequirement` rows: 5 → **0** (zero new false
+positives introduced); `meets_ideal_outcome`: 29/43 → 34/43. SOTI —
+**byte-identical**, 0 changes (it never exhibited this specific defect;
+every unrecognized heading in it occurs while `current_kind` was
+already `None`, not a stale real section — confirms the fix is
+correctly scoped to the actual defect). `evaluate_m9b_preservation.py`:
+byte-identical metrics except the `parser_version_under_test` string
+(every M9B template uses only a recognized heading or none at all).
+The frozen 8c:v1/8c:v1.1 parser evaluations
+(`evaluation/reports/parser_report*.json`): byte-identical, zero diff.
+
+**Design process:** this was a bounded design review FIRST (Phase
+0–3 trace, options evaluation, an 11-control corpus authored
+independently of any parser output), presented for approval before any
+`src/gitscore` file was touched. Approval review itself caught a real
+gap in the originally-drafted trigger rule (the bulleted-colon-lead-in
+case above), fixed and re-verified against all original controls plus
+a 12th new control before implementation began — see
+`docs/evaluation/MILESTONE_10B_SECTION_STATE_SAFETY.md` §3.1b for the
+full amendment trace.
+
+**Risks / limitations:** a small amount of `unparsed_claims`
+diagnostic-list visibility is traded for silence on content that is
+*definitely* not requirement text (pure company narrative, pure job
+duties) once it falls under `UNKNOWN` — this mirrors the exact
+drop behavior un-sectioned marketing prose already had before this
+milestone (Root Cause 3, unchanged), not a new kind of loss, and never
+drops genuinely ambiguous-but-plausibly-relevant text (confirmed via
+all 12 controls — such content is always preserved as a diagnostic).
+Explicitly NOT addressed, per Phase 4 scope boundary: the narrow
+heading-recognition vocabulary itself (M10A Root Cause 1), the
+Manulife "at least one ... (e.g., ...)" OR-structure loss (Root Cause
+4), and the "one or more of" idiom-blind splitting (Root Cause 5) — all
+three remain exactly as limited as before.
+
+**How to test it:**
+```
+python -m pytest                                      # 975 passed (947 + 28 new)
+python -m pytest tests/test_m10b_section_state_safety.py -v   # 28 passed
+python scripts/evaluate_m10a_realworld.py              # Manulife FP: 5 -> 0
+python scripts/evaluate_m9b_preservation.py            # byte-identical metrics
+python scripts/evaluate_job_parser.py                  # 8c:v1, byte-identical
+python scripts/evaluate_job_parser.py --corpus-version 8c:v1.1   # byte-identical
+```
+
+**Files affected:** `src/gitscore/jobs/parsing/segmentation.py`,
+`src/gitscore/jobs/parsing/necessity.py`,
+`src/gitscore/jobs/parsing/parser.py`;
+`tests/test_m10b_section_state_safety.py` (new, 28 tests);
+`evaluation/m10b/section_state_controls.json` (new, 12 independently-
+authored controls); `docs/ARCHITECTURE.md` (§32, new), `docs/PIPELINE.md`,
+`docs/evaluation/MILESTONE_10B_SECTION_STATE_SAFETY.md` (design review +
+implementation results), `docs/CHANGELOG_DEV.md` (this entry). No
+`JobRequirement`/`JobRequirementProfile` schema change, no API field
+added/renamed/retyped, no matcher/scoring-formula change, no frozen
+gold modified.
+
 ## 2026-10-25 — Milestone 9G: Headline coverage-gap visibility
 
 **What changed:** Frontend-only. Implements the one M9F-approved,

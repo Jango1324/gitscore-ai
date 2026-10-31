@@ -1,6 +1,6 @@
 # Milestone 9B Phase 1 -- Requirement Preservation Benchmark
 
-Corpus version: `9b:v1`  |  Parser version under test: `job_description_parser:v4`
+Corpus version: `9b:v1`  |  Parser version under test: `job_description_parser:v5`
 
 Total entries: 30 (26 requirement claims, 4 non-requirement prose/headings)
 

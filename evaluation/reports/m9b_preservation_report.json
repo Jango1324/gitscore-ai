@@ -1,6 +1,6 @@
 {
   "corpus_version": "9b:v1",
-  "parser_version_under_test": "job_description_parser:v4",
+  "parser_version_under_test": "job_description_parser:v5",
   "metrics": {
     "total_entries": 30,
     "total_requirement_entries": 26,

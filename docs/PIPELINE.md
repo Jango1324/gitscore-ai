@@ -457,6 +457,28 @@ requirement within the existing `NOT_ASSESSABLE` status -- no new
 §29 and `docs/evaluation/MILESTONE_9C_ASSESSMENT_TRANSPARENCY.md` for
 the full design audit and before/after detail.
 
+### Safe section-state handling -- Milestone 10B
+
+`segment_description()`'s section-tracking state machine
+(`jobs/parsing/segmentation.py`) gained one internal state,
+`_SectionKind.UNKNOWN`: an unrecognized, colon-terminated, non-bulleted
+heading-shaped line now resets section state instead of silently
+leaving a stale REQUIRED/PREFERRED kind in effect for the rest of the
+document (M10A's highest-severity traced defect -- a real posting's
+"When you join our team:"/"Working Arrangement" style transition was
+turning company bio, legal/EEO text, and salary disclosures into
+scored, fabricated requirement rows). `Claim.necessity_hint` and
+`infer_necessity()`'s return type both widen to `Necessity | None`;
+`_requirements_from_claim()` (`jobs/parsing/parser.py`) now
+short-circuits to zero rows when necessity cannot be resolved, which
+routes the claim through the EXISTING Milestone 9C `UnparsedClaim`
+mechanism -- `parse_job_description()`'s signature,
+`JobRequirementProfile`'s schema, the matcher, and the scoring formula
+are all completely unchanged; only `JOB_DESCRIPTION_PARSER_VERSION`
+bumps (`v4` -> `v5`). See `docs/ARCHITECTURE.md` §32 and
+`docs/evaluation/MILESTONE_10B_SECTION_STATE_SAFETY.md` for the full
+design review and measured before/after.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

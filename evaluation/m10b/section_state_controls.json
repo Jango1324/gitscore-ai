@@ -1,0 +1,120 @@
+{
+  "schema_note": "Milestone 10B Phase 3 -- independently-authored section-transition truth, kept deliberately SEPARATE from any parser output. Written by reasoning about what EACH posting fragment should mean on a fresh read, not by running the current (or any prototype) parser first and reverse-engineering a label from its output. See docs/evaluation/MILESTONE_10B_SECTION_STATE_SAFETY.md Phase 3 for how these are used -- this file is evaluation data only, never imported by src/gitscore. Not wired to any committed measurement script in this milestone (design-review only; no implementation has been approved yet).",
+  "necessity_values": ["required", "preferred", "ambiguous_no_default"],
+  "outcome_values": [
+    "formal_requirement",
+    "diagnostic_preserved",
+    "correctly_excluded_non_requirement"
+  ],
+  "controls": [
+    {
+      "id": "m10b-01-required-skills-positive",
+      "description": "Positive control: a RECOGNIZED Required-family heading governs a genuine technical bullet. Baseline sanity check -- must still work after any fix.",
+      "fragment": "Requirements:\n- Experience with PostgreSQL is required.\n",
+      "expected_heading_recognized": true,
+      "expected_necessity": "required",
+      "expected_outcome": "formal_requirement",
+      "rationale": "Unchanged, core, already-tested behavior. Any design that breaks this is disqualified."
+    },
+    {
+      "id": "m10b-02-preferred-qualifications-positive",
+      "description": "Positive control: a RECOGNIZED Preferred-family heading governs a genuine technical bullet.",
+      "fragment": "Preferred Qualifications:\n- Experience with Redis is a plus.\n",
+      "expected_heading_recognized": true,
+      "expected_necessity": "preferred",
+      "expected_outcome": "formal_requirement",
+      "rationale": "Unchanged, core, already-tested behavior."
+    },
+    {
+      "id": "m10b-03-unknown-after-preferred",
+      "description": "Negative control for inheritance: an UNRECOGNIZED heading immediately follows a real Preferred Qualifications section. The technical-sounding sentence under it has no local necessity marker.",
+      "fragment": "Preferred Qualifications:\n- Experience with Docker is a plus.\n\nLearning Opportunities:\nYou will build new skills working with our internal deployment tooling.\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "ambiguous_no_default",
+      "expected_outcome": "diagnostic_preserved",
+      "rationale": "Must NOT inherit PREFERRED from the prior section (today's Root Cause 2). Must also not fabricate REQUIRED. The sentence names no local marker and no recognized concept strongly enough to stand on its own as a formal requirement -- preserved as a diagnostic, not silently dropped, not scored."
+    },
+    {
+      "id": "m10b-04-unknown-after-required",
+      "description": "Negative control for inheritance: an UNRECOGNIZED heading immediately follows a real Requirements section.",
+      "fragment": "Requirements:\n- 3+ years of Python experience required.\n\nWorking Arrangement:\nThis role is hybrid, three days per week in office.\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "ambiguous_no_default",
+      "expected_outcome": "correctly_excluded_non_requirement",
+      "rationale": "Must NOT inherit REQUIRED from the prior section. The hybrid-schedule sentence is genuinely not a qualification claim at all (no technical concept, no requirement vocabulary) -- correctly excluded, same as marketing prose outside any section today."
+    },
+    {
+      "id": "m10b-05-about-company",
+      "description": "Company narrative under an unrecognized heading, immediately after a real Preferred section -- the exact real-world Manulife shape.",
+      "fragment": "Preferred Qualifications:\n- Experience with Kubernetes is a plus.\n\nAbout Our Company:\nWe are a leading provider of financial services, helping people make decisions easier and lives better.\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "ambiguous_no_default",
+      "expected_outcome": "correctly_excluded_non_requirement",
+      "rationale": "Pure company-bio marketing prose. Must never become a scored PREFERRED requirement (today's defect) and must never need to resemble a SKIP-section heading-vocabulary fix to be excluded -- exclusion here comes from the SAME pre-existing heuristic gate used for any un-sectioned prose, not from recognizing \"About Our Company\" by name."
+    },
+    {
+      "id": "m10b-06-learning-opportunities",
+      "description": "A genuinely ambiguous-purpose heading (could be read as a requirement adjacent to perks) after a real Required section.",
+      "fragment": "Requirements:\n- Experience with AWS is required.\n\nWhat You Will Learn:\nYou will grow your skills in cloud infrastructure and distributed systems.\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "ambiguous_no_default",
+      "expected_outcome": "diagnostic_preserved",
+      "rationale": "The sentence contains \"skills\" (a requirement-signal word), so it passes the SAME outside-section heuristic gate every other claim does -- preserved as a diagnostic (parser found something, could not responsibly assign necessity), never silently dropped and never scored REQUIRED."
+    },
+    {
+      "id": "m10b-07-responsibilities-under-unknown",
+      "description": "Job duties appearing under an unrecognized heading after a real Preferred section.",
+      "fragment": "Preferred Qualifications:\n- Experience with Terraform is a plus.\n\nA Day in This Role:\n- Write and review pull requests.\n- Deploy services to production.\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "ambiguous_no_default",
+      "expected_outcome": "correctly_excluded_non_requirement",
+      "rationale": "Pure job duties, never an applicant qualification regardless of section. Neither bullet contains a requirement-signal word or a known technical concept standing alone (\"pull requests\", \"production\" are not registered concepts), so both are correctly excluded by the existing heuristic gate -- same mechanism, same outcome class, as the already-measured M10A Manulife Responsibilities gap (a pre-existing, separately-scoped transparency limitation, not something this milestone's fix is expected to resolve)."
+    },
+    {
+      "id": "m10b-08-unsectioned-explicit-requirement",
+      "description": "An explicit, unambiguous genuine requirement with NO heading above it anywhere in the document (current_kind was never set to a real recognized kind at all).",
+      "fragment": "We need someone with hands-on experience in Python and PostgreSQL.\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "required",
+      "expected_outcome": "formal_requirement",
+      "rationale": "This is the PRE-EXISTING, separately-approved Milestone 6B \"no section at all -> default REQUIRED\" policy and must be completely unaffected by this milestone's fix -- current_kind was never a real recognized kind to begin with, so there is no inheritance to break, and no unrecognized heading was encountered either. A design that routes this to a diagnostic instead of a formal requirement has over-reached its scope."
+    },
+    {
+      "id": "m10b-09-company-narrative-years-of-experience",
+      "description": "Company narrative mentioning years of experience in a non-requirement, promotional context, immediately after a real Required section.",
+      "fragment": "Requirements:\n- Experience with Go is required.\n\nOur Story:\nFor over 25 years, our engineers have been building the tools that power global logistics.\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "ambiguous_no_default",
+      "expected_outcome": "diagnostic_preserved",
+      "rationale": "Contains \"years\" (a requirement-signal word) purely incidentally -- passes the existing heuristic gate and is preserved as a diagnostic (visible, inspectable, flagged as uncertain) rather than becoming a fabricated REQUIRED row (today's defect class) or vanishing without trace."
+    },
+    {
+      "id": "m10b-10-legal-salary-disclosure-with-technical-terms",
+      "description": "Legal/salary disclosure prose that happens to mention technical-sounding vocabulary, immediately after a real Preferred section -- the exact real-world Manulife EEO/salary shape.",
+      "fragment": "Preferred Qualifications:\n- Experience with React is a plus.\n\nCompensation Disclosure:\nThe actual salary will vary depending on local market conditions, geography, and relevant job-related factors such as knowledge, skills, qualifications, and experience.\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "ambiguous_no_default",
+      "expected_outcome": "diagnostic_preserved",
+      "rationale": "This is the real, measured M10A false positive (Manulife salary paragraph, scored as a fabricated PREFERRED unresolved_requirement row today). Contains \"skills\"/\"qualifications\"/\"experience\" incidentally -- passes the heuristic gate, but must land as a diagnostic, never as a scored PREFERRED row, and never with its necessity silently inherited from the unrelated Preferred Qualifications section two paragraphs above."
+    },
+    {
+      "id": "m10b-11-recognized-section-after-unknown",
+      "description": "A real recognized heading correctly appears AFTER an unrecognized one -- the state machine must still recognize it normally; UNKNOWN must never \"stick\" past a real heading either.",
+      "fragment": "Growth Opportunities:\nYou will learn new things.\n\nRequired Qualifications:\n- Experience with PostgreSQL is required.\n",
+      "expected_heading_recognized": true,
+      "expected_necessity": "required",
+      "expected_outcome": "formal_requirement",
+      "rationale": "Recognized-heading detection must take priority over any lingering UNKNOWN state -- a real heading always wins and resets state normally, exactly as it does today. Confirms the fix does not trade a REQUIRED/PREFERRED stickiness bug for a new UNKNOWN stickiness bug."
+    },
+    {
+      "id": "m10b-12-bulleted-colon-leadin-inside-recognized-section",
+      "description": "AMENDMENT CONTROL (added after approval-review feedback): a bulleted, colon-terminated list lead-in (\"- Experience with the following:\") appears INSIDE an already-open, correctly-recognized Requirements section, immediately followed by its own sub-bullets. A naive colon-triggered heading-reset rule misfires here because real section headings are never bulleted, but nothing in the original rule as first drafted checked for that.",
+      "fragment": "Requirements:\n- Experience with the following:\n- Python\n- JavaScript\n",
+      "expected_heading_recognized": false,
+      "expected_necessity": "required",
+      "expected_outcome": "formal_requirement",
+      "targets_last_two_lines": true,
+      "rationale": "\"Python\" and \"JavaScript\" must remain formal REQUIRED rows -- they are genuine sub-bullets of an already-open Requirements section, not content following an unrecognized heading. A colon-terminated line that is ALSO bullet-prefixed must never trigger the UNKNOWN-reset; only a bare (non-bulleted) colon-terminated line can plausibly be a real section heading. Without this exemption, both sub-bullets were empirically observed to be wrongly demoted to bare UnparsedClaim diagnostics in the scratch prototype -- this control locks in the fix."
+    }
+  ]
+}
