@@ -479,6 +479,27 @@ bumps (`v4` -> `v5`). See `docs/ARCHITECTURE.md` §32 and
 `docs/evaluation/MILESTONE_10B_SECTION_STATE_SAFETY.md` for the full
 design review and measured before/after.
 
+### Real-world heading recognition -- Milestone 10C
+
+`segment_description()`'s heading recognition (`jobs/parsing/segmentation.py`)
+replaces the small, exact-phrase `_HEADING_KIND` table M10A found too
+narrow (Root Cause 1 -- "Required skills" vs. "Requirements," "Position
+Responsibilities" vs. "Responsibilities," no category at all for a
+"what you will learn" section) with `_classify_heading_line()`: a
+structural shape gate independent of word content, then anchored
+root-word families (`REQUIRED`/`PREFERRED`/`RESPONSIBILITY`/new
+`LEARNING`/`NON_QUALIFICATION`) with built-in collision exclusions and
+an honest `UNKNOWN` outcome for a line matching more than one family --
+never a forced, fixed-precedence winner. `LEARNING` is a new internal
+`_SectionKind` (joins `UNKNOWN` in never mapping to a `Necessity`); the
+existing `SKIP` kind's recognized vocabulary widens (`NON_QUALIFICATION`).
+`Claim`, `JobRequirement`, `UnparsedClaim`, the matcher, and the scoring
+formula are all completely unchanged; only `JOB_DESCRIPTION_PARSER_VERSION`
+bumps (`v5` -> `v6`). See `docs/ARCHITECTURE.md` §33 and
+`docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md` for the full
+design review, the real implementation-time regression found and
+fixed, and the measured before/after on both real postings.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

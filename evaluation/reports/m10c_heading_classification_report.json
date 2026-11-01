@@ -1,0 +1,910 @@
+{
+  "corpus_path": "evaluation\\m10c\\heading_controls.json",
+  "corpus_entry_count": 78,
+  "strategies": {
+    "A_expanded_exact_match": {
+      "strategy": "A_expanded_exact_match",
+      "total_entries": 78,
+      "heading_detection_accuracy": 0.8717948717948718,
+      "outcome_tier_counts": {
+        "exact_match": 68,
+        "safe_disagreement": 6,
+        "unsafe_mismatch": 4
+      },
+      "outcome_tier_entry_ids": {
+        "exact_match": [
+          "m10c-001-required-skills-plain",
+          "m10c-002-required-skills-colon-soti-exact",
+          "m10c-003-required-qualifications-plain",
+          "m10c-004-required-qualifications-colon-manulife-exact",
+          "m10c-005-required-qualifications-uppercase",
+          "m10c-006-required-qualifications-markdown-h2",
+          "m10c-007-required-qualifications-markdown-h3",
+          "m10c-008-required-qualifications-bold",
+          "m10c-009-minimum-requirements",
+          "m10c-010-basic-qualifications",
+          "m10c-011-must-have-skills-hyphen",
+          "m10c-012-must-have-skills-no-hyphen",
+          "m10c-013-requirements-bare",
+          "m10c-014-technical-skills",
+          "m10c-015-required-qualifications-nbsp",
+          "m10c-019-preferred-skills",
+          "m10c-020-preferred-qualifications-plain",
+          "m10c-021-preferred-qualifications-colon-manulife-exact",
+          "m10c-022-preferred-qualifications-uppercase",
+          "m10c-023-preferred-skills-markdown",
+          "m10c-024-nice-to-have",
+          "m10c-025-nice-to-have-hyphenated-lowercase-colon",
+          "m10c-026-bonus-points",
+          "m10c-027-position-responsibilities-manulife-exact",
+          "m10c-028-what-youll-do",
+          "m10c-029-what-you-will-do",
+          "m10c-030-job-duties",
+          "m10c-031-the-role",
+          "m10c-032-a-day-in-this-role",
+          "m10c-033-duties-and-responsibilities-uppercase",
+          "m10c-034-skills-you-will-learn",
+          "m10c-035-skills-youll-learn-contraction",
+          "m10c-036-what-you-will-learn-soti-exact-colon",
+          "m10c-037-what-youll-learn-contraction",
+          "m10c-038-skills-youll-gain",
+          "m10c-039-learning-opportunities",
+          "m10c-040-growth-opportunities",
+          "m10c-041-about-us",
+          "m10c-042-about-soti-exact",
+          "m10c-043-about-manulife-short",
+          "m10c-044-about-manulife-and-john-hancock-exact",
+          "m10c-048-benefits",
+          "m10c-049-compensation",
+          "m10c-050-equal-opportunity-employer",
+          "m10c-051-working-arrangement-manulife-exact",
+          "m10c-052-application-process",
+          "m10c-053-application-instructions-manulife-exact",
+          "m10c-054-how-to-apply",
+          "m10c-055-diversity-and-inclusion",
+          "m10c-056-when-you-join-our-team-manulife-exact",
+          "m10c-057-experience-with-colon-inline-list",
+          "m10c-058-experience-with-the-following-colon-bare",
+          "m10c-059-experience-with-the-following-bulleted",
+          "m10c-060-familiarity-with-the-following-tools",
+          "m10c-061-knowledge-of-colon-bare",
+          "m10c-063-required-qualifications-sentence-not-heading",
+          "m10c-064-preferred-learning-sentence-not-heading",
+          "m10c-065-responsibility-sentence-not-heading",
+          "m10c-066-learn-sentence-not-heading",
+          "m10c-067-required-qualifications-tab-indent",
+          "m10c-068-required-qualifications-trailing-zero-width-space",
+          "m10c-071-qualifications-colon",
+          "m10c-072-benefits-colon",
+          "m10c-073-about-the-company",
+          "m10c-074-nice-to-have-colon-lowercase",
+          "m10c-075-key-responsibilities",
+          "m10c-076-perks-and-benefits",
+          "m10c-077-proficient-in-colon-inline-list"
+        ],
+        "safe_disagreement": [
+          "m10c-016-qualifications-and-responsibilities",
+          "m10c-017-required-responsibilities",
+          "m10c-018-required-skills-and-responsibilities",
+          "m10c-062-skills-colon-bare",
+          "m10c-070-good-to-know",
+          "m10c-078-growth-opportunities-colon-northfield"
+        ],
+        "unsafe_mismatch": [
+          "m10c-045-about-lumenbridge-fictional",
+          "m10c-046-about-coriander-labs-fictional",
+          "m10c-047-about-vertrix-systems-fictional",
+          "m10c-069-additional-information"
+        ]
+      },
+      "unsafe_mismatches": [
+        {
+          "id": "m10c-045-about-lumenbridge-fictional",
+          "text": "About Lumenbridge",
+          "truth_is_heading": true,
+          "truth_section": "NON_QUALIFICATION",
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "severity": "low"
+        },
+        {
+          "id": "m10c-046-about-coriander-labs-fictional",
+          "text": "About Coriander Labs",
+          "truth_is_heading": true,
+          "truth_section": "NON_QUALIFICATION",
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "severity": "low"
+        },
+        {
+          "id": "m10c-047-about-vertrix-systems-fictional",
+          "text": "About Vertrix Systems",
+          "truth_is_heading": true,
+          "truth_section": "NON_QUALIFICATION",
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "severity": "low"
+        },
+        {
+          "id": "m10c-069-additional-information",
+          "text": "Additional Information",
+          "truth_is_heading": true,
+          "truth_section": "UNKNOWN",
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "severity": "low"
+        }
+      ],
+      "strict_prf": {
+        "per_family": {
+          "REQUIRED": {
+            "tp": 17,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "PREFERRED": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "RESPONSIBILITY": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "LEARNING": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "NON_QUALIFICATION": {
+            "tp": 16,
+            "fp": 0,
+            "fn": 3,
+            "precision": 1.0,
+            "recall": 0.8421052631578947
+          },
+          "UNKNOWN": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "confusion_matrix": {
+          "REQUIRED": {
+            "REQUIRED": 17
+          },
+          "PREFERRED": {
+            "PREFERRED": 9
+          },
+          "RESPONSIBILITY": {
+            "RESPONSIBILITY": 7
+          },
+          "LEARNING": {
+            "LEARNING": 6
+          },
+          "NON_QUALIFICATION": {
+            "NON_QUALIFICATION": 16,
+            "NOT_HEADING": 3
+          },
+          "UNKNOWN": {
+            "NOT_HEADING": 1
+          }
+        },
+        "confident_entry_count": 59
+      },
+      "real_posting_trace": [
+        {
+          "posting": "soti",
+          "text": "Opportunity",
+          "truth_section": "UNKNOWN",
+          "today_recognized": false,
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "candidates": [],
+          "matches_truth": false
+        },
+        {
+          "posting": "soti",
+          "text": "What you will learn:",
+          "truth_section": "LEARNING",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "LEARNING",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "soti",
+          "text": "Required skills:",
+          "truth_section": "REQUIRED",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "REQUIRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "soti",
+          "text": "About SOTI",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Position Responsibilities:",
+          "truth_section": "RESPONSIBILITY",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "RESPONSIBILITY",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Required Qualifications:",
+          "truth_section": "REQUIRED",
+          "today_recognized": true,
+          "predicted_is_heading": true,
+          "predicted_section": "REQUIRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Preferred Qualifications:",
+          "truth_section": "PREFERRED",
+          "today_recognized": true,
+          "predicted_is_heading": true,
+          "predicted_section": "PREFERRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "When you join our team:",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Application instructions:",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "About Manulife and John Hancock",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Working Arrangement",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        }
+      ],
+      "real_posting_headings_correctly_classified": 10,
+      "real_posting_headings_total": 11,
+      "real_posting_headings_recognized_today": 2
+    },
+    "B_anchored_patterns_precedence": {
+      "strategy": "B_anchored_patterns_precedence",
+      "total_entries": 78,
+      "heading_detection_accuracy": 0.9230769230769231,
+      "outcome_tier_counts": {
+        "exact_match": 71,
+        "safe_disagreement": 5,
+        "unsafe_mismatch": 2
+      },
+      "outcome_tier_entry_ids": {
+        "exact_match": [
+          "m10c-001-required-skills-plain",
+          "m10c-002-required-skills-colon-soti-exact",
+          "m10c-003-required-qualifications-plain",
+          "m10c-004-required-qualifications-colon-manulife-exact",
+          "m10c-005-required-qualifications-uppercase",
+          "m10c-006-required-qualifications-markdown-h2",
+          "m10c-007-required-qualifications-markdown-h3",
+          "m10c-008-required-qualifications-bold",
+          "m10c-009-minimum-requirements",
+          "m10c-010-basic-qualifications",
+          "m10c-011-must-have-skills-hyphen",
+          "m10c-012-must-have-skills-no-hyphen",
+          "m10c-013-requirements-bare",
+          "m10c-015-required-qualifications-nbsp",
+          "m10c-016-qualifications-and-responsibilities",
+          "m10c-018-required-skills-and-responsibilities",
+          "m10c-019-preferred-skills",
+          "m10c-020-preferred-qualifications-plain",
+          "m10c-021-preferred-qualifications-colon-manulife-exact",
+          "m10c-022-preferred-qualifications-uppercase",
+          "m10c-023-preferred-skills-markdown",
+          "m10c-024-nice-to-have",
+          "m10c-025-nice-to-have-hyphenated-lowercase-colon",
+          "m10c-026-bonus-points",
+          "m10c-027-position-responsibilities-manulife-exact",
+          "m10c-028-what-youll-do",
+          "m10c-029-what-you-will-do",
+          "m10c-030-job-duties",
+          "m10c-031-the-role",
+          "m10c-032-a-day-in-this-role",
+          "m10c-033-duties-and-responsibilities-uppercase",
+          "m10c-034-skills-you-will-learn",
+          "m10c-035-skills-youll-learn-contraction",
+          "m10c-036-what-you-will-learn-soti-exact-colon",
+          "m10c-037-what-youll-learn-contraction",
+          "m10c-038-skills-youll-gain",
+          "m10c-039-learning-opportunities",
+          "m10c-040-growth-opportunities",
+          "m10c-041-about-us",
+          "m10c-042-about-soti-exact",
+          "m10c-043-about-manulife-short",
+          "m10c-044-about-manulife-and-john-hancock-exact",
+          "m10c-045-about-lumenbridge-fictional",
+          "m10c-046-about-coriander-labs-fictional",
+          "m10c-047-about-vertrix-systems-fictional",
+          "m10c-048-benefits",
+          "m10c-049-compensation",
+          "m10c-050-equal-opportunity-employer",
+          "m10c-051-working-arrangement-manulife-exact",
+          "m10c-052-application-process",
+          "m10c-053-application-instructions-manulife-exact",
+          "m10c-054-how-to-apply",
+          "m10c-055-diversity-and-inclusion",
+          "m10c-056-when-you-join-our-team-manulife-exact",
+          "m10c-057-experience-with-colon-inline-list",
+          "m10c-059-experience-with-the-following-bulleted",
+          "m10c-062-skills-colon-bare",
+          "m10c-063-required-qualifications-sentence-not-heading",
+          "m10c-064-preferred-learning-sentence-not-heading",
+          "m10c-065-responsibility-sentence-not-heading",
+          "m10c-066-learn-sentence-not-heading",
+          "m10c-067-required-qualifications-tab-indent",
+          "m10c-068-required-qualifications-trailing-zero-width-space",
+          "m10c-071-qualifications-colon",
+          "m10c-072-benefits-colon",
+          "m10c-073-about-the-company",
+          "m10c-074-nice-to-have-colon-lowercase",
+          "m10c-075-key-responsibilities",
+          "m10c-076-perks-and-benefits",
+          "m10c-077-proficient-in-colon-inline-list",
+          "m10c-078-growth-opportunities-colon-northfield"
+        ],
+        "safe_disagreement": [
+          "m10c-014-technical-skills",
+          "m10c-058-experience-with-the-following-colon-bare",
+          "m10c-060-familiarity-with-the-following-tools",
+          "m10c-061-knowledge-of-colon-bare",
+          "m10c-070-good-to-know"
+        ],
+        "unsafe_mismatch": [
+          "m10c-017-required-responsibilities",
+          "m10c-069-additional-information"
+        ]
+      },
+      "unsafe_mismatches": [
+        {
+          "id": "m10c-017-required-responsibilities",
+          "text": "Required Responsibilities",
+          "truth_is_heading": true,
+          "truth_section": "RESPONSIBILITY",
+          "predicted_is_heading": true,
+          "predicted_section": "REQUIRED",
+          "severity": "high"
+        },
+        {
+          "id": "m10c-069-additional-information",
+          "text": "Additional Information",
+          "truth_is_heading": true,
+          "truth_section": "UNKNOWN",
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "severity": "low"
+        }
+      ],
+      "strict_prf": {
+        "per_family": {
+          "REQUIRED": {
+            "tp": 17,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "PREFERRED": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "RESPONSIBILITY": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "LEARNING": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "NON_QUALIFICATION": {
+            "tp": 19,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "UNKNOWN": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "confusion_matrix": {
+          "REQUIRED": {
+            "REQUIRED": 17
+          },
+          "PREFERRED": {
+            "PREFERRED": 9
+          },
+          "RESPONSIBILITY": {
+            "RESPONSIBILITY": 7
+          },
+          "LEARNING": {
+            "LEARNING": 6
+          },
+          "NON_QUALIFICATION": {
+            "NON_QUALIFICATION": 19
+          },
+          "UNKNOWN": {
+            "NOT_HEADING": 1
+          }
+        },
+        "confident_entry_count": 59
+      },
+      "real_posting_trace": [
+        {
+          "posting": "soti",
+          "text": "Opportunity",
+          "truth_section": "UNKNOWN",
+          "today_recognized": false,
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "candidates": [],
+          "matches_truth": false
+        },
+        {
+          "posting": "soti",
+          "text": "What you will learn:",
+          "truth_section": "LEARNING",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "LEARNING",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "soti",
+          "text": "Required skills:",
+          "truth_section": "REQUIRED",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "REQUIRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "soti",
+          "text": "About SOTI",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Position Responsibilities:",
+          "truth_section": "RESPONSIBILITY",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "RESPONSIBILITY",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Required Qualifications:",
+          "truth_section": "REQUIRED",
+          "today_recognized": true,
+          "predicted_is_heading": true,
+          "predicted_section": "REQUIRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Preferred Qualifications:",
+          "truth_section": "PREFERRED",
+          "today_recognized": true,
+          "predicted_is_heading": true,
+          "predicted_section": "PREFERRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "When you join our team:",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Application instructions:",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "About Manulife and John Hancock",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Working Arrangement",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        }
+      ],
+      "real_posting_headings_correctly_classified": 10,
+      "real_posting_headings_total": 11,
+      "real_posting_headings_recognized_today": 2
+    },
+    "C_structured_detection_plus_purpose": {
+      "strategy": "C_structured_detection_plus_purpose",
+      "total_entries": 78,
+      "heading_detection_accuracy": 0.9230769230769231,
+      "outcome_tier_counts": {
+        "exact_match": 72,
+        "safe_disagreement": 5,
+        "unsafe_mismatch": 1
+      },
+      "outcome_tier_entry_ids": {
+        "exact_match": [
+          "m10c-001-required-skills-plain",
+          "m10c-002-required-skills-colon-soti-exact",
+          "m10c-003-required-qualifications-plain",
+          "m10c-004-required-qualifications-colon-manulife-exact",
+          "m10c-005-required-qualifications-uppercase",
+          "m10c-006-required-qualifications-markdown-h2",
+          "m10c-007-required-qualifications-markdown-h3",
+          "m10c-008-required-qualifications-bold",
+          "m10c-009-minimum-requirements",
+          "m10c-010-basic-qualifications",
+          "m10c-011-must-have-skills-hyphen",
+          "m10c-012-must-have-skills-no-hyphen",
+          "m10c-013-requirements-bare",
+          "m10c-015-required-qualifications-nbsp",
+          "m10c-016-qualifications-and-responsibilities",
+          "m10c-017-required-responsibilities",
+          "m10c-018-required-skills-and-responsibilities",
+          "m10c-019-preferred-skills",
+          "m10c-020-preferred-qualifications-plain",
+          "m10c-021-preferred-qualifications-colon-manulife-exact",
+          "m10c-022-preferred-qualifications-uppercase",
+          "m10c-023-preferred-skills-markdown",
+          "m10c-024-nice-to-have",
+          "m10c-025-nice-to-have-hyphenated-lowercase-colon",
+          "m10c-026-bonus-points",
+          "m10c-027-position-responsibilities-manulife-exact",
+          "m10c-028-what-youll-do",
+          "m10c-029-what-you-will-do",
+          "m10c-030-job-duties",
+          "m10c-031-the-role",
+          "m10c-032-a-day-in-this-role",
+          "m10c-033-duties-and-responsibilities-uppercase",
+          "m10c-034-skills-you-will-learn",
+          "m10c-035-skills-youll-learn-contraction",
+          "m10c-036-what-you-will-learn-soti-exact-colon",
+          "m10c-037-what-youll-learn-contraction",
+          "m10c-038-skills-youll-gain",
+          "m10c-039-learning-opportunities",
+          "m10c-040-growth-opportunities",
+          "m10c-041-about-us",
+          "m10c-042-about-soti-exact",
+          "m10c-043-about-manulife-short",
+          "m10c-044-about-manulife-and-john-hancock-exact",
+          "m10c-045-about-lumenbridge-fictional",
+          "m10c-046-about-coriander-labs-fictional",
+          "m10c-047-about-vertrix-systems-fictional",
+          "m10c-048-benefits",
+          "m10c-049-compensation",
+          "m10c-050-equal-opportunity-employer",
+          "m10c-051-working-arrangement-manulife-exact",
+          "m10c-052-application-process",
+          "m10c-053-application-instructions-manulife-exact",
+          "m10c-054-how-to-apply",
+          "m10c-055-diversity-and-inclusion",
+          "m10c-056-when-you-join-our-team-manulife-exact",
+          "m10c-057-experience-with-colon-inline-list",
+          "m10c-059-experience-with-the-following-bulleted",
+          "m10c-062-skills-colon-bare",
+          "m10c-063-required-qualifications-sentence-not-heading",
+          "m10c-064-preferred-learning-sentence-not-heading",
+          "m10c-065-responsibility-sentence-not-heading",
+          "m10c-066-learn-sentence-not-heading",
+          "m10c-067-required-qualifications-tab-indent",
+          "m10c-068-required-qualifications-trailing-zero-width-space",
+          "m10c-071-qualifications-colon",
+          "m10c-072-benefits-colon",
+          "m10c-073-about-the-company",
+          "m10c-074-nice-to-have-colon-lowercase",
+          "m10c-075-key-responsibilities",
+          "m10c-076-perks-and-benefits",
+          "m10c-077-proficient-in-colon-inline-list",
+          "m10c-078-growth-opportunities-colon-northfield"
+        ],
+        "safe_disagreement": [
+          "m10c-014-technical-skills",
+          "m10c-058-experience-with-the-following-colon-bare",
+          "m10c-060-familiarity-with-the-following-tools",
+          "m10c-061-knowledge-of-colon-bare",
+          "m10c-070-good-to-know"
+        ],
+        "unsafe_mismatch": [
+          "m10c-069-additional-information"
+        ]
+      },
+      "unsafe_mismatches": [
+        {
+          "id": "m10c-069-additional-information",
+          "text": "Additional Information",
+          "truth_is_heading": true,
+          "truth_section": "UNKNOWN",
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "severity": "low"
+        }
+      ],
+      "strict_prf": {
+        "per_family": {
+          "REQUIRED": {
+            "tp": 17,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "PREFERRED": {
+            "tp": 9,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "RESPONSIBILITY": {
+            "tp": 7,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "LEARNING": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "NON_QUALIFICATION": {
+            "tp": 19,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "UNKNOWN": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "confusion_matrix": {
+          "REQUIRED": {
+            "REQUIRED": 17
+          },
+          "PREFERRED": {
+            "PREFERRED": 9
+          },
+          "RESPONSIBILITY": {
+            "RESPONSIBILITY": 7
+          },
+          "LEARNING": {
+            "LEARNING": 6
+          },
+          "NON_QUALIFICATION": {
+            "NON_QUALIFICATION": 19
+          },
+          "UNKNOWN": {
+            "NOT_HEADING": 1
+          }
+        },
+        "confident_entry_count": 59
+      },
+      "real_posting_trace": [
+        {
+          "posting": "soti",
+          "text": "Opportunity",
+          "truth_section": "UNKNOWN",
+          "today_recognized": false,
+          "predicted_is_heading": false,
+          "predicted_section": null,
+          "candidates": [],
+          "matches_truth": false
+        },
+        {
+          "posting": "soti",
+          "text": "What you will learn:",
+          "truth_section": "LEARNING",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "LEARNING",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "soti",
+          "text": "Required skills:",
+          "truth_section": "REQUIRED",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "REQUIRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "soti",
+          "text": "About SOTI",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Position Responsibilities:",
+          "truth_section": "RESPONSIBILITY",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "RESPONSIBILITY",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Required Qualifications:",
+          "truth_section": "REQUIRED",
+          "today_recognized": true,
+          "predicted_is_heading": true,
+          "predicted_section": "REQUIRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Preferred Qualifications:",
+          "truth_section": "PREFERRED",
+          "today_recognized": true,
+          "predicted_is_heading": true,
+          "predicted_section": "PREFERRED",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "When you join our team:",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Application instructions:",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "About Manulife and John Hancock",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        },
+        {
+          "posting": "manulife",
+          "text": "Working Arrangement",
+          "truth_section": "NON_QUALIFICATION",
+          "today_recognized": false,
+          "predicted_is_heading": true,
+          "predicted_section": "NON_QUALIFICATION",
+          "candidates": [],
+          "matches_truth": true
+        }
+      ],
+      "real_posting_headings_correctly_classified": 10,
+      "real_posting_headings_total": 11,
+      "real_posting_headings_recognized_today": 2
+    }
+  }
+}

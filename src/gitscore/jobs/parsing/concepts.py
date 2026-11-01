@@ -73,6 +73,31 @@ _ENUMERATION_CUE = re.compile(
     r"\b(?:such as|including|like|e\.g\.|for example)\b", re.IGNORECASE
 )
 
+# Milestone 9A -- a narrow, unambiguous technical lead-in phrase, gating
+# `parser.py`'s own last-resort `unresolved_requirement` placeholder
+# (`_unresolved_requirement_signal`). Deliberately NOT the full
+# `_LIST_ITEM_PREFIXES` table below: that table's bare filler
+# alternatives ("with"/"using"/"in"/"and"/"or"/"strong"/"solid"/
+# "advanced") are safe for stripping one word off an ALREADY-CONFIRMED
+# list item, but far too weak a signal to single-handedly justify
+# flagging an entire bare claim as an unresolved technical requirement
+# (e.g. "Strong communication" must never match). Lives in this shared
+# module (moved here, not duplicated, Milestone 10C) because
+# `segmentation.py`'s heading classifier considered reusing it too; that
+# specific reuse was tried and reverted during implementation (a bare,
+# un-bulleted list lead-in like "Experience with the following:" inside
+# an already-open recognized section must still reset state to
+# `_SectionKind.UNKNOWN`, exactly as Milestone 10B's existing, tested
+# behavior already requires -- excluding it from heading detection
+# entirely let it fall through as an ordinary claim instead, a real
+# regression caught by `tests/test_m10b_section_state_safety.py`). Left
+# here regardless, since `concepts.py` is already this package's shared
+# home for cross-module parsing-text heuristics.
+TECHNICAL_LEAD_IN = re.compile(
+    r"^(?:experience with|knowledge of|familiarity with|proficiency in|proficient in|expert in)\s+",
+    re.IGNORECASE,
+)
+
 
 def clean_list_fragment(fragment: str) -> str | None:
     """Strip common list-item prefixes/punctuation from `fragment` and

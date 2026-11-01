@@ -239,7 +239,7 @@
             "type": "unparsed_claim",
             "rationale": "A bare diagnostic trace is tolerable if the non-technical pattern table does not happen to cover this exact phrasing."
           },
-          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a segmentation Claim at all -- zero trace anywhere, not even unparsed_claims. Root cause: contains none of segmentation's outside-heading _REQUIREMENT_SIGNAL trigger words ('curiosity'/'desire'/'team' are not in that list; 'team' alone is not a trigger either), and 'Required skills:' (the heading immediately above it) was never recognized, so this bullet is judged by the same loose, accidental gate as ordinary prose."
+          "notes": "UPDATED Milestone 10C (supersedes the original M10A note below): under M10A/M10B, 'Required skills:' (the heading immediately above it) was not recognized by the heading table, so this bullet was judged by the same loose, accidental outside-section gate as ordinary prose -- which it failed (contains none of _REQUIREMENT_SIGNAL's trigger words; 'curiosity'/'desire'/'team' are not in that list) -- producing zero segmentation Claim at all, zero trace anywhere, not even unparsed_claims, the ORIGINAL finding this entry recorded. Confirmed, live, post-M10C: 'Required skills:' is now correctly recognized as REQUIRED (M10C's mandated heading-vocabulary expansion), so this bullet now IS admitted as a segmentation Claim unconditionally (claim creation under a recognized REQUIRED section bypasses the outside-section gate entirely) -- but still produces ZERO JobRequirement rows (no registered concept, no non-technical pattern covers 'curiosity'/'desire to learn', no experience qualifier), so it now lands in `unparsed_claims` instead of disappearing with zero trace. This is exactly this entry's own pre-existing `acceptable_fallback` (`unparsed_claim`), now achieved -- see docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md's completion addendum for the full before/after measurement. `is_requirement`/`ideal_outcome`/`acceptable_fallback` above are UNCHANGED by this update -- only this historical mechanism note was stale."
         }
       ]
     },
@@ -358,7 +358,7 @@
             "type": "unparsed_claim",
             "rationale": "At minimum, a responsibility bullet should leave SOME trace that it was read, even though it should never become a scored requirement."
           },
-          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a segmentation Claim at all -- zero trace anywhere. Does not even meet the acceptable_fallback."
+          "notes": "UPDATED Milestone 10C (supersedes the original M10A finding): under M10A/M10B, 'Position Responsibilities:' was unrecognized, so this bullet produced zero segmentation Claim at all -- zero trace anywhere, not meeting even the acceptable_fallback, the ORIGINAL finding this entry recorded. Confirmed, live, post-M10C: 'Position Responsibilities:' is now correctly recognized as RESPONSIBILITY (one of this milestone's own mandated recognized examples), so this bullet now IS admitted as a Claim unconditionally and produces zero JobRequirement rows (no registered concept or non-technical pattern matches) -- it now lands in unparsed_claims, meeting the acceptable_fallback. See docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md's completion addendum."
         },
         {
           "id": "m10a-man-04",
@@ -372,7 +372,7 @@
           "acceptable_fallback": {
             "type": "unparsed_claim"
           },
-          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere."
+          "notes": "UPDATED Milestone 10C (supersedes the original M10A finding, same mechanism as m10a-man-03): zero segmentation Claim/zero trace under M10A/M10B's unrecognized 'Position Responsibilities:' heading; now correctly recognized as RESPONSIBILITY post-M10C, so this bullet is admitted and lands in unparsed_claims (no registered concept/pattern matches), meeting the acceptable_fallback."
         },
         {
           "id": "m10a-man-05",
@@ -386,7 +386,7 @@
           "acceptable_fallback": {
             "type": "unparsed_claim"
           },
-          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere."
+          "notes": "UPDATED Milestone 10C (supersedes the original M10A finding, same mechanism as m10a-man-03): zero segmentation Claim/zero trace under M10A/M10B's unrecognized 'Position Responsibilities:' heading; now correctly recognized as RESPONSIBILITY post-M10C, so this bullet is admitted and lands in unparsed_claims (no registered concept/pattern matches), meeting the acceptable_fallback."
         },
         {
           "id": "m10a-man-06",
@@ -400,7 +400,7 @@
           "acceptable_fallback": {
             "type": "unparsed_claim"
           },
-          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere, despite containing 'collaborat*', which IS a recognized soft_skill keyword inside non_technical.py's own pattern table -- but that table is only ever consulted AFTER a Claim already exists; segmentation's own, different, narrower outside-heading gate (_REQUIREMENT_SIGNAL) does not include 'collaborat*' at all, so this sentence never reaches that stage."
+          "notes": "UPDATED Milestone 10C, FLAGGED -- meets NEITHER ideal_outcome NOR acceptable_fallback, unlike its five sibling bullets. Original M10A finding: zero segmentation Claim/zero trace, because 'Position Responsibilities:' was unrecognized AND segmentation's outside-heading gate (_REQUIREMENT_SIGNAL) does not include 'collaborat*' (even though non_technical.py's soft_skill pattern does -- that table is only ever consulted AFTER a Claim already exists). Confirmed, live, post-M10C: 'Position Responsibilities:' is now correctly recognized as RESPONSIBILITY, so this bullet IS admitted as a Claim unconditionally (bypassing the outside-heading gate entirely) -- and because it contains 'Collaborate', non_technical.py's PRE-EXISTING soft_skill pattern (already used elsewhere in this exact posting, e.g. m10a-man-12) now fires, producing ONE scored JobRequirement (category='soft_skill', necessity=REQUIRED, concept_id=None, github_observability=NOT_OBSERVABLE). This is NEITHER this entry's authored ideal_outcome (no_scored_requirement) NOR its acceptable_fallback (unparsed_claim) -- a genuinely new, flagged outcome this milestone's completion report discloses rather than silently accepting: non-fabricating (no concept_id, never enters assess_job()'s denominator, same non-technical mechanism already approved for genuine soft-skill qualifications elsewhere in this posting) but a duty bullet nonetheless becoming a visible, listed REQUIRED row -- see docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md's completion addendum for the full discussion and the open follow-up question this raises."
         },
         {
           "id": "m10a-man-07",
@@ -414,7 +414,7 @@
           "acceptable_fallback": {
             "type": "unparsed_claim"
           },
-          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere."
+          "notes": "UPDATED Milestone 10C (supersedes the original M10A finding, same mechanism as m10a-man-03): zero segmentation Claim/zero trace under M10A/M10B's unrecognized 'Position Responsibilities:' heading; now correctly recognized as RESPONSIBILITY post-M10C, so this bullet is admitted and lands in unparsed_claims (no registered concept/pattern matches), meeting the acceptable_fallback."
         },
         {
           "id": "m10a-man-08",
@@ -428,7 +428,7 @@
           "acceptable_fallback": {
             "type": "unparsed_claim"
           },
-          "notes": "CONFIRMED LIVE, HIGHEST SEVERITY: never becomes a Claim -- zero trace anywhere. All SIX 'Position Responsibilities' bullets (m10a-man-03 through 08) are completely, silently erased -- a full section, 100% invisible, not even partially mitigated by the existing unparsed_claims diagnostic."
+          "notes": "UPDATED Milestone 10C (supersedes the original M10A finding): under M10A/M10B, all SIX 'Position Responsibilities' bullets (m10a-man-03 through 08) were completely, silently erased -- a full section, 100% invisible, not even partially mitigated by the existing unparsed_claims diagnostic, the ORIGINAL finding this entry recorded. Confirmed, live, post-M10C: 'Position Responsibilities:' is now correctly recognized as RESPONSIBILITY (one of this milestone's own mandated recognized examples) -- five of the six bullets (03/04/05/07/08) now land in unparsed_claims, meeting the acceptable_fallback; the sixth (06, 'Collaborate with engineering...') produces one scored soft_skill JobRequirement instead, meeting neither its ideal_outcome nor acceptable_fallback -- see m10a-man-06's own updated notes and docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md's completion addendum. Zero of the six remain 100% invisible; zero fabricate a technical concept."
         },
         {
           "id": "m10a-man-09",

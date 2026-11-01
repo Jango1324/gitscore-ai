@@ -4350,3 +4350,94 @@ Qualifications"); the Manulife "at least one programming language
 idiom-blind splitting (Root Cause 5). None of these three is touched or
 preemptively solved by this milestone — confirmed by the unchanged SOTI
 numbers, which exhibit Root Causes 1/4/5 but not 2.
+
+## 33. Real-world heading recognition — Milestone 10C
+
+**Addresses M10A Root Cause 1, left open by M10B §32.** Evaluation-first
+design review (`docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md`):
+an independently-authored 78-entry heading corpus
+(`evaluation/m10c/heading_controls.json`) measured three candidate
+heading-classification designs; the selected design (a structural
+shape gate + anchored root-word families + honest `AMBIGUOUS`→`UNKNOWN`
+mapping for compound headings, never a fixed-precedence forced winner)
+scored highest with the fewest, lowest-severity misclassifications.
+
+**Implementation, entirely within `jobs/parsing/segmentation.py`:**
+the old ~30-phrase exact-match `_HEADING_KIND` table is replaced by
+`_classify_heading_line()` — a word-content-independent shape gate
+(short; not a bullet; never sentence-terminal punctuation; never a
+colon followed by an inline comma-separated list, so "Experience with:
+Python, JavaScript" is never mistaken for a heading; otherwise
+colon-terminated-with-nothing-after, ALL-CAPS, Markdown, or title-cased)
+followed by anchored, word-boundary-bounded root-word families
+(`REQUIRED`/`PREFERRED`/`RESPONSIBILITY`/new `LEARNING`/
+`NON_QUALIFICATION`, the last mapping to the existing `SKIP` kind — a
+vocabulary expansion of what `SKIP` recognizes, not a new kind) with a
+built-in collision exclusion (`qualif*` never fires REQUIRED when
+`preferr*` is also present on the same line). A line matching more than
+one family, or none at all, maps to the existing `UNKNOWN` kind.
+`_SectionKind.LEARNING` is the one genuinely NEW internal kind — added
+specifically so it participates in M10B's existing "falls off a real
+recognized kind into UNKNOWN" reset trigger (already written as "was
+`current_kind` not `None`," so this required zero additional code) —
+but, like `UNKNOWN`, it never maps to a `Necessity` value in
+`_SECTION_NECESSITY_HINT`, so "Learning opportunities should not
+automatically enter scoring" is enforced the exact same way `UNKNOWN`'s
+non-scoring guarantee already is. `concepts.py` gained one small shared
+constant, `TECHNICAL_LEAD_IN` (moved from `parser.py`, still used only
+there — an earlier attempt to also reuse it in `segmentation.py` was
+tried and reverted, see below). `JOB_DESCRIPTION_PARSER_VERSION` bumps
+`v5` → `v6`.
+
+**A real regression found and fixed during implementation, before
+landing:** plain title-case alone (no colon/ALL-CAPS/Markdown) is
+structurally indistinguishable from an ordinary one-item-per-line
+requirement/list value — an early version of the shape gate treated
+`"Python"` standing alone on its own line as a phantom `UNKNOWN`
+heading, caught by the pre-existing `test_newline_separated_requirements_without_bullets`
+test. Fixed: plain title-case alone now ALSO requires at least one
+matched family root to count as heading-shaped; colon/ALL-CAPS/Markdown
+remain sufficient signals on their own (unaffected). A second fix,
+also reverted after being caught by a real test
+(`test_non_bulleted_colon_heading_still_resets_state`): excluding a
+bare, colon-terminated requirement-claim lead-in ("Experience with the
+following:") from heading detection entirely (by reusing
+`TECHNICAL_LEAD_IN`) let it fall through as an ordinary claim under a
+still-open recognized section instead of resetting state to `UNKNOWN`
+— M10B's existing, tested behavior for this exact shape. Removed;
+`_has_inline_colon_list` alone already correctly excludes the DIFFERENT
+shape this milestone's own corpus names explicitly ("Experience with:
+Python, JavaScript" — a comma-separated list AFTER a non-terminal
+colon).
+
+**Measured, real-world result:** SOTI's `"Required skills:"`/
+`"About SOTI"`/`"What you will learn:"` now recognized; its one
+confirmed genuine qualification ("curiosity, a desire to learn...")
+moves from zero trace to a guaranteed `unparsed_claims` diagnostic; its
+one confirmed false positive (a fabricated alternative group from
+learning-exposure prose, Root-Cause-4/5-adjacent) is unchanged — its
+only heading, `"Opportunity,"` is exactly the bare-single-word shape
+the regression fix above now excludes, by design. Manulife — all 7 of
+its missing headings now recognized; 5 of 6 previously 100%-invisible
+duty bullets now land in `unparsed_claims`; the 6th produces one
+scored, non-fabricating `soft_skill` requirement via a pre-existing
+non-technical pattern already used elsewhere in the same posting
+(flagged explicitly as a new, disclosed finding — concept_id=None,
+never enters `assess_job()`'s denominator). `meets_ideal_outcome`:
+34/43 → 39/43. M9B preservation metrics byte-identical except the
+version string; frozen 8c:v1/8c:v1.1 zero diff. Full backend suite:
+975 pre-existing tests unchanged + 121 new
+(`tests/test_m10c_heading_classification.py` — the 78-entry design
+corpus AND an independently-authored, post-implementation 18-entry
+held-out set, both run against the real shipped classifier) = 1096
+passed. Two `tests/test_m10b_section_state_safety.py` assertions were
+amended with an explicit, documented override (never a silent edit to
+`evaluation/m10b/section_state_controls.json` itself) for the two
+controls whose underlying heading M10C now correctly recognizes.
+
+**Explicitly NOT addressed** (reserved for M10D, per the original
+scope restriction): the Manulife "at least one programming language
+(e.g., ...)" OR-structure loss (Root Cause 4) and the "one or more of"
+idiom-blind splitting (Root Cause 5) — both unaffected, confirmed by
+the unchanged SOTI/Manulife false-positive and malformed-alternative-group
+counts.

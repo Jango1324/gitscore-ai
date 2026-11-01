@@ -1,0 +1,153 @@
+{
+  "schema_note": "Milestone 10C post-implementation held-out set -- written AFTER Strategy C was selected and implemented, specifically so it was NOT available to influence that selection (unlike evaluation/m10c/heading_controls.json, the 78-entry corpus used for Phase 2/3's design comparison). Fresh phrasing throughout, deliberately not literal duplicates of the main corpus's entries, to test generalization rather than memorized cases. Evaluation data only, exercised directly against the real, shipped `segmentation.py` via tests/test_m10c_heading_classification.py -- never imported by src/gitscore.",
+  "section_values": ["REQUIRED", "PREFERRED", "RESPONSIBILITY", "LEARNING", "NON_QUALIFICATION", "UNKNOWN"],
+  "controls": [
+    {
+      "id": "heldout-01-required-experience",
+      "text": "Required Experience",
+      "is_heading": true,
+      "expected_section": "REQUIRED",
+      "ambiguous": false,
+      "rationale": "Fresh REQUIRED-family phrasing, not in the main corpus (which has 'Required Skills'/'Required Qualifications' but not 'Required Experience')."
+    },
+    {
+      "id": "heldout-02-minimum-qualifications-colon",
+      "text": "Minimum Qualifications:",
+      "is_heading": true,
+      "expected_section": "REQUIRED",
+      "ambiguous": false,
+      "rationale": "Colon-terminated variant of an already-recognized phrase, different casing from the main corpus's bare 'Minimum Requirements' entry."
+    },
+    {
+      "id": "heldout-03-preferred-background",
+      "text": "Preferred Background",
+      "is_heading": true,
+      "expected_section": "PREFERRED",
+      "ambiguous": false,
+      "rationale": "Fresh PREFERRED-family phrasing distinct from the main corpus's 'Preferred Skills'/'Preferred Qualifications'."
+    },
+    {
+      "id": "heldout-04-what-youll-be-doing",
+      "text": "What You'll Be Doing",
+      "is_heading": true,
+      "expected_section": "RESPONSIBILITY",
+      "ambiguous": true,
+      "acceptable_sections": ["RESPONSIBILITY", "UNKNOWN"],
+      "rationale": "A natural real-world idiom variant of 'What You'll Do' -- flagged ambiguous from authoring, BEFORE this held-out set was run against the shipped classifier: the RESPONSIBILITY root is anchored to the exact phrase 'what you'll/will do' and does not generalize to the inserted 'be' ('what you'll be doing'), so UNKNOWN (undetected, since plain title-case with no family match is correctly rejected by this milestone's own regression-fix rule) is an accepted, honest outcome here, not a forced failure. Confirmed on first run: classifies as not-a-heading (UNKNOWN-equivalent, safe) -- exactly the anticipated, pre-declared uncertainty."
+    },
+    {
+      "id": "heldout-05-core-responsibilities",
+      "text": "Core Responsibilities",
+      "is_heading": true,
+      "expected_section": "RESPONSIBILITY",
+      "ambiguous": false,
+      "rationale": "Fresh RESPONSIBILITY-family phrasing via the respons* root, distinct from the main corpus's 'Key Responsibilities'/'Position Responsibilities'."
+    },
+    {
+      "id": "heldout-06-what-youll-gain-colon",
+      "text": "What You'll Gain:",
+      "is_heading": true,
+      "expected_section": "LEARNING",
+      "ambiguous": false,
+      "rationale": "A LEARNING-family idiom combining 'What You'll' (RESPONSIBILITY-adjacent phrasing) with 'Gain' (LEARNING root) -- tests that the LEARNING root fires correctly even when the sentence ALSO superficially resembles a RESPONSIBILITY idiom opener."
+    },
+    {
+      "id": "heldout-07-your-learning-journey",
+      "text": "Your Learning Journey",
+      "is_heading": true,
+      "expected_section": "UNKNOWN",
+      "ambiguous": true,
+      "acceptable_sections": ["LEARNING", "UNKNOWN"],
+      "rationale": "Plausible real-world LEARNING-adjacent heading with no root-word match (no 'learning opportunit*'/'you will learn' phrase, just the bare word 'Learning' as an adjective) -- correctly left UNKNOWN by this milestone's deliberately narrow root set; UNKNOWN is the safe, honest, accepted outcome, not a failure."
+    },
+    {
+      "id": "heldout-08-about-driftwood-analytics",
+      "text": "About Driftwood Analytics",
+      "is_heading": true,
+      "expected_section": "NON_QUALIFICATION",
+      "ambiguous": false,
+      "rationale": "A FIFTH fictional company (distinct from the main corpus's Lumenbridge/Coriander Labs/Vertrix Systems/Northfield Analytics), confirming the 'about <proper noun>' structural rule generalizes to a company name never seen in selecting or implementing Strategy C."
+    },
+    {
+      "id": "heldout-09-benefits-and-perks",
+      "text": "Benefits and Perks",
+      "is_heading": true,
+      "expected_section": "NON_QUALIFICATION",
+      "ambiguous": false,
+      "rationale": "Word-order variant of the main corpus's 'Perks and Benefits' -- confirms the NON_QUALIFICATION root match is order-independent."
+    },
+    {
+      "id": "heldout-10-accommodation-request-process",
+      "text": "Accommodation Request Process",
+      "is_heading": true,
+      "expected_section": "NON_QUALIFICATION",
+      "ambiguous": false,
+      "rationale": "Fresh NON_QUALIFICATION phrasing via the 'accommodation' root, modeled on the real Manulife EEO/accommodation paragraph but as its own heading, not literally in the main corpus."
+    },
+    {
+      "id": "heldout-11-flexible-work-policy",
+      "text": "Flexible Work Policy",
+      "is_heading": true,
+      "expected_section": "UNKNOWN",
+      "ambiguous": true,
+      "acceptable_sections": ["NON_QUALIFICATION", "UNKNOWN"],
+      "rationale": "Plausible real-world logistics heading (schedule/remote-work policy) with no root-word match at all -- correctly UNKNOWN; a design that confidently resolved this to NON_QUALIFICATION with no supporting root would be overreaching, not a strength."
+    },
+    {
+      "id": "heldout-12-must-haves-colon",
+      "text": "Must-Haves:",
+      "is_heading": true,
+      "expected_section": "REQUIRED",
+      "ambiguous": false,
+      "rationale": "Colon-terminated, hyphenated-plural variant of 'Must Have'/'Must-Have Skills', confirming the must[- ]have* root generalizes to this inflection."
+    },
+    {
+      "id": "heldout-13-bare-list-item-kubernetes",
+      "text": "Kubernetes",
+      "is_heading": false,
+      "expected_section": null,
+      "ambiguous": false,
+      "rationale": "A single bare technology name on its own line -- the EXACT shape class (single bare title-cased word, no colon/caps/markdown, no family root) whose misclassification as a phantom heading was this milestone's own implementation-discovered regression (`tests/test_job_parser_segmentation.py::test_newline_separated_requirements_without_bullets`). Must stay NOT a heading."
+    },
+    {
+      "id": "heldout-14-bare-list-item-postgresql-colon-free",
+      "text": "PostgreSQL experience",
+      "is_heading": false,
+      "expected_section": null,
+      "ambiguous": false,
+      "rationale": "A two-word bare requirement-list value (no colon, no family root -- 'experience' alone is not a family root word), confirming the regression fix generalizes beyond single-word lines."
+    },
+    {
+      "id": "heldout-15-qualifications-sentence-not-heading",
+      "text": "Our qualifications process is designed to be fair and transparent for every applicant.",
+      "is_heading": false,
+      "expected_section": null,
+      "ambiguous": false,
+      "rationale": "Ordinary sentence (terminal period, multiple clauses) containing the REQUIRED-family root 'qualifications' -- must never be treated as a heading despite the root match, confirming the sentence-terminal-punctuation shape gate still takes priority over any root match."
+    },
+    {
+      "id": "heldout-16-growth-sentence-not-heading",
+      "text": "We are proud of our growth and the opportunities it creates for our employees.",
+      "is_heading": false,
+      "expected_section": null,
+      "ambiguous": false,
+      "rationale": "Ordinary marketing sentence containing both 'growth' and 'opportunities' (the LEARNING root's two key words) but NOT as the fixed 'growth opportunit*' phrase, and ending in a period -- must never be mistaken for a LEARNING heading."
+    },
+    {
+      "id": "heldout-17-uppercase-nice-to-have",
+      "text": "NICE TO HAVE",
+      "is_heading": true,
+      "expected_section": "PREFERRED",
+      "ambiguous": false,
+      "rationale": "All-caps rendering of an idiom already covered in the main corpus in title-case/lowercase/colon forms, but not previously tested in pure ALL-CAPS -- confirms the is_all_caps strong-signal branch and the PREFERRED root both fire together correctly."
+    },
+    {
+      "id": "heldout-18-markdown-h4-responsibilities",
+      "text": "#### Core Responsibilities",
+      "is_heading": true,
+      "expected_section": "RESPONSIBILITY",
+      "ambiguous": false,
+      "rationale": "A deeper Markdown heading level (4 '#' characters) than any main-corpus entry tested (which went up to '###'), confirming the markdown-leader strip is not hardcoded to a specific depth."
+    }
+  ]
+}

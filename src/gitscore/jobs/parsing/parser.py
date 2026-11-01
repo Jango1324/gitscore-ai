@@ -87,16 +87,29 @@ heading-recognition vocabulary, WITHOUT a new diagnostic type (the
 existing `UnparsedClaim` absorbs the newly-short-circuited claims), and
 WITHOUT any `JobRequirement` schema, matcher, or scoring-formula
 change. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v4` -> `v5` accordingly.
+
+**Milestone 10C -- real-world heading recognition.** `segmentation.py`'s
+heading recognition widens from a small exact-phrase table to an
+anchored, structural classifier (see that module's own docstring) that
+also recognizes two new section purposes, `LEARNING` and a generalized
+`NON_QUALIFICATION` (the existing `SKIP` kind, now reached by more
+headings) -- entirely within `segmentation.py`; nothing in THIS module
+changes except reusing `concepts.TECHNICAL_LEAD_IN` (moved, not
+duplicated, from this module) and the version bump. `_requirements_from_claim`'s
+`None`-necessity short-circuit (above) is unchanged and now also covers
+claims admitted under `LEARNING`. See
+`docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md`.
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v5` -> `v6` accordingly.
 """
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
 
 from gitscore.concepts.registry import default_registry, unresolved_concept_id
 from gitscore.jobs.models import JobRequirement, SourceSpan
 from gitscore.jobs.parsing.alternatives import classify_alternative_claim, contains_alternative_marker
 from gitscore.jobs.parsing.concepts import (
+    TECHNICAL_LEAD_IN,
     clean_list_fragment,
     contains_enumeration_cue,
     find_bare_short_alias_mentions,
@@ -113,21 +126,7 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v5"
-
-# Milestone 9A -- a narrow, unambiguous technical lead-in used ONLY to
-# gate the last-resort `unresolved_requirement` placeholder
-# (`_unresolved_requirement_signal` below). Deliberately NOT the full
-# `jobs.parsing.concepts._LIST_ITEM_PREFIXES` table: that table's bare
-# filler alternatives ("with"/"using"/"in"/"and"/"or"/"strong"/"solid"/
-# "advanced") are safe for stripping one word off an ALREADY-CONFIRMED
-# list item, but far too weak a signal to single-handedly justify
-# flagging an entire bare claim as an unresolved technical requirement
-# (e.g. "Strong communication" must never match).
-_TECHNICAL_LEAD_IN = re.compile(
-    r"^(?:experience with|knowledge of|familiarity with|proficiency in|proficient in|expert in)\s+",
-    re.IGNORECASE,
-)
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v6"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:
@@ -154,7 +153,7 @@ def _unresolved_requirement_signal(text: str) -> bool:
         return True
     if "," in text and contains_enumeration_cue(text):
         return True
-    lead_in = _TECHNICAL_LEAD_IN.match(text)
+    lead_in = TECHNICAL_LEAD_IN.match(text)
     if lead_in is None:
         return False
     return clean_list_fragment(text[lead_in.end():]) is not None

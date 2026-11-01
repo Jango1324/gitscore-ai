@@ -1,5 +1,95 @@
 # GitScore AI — Dev Changelog
 
+## 2026-10-31 — Milestone 10C: Real-world heading recognition
+
+**What changed:** Evaluation-first design review
+(`docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md`), approved,
+then implemented. `jobs/parsing/segmentation.py`'s small exact-phrase
+heading table (~30 fixed phrases) is replaced by `_classify_heading_line()`:
+a structural "is this line heading-shaped at all" gate (short, not a
+bullet, never sentence-terminal punctuation, never a colon followed by
+an inline comma-separated list) fully independent of word content, then
+anchored, word-boundary-bounded root-word families
+(`REQUIRED`/`PREFERRED`/`RESPONSIBILITY`/new `LEARNING`/
+`NON_QUALIFICATION`, the last reusing the existing `SKIP` kind) with
+built-in collision exclusions (e.g. `qualif*` never fires REQUIRED when
+`preferr*` is also present, so "Preferred Qualifications" resolves
+correctly). A line matching more than one family, or none, maps to the
+existing `UNKNOWN` kind rather than a forced, fixed-precedence winner.
+`_SectionKind.LEARNING` is a new internal kind (never maps to a
+`Necessity`, exactly like `UNKNOWN`). `concepts.py` gained a small
+shared constant (`TECHNICAL_LEAD_IN`, moved from `parser.py`, still used
+only there). `JOB_DESCRIPTION_PARSER_VERSION` bumps `v5` → `v6`.
+
+**Why:** M10A found the old table missed extremely common real-world
+phrasing ("Required skills" vs. "Requirements," "Position
+Responsibilities" vs. "Responsibilities," "About SOTI" vs. "About Us")
+and had no category at all for a "what you will learn" section. An
+evaluation-first design review compared three candidate designs against
+an independently-authored 78-entry heading corpus
+(`evaluation/m10c/heading_controls.json`); the selected design scored
+highest (0.987 pre-implementation; 0.923 post-implementation-fix,
+measured honestly after a real regression was found and fixed, see
+below) with zero high-severity unsafe misclassifications.
+
+**Implementation-discovered regression, fixed before landing:** an
+early version of the shape gate treated a single bare, title-cased word
+with no colon/Markdown/ALL-CAPS as heading-shaped by itself — which
+swallowed a real, un-bulleted, one-item-per-line requirement list
+("Python"/"PostgreSQL"/"Docker" each on their own line) as a phantom
+`UNKNOWN` heading, caught by the pre-existing
+`test_newline_separated_requirements_without_bullets` test. Fixed: plain
+title-case alone now also requires at least one matched family root;
+colon/ALL-CAPS/Markdown remain sufficient alone (consistent with M10B's
+already-shipped colon-heading precedent). Accepted tradeoff: a rare,
+family-root-less generic catch-all heading with no colon/Markdown/
+ALL-CAPS (e.g. "Additional Information") is now also left unrecognized
+— safe (never fabricates a family), not a regression against today's
+pre-M10C baseline (which never recognized it either).
+
+**Before/after (real postings):** SOTI — `Required skills:`/`About SOTI`/
+`What you will learn:` now recognized; SOTI's one confirmed genuine
+qualification ("curiosity, a desire to learn...") moves from zero trace
+to a guaranteed `unparsed_claims` diagnostic; SOTI's one confirmed false
+positive (a fabricated `(language.csharp, language.sql)` alternative
+group from learning-exposure prose) is **unchanged** — its only
+surviving heading, "Opportunity," is a single bare word with no family
+root, exactly the shape the regression fix above excludes; this is
+Root-Cause-4/5-adjacent and explicitly out of scope (reserved for M10D).
+Manulife — all 7 of its missing headings (`Position Responsibilities:`,
+`When you join our team:`, `Application instructions:`, `About Manulife
+and John Hancock`, `Working Arrangement`, plus `Required`/`Preferred
+Qualifications:` already recognized) now recognized; 5 of 6 previously
+100%-invisible "Position Responsibilities" duty bullets now land in
+`unparsed_claims`; the 6th ("Collaborate with engineering and business
+teams...") now produces one scored, non-fabricating `soft_skill`
+`JobRequirement` (`concept_id=None`, never enters `assess_job()`'s
+denominator) via the SAME pre-existing non-technical pattern already
+used elsewhere in this exact posting — flagged explicitly as meeting
+neither this entry's `ideal_outcome` nor `acceptable_fallback`, a new,
+disclosed finding, not hidden. `meets_ideal_outcome`: 34/43 → 39/43.
+M9B preservation metrics: byte-identical except the version string.
+Frozen 8c:v1/8c:v1.1: **zero diff**.
+
+**Risks / limitations:** the "Additional Information"-class
+family-root-less heading gap above; Manulife's "Collaborate..." duty
+bullet becoming a visible (never scored/denominator-affecting)
+REQUIRED soft-skill row; SOTI's pre-existing Root-Cause-4/5 false
+positive, unchanged; the Manulife "at least one programming language
+(e.g., ...)" OR-structure loss and the "one or more of" idiom-blind
+splitting — both explicitly out of scope, reserved for M10D.
+
+**How to test it:** `tests/test_m10c_heading_classification.py` (121
+tests — both the 78-entry design corpus and an independently-authored,
+post-implementation 18-entry held-out set, run against the real,
+shipped classifier; section-transition, Unicode/Markdown/bullet
+formatting, no-scoring-from-LEARNING/NON_QUALIFICATION, and source-span/
+determinism coverage) plus two amended `tests/test_m10b_section_state_safety.py`
+assertions (explicitly documented, narrowly-scoped overrides — see that
+file's own module docstring — for the two M10B controls whose
+underlying heading is now correctly recognized). Full suite: 1096
+passed (975 baseline + 121 new), 0 failed.
+
 ## 2026-10-31 — Milestone 10B: Safe section-state handling
 
 **What changed:** Fixes M10A's highest-severity traced defect
