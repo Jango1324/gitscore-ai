@@ -185,7 +185,17 @@
             null
           ],
           "row_alternative_ids": [
-            []
+            [
+              "language.c",
+              "language.cpp",
+              "language.java",
+              "language.javascript",
+              "language.ruby",
+              "language.rust",
+              "language.sql",
+              "unresolved:haskell",
+              "unresolved:lua"
+            ]
           ],
           "false_positive_requirement": false,
           "invisible_genuine_qualification": false,
@@ -217,12 +227,11 @@
       "false_positive_requirements": 1,
       "invisible_genuine_qualifications": 0,
       "invisible_responsibilities_or_duties": 0,
-      "malformed_alternative_groups": 1,
-      "meets_ideal_count": 39,
+      "malformed_alternative_groups": 0,
+      "meets_ideal_count": 40,
       "meets_fallback_only_count": 2,
       "neither_ideal_nor_fallback": [
-        "m10a-man-06",
-        "m10a-man-10"
+        "m10a-man-06"
       ],
       "verdicts": [
         {
@@ -378,29 +387,25 @@
           "has_row": true,
           "has_unparsed_claim": false,
           "row_necessity": [
-            "required",
-            "required",
-            "required",
             "required"
           ],
           "row_concept_ids": [
-            "language.java",
-            "language.python",
-            "language.javascript",
-            "unresolved:go"
+            null
           ],
           "row_alternative_ids": [
-            [],
-            [],
-            [],
-            []
+            [
+              "language.go",
+              "language.java",
+              "language.javascript",
+              "language.python"
+            ]
           ],
           "false_positive_requirement": false,
           "invisible_genuine_qualification": false,
           "invisible_responsibility_or_duty": false,
-          "malformed_alternative_group": true,
-          "meets_ideal": false,
-          "meets_fallback": false
+          "malformed_alternative_group": false,
+          "meets_ideal": true,
+          "meets_fallback": true
         },
         {
           "id": "m10a-man-11",

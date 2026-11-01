@@ -1,5 +1,122 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-01 — Milestone 10D: Alternative-requirement semantics
+
+**What changed:** Evaluation-first design review
+(`docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md`), approved
+(five §6.7 STOP questions all approved), then implemented, entirely
+within `jobs/parsing/alternatives.py`. `classify_alternative_claim()`
+now tries an explicit ANY-of trigger-phrase path first
+(`_classify_any_of_trigger`): six lead-in phrases ("one or more of,"
+"at least one," "any one of," "one of the following," "any of,"
+"either of" — "at least one" deliberately bare, no required trailing
+"of," to match the real Manulife posting's own wording) checked
+independently of a literal "or" at all. Once found,
+`_find_any_of_list_region()` locates the actual list that follows — a
+parenthetical example clause, a colon-introduced list, or the bare
+remainder — and resolves it through `_classify_segment_list()`
+(extracted, not duplicated, from the function's prior body), the same
+loop the ordinary bare-"or" path already used. That ordinary path
+(`_split_alternative_segments`) gained an idiom guard (`_IDIOM_OR_MORE`)
+protecting "<number-word/digit> or more" from being read as a list
+separator. `_resolve_segment()`'s own `clean_list_fragment`-escalation
+branch — previously an UNCONDITIONAL promotion to `unresolved:<term>`,
+with no shape check at all — now requires
+`looks_like_specific_technology_name`, the same gate the sibling
+ALL-UNRESOLVED-group rescue already used. `JOB_DESCRIPTION_PARSER_VERSION`
+bumps `v6` → `v7`.
+
+**Why:** M10A found two real-world alternative-requirement bugs left
+open by M10C — Root Cause 4 (Manulife's "at least one programming
+language (e.g., Java, Python, Go, JavaScript)" has no literal "or" at
+all, so group detection never even attempted, minting four independent
+REQUIRED rows instead of one) and Root Cause 5 (SOTI's "one or more of
+the following programming languages: ..." — the idiom's own "or" split
+like an ordinary list separator, losing the 9-language ANY-of
+structure to the conservative placeholder). An evaluation-first design
+review built a 41-control corpus
+(`evaluation/m10d/alternative_controls.json`, annotated before any
+candidate classifier existed) and compared four prototype designs
+(idiom guard alone; trigger-phrase recognition alone; the two
+combined; the combination plus a top-level AND-boundary split). The
+approved "Candidate A+B" matched the broadest candidate's coverage on
+every control that actually mattered (38/41 exact match, zero
+fabrications, zero regressions) without adopting a broader AND/OR
+structural classifier whose only edge was two MIXED-case answers
+correct by coincidence of phrasing rather than a real grammar.
+
+**A third defect found and fixed during the same investigation, not
+in M10A's original framing:** reproducing Root Cause 5 on a
+differently-punctuated "one or more of" sentence ("Experience with one
+or more of the following languages: Python, Java, Go") revealed that
+`_resolve_segment()`'s escalation branch could fabricate a spurious
+`unresolved:one` — or, with a colon immediately after "of," a garbled
+`unresolved:more_of:_c` — merged into an otherwise-real alternative
+group, one punctuation choice away from SOTI's own sentence. Root
+cause: that branch promoted ANY `clean_list_fragment`-accepted term to
+`unresolved:<term>` with no shape check, unlike its sibling rescue path
+inside `classify_alternative_claim()`. Fixed by adding the same shape
+gate; confirmed non-regressing against every previously-correct
+alternative-group case because the caller's own pre-existing safety
+net already excluded these shapeless promotions from scoring — this
+change only moves that exclusion one step earlier.
+
+**Before/after (real postings):** SOTI's 9-language requirement, 0
+assessable rows before, now one correctly-structured
+`alternative_concept_ids` group of 9 (including safely-promoted
+`unresolved:haskell`/`unresolved:lua`, neither registered). Manulife's
+"at least one programming language" requirement, previously four
+independent rows (one fabricating `unresolved:go` instead of the real
+`language.go`), now one correctly-structured group of 4.
+`evaluate_m10a_realworld.py`: Manulife's `malformed_alternative_groups`
+1 → 0, `meets_ideal_count` 39/43 → 40/43,
+`neither_ideal_nor_fallback` shrinks from `[man-06, man-10]` to
+`[man-06]` only. SOTI's own counts are unaffected — its one remaining
+defect (the C#/SQL learning-narrative false positive) is an explicitly
+out-of-scope, pre-existing limitation, untouched by design. M9B
+preservation metrics: byte-identical except the version string. M10C
+heading classification report: byte-identical. Frozen 8c:v1/8c:v1.1:
+**zero diff**.
+
+**Risks / limitations:** a newly-identified Root Cause 6 — a MIXED
+AND/OR shape ("Python or Java and SQL") is still silently flattened
+into one over-permissive ANY-of-3 group today, explicitly NOT
+addressed by this milestone (deferred, needs genuine AND/OR precedence
+detection, reserved for a future, separately-approved milestone); the
+six-phrase trigger table is derived from the two real postings plus
+M10A's own proposal, not a larger real-world corpus, so a differently
+-worded real posting may still only get the safe (never-fabricating),
+structure-losing fallback rather than the ideal grouping. **A
+post-implementation audit, using deterministic synthetic candidate
+profiles, found a second, PRE-EXISTING limitation (not introduced or
+worsened by this milestone): a candidate with real evidence of an
+unlisted-but-plausible technology scores identically
+(`MatchStatus.NOT_OBSERVED`) to a candidate with no relevant evidence
+at all**, for any alternative-group requirement built from an
+illustrative `"(e.g., ...)"` list (e.g. Manulife's "at least one
+programming language (e.g., Java, Python, Go, JavaScript)" — a
+Rust-only candidate is indistinguishable from a no-language-evidence
+candidate). `JobRequirement` retains no illustrative-vs-exhaustive
+metadata, and the frontend discloses nothing about this today. This
+is disclosure only, not a mitigation — it changes no code and does not
+reduce the risk of a misleading result for a real candidate. Fixing it
+needs either a new `JobRequirement` field or new matcher logic (both
+schema/matcher changes requiring their own separate approval); tracked
+as a future, separately-scoped correctness milestone, distinct from
+(but related in kind to) M10E's narrative-versus-qualification
+problem. Full detail:
+`docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md`'s
+post-implementation audit addendum.
+
+**How to test it:** `tests/test_m10d_alternative_requirement_semantics.py`
+(61 tests — all 41 corpus controls, the real SOTI/Manulife sentences,
+the frozen `general_swe_01` positive control, both fabrication
+-reproduction variants, concept-resolution hazards (`C` vs. `C++`,
+`Java` vs. `JavaScript`), negative controls (bare "at least one" in
+non-enumeration prose, generic category nouns, true AND lists), and
+source-span/determinism/single-requirement-denominator checks). Full
+suite: 1096 pre-existing tests unchanged + 61 new = 1157 passed.
+
 ## 2026-10-31 — Milestone 10C: Real-world heading recognition
 
 **What changed:** Evaluation-first design review

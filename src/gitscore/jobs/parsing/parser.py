@@ -100,6 +100,24 @@ duplicated, from this module) and the version bump. `_requirements_from_claim`'s
 claims admitted under `LEARNING`. See
 `docs/evaluation/MILESTONE_10C_SECTION_CLASSIFICATION.md`.
 `JOB_DESCRIPTION_PARSER_VERSION` bumps `v5` -> `v6` accordingly.
+
+**Milestone 10D -- alternative-requirement semantics.**
+`alternatives.py::classify_alternative_claim()` gains an explicit
+ANY-of trigger-phrase path (Root Cause 4 -- "at least one programming
+language (e.g., ...)" with no literal "or" at all) and an idiom guard
+against reading "<number> or more" as a list separator (Root Cause 5
+-- "one or more of the following programming languages: ..."), plus a
+shape-gated fix to a previously-unconditional `unresolved:<term>`
+promotion branch that could fabricate a garbled id from idiom-blind
+splitting. Entirely within `alternatives.py` -- nothing in THIS module
+changes except the version bump; `classify_alternative_claim()`'s
+signature, return type, and every PREVIOUSLY-correct outcome are
+unchanged (confirmed via the full regression suite,
+`docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md`'s own 41
+-control corpus, and re-runs of M9B/M10A/M10C). A MIXED AND/OR shape
+("Python or Java and SQL") is explicitly NOT addressed by this
+milestone -- deferred, see that document's Root Cause 6.
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v6` -> `v7` accordingly.
 """
 from __future__ import annotations
 
@@ -126,7 +144,7 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v6"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v7"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:

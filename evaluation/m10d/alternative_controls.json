@@ -1,0 +1,413 @@
+{
+  "corpus_version": "m10d:v1",
+  "annotation_provenance": "Every entry below was annotated by inspecting the claim text alone and reasoning about its real-world intended meaning, BEFORE any M10D candidate classifier (scripts/evaluation_lib/alternative_classifiers.py) was written -- mirroring this project's M10C annotation-honesty precedent. The two real-posting entries (m10d-soti-real, m10d-manulife-real) are copied verbatim from the committed evaluation/m10/source/{soti,manulife}_raw.txt bullets, not reconstructed from memory. 'unresolved:haskell'/'unresolved:lua' are expected because gitscore.concepts.registry has no Haskell/Lua concept today (confirmed via resolve_concept() at annotation time) -- this is a registry-coverage fact, not an M10D parsing defect, and no concept was added to satisfy it (CLAUDE.md Current Priority: do not expand the registry merely to satisfy a test).",
+  "schema_notes": {
+    "logical_structure": "ANY (single OR-group, any one option satisfies it) | ALL (every listed concept independently required -- N separate rows) | MIXED (an ALL-level combination of ANY-groups and/or single concepts, e.g. '(Python or Java) and SQL') | AMBIGUOUS (English genuinely supports more than one reading; no single structure is the one correct answer) | NONE (not a technology enumeration at all)",
+    "exhaustive_or_illustrative": "exhaustive (the posting's own list IS the complete acceptable set) | illustrative (the list is introduced by an explicit example cue -- '(e.g., ...)' / 'such as' -- and a technology outside the list may also satisfy the real-world requirement, though this project's parser has no mechanism to award credit for an unlisted technology and is not expected to gain one here) | n/a (logical_structure is NONE)",
+    "conservative_fallback_expected": "What a SAFE implementation must do when the full structure cannot be represented: 'any_of_group' (one JobRequirement, alternative_concept_ids populated) | 'independent_rows' (one JobRequirement per distinct concept -- correct for true ALL) | 'unsafe_placeholder' (today's existing category=\"alternative_requirement\", concept_id=None conservative fallback) | 'baseline_unaffected' (NONE-structure text that must flow through the ordinary per-claim pipeline exactly as before M10D) | 'unsupported_mixed' (current JobRequirement/parser design CAN express this as independent_rows + one any_of_group together, but no M10D candidate below attempts the AND/OR boundary detection this requires -- see docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md Phase 6 Root Cause 6)",
+    "unsupported_by_current_model": "true iff no annotated expected outcome is representable as a single logical JobRequirement shape at all (there is none in this corpus -- MIXED cases ARE representable as independent_rows + any_of_group together, just not by any candidate implemented here)"
+  },
+  "controls": [
+    {
+      "id": "m10d-soti-real",
+      "category": "real-posting",
+      "text": "Basic knowledge of programming in one or more of the following programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua, Haskell",
+      "source": "evaluation/m10/source/soti_raw.txt line 20, verbatim",
+      "has_candidate_qualification": true,
+      "logical_structure": "ANY",
+      "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.c", "language.cpp", "language.java", "language.javascript", "language.sql", "language.ruby", "language.rust", "unresolved:lua", "unresolved:haskell"],
+      "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group",
+      "must_remain_unparsed": false,
+      "source_exactness_notes": "9-way enumeration after a colon; idiom 'one or more of' precedes the colon and must never be split as a list separator.",
+      "current_baseline_outcome": "unsafe (category=alternative_requirement, concept_id=None) -- loses ANY-of structure entirely but does not fabricate; confirmed via direct classify_alternative_claim() call, Phase 1."
+    },
+    {
+      "id": "m10d-manulife-real",
+      "category": "real-posting",
+      "text": "Experience with at least one programming language (e.g., Java, Python, Go, JavaScript)",
+      "source": "evaluation/m10/source/manulife_raw.txt line 17, verbatim",
+      "has_candidate_qualification": true,
+      "logical_structure": "ANY",
+      "exhaustive_or_illustrative": "illustrative",
+      "expected_concept_ids": ["language.java", "language.python", "language.go", "language.javascript"],
+      "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group",
+      "must_remain_unparsed": false,
+      "source_exactness_notes": "No literal 'or' anywhere; the list is a parenthetical '(e.g., ...)' example clause, not a colon-introduced enumeration. The noun phrase 'programming language' sits between the trigger ('at least one') and the parenthetical list.",
+      "current_baseline_outcome": "not_technical -> falls through to ordinary per-claim pipeline -> 4 INDEPENDENT REQUIRED rows (language.java, language.python, language.javascript, unresolved:go) instead of one group; 'Go' is lost to a mis-cleaned 'unresolved:go' id (trailing ')' from the parenthetical survives clean_list_fragment's rstrip) instead of the real language.go concept. Confirmed end-to-end via parse_job_description_with_diagnostics(), Phase 1."
+    },
+    {
+      "id": "m10d-general-swe-control",
+      "category": "general_swe_01-control",
+      "text": "Proficiency in at least one of Python, Java, or C++",
+      "source": "evaluation/gold/jobs/general_swe_01.json, verbatim claim_text (frozen 8c:v1 gold -- read only, never modified)",
+      "has_candidate_qualification": true,
+      "logical_structure": "ANY",
+      "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.python", "language.java", "language.cpp"],
+      "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group",
+      "must_remain_unparsed": false,
+      "source_exactness_notes": "Oxford-comma 'or' before the final item -- the ALREADY-correctly-handled positive control. Any M10D candidate that changes this claim's outcome is a regression.",
+      "current_baseline_outcome": "technical, concept_ids=(language.cpp, language.java, language.python) -- already correct today; MUST NOT change."
+    },
+    {
+      "id": "m10d-idiom-fabrication-variant",
+      "category": "root-cause-5-variant",
+      "text": "Experience with one or more of the following languages: Python, Java, Go",
+      "source": "constructed to reproduce, with exact repro steps recorded in docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md Phase 1, the fabrication failure mode M10A Root Cause 5 described but did not fully mechanize ('an earlier illustrative reconstruction... fabricated a spurious unresolved:one').",
+      "has_candidate_qualification": true,
+      "logical_structure": "ANY",
+      "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.python", "language.java", "language.go"],
+      "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group",
+      "must_remain_unparsed": false,
+      "source_exactness_notes": "Shorter preamble than the real SOTI sentence -- the leading garbage segment ('Experience with one') is short enough to pass clean_list_fragment's <=3-word shape check, which is exactly what lets it get promoted.",
+      "current_baseline_outcome": "technical, concept_ids=(language.go, language.java, language.python, unresolved:one) -- FABRICATES a spurious 'unresolved:one' concept merged into an otherwise-real group. Confirmed directly, Phase 1. This is the single most severe currently-reproducible defect in this corpus: a confirmed fabrication, not merely a lost structure."
+    },
+    {
+      "id": "m10d-idiom-fabrication-colon-variant",
+      "category": "root-cause-5-variant",
+      "text": "Knowledge of one or more of: C, C++, Java",
+      "source": "constructed during Phase 1 tracing; found independently of the variant above.",
+      "has_candidate_qualification": true,
+      "logical_structure": "ANY",
+      "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.c", "language.cpp", "language.java"],
+      "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group",
+      "must_remain_unparsed": false,
+      "source_exactness_notes": "Colon immediately after 'of' -- the garbage middle segment 'more of: C' is exactly 3 words and keeps the literal 'C' at its tail, so it ALSO survives the shape check and gets promoted whole.",
+      "current_baseline_outcome": "technical, concept_ids=(language.cpp, language.java, 'unresolved:more_of:_c', 'unresolved:one') -- fabricates TWO garbage ids, one of them ('unresolved:more_of:_c') not even a plausible technology name. Confirmed directly, Phase 1. Strictly worse than the variant above."
+    },
+    {
+      "id": "m10d-a1", "category": "A",
+      "text": "Experience with Java or Python",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Simple binary alternative, already correctly handled today -- regression guard.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-a2", "category": "A",
+      "text": "Proficiency in C++ or Rust",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.cpp", "language.rust"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Regression guard.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-a3", "category": "A",
+      "text": "Familiarity with React, Angular, or Vue",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["framework.react", "unresolved:angular", "unresolved:vue"],
+      "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Angular/Vue are not registered concepts at annotation time (confirmed via resolve_concept); both are capitalized single words so the existing shape-gated unresolved-promotion rescue already safely covers them. Regression guard -- no registry change proposed.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-b1", "category": "B",
+      "text": "Knowledge of one or more of: C, C++, Java",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.c", "language.cpp", "language.java"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Duplicate text of m10d-idiom-fabrication-colon-variant, kept as its own category-B id per the mission brief's required-case list; both ids reference the same underlying defect.",
+      "current_baseline_outcome": "technical but fabricates 'unresolved:one' and 'unresolved:more_of:_c' -- see m10d-idiom-fabrication-colon-variant."
+    },
+    {
+      "id": "m10d-b2", "category": "B",
+      "text": "Experience with at least one of Python, Java, Go",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.python", "language.java", "language.go"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "No comma before 'Go' and no trailing 'or' -- a pure comma list with zero literal 'or' anywhere in the sentence.",
+      "current_baseline_outcome": "not_technical -> 3 independent REQUIRED rows instead of one group (Root Cause 4, generalized beyond the '(e.g., ...)' phrasing)."
+    },
+    {
+      "id": "m10d-b3", "category": "B",
+      "text": "Proficiency in any of JavaScript, TypeScript, or Python",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.javascript", "language.typescript", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Has a literal Oxford 'or', so this one is ALREADY correctly handled today via the plain bare-or path -- regression guard for the trigger-phrase addition (must not change a case that already worked).",
+      "current_baseline_outcome": "technical, correct today (contains a literal 'or')."
+    },
+    {
+      "id": "m10d-b4", "category": "B",
+      "text": "Experience with one of the following: Java, Kotlin, Swift",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.kotlin", "language.swift"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "No literal 'or' anywhere; matches M10A's own §6.2(b) literal 'one of the following' trigger phrase exactly.",
+      "current_baseline_outcome": "not_technical -> 3 independent REQUIRED rows instead of one group."
+    },
+    {
+      "id": "m10d-c1", "category": "C",
+      "text": "One or more of the following: C, C++, Java, JavaScript",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.c", "language.cpp", "language.java", "language.javascript"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "The idiom opens the sentence itself (no lead-in verb like 'Experience with'/'Knowledge of') -- 'the following' noun phrase sits between the idiom and the colon.",
+      "current_baseline_outcome": "unsafe today (safe, no fabrication, but loses structure) -- the long 'the following' clause makes the leading garbage segment >3 words, which happens to fail clean_list_fragment's shape check and keeps this variant accidentally safe rather than fabricating."
+    },
+    {
+      "id": "m10d-c2", "category": "C",
+      "text": "At least one programming language (e.g., Java, Python, Go, JavaScript)",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "illustrative",
+      "expected_concept_ids": ["language.java", "language.python", "language.go", "language.javascript"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Sentence-initial, capitalized 'At' -- identical structure to m10d-manulife-real minus the leading 'Experience with'.",
+      "current_baseline_outcome": "not_technical -> 4 independent rows, 'Go' lost to a mis-cleaned 'unresolved:go' id exactly as in the real Manulife trace (Phase 1)."
+    },
+    {
+      "id": "m10d-d1", "category": "D",
+      "text": "Experience with Python and SQL",
+      "has_candidate_qualification": true, "logical_structure": "ALL", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": ["language.python", "language.sql"], "expected_requirement_group_count": 2,
+      "conservative_fallback_expected": "independent_rows", "must_remain_unparsed": false,
+      "source_exactness_notes": "True AND -- both are independently mandatory; must NEVER collapse into one ANY-of-2 group (that would let evidence of SQL alone satisfy a claim that also demands Python).",
+      "current_baseline_outcome": "not_technical -> 2 independent rows -- ALREADY CORRECT today. Regression guard: no M10D candidate may touch this path."
+    },
+    {
+      "id": "m10d-d2", "category": "D",
+      "text": "Knowledge of Docker and Kubernetes",
+      "has_candidate_qualification": true, "logical_structure": "ALL", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": ["infra.docker", "infra.kubernetes"], "expected_requirement_group_count": 2,
+      "conservative_fallback_expected": "independent_rows", "must_remain_unparsed": false,
+      "source_exactness_notes": "Regression guard; concept ids verified via resolve_concept() at annotation time.",
+      "current_baseline_outcome": "not_technical -> independent rows -- already correct today, presumed unaffected (no literal 'or', no trigger phrase)."
+    },
+    {
+      "id": "m10d-d3", "category": "D",
+      "text": "Experience with Java, Python, and Go",
+      "has_candidate_qualification": true, "logical_structure": "ALL", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 2,
+      "conservative_fallback_expected": "independent_rows", "must_remain_unparsed": false,
+      "source_exactness_notes": "Oxford-comma AND list, no 'or' anywhere, no trigger phrase -- regression guard against a trigger-phrase or idiom-guard change ever firing on a plain comma-AND list. 'Go' is DELIBERATELY excluded from expected_concept_ids: confirmed via find_concept_mentions() (Phase 1) that bare 'Go' is never matched outside an alternatives.py OR-segment's full-alias-set escalation -- find_bare_short_alias_mentions() only triggers when the ordinary mention scan finds ZERO matches, and Java/Python already match here, so this is a pre-existing, SEPARATE registry/mention-coverage gap (bare-short-alias limitation, not an alternative-structure defect) that is out of scope for M10D and not expected to be fixed by any candidate here.",
+      "current_baseline_outcome": "not_technical -> 2 independent rows for Java/Python, 'Go' silently unmatched -- already correct today FOR the alternative-structure question this milestone addresses (no OR present, no trigger phrase, correctly stays ALL/independent-rows); the missing 'Go' row is the separate, pre-existing, out-of-scope gap described above, not an M10D regression target."
+    },
+    {
+      "id": "m10d-e1", "category": "E",
+      "text": "Python or Java and SQL",
+      "has_candidate_qualification": true, "logical_structure": "MIXED", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 2,
+      "conservative_fallback_expected": "unsupported_mixed", "must_remain_unparsed": false,
+      "source_exactness_notes": "Genuinely requires a top-level AND/OR boundary decision no M10D candidate below attempts (see Phase 6, Root Cause 6). The most defensible single reading is '(Python or Java) AND SQL' (two rows: one 2-way ANY-group, one single mandatory SQL row) -- NOT a 3-way ANY-of-3 group.",
+      "current_baseline_outcome": "technical, concept_ids=(language.java, language.python, language.sql) -- silently FLATTENS the mandatory SQL AND-clause into the OR-group today, because find_concept_mentions() does not respect the 'and' boundary inside an or-segment. This makes the claim satisfiable by SQL evidence alone, which is a real scoring-relevant semantic defect, DISTINCT FROM Root Causes 4/5 and NOT fixed by either A or B below -- newly identified in this milestone, reported as Root Cause 6, no fix proposed or implemented."
+    },
+    {
+      "id": "m10d-e2", "category": "E",
+      "text": "Python and either PostgreSQL or MySQL",
+      "has_candidate_qualification": true, "logical_structure": "MIXED", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 2,
+      "conservative_fallback_expected": "unsupported_mixed", "must_remain_unparsed": false,
+      "source_exactness_notes": "Correct reading: Python AND (PostgreSQL or MySQL) -- two rows, one single Python row plus one 2-way ANY-group. Same Root Cause 6 gap as m10d-e1; 'either' is an additional unhandled cue.",
+      "current_baseline_outcome": "technical, concept_ids=(database.postgresql, language.python, unresolved:mysql) -- flattens Python into the OR-group AND fails to resolve MySQL (likely no registered concept, or not reached by the safe-alias path used inside the escalation) -- compounds Root Cause 6 with an unresolved-id question not investigated further here (out of scope: concept-registry coverage)."
+    },
+    {
+      "id": "m10d-e3", "category": "E",
+      "text": "Java, Python and/or Go",
+      "has_candidate_qualification": true, "logical_structure": "AMBIGUOUS", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": ["language.java", "language.python", "language.go"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "'and/or' is explicit standard English for inclusive-or across a whole list -- annotated AMBIGUOUS only in the sense that it is unusual phrasing, but its CONVENTIONAL reading is unambiguously ANY (at least one, possibly more, all acceptable) -- never MIXED. A safe implementation may legitimately treat 'and/or' as an ordinary alternative marker equivalent to 'or'.",
+      "current_baseline_outcome": "technical, concept_ids=(language.go, language.java, language.python) -- already correct today (the literal 'or' inside 'and/or' is matched by the existing bare-or splitter; the 'and' is absorbed as part of one segment's trailing filler, incidentally harmless here)."
+    },
+    {
+      "id": "m10d-e4", "category": "E",
+      "text": "Experience with languages such as Java, Python, or Go",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "illustrative",
+      "expected_concept_ids": ["language.java", "language.python", "language.go"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "'such as' is this project's existing, established illustrative-example cue (concepts.py's _ENUMERATION_CUE, Milestone 9A) -- correctly illustrative, not exhaustive. Already works today because of the trailing Oxford 'or'.",
+      "current_baseline_outcome": "technical, correct today (contains a literal 'or')."
+    },
+    {
+      "id": "m10d-e5", "category": "E",
+      "text": "Familiarity with at least one backend framework and one database",
+      "has_candidate_qualification": true, "logical_structure": "NONE", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 0,
+      "conservative_fallback_expected": "baseline_unaffected", "must_remain_unparsed": true,
+      "source_exactness_notes": "'backend framework' and 'database' are generic category NOUNS, not named technologies -- no specific concept can be safely inferred from this sentence alone (compare m10d-b2, where the enumerated items ARE named technologies). Correctly produces no requirement row under the EXISTING non-fabrication policy; a widened 'at least one' trigger must not promote 'backend framework'/'database' to fabricated unresolved concepts.",
+      "current_baseline_outcome": "not_technical, zero concept mentions, zero conservative-unknown-terms (no comma) -> no JobRequirement produced for this claim at all (falls to the existing UnparsedClaim path upstream) -- already correct today; regression guard against an over-broadened 'at least one' trigger."
+    },
+    {
+      "id": "m10d-f1", "category": "F",
+      "text": "One or more of the following",
+      "has_candidate_qualification": false, "logical_structure": "NONE", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 0,
+      "conservative_fallback_expected": "baseline_unaffected", "must_remain_unparsed": true,
+      "source_exactness_notes": "The idiom with NO list attached at all (a heading-shaped lead-in fragment on its own, e.g. if a bullet list were mis-segmented). A trigger-phrase detector must require an actual list after the trigger (colon, parenthetical, or comma-joined remainder) and fall through to 'no requirement' when none exists -- never fabricate a group from the idiom phrase alone.",
+      "current_baseline_outcome": "not_technical, no concept mentions -> no requirement row -- already correct today; regression guard against a trigger detector that fires on the bare idiom with nothing to list."
+    },
+    {
+      "id": "m10d-f2", "category": "F",
+      "text": "Either one or both",
+      "has_candidate_qualification": false, "logical_structure": "NONE", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 0,
+      "conservative_fallback_expected": "baseline_unaffected", "must_remain_unparsed": true,
+      "source_exactness_notes": "Contains 'either' and a literal 'or' but names no technology anywhere -- must stay NONE regardless of how aggressively 'either'/'or' cues are read.",
+      "current_baseline_outcome": "contains_alternative_marker=True but zero segments resolve/shape -> not_technical (classify_alternative_claim's own not-any-confirmed-and-not-all-shaped guard) -- already correct today."
+    },
+    {
+      "id": "m10d-f3", "category": "F",
+      "text": "Two or more years of experience",
+      "has_candidate_qualification": true, "logical_structure": "NONE", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 0,
+      "conservative_fallback_expected": "baseline_unaffected", "must_remain_unparsed": false,
+      "source_exactness_notes": "The idiom variant Candidate A's guard must ALSO recognize ('two or more', not only 'one or more') -- a numeric-years claim, non-technical, no technology named. Expected to flow through find_experience_qualifier() exactly as before, unaffected by any alternative-group change.",
+      "current_baseline_outcome": "not_technical (no 'or more' confusion possible here since there is no list after it at all) -> find_experience_qualifier() produces one category=\"experience\" row -- already correct today; regression guard that an idiom-aware idiom-stripper does not somehow interfere with the UNRELATED experience-qualifier detector."
+    },
+    {
+      "id": "m10d-f4", "category": "F",
+      "text": "Experience with one or more distributed systems",
+      "has_candidate_qualification": true, "logical_structure": "NONE", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 0,
+      "conservative_fallback_expected": "baseline_unaffected", "must_remain_unparsed": true,
+      "source_exactness_notes": "The idiom IS present but introduces an ordinary descriptive noun phrase ('distributed systems'), never an enumerated list of named technologies -- must stay NONE. This is the key discriminator between m10d-idiom-fabrication-variant (real list after the idiom) and this entry (no list at all after the idiom) -- any trigger-phrase design must tell these apart by requiring a genuine list structure, not just the idiom's presence.",
+      "current_baseline_outcome": "not_technical, zero mentions, no comma -> no requirement row for the technology-naming attempt (the claim may still separately reach UnparsedClaim) -- already correct today; sharpest regression guard against an over-eager 'one or more (of)' trigger."
+    },
+    {
+      "id": "m10d-g1", "category": "G",
+      "text": "Experience with C or C++",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.c", "language.cpp"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Bare 'C' has no readme-safe alias at all (5D.1); correctly resolved today only via alternatives.py's deliberate full-alias-set escalation for an OR-segment. Regression guard.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-g2", "category": "G",
+      "text": "Java or JavaScript experience",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.javascript"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Trailing 'experience' filler must be stripped from the second segment before resolution ('JavaScript experience' -> 'JavaScript'), and the longer alias must win over the shorter one it contains (select_longest_overlapping_matches) -- both already-existing mechanisms. Regression guard.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-g3", "category": "G",
+      "text": "React or React Native experience",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["framework.react", "framework.react_native"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "The longer, more specific alias ('React Native') must not be shadowed by the shorter one ('React') it contains. Regression guard.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-g4", "category": "G",
+      "text": "Experience with Python or SomeNewRuntime",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.python", "unresolved:somenewruntime"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "One confirmed real concept plus one genuinely unregistered but clearly-shaped technology name -- the 6B.1/9A promotion-with-confirmed-sibling path. Regression guard.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-g5", "category": "G",
+      "text": "Experience with Java, Python, or SomeNewRuntime",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python", "unresolved:somenewruntime"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Trailing unresolved item in a 3-way list. Regression guard.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-g6", "category": "G",
+      "text": "Experience with SomeNewRuntime, Java, or Python",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python", "unresolved:somenewruntime"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Leading unresolved item -- unlike a LEADING garbage segment produced by idiom-blind splitting (m10d-idiom-fabrication-variant), this leading item IS a real, deliberately-named technology (capitalized, shaped), so promoting it is correct, not a fabrication. The two cases must be distinguished by shape, never by position alone.",
+      "current_baseline_outcome": "technical, correct today."
+    },
+    {
+      "id": "m10d-g7", "category": "G",
+      "text": "control systems or state estimation",
+      "source": "docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md's own frozen negative example, reused verbatim.",
+      "has_candidate_qualification": false, "logical_structure": "NONE", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 0,
+      "conservative_fallback_expected": "baseline_unaffected", "must_remain_unparsed": true,
+      "source_exactness_notes": "Lowercase descriptive engineering-domain prose, not a technology enumeration at all -- must never be promoted, no matter how the 'or' is handled. Regression guard, M9A precedent.",
+      "current_baseline_outcome": "not_technical -- already correct today (neither segment resolves or is shaped like a named technology)."
+    },
+    {
+      "id": "m10d-h1", "category": "H",
+      "text": "- Experience with Java or Python",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Markdown bullet prefix -- segmentation.py strips bullet markers before a Claim's text reaches alternatives.py; included here to confirm a leading '- ' never reaches _split_alternative_segments and therefore cannot interact with the idiom guard.",
+      "current_baseline_outcome": "technical, correct today (bullet marker already stripped upstream by segment_description())."
+    },
+    {
+      "id": "m10d-h2", "category": "H",
+      "text": "Experience with\nJava or Python",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "A wrapped line with an embedded newline -- tests that an idiom/trigger regex using default (non-DOTALL, non-MULTILINE-sensitive) matching still spans the line break via \\s, since _ALTERNATIVE_MARKER's own segment splitting already tolerates this today.",
+      "current_baseline_outcome": "technical, correct today (re.split/finditer on 'or' already match across the embedded newline, since no anchor requires a single line)."
+    },
+    {
+      "id": "m10d-h3", "category": "H",
+      "text": "Experience with Java or Python; strong fundamentals required",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "Semicolon-joined trailing clause after the alternative list -- 'Python; strong fundamentals required' must not become one over-long unresolved segment; this exercises the EXISTING _TRAILING_FILLER/clean_list_fragment length cutoff.",
+      "current_baseline_outcome": "unsafe today -- the semicolon clause is NOT split as a separate sentence by alternatives.py (segmentation.py would ordinarily split this into two claims upstream; tested here in isolation as one claim), so the second segment becomes 'Python; strong fundamentals required', which fails clean_list_fragment's <=3-word check and sets unsafe=True. In the real pipeline this sentence would already have been split into two Claims by segment_description()'s own sentence segmentation before ever reaching alternatives.py, so this specific failure is an artifact of testing alternatives.py in isolation on unsegmented text, not a defect reachable through the real pipeline -- recorded for completeness, not treated as a regression target."
+    },
+    {
+      "id": "m10d-h4", "category": "H",
+      "text": "Experience with Java or Python (either is acceptable)",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "A parenthetical clause AFTER the already-complete 'or' list, not introducing a list itself -- must not be mistaken for a Manulife-style '(e.g., ...)' example-list parenthetical by a trigger-phrase detector.",
+      "current_baseline_outcome": "unsafe today -- 'Python (either is acceptable)' as one segment fails clean_list_fragment's shape check (too many words, trailing punctuation), same character of failure as m10d-h3: safe (no fabrication) but loses structure that a real pipeline would not actually expose this way (segmentation would ordinarily isolate the parenthetical differently). Recorded for completeness."
+    },
+    {
+      "id": "m10d-h5", "category": "H",
+      "text": "Experience with one or more of the following: Java or Python",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "NBSP (U+00A0) in place of ordinary spaces around the list's own internal 'or' -- tests that any idiom-detection/trigger regex using \\s (which matches U+00A0 under Python's Unicode-aware re) does not accidentally also treat the NBSP-joined 'or' inside the list itself as part of the idiom lead-in.",
+      "current_baseline_outcome": "technical today only by accident: the idiom-blind splitter happens to tolerate NBSP the same way it tolerates a regular space, so this still resolves correctly without any list-separator ambiguity (there is only one 'or', and it is the real list separator, not part of 'one or more'). Included as a Unicode-robustness regression guard, not a currently-failing case."
+    },
+    {
+      "id": "m10d-h6", "category": "H",
+      "text": "Experience with Java or Python, plus one or more scripting languages",
+      "has_candidate_qualification": true, "logical_structure": "MIXED", "exhaustive_or_illustrative": "n/a",
+      "expected_concept_ids": null, "expected_requirement_group_count": 2,
+      "conservative_fallback_expected": "unsupported_mixed", "must_remain_unparsed": false,
+      "source_exactness_notes": "Two clauses in one bullet, joined by 'plus': an ANY-of-2 (Java/Python) AND a second, separately-worded 'one or more scripting languages' claim that names no specific scripting language at all (so the second clause correctly produces nothing on its own, per m10d-f4's reasoning) -- the ideal outcome is exactly one ANY-of-2 group and nothing else for the second clause, which happens to coincide with what a correct implementation naturally produces, but is annotated MIXED/unsupported_mixed because the GENERAL two-clauses-in-one-bullet shape is Root Cause 6 territory, not something any M10D candidate deliberately handles.",
+      "current_baseline_outcome": "unsafe today -- the trailing idiom 'one or more scripting languages' becomes a garbage segment after the SAME idiom-blind split that affects SOTI's sentence, which (correctly, if accidentally) drags the whole claim to unsafe rather than fabricating. A Candidate A/B fix that successfully rescues m10d-idiom-fabrication-variant must be re-checked against this entry specifically, since it shares the same idiom text but in a context with TWO list-shaped clauses rather than one."
+    },
+    {
+      "id": "m10d-h7", "category": "H",
+      "text": "Colons and no colons: Experience with Java or Python",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "An unrelated colon-bearing lead-in clause BEFORE the actual alternative claim -- a trigger-phrase detector that naively searches for 'the first colon in the whole text' as its list boundary must not be confused by this. Realistically, segmentation.py would split this into two claims before either reaches alternatives.py; tested here in isolation as a defensive guard on the colon-finding logic itself.",
+      "current_baseline_outcome": "technical, correct today -- alternatives.py splits on 'or', not on colons, so this artificial colon has no effect on baseline at all; relevant only to candidate designs that newly introduce colon-seeking logic."
+    },
+    {
+      "id": "m10d-h8", "category": "H",
+      "text": "Experience with Java or Python",
+      "has_candidate_qualification": true, "logical_structure": "ANY", "exhaustive_or_illustrative": "exhaustive",
+      "expected_concept_ids": ["language.java", "language.python"], "expected_requirement_group_count": 1,
+      "conservative_fallback_expected": "any_of_group", "must_remain_unparsed": false,
+      "source_exactness_notes": "No colon anywhere -- the plain, no-colon baseline case every formatting variant above is deliberately compared against.",
+      "current_baseline_outcome": "technical, correct today."
+    }
+  ]
+}

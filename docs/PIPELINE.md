@@ -500,6 +500,33 @@ bumps (`v5` -> `v6`). See `docs/ARCHITECTURE.md` §33 and
 design review, the real implementation-time regression found and
 fixed, and the measured before/after on both real postings.
 
+### Alternative-requirement semantics -- Milestone 10D
+
+`classify_alternative_claim()` (`jobs/parsing/alternatives.py`) gains
+an explicit ANY-of trigger-phrase path, tried BEFORE the ordinary
+bare-"or" path: six lead-in phrases ("one or more of," "at least one,"
+"any one of," "one of the following," "any of," "either of") checked
+independently of a literal "or" at all (M10A Root Cause 4 -- Manulife's
+"at least one programming language (e.g., Java, Python, Go,
+JavaScript)," previously four independent REQUIRED rows instead of one
+ANY-of-4 group). The ordinary bare-"or" path (`_split_alternative_segments`)
+gains an idiom guard preventing "<number-word> or more" from being
+read as a list separator (M10A Root Cause 5 -- SOTI's "one or more of
+the following programming languages: ...," previously the whole
+9-language enumeration lost to the conservative `alternative_requirement`
+placeholder). Both paths share the same extracted
+`_classify_segment_list()` resolution loop, which also gained a
+shape-gated fix closing a fabrication path (`unresolved:one`,
+`unresolved:more_of:_c`) found while reproducing Root Cause 5 on a
+differently-punctuated sentence. `JobRequirement`, the matcher, and
+the scoring formula are all completely unchanged; only
+`JOB_DESCRIPTION_PARSER_VERSION` bumps (`v6` -> `v7`). A MIXED AND/OR
+shape ("Python or Java and SQL") is explicitly NOT addressed --
+deferred as a newly-identified Root Cause 6. See `docs/ARCHITECTURE.md`
+§34 and `docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md` for
+the full evaluation-first design review and the measured before/after
+on both real postings.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

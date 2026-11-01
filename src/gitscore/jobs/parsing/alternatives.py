@@ -55,6 +55,85 @@ Per-segment resolution is a TWO-STEP escalation, not a single lookup:
    to `unresolved:go`. If step 2 also fails, the cleaned term is either
    promoted to `unresolved:<term>` (shape check passes) or the segment is
    marked unsafe (shape check fails).
+
+**Milestone 10D -- alternative-requirement semantics (two additive
+fixes, both evaluation-derived, see
+`docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md` for the full
+corpus/candidate comparison this design is based on):**
+
+1. **Root Cause 4 -- an explicit ANY-of lead-in with NO literal "or"
+   at all** (the real Manulife posting: "Experience with at least one
+   programming language (e.g., Java, Python, Go, JavaScript)" --
+   `contains_alternative_marker()` never fires, so the pre-10D parser
+   never even attempted group detection, instead minting one
+   independent REQUIRED row per matched language). `_ANY_OF_TRIGGER`
+   recognizes six lead-in phrases ("one or more of," "at least one,"
+   "any one of," "one of the following," "any of," "either of" --
+   "at least one" deliberately bare, no required trailing "of," to
+   match Manulife's own wording) anywhere in the claim, independent of
+   `contains_alternative_marker()`. Once found, `_find_any_of_list_region()`
+   locates the actual list that follows it -- a parenthetical example
+   clause ("(e.g., ...)"/"such as ..."/"for example ..."), else a
+   colon-introduced list, else the bare remainder -- and resolves THAT
+   region through the exact same `_classify_segment_list()` (below)
+   the ordinary "or"-path already used, never new concept-matching
+   logic. Checked FIRST in `classify_alternative_claim()`, before the
+   ordinary bare-"or" path, so the trigger's own list region is judged
+   on its own, not re-mixed with unrelated "or"s/commas elsewhere in
+   the same claim.
+2. **Root Cause 5 -- idiom-blind "or" splitting** (SOTI's "one or more
+   of the following programming languages: ..." -- the literal "or"
+   inside the filler idiom "one or more" was previously split like an
+   ordinary list separator, producing a garbage leading segment).
+   `_IDIOM_OR_MORE` protects any `"<number-word/digit> or more"` span
+   from `_split_alternative_segments()`'s own bare-"or" split --
+   narrowly scoped to this one idiom shape, never a general "or"
+   blocklist. This also doubles as Candidate A's safety net whenever
+   the new trigger-phrase table (above) does not fire at all (e.g. an
+   idiom appearing somewhere other than as a recognized lead-in).
+
+A THIRD, previously-undermechanized fabrication path was found and
+closed as part of this same milestone, inside `_resolve_segment()`
+itself (not new to the trigger/idiom work above, and affecting the
+ORDINARY bare-"or" path too): its `clean_list_fragment`-escalation
+branch used to promote an unresolved term to `unresolved:<term>`
+UNCONDITIONALLY once `clean_list_fragment` accepted it, with no shape
+check at all -- unlike the sibling ALL-UNRESOLVED-group rescue inside
+`classify_alternative_claim()`, which already gated on
+`looks_like_specific_technology_name`. A short, generic filler word
+surviving idiom-blind splitting (e.g. "one" in "one or more," or the
+garbled "more of: C") was short enough to pass `clean_list_fragment`'s
+plain <=3-word/stopword check and got promoted into an otherwise-real
+alternative group as a fabricated id (`unresolved:one`,
+`unresolved:more_of:_c`) -- confirmed reproducible on a differently
+punctuated "one or more of" sentence one punctuation choice away from
+SOTI's own. `_resolve_segment()` now requires
+`looks_like_specific_technology_name` before accepting this escalation
+too, closing the gap for every caller, not just the new trigger path.
+Confirmed non-regressing against every previously-correct alternative-
+group case (frozen `general_swe_01` gold, the full M9B/M10A/M10C
+corpora, and the existing manual examples in `tests/test_job_parser.py`)
+because this branch's shape-less promotions were ALREADY excluded from
+`any_confirmed`/`all_shaped` by the caller's own pre-existing safety
+net -- this change only moves that exclusion one step earlier, inside
+`_resolve_segment()` itself, never changing a case that previously
+survived into a `technical` result.
+
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v6` -> `v7` accordingly
+(`jobs/parsing/parser.py`).
+
+**Explicitly deferred, NOT implemented here (Root Cause 6, newly
+identified, see the design doc §1.5/§6.3):** a MIXED AND/OR shape
+("Python or Java and SQL") is still silently flattened into one
+over-permissive ANY-of-3 group today -- fixing this needs genuine
+AND/OR precedence detection, not a single fixed split point, and is
+reserved for a future, separately-scoped and separately-approved
+milestone. No schema/matcher/scoring change was made or is believed
+necessary for either fix above or for a future Root Cause 6 fix (a
+MIXED requirement is already representable today as one
+`alternative_concept_ids` group plus one ordinary single-`concept_id`
+row, exactly mirroring how "Docker and Kubernetes" already becomes two
+independent rows).
 """
 from __future__ import annotations
 
@@ -100,14 +179,49 @@ def contains_alternative_marker(text: str) -> bool:
     return _ALTERNATIVE_MARKER.search(text) is not None
 
 
+# Milestone 10D Root Cause 5 -- the ONE idiom `_split_alternative_segments`
+# must never read as a list-separator "or": "<number-word/digit> or
+# more" ("one or more of the following programming languages: ...").
+# Deliberately narrow (never a general "or" blocklist) -- see this
+# module's docstring.
+_IDIOM_OR_MORE = re.compile(
+    r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten|\d+)\s+or\s+more\b",
+    re.IGNORECASE,
+)
+
+
+def _idiom_protected_spans(text: str) -> list[tuple[int, int]]:
+    return [match.span() for match in _IDIOM_OR_MORE.finditer(text)]
+
+
 def _split_alternative_segments(text: str) -> list[str]:
     """"Python or Go" -> ["Python", "Go"]; "PostgreSQL, MySQL, or
     MongoDB" -> ["PostgreSQL", "MySQL", "MongoDB"] (the Oxford-comma
     enumeration is handled by additionally splitting each "or"-divided
     part on commas).
+
+    Milestone 10D: a bare "or" that falls inside an `_IDIOM_OR_MORE`
+    match (e.g. the "or" in "one or more") is never treated as a list
+    separator -- found via `finditer` + a protected-span exclusion
+    rather than the simpler `_ALTERNATIVE_MARKER.split()` this function
+    used before, specifically so that exclusion is possible.
     """
+    protected = _idiom_protected_spans(text)
+
+    def _is_protected(position: int) -> bool:
+        return any(start <= position < end for start, end in protected)
+
+    pieces: list[str] = []
+    cursor = 0
+    for match in _ALTERNATIVE_MARKER.finditer(text):
+        if _is_protected(match.start()):
+            continue
+        pieces.append(text[cursor : match.start()])
+        cursor = match.end()
+    pieces.append(text[cursor:])
+
     segments: list[str] = []
-    for part in _ALTERNATIVE_MARKER.split(text):
+    for part in pieces:
         for piece in part.split(","):
             piece = _strip_trailing_filler(piece.strip())
             if piece:
@@ -136,7 +250,19 @@ def _resolve_segment(segment: str, registry) -> tuple[str, ...] | None:
         escalated = resolve_concept(core_term, registry=registry)
         if escalated.matched:
             return (escalated.concept_id,)
-        return (unresolved_concept_id(core_term),)
+        # Milestone 10D: an escalated term that failed to resolve
+        # against the registry is promoted to a conservative
+        # `unresolved:<term>` placeholder ONLY when it also looks like
+        # ONE specific named technology (shape, never meaning) -- the
+        # SAME `looks_like_specific_technology_name` gate the sibling
+        # ALL-UNRESOLVED-group rescue in `classify_alternative_claim()`
+        # already applies. Closes a fabrication path where a short,
+        # generic filler word surviving idiom-blind splitting ("one,"
+        # the garbled "more of: C") was previously promoted
+        # unconditionally -- see this module's own docstring.
+        if looks_like_specific_technology_name(core_term):
+            return (unresolved_concept_id(core_term),)
+        return None
 
     # Milestone 8D.1: `clean_list_fragment` failed its whole-fragment
     # shape check (too many trailing descriptive words -- e.g. "Go for
@@ -190,14 +316,17 @@ def _shaped_term(segment: str, *, allow_leading_token: bool) -> str | None:
     return leading_token(segment)
 
 
-def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
-    if not contains_alternative_marker(text):
-        return AlternativeClaim(kind="not_technical")
-
-    registry = registry or default_registry()
-    segments = _split_alternative_segments(text)
+def _classify_segment_list(segments: list[str], registry) -> AlternativeClaim | None:
+    """The shared per-segment resolution loop both the ordinary bare-
+    "or" path and Milestone 10D's explicit ANY-of trigger path (below)
+    use identically -- extracted from `classify_alternative_claim()`'s
+    original body so the trigger path reuses this EXACT logic rather
+    than a second, independently-drifting copy. Returns `None` when
+    there are fewer than two segments at all (not a list) -- the
+    caller decides what that means for ITS OWN fallback.
+    """
     if len(segments) < 2:
-        return AlternativeClaim(kind="not_technical")
+        return None
 
     any_confirmed = False
     unsafe = False
@@ -247,3 +376,92 @@ def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
     if unsafe or len(ordered_ids) < 2:
         return AlternativeClaim(kind="unsafe")
     return AlternativeClaim(kind="technical", concept_ids=tuple(sorted(ordered_ids)))
+
+
+# Milestone 10D Root Cause 4 -- explicit ANY-of lead-in phrases,
+# checked independently of a literal "or." "at least one" is
+# deliberately bare (no required trailing "of") to match the real
+# Manulife posting's own wording ("Experience with at least one
+# programming language (e.g., ...)"). Safety against this broadened,
+# bare trigger comes entirely from requiring an ACTUAL list structure
+# to follow it (`_find_any_of_list_region`) and from
+# `_classify_segment_list`'s own existing shape/resolution
+# requirements -- never from the trigger phrase's specificity alone
+# (confirmed via `evaluation/m10d/alternative_controls.json`'s
+# category-E/F negative controls, e.g. "at least one year of
+# experience with Python" must never become a multi-way group).
+_ANY_OF_TRIGGER = re.compile(
+    r"\b(?:one or more of|at least one|any one of|one of the following|any of|either of)\b",
+    re.IGNORECASE,
+)
+_PARENTHETICAL_EXAMPLE_LIST = re.compile(r"\(\s*(?:e\.g\.,?|such as|for example)\s*([^)]+)\)", re.IGNORECASE)
+_LIST_AFTER_COLON = re.compile(r":\s*(.+)$", re.DOTALL)
+_LEADING_CONNECTOR = re.compile(r"^\s*(?:of\s+)?(?:the\s+following\s*:?\s*)?", re.IGNORECASE)
+
+
+def _find_any_of_list_region(text: str, trigger_end: int) -> str | None:
+    """The text Root Cause 4's trigger path should treat as "the
+    enumerated list," searched from `trigger_end` onward -- a
+    parenthetical example clause, else a colon-introduced list, else
+    the bare remainder (leading connector stripped) if non-empty.
+    Returns `None` only when the remainder is empty or has no list
+    structure left at all after stripping (a bare idiom with nothing
+    to enumerate, e.g. "One or more of the following" on its own).
+    """
+    remainder = text[trigger_end:]
+    parenthetical = _PARENTHETICAL_EXAMPLE_LIST.search(remainder)
+    if parenthetical is not None:
+        return parenthetical.group(1)
+    colon_list = _LIST_AFTER_COLON.search(remainder)
+    if colon_list is not None:
+        return colon_list.group(1)
+    stripped = _LEADING_CONNECTOR.sub("", remainder).strip()
+    return stripped or None
+
+
+def _classify_any_of_trigger(text: str, registry) -> AlternativeClaim | None:
+    """Milestone 10D Root Cause 4. Returns `None` whenever this trigger
+    path cannot responsibly commit to an outcome -- no trigger phrase
+    found, no list-shaped region follows one, or the list region
+    itself resolves to `not_technical` (fewer than two real/shaped
+    segments) -- in every such case the caller falls through to the
+    ordinary bare-"or" path on the FULL original text unchanged. Only
+    a `technical` or `unsafe` result from the trigger's OWN, narrower
+    list region is returned directly: once a confirmed technical
+    context exists there, that is the correct, final (conservative if
+    necessary) answer -- never silently re-tried against a different,
+    wider segmentation.
+    """
+    trigger = _ANY_OF_TRIGGER.search(text)
+    if trigger is None:
+        return None
+    list_region = _find_any_of_list_region(text, trigger.end())
+    if list_region is None:
+        return None
+    segments = _split_alternative_segments(list_region)
+    result = _classify_segment_list(segments, registry)
+    if result is None or result.kind == "not_technical":
+        return None
+    return result
+
+
+def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
+    registry = registry or default_registry()
+
+    # Milestone 10D -- Root Cause 4's explicit ANY-of trigger path is
+    # tried FIRST: it has no literal-"or" requirement at all, and its
+    # own list region must be judged on its own, not re-mixed with
+    # unrelated "or"s/commas elsewhere in the same claim (exactly
+    # SOTI's and Manulife's real sentences).
+    trigger_result = _classify_any_of_trigger(text, registry)
+    if trigger_result is not None:
+        return trigger_result
+
+    if not contains_alternative_marker(text):
+        return AlternativeClaim(kind="not_technical")
+
+    segments = _split_alternative_segments(text)
+    result = _classify_segment_list(segments, registry)
+    if result is None:
+        return AlternativeClaim(kind="not_technical")
+    return result

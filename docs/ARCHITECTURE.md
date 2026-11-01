@@ -4441,3 +4441,96 @@ scope restriction): the Manulife "at least one programming language
 idiom-blind splitting (Root Cause 5) — both unaffected, confirmed by
 the unchanged SOTI/Manulife false-positive and malformed-alternative-group
 counts.
+
+## 34. Alternative-requirement semantics — Milestone 10D
+
+**Addresses M10A Root Causes 4 and 5, left open by M10C §33.**
+Evaluation-first design review
+(`docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md`): a
+41-control corpus (`evaluation/m10d/alternative_controls.json`)
+compared four candidate designs; the approved "Candidate A+B" matched
+the broadest candidate's real-world coverage (38/41 exact match) with
+zero fabrications and zero regressions, without adopting a broader
+AND/OR structural classifier whose only advantage was two MIXED-case
+answers correct by coincidence of phrasing rather than a real grammar.
+
+**Implementation, entirely within `jobs/parsing/alternatives.py`:**
+`classify_alternative_claim()` now tries an explicit ANY-of
+trigger-phrase path FIRST (`_classify_any_of_trigger`) — six lead-in
+phrases ("one or more of," "at least one," "any one of," "one of the
+following," "any of," "either of"; "at least one" deliberately bare,
+no required trailing "of," to match the real Manulife posting's own
+wording) checked independently of a literal "or" at all (Root Cause
+4). Once found, `_find_any_of_list_region()` locates the actual list
+that follows — a parenthetical example clause, a colon-introduced
+list, or the bare remainder — and resolves it through the SAME
+`_classify_segment_list()` (extracted, not duplicated, from the
+function's own prior body) the ordinary bare-"or" path already uses.
+Falling through to that ordinary path, `_split_alternative_segments()`
+gained an idiom guard (`_IDIOM_OR_MORE`) protecting any
+"<number-word/digit> or more" span from being read as a list separator
+(Root Cause 5 — SOTI's "one or more of the following programming
+languages: ..."). A third, previously-under-mechanized fabrication
+path inside `_resolve_segment()`'s own `clean_list_fragment`-escalation
+branch — which used to promote an unresolved term to
+`unresolved:<term>` unconditionally, with no shape check at all,
+unlike the sibling ALL-UNRESOLVED-group rescue — is now gated on
+`looks_like_specific_technology_name`, the same shape check that rescue
+already used; this closes a confirmed, reproduced fabrication
+(`unresolved:one`, and a garbled `unresolved:more_of:_c`) one
+punctuation choice away from SOTI's real sentence.
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v6` → `v7`.
+
+**Measured, real-world result:** SOTI's 9-language "one or more of"
+requirement, previously the conservative `alternative_requirement`
+placeholder with zero assessable rows, now produces exactly one
+correctly-structured `alternative_concept_ids` group (9 concepts,
+including two safely-promoted `unresolved:<term>` ids for Haskell/Lua,
+neither registered). Manulife's "at least one programming language
+(e.g., ...)" requirement collapses from four independently-scored rows
+(one of which fabricated `unresolved:go` instead of the real
+`language.go`) to one correctly-structured group. `evaluate_m10a_realworld.py`:
+Manulife's `malformed_alternative_groups` 1 → 0, `meets_ideal_count`
+39/43 → 40/43, `neither_ideal_nor_fallback` shrinks from
+`[man-06, man-10]` to `[man-06]` only; SOTI's own counts are
+unaffected (its one remaining defect, the C#/SQL learning-narrative
+false positive, is an explicitly out-of-scope, pre-existing limitation
+— Root Cause 6 territory, not Root Cause 4/5). M9B preservation
+metrics byte-identical except the version string; M10C heading
+classification report byte-identical; frozen 8c:v1/8c:v1.1 zero diff.
+Full backend suite: 1096 pre-existing tests unchanged + 61 new
+(`tests/test_m10d_alternative_requirement_semantics.py`, covering all
+41 corpus controls plus the real SOTI/Manulife sentences, the frozen
+`general_swe_01` positive control, both fabrication-reproduction
+variants, concept-resolution hazards, negative controls, and
+source-span/determinism/denominator checks) = 1157 passed.
+
+**Explicitly NOT addressed** (newly identified as Root Cause 6,
+reserved for its own future, separately-approved milestone): a MIXED
+AND/OR shape ("Python or Java and SQL") is still silently flattened
+into one over-permissive ANY-of-3 group today — fixing this needs
+genuine AND/OR precedence detection, not a single fixed split point.
+No `JobRequirement`/matcher/scoring-formula/schema change was made or
+is believed necessary for this fix or a future Root Cause 6 fix — a
+MIXED requirement is already representable today as one
+`alternative_concept_ids` group plus one ordinary single-`concept_id`
+row, exactly mirroring how "Docker and Kubernetes" already becomes two
+independent rows.
+
+**A second, PRE-EXISTING limitation, disclosed (not fixed) by a
+post-implementation audit:** `match_requirement()`
+(`matching/engine.py`) matches an alternative group only against its
+named `alternative_concept_ids`, with no mechanism to credit a
+same-family-but-unlisted technology. For an illustrative
+`"(e.g., ...)"` list (Manulife's "at least one programming language
+(e.g., Java, Python, Go, JavaScript)"), a candidate with real evidence
+of an unlisted language (e.g. Rust) is scored `NOT_OBSERVED` —
+identically to a candidate with no relevant evidence at all.
+`JobRequirement` retains no illustrative-vs-exhaustive metadata to
+distinguish the two cases. Not introduced or worsened by this
+milestone (the pre-10D four-independent-rows representation had the
+identical conflation); fixing it needs a schema or matcher change,
+reserved for a future, separately-approved milestone. See
+`docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md`'s
+post-implementation audit addendum for the full synthetic-candidate
+trace.

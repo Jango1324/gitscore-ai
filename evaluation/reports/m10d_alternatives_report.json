@@ -1,0 +1,3228 @@
+{
+  "corpus_version": "m10d:v1",
+  "control_count": 41,
+  "candidates": {
+    "baseline": {
+      "totals": {
+        "exact_match": 28,
+        "fabricated": 5,
+        "regression": 0
+      },
+      "control_count": 41,
+      "by_category": {
+        "real-posting": {
+          "total": 2,
+          "exact_match": 0,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "general_swe_01-control": {
+          "total": 1,
+          "exact_match": 1,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "root-cause-5-variant": {
+          "total": 2,
+          "exact_match": 0,
+          "fabricated": 2,
+          "regression": 0
+        },
+        "A": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "B": {
+          "total": 4,
+          "exact_match": 1,
+          "fabricated": 1,
+          "regression": 0
+        },
+        "C": {
+          "total": 2,
+          "exact_match": 0,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "D": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "E": {
+          "total": 5,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "F": {
+          "total": 4,
+          "exact_match": 4,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "G": {
+          "total": 7,
+          "exact_match": 7,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "H": {
+          "total": 8,
+          "exact_match": 6,
+          "fabricated": 2,
+          "regression": 0
+        }
+      }
+    },
+    "candidate_a": {
+      "totals": {
+        "exact_match": 30,
+        "fabricated": 0,
+        "regression": 0
+      },
+      "control_count": 41,
+      "by_category": {
+        "real-posting": {
+          "total": 2,
+          "exact_match": 0,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "general_swe_01-control": {
+          "total": 1,
+          "exact_match": 1,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "root-cause-5-variant": {
+          "total": 2,
+          "exact_match": 1,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "A": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "B": {
+          "total": 4,
+          "exact_match": 1,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "C": {
+          "total": 2,
+          "exact_match": 0,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "D": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "E": {
+          "total": 5,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "F": {
+          "total": 4,
+          "exact_match": 4,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "G": {
+          "total": 7,
+          "exact_match": 7,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "H": {
+          "total": 8,
+          "exact_match": 7,
+          "fabricated": 0,
+          "regression": 0
+        }
+      }
+    },
+    "candidate_b": {
+      "totals": {
+        "exact_match": 38,
+        "fabricated": 1,
+        "regression": 0
+      },
+      "control_count": 41,
+      "by_category": {
+        "real-posting": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "general_swe_01-control": {
+          "total": 1,
+          "exact_match": 1,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "root-cause-5-variant": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "A": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "B": {
+          "total": 4,
+          "exact_match": 4,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "C": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "D": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "E": {
+          "total": 5,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "F": {
+          "total": 4,
+          "exact_match": 4,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "G": {
+          "total": 7,
+          "exact_match": 7,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "H": {
+          "total": 8,
+          "exact_match": 7,
+          "fabricated": 1,
+          "regression": 0
+        }
+      }
+    },
+    "candidate_ab": {
+      "totals": {
+        "exact_match": 38,
+        "fabricated": 0,
+        "regression": 0
+      },
+      "control_count": 41,
+      "by_category": {
+        "real-posting": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "general_swe_01-control": {
+          "total": 1,
+          "exact_match": 1,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "root-cause-5-variant": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "A": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "B": {
+          "total": 4,
+          "exact_match": 4,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "C": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "D": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "E": {
+          "total": 5,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "F": {
+          "total": 4,
+          "exact_match": 4,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "G": {
+          "total": 7,
+          "exact_match": 7,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "H": {
+          "total": 8,
+          "exact_match": 7,
+          "fabricated": 0,
+          "regression": 0
+        }
+      }
+    },
+    "candidate_c": {
+      "totals": {
+        "exact_match": 40,
+        "fabricated": 0,
+        "regression": 0
+      },
+      "control_count": 41,
+      "by_category": {
+        "real-posting": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "general_swe_01-control": {
+          "total": 1,
+          "exact_match": 1,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "root-cause-5-variant": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "A": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "B": {
+          "total": 4,
+          "exact_match": 4,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "C": {
+          "total": 2,
+          "exact_match": 2,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "D": {
+          "total": 3,
+          "exact_match": 3,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "E": {
+          "total": 5,
+          "exact_match": 5,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "F": {
+          "total": 4,
+          "exact_match": 4,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "G": {
+          "total": 7,
+          "exact_match": 7,
+          "fabricated": 0,
+          "regression": 0
+        },
+        "H": {
+          "total": 8,
+          "exact_match": 7,
+          "fabricated": 0,
+          "regression": 0
+        }
+      }
+    }
+  },
+  "per_control": {
+    "baseline": {
+      "m10d-soti-real": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-manulife-real": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 3
+      },
+      "m10d-general-swe-control": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-variant": {
+        "exact_match": false,
+        "fabricated": true,
+        "fabricated_ids": [
+          "unresolved:one"
+        ],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python",
+          "unresolved:one"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-colon-variant": {
+        "exact_match": false,
+        "fabricated": true,
+        "fabricated_ids": [
+          "unresolved:one",
+          "unresolved:more_of:_c"
+        ],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "unresolved:more_of:_c",
+          "unresolved:one"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.rust"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "unresolved:angular",
+          "unresolved:vue"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b1": {
+        "exact_match": false,
+        "fabricated": true,
+        "fabricated_ids": [
+          "unresolved:one",
+          "unresolved:more_of:_c"
+        ],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "unresolved:more_of:_c",
+          "unresolved:one"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b2": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-b3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.javascript",
+          "language.python",
+          "language.typescript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b4": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.kotlin",
+          "language.swift"
+        ],
+        "actual_group_count": 3
+      },
+      "m10d-c1": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-c2": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 3
+      },
+      "m10d-d1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "infra.docker",
+          "infra.kubernetes"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-e1": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e2": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "database.postgresql",
+          "language.python",
+          "unresolved:mysql"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-g1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "framework.react_native"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g6": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-h1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h5": {
+        "exact_match": false,
+        "fabricated": true,
+        "fabricated_ids": [
+          "unresolved:one"
+        ],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:one"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h6": {
+        "exact_match": false,
+        "fabricated": true,
+        "fabricated_ids": [
+          "unresolved:plus_one",
+          "unresolved:more_scripting_languages"
+        ],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:more_scripting_languages",
+          "unresolved:plus_one"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h8": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      }
+    },
+    "candidate_a": {
+      "m10d-soti-real": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-manulife-real": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 3
+      },
+      "m10d-general-swe-control": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-variant": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-colon-variant": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-a1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.rust"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "unresolved:angular",
+          "unresolved:vue"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b1": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-b2": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-b3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.javascript",
+          "language.python",
+          "language.typescript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b4": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.kotlin",
+          "language.swift"
+        ],
+        "actual_group_count": 3
+      },
+      "m10d-c1": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-c2": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 3
+      },
+      "m10d-d1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "infra.docker",
+          "infra.kubernetes"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-e1": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e2": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "database.postgresql",
+          "language.python",
+          "unresolved:mysql"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-g1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "framework.react_native"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g6": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-h1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h6": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-h7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h8": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      }
+    },
+    "candidate_b": {
+      "m10d-soti-real": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript",
+          "language.ruby",
+          "language.rust",
+          "language.sql",
+          "unresolved:haskell",
+          "unresolved:lua"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-manulife-real": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-general-swe-control": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-variant": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-colon-variant": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.rust"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "unresolved:angular",
+          "unresolved:vue"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.javascript",
+          "language.python",
+          "language.typescript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.kotlin",
+          "language.swift"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-c1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-c2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-d1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "infra.docker",
+          "infra.kubernetes"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-e1": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e2": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "database.postgresql",
+          "language.python",
+          "unresolved:mysql"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-g1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "framework.react_native"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g6": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-h1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h6": {
+        "exact_match": false,
+        "fabricated": true,
+        "fabricated_ids": [
+          "unresolved:plus_one",
+          "unresolved:more_scripting_languages"
+        ],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:more_scripting_languages",
+          "unresolved:plus_one"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h8": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      }
+    },
+    "candidate_ab": {
+      "m10d-soti-real": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript",
+          "language.ruby",
+          "language.rust",
+          "language.sql",
+          "unresolved:haskell",
+          "unresolved:lua"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-manulife-real": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-general-swe-control": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-variant": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-colon-variant": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.rust"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "unresolved:angular",
+          "unresolved:vue"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.javascript",
+          "language.python",
+          "language.typescript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.kotlin",
+          "language.swift"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-c1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-c2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-d1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "infra.docker",
+          "infra.kubernetes"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-e1": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e2": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "database.postgresql",
+          "language.python",
+          "unresolved:mysql"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-g1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "framework.react_native"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g6": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-h1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h6": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-h7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h8": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      }
+    },
+    "candidate_c": {
+      "m10d-soti-real": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript",
+          "language.ruby",
+          "language.rust",
+          "language.sql",
+          "unresolved:haskell",
+          "unresolved:lua"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-manulife-real": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-general-swe-control": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-variant": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-idiom-fabrication-colon-variant": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.rust"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-a3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "unresolved:angular",
+          "unresolved:vue"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.javascript",
+          "language.python",
+          "language.typescript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-b4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.kotlin",
+          "language.swift"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-c1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-c2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-d1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "infra.docker",
+          "infra.kubernetes"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-d3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-e1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "language.sql"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-e2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "database.postgresql",
+          "language.python",
+          "unresolved:mysql"
+        ],
+        "actual_group_count": 2
+      },
+      "m10d-e3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-e5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-f4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-g1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "framework.react",
+          "framework.react_native"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g6": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python",
+          "unresolved:somenewruntime"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-g7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "NONE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-h1": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h2": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h3": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h4": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h5": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h6": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "m10d-h7": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "m10d-h8": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      }
+    }
+  },
+  "highlighted_traces": {
+    "m10d-soti-real": {
+      "baseline": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "candidate_a": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "candidate_b": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript",
+          "language.ruby",
+          "language.rust",
+          "language.sql",
+          "unresolved:haskell",
+          "unresolved:lua"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_ab": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript",
+          "language.ruby",
+          "language.rust",
+          "language.sql",
+          "unresolved:haskell",
+          "unresolved:lua"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_c": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java",
+          "language.javascript",
+          "language.ruby",
+          "language.rust",
+          "language.sql",
+          "unresolved:haskell",
+          "unresolved:lua"
+        ],
+        "actual_group_count": 1
+      }
+    },
+    "m10d-manulife-real": {
+      "baseline": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 3
+      },
+      "candidate_a": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "MIXED",
+        "actual_concept_ids": [
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 3
+      },
+      "candidate_b": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_ab": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_c": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.javascript",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      }
+    },
+    "m10d-general-swe-control": {
+      "baseline": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_a": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_b": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_ab": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_c": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      }
+    },
+    "m10d-idiom-fabrication-variant": {
+      "baseline": {
+        "exact_match": false,
+        "fabricated": true,
+        "fabricated_ids": [
+          "unresolved:one"
+        ],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python",
+          "unresolved:one"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_a": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_b": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_ab": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_c": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.go",
+          "language.java",
+          "language.python"
+        ],
+        "actual_group_count": 1
+      }
+    },
+    "m10d-idiom-fabrication-colon-variant": {
+      "baseline": {
+        "exact_match": false,
+        "fabricated": true,
+        "fabricated_ids": [
+          "unresolved:one",
+          "unresolved:more_of:_c"
+        ],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.cpp",
+          "language.java",
+          "unresolved:more_of:_c",
+          "unresolved:one"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_a": {
+        "exact_match": false,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "UNSAFE",
+        "actual_concept_ids": [],
+        "actual_group_count": 0
+      },
+      "candidate_b": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_ab": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      },
+      "candidate_c": {
+        "exact_match": true,
+        "fabricated": false,
+        "fabricated_ids": [],
+        "regression": false,
+        "structure": "ANY",
+        "actual_concept_ids": [
+          "language.c",
+          "language.cpp",
+          "language.java"
+        ],
+        "actual_group_count": 1
+      }
+    }
+  },
+  "determinism_failures": []
+}
