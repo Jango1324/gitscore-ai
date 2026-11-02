@@ -4729,3 +4729,54 @@ after and the one correction it makes to the design doc's own original
 `unresolved:our` framing (that specific observation turned out to be a
 downstream symptom of the still-untouched, separately-tracked line-wrap
 defect, not a third independent fabrication path).
+
+### Milestone 11-A2 — line-wrap segmentation integrity (the line-wrap
+fix M11-A1 deferred, now implemented separately)
+
+Evaluation-first design review
+(`docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md`): traced
+M11-A1's own disclosed residual (the real `m11-unicode-contradiction-01`
+fixture's "We've built our platform..." sentence still fabricating 3
+spurious rows) to `segment_description()` treating every physical line
+as a fully independent unit, so a word-wrapped sentence's own
+narrative-cue phrase (`"We've built"`) was split across a line boundary
+before anything downstream ever saw it whole. Measured three candidate
+join designs against a new 38-control paired corpus plus six
+regression corpora; the naive, content-blind candidates scored higher
+on raw equivalence but were measurably UNSAFE (confirmed: both merge a
+genuine two-item PREFERRED list, `"React"`/`"Node.js"`, into one
+corrupted claim). The recommended design — structural-boundary respect
+(heading/bullet/blank-line-paragraph gap always hard) PLUS a narrow,
+closed-vocabulary content signal (comma/semicolon, or a generic English
+function-word/copula-verb/contraction ending) — introduces zero such
+regressions anywhere measured.
+
+**Implementation, entirely within three files, no schema/matcher/
+scoring change:** `jobs/parsing/segmentation.py::segment_description()`
+extends an ordinary line's content span across any immediately-
+following soft-wrap-continued line via DIRECT SLICING of the original
+`description` (no rewritten string, no offset-mapping table —
+consecutive physical lines separated by one newline are already
+contiguous in the source text, a simplification found during
+implementation, not assumed in advance). `jobs/parsing/narrative.py`'s
+and `jobs/parsing/necessity.py`'s own cue/marker regexes had every
+literal single-space word separator widened to `\s+` — a NECESSARY
+companion fix found during the same investigation: reconstructing the
+correct joined text alone was not sufficient, since those regexes
+previously could not match a phrase whose words are now separated by
+an embedded newline instead of a space. `JOB_DESCRIPTION_PARSER_VERSION`
+bumps `v9` → `v10`.
+
+**Measured, honest result:** the real fixture's fabricated-row count
+drops from 5 to **2**, not to 0 — the SECOND wrapped sentence in that
+same fixture (`"...however,\nwe are also open to... with strong\n
+fundamentals..."`) ends in an ordinary content word with no corroborating
+punctuation/function-word, a disclosed, deliberately-NOT-solved residual
+(a line-length heuristic was evaluated and rejected: it would merge two
+genuinely separate, period-less bullet requirements,
+`m11a2-bullets-02`). M10A/M9B/M11's own generalization corpus/frozen
+`8c:v1`/`8c:v1.1`: zero regressions, confirmed via a clean-tree
+before/after comparison, not a single-point-in-time read. See
+`docs/CHANGELOG_DEV.md`'s Milestone 11-A2 entry for the full before/
+after and `docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md`'s own
+implementation addendum.

@@ -159,6 +159,35 @@ alternative for `"our ... backend/frontend/codebase/infrastructure"`
 phrasing. See `docs/CHANGELOG_DEV.md`'s Milestone 11-A1 entry for the
 full before/after. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v8` -> `v9`
 accordingly.
+
+**Milestone 11-A2 -- line-wrap segmentation integrity.** Two
+coordinated fixes, found while tracing M11-A1's own disclosed residual
+limitation
+(`docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md`), entirely
+within `jobs/parsing/segmentation.py`, `jobs/parsing/narrative.py`, and
+`jobs/parsing/necessity.py` -- nothing in THIS module changes except
+the version bump. `segment_description()` now extends an ordinary
+line's content span across any immediately-following soft-wrap-
+continued line (comma/semicolon-ending, or ending in a closed,
+generic English function-word/copula-verb/contraction vocabulary --
+never a technology/employer-specific term), always stopping at a
+heading, a bullet-prefixed line, or a blank-line paragraph gap,
+via direct slicing of the original `description` (no rewritten
+string, no offset-mapping table). `narrative.py`'s/`necessity.py`'s
+own cue/marker regexes had every literal single-space word separator
+widened to `\\s+`, so a phrase now spanning a reconstructed multi-line
+`Claim`'s embedded newline is still recognized exactly as it would be
+with an ordinary space. Together these close the real residual
+fabrication M11-A1 left (`"We've\nbuilt our platform on Go and
+PostgreSQL..."`, previously 3 spurious rows from one company-narrative
+sentence, now 0) -- a SECOND, disclosed residual fabrication class
+(a line ending in an ordinary content word with no comma/semicolon/
+function-word, e.g. "...for this role — however,\nwe are also open to...
+with strong\nfundamentals...") is explicitly NOT solved by this
+milestone (a length- or part-of-speech-based heuristic was evaluated
+and rejected -- see that document's §3/§5.3 for the concrete
+counter-example this finding is based on, not merely asserted).
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v9` -> `v10` accordingly.
 """
 from __future__ import annotations
 
@@ -185,7 +214,7 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, document_has_any_recognized_heading, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v9"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v10"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:

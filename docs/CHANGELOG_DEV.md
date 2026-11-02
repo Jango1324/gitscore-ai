@@ -1,5 +1,114 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-02 — Milestone 11-A2: Line-wrap segmentation integrity
+
+**What changed:** Two coordinated fixes, approved separately from the
+broader M11-B architecture question
+(`docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md`). (1)
+`jobs/parsing/segmentation.py::segment_description()`'s own per-line
+loop now extends an ordinary (non-heading, non-bullet) line's content
+span across any immediately-following line, PROVIDED the gap between
+them is a single newline (never across a blank-line paragraph gap),
+the next line is not heading-shaped, the next line is not
+bullet-prefixed, AND the accumulated text so far ends in a comma or
+semicolon, OR a closed, generic English function-word/copula-verb/
+subject-pronoun-contraction vocabulary (`_CONTINUATION_WORDS` — never
+a technology/employer-specific term). The combined span is a DIRECT
+SLICE of the original `description` — no rewritten string, no
+offset-mapping table: consecutive physical lines separated by one
+newline are already one contiguous range of the original text. (2)
+`narrative.py`'s `_COMPANY_NARRATIVE_CUE`/`_LEARNING_NARRATIVE_CUE` and
+`necessity.py`'s `_REQUIRED_MARKER`/`_PREFERRED_MARKER` had every
+literal single-ASCII-space word separator widened to `\s+`, so a
+phrase now spanning a reconstructed multi-line `Claim`'s embedded
+newline is still recognized exactly as it would be with an ordinary
+space. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v9` → `v10`.
+
+**Why:** M11-A1's own disclosed residual limitation — the real
+`m11-unicode-contradiction-01` fixture's "We've built our platform on
+Go and PostgreSQL..." sentence was still fabricating 3 spurious rows
+(`database.postgresql`, `unresolved:our`, `category='experience'`)
+even after M11-A1's fix, because the sentence is physically WORD-
+WRAPPED across three source lines and `segment_description()` treats
+every physical line as a fully independent unit — `"We've"` (end of
+one line) and `"built our platform..."` (the next) were never seen
+together by anything downstream, so M10E's own narrative-cue check
+never got the chance to recognize the sentence it was designed for.
+An evaluation-first design review measured three candidate designs (a
+naive blanket text-join; a structural-only join with no content
+judgment; the recommended structural+content-signal join) against a
+new 38-control paired corpus PLUS six pre-existing regression corpora.
+The naive candidates scored HIGHER on raw pair-equivalence but were
+measurably unsafe — both corrupted a genuine two-item PREFERRED
+requirement list (`"React"`/`"Node.js"`) into one merged claim, a
+regression the recommended design does not introduce anywhere.
+
+**A second, necessary companion defect found during the same
+investigation, not anticipated by the mission brief:** reconstructing
+the correct joined TEXT alone was not sufficient — `narrative.py`'s own
+cue regex uses a literal ASCII space between `"we've"`/`"have"` and the
+verb that follows, which does not match an embedded newline at exactly
+that position. Confirmed directly: `contains_narrative_cue()` returned
+`True` for the identical sentence with a real space, `False` with the
+original line-wrap's `\n` there instead. The SAME literal-space
+fragility is present in `necessity.py`'s `_REQUIRED_MARKER`/
+`_PREFERRED_MARKER` (`"must have"`, `"must know"`, `"need to have"`)
+and, confirmed but NOT exercised by any control in this corpus, in
+`non_technical.py`'s own multi-word phrases — deferred to a separate
+follow-up per explicit approval, not widened in this pass.
+
+**A deliberately NOT-fully-solved residual, measured and disclosed, not
+hidden:** a line ending in an ordinary content word (adjective/noun)
+with no comma/semicolon/function-word, continuing in lowercase on the
+next line, is NOT joined by the recommended design — 3 of 28 true
+pairs in the new corpus (`m11a2-explicit-02`, `m11a2-nested-02`,
+`m11a2-ambiguous-02`), and the real `m11-unicode-contradiction-01`
+fixture's SECOND wrapped sentence (`"...however,\nwe are also open
+to... with strong\nfundamentals..."`). A line-length-based secondary
+signal was evaluated and explicitly REJECTED: a constructed
+counter-example (`m11a2-bullets-02` — two genuinely separate,
+period-less, 65-70-character bullet requirements stacked back to
+back) shows a length heuristic would wrongly merge them. Accepted as a
+documented limitation rather than risking that regression.
+
+**Before/after (the real fixture, measured, not oversold):**
+`m11-unicode-contradiction-01`'s fabricated-row count drops from **5
+spurious rows to 2** — the first wrapped sentence's `database.postgresql`/
+`unresolved:our`/one `category='experience'` row are gone entirely
+(down to 0, a real `UnparsedClaim` instead); the second wrapped
+sentence's 2 `category='experience'` rows remain, per the disclosed
+residual above. M10A (SOTI/Manulife): byte-identical
+(`false_positive_requirements`, `meets_ideal_outcome`, `meets_neither`
+all unchanged — neither real posting's OWN existing content triggers
+this specific residual). M9B: byte-identical except the version
+string. M11's own generalization corpus: byte-identical (none of its
+own tracked claim substrings cross this fix's specific trigger).
+Frozen `8c:v1`/`8c:v1.1`: **zero diff**, confirmed via
+`scripts/check_evaluation_staleness.py` on a clean pre-fix tree (via
+`git stash`) AND the post-fix tree, for a true before/after. Full
+suite: 1223 pre-existing (after M11-A1's own `v9` pin removal) − 1
+removed (stale `v9` pin, superseded) + 38 new
+(`tests/test_m11a2_line_wrap_integrity.py`, including the pre-
+established 38-control corpus parametrized AS-IS, 3 explicitly
+`skip`-marked as the disclosed residual gap) = **1261 passed, 13
+skipped** (10 pre-existing M10E out-of-scope skips + 3 new M11-A2
+residual-gap skips).
+
+**Explicitly NOT done, per the approval message's own restrictions:**
+no `qualification_kind`, no `Necessity` enum widening, no technical-
+competency extraction, no matcher/scoring/API/schema change, no POS
+tagger or new NLP dependency, no `non_technical.py` widening (deferred
+separately), no length-based merging, no concept-registry expansion,
+no LLM, no frontend change, no historical-gold edit.
+
+**How to test it:** `tests/test_m11a2_line_wrap_integrity.py` (38
+tests — the version pin, 24 of the pre-established 38-control corpus
+pairs asserted exactly equivalent, 1 ambiguous-boundary non-fabrication
+check, 9 named mandatory-safety-requirement tests, and the exact
+real-posting traces including the measured, not-fully-solved
+`m11-unicode-contradiction-01` residual). Full suite: `pytest -q` →
+1261 passed, 13 skipped.
+
 ## 2026-11-02 — Milestone 11-A1: Narrow fabrication safety fixes
 
 **What changed:** Two small, independently-testable fixes, both found

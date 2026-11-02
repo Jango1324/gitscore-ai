@@ -53,12 +53,19 @@ from gitscore.jobs.parsing.narrative import contains_narrative_cue
 from gitscore.jobs.types import Necessity
 
 _REQUIRED_MARKER = re.compile(
-    r"\brequired\b|\bmust have\b|\bmust be\b|\bmust know\b|\bmandatory\b|\bessential\b|\bneed to have\b",
+    # Milestone 11-A2 -- every literal single-space word separator below
+    # widened to `\s+` (see `narrative.py`'s own identical widening for
+    # the full rationale: a reconstructed multi-physical-line `Claim`
+    # can have an embedded newline at exactly the point a literal space
+    # used to be). `\s+` still matches exactly one ASCII space, so every
+    # existing, unwrapped case is unaffected.
+    r"\brequired\b|\bmust\s+have\b|\bmust\s+be\b|\bmust\s+know\b|\bmandatory\b|"
+    r"\bessential\b|\bneed\s+to\s+have\b",
     re.IGNORECASE,
 )
 _PREFERRED_MARKER = re.compile(
-    r"\bpreferred\b|\bnice[- ]to[- ]have\b|\bnice to haves?\b|\ba plus\b|\bbonus\b|"
-    r"\bideally\b|\bwould be nice\b",
+    r"\bpreferred\b|\bnice[-\s]to[-\s]have\b|\bnice\s+to\s+haves?\b|\ba\s+plus\b|\bbonus\b|"
+    r"\bideally\b|\bwould\s+be\s+nice\b",
     re.IGNORECASE,
 )
 

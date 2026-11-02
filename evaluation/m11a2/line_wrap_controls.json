@@ -1,0 +1,612 @@
+{
+  "corpus_version": "m11a2:v1",
+  "annotation_provenance": "Authored in a single session, as part of this milestone's own Phase 1 root-cause trace of the real m11-unicode-contradiction-01 fixture. expect_equivalent/note were decided from first principles (what SHOULD a line-wrap-robust parser produce) BEFORE any candidate design's actual output was inspected for these specific pairs; *_baseline_outcome fields were captured live, by running the unmodified production parser (parser_version job_description_parser:v9), never hand-transcribed.",
+  "controls": [
+    {
+      "id": "m11a2-narrative-01",
+      "category": "company_narrative",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "Wrap falls right after a conjunction ('and') -- must reconstruct identically to the unwrapped sentence (zero requirements, pure narrative).",
+      "unwrapped_text": "Our platform is built on Go and PostgreSQL.",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Our platform is built on Go and PostgreSQL.')"
+      ],
+      "wrapped_text": "Our platform is built on Go and\nPostgreSQL.",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='database.postgresql', category='database')"
+      ]
+    },
+    {
+      "id": "m11a2-narrative-02",
+      "category": "company_narrative",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "The real m11-unicode-contradiction-01 shape, generalized -- a THREE-physical-line wrap spanning a subject contraction ('We've') and a trailing possessive determiner ('our').",
+      "unwrapped_text": "We've built our platform on Go and PostgreSQL over the past 6 years, and our team genuinely loves talking shop about distributed systems at lunch.",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED(\"We've built our platform on Go and PostgreSQL over the past \")"
+      ],
+      "wrapped_text": "We've\nbuilt our platform on Go and PostgreSQL over the past 6 years, and our\nteam genuinely loves talking shop about distributed systems at lunch.",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='database.postgresql', category='database')",
+        "REQ(necessity=REQUIRED, concept='unresolved:our', category=None)",
+        "REQ(necessity=REQUIRED, concept=None, category='experience')"
+      ]
+    },
+    {
+      "id": "m11a2-narrative-03",
+      "category": "company_narrative",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "Wrap after 'and', mid-technology-list, inside a narrative sentence.",
+      "unwrapped_text": "Our engineers love using Kubernetes and Terraform every single day.",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='infra.kubernetes', category='infrastructure')"
+      ],
+      "wrapped_text": "Our engineers love using Kubernetes and\nTerraform every single day.",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='infra.kubernetes', category='infrastructure')"
+      ]
+    },
+    {
+      "id": "m11a2-explicit-01",
+      "category": "explicit_qualification",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "Genuine bulleted qualification, wrapped after 'and' with a continuation line indented but NOT bullet-prefixed.",
+      "unwrapped_text": "- Experience with Python and PostgreSQL is required\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept='database.postgresql', category='database')"
+      ],
+      "wrapped_text": "- Experience with Python and\n  PostgreSQL is required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept='database.postgresql', category='database')"
+      ]
+    },
+    {
+      "id": "m11a2-explicit-02",
+      "category": "explicit_qualification",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "Wrap after 'professional' (adjective, not a closed-set function word) -- ACCEPTED RESIDUAL RISK: recommended design (comma/function-word only) may NOT join this; see note below.",
+      "unwrapped_text": "- 3+ years of professional Go experience is required\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='experience')"
+      ],
+      "wrapped_text": "- 3+ years of professional\n  Go experience is required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='experience')",
+        "UNPARSED('Go experience is required')"
+      ]
+    },
+    {
+      "id": "m11a2-explicit-03",
+      "category": "explicit_qualification",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "Wrap after 'and' -- must still resolve both language.react-equivalent and TypeScript.",
+      "unwrapped_text": "- Experience with React and TypeScript is required\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='framework.react', category='frontend_framework')",
+        "REQ(necessity=REQUIRED, concept='language.typescript', category='language')"
+      ],
+      "wrapped_text": "- Experience with React and\n  TypeScript is required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='framework.react', category='frontend_framework')",
+        "REQ(necessity=REQUIRED, concept='language.typescript', category='language')"
+      ]
+    },
+    {
+      "id": "m11a2-necessity-01",
+      "category": "necessity_preserved",
+      "section_context": "Preferred Qualifications:",
+      "expect_equivalent": true,
+      "note": "PREFERRED necessity marker ('is a plus') must survive the wrap unchanged.",
+      "unwrapped_text": "- Experience with GraphQL and gRPC is a plus\n",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Experience with GraphQL and gRPC is a plus')"
+      ],
+      "wrapped_text": "- Experience with GraphQL and\n  gRPC is a plus\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=PREFERRED, concept=None, category='unresolved_requirement')",
+        "UNPARSED('gRPC is a plus')"
+      ]
+    },
+    {
+      "id": "m11a2-necessity-02",
+      "category": "necessity_preserved",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "REQUIRED necessity marker must survive the wrap unchanged.",
+      "unwrapped_text": "- Experience with Rust and WebAssembly is required\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.rust', category='language')"
+      ],
+      "wrapped_text": "- Experience with Rust and\n  WebAssembly is required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.rust', category='language')",
+        "UNPARSED('WebAssembly is required')"
+      ]
+    },
+    {
+      "id": "m11a2-necessity-03",
+      "category": "necessity_preserved",
+      "section_context": "Responsibilities:",
+      "expect_equivalent": true,
+      "note": "A RESPONSIBILITY-section duty clause fused with an explicit REQUIRED marker (M11-A1's own precedence case) must keep working identically when wrapped.",
+      "unwrapped_text": "- Build services in Go; Go experience is required\n",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Build services in Go; Go experience is required')"
+      ],
+      "wrapped_text": "- Build services in Go;\n  Go experience is required\n",
+      "wrapped_baseline_outcome": [
+        "UNPARSED('Build services in Go;')",
+        "UNPARSED('Go experience is required')"
+      ]
+    },
+    {
+      "id": "m11a2-anyof-01",
+      "category": "alternative_group",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "A 3-way OR-group wrapped between the comma list and the final 'or Go' alternative.",
+      "unwrapped_text": "- Experience with Java, Python, or Go is required\n",
+      "unwrapped_baseline_outcome": [
+        "ALT(necessity=REQUIRED, ids=['language.go', 'language.java', 'language.python'])"
+      ],
+      "wrapped_text": "- Experience with Java, Python,\n  or Go is required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.java', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept=None, category='unresolved_requirement')"
+      ]
+    },
+    {
+      "id": "m11a2-anyof-02",
+      "category": "alternative_group",
+      "section_context": "Required skills:",
+      "expect_equivalent": true,
+      "note": "The REAL SOTI 9-way alternative group, now wrapped across THREE physical lines, including a wrap immediately before the colon-introduced list itself.",
+      "unwrapped_text": "- Basic knowledge of programming in one or more of the following programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua, Haskell\n",
+      "unwrapped_baseline_outcome": [
+        "ALT(necessity=REQUIRED, ids=['language.c', 'language.cpp', 'language.java', 'language.javascript', 'language.ruby', 'language.rust', 'language.sql', 'unresolved:haskell', 'unresolved:lua'])"
+      ],
+      "wrapped_text": "- Basic knowledge of programming in one or more of the following\n  programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua,\n  Haskell\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='unresolved_requirement')",
+        "REQ(necessity=REQUIRED, concept='language.cpp', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.java', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.javascript', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.sql', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.ruby', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.rust', category='language')",
+        "REQ(necessity=REQUIRED, concept='unresolved:lua', category=None)",
+        "UNPARSED('Haskell')"
+      ]
+    },
+    {
+      "id": "m11a2-anyof-03",
+      "category": "alternative_group",
+      "section_context": "Required Qualifications:",
+      "expect_equivalent": true,
+      "note": "The REAL Manulife ANY-of trigger-phrase group, wrapped mid-parenthetical.",
+      "unwrapped_text": "- Experience with at least one programming language (e.g., Java, Python, Go, JavaScript)\n",
+      "unwrapped_baseline_outcome": [
+        "ALT(necessity=REQUIRED, ids=['language.go', 'language.java', 'language.javascript', 'language.python'])"
+      ],
+      "wrapped_text": "- Experience with at least one programming language (e.g., Java, Python,\n  Go, JavaScript)\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='alternative_requirement')",
+        "REQ(necessity=REQUIRED, concept='language.javascript', category='language')",
+        "REQ(necessity=REQUIRED, concept='unresolved:go', category=None)"
+      ]
+    },
+    {
+      "id": "m11a2-bullets-01",
+      "category": "separate_bullets",
+      "section_context": "Requirements:",
+      "expect_equivalent": false,
+      "note": "Three genuinely separate, complete bullet requirements, none ending in terminal punctuation (real postings routinely omit it) -- must stay THREE independent claims regardless of any join logic; no 'wrapped' counterpart exists, included as its own standalone stability check.",
+      "unwrapped_text": "- Experience with Python\n- Experience with SQL\n- Experience with Docker\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.sql', category='language')",
+        "REQ(necessity=REQUIRED, concept='infra.docker', category='infrastructure')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-bullets-02",
+      "category": "separate_bullets",
+      "section_context": "Requirements:",
+      "expect_equivalent": false,
+      "note": "Two long (65-70 char), period-less, non-bulleted-internally bullet lines stacked back to back -- the adversarial case a naive LENGTH-based wrap heuristic would wrongly merge; must stay two independent claims.",
+      "unwrapped_text": "- Strong experience with distributed systems and concurrent programming\n- Strong experience with cloud infrastructure and container orchestration\n",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Strong experience with distributed systems and concurrent pr')",
+        "UNPARSED('Strong experience with cloud infrastructure and container or')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-bullets-03",
+      "category": "separate_bullets",
+      "section_context": "Requirements:",
+      "expect_equivalent": false,
+      "note": "Three short bullets, regression-safety duplicate of bullets-01 with different technologies.",
+      "unwrapped_text": "- Experience with Kubernetes\n- Experience with Terraform\n- Experience with Ansible\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='infra.kubernetes', category='infrastructure')",
+        "REQ(necessity=REQUIRED, concept=None, category='unresolved_requirement')",
+        "REQ(necessity=REQUIRED, concept=None, category='unresolved_requirement')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-nested-01",
+      "category": "nested_bullets",
+      "section_context": "Requirements:",
+      "expect_equivalent": false,
+      "note": "Nested sub-bullets under two parent labels -- every bullet-prefixed line is its own hard boundary regardless of parent/child relationship; must remain 5 independent entries (2 lead-ins + 3 leaf values), never merged across the parent/child boundary.",
+      "unwrapped_text": "- Backend:\n  - Python\n  - Go\n- Frontend:\n  - React\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept='framework.react', category='frontend_framework')",
+        "UNPARSED('Backend:')",
+        "UNPARSED('Go')",
+        "UNPARSED('Frontend:')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-nested-02",
+      "category": "nested_bullets",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "A SUB-bullet's own text wraps across three physical lines (none bullet-prefixed) -- must reconstruct identically to the single-line version; the PARENT bullet ('- Backend:') is a separate, un-mergeable hard boundary either way.",
+      "unwrapped_text": "- Backend:\n  - Experience with Python\n    for building scalable\n    services is required\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "UNPARSED('Backend:')",
+        "UNPARSED('for building scalable')",
+        "UNPARSED('services is required')"
+      ],
+      "wrapped_text": "- Backend:\n  - Experience with Python for building scalable services is required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "UNPARSED('Backend:')"
+      ]
+    },
+    {
+      "id": "m11a2-markdown-heading-01",
+      "category": "markdown_heading",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "The Markdown heading itself is never a join target in either variant; the body sentence wraps after 'is' and must reconstruct identically.",
+      "unwrapped_text": "## Requirements\nExperience with Go is required.\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='unresolved_requirement')"
+      ],
+      "wrapped_text": "## Requirements\nExperience with Go is\nrequired.\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='unresolved_requirement')",
+        "UNPARSED('required.')"
+      ]
+    },
+    {
+      "id": "m11a2-markdown-heading-02",
+      "category": "markdown_heading",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "Bold Markdown heading variant, same wrap-reconstruction requirement for the body.",
+      "unwrapped_text": "**Requirements**\nExperience with Python and SQL is required.\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.sql', category='language')"
+      ],
+      "wrapped_text": "**Requirements**\nExperience with Python and\nSQL is required.\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.sql', category='language')"
+      ]
+    },
+    {
+      "id": "m11a2-colon-heading-01",
+      "category": "colon_heading",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "Ordinary colon heading; body sentence wraps after 'and'.",
+      "unwrapped_text": "Requirements:\nExperience with Java and Kotlin is required.\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.java', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.kotlin', category='language')"
+      ],
+      "wrapped_text": "Requirements:\nExperience with Java and\nKotlin is required.\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.java', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.kotlin', category='language')"
+      ]
+    },
+    {
+      "id": "m11a2-colon-heading-02",
+      "category": "colon_heading",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "A SKIP-classified colon heading (M10E/M11-A1's own known, separately-tracked gap) -- included here only to confirm the line-wrap fix does not change SKIP's own existing (separately-tracked) behavior either way; both variants are expected to behave IDENTICALLY to each other, whatever that behavior is.",
+      "unwrapped_text": "When you join our team:\nApplicants must know Java.\n",
+      "unwrapped_baseline_outcome": [
+        "NOTHING"
+      ],
+      "wrapped_text": "When you join our team:\nApplicants must\nknow Java.\n",
+      "wrapped_baseline_outcome": [
+        "NOTHING"
+      ]
+    },
+    {
+      "id": "m11a2-paragraph-01",
+      "category": "paragraph_boundary",
+      "section_context": null,
+      "expect_equivalent": false,
+      "note": "A blank line separates an (intentionally incomplete-looking, ending in the possessive determiner 'our') narrative fragment from a genuinely separate, complete qualification sentence -- the blank line MUST be treated as a hard paragraph boundary, overriding the trailing-function-word continuation signal; must NEVER join across it even though the content signal alone would suggest continuation.",
+      "unwrapped_text": "Our team builds internal tools and loves our\n\nExperience with Python is required.",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-paragraph-02",
+      "category": "paragraph_boundary",
+      "section_context": null,
+      "expect_equivalent": false,
+      "note": "A blank line separates a narrative fragment ending in 'and' from a REAL heading -- must never join the narrative fragment forward into (or past) the heading boundary.",
+      "unwrapped_text": "We've built our platform using modern tools and\n\nRequired skills:\nExperience with SQL is required.\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.sql', category='language')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-nontechnical-01",
+      "category": "nontechnical",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "Soft-skill qualification wrapped after 'and' -- category='soft_skill' must survive identically.",
+      "unwrapped_text": "- Strong communication and interpersonal skills are required\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='soft_skill')"
+      ],
+      "wrapped_text": "- Strong communication and\n  interpersonal skills are required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='soft_skill')",
+        "UNPARSED('Strong communication and')"
+      ]
+    },
+    {
+      "id": "m11a2-nontechnical-02",
+      "category": "nontechnical",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "Legal/work-authorization qualification wrapped after 'in' (a closed-set preposition).",
+      "unwrapped_text": "- Must be eligible to work in the United States\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='legal')"
+      ],
+      "wrapped_text": "- Must be eligible to work in\n  the United States\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='legal')",
+        "UNPARSED('the United States')"
+      ]
+    },
+    {
+      "id": "m11a2-competency-01",
+      "category": "technical_competency",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "Competency claim wrapped after 'and' -- today preserved only as a diagnostic either way (M11's own finding), but the DIAGNOSTIC TEXT ITSELF must reconstruct as one coherent claim, not two fragments.",
+      "unwrapped_text": "- Deep understanding of distributed systems and concurrency is required\n",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Deep understanding of distributed systems and concurrency is')"
+      ],
+      "wrapped_text": "- Deep understanding of distributed systems and\n  concurrency is required\n",
+      "wrapped_baseline_outcome": [
+        "UNPARSED('Deep understanding of distributed systems and')",
+        "UNPARSED('concurrency is required')"
+      ]
+    },
+    {
+      "id": "m11a2-competency-02",
+      "category": "technical_competency",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "Same requirement, hardware-domain competency wording.",
+      "unwrapped_text": "- Strong foundation in circuit theory and control systems is required\n",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Strong foundation in circuit theory and control systems is r')"
+      ],
+      "wrapped_text": "- Strong foundation in circuit theory and\n  control systems is required\n",
+      "wrapped_baseline_outcome": [
+        "UNPARSED('Strong foundation in circuit theory and')",
+        "UNPARSED('control systems is required')"
+      ]
+    },
+    {
+      "id": "m11a2-mixed-01",
+      "category": "mixed_duty_qualification",
+      "section_context": "Responsibilities:",
+      "expect_equivalent": true,
+      "note": "A duty clause fused with an explicit REQUIRED marker on the SAME claim, wrapped after a semicolon -- must still produce the Kubernetes requirement identically.",
+      "unwrapped_text": "- You will build scalable systems; experience with Kubernetes is required\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='infra.kubernetes', category='infrastructure')"
+      ],
+      "wrapped_text": "- You will build scalable systems;\n  experience with Kubernetes is required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='infra.kubernetes', category='infrastructure')",
+        "UNPARSED('You will build scalable systems;')"
+      ]
+    },
+    {
+      "id": "m11a2-mixed-02",
+      "category": "mixed_duty_qualification",
+      "section_context": "Responsibilities:",
+      "expect_equivalent": true,
+      "note": "A duty + learning clause + explicit PREFERRED marker, wrapped mid-sentence after a comma -- the comma-ending rule must correctly join this.",
+      "unwrapped_text": "- Collaborate with engineers; you will learn SQL, but SQL knowledge is preferred\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=PREFERRED, concept='language.sql', category='language')",
+        "REQ(necessity=PREFERRED, concept=None, category='soft_skill')"
+      ],
+      "wrapped_text": "- Collaborate with engineers; you will learn SQL,\n  but SQL knowledge is preferred\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=PREFERRED, concept='language.sql', category='language')",
+        "UNPARSED('Collaborate with engineers; you will learn SQL,')"
+      ]
+    },
+    {
+      "id": "m11a2-unicode-01",
+      "category": "formatting_hazard",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "Wrap point uses a Unicode NBSP instead of an ASCII space immediately before the line break, AND a CRLF line ending -- must resolve identically to the ASCII/LF version.",
+      "unwrapped_text": "Experience with Python and PostgreSQL is required.",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept='database.postgresql', category='database')"
+      ],
+      "wrapped_text": "Experience with Python and\r\nPostgreSQL is required.",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "REQ(necessity=REQUIRED, concept='database.postgresql', category='database')"
+      ]
+    },
+    {
+      "id": "m11a2-unicode-02",
+      "category": "formatting_hazard",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "Continuation line indented with a literal TAB character rather than spaces.",
+      "unwrapped_text": "- Experience with Java and Kotlin is required\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.java', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.kotlin', category='language')"
+      ],
+      "wrapped_text": "- Experience with Java and\n\tKotlin is required\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.java', category='language')",
+        "REQ(necessity=REQUIRED, concept='language.kotlin', category='language')"
+      ]
+    },
+    {
+      "id": "m11a2-unicode-03",
+      "category": "formatting_hazard",
+      "section_context": null,
+      "expect_equivalent": true,
+      "note": "Unicode right single quote (real SOTI/Manulife-style curly apostrophe) in the contraction that triggers the pending-continuation state.",
+      "unwrapped_text": "We’ve built our platform on Go and PostgreSQL over six years.",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='database.postgresql', category='database')"
+      ],
+      "wrapped_text": "We’ve\nbuilt our platform on Go and PostgreSQL over six years.",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='database.postgresql', category='database')"
+      ]
+    },
+    {
+      "id": "m11a2-oneperline-01",
+      "category": "one_item_per_line",
+      "section_context": "Requirements:",
+      "expect_equivalent": false,
+      "note": "M10C/M11's own documented regression guard -- bare, un-bulleted, one-item-per-line REQUIRED values, none ending in punctuation, none ending in a closed-set function word, all SHORT -- must remain THREE independent requirements, never joined into one nonsense claim.",
+      "unwrapped_text": "Python\nSQL\nDocker\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept='language.python', category='language')",
+        "UNPARSED('Docker')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-oneperline-02",
+      "category": "one_item_per_line",
+      "section_context": "Preferred Qualifications:",
+      "expect_equivalent": false,
+      "note": "Same shape, two short items, PREFERRED section.",
+      "unwrapped_text": "React\nNode.js\n",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=PREFERRED, concept='framework.react', category='frontend_framework')",
+        "UNPARSED('Node.js')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-oneperline-03",
+      "category": "one_item_per_line",
+      "section_context": "Required skills:",
+      "expect_equivalent": false,
+      "note": "Same shape with single-letter/short acronym-style language names -- a stress test that short, capitalized, non-function-word tokens never trigger a join.",
+      "unwrapped_text": "C\nC++\nJava\n",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Java')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    },
+    {
+      "id": "m11a2-ambiguous-01",
+      "category": "ambiguous_boundary",
+      "section_context": null,
+      "expect_equivalent": "ambiguous",
+      "note": "The REAL m11-unicode-contradiction-01 shape: line 1 ends in a comma (joins correctly), but line 2 ends in the ordinary content word 'strong' with NO comma and NO closed-set function word -- the recommended design (comma + closed function-word/contraction set only, NO line-length heuristic, per Phase 3's own rejected-candidate finding) does NOT join line 2 into line 3. Documented as an accepted, disclosed residual ambiguity, not silently resolved -- see Phase 1/4.",
+      "unwrapped_text": "5+ years of professional Go experience is required for this role, however, we are also open to exceptional entry-level candidates with strong fundamentals.",
+      "unwrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='experience')"
+      ],
+      "wrapped_text": "5+ years of professional Go experience is required for this role — however,\nwe are also open to exceptional entry-level candidates with strong\nfundamentals, so don't let the \"5+ years\" discourage you from applying.",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='experience')",
+        "REQ(necessity=REQUIRED, concept=None, category='experience')"
+      ]
+    },
+    {
+      "id": "m11a2-ambiguous-02",
+      "category": "ambiguous_boundary",
+      "section_context": "Requirements:",
+      "expect_equivalent": true,
+      "note": "NOT actually ambiguous -- included as a contrast case: this wrap DOES end at a content word ('development') but the NEXT word ('tools') is lowercase and lacks any corroborating signal either; however the recommended design still correctly joins THIS one because it is testing the the SAME 'ends mid noun-phrase' shape with a clean, unambiguous continuation -- demonstrates the design's limitation is specific to the 'ends in a bare adjective with the noun entirely on the next line' shape, not every content-word ending. (Scored as a DESIGN LIMITATION DEMONSTRATION, not a true positive/negative pair -- see Phase 3/4 commentary.)",
+      "unwrapped_text": "- Experience with modern development tools and frameworks is preferred\n",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Experience with modern development tools and frameworks is p')"
+      ],
+      "wrapped_text": "- Experience with modern development\n  tools and frameworks is preferred\n",
+      "wrapped_baseline_outcome": [
+        "REQ(necessity=REQUIRED, concept=None, category='unresolved_requirement')",
+        "UNPARSED('tools and frameworks is preferred')"
+      ]
+    },
+    {
+      "id": "m11a2-ambiguous-03",
+      "category": "ambiguous_boundary",
+      "section_context": "Requirements:",
+      "expect_equivalent": "ambiguous",
+      "note": "A SHORT, two-line, bullet-initiated fragment ending in the bare adjective 'strong' -- genuinely ambiguous under the recommended design (no comma, no closed-set function word) -- expected to NOT join (conservative default), left as two weaker diagnostic fragments rather than one clean claim; documented, not silently guessed.",
+      "unwrapped_text": "- Must have strong\n  analytical skills\n",
+      "unwrapped_baseline_outcome": [
+        "UNPARSED('Must have strong')",
+        "UNPARSED('analytical skills')"
+      ],
+      "wrapped_text": null,
+      "wrapped_baseline_outcome": null
+    }
+  ]
+}

@@ -400,6 +400,83 @@ _REQUIREMENT_SIGNAL = re.compile(
     re.IGNORECASE,
 )
 
+# ---------------------------------------------------------------------------
+# Milestone 11-A2 -- soft line-wrap joining. See
+# docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md for the full
+# evaluation-first design review (Candidate C) this implements, and
+# `segment_description()`'s own docstring for exactly where this fits
+# into the existing per-line loop.
+# ---------------------------------------------------------------------------
+
+_TERMINAL_PUNCT = re.compile(r"""[.!?]["')\]]*\s*$""")
+_TRAILING_SOFT_PUNCT = re.compile(r"[,;]\s*$")
+
+# A small, closed, generic English function-word/copula-verb/subject-
+# pronoun-contraction vocabulary -- never a technology, employer, or
+# role-specific term (the same "generalizable, not a workaround for one
+# sentence or company" discipline `non_technical.py`'s own curated table
+# and M11-A1's fabrication-shape gate already apply). None of these can
+# grammatically end a complete clause/value on their own, so a physical
+# line ending in one of them is treated as a probable soft word-wrap
+# rather than a deliberate, complete, standalone value.
+_CONTINUATION_WORDS = frozenset({
+    "and", "or", "but", "nor", "so", "yet",
+    "with", "of", "in", "on", "at", "for", "to", "by", "from", "as", "into",
+    "over", "under", "about", "through", "during", "between", "among",
+    "across", "after", "before", "since", "without", "within", "upon",
+    "per", "via",
+    "a", "an", "the",
+    "our", "your", "their", "its", "this", "that", "these", "those", "such",
+    "we've", "we're", "they've", "they're", "you've", "you're", "it's",
+    "that's", "there's", "here's", "i've", "i'm", "who's", "what's",
+    "following", "follows",
+    "is", "are", "was", "were", "be", "being", "been",
+    "has", "have", "had", "will", "would", "can", "could",
+    "should", "must", "may", "might", "shall", "do", "does", "did",
+})
+
+
+def _strip_trailing_word_punct(word: str) -> str:
+    return word.strip(".,;:!?\"')(")
+
+
+def _ends_incomplete(text: str) -> bool:
+    """Does `text` (the trailing edge of an accumulated, not-yet-
+    finalized line/block) look like a mid-clause soft word-wrap rather
+    than a complete, standalone value? Three checks, in order: already
+    sentence-complete (never incomplete); ends in a comma/semicolon
+    (virtually never a complete clause on its own); ends in a
+    closed-vocabulary function word/copula verb/contraction
+    (`_CONTINUATION_WORDS`). Anything else -- including an ordinary
+    content word with no following punctuation -- is judged COMPLETE,
+    deliberately: a line-LENGTH or part-of-speech heuristic was
+    evaluated and rejected (see the design doc's own Phase 3 finding,
+    `m11a2-bullets-02`: two genuinely separate, period-less bullet
+    requirements that a length-based secondary signal would wrongly
+    merge). This is an accepted, documented residual limitation, not an
+    oversight -- see that document's §3.1/§5.3.
+    """
+    stripped = text.rstrip()
+    if _TERMINAL_PUNCT.search(stripped):
+        return False
+    if _TRAILING_SOFT_PUNCT.search(stripped):
+        return True
+    words = stripped.split()
+    if not words:
+        return True
+    last = _strip_trailing_word_punct(words[-1]).lower()
+    return last in _CONTINUATION_WORDS
+
+
+def _is_paragraph_gap(description: str, prev_end: int, next_start: int) -> bool:
+    """True iff the two physical lines are separated by a BLANK line
+    (two or more newlines in the gap) rather than an ordinary single
+    line break -- a paragraph boundary, always HARD, never joined
+    across regardless of `_ends_incomplete`'s own content signal (see
+    the design doc's `m11a2-paragraph-01`/`02` controls).
+    """
+    return description[prev_end:next_start].count("\n") > 1
+
 
 @dataclass(frozen=True)
 class Claim:
@@ -499,16 +576,38 @@ def segment_description(description: str) -> tuple[Claim, ...]:
     produces `UNKNOWN` for that case). `UNKNOWN`/`LEARNING` content is
     gated by the SAME `_looks_like_requirement` heuristic as "no section
     at all," and never receives a default necessity.
+
+    Milestone 11-A2: before computing `necessity_hint`/calling
+    `_split_sentences` for an ordinary (non-heading) line, this function
+    now extends that line's own content span across any immediately
+    following SOFT-WRAP-CONTINUED line -- see `_ends_incomplete()`/
+    `_is_paragraph_gap()` above and
+    `docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md` for the full
+    evaluation-first design review. A heading, a bullet-prefixed line, or
+    a blank-line paragraph gap always stops the extension, regardless of
+    the accumulated text's own trailing content -- never joined across,
+    in either direction. The combined content is a DIRECT SLICE of this
+    same `description` (never a rebuilt string, never a second
+    offset-mapping structure): consecutive physical lines separated by a
+    single newline are already one contiguous range of the original
+    text, so `description[content_start:block_end]` reproduces the exact
+    original bytes (embedded newline included) losslessly, and every
+    `Claim.start`/`Claim.end` downstream of it remains exactly traceable
+    to `description` precisely as before this milestone.
     """
     claims: list[Claim] = []
     current_kind: _SectionKind | None = None
 
-    for line_match in re.finditer(r"[^\r\n]+", description):
+    line_matches = list(re.finditer(r"[^\r\n]+", description))
+    i = 0
+    while i < len(line_matches):
+        line_match = line_matches[i]
         line = line_match.group()
         line_start = line_match.start()
 
         content_span = _line_content_span(line, line_start)
         if content_span is None:
+            i += 1
             continue
         content_start, content_end = content_span
         content = description[content_start:content_end]
@@ -516,10 +615,33 @@ def segment_description(description: str) -> tuple[Claim, ...]:
         classified = _classify_heading_line(line, content)
         if classified is not None:
             current_kind = classified
+            i += 1
             continue
 
         if current_kind is _SectionKind.SKIP:
+            i += 1
             continue
+
+        block_end = content_end
+        j = i + 1
+        while j < len(line_matches) and _ends_incomplete(description[content_start:block_end]):
+            next_match = line_matches[j]
+            next_line = next_match.group()
+            next_span = _line_content_span(next_line, next_match.start())
+            if next_span is None:
+                break
+            next_content_start, next_content_end = next_span
+            if _BULLET_PREFIX.match(next_line) is not None:
+                break
+            next_content = description[next_content_start:next_content_end]
+            if _classify_heading_line(next_line, next_content) is not None:
+                break
+            if _is_paragraph_gap(description, block_end, next_content_start):
+                break
+            block_end = next_content_end
+            j += 1
+
+        content = description[content_start:block_end]
 
         necessity_hint: Necessity | None
         if current_kind in (_SectionKind.UNKNOWN, _SectionKind.LEARNING):
@@ -544,6 +666,8 @@ def segment_description(description: str) -> tuple[Claim, ...]:
                     section_kind=section_kind_name,
                 )
             )
+
+        i = j
 
     return tuple(claims)
 

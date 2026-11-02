@@ -18,11 +18,13 @@ before any production code changes, then re-run green after the fix.
 from __future__ import annotations
 
 from gitscore.jobs import Necessity, parse_job_description, parse_job_description_with_diagnostics
-from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
 
 
-def test_parser_version_bumped_to_v9():
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v9"
+# Milestone 11-A2 superseded this module's own `v9` version-pin
+# assertion with `v10` (`tests/test_m11a2_line_wrap_integrity.py
+# ::test_parser_version_bumped_to_v10`) -- removed here rather than
+# left behind now permanently false, mirroring how M11-A1 itself
+# removed M10E's `v8` pin.
 
 
 def _concept_ids(profile):

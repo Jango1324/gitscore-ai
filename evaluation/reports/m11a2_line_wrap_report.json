@@ -1,0 +1,687 @@
+{
+  "part3a_paired_corpus": {
+    "baseline": {
+      "equivalent": 10,
+      "total": 28,
+      "mismatches": [
+        {
+          "id": "m11a2-narrative-01",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-narrative-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-explicit-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-necessity-01",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-necessity-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-necessity-03",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-anyof-01",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-anyof-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-anyof-03",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-nested-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-markdown-heading-01",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-nontechnical-01",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-nontechnical-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-competency-01",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-competency-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-mixed-01",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-mixed-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-ambiguous-02",
+          "expected": true,
+          "actual_equivalent": false
+        }
+      ]
+    },
+    "a_naive": {
+      "equivalent": 26,
+      "total": 28,
+      "mismatches": [
+        {
+          "id": "m11a2-narrative-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-ambiguous-01",
+          "expected": "ambiguous",
+          "actual_equivalent": true
+        }
+      ]
+    },
+    "b_structural_only": {
+      "equivalent": 26,
+      "total": 28,
+      "mismatches": [
+        {
+          "id": "m11a2-narrative-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-ambiguous-01",
+          "expected": "ambiguous",
+          "actual_equivalent": true
+        }
+      ]
+    },
+    "c_recommended": {
+      "equivalent": 24,
+      "total": 28,
+      "mismatches": [
+        {
+          "id": "m11a2-narrative-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-explicit-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-nested-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-ambiguous-02",
+          "expected": true,
+          "actual_equivalent": false
+        }
+      ]
+    },
+    "c_recommended_hardened": {
+      "equivalent": 25,
+      "total": 28,
+      "mismatches": [
+        {
+          "id": "m11a2-explicit-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-nested-02",
+          "expected": true,
+          "actual_equivalent": false
+        },
+        {
+          "id": "m11a2-ambiguous-02",
+          "expected": true,
+          "actual_equivalent": false
+        }
+      ]
+    }
+  },
+  "part3b_standalone_stability": {
+    "baseline": [
+      {
+        "id": "m11a2-bullets-01",
+        "n_logical_claims": 3,
+        "n_requirements": 3
+      },
+      {
+        "id": "m11a2-bullets-02",
+        "n_logical_claims": 2,
+        "n_requirements": 0
+      },
+      {
+        "id": "m11a2-bullets-03",
+        "n_logical_claims": 3,
+        "n_requirements": 3
+      },
+      {
+        "id": "m11a2-nested-01",
+        "n_logical_claims": 5,
+        "n_requirements": 2
+      },
+      {
+        "id": "m11a2-paragraph-01",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-paragraph-02",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-01",
+        "n_logical_claims": 2,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-02",
+        "n_logical_claims": 2,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-03",
+        "n_logical_claims": 1,
+        "n_requirements": 0
+      },
+      {
+        "id": "m11a2-ambiguous-03",
+        "n_logical_claims": 2,
+        "n_requirements": 0
+      }
+    ],
+    "a_naive": [
+      {
+        "id": "m11a2-bullets-01",
+        "n_logical_claims": 3,
+        "n_requirements": 3
+      },
+      {
+        "id": "m11a2-bullets-02",
+        "n_logical_claims": 2,
+        "n_requirements": 0
+      },
+      {
+        "id": "m11a2-bullets-03",
+        "n_logical_claims": 3,
+        "n_requirements": 3
+      },
+      {
+        "id": "m11a2-nested-01",
+        "n_logical_claims": 5,
+        "n_requirements": 2
+      },
+      {
+        "id": "m11a2-paragraph-01",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-paragraph-02",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-01",
+        "n_logical_claims": 2,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-02",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-03",
+        "n_logical_claims": 1,
+        "n_requirements": 0
+      },
+      {
+        "id": "m11a2-ambiguous-03",
+        "n_logical_claims": 1,
+        "n_requirements": 0
+      }
+    ],
+    "b_structural_only": [
+      {
+        "id": "m11a2-bullets-01",
+        "n_logical_claims": 3,
+        "n_requirements": 3
+      },
+      {
+        "id": "m11a2-bullets-02",
+        "n_logical_claims": 2,
+        "n_requirements": 0
+      },
+      {
+        "id": "m11a2-bullets-03",
+        "n_logical_claims": 3,
+        "n_requirements": 3
+      },
+      {
+        "id": "m11a2-nested-01",
+        "n_logical_claims": 5,
+        "n_requirements": 2
+      },
+      {
+        "id": "m11a2-paragraph-01",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-paragraph-02",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-01",
+        "n_logical_claims": 2,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-02",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-03",
+        "n_logical_claims": 1,
+        "n_requirements": 0
+      },
+      {
+        "id": "m11a2-ambiguous-03",
+        "n_logical_claims": 1,
+        "n_requirements": 0
+      }
+    ],
+    "c_recommended": [
+      {
+        "id": "m11a2-bullets-01",
+        "n_logical_claims": 3,
+        "n_requirements": 3
+      },
+      {
+        "id": "m11a2-bullets-02",
+        "n_logical_claims": 2,
+        "n_requirements": 0
+      },
+      {
+        "id": "m11a2-bullets-03",
+        "n_logical_claims": 3,
+        "n_requirements": 3
+      },
+      {
+        "id": "m11a2-nested-01",
+        "n_logical_claims": 5,
+        "n_requirements": 2
+      },
+      {
+        "id": "m11a2-paragraph-01",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-paragraph-02",
+        "n_logical_claims": 1,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-01",
+        "n_logical_claims": 2,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-02",
+        "n_logical_claims": 2,
+        "n_requirements": 1
+      },
+      {
+        "id": "m11a2-oneperline-03",
+        "n_logical_claims": 1,
+        "n_requirements": 0
+      },
+      {
+        "id": "m11a2-ambiguous-03",
+        "n_logical_claims": 2,
+        "n_requirements": 0
+      }
+    ]
+  },
+  "part4_regression": {
+    "m10a_real_postings": {
+      "baseline": {
+        "baseline_total": 6,
+        "candidate_total": 6,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "a_naive": {
+        "baseline_total": 6,
+        "candidate_total": 6,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "b_structural_only": {
+        "baseline_total": 6,
+        "candidate_total": 6,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "c_recommended": {
+        "baseline_total": 6,
+        "candidate_total": 6,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      }
+    },
+    "m11_held_out_postings": {
+      "baseline": {
+        "baseline_total": 33,
+        "candidate_total": 33,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "a_naive": {
+        "baseline_total": 33,
+        "candidate_total": 30,
+        "removed_count": 3,
+        "added_count": 1,
+        "removed_examples": [
+          [
+            "m11-short-01",
+            [
+              "REQUIRED",
+              "language.python",
+              [],
+              "language"
+            ]
+          ],
+          [
+            "m11-short-01",
+            [
+              "REQUIRED",
+              "language.java",
+              [],
+              "language"
+            ]
+          ],
+          [
+            "m11-unicode-contradiction-01",
+            [
+              "REQUIRED",
+              "unresolved:our",
+              [],
+              ""
+            ]
+          ]
+        ],
+        "added_examples": [
+          [
+            "m11-short-01",
+            [
+              "REQUIRED",
+              "",
+              [
+                "language.java",
+                "language.python"
+              ],
+              ""
+            ]
+          ]
+        ]
+      },
+      "b_structural_only": {
+        "baseline_total": 33,
+        "candidate_total": 30,
+        "removed_count": 3,
+        "added_count": 1,
+        "removed_examples": [
+          [
+            "m11-short-01",
+            [
+              "REQUIRED",
+              "language.python",
+              [],
+              "language"
+            ]
+          ],
+          [
+            "m11-short-01",
+            [
+              "REQUIRED",
+              "language.java",
+              [],
+              "language"
+            ]
+          ],
+          [
+            "m11-unicode-contradiction-01",
+            [
+              "REQUIRED",
+              "unresolved:our",
+              [],
+              ""
+            ]
+          ]
+        ],
+        "added_examples": [
+          [
+            "m11-short-01",
+            [
+              "REQUIRED",
+              "",
+              [
+                "language.java",
+                "language.python"
+              ],
+              ""
+            ]
+          ]
+        ]
+      },
+      "c_recommended": {
+        "baseline_total": 33,
+        "candidate_total": 32,
+        "removed_count": 1,
+        "added_count": 0,
+        "removed_examples": [
+          [
+            "m11-unicode-contradiction-01",
+            [
+              "REQUIRED",
+              "unresolved:our",
+              [],
+              ""
+            ]
+          ]
+        ],
+        "added_examples": []
+      }
+    },
+    "m10d_alternative_controls": {
+      "baseline": {
+        "baseline_total": 41,
+        "candidate_total": 41,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "a_naive": {
+        "baseline_total": 41,
+        "candidate_total": 41,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "b_structural_only": {
+        "baseline_total": 41,
+        "candidate_total": 41,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "c_recommended": {
+        "baseline_total": 41,
+        "candidate_total": 41,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      }
+    },
+    "m9b_preservation": {
+      "baseline": {
+        "baseline_total": 22,
+        "candidate_total": 22,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "a_naive": {
+        "baseline_total": 22,
+        "candidate_total": 22,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "b_structural_only": {
+        "baseline_total": 22,
+        "candidate_total": 22,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "c_recommended": {
+        "baseline_total": 22,
+        "candidate_total": 22,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      }
+    },
+    "gold_8c_v1": {
+      "baseline": {
+        "baseline_total": 82,
+        "candidate_total": 82,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "a_naive": {
+        "baseline_total": 82,
+        "candidate_total": 82,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "b_structural_only": {
+        "baseline_total": 82,
+        "candidate_total": 82,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "c_recommended": {
+        "baseline_total": 82,
+        "candidate_total": 82,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      }
+    },
+    "gold_8c_v1_1": {
+      "baseline": {
+        "baseline_total": 82,
+        "candidate_total": 82,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "a_naive": {
+        "baseline_total": 82,
+        "candidate_total": 82,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "b_structural_only": {
+        "baseline_total": 82,
+        "candidate_total": 82,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      },
+      "c_recommended": {
+        "baseline_total": 82,
+        "candidate_total": 82,
+        "removed_count": 0,
+        "added_count": 0,
+        "removed_examples": [],
+        "added_examples": []
+      }
+    }
+  }
+}

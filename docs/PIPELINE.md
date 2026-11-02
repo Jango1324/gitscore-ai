@@ -572,6 +572,28 @@ phrasing. No new pipeline stage, no schema/matcher/scoring change.
 `docs/ARCHITECTURE.md` §36 and `docs/CHANGELOG_DEV.md`'s Milestone
 11-A1 entry.
 
+**Milestone 11-A2 follow-up:** `segment_description()` (Part 3) now
+extends an ordinary line's content span across any immediately-
+following soft-wrap-continued line -- comma/semicolon-ending, or
+ending in a closed, generic English function-word/copula-verb/
+contraction vocabulary -- always stopping at a heading, a bullet, or a
+blank-line paragraph gap, via direct slicing of the original
+description text (no rewritten string, no offset-mapping table).
+Paired with widening every literal single-space word separator in
+`narrative.py`'s/`necessity.py`'s own cue/marker regexes to `\s+`, so a
+phrase spanning a reconstructed multi-line `Claim`'s embedded newline
+is still recognized. Closes the real residual M11-A1 left (a
+word-wrapped company-narrative sentence still fabricating 3 spurious
+rows) down to a measured, disclosed 2 -- not a claimed full fix (a
+line ending in an ordinary content word with no corroborating
+punctuation is a documented, accepted residual ambiguity).
+`infer_necessity()`'s own precedence, every detector, `JobRequirement`,
+the matcher, and the scoring formula are all completely unchanged;
+only `JOB_DESCRIPTION_PARSER_VERSION` bumps (`v9` -> `v10`). See
+`docs/ARCHITECTURE.md`'s Milestone 11-A2 section and
+`docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md` for the full
+evaluation-first design review and the measured before/after.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

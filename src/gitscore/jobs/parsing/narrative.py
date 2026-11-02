@@ -43,17 +43,28 @@ from __future__ import annotations
 import re
 
 _LEARNING_NARRATIVE_CUE = re.compile(
-    r"\byou(?:'ll| will) (?:learn|gain|have the opportunity to)\b|"
-    r"\bthe (?:technologies|skills|tools) you(?:'ll| will)? learn\b|"
-    r"\byou may (?:get an opportunity to )?learn\b|"
-    r"\bdeepen(?:ing)? your knowledge\b|\bgain (?:an? )?(?:understanding|exposure)\b",
+    # Milestone 11-A2 -- every literal single-space word separator below
+    # widened to `\s+`: confirmed, during that milestone's own evaluation
+    # review, that a phrase spanning a reconstructed multi-physical-line
+    # `Claim` (Milestone 11-A2's own line-wrap join, `segmentation.py`)
+    # can have an embedded newline at EXACTLY the point a literal space
+    # used to be, which a literal `' '` never matches. `\s+` still
+    # matches exactly one ASCII space, so every existing, unwrapped case
+    # is completely unaffected -- see
+    # docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md §1.3/§5.1.
+    r"\byou(?:'ll|\s+will)\s+(?:learn|gain|have\s+the\s+opportunity\s+to)\b|"
+    r"\bthe\s+(?:technologies|skills|tools)\s+you(?:'ll|\s+will)?\s+learn\b|"
+    r"\byou\s+may\s+(?:get\s+an\s+opportunity\s+to\s+)?learn\b|"
+    r"\bdeepen(?:ing)?\s+your\s+knowledge\b|\bgain\s+(?:an?\s+)?(?:understanding|exposure)\b",
     re.IGNORECASE,
 )
 
 _COMPANY_NARRATIVE_CUE = re.compile(
-    r"\bour (?:product|platform|company|engineers?|team)\b[^.?!]*\b"
+    # Milestone 11-A2 -- same `\s+` widening as `_LEARNING_NARRATIVE_CUE`
+    # above, for the same reason.
+    r"\bour\s+(?:product|platform|company|engineers?|team)\b[^.?!]*\b"
     r"(?:uses?|use|built|builds?|develops?|leverages?)\b|"
-    r"\bwe(?:'ve| have)? (?:used|built|developed?|leverage[ds]?)\b|"
+    r"\bwe(?:'ve|\s+have)?\s+(?:used|built|developed?|leverage[ds]?)\b|"
     # Milestone 11-A1 -- "our <optional Capitalized/compound token> <structural
     # system noun>" (e.g. "our Node.js backend," "our React frontend," "our
     # codebase," "our infrastructure") -- confirmed, during M11's evaluation
