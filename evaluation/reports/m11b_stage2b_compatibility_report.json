@@ -1,0 +1,25 @@
+{
+  "fixtures_processed": 184,
+  "requirements": {
+    "core_field_equality": 265,
+    "full_object_equality": 265,
+    "mismatches": [],
+    "placeholder_category_total": 37,
+    "placeholder_identity_preserved": 37,
+    "reconstruction_mismatch": 0,
+    "scoring_denominator_equal": 265,
+    "serialized_equality": 265,
+    "total": 265,
+    "unsupported_adapter_case": 0,
+    "unsupported_cases": []
+  },
+  "unparsed_claims": {
+    "full_object_equality": 98,
+    "mismatches": [],
+    "reconstruction_mismatch": 0,
+    "serialized_equality": 98,
+    "total": 98,
+    "unsupported_adapter_case": 0,
+    "unsupported_cases": []
+  }
+}

@@ -605,6 +605,16 @@ Milestone 11-B section and
 `docs/evaluation/MILESTONE_11_B_STRUCTURED_QUALIFICATION_MODEL.md`'s
 implementation addendum.
 
+**Milestone 11-B Stage 2B follow-up (no pipeline flow change):** a new,
+standalone `jobs/parsing/qualification_adapter.py` module can convert
+an ALREADY-PRODUCED `JobRequirement`/`UnparsedClaim` into a
+`Qualification` and back, purely for offline validation
+(`scripts/evaluate_m11b_stage2b_compatibility.py`) -- it is not called
+anywhere in this pipeline, confirmed by a dedicated test. See
+`docs/ARCHITECTURE.md`'s Milestone 11-B Stage 2A/2B section and
+`docs/evaluation/MILESTONE_11_B_STAGE_2A_SHADOW_INTEGRATION.md`'s
+implementation addendum.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

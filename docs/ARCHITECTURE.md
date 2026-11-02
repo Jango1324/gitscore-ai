@@ -4836,3 +4836,63 @@ entry for the one corpus-authoring bug found and fixed along the way
 `m11b-illustrative-01` referenced an unregistered `cloud.azure`
 concept; swapped to `ml.framework.pytorch`/`ml.framework.tensorflow`,
 both already registered, same annotated semantics otherwise).
+
+### Milestone 11-B Stage 2A/2B — shadow integration architecture and the Path A compatibility adapter
+
+Stage 2A (`docs/evaluation/MILESTONE_11_B_STAGE_2A_SHADOW_INTEGRATION.md`)
+is an architecture-only review proposing how Stage 1's standalone
+`Qualification` model could eventually migrate the parser toward
+structured qualification understanding, without touching any live
+code path. It audits Stage 1 against the real pipeline field-by-field
+and finds two genuinely new detector gaps with zero existing
+precedent (`applicability_condition`, `TECHNICAL_COMPETENCY` — neither
+has ANY code path producing it today), a confirmed taxonomy mismatch
+(`JobRequirement.category`, a registry-category/non-technical-phrase
+string, and `QualificationKind` are unrelated vocabularies that merely
+share a few word-roots), and recommends splitting future work into
+Path A (a lossless compatibility adapter validating representation
+only) and Path B (a future, separately-scoped semantic extractor —
+explicitly not designed here). It recommends an offline-only shadow
+evaluation runner (Option A) over an importable shared function
+(Option B) or in-API shadow execution (Option C, rejected outright as
+incompatible with "the live parser must remain authoritative").
+
+**Stage 2B implements Path A and the Option A harness only** (both
+approved together in one pass, Path B explicitly withheld):
+`src/gitscore/jobs/parsing/qualification_adapter.py` (new, standalone,
+confirmed unimported by the live parser) converts an EXISTING
+`JobRequirement`/`UnparsedClaim` into a `Qualification` and back,
+deriving `QualificationKind` from STRUCTURAL facts
+(`concept_id`/`alternative_concept_ids` populated, or one of a small
+closed non-technical category-string set) rather than assuming
+`category` already speaks that vocabulary. The first pass achieved
+round-trip equality on seven named fields but not on `importance`/
+`category`'s raw string, and was held before commit for that reason —
+corrected by `AdaptedQualification` (same module, new type), a typed,
+adapter-internal envelope carrying the `Qualification` PLUS the two
+legacy scalars verbatim, reconstructed via `dataclasses.replace()`
+onto the EXISTING, unmodified `project_qualification()`'s own safe
+output. No public schema changed anywhere — `Qualification`/
+`JobRequirement`/`UnparsedClaim` are exactly as before;
+`AdaptedQualification` is new and adapter-only.
+`scripts/evaluate_m11b_stage2b_compatibility.py` (the Option A
+harness) runs the real parser against 184 raw texts drawn from seven
+existing, already-committed evaluation corpora, round-trips every
+resulting `JobRequirement`/`UnparsedClaim` through the full-fidelity
+adapter, and measures: **265/265 requirements and 98/98
+`UnparsedClaim`s achieve full dataclass equality, serialized-output
+equality, and scoring-denominator equality (verified via
+`match_requirement()`), including exact preservation of the 37
+placeholder-category rows' own identity** — zero mismatches, zero
+unsupported-adapter cases. The previously-reported
+`_interpretation_status()` presentation risk for the two existing
+placeholder categories is resolved as a direct consequence of full
+`category` preservation, with no change to `api/serialization.py`
+itself. No public schema, matcher, scoring, API, frontend, or
+concept-registry change; no `JOB_DESCRIPTION_PARSER_VERSION` bump. See
+that document's own implementation addendum (including its
+"Correction: full-fidelity round trip" section) for the full
+observability-policy table (Phase 4) and holdout-corpus manifest
+format (Phase 5, methodology only — no content authored), and
+`docs/CHANGELOG_DEV.md`'s Milestone 11-B Stage 2B entry for the
+complete verification record.

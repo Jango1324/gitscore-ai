@@ -1,5 +1,128 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-02 — Milestone 11-B Stage 2B: Path A compatibility adapter + offline shadow-evaluation harness
+
+**What changed:** Following Stage 2A's architecture-only review
+(`docs/evaluation/MILESTONE_11_B_STAGE_2A_SHADOW_INTEGRATION.md`),
+implemented exactly the two approved pieces -- Path A (a compatibility
+adapter) and the Option A offline evaluation harness -- with Path B
+(a future semantic extractor) explicitly withheld.
+
+`src/gitscore/jobs/parsing/qualification_adapter.py` (new, standalone,
+confirmed not imported by `parser.py`/`segmentation.py`/`necessity.py`/
+`narrative.py`, exactly like `qualification.py` itself). A first pass
+achieved round-trip equality on seven named fields
+(`original_text`/`source_span`/`necessity`/`concept_id`/
+`alternative_concept_ids`/`github_observability`/`parser_confidence`)
+but NOT on `importance` or `category`'s raw string --
+`project_qualification()` has no `importance` field to reconstruct and
+always writes `category=qualification_kind.value`. Commit was held
+specifically because "full `JobRequirement` dataclass equality" is the
+real bar, not a hand-picked subset -- and because one concrete
+consequence (the two existing placeholder categories both collapsing
+to `"other_legitimate"`, silently changing
+`api/serialization.py::_interpretation_status()`) is a real behavior
+change, not an abstract gap. **Corrected** by `AdaptedQualification`
+(new, frozen, adapter-internal) -- a typed envelope carrying the
+Stage-1 `Qualification` PLUS `legacy_importance`/`legacy_category`
+verbatim, reconstructed via `dataclasses.replace()` onto the
+EXISTING, unmodified `project_qualification()`'s own safe output
+(`adapt_job_requirement()`/`job_requirement_from_adapted()`). Two
+rejected alternatives: broadening `Qualification` itself (reopens
+Stage 1's own separately-approved scope outside this correction) and
+reporting every requirement with a non-`MEDIUM` importance or a
+non-`"education"`/`"experience"` category as `UnsupportedAdapterCase`
+(technically sound but measured, in the held-back version, to affect
+237/265 requirements -- 89% -- making the adapter nearly useless for
+its validation purpose). No public schema changes anywhere:
+`Qualification`/`JobRequirement`/`UnparsedClaim` are exactly as
+before; `AdaptedQualification` is new and adapter-only, never imported
+by production code. `QualificationKind` is still derived from
+STRUCTURAL facts only (`concept_id`/`alternative_concept_ids`
+populated, or one of a small, closed non-technical category-string
+set) -- never equated with the preserved `legacy_category`.
+
+`scripts/evaluate_m11b_stage2b_compatibility.py` (new, the Option A
+offline harness, same 184 fixtures across the same seven existing,
+already-committed evaluation sources -- `evaluation/jobs/*.json`,
+`evaluation/m10/corpus.json` + its `source/*.txt` files,
+`evaluation/m9b/corpus.json`, `evaluation/m10d/alternative_controls.json`,
+`evaluation/m11a2/line_wrap_controls.json`, `evaluation/m11/corpus.json`,
+`evaluation/m11b/structured_qualification_controls.json`) runs each
+through the real, unmodified `parse_job_description_with_diagnostics()`,
+round-trips every resulting `JobRequirement`/`UnparsedClaim` through
+the full-fidelity adapter, and reports SIX separate dimensions: full
+dataclass equality, core-field equality, serialized-output equality,
+scoring-denominator equality (verified by actually calling
+`match_requirement()` against an empty candidate profile for both the
+original and reconstructed requirement -- not inferred from field
+equality alone), placeholder-category identity preservation, and
+unsupported-adapter-case count. Writes
+`evaluation/reports/m11b_stage2b_compatibility_report.json`.
+
+**Why:** Stage 1 approved an internal representation but explicitly
+deferred whether that representation can losslessly express what the
+CURRENT parser already produces. Path A now answers that question
+completely: a pure reverse-mapping plus a round trip through the
+already-shipped, unmodified `project_qualification()`, with the two
+previously-lossy legacy fields carried alongside it rather than
+through it -- no new detector, no new policy, no public schema change.
+
+**Measured result:** 265/265 `JobRequirement`s and 98/98
+`UnparsedClaim`s achieve **full dataclass equality** (not a named
+field subset), **100% serialized-output equality**, **100%
+scoring-denominator equality**, and **100% placeholder-category
+identity preservation** (37/37 rows whose category is
+`"unresolved_requirement"`/`"alternative_requirement"`) -- zero
+mismatches, zero unsupported-adapter cases, across all 184 fixtures.
+The previously-reported `_interpretation_status()` presentation risk
+(both placeholder categories collapsing to `"other_legitimate"`) is
+now resolved as a direct consequence of full `category` preservation
+-- confirmed directly, with **no change to `api/serialization.py`**.
+
+**Files affected:** `src/gitscore/jobs/parsing/qualification_adapter.py`
+(new); `tests/test_m11b_stage2b_qualification_adapter.py` (new, 26
+tests); `scripts/evaluate_m11b_stage2b_compatibility.py` (new);
+`docs/evaluation/MILESTONE_11_B_STAGE_2A_SHADOW_INTEGRATION.md`
+(implementation addendum appended, including the correction's own
+reasoning, a Phase 4 observability-policy table by `QualificationKind`,
+and a Phase 5 holdout-corpus manifest format -- methodology only, no
+content authored); `docs/ARCHITECTURE.md` (new subsection);
+`docs/PIPELINE.md` (follow-up note). No existing `src/gitscore` file
+modified; no concept registry, matcher, scoring, API, or frontend
+change; `JOB_DESCRIPTION_PARSER_VERSION` stays `job_description_parser:v10`.
+
+**Risks / limitations:** no Path B extractor exists -- this milestone
+adds no new classification capability, only a validated, now
+full-fidelity reverse-mapping of what already exists;
+`TECHNICAL_COMPETENCY` recall is unchanged at 1/11 (9%). The
+`applicability_condition` and `MIXED_UNSUPPORTED` detector gaps (Stage
+2A §1.2/§1.5) remain untouched. The Phase 4 observability-policy table
+for `TECHNICAL_COMPETENCY` is documented but implements nothing -- no
+code reads it yet.
+
+**How to test it:** `pytest tests/test_m11b_stage2b_qualification_adapter.py -q`
+(26 tests); full suite `pytest -q` (1317 pre-existing + 26 new = 1343
+passed, 13 skipped, unchanged skip set);
+`python scripts/evaluate_m11b_stage2b_compatibility.py` (writes the
+compatibility report, prints the six-dimension summary above);
+`python scripts/evaluate_m11_generalization.py`,
+`python scripts/evaluate_m10a_realworld.py`,
+`python scripts/evaluate_m9b_preservation.py`,
+`python scripts/evaluate_m10d_alternatives.py`, and
+`python scripts/check_evaluation_staleness.py` all byte-identical to
+the Stage 1 baseline (frozen `8c:v1`/`8c:v1.1` FRESH, 0 diffs).
+`evaluate_m11a2_line_wrap.py` was also re-run to confirm its baseline
+column is unchanged; its own regenerated tracked report file (like
+`evaluate_m10d_alternatives.py`'s two report files) was reverted via
+`git checkout --` afterward, matching Stage 1's own practice.
+
+**Not done, by explicit scope:** Path B semantic extraction; any new
+GitHub competency evidence detector; any public schema/matcher/
+scoring/API/frontend change; concept-registry expansion; holdout
+corpus CONTENT (methodology/manifest only); no commit, no push --
+held for separate, explicit authorization.
+
 ## 2026-11-02 — Milestone 11-B Stage 1: standalone structured `Qualification` model (not wired into the live parser)
 
 **What changed:** A new, standalone module,
