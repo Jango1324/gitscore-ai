@@ -4780,3 +4780,59 @@ before/after comparison, not a single-point-in-time read. See
 `docs/CHANGELOG_DEV.md`'s Milestone 11-A2 entry for the full before/
 after and `docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md`'s own
 implementation addendum.
+
+### Milestone 11-B Stage 1 — standalone internal `Qualification` model
+(not wired into the live parser)
+
+Evaluation-first design review
+(`docs/evaluation/MILESTONE_11_B_STRUCTURED_QUALIFICATION_MODEL.md`):
+found `ParserConfidence` already exists and is already populated in
+production (`confidence.py::confidence_for()`, 6 call sites in
+`parser.py`) — i.e. the "how sure was the parser about its own
+interpretation" dimension the milestone set out to design already has
+a home, distinct from `Necessity` (REQUIRED/PREFERRED is "what did the
+employer require", never "how sure are we about it"). Recommended
+Option C (an internal `Qualification` domain model + a conservative,
+pure projection function to the existing `JobRequirement`/
+`UnparsedClaim` types) over Option A (encode everything as string
+tags on existing fields — rejected, information loss) and Option B
+(migrate the public schema immediately — rejected, no real consumer
+of the new fields exists yet).
+
+**Approved and shipped: Stage 1 only**, explicitly narrower than this
+document's own original sketch — the model is standalone and
+independently testable, but is **not** wired into
+`_requirements_from_claim`; the live parser's own code path is
+byte-for-byte unchanged (confirmed by a dedicated test asserting
+`qualification.py` is not imported by `parser.py`/`segmentation.py`/
+`necessity.py`/`narrative.py`).
+
+`src/gitscore/jobs/parsing/qualification.py` (new, unwired file):
+`QualificationKind` (7 values — `SPECIFIC_TECHNOLOGY`,
+`TECHNICAL_COMPETENCY`, `EDUCATION`, `EXPERIENCE`, `NONTECHNICAL`,
+`OTHER_LEGITIMATE`, `UNINTERPRETABLE`), `LogicalComposition`
+(`SINGLE`/`AND`/`OR_ANY`/`MIXED_UNSUPPORTED`), `NormalizedReference`
+(a concept id XOR an alternative-concept-id group XOR a bare
+competency tag — mutually exclusive by construction, so a competency
+can never reach `JobRequirement.concept_id`), the `Qualification`
+dataclass itself (reusing `SourceSpan`/`Necessity`/`ParserConfidence`/
+`GithubObservability` verbatim rather than inventing parallel types),
+and `project_qualification()` — a pure function routing to
+`UnparsedClaim` (never a `JobRequirement` with a coerced/guessed
+field) whenever necessity is unknown, observability is unknown, the
+logical structure is `MIXED_UNSUPPORTED`, the kind is
+`UNINTERPRETABLE`, or a material `applicability_condition` exists
+(`JobRequirement` has no field for it, so it is preserved verbatim
+inside the resulting `UnparsedClaim.text` instead of being silently
+dropped). No public schema, matcher, scoring, API, or frontend change;
+no `JOB_DESCRIPTION_PARSER_VERSION` bump (still `v10` — nothing
+observable changed). See
+`docs/evaluation/MILESTONE_11_B_STRUCTURED_QUALIFICATION_MODEL.md`'s
+own implementation addendum for the full test inventory (56 new
+tests, full suite 1261→1317 passed/13 skipped unchanged) and
+verification results, and `docs/CHANGELOG_DEV.md`'s Milestone 11-B
+entry for the one corpus-authoring bug found and fixed along the way
+(`evaluation/m11b/structured_qualification_controls.json`'s
+`m11b-illustrative-01` referenced an unregistered `cloud.azure`
+concept; swapped to `ml.framework.pytorch`/`ml.framework.tensorflow`,
+both already registered, same annotated semantics otherwise).

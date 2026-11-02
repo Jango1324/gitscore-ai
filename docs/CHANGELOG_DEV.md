@@ -1,5 +1,132 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-02 — Milestone 11-B Stage 1: standalone structured `Qualification` model (not wired into the live parser)
+
+**What changed:** A new, standalone module,
+`src/gitscore/jobs/parsing/qualification.py`, implementing the
+internal domain model and conservative projection function recommended
+by `docs/evaluation/MILESTONE_11_B_STRUCTURED_QUALIFICATION_MODEL.md`
+(Option C) and approved for **Stage 1 only**, explicitly narrower than
+that document's own original sketch: the model is standalone and
+independently testable but is **not** wired into
+`_requirements_from_claim` or any other live parser code path. Zero
+existing file in `src/gitscore` was modified — confirmed via `git diff
+--name-only -- src/gitscore`.
+
+The module adds: `QualificationKind` (7 values — `SPECIFIC_TECHNOLOGY`,
+`TECHNICAL_COMPETENCY`, `EDUCATION`, `EXPERIENCE`, `NONTECHNICAL`,
+`OTHER_LEGITIMATE`, `UNINTERPRETABLE`); `LogicalComposition`
+(`SINGLE`/`AND`/`OR_ANY`/`MIXED_UNSUPPORTED`); `NormalizedReference`
+(frozen, mutually-exclusive `concept_id` XOR
+`alternative_concept_ids` XOR `competency_tag` — enforced in
+`__post_init__` so a bare competency tag can never be projected into
+`JobRequirement.concept_id`, which would fail that field's own
+existing validation); the `Qualification` dataclass itself (frozen,
+reusing `SourceSpan`/`Necessity`/`ParserConfidence`/
+`GithubObservability` verbatim rather than inventing parallel types —
+`Necessity`/`GithubObservability` stay nullable here even though
+they are non-nullable on `JobRequirement`, since "unknown" is a real,
+distinct state this model must be able to hold); `ProjectionResult`
+(frozen, exactly one of `job_requirement`/`unparsed_claim` populated);
+and `project_qualification()`, a pure function implementing five
+safety rules, in order: unknown necessity, unknown observability,
+`MIXED_UNSUPPORTED` logical structure, `UNINTERPRETABLE` kind, or a
+non-null `applicability_condition` (no field exists on `JobRequirement`
+to hold a condition, so ANY material one routes to `UnparsedClaim`
+instead — the condition is not lost, since it survives verbatim inside
+`UnparsedClaim.text`, the original source sentence) each force a safe
+`UnparsedClaim` fallback rather than a coerced `JobRequirement`; a
+`JobRequirement` construction `ValueError` (e.g. a malformed
+`concept_id`) is also caught and falls back the same way, rather than
+propagating a crash. `_STAGE_1_PLACEHOLDER_IMPORTANCE = Importance.MEDIUM`
+is used only because `JobRequirement.importance` is non-nullable and
+`Qualification` has no `importance` field at all (not a Phase-1
+dimension) — documented explicitly as a neutral placeholder, never
+`HIGH`/`LOW`, which would fabricate a judgment never made.
+
+**Why:** the design doc's own Phase 1 investigation found
+`ParserConfidence` already exists and is already populated in
+production (6 call sites in `parser.py`, via `confidence.py`) — the
+"how sure was the interpretation" dimension the milestone set out to
+design already has a home, and is a dimension independent of
+`Necessity` (what the employer required vs. how sure the parser is
+about having read that correctly). Preserving that independence,
+rather than conflating the two, is the one piece of this milestone's
+own design the approval message called out by name (decision 4): a
+`Qualification` with `necessity=REQUIRED, interpretation_certainty=LOW`
+(we ARE sure it says REQUIRED, unsure about something else) and one
+with `necessity=None, interpretation_certainty=HIGH` (genuinely
+unresolved necessity) must both be representable and must never be
+conflated — both are covered by dedicated tests.
+
+**One corpus-authoring bug found and fixed, same class as M11-A2's
+unregistered `Node.js`/`GraphQL` fixtures:** while writing the test
+file, `evaluation/m11b/structured_qualification_controls.json`'s
+`m11b-illustrative-01` ("Experience with cloud platforms such as AWS
+or Azure.") turned out to reference `cloud.azure`, a concept that was
+never registered in `src/gitscore/concepts/registry.py` — only
+`cloud.aws` exists under `cloud.*`, no Azure/GCP concept exists at
+all. This is a mechanical reference error in the pre-existing fixture,
+not a semantic redesign, and the concept registry itself was NOT
+touched (out of scope without separate approval). Fixed by swapping to
+a domain with two already-registered concepts
+(`ml.framework.pytorch`/`ml.framework.tensorflow`, "Experience with
+deep learning frameworks such as PyTorch or TensorFlow."), preserving
+every other annotated field (`necessity=REQUIRED`,
+`interpretation_certainty=LOW`, `logical_composition=OR_ANY`,
+`github_observability=STRONGLY_OBSERVABLE`, `exhaustive=false`) — the
+example's expected outcome (a safe projection demonstrating
+illustrative/non-exhaustive alternatives) is unchanged.
+
+**Files affected:** `src/gitscore/jobs/parsing/qualification.py` (new);
+`tests/test_m11b_qualification_model.py` (new, 56 tests);
+`evaluation/m11b/structured_qualification_controls.json` (one concept
+reference fixed, all other fields and all 21 examples' annotations
+unchanged); `docs/evaluation/MILESTONE_11_B_STRUCTURED_QUALIFICATION_MODEL.md`
+(implementation addendum appended); `docs/ARCHITECTURE.md` (new §
+"Milestone 11-B Stage 1"); `docs/PIPELINE.md` (follow-up note under the
+job-description-parser stage). No existing `src/gitscore` file
+modified; no concept registry, matcher, scoring, API, or frontend
+change; `JOB_DESCRIPTION_PARSER_VERSION` stays `job_description_parser:v10`
+(confirmed by test — no bump, since nothing observable changed).
+
+**How the new logic works:** see the implementation addendum in
+`docs/evaluation/MILESTONE_11_B_STRUCTURED_QUALIFICATION_MODEL.md` and
+the module's own docstrings in `qualification.py`.
+
+**Risks / limitations:** this model represents zero new recall —
+`TECHNICAL_COMPETENCY` recall against the M11 generalization corpus is
+unchanged at 1/11 (9%), confirmed byte-identical by re-running
+`scripts/evaluate_m11_generalization.py`. Introducing a model that CAN
+represent a technical competency is not the same as the live parser
+recognizing more of them; no such claim is made anywhere in this
+entry or the design doc's addendum. `qualification_kind` has no public
+surface yet (Stage 3, unapproved). No technical-competency evidence
+detector exists or is proposed (Stage 4+, unapproved, and explicitly
+not scoped by the design doc's own §5 GitHub-evidence-boundary
+analysis).
+
+**How to test it:** `pytest tests/test_m11b_qualification_model.py -q`
+(56 tests, all 13 requested categories, all 21 corpus examples
+parametrized); full suite `pytest -q` (1261 pre-existing + 56 new =
+1317 passed, 13 skipped, unchanged skip set);
+`python scripts/evaluate_m11_generalization.py` (byte-identical to the
+pre-M11-B baseline); `python scripts/evaluate_m10a_realworld.py`,
+`python scripts/evaluate_m9b_preservation.py`, and
+`python scripts/check_evaluation_staleness.py` (frozen `8c:v1`/
+`8c:v1.1` FRESH, 0 diffs) all byte-identical to baseline.
+`evaluate_m11a2_line_wrap.py` was also re-run to confirm its "baseline"
+(current-parser) column is unchanged across all five corpora; the
+script's own regenerated report file was reverted via `git checkout
+--` afterward, since Stage 1 carries no authorization to update that
+tracked artifact.
+
+**Not done, by explicit scope:** the live parser is not rerouted
+through this model (Stage 2+); no public API/schema change (Stage 3);
+no technical-competency evidence detector (Stage 4+); no commit, no
+push — held for separate, explicit authorization per the approval
+message's own instruction.
+
 ## 2026-11-02 — Milestone 11-A2: Line-wrap segmentation integrity
 
 **What changed:** Two coordinated fixes, approved separately from the

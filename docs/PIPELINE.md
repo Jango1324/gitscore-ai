@@ -594,6 +594,17 @@ only `JOB_DESCRIPTION_PARSER_VERSION` bumps (`v9` -> `v10`). See
 `docs/evaluation/MILESTONE_11_A2_LINE_WRAP_INTEGRITY.md` for the full
 evaluation-first design review and the measured before/after.
 
+**Milestone 11-B Stage 1 follow-up (no pipeline flow change):** a new,
+standalone `jobs/parsing/qualification.py` module (`Qualification`,
+`project_qualification()`) exists for a future extraction stage to
+build on, but **is not called anywhere in this pipeline today** --
+`_requirements_from_claim` still builds `JobRequirement`/
+`UnparsedClaim` directly, exactly as described above. Confirmed by a
+dedicated test, not just by omission. See `docs/ARCHITECTURE.md`'s
+Milestone 11-B section and
+`docs/evaluation/MILESTONE_11_B_STRUCTURED_QUALIFICATION_MODEL.md`'s
+implementation addendum.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat
