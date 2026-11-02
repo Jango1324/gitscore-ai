@@ -27,7 +27,6 @@ from pathlib import Path
 import pytest
 
 from gitscore.jobs import Necessity, parse_job_description, parse_job_description_with_diagnostics
-from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
 
 SOTI_TEXT = (
     Path(__file__).resolve().parent.parent / "evaluation" / "m10" / "source" / "soti_raw.txt"
@@ -37,8 +36,11 @@ MANULIFE_TEXT = (
 ).read_text(encoding="utf-8")
 
 
-def test_parser_version_bumped_to_v8():
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v8"
+# Milestone 11-A1 superseded this module's own `v7 -> v8` version-pin
+# assertion with `v8 -> v9` (`tests/test_m11_a1_fabrication_fixes.py
+# ::test_parser_version_bumped_to_v9`) -- removed here rather than left
+# behind now permanently false, mirroring how M10E itself removed
+# M10D's `v7` pin.
 
 
 # ---------------------------------------------------------------------------

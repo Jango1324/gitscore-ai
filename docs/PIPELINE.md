@@ -559,6 +559,19 @@ NOT fixed here. See `docs/ARCHITECTURE.md` §35 and
 the full evaluation-first design review and the measured before/after
 on both real postings.
 
+**Milestone 11-A1 follow-up:** two narrow fixes to the SAME claim-
+construction detectors, found during Milestone 11's broader
+generalization review, confirmed independent of any line-wrap defect.
+`concepts.py`'s comma-list unknown-term promotion now shape-gates any
+multi-word leftover fragment (closing a fabrication path that
+produced `unresolved:our_main_database`/`unresolved:is_required` from
+ordinary prose); `narrative.py`'s company-narrative cue gains one new
+alternative for `"our ... backend/frontend/codebase/infrastructure"`
+phrasing. No new pipeline stage, no schema/matcher/scoring change.
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v8` -> `v9`. See
+`docs/ARCHITECTURE.md` §36 and `docs/CHANGELOG_DEV.md`'s Milestone
+11-A1 entry.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

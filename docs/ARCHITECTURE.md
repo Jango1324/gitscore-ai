@@ -4682,3 +4682,50 @@ This milestone does **not** claim to resolve every narrative-vs-
 qualification ambiguity a job posting can contain — only the two
 confirmed real defects and the generalizable mechanism (section-origin-
 blind necessity defaulting) behind them.
+
+## 36. Generalizable job-qualification understanding — Milestone 11
+
+Evaluation-first architecture review
+(`docs/evaluation/MILESTONE_11_GENERALIZABLE_JOB_UNDERSTANDING.md`):
+measured the current parser against 9 new, independently-annotated
+postings spanning all 12 industries/seniorities the brief named, found
+`TECHNICAL_COMPETENCY` (algorithms, concurrency, distributed systems,
+circuit theory, ...) has **no representation in the architecture at
+all** (9% recall vs. 50–75% for every other category — a structural
+absence, not a detection miss), measured that broadening M10E's
+narrative-cue regex trades new true positives for new false
+suppressions (a genuine whack-a-mole ceiling, not presumed), and
+recommended — for a future, separately-scoped implementation milestone,
+**not yet approved for broad schema migration** — a `qualification_kind`
+field populated by a deterministic (no LLM) extraction stage. See that
+document for the full root-cause analysis, the three-option comparison,
+and the five explicit STOP questions.
+
+### Milestone 11-A1 — narrow fabrication fixes (approved and shipped
+separately from the schema question)
+
+Two fixes, found during the same M11 review, confirmed independent of
+any line-wrap artifact: (1) `jobs/parsing/concepts.py::_consider_fragment`
+(the sibling-confirmed branch of `find_conservative_unknown_terms`) now
+gates any MULTI-WORD leftover fragment through
+`looks_like_specific_technology_name` before promoting it to
+`unresolved:<term>` — closing a fabrication path that produced
+`unresolved:our_main_database`/`unresolved:is_required`/`unresolved:for_storage`
+from ordinary prose; single-word fragments (`numpy`, `pandas`) are
+exempt, since Python-package naming convention is lowercase and a
+capitalization-only check would otherwise break them (found via full-
+suite regression testing, not assumed safe). (2)
+`jobs/parsing/narrative.py::_COMPANY_NARRATIVE_CUE` gains one new,
+narrow, employer-agnostic alternative — `"our ... backend/frontend/
+codebase/infrastructure"` — closing a confirmed fabrication where
+`"...our Node.js backend to our React frontend"` (pure company
+narrative) was scored as a REQUIRED `framework.react` qualification.
+No schema/matcher/scoring change; `JOB_DESCRIPTION_PARSER_VERSION`
+bumps `v8` → `v9` (a version-label update only, consistent with every
+prior behavior-affecting milestone in this series). Zero change to
+M10A/M9B/the frozen `8c:v1`/`8c:v1.1` benchmarks. See
+`docs/CHANGELOG_DEV.md`'s Milestone 11-A1 entry for the full before/
+after and the one correction it makes to the design doc's own original
+`unresolved:our` framing (that specific observation turned out to be a
+downstream symptom of the still-untouched, separately-tracked line-wrap
+defect, not a third independent fabrication path).

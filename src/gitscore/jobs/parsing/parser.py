@@ -142,6 +142,23 @@ regressions on every pre-existing frozen evaluation corpus
 admission/heading-recognition/necessity-hint-computation logic, and
 every other detector in this module, are untouched. `JOB_DESCRIPTION_PARSER_VERSION`
 bumps `v7` -> `v8` accordingly.
+
+**Milestone 11-A1 -- narrow fabrication safety fixes.** Two small,
+independently-approved fixes, found during Milestone 11's broader
+evaluation-first generalization review
+(`docs/evaluation/MILESTONE_11_GENERALIZABLE_JOB_UNDERSTANDING.md`),
+entirely within `jobs/parsing/concepts.py` and `jobs/parsing/narrative.py`
+-- nothing in THIS module changes except the version bump.
+`concepts.py::_consider_fragment` (the sibling-confirmed branch of
+`find_conservative_unknown_terms`) now requires a MULTI-WORD leftover
+fragment to also pass `looks_like_specific_technology_name` before
+promotion -- single-word fragments remain exempt (Python-package
+naming convention is lowercase: `numpy`, `pandas`). `narrative.py`'s
+`_COMPANY_NARRATIVE_CUE` gains one new, narrow, employer-agnostic
+alternative for `"our ... backend/frontend/codebase/infrastructure"`
+phrasing. See `docs/CHANGELOG_DEV.md`'s Milestone 11-A1 entry for the
+full before/after. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v8` -> `v9`
+accordingly.
 """
 from __future__ import annotations
 
@@ -168,7 +185,7 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, document_has_any_recognized_heading, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v8"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v9"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:

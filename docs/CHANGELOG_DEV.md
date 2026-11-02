@@ -1,5 +1,105 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-02 — Milestone 11-A1: Narrow fabrication safety fixes
+
+**What changed:** Two small, independently-testable fixes, both found
+during Milestone 11's evaluation-first generalization review
+(`docs/evaluation/MILESTONE_11_GENERALIZABLE_JOB_UNDERSTANDING.md`),
+scoped and approved separately from M11's broader architecture
+question. (1) `jobs/parsing/concepts.py::_consider_fragment` (the
+sibling-confirmed branch of `find_conservative_unknown_terms` — fires
+when a comma/"and"-joined list contains at least one ALREADY-confirmed
+concept mention) now requires any MULTI-WORD leftover fragment to also
+pass `looks_like_specific_technology_name` before being promoted to
+`unresolved:<term>` — mirroring the shape gate M10D already applied to
+`alternatives.py`'s own escalation branch, which this sibling function
+never received. Single-word fragments are exempt (Python-package
+naming convention is lowercase — `numpy`, `pandas` — so a
+capitalization-only check cannot apply unconditionally). (2)
+`jobs/parsing/narrative.py::_COMPANY_NARRATIVE_CUE` gains one new,
+narrow alternative: `"our <optional token(s)> backend/frontend/
+codebase/infrastructure"` — a small, generic, employer-agnostic
+structural-noun vocabulary, not a verb-paired pattern like the three
+existing alternatives.
+
+**Why:** M11's own held-out corpus found both defects by direct trace,
+independent of any line-wrap artifact (confirmed by re-testing each as
+a single, unwrapped physical line): `"The system uses PostgreSQL, our
+main database, for storage."` fabricated BOTH
+`unresolved:our_main_database` and `unresolved:for_storage`;
+`"Experience with PostgreSQL, and a willingness to learn, is
+required."` fabricated `unresolved:is_required`; and `"...touching
+everything from our Node.js backend to our React frontend."` — pure
+company narrative — was scored as a REQUIRED `framework.react`
+qualification because M10E's own narrative-cue regex only recognizes
+"our product/platform/company/engineers/team... uses/builds/develops,"
+never "our \<noun\> backend/frontend."
+
+**Process, per the approval message's explicit requirement:** a new
+regression file (`tests/test_m11_a1_fabrication_fixes.py`, eventually
+16 cases including the version pin — both defects reproduced, both
+fixes verified, and 9 positive/negative regression anchors) was
+written and confirmed to fail EXACTLY the 5
+intended cases against baseline (pre-fix) code, before any production
+file was touched. Implementing the FIRST version of fix (1) with a
+BARE `looks_like_specific_technology_name` check (no word-count
+exemption) broke an existing, unrelated test
+(`tests/test_api_serialization.py::test_concept_label_for_an_unresolved_concept_in_a_comma_enumeration`,
+`"Python, pandas, and numpy"` → `unresolved:numpy`) — found by running
+the full suite before considering the fix complete, not assumed safe;
+the word-count exemption above is the fix for that regression, not the
+original design.
+
+**Before/after:** both of the two confirmed defects above no longer
+fabricate (re-verified directly). Zero change to SOTI/Manulife's own
+M10A benchmark (`false_positive_requirements`, `meets_ideal_outcome`,
+`meets_neither` all byte-identical to the post-M10E numbers — neither
+real posting contains either fixed pattern). Zero change to M9B
+(byte-identical report). Zero change to the frozen `8c:v1`/`8c:v1.1`
+parser benchmarks (`scripts/check_evaluation_staleness.py`, confirmed
+both via direct read and a clean-tree `git stash` before/after
+comparison — `parser_report.json`/`parser_report_v1_1.json` FRESH, 0
+diff, both before and after). Full suite: 1209 pre-existing − 1 removed
+(stale `v8` version pin, superseded) + 16 new = **1224 passed, 10
+skipped** (the 10 skips are M10E's own
+pre-existing, documented, out-of-scope corpus mismatches — unrelated
+to and unaffected by this fix).
+
+**Explicitly NOT done, per the approval message's own restrictions:**
+no `qualification_kind` field, no `Necessity` enum widening, no
+technical-competency extraction, no matcher/scoring change, no
+line-wrap fix (the `unresolved:our` fabrication as ORIGINALLY traced in
+M11's design doc turned out, on closer inspection during this
+implementation, to be a DOWNSTREAM SYMPTOM of the still-untouched
+line-wrap defect — see this entry's "Known remaining limitations"
+below, not a third thing this fix closes), no concept-registry
+expansion, no LLM, no frontend change, no historical-gold edit.
+
+**Known remaining limitations (disclosed, not fixed):** the REAL
+`m11-unicode-contradiction-01` posting's line-wrapped sentence still
+produces a residual, reduced fabrication after this fix — the
+`unresolved:our` row is gone (fix 1), but a stray `database.postgresql`
+REQUIRED row and a stray `category="experience"` REQUIRED row persist,
+because the line-wrap defect truncates "We've built our platform on
+Go and PostgreSQL..." to a FRAGMENT that no longer contains "We've
+built" at all (that phrase is left on the prior physical line), so
+fix 2's cue can never see it. This is exactly why the production-
+approval message treats line-wrap as its own, separately-gated
+question rather than bundling it into A1. The bare-common-word-language
+gap (Go/R/C-shaped names outside an enumerated list, M11 §4.4) and
+every `TECHNICAL_COMPETENCY`/schema question remain entirely untouched,
+as approved. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v8` → `v9`,
+consistent with every prior behavior-affecting milestone in this
+series (a version-LABEL update only — no schema/API/matcher/scoring
+contract changed).
+
+**How to test it:** `tests/test_m11_a1_fabrication_fixes.py` (16
+tests, including the `v9` version-pin — superseding M10E's own `v8`
+pin, removed from `tests/test_m10e_narrative_requirement_semantics.py`
+the same way M10E removed M10D's). Full suite: 1209 pre-existing − 1
+removed (stale `v8` pin, superseded) + 16 new = **1224 passed, 10
+skipped**.
+
 ## 2026-11-01 — Milestone 10E: Narrative vs. applicant-qualification semantics
 
 **What changed:** Evaluation-first design review

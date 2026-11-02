@@ -333,9 +333,38 @@ def find_conservative_unknown_terms(text: str, mentions: tuple[ConceptMention, .
     also accepts ordinary descriptive English like "a related field" or
     "control systems", which must never be promoted to a fabricated
     unresolved concept -- see
-    docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md). The
-    original sibling-confirmed behavior below (`mentions` non-empty) is
-    completely unchanged by this addition.
+    docs/evaluation/MILESTONE_9A_REQUIREMENT_PRESERVATION.md).
+
+    **Milestone 11-A1: the sibling-confirmed path below (`mentions`
+    non-empty) now applies a shape gate to any MULTI-WORD leftover
+    fragment** -- found missing during M11's own evaluation-first review
+    (`docs/evaluation/MILESTONE_11_GENERALIZABLE_JOB_UNDERSTANDING.md`
+    §4.2): a comma/"and"-adjacent leftover fragment next to an ALREADY-
+    confirmed concept (e.g. "PostgreSQL, our main database, for storage")
+    only had to pass `clean_list_fragment`'s plain <=3-word/stopword
+    check, with no shape check at all -- unlike the enumeration-cue path
+    above, which M10D already closed a related gap on
+    (`alternatives.py::_resolve_segment`'s own escalation branch, same
+    milestone). Confirmed, reproducible fabrications this closes:
+    `"PostgreSQL, our main database, for storage"` ->
+    `unresolved:our_main_database` / `unresolved:for_storage`;
+    `"PostgreSQL, and a willingness to learn, is required"` ->
+    `unresolved:is_required`. The gate is scoped to fragments with MORE
+    THAN ONE word only (`_consider_fragment`, below) -- a single-word
+    fragment is exempt, because every EXISTING legitimate use of this
+    path (`"React, Vue, and SomeNewLibrary"`, `"Python,
+    SomeUnknownOrchestrator, and Docker"`, and -- found while verifying
+    this fix caused no regression -- `"Python, pandas, and numpy"`) is a
+    single token regardless of case; Python-package naming convention is
+    lowercase, so a capitalization-only shape check cannot be applied
+    unconditionally without breaking those. Every confirmed fabrication,
+    by contrast, was a 2-3-word ordinary phrase -- word count is the
+    measured boundary between the two.
+
+    The original sibling-confirmed behavior below (`mentions` non-empty)
+    is unchanged by Milestone 9A's own addition above -- Milestone
+    11-A1 is what adds the shape gate to it, per the docstring section
+    above.
     """
     if "," not in text:
         return ()
@@ -365,6 +394,24 @@ def find_conservative_unknown_terms(text: str, mentions: tuple[ConceptMention, .
 def _consider_fragment(fragment: str, offset: int, is_covered, terms: list[str], seen: set[str]) -> None:
     stripped = clean_list_fragment(fragment)
     if stripped is None:
+        return
+    # Milestone 11-A1 -- a shape gate for MULTI-WORD fragments only.
+    # `clean_list_fragment`'s plain <=3-word/stopword check alone accepts
+    # ordinary descriptive English ("our main database," "is required,"
+    # "for storage") that must never be promoted to a fabricated
+    # `unresolved:<term>` concept just because it happens to sit next to
+    # an already-confirmed concept mention in the same list. A SINGLE-word
+    # fragment is deliberately EXEMPT: every existing legitimate use of
+    # this path is a single token regardless of case (`numpy`, `pandas`,
+    # `Vue`, `SomeNewLibrary`, `SomeUnknownOrchestrator` -- Python-package
+    # naming convention is lowercase, so `looks_like_specific_technology_name`'s
+    # capitalization-only check cannot apply here without breaking them),
+    # while every confirmed fabrication this milestone found is a 2-3-word
+    # ordinary phrase (`"our main database"`, `"is required"`, `"our
+    # internal tooling"`, `"for storage"`) -- `len(stripped.split()) > 1`
+    # is the exact, measured boundary between the two, not an arbitrary
+    # threshold.
+    if len(stripped.split()) > 1 and not looks_like_specific_technology_name(stripped):
         return
 
     local_start = fragment.find(stripped)

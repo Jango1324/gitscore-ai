@@ -53,7 +53,26 @@ _LEARNING_NARRATIVE_CUE = re.compile(
 _COMPANY_NARRATIVE_CUE = re.compile(
     r"\bour (?:product|platform|company|engineers?|team)\b[^.?!]*\b"
     r"(?:uses?|use|built|builds?|develops?|leverages?)\b|"
-    r"\bwe(?:'ve| have)? (?:used|built|developed?|leverage[ds]?)\b",
+    r"\bwe(?:'ve| have)? (?:used|built|developed?|leverage[ds]?)\b|"
+    # Milestone 11-A1 -- "our <optional Capitalized/compound token> <structural
+    # system noun>" (e.g. "our Node.js backend," "our React frontend," "our
+    # codebase," "our infrastructure") -- confirmed, during M11's evaluation
+    # review, to escape the three patterns above entirely (neither contains a
+    # listed noun/verb pair in the required order). Deliberately a SEPARATE,
+    # narrower alternative with no verb requirement at all: this structural-
+    # noun vocabulary is generic across any employer (never a product/company
+    # name) and specific enough on its own -- a sentence naming "our backend"/
+    # "our frontend"/"our codebase"/"our infrastructure" is, in practice,
+    # always describing the EMPLOYER's own system, never a candidate
+    # qualification -- unlike the broader "our + ANY noun phrase" heuristic
+    # this milestone's own Phase 5 probe measured and rejected for trading
+    # these false positives for new false suppressions
+    # (`scripts/evaluation_lib/m11_generalization_probe.py`,
+    # docs/evaluation/MILESTONE_11_GENERALIZABLE_JOB_UNDERSTANDING.md §5.1).
+    # An explicit local REQUIRED/PREFERRED marker still wins unconditionally
+    # regardless (checked first by every caller of `contains_narrative_cue`),
+    # so "Experience with our React codebase is required" is unaffected.
+    r"\bour\s+(?:[\w.\-]+\s+){0,2}(?:backend|frontend|front-end|back-end|codebase|infrastructure)\b",
     re.IGNORECASE,
 )
 
