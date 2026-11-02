@@ -1,0 +1,838 @@
+{
+  "part1_m10e_controls": {
+    "baseline": {
+      "match": 30,
+      "total": 51,
+      "mismatches": [
+        [
+          "m10e-a1",
+          "A",
+          false,
+          true
+        ],
+        [
+          "m10e-a3",
+          "A",
+          false,
+          true
+        ],
+        [
+          "m10e-a5",
+          "A",
+          false,
+          true
+        ],
+        [
+          "m10e-a6",
+          "A",
+          false,
+          true
+        ],
+        [
+          "m10e-b3",
+          "B",
+          true,
+          false
+        ],
+        [
+          "m10e-b4",
+          "B",
+          true,
+          false
+        ],
+        [
+          "m10e-c1",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c2",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c3",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c4",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-d1",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-d3",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-d4",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-d6",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-d7",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-e1",
+          "E",
+          false,
+          true
+        ],
+        [
+          "m10e-e6",
+          "E",
+          false,
+          true
+        ],
+        [
+          "m10e-f2",
+          "F",
+          true,
+          false
+        ],
+        [
+          "m10e-f4",
+          "F",
+          true,
+          false
+        ],
+        [
+          "m10e-h3",
+          "H",
+          true,
+          false
+        ],
+        [
+          "m10e-h4",
+          "H",
+          true,
+          false
+        ]
+      ]
+    },
+    "a": {
+      "match": 36,
+      "total": 51,
+      "mismatches": [
+        [
+          "m10e-b3",
+          "B",
+          true,
+          false
+        ],
+        [
+          "m10e-b4",
+          "B",
+          true,
+          false
+        ],
+        [
+          "m10e-c1",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c2",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c3",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c4",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-d1",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-d3",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-d4",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-d6",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-d7",
+          "D",
+          false,
+          true
+        ],
+        [
+          "m10e-f2",
+          "F",
+          true,
+          false
+        ],
+        [
+          "m10e-f4",
+          "F",
+          true,
+          false
+        ],
+        [
+          "m10e-h3",
+          "H",
+          true,
+          false
+        ],
+        [
+          "m10e-h4",
+          "H",
+          true,
+          false
+        ]
+      ]
+    },
+    "b": {
+      "match": 35,
+      "total": 51,
+      "mismatches": [
+        [
+          "m10e-a1",
+          "A",
+          false,
+          true
+        ],
+        [
+          "m10e-a3",
+          "A",
+          false,
+          true
+        ],
+        [
+          "m10e-a5",
+          "A",
+          false,
+          true
+        ],
+        [
+          "m10e-a6",
+          "A",
+          false,
+          true
+        ],
+        [
+          "m10e-b3",
+          "B",
+          true,
+          false
+        ],
+        [
+          "m10e-b4",
+          "B",
+          true,
+          false
+        ],
+        [
+          "m10e-c1",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c2",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c3",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c4",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-e1",
+          "E",
+          false,
+          true
+        ],
+        [
+          "m10e-e6",
+          "E",
+          false,
+          true
+        ],
+        [
+          "m10e-f2",
+          "F",
+          true,
+          false
+        ],
+        [
+          "m10e-f4",
+          "F",
+          true,
+          false
+        ],
+        [
+          "m10e-h3",
+          "H",
+          true,
+          false
+        ],
+        [
+          "m10e-h4",
+          "H",
+          true,
+          false
+        ]
+      ]
+    },
+    "c": {
+      "match": 41,
+      "total": 51,
+      "mismatches": [
+        [
+          "m10e-b3",
+          "B",
+          true,
+          false
+        ],
+        [
+          "m10e-b4",
+          "B",
+          true,
+          false
+        ],
+        [
+          "m10e-c1",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c2",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c3",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-c4",
+          "C",
+          true,
+          false
+        ],
+        [
+          "m10e-f2",
+          "F",
+          true,
+          false
+        ],
+        [
+          "m10e-f4",
+          "F",
+          true,
+          false
+        ],
+        [
+          "m10e-h3",
+          "H",
+          true,
+          false
+        ],
+        [
+          "m10e-h4",
+          "H",
+          true,
+          false
+        ]
+      ]
+    }
+  },
+  "part2_real_postings": {
+    "SOTI": {
+      "baseline": [
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.csharp",
+            "language.sql"
+          ],
+          null,
+          "The technologies you learn during an internship at SOTI range from learning to develop middle tier services using languages like C#, or deepening your knowledge of databases by leveraging SQL and learning how to build high performance apps using storage procedures."
+        ],
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.c",
+            "language.cpp",
+            "language.java",
+            "language.javascript",
+            "language.ruby",
+            "language.rust",
+            "language.sql",
+            "unresolved:haskell",
+            "unresolved:lua"
+          ],
+          null,
+          "Basic knowledge of programming in one or more of the following programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua, Haskell"
+        ]
+      ],
+      "a": [
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.c",
+            "language.cpp",
+            "language.java",
+            "language.javascript",
+            "language.ruby",
+            "language.rust",
+            "language.sql",
+            "unresolved:haskell",
+            "unresolved:lua"
+          ],
+          null,
+          "Basic knowledge of programming in one or more of the following programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua, Haskell"
+        ]
+      ],
+      "b": [
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.c",
+            "language.cpp",
+            "language.java",
+            "language.javascript",
+            "language.ruby",
+            "language.rust",
+            "language.sql",
+            "unresolved:haskell",
+            "unresolved:lua"
+          ],
+          null,
+          "Basic knowledge of programming in one or more of the following programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua, Haskell"
+        ]
+      ],
+      "c": [
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.c",
+            "language.cpp",
+            "language.java",
+            "language.javascript",
+            "language.ruby",
+            "language.rust",
+            "language.sql",
+            "unresolved:haskell",
+            "unresolved:lua"
+          ],
+          null,
+          "Basic knowledge of programming in one or more of the following programming languages: C, C++, Java, JavaScript, SQL, Ruby, Rust, Lua, Haskell"
+        ]
+      ]
+    },
+    "MANULIFE": {
+      "baseline": [
+        [
+          "REQUIRED",
+          null,
+          [],
+          "soft_skill",
+          "Collaborate with engineering and business teams to build user-focused solutions"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [],
+          "education",
+          "Currently pursuing an undergraduate degree in Computer Science, Engineering, or a related field"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.go",
+            "language.java",
+            "language.javascript",
+            "language.python"
+          ],
+          null,
+          "Experience with at least one programming language (e.g., Java, Python, Go, JavaScript)"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [],
+          "soft_skill",
+          "Strong communication skills and willingness to learn in a collaborative environment"
+        ],
+        [
+          "PREFERRED",
+          null,
+          [],
+          "unresolved_requirement",
+          "Exposure to software frameworks, libraries, or development tools"
+        ],
+        [
+          "PREFERRED",
+          null,
+          [],
+          "unresolved_requirement",
+          "Familiarity with APIs, web services, or application architecture"
+        ]
+      ],
+      "a": [
+        [
+          "REQUIRED",
+          null,
+          [],
+          "soft_skill",
+          "Collaborate with engineering and business teams to build user-focused solutions"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [],
+          "education",
+          "Currently pursuing an undergraduate degree in Computer Science, Engineering, or a related field"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.go",
+            "language.java",
+            "language.javascript",
+            "language.python"
+          ],
+          null,
+          "Experience with at least one programming language (e.g., Java, Python, Go, JavaScript)"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [],
+          "soft_skill",
+          "Strong communication skills and willingness to learn in a collaborative environment"
+        ],
+        [
+          "PREFERRED",
+          null,
+          [],
+          "unresolved_requirement",
+          "Exposure to software frameworks, libraries, or development tools"
+        ],
+        [
+          "PREFERRED",
+          null,
+          [],
+          "unresolved_requirement",
+          "Familiarity with APIs, web services, or application architecture"
+        ]
+      ],
+      "b": [
+        [
+          "REQUIRED",
+          null,
+          [],
+          "education",
+          "Currently pursuing an undergraduate degree in Computer Science, Engineering, or a related field"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.go",
+            "language.java",
+            "language.javascript",
+            "language.python"
+          ],
+          null,
+          "Experience with at least one programming language (e.g., Java, Python, Go, JavaScript)"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [],
+          "soft_skill",
+          "Strong communication skills and willingness to learn in a collaborative environment"
+        ],
+        [
+          "PREFERRED",
+          null,
+          [],
+          "unresolved_requirement",
+          "Exposure to software frameworks, libraries, or development tools"
+        ],
+        [
+          "PREFERRED",
+          null,
+          [],
+          "unresolved_requirement",
+          "Familiarity with APIs, web services, or application architecture"
+        ]
+      ],
+      "c": [
+        [
+          "REQUIRED",
+          null,
+          [],
+          "education",
+          "Currently pursuing an undergraduate degree in Computer Science, Engineering, or a related field"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [
+            "language.go",
+            "language.java",
+            "language.javascript",
+            "language.python"
+          ],
+          null,
+          "Experience with at least one programming language (e.g., Java, Python, Go, JavaScript)"
+        ],
+        [
+          "REQUIRED",
+          null,
+          [],
+          "soft_skill",
+          "Strong communication skills and willingness to learn in a collaborative environment"
+        ],
+        [
+          "PREFERRED",
+          null,
+          [],
+          "unresolved_requirement",
+          "Exposure to software frameworks, libraries, or development tools"
+        ],
+        [
+          "PREFERRED",
+          null,
+          [],
+          "unresolved_requirement",
+          "Familiarity with APIs, web services, or application architecture"
+        ]
+      ]
+    }
+  },
+  "part3_regression": {
+    "m10a_realworld (full postings, real headings)": {
+      "n_items": 2,
+      "baseline_total_requirements": 8,
+      "candidate_totals": {
+        "baseline": 8,
+        "a": 7,
+        "b": 6,
+        "c": 6
+      },
+      "removed_counts": {
+        "a": 1,
+        "b": 2,
+        "c": 2
+      },
+      "removed_examples": {
+        "a": [
+          [
+            "m10a-soti",
+            [
+              "REQUIRED",
+              null,
+              [
+                "language.csharp",
+                "language.sql"
+              ],
+              null,
+              "The technologies you learn during an internship at SOTI range from learning to develop middle tier services using languages like C#, or deepening your knowledge of databases by leveraging SQL and learning how to build high performance apps using storage procedures."
+            ]
+          ]
+        ],
+        "b": [
+          [
+            "m10a-soti",
+            [
+              "REQUIRED",
+              null,
+              [
+                "language.csharp",
+                "language.sql"
+              ],
+              null,
+              "The technologies you learn during an internship at SOTI range from learning to develop middle tier services using languages like C#, or deepening your knowledge of databases by leveraging SQL and learning how to build high performance apps using storage procedures."
+            ]
+          ],
+          [
+            "m10a-manulife",
+            [
+              "REQUIRED",
+              null,
+              [],
+              "soft_skill",
+              "Collaborate with engineering and business teams to build user-focused solutions"
+            ]
+          ]
+        ],
+        "c": [
+          [
+            "m10a-soti",
+            [
+              "REQUIRED",
+              null,
+              [
+                "language.csharp",
+                "language.sql"
+              ],
+              null,
+              "The technologies you learn during an internship at SOTI range from learning to develop middle tier services using languages like C#, or deepening your knowledge of databases by leveraging SQL and learning how to build high performance apps using storage procedures."
+            ]
+          ],
+          [
+            "m10a-manulife",
+            [
+              "REQUIRED",
+              null,
+              [],
+              "soft_skill",
+              "Collaborate with engineering and business teams to build user-focused solutions"
+            ]
+          ]
+        ]
+      }
+    },
+    "m10d_alternative_controls (isolated fragments, no headings)": {
+      "n_items": 41,
+      "baseline_total_requirements": 41,
+      "candidate_totals": {
+        "baseline": 41,
+        "a": 41,
+        "b": 41,
+        "c": 41
+      },
+      "removed_counts": {
+        "a": 0,
+        "b": 0,
+        "c": 0
+      },
+      "removed_examples": {
+        "a": [],
+        "b": [],
+        "c": []
+      }
+    },
+    "m9b_preservation (isolated fragments, no headings)": {
+      "n_items": 30,
+      "baseline_total_requirements": 23,
+      "candidate_totals": {
+        "baseline": 23,
+        "a": 23,
+        "b": 23,
+        "c": 23
+      },
+      "removed_counts": {
+        "a": 0,
+        "b": 0,
+        "c": 0
+      },
+      "removed_examples": {
+        "a": [],
+        "b": [],
+        "c": []
+      }
+    },
+    "gold_8c_v1 (isolated claim fragments, no headings)": {
+      "n_items": 93,
+      "baseline_total_requirements": 81,
+      "candidate_totals": {
+        "baseline": 81,
+        "a": 81,
+        "b": 81,
+        "c": 81
+      },
+      "removed_counts": {
+        "a": 0,
+        "b": 0,
+        "c": 0
+      },
+      "removed_examples": {
+        "a": [],
+        "b": [],
+        "c": []
+      }
+    },
+    "gold_8c_v1_1 (isolated claim fragments, no headings)": {
+      "n_items": 93,
+      "baseline_total_requirements": 81,
+      "candidate_totals": {
+        "baseline": 81,
+        "a": 81,
+        "b": 81,
+        "c": 81
+      },
+      "removed_counts": {
+        "a": 0,
+        "b": 0,
+        "c": 0
+      },
+      "removed_examples": {
+        "a": [],
+        "b": [],
+        "c": []
+      }
+    }
+  }
+}

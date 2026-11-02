@@ -527,6 +527,38 @@ deferred as a newly-identified Root Cause 6. See `docs/ARCHITECTURE.md`
 the full evaluation-first design review and the measured before/after
 on both real postings.
 
+### Narrative vs. applicant-qualification semantics -- Milestone 10E
+
+Between `segment_description()` (Part 3) and necessity/importance
+inference (Part 7), one new step: `necessity.py::resolve_necessity_hint()`
+computes an "effective" necessity hint from `Claim.necessity_hint`
+PLUS two NEW, additive facts `segmentation.py` now also tracks per
+claim -- `Claim.section_kind` (the real `_SectionKind`, not just the
+lossy REQUIRED/PREFERRED hint `RESPONSIBILITY` already collapsed into)
+and `document_has_any_recognized_heading()` (does the WHOLE posting
+have a heading anywhere, distinguishing a genuinely unsectioned posting
+from narrative prose that merely precedes the SAME document's own
+later real sections). An explicit local REQUIRED/PREFERRED marker in a
+claim's own text still wins unconditionally, exactly as before; a
+`RESPONSIBILITY`/`LEARNING`/`UNKNOWN` claim, a narrative PREAMBLE claim,
+or ANY claim matching a new, narrow LEARNING/COMPANY narrative-cue
+regex pair (`jobs/parsing/narrative.py`, new module) is otherwise routed
+to the EXISTING "zero requirements -> `UnparsedClaim`" diagnostic
+fallback instead of a scored `JobRequirement`. Fixes the real SOTI
+"Opportunity" narrative paragraph (fabricated a `(language.csharp,
+language.sql)` alternative group) and the real Manulife "Collaborate
+with engineering and business teams..." responsibility bullet
+(fabricated a `category='soft_skill'` requirement). `infer_necessity()`,
+every concept-resolution detector, `JobRequirement`, the matcher, and
+the scoring formula are all completely unchanged; only
+`JOB_DESCRIPTION_PARSER_VERSION` bumps (`v7` -> `v8`). The SKIP-section
+blanket-suppression gap and `non_technical.py`'s own vocabulary-coverage
+gaps, both found during this milestone's own evaluation, are explicitly
+NOT fixed here. See `docs/ARCHITECTURE.md` §35 and
+`docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md` for
+the full evaluation-first design review and the measured before/after
+on both real postings.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

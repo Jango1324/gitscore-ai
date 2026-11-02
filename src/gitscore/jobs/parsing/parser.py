@@ -118,6 +118,30 @@ unchanged (confirmed via the full regression suite,
 ("Python or Java and SQL") is explicitly NOT addressed by this
 milestone -- deferred, see that document's Root Cause 6.
 `JOB_DESCRIPTION_PARSER_VERSION` bumps `v6` -> `v7` accordingly.
+
+**Milestone 10E -- narrative vs. applicant-qualification semantics.**
+`_requirements_from_claim` now computes an "effective" necessity hint
+via `jobs/parsing/necessity.py::resolve_necessity_hint` (new) BEFORE
+calling the existing, unchanged `infer_necessity` -- closing the real
+SOTI ("The technologies you learn... languages like C#, or deepening
+your knowledge of databases by leveraging SQL...", fabricated into a
+scored `(language.csharp, language.sql)` alternative-group requirement)
+and Manulife ("Collaborate with engineering and business teams to build
+user-focused solutions.", a RESPONSIBILITY bullet fabricated into a
+scored `category='soft_skill'` requirement) false positives found by
+that milestone's own evaluation-first review
+(`docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md`).
+`resolve_necessity_hint` only ever NARROWS a hint to `None` or passes it
+through unchanged -- an explicit local REQUIRED/PREFERRED marker in a
+claim's own text always wins first, unconditionally, exactly as before;
+every previously-correct case (an explicit qualification anywhere, a
+genuine REQUIRED/PREFERRED section, a genuinely unsectioned posting)
+is unaffected, confirmed via the 51-control M10E corpus and zero
+regressions on every pre-existing frozen evaluation corpus
+(M9B/M10A/M10C/M10D/8c:v1/8c:v1.1). `segment_description`'s own
+admission/heading-recognition/necessity-hint-computation logic, and
+every other detector in this module, are untouched. `JOB_DESCRIPTION_PARSER_VERSION`
+bumps `v7` -> `v8` accordingly.
 """
 from __future__ import annotations
 
@@ -138,13 +162,13 @@ from gitscore.jobs.parsing.confidence import confidence_for
 from gitscore.jobs.parsing.dedup import deduplicate_requirements
 from gitscore.jobs.parsing.experience import find_experience_qualifier
 from gitscore.jobs.parsing.importance import infer_importance
-from gitscore.jobs.parsing.necessity import infer_necessity
+from gitscore.jobs.parsing.necessity import infer_necessity, resolve_necessity_hint
 from gitscore.jobs.parsing.non_technical import find_non_technical_match
 from gitscore.jobs.parsing.observability import observability_for_non_technical, observability_for_technical
-from gitscore.jobs.parsing.segmentation import Claim, segment_description
+from gitscore.jobs.parsing.segmentation import Claim, document_has_any_recognized_heading, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v7"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v8"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:
@@ -177,16 +201,35 @@ def _unresolved_requirement_signal(text: str) -> bool:
     return clean_list_fragment(text[lead_in.end():]) is not None
 
 
-def _requirements_from_claim(claim: Claim, registry) -> list[JobRequirement]:
-    necessity = infer_necessity(claim.text, claim.necessity_hint)
+def _requirements_from_claim(
+    claim: Claim, registry, *, document_has_recognized_heading: bool
+) -> list[JobRequirement]:
+    # Milestone 10E -- `resolve_necessity_hint` narrows `claim.necessity_hint`
+    # (never widens it -- see that function's own docstring) based on
+    # section origin (`claim.section_kind`) and narrative-cue content,
+    # BEFORE the existing, unchanged `infer_necessity` ever runs. An
+    # explicit local REQUIRED/PREFERRED marker in `claim.text` always
+    # wins regardless of this step (both functions check it first).
+    effective_hint = resolve_necessity_hint(
+        claim.text,
+        claim.necessity_hint,
+        section_kind=claim.section_kind,
+        document_has_recognized_heading=document_has_recognized_heading,
+    )
+    necessity = infer_necessity(claim.text, effective_hint)
     if necessity is None:
         # Milestone 10B -- the claim was admitted from an unrecognized
         # (UNKNOWN) section and carries no local REQUIRED/PREFERRED
         # marker in its own text, so no necessity can be responsibly
-        # assigned. Returning [] here (rather than fabricating REQUIRED
-        # or PREFERRED) routes the claim through `_parse`'s EXISTING
-        # "zero requirements produced -> UnparsedClaim" fallback below --
-        # no new diagnostic type, no JobRequirement schema change.
+        # assigned. Milestone 10E: this now ALSO covers a
+        # RESPONSIBILITY/LEARNING claim, or a `None`-section claim that
+        # precedes the same document's own later real sections, or a
+        # narrative-cue claim in an otherwise-eligible context -- see
+        # `resolve_necessity_hint`'s own docstring. Returning [] here
+        # (rather than fabricating REQUIRED or PREFERRED) routes the
+        # claim through `_parse`'s EXISTING "zero requirements produced
+        # -> UnparsedClaim" fallback below -- no new diagnostic type, no
+        # JobRequirement schema change.
         return []
     importance = infer_importance(claim.text, necessity)
     span = SourceSpan(claim.start, claim.end)
@@ -414,11 +457,14 @@ def _parse(
     """
     registry = default_registry()
     claims = segment_description(description)
+    document_has_recognized_heading = document_has_any_recognized_heading(description)
 
     all_requirements: list[JobRequirement] = []
     unparsed_claims: list[UnparsedClaim] = []
     for claim in claims:
-        requirements = _requirements_from_claim(claim, registry)
+        requirements = _requirements_from_claim(
+            claim, registry, document_has_recognized_heading=document_has_recognized_heading
+        )
         if not requirements:
             unparsed_claims.append(UnparsedClaim(text=claim.text, source_span=SourceSpan(claim.start, claim.end)))
         all_requirements.extend(requirements)

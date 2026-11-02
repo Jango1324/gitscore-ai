@@ -34,7 +34,6 @@ import pytest
 
 from gitscore.jobs import parse_job_description
 from gitscore.jobs.parsing.alternatives import classify_alternative_claim
-from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
 
 CORPUS_PATH = Path(__file__).resolve().parent.parent / "evaluation" / "m10d" / "alternative_controls.json"
 CORPUS = json.loads(CORPUS_PATH.read_text(encoding="utf-8"))["controls"]
@@ -331,5 +330,9 @@ def test_any_of_group_is_exactly_one_requirement_in_the_profile():
 # Version bump
 # ---------------------------------------------------------------------------
 
-def test_parser_version_bumped_to_v7():
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v7"
+# Milestone 10E superseded this module's own `v6 -> v7` version-pin
+# assertion with `v7 -> v8` (`tests/test_m10e_narrative_requirement_semantics.py
+# ::test_parser_version_bumped_to_v8`) -- removed here rather than left
+# behind now permanently false, mirroring how no equivalent `v6` pin was
+# ever left in `test_m10c_heading_classification.py` once M10D bumped
+# past it.

@@ -6,7 +6,14 @@ engineering).
 """
 import pytest
 
-from gitscore.jobs import GithubObservability, Importance, JobRequirementProfile, Necessity, parse_job_description
+from gitscore.jobs import (
+    GithubObservability,
+    Importance,
+    JobRequirementProfile,
+    Necessity,
+    parse_job_description,
+    parse_job_description_with_diagnostics,
+)
 from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
 
 
@@ -303,11 +310,28 @@ def test_ordinary_unknown_prose_is_not_promoted_to_an_unresolved_concept():
 def test_bare_verb_phrase_does_not_produce_a_false_positive_unresolved_concept():
     # Regression guard for a real false positive found during Milestone
     # 6B's manual validation: "Build and maintain ETL pipelines using
-    # Python" must not promote "Build" to unresolved:build.
-    profile = parse_job_description("Responsibilities:\n- Build and maintain ETL pipelines using Python\n")
-    concept_ids = {r.concept_id for r in profile.requirements}
+    # Python" must not promote "Build" to unresolved:build. That part of
+    # this guard is UNCHANGED by Milestone 10E.
+    #
+    # Milestone 10E revision: this sentence is a RESPONSIBILITY-section
+    # duty description ("what the role does"), not a stated applicant
+    # qualification -- the SAME mechanism that fabricated a scored
+    # requirement from Manulife's real "Collaborate with engineering and
+    # business teams..." bullet (a non_technical.py soft-skill pattern
+    # match) also, more broadly, let an ordinary technology MENTION
+    # inside a duty bullet become a scored REQUIRED JobRequirement with
+    # no local qualification marker at all. `language.python` is now
+    # preserved as a plain-text `UnparsedClaim` diagnostic instead of a
+    # scored row -- see
+    # docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md
+    # and `jobs/parsing/necessity.py::resolve_necessity_hint`.
+    result = parse_job_description_with_diagnostics(
+        "Responsibilities:\n- Build and maintain ETL pipelines using Python\n"
+    )
+    concept_ids = {r.concept_id for r in result.profile.requirements}
     assert "unresolved:build" not in concept_ids
-    assert "language.python" in concept_ids
+    assert "language.python" not in concept_ids
+    assert any("Python" in c.text for c in result.unparsed_claims)
 
 
 def test_purpose_clause_does_not_produce_a_false_positive_unresolved_concept():
@@ -473,9 +497,26 @@ def test_manual_validation_ml():
 
 
 def test_manual_validation_data_engineering():
-    profile = parse_job_description(DATA_ENGINEERING_JD, title="Data Engineer")
-    concept_ids = {r.concept_id for r in profile.requirements}
-    assert {"language.python", "database.postgresql", "database.redis", "infra.docker"} <= concept_ids
+    # Milestone 10E revision: `DATA_ENGINEERING_JD`'s two Responsibilities
+    # bullets ("Build and maintain ETL pipelines using Python", "Manage
+    # data warehousing solutions with PostgreSQL and Redis") no longer
+    # produce scored `language.python`/`database.postgresql`/
+    # `database.redis` rows -- they are duty descriptions with no local
+    # REQUIRED/PREFERRED marker, the same mechanism this milestone fixed
+    # for the real Manulife posting's "Collaborate with engineering and
+    # business teams..." bullet. They are preserved as `UnparsedClaim`
+    # diagnostics instead of silently dropped. `infra.docker`, under the
+    # real `Requirements:` section, is unaffected. See
+    # docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md.
+    result = parse_job_description_with_diagnostics(DATA_ENGINEERING_JD, title="Data Engineer")
+    concept_ids = {r.concept_id for r in result.profile.requirements}
+    assert {"infra.docker"} <= concept_ids
+    assert "language.python" not in concept_ids
+    assert "database.postgresql" not in concept_ids
+    assert "database.redis" not in concept_ids
+    unparsed_texts = [c.text for c in result.unparsed_claims]
+    assert any("Python" in t for t in unparsed_texts)
+    assert any("PostgreSQL" in t and "Redis" in t for t in unparsed_texts)
     # Known false positive already fixed: "Build" must never appear as unresolved:build.
     assert "unresolved:build" not in concept_ids
     # Known accepted false negative (documented): a standalone "Familiarity with dbt"

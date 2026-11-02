@@ -4,38 +4,27 @@
     {
       "posting_id": "m10a-soti",
       "claim_count": 12,
-      "false_positive_requirements": 1,
+      "false_positive_requirements": 0,
       "invisible_genuine_qualifications": 0,
       "invisible_responsibilities_or_duties": 0,
       "malformed_alternative_groups": 0,
-      "meets_ideal_count": 6,
+      "meets_ideal_count": 7,
       "meets_fallback_only_count": 5,
-      "neither_ideal_nor_fallback": [
-        "m10a-soti-01"
-      ],
+      "neither_ideal_nor_fallback": [],
       "verdicts": [
         {
           "id": "m10a-soti-01",
           "is_requirement": false,
-          "has_row": true,
-          "has_unparsed_claim": false,
-          "row_necessity": [
-            "required"
-          ],
-          "row_concept_ids": [
-            null
-          ],
-          "row_alternative_ids": [
-            [
-              "language.csharp",
-              "language.sql"
-            ]
-          ],
-          "false_positive_requirement": true,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
           "invisible_genuine_qualification": false,
           "invisible_responsibility_or_duty": false,
           "malformed_alternative_group": false,
-          "meets_ideal": false,
+          "meets_ideal": true,
           "meets_fallback": false
         },
         {
@@ -224,15 +213,13 @@
     {
       "posting_id": "m10a-manulife",
       "claim_count": 43,
-      "false_positive_requirements": 1,
+      "false_positive_requirements": 0,
       "invisible_genuine_qualifications": 0,
       "invisible_responsibilities_or_duties": 0,
       "malformed_alternative_groups": 0,
-      "meets_ideal_count": 40,
+      "meets_ideal_count": 41,
       "meets_fallback_only_count": 2,
-      "neither_ideal_nor_fallback": [
-        "m10a-man-06"
-      ],
+      "neither_ideal_nor_fallback": [],
       "verdicts": [
         {
           "id": "m10a-man-01",
@@ -312,23 +299,17 @@
         {
           "id": "m10a-man-06",
           "is_requirement": false,
-          "has_row": true,
-          "has_unparsed_claim": false,
-          "row_necessity": [
-            "required"
-          ],
-          "row_concept_ids": [
-            null
-          ],
-          "row_alternative_ids": [
-            []
-          ],
-          "false_positive_requirement": true,
+          "has_row": false,
+          "has_unparsed_claim": true,
+          "row_necessity": [],
+          "row_concept_ids": [],
+          "row_alternative_ids": [],
+          "false_positive_requirement": false,
           "invisible_genuine_qualification": false,
           "invisible_responsibility_or_duty": false,
           "malformed_alternative_group": false,
-          "meets_ideal": false,
-          "meets_fallback": false
+          "meets_ideal": true,
+          "meets_fallback": true
         },
         {
           "id": "m10a-man-07",

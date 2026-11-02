@@ -143,6 +143,26 @@ change** (only the SET of lines that can become a heading, and which
 `_SectionKind` a heading maps to, changed -- `Claim.necessity_hint`'s
 type, `Claim.start`/`end` computation, and the existing M10B precedence
 rules are all untouched).
+
+**Milestone 10E -- narrative vs. applicant-qualification semantics.**
+`Claim` gains an additive `section_kind` field (the real `_SectionKind`
+member name `necessity_hint` alone already collapses -- see `Claim`'s
+own docstring) and this module gains
+`document_has_any_recognized_heading()`. Both are read ONLY by
+`jobs/parsing/necessity.py::resolve_necessity_hint`, which decides
+whether a `RESPONSIBILITY`/`LEARNING`/`UNKNOWN` claim, or a `None`
+("no section recognized yet") claim that turns out to PRECEDE the same
+document's own later real sections, may still become a scored
+`JobRequirement` -- see that function's own docstring and
+`docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md` for
+the full root-cause trace (SOTI's narrative "Opportunity" paragraph,
+Manulife's "Collaborate..." responsibility bullet) this closes. Nothing
+in `segment_description()`'s OWN admission/heading-recognition/
+necessity-hint-computation logic changes at all -- `_SECTION_NECESSITY_HINT`
+is untouched, `RESPONSIBILITY` still maps to `Necessity.REQUIRED` here,
+exactly as M10C left it; the new gating happens strictly downstream, in
+`necessity.py`/`parser.py`. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v7`
+-> `v8` accordingly (`jobs/parsing/parser.py`).
 """
 from __future__ import annotations
 
@@ -397,12 +417,28 @@ class Claim:
     a downstream caller with no local marker in the claim's own text
     must treat it as a diagnostic, never a scored requirement (see
     `jobs/parsing/parser.py::_requirements_from_claim`).
+
+    Milestone 10E: `section_kind` additionally preserves the REAL
+    `_SectionKind` this claim was admitted under, as its member name
+    (`"REQUIRED"`/`"PREFERRED"`/`"RESPONSIBILITY"`/`"LEARNING"`/
+    `"UNKNOWN"`), or `None` when no section was recognized at all --
+    information `necessity_hint` alone already loses, since
+    `_SECTION_NECESSITY_HINT` maps BOTH a genuine `REQUIRED` section AND
+    `RESPONSIBILITY` to the identical `Necessity.REQUIRED` value.
+    `jobs/parsing/necessity.py::resolve_necessity_hint` is the sole
+    reader of this field -- otherwise inert, an internal provenance
+    fact never exposed outside `jobs.parsing` and never part of
+    `JobRequirementProfile`'s own public schema. Purely additive, with
+    a default: every existing caller that only reads `text`/`start`/
+    `end`/`necessity_hint` (or constructs a `Claim` directly, as
+    `tests/test_m10b_section_state_safety.py` does) is unaffected.
     """
 
     text: str
     start: int
     end: int
     necessity_hint: Necessity | None
+    section_kind: str | None = None
 
 
 def _trim_span(piece: str, abs_offset: int) -> tuple[int, int] | None:
@@ -493,11 +529,51 @@ def segment_description(description: str) -> tuple[Claim, ...]:
         in_recognized_section = current_kind in (
             _SectionKind.REQUIRED, _SectionKind.PREFERRED, _SectionKind.RESPONSIBILITY,
         )
+        section_kind_name = current_kind.name if current_kind is not None else None
 
         for sent_start, sent_end in _split_sentences(content, description, content_start):
             sentence = description[sent_start:sent_end]
             if not in_recognized_section and not _looks_like_requirement(sentence):
                 continue
-            claims.append(Claim(text=sentence, start=sent_start, end=sent_end, necessity_hint=necessity_hint))
+            claims.append(
+                Claim(
+                    text=sentence,
+                    start=sent_start,
+                    end=sent_end,
+                    necessity_hint=necessity_hint,
+                    section_kind=section_kind_name,
+                )
+            )
 
     return tuple(claims)
+
+
+def document_has_any_recognized_heading(description: str) -> bool:
+    """Milestone 10E -- does `description` contain a recognized heading
+    ANYWHERE at all? Distinguishes the two situations the pre-existing
+    Milestone 6B "no section at all" fallback (`_SECTION_NECESSITY_HINT
+    .get(None, Necessity.REQUIRED)`, above) has always conflated: "this
+    whole posting has no headings at all" (that fallback's own original,
+    still-valid target) vs. "no section recognized YET, but the document
+    has real structure later" (the real SOTI posting's actual shape --
+    see `docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md`
+    Phase 1/5 for the full trace this function exists to support).
+
+    A second, independent pass over `description`'s lines, reusing
+    `_classify_heading_line` UNCHANGED (never a second classification
+    rule) -- kept as its own small function, rather than folded into
+    `segment_description`'s own loop, so `segment_description`'s return
+    type and every existing caller (`for claim in segment_description(...)`,
+    `segment_description(...)[0]`, ...) stay byte-for-byte unchanged.
+    """
+    for line_match in re.finditer(r"[^\r\n]+", description):
+        line = line_match.group()
+        line_start = line_match.start()
+        content_span = _line_content_span(line, line_start)
+        if content_span is None:
+            continue
+        content_start, content_end = content_span
+        content = description[content_start:content_end]
+        if _classify_heading_line(line, content) is not None:
+            return True
+    return False

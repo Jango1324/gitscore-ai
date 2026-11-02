@@ -245,6 +245,18 @@ def test_ml_assessment_or_group_counts_once():
 # ---------------------------------------------------------------------------
 
 def test_data_engineer_assessment_python_and_postgres_only():
+    # Milestone 10E revision: `DATA_ENGINEERING_JD`'s "Build and maintain
+    # ETL pipelines using Python" / "Manage data warehousing solutions
+    # with PostgreSQL and Redis" bullets live under `Responsibilities:`
+    # with no local REQUIRED/PREFERRED marker -- they no longer produce
+    # scored `language.python`/`database.postgresql`/`database.redis`
+    # `JobRequirement` rows at all (see
+    # `tests/test_job_parser.py::test_manual_validation_data_engineering`
+    # and docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md),
+    # so there is no match for any of the three concepts to assert on
+    # here any more, regardless of the candidate evidence supplied.
+    # `infra.docker`, under the real `Requirements:` section, is
+    # unaffected.
     analysis, assessment = assess(
         DATA_ENGINEERING_JD,
         "Data Engineer",
@@ -258,10 +270,14 @@ def test_data_engineer_assessment_python_and_postgres_only():
     assert assessment.alignment_score is not None
     assert 0 <= assessment.alignment_score <= 100
 
+    all_concepts = {m.requirement.concept_id for m in analysis.requirement_matches if m.requirement.concept_id}
+    assert "language.python" not in all_concepts
+    assert "database.postgresql" not in all_concepts
+    assert "database.redis" not in all_concepts
+
     not_observed_concepts = {
         m.requirement.concept_id for m in assessment.not_observed_matches() if m.requirement.concept_id
     }
-    assert "database.redis" in not_observed_concepts
     assert "infra.docker" in not_observed_concepts
 
     education = [m for m in assessment.not_assessable_matches() if m.requirement.category == "education"]

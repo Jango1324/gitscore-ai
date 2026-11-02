@@ -278,6 +278,16 @@ def test_ml_candidate_supports_both_sides_of_or_group_retains_both():
 # ---------------------------------------------------------------------------
 
 def test_data_engineer_candidate_with_python_and_postgres_only():
+    # Milestone 10E revision: `DATA_ENGINEERING_JD`'s "Build and maintain
+    # ETL pipelines using Python" / "Manage data warehousing solutions
+    # with PostgreSQL and Redis" bullets live under `Responsibilities:`
+    # with no local REQUIRED/PREFERRED marker -- they no longer produce
+    # scored `language.python`/`database.postgresql`/`database.redis`
+    # `JobRequirement` rows at all (see
+    # `tests/test_job_parser.py::test_manual_validation_data_engineering`
+    # and docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md),
+    # so there is no `RequirementMatch` for any of the three to assert on
+    # here any more, regardless of the candidate evidence supplied.
     job = parse_job_description(DATA_ENGINEERING_JD, title="Data Engineer")
     candidate = profile_from(
         [
@@ -287,11 +297,11 @@ def test_data_engineer_candidate_with_python_and_postgres_only():
     )
     analysis = match_job(candidate, job)
 
-    assert by_concept(analysis, "language.python").status == MatchStatus.SUPPORTED
-    assert by_concept(analysis, "database.postgresql").status == MatchStatus.SUPPORTED
+    assert by_concept(analysis, "language.python") is None
+    assert by_concept(analysis, "database.postgresql") is None
+    assert by_concept(analysis, "database.redis") is None
 
-    # Redis and Docker required, no candidate evidence -> NOT_OBSERVED.
-    assert by_concept(analysis, "database.redis").status == MatchStatus.NOT_OBSERVED
+    # Docker required (real Requirements: section), no candidate evidence -> NOT_OBSERVED.
     assert by_concept(analysis, "infra.docker").status == MatchStatus.NOT_OBSERVED
 
     # Education claim ("Bachelor's degree ... or equivalent experience")

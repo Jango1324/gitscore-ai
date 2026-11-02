@@ -4534,3 +4534,151 @@ reserved for a future, separately-approved milestone. See
 `docs/evaluation/MILESTONE_10D_ALTERNATIVE_SEMANTICS.md`'s
 post-implementation audit addendum for the full synthetic-candidate
 trace.
+
+## 35. Narrative vs. applicant-qualification semantics — Milestone 10E
+
+**Addresses the real SOTI/Manulife defects M10C §33 explicitly left
+out of scope, and M10D §34 reconfirmed unaffected.** Evaluation-first
+design review
+(`docs/evaluation/MILESTONE_10E_NARRATIVE_REQUIREMENT_SEMANTICS.md`): a
+51-control corpus (`evaluation/m10e/narrative_controls.json`) compared
+three candidate designs; the approved "Candidate C" (section-origin
+eligibility plus a narrow narrative-cue veto) matched the real SOTI/
+Manulife traces and the broadest share of the synthetic corpus (41/51)
+with zero regressions on every frozen evaluation corpus checked.
+
+**Root cause, traced directly against the real postings
+(`evaluation/m10/source/{soti,manulife}_raw.txt`):** `segmentation.py`'s
+`_SECTION_NECESSITY_HINT` maps a genuine `REQUIRED`/`PREFERRED` section
+AND an ordinary `RESPONSIBILITY` bullet to the identical
+`Necessity.REQUIRED` default, and separately maps `current_kind is
+None` to the SAME default whether that means "this whole posting has
+no headings at all" (the original, still-valid Milestone 6B policy) or
+"no section recognized YET, but the document has real structure later"
+(SOTI's actual shape). Neither distinction was available to
+`parser.py::_requirements_from_claim`, so SOTI's narrative "Opportunity"
+paragraph ("The technologies you learn... languages like C#, or
+deepening your knowledge of databases by leveraging SQL...") was
+fabricated into a scored `(language.csharp, language.sql)`
+alternative-group requirement, and Manulife's "Collaborate with
+engineering and business teams to build user-focused solutions."
+(a `Position Responsibilities:` bullet) was fabricated into a scored
+`category='soft_skill'` requirement via `non_technical.py`'s own
+generic `collaborat*` pattern, with zero awareness either claim came
+from narrative/duty prose rather than a stated qualification.
+
+**Implementation, three small additive pieces, zero detector changes:**
+
+1. `Claim` (`segmentation.py`) gains an additive `section_kind: str |
+   None` field — the real `_SectionKind` member name
+   `necessity_hint` alone already collapses — populated from the SAME
+   `current_kind` the existing necessity-hint computation already
+   tracks, no new classification logic. A new
+   `document_has_any_recognized_heading()` answers the ONE fact
+   needed to tell "no headings at all" apart from "a preamble before
+   real structure" — a second, independent pass reusing
+   `_classify_heading_line()` unchanged, kept separate so
+   `segment_description()`'s own return type/every existing caller is
+   untouched.
+2. `jobs/parsing/narrative.py` (new module, mirrors `non_technical.py`'s
+   own "small, curated, generic table" precedent): exactly two regexes
+   — a LEARNING-narrative cue (`"you will/you'll learn/gain..."`, `"the
+   technologies you learn..."`, `"deepening your knowledge..."`) and a
+   COMPANY-narrative cue (`"our product/team/engineers... uses/
+   builds/develops..."`, `"we have used/built/leveraged..."`) — never a
+   technology, employer, or industry-specific term.
+3. `jobs/parsing/necessity.py::resolve_necessity_hint()` (new function;
+   `infer_necessity()` itself is UNCHANGED) — called once, by
+   `parser.py::_requirements_from_claim`, BEFORE `infer_necessity()`:
+   an explicit local REQUIRED/PREFERRED marker in a claim's own text
+   always wins unconditionally (checked first, same precedence as
+   before); otherwise a claim's section must be a genuine `REQUIRED`/
+   `PREFERRED` heading, OR `current_kind is None` with NO recognized
+   heading anywhere in the whole document (preserving the original
+   Milestone 6B "no section at all" default byte-for-byte) — every
+   other origin (`RESPONSIBILITY`, `LEARNING`, `UNKNOWN`, or a `None`
+   PREAMBLE before later real sections) is downgraded to `None`;
+   finally, even a section-eligible claim is vetoed if it matches
+   `narrative.contains_narrative_cue()`. `resolve_necessity_hint()`
+   only ever NARROWS a hint to `None` or passes it through unchanged —
+   formally, every candidate's requirement set is a SUBSET of what
+   `infer_necessity()` alone would have produced, never a superset.
+
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v7` → `v8`. No
+`JobRequirement`/`JobRequirementProfile`/`UnparsedClaim` schema change,
+no matcher/scoring-formula change, no concept-registry change — a
+suppressed claim already had an existing, correct destination
+(`_requirements_from_claim` returning `[]` → `_parse`'s existing "zero
+requirements → `UnparsedClaim`" fallback, the same mechanism M10B's
+`UNKNOWN` short-circuit already uses).
+
+**A deliberate scope decision, found only during implementation
+regression-testing, not anticipated by the evaluation-first design
+review:** this milestone's own evaluation corpus (`m10e-d3`/`d4`)
+generalized past the two confirmed real defects to also suppress an
+ORDINARY technology mention inside a `RESPONSIBILITY` bullet with no
+soft-skill pattern involved at all (e.g. "Build and maintain ETL
+pipelines using Python."). This conflicted directly with four
+pre-existing, Milestone 6B "manual validation" tests
+(`test_manual_validation_backend/robotics/ml/data_engineering` and two
+downstream assessment/matching tests) that have validated the OPPOSITE
+— a Responsibilities bullet naming a real technology IS legitimate,
+checkable signal — since before M10A. Raised explicitly for product
+decision rather than resolved unilaterally; the approved resolution is
+to accept the broader, uniform suppression (a Responsibilities bullet
+describes work, not a credential check, regardless of whether it also
+happens to name a technology) and update those four tests, each with an
+explicit, dated comment explaining why — not a silent gold rewrite. See
+`docs/CHANGELOG_DEV.md`'s Milestone 10E entry for the itemized list.
+
+**Measured, real-world result (`evaluate_m10a_realworld.py`, frozen
+M10A gold, unchanged):** SOTI — `false_positive_requirements` 1 → 0,
+`meets_ideal_outcome` 6/12 → 7/12, `meets_neither` `[m10a-soti-01]` →
+`[]`. Manulife — `false_positive_requirements` 1 → 0, `meets_ideal_outcome`
+40/43 → 41/43, `meets_neither` `[m10a-man-06]` → `[]`. M10C heading
+classification report byte-identical. M10D's own 41-control corpus,
+M9B's 30-entry preservation corpus, and the frozen `8c:v1`/`8c:v1.1`
+benchmarks (`scripts/check_evaluation_staleness.py`, confirmed via a
+clean-tree re-run before and after this milestone's own code) all show
+**zero behavior change** — every removed row in both real postings is
+exactly the two confirmed defects, nothing else. Full backend suite:
+1157 pre-existing tests, 1 removed (a stale `v7` version-pin,
+superseded), 4 revised with documented rationale (the scope decision
+above), 63 new (`tests/test_m10e_narrative_requirement_semantics.py`:
+both mandatory safety gates, the exact SOTI/Manulife traces, and the
+51-control corpus run against the REAL production parser, 10 of which
+are explicitly `skip`-marked as pre-existing out-of-scope gaps, not
+silently passing) = **1219 collected, 1209 passed, 10 skipped**.
+
+**Explicitly NOT fixed by this milestone (disclosed, not silently
+dropped):**
+
+- *The SKIP blanket-suppression gap.* A recognized
+  `NON_QUALIFICATION`/`SKIP` heading (e.g. Manulife's own real "When you
+  join our team:") suppresses every line after it unconditionally, with
+  NO diagnostic fallback at all — unlike `UNKNOWN`, which still
+  preserves a plain-text `UnparsedClaim`. An explicit, unambiguous
+  qualification appearing after such a heading is lost with zero trace
+  today. Found during this milestone's own corpus construction;
+  deliberately deferred to a separately-scoped follow-up (different
+  mechanism — admission-time suppression, not necessity/purpose
+  classification — with its own regression surface across every
+  currently-silent SKIP section).
+- *`non_technical.py` vocabulary-coverage gaps.* Generic non-technical
+  qualification phrasing this milestone's own corpus surfaced
+  (`"knowledge of database fundamentals,"` `"willingness to learn new
+  technologies,"` `"strong technical background"`) has never been
+  recognized by ANY section, under baseline OR this milestone's fix —
+  a pre-existing vocabulary gap this milestone's candidates cannot
+  touch by construction (they only narrow eligibility, never add
+  detection). Deliberately deferred; requires expanding
+  `non_technical.py`'s own category table, out of this milestone's
+  scope.
+- *A third real posting beyond SOTI/Manulife was not examined* — the
+  whole-document `document_has_any_recognized_heading()` fact is
+  confirmed safe for exactly these two documents, not a larger sample.
+
+This milestone does **not** claim to resolve every narrative-vs-
+qualification ambiguity a job posting can contain — only the two
+confirmed real defects and the generalizable mechanism (section-origin-
+blind necessity defaulting) behind them.
