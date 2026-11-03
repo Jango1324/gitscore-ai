@@ -1,0 +1,41 @@
+{
+  "corpus_version": "m11f-holdout:v1",
+  "acquisition_method": "WebSearch + WebFetch against live public job-board postings (jobs.lever.co, job-boards.greenhouse.io), November 2026",
+  "exclusions": "No M11-D, M11-C, M11-E, SOTI, Manulife, or NVIDIA material reused. No posting overlaps any prior milestone's corpus.",
+  "acquisition_note": "Significant URL-expiry / board-index-redirect friction encountered (consistent with M11-D's prior experience): a large majority of greenhouse.io and ashbyhq.com individual job-posting links returned 404 or redirected to a generic board-listing page rather than the original posting by the time of fetch. jobs.lever.co postings were markedly more durable (fully server-rendered, no client-side JS dependency) and account for 16 of the 18 acquired postings.",
+  "target_postings": "15-25",
+  "actual_postings_acquired": 18,
+  "target_annotations": 75,
+  "postings": [
+    {"id": "m11f-01-zoox-embedded-bms.txt", "company": "Zoox", "role": "Embedded Software Engineer - Battery Management Systems", "domain": "embedded", "url": "https://jobs.lever.co/zoox/082ed20c-b8e1-4b1c-9c22-4738ad94055d", "collected": "2026-11-03"},
+    {"id": "m11f-02-avertium-cybersecurity.txt", "company": "Avertium", "role": "CyberSecurity Engineer | Microsoft", "domain": "cybersecurity", "url": "https://jobs.lever.co/avertium/239fa674-6b92-49cb-8536-78eafa25474a", "collected": "2026-11-03"},
+    {"id": "m11f-03-octavefederal-electrical.txt", "company": "Octave Federal (Hexagon US Federal)", "role": "Electrical Hardware Design Engineer", "domain": "electrical", "url": "https://jobs.lever.co/octavefederal/4dbb4b56-5cff-452b-b504-abfab63166bc", "collected": "2026-11-03"},
+    {"id": "m11f-04-canonical-kernel.txt", "company": "Canonical", "role": "PC Platforms Kernel Engineer - Ubuntu Linux", "domain": "systems", "url": "https://job-boards.greenhouse.io/canonical/jobs/5396437", "collected": "2026-11-03"},
+    {"id": "m11f-05-mainspring-electrical.txt", "company": "Mainspring Energy", "role": "Senior Electrical Engineer - Power Electronics", "domain": "electrical", "url": "https://jobs.lever.co/mainspringenergy/4158cabe-5480-4c34-87d1-f5ae73e96980", "collected": "2026-11-03"},
+    {"id": "m11f-06-venusaero-embedded.txt", "company": "Venus Aerospace", "role": "Embedded Software Engineer", "domain": "embedded", "url": "https://jobs.lever.co/venusaero/73e8b964-23ed-49f5-90d9-b05ea55f0113", "collected": "2026-11-03"},
+    {"id": "m11f-07-arraylabs-embedded.txt", "company": "Array Labs", "role": "Embedded Software Engineer", "domain": "embedded", "url": "https://jobs.lever.co/arraylabs.io/d9225667-5704-4e6b-bdf4-ec31e1068f07", "collected": "2026-11-03"},
+    {"id": "m11f-08-cesiumastro-electrical.txt", "company": "CesiumAstro", "role": "Senior Staff Electrical Engineer", "domain": "electrical", "url": "https://jobs.lever.co/CesiumAstro/30c97b63-8f0d-4ac7-addf-e9749fe32eb1", "collected": "2026-11-03"},
+    {"id": "m11f-09-sprymethods-cybersecurity.txt", "company": "Spry Methods", "role": "Web Developer Security Engineer", "domain": "cybersecurity", "url": "https://jobs.lever.co/sprymethods/7c9d4318-4afd-4bb6-8048-f96865072c73", "collected": "2026-11-03"},
+    {"id": "m11f-10-shyftlabs-dataeng.txt", "company": "ShyftLabs", "role": "Data Engineer", "domain": "data_engineering", "url": "https://jobs.lever.co/shyftlabs/9f947999-ea46-4627-bf08-fe3f3ebac513", "collected": "2026-11-03"},
+    {"id": "m11f-11-deliverect-infra.txt", "company": "Deliverect", "role": "Infrastructure Engineer", "domain": "infrastructure", "url": "https://jobs.lever.co/deliverect/e63a9044-32e9-4495-95d4-2255cd508382", "collected": "2026-11-03"},
+    {"id": "m11f-12-kitware-ml.txt", "company": "Kitware", "role": "Machine Learning Engineer", "domain": "ml", "url": "https://jobs.lever.co/kitware/2b798a3f-0c54-4ff9-8c3f-3d5144706939", "collected": "2026-11-03"},
+    {"id": "m11f-13-rover-backend.txt", "company": "Rover.com", "role": "Software Engineer - Backend Platform", "domain": "backend", "url": "https://jobs.lever.co/rover/db5e968c-95b3-4514-8275-827cad3429d2", "collected": "2026-11-03"},
+    {"id": "m11f-14-fieldai-robotics-planning.txt", "company": "FieldAI", "role": "Robotics Autonomy Engineer, Planning & Control", "domain": "robotics", "url": "https://jobs.lever.co/field-ai/259708a4-dd2b-4c23-b300-f81fec383541", "collected": "2026-11-03"},
+    {"id": "m11f-15-vida-backend.txt", "company": "Vida Health", "role": "Backend Software Engineer II - Data Platform", "domain": "backend", "url": "https://jobs.lever.co/vida/5e985991-0880-4b3b-8e0c-750cf984c1c7", "collected": "2026-11-03"},
+    {"id": "m11f-16-fieldai-robotics-locomotion.txt", "company": "FieldAI", "role": "Robotics Autonomy Engineer, Locomotion", "domain": "robotics", "url": "https://jobs.lever.co/field-ai/00be5e27-c434-4cde-b367-f1688aa7bd2b", "collected": "2026-11-03"},
+    {"id": "m11f-17-multiplylabs-infra.txt", "company": "Multiply Labs", "role": "Staff Software Engineer, Infrastructure", "domain": "infrastructure", "url": "https://jobs.lever.co/multiplylabs/a184518b-cbbc-474d-a758-d46fa2587fa9", "collected": "2026-11-03"},
+    {"id": "m11f-18-paytm-backend.txt", "company": "Paytm", "role": "Senior Software Engineer - Backend (Travel)", "domain": "backend", "url": "https://jobs.lever.co/paytm/105a0d9e-94e9-4026-9105-5bea558ab3d9", "collected": "2026-11-03"}
+  ],
+  "domain_distribution": {
+    "embedded": 3,
+    "electrical": 3,
+    "backend": 3,
+    "cybersecurity": 2,
+    "infrastructure": 2,
+    "robotics": 2,
+    "systems": 1,
+    "data_engineering": 1,
+    "ml": 1
+  },
+  "domain_coverage_shortfall_disclosure": "ml and systems each landed at exactly 1 posting rather than the 2+ originally targeted per domain; every live ML and kernel-engineering/systems posting found during acquisition either 404'd or redirected to a board index page before it could be fetched. Reported honestly rather than padded with a reused or fabricated posting."
+}

@@ -1,0 +1,74 @@
+{
+  "m11f-01-zoox-embedded-bms.txt": {
+    "length_bytes": 1439,
+    "sha256": "5f01c4255666f9e5c79b949913c78e297b3aa7b8564ae4a9ecee1a872092f7d6"
+  },
+  "m11f-02-avertium-cybersecurity.txt": {
+    "length_bytes": 2161,
+    "sha256": "199394d044faca40729abccd52702c6e320c289b27c0684f3073f39eea622a46"
+  },
+  "m11f-03-octavefederal-electrical.txt": {
+    "length_bytes": 1322,
+    "sha256": "88f9c12596003843e9ff07cad824cbd745edb293403e1c3e8e4508e75e07327c"
+  },
+  "m11f-04-canonical-kernel.txt": {
+    "length_bytes": 1479,
+    "sha256": "0d55f2edc0aa97f58bd714ba99dd3f7e983b85ff45d97715c8953975e81b827b"
+  },
+  "m11f-05-mainspring-electrical.txt": {
+    "length_bytes": 1713,
+    "sha256": "223c9e96801190e11efb9eede8b9700e5ca99195cbcb7e261c91d951fc41f3ca"
+  },
+  "m11f-06-venusaero-embedded.txt": {
+    "length_bytes": 3202,
+    "sha256": "de973db1c1d6d45b5fa06d982a2cda5159ffe89604b357e4f6a5d847daace888"
+  },
+  "m11f-07-arraylabs-embedded.txt": {
+    "length_bytes": 1952,
+    "sha256": "40390338bdf465987d4bc7bc227d043f0959a6ab57cedf61f675b545ea242f52"
+  },
+  "m11f-08-cesiumastro-electrical.txt": {
+    "length_bytes": 3049,
+    "sha256": "c6252a7c507ffdcebbfea63930d320e2e8f5944f1057456fdb1b18509e308da1"
+  },
+  "m11f-09-sprymethods-cybersecurity.txt": {
+    "length_bytes": 1662,
+    "sha256": "8185c5e8aa8a417fa7917d421c7064bd16514b8b621300e541ffd33d61ded4ae"
+  },
+  "m11f-10-shyftlabs-dataeng.txt": {
+    "length_bytes": 3320,
+    "sha256": "23732bb99de10d0333a69ecbf1d7e29e57a9697292cbc59b1d66d588eac63c19"
+  },
+  "m11f-11-deliverect-infra.txt": {
+    "length_bytes": 1459,
+    "sha256": "c9f87aa8d68032f36af20da42e6f9911f839800ba8ba8d9189ac437667d6cb04"
+  },
+  "m11f-12-kitware-ml.txt": {
+    "length_bytes": 1713,
+    "sha256": "74304da0cdef054be21c2c1c9be8e09e416f954a8715b70546677bae75a7dc57"
+  },
+  "m11f-13-rover-backend.txt": {
+    "length_bytes": 1570,
+    "sha256": "29666c134017a6f4b84499a0037581c6cba2d43ffd80426db9530ed167b7dc4c"
+  },
+  "m11f-14-fieldai-robotics-planning.txt": {
+    "length_bytes": 2303,
+    "sha256": "005fb793c891456f1079f98eb4aa877807ad037ca9f3510aa84a4a197652243e"
+  },
+  "m11f-15-vida-backend.txt": {
+    "length_bytes": 1767,
+    "sha256": "0f1d8504dc724034308c9ab0430abd67dd635a92132b6ef6e3494691f78cfc14"
+  },
+  "m11f-16-fieldai-robotics-locomotion.txt": {
+    "length_bytes": 2341,
+    "sha256": "fc94610cf4ac58aa129871a2ea8751210fa2a7e187750cc361492dea53e64b35"
+  },
+  "m11f-17-multiplylabs-infra.txt": {
+    "length_bytes": 2518,
+    "sha256": "b25120e7898b410246198fd786440f43e9ddd0481932b92d85537616774fbb32"
+  },
+  "m11f-18-paytm-backend.txt": {
+    "length_bytes": 897,
+    "sha256": "63bc02648d7a15aa88c351834843298153f5a88557a90f056ec81da340e04399"
+  }
+}

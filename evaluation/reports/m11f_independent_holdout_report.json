@@ -1,0 +1,1228 @@
+{
+  "gold_hash_verified": true,
+  "total_controls": 103,
+  "total_technical_competency_controls": 85,
+  "v1_m11c": {
+    "by_domain": {
+      "backend": {
+        "tag_fn": 6,
+        "tag_fp": 0,
+        "tag_tp": 1,
+        "total_competency": 8
+      },
+      "cybersecurity": {
+        "tag_fn": 2,
+        "tag_fp": 0,
+        "tag_tp": 1,
+        "total_competency": 8
+      },
+      "data_engineering": {
+        "tag_fn": 4,
+        "tag_fp": 0,
+        "tag_tp": 0,
+        "total_competency": 4
+      },
+      "electrical": {
+        "tag_fn": 20,
+        "tag_fp": 0,
+        "tag_tp": 0,
+        "total_competency": 17
+      },
+      "embedded": {
+        "tag_fn": 12,
+        "tag_fp": 1,
+        "tag_tp": 4,
+        "total_competency": 20
+      },
+      "infrastructure": {
+        "tag_fn": 5,
+        "tag_fp": 0,
+        "tag_tp": 0,
+        "total_competency": 8
+      },
+      "ml": {
+        "tag_fn": 5,
+        "tag_fp": 0,
+        "tag_tp": 1,
+        "total_competency": 5
+      },
+      "robotics": {
+        "tag_fn": 8,
+        "tag_fp": 0,
+        "tag_tp": 1,
+        "total_competency": 10
+      },
+      "systems": {
+        "tag_fn": 4,
+        "tag_fp": 0,
+        "tag_tp": 0,
+        "total_competency": 5
+      }
+    },
+    "exact_tag_set_accuracy": {
+      "denominator": 85,
+      "numerator": 25
+    },
+    "explicit_declines": {
+      "no_competency_language": 94
+    },
+    "false_positives_by_non_qualification_category": {},
+    "logical_grouping": {
+      "denominator": 9,
+      "numerator": 5
+    },
+    "mismatches": [
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-zoox-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-zoox-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-zoox-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11f-aver-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "os-networking"
+        ],
+        "id": "m11f-aver-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory",
+          "digital-logic"
+        ],
+        "id": "m11f-octfed-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-octfed-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-octfed-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "digital-logic"
+        ],
+        "id": "m11f-octfed-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory",
+          "digital-logic"
+        ],
+        "id": "m11f-octfed-06",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "os-networking"
+        ],
+        "id": "m11f-canon-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "os-networking"
+        ],
+        "id": "m11f-canon-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design",
+          "os-networking"
+        ],
+        "id": "m11f-canon-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory",
+          "control-systems"
+        ],
+        "id": "m11f-main-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-06",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "concurrency",
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-04",
+        "predicted": [
+          "concurrency"
+        ]
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "and",
+        "id": "m11f-venus-04"
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-06",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-07",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-08",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design",
+          "os-networking"
+        ],
+        "id": "m11f-array-01",
+        "predicted": [
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "and",
+        "id": "m11f-array-01"
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [],
+        "id": "m11f-array-02",
+        "predicted": [
+          "os-networking"
+        ]
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "or_any",
+        "id": "m11f-array-02"
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-array-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "concurrency"
+        ],
+        "id": "m11f-array-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-array-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-ces-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-ces-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-ces-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory",
+          "system-design"
+        ],
+        "id": "m11f-ces-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-ces-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-shyft-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-shyft-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-shyft-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-shyft-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-deliv-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-kit-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-kit-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "computer-vision",
+          "ml-fundamentals"
+        ],
+        "id": "m11f-kit-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "computer-vision",
+          "ml-fundamentals"
+        ],
+        "id": "m11f-kit-04",
+        "predicted": [
+          "computer-vision"
+        ]
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "and",
+        "id": "m11f-kit-04"
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-rov-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "control-systems"
+        ],
+        "id": "m11f-field1-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-field1-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "signal-processing"
+        ],
+        "id": "m11f-field1-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-vida-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-vida-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-vida-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-vida-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "control-systems",
+          "ml-fundamentals"
+        ],
+        "id": "m11f-field2-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-field2-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "control-systems"
+        ],
+        "id": "m11f-field2-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-field2-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "system-design"
+        ],
+        "id": "m11f-mult-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "system-design"
+        ],
+        "id": "m11f-mult-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-mult-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "os-networking"
+        ],
+        "id": "m11f-mult-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "performance-optimization"
+        ],
+        "id": "m11f-paytm-02",
+        "predicted": []
+      }
+    ],
+    "necessity_classification": {
+      "denominator": 0,
+      "numerator": 0
+    },
+    "qualification_detection": {
+      "false_negatives": 84,
+      "false_positives": 0,
+      "precision": {
+        "denominator": 9,
+        "numerator": 9
+      },
+      "recall": {
+        "denominator": 93,
+        "numerator": 9
+      },
+      "true_negatives": 10,
+      "true_positives": 9
+    },
+    "scoring_safety": {
+      "never_falsely_assessable_without_concept_mapping": true,
+      "never_supported_with_empty_evidence": true,
+      "safety_checks_run": 0
+    },
+    "source_span_exactness": {
+      "denominator": 9,
+      "numerator": 9
+    },
+    "tag_level_prediction_metrics": {
+      "false_negatives": 66,
+      "false_positives": 1,
+      "precision": {
+        "denominator": 9,
+        "numerator": 8
+      },
+      "recall": {
+        "denominator": 74,
+        "numerator": 8
+      },
+      "true_positives": 8
+    }
+  },
+  "v2_m11e": {
+    "by_domain": {
+      "backend": {
+        "tag_fn": 4,
+        "tag_fp": 0,
+        "tag_tp": 3,
+        "total_competency": 8
+      },
+      "cybersecurity": {
+        "tag_fn": 2,
+        "tag_fp": 0,
+        "tag_tp": 1,
+        "total_competency": 8
+      },
+      "data_engineering": {
+        "tag_fn": 4,
+        "tag_fp": 0,
+        "tag_tp": 0,
+        "total_competency": 4
+      },
+      "electrical": {
+        "tag_fn": 18,
+        "tag_fp": 0,
+        "tag_tp": 2,
+        "total_competency": 17
+      },
+      "embedded": {
+        "tag_fn": 13,
+        "tag_fp": 1,
+        "tag_tp": 3,
+        "total_competency": 20
+      },
+      "infrastructure": {
+        "tag_fn": 5,
+        "tag_fp": 0,
+        "tag_tp": 0,
+        "total_competency": 8
+      },
+      "ml": {
+        "tag_fn": 6,
+        "tag_fp": 0,
+        "tag_tp": 0,
+        "total_competency": 5
+      },
+      "robotics": {
+        "tag_fn": 6,
+        "tag_fp": 0,
+        "tag_tp": 3,
+        "total_competency": 10
+      },
+      "systems": {
+        "tag_fn": 4,
+        "tag_fp": 0,
+        "tag_tp": 0,
+        "total_competency": 5
+      }
+    },
+    "exact_tag_set_accuracy": {
+      "denominator": 85,
+      "numerator": 29
+    },
+    "explicit_declines": {
+      "no_competency_language": 91
+    },
+    "false_positives_by_non_qualification_category": {},
+    "logical_grouping": {
+      "denominator": 13,
+      "numerator": 10
+    },
+    "mismatches": [
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-zoox-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-zoox-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-zoox-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11f-aver-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "os-networking"
+        ],
+        "id": "m11f-aver-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory",
+          "digital-logic"
+        ],
+        "id": "m11f-octfed-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-octfed-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-octfed-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "digital-logic"
+        ],
+        "id": "m11f-octfed-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory",
+          "digital-logic"
+        ],
+        "id": "m11f-octfed-06",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "os-networking"
+        ],
+        "id": "m11f-canon-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "os-networking"
+        ],
+        "id": "m11f-canon-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design",
+          "os-networking"
+        ],
+        "id": "m11f-canon-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-main-06",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "concurrency",
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-04",
+        "predicted": [
+          "concurrency"
+        ]
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "and",
+        "id": "m11f-venus-04"
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-06",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-07",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-venus-08",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design",
+          "os-networking"
+        ],
+        "id": "m11f-array-01",
+        "predicted": [
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "and",
+        "id": "m11f-array-01"
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [],
+        "id": "m11f-array-02",
+        "predicted": [
+          "os-networking"
+        ]
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "or_any",
+        "id": "m11f-array-02"
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-array-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "concurrency"
+        ],
+        "id": "m11f-array-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-array-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-ces-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-ces-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-ces-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory",
+          "system-design"
+        ],
+        "id": "m11f-ces-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "circuit-theory"
+        ],
+        "id": "m11f-ces-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-shyft-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-shyft-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-shyft-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-shyft-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-deliv-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-kit-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-kit-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "computer-vision",
+          "ml-fundamentals"
+        ],
+        "id": "m11f-kit-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "computer-vision",
+          "ml-fundamentals"
+        ],
+        "id": "m11f-kit-04",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-field1-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "signal-processing"
+        ],
+        "id": "m11f-field1-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "database-design"
+        ],
+        "id": "m11f-vida-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-vida-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-vida-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "distributed-systems"
+        ],
+        "id": "m11f-vida-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "control-systems",
+          "ml-fundamentals"
+        ],
+        "id": "m11f-field2-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-field2-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "ml-fundamentals"
+        ],
+        "id": "m11f-field2-05",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "system-design"
+        ],
+        "id": "m11f-mult-01",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "system-design"
+        ],
+        "id": "m11f-mult-02",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "embedded-systems-design"
+        ],
+        "id": "m11f-mult-03",
+        "predicted": []
+      },
+      {
+        "error": "tag_set_mismatch",
+        "expected": [
+          "os-networking"
+        ],
+        "id": "m11f-mult-04",
+        "predicted": []
+      }
+    ],
+    "necessity_classification": {
+      "denominator": 0,
+      "numerator": 0
+    },
+    "qualification_detection": {
+      "false_negatives": 81,
+      "false_positives": 0,
+      "precision": {
+        "denominator": 12,
+        "numerator": 12
+      },
+      "recall": {
+        "denominator": 93,
+        "numerator": 12
+      },
+      "true_negatives": 10,
+      "true_positives": 12
+    },
+    "scoring_safety": {
+      "never_falsely_assessable_without_concept_mapping": true,
+      "never_supported_with_empty_evidence": true,
+      "safety_checks_run": 0
+    },
+    "source_span_exactness": {
+      "denominator": 13,
+      "numerator": 13
+    },
+    "tag_level_prediction_metrics": {
+      "false_negatives": 62,
+      "false_positives": 1,
+      "precision": {
+        "denominator": 13,
+        "numerator": 12
+      },
+      "recall": {
+        "denominator": 74,
+        "numerator": 12
+      },
+      "true_positives": 12
+    }
+  }
+}

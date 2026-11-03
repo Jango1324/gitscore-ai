@@ -1,0 +1,1940 @@
+{
+  "methodology_note": "Corrects M11-E's own control-level tag precision/recall framing to a standard PREDICTION-level one: every (control, tag) pair is counted individually as a true positive, false positive, or false negative, rather than a control being scored as a full 'hit' the moment its expected tag appears anywhere among the tags produced. Neither competency_extraction.py nor paraphrase_development_controls.json is modified by this script -- this is a reporting-only correction.",
+  "v1_m11c": {
+    "conservative_declines": {
+      "missed_tag_decline": 39,
+      "out_of_scope_decline": 17,
+      "safety_correct_decline": 10,
+      "total": 66
+    },
+    "exact_set_accuracy": {
+      "denominator": 79,
+      "numerator": 40
+    },
+    "false_accepts_non_qualification": 0,
+    "per_control": [
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "algorithms-data-structures"
+        ],
+        "id": "m11e-algo-canonical",
+        "predicted_tags": [
+          "algorithms-data-structures"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "algorithms-data-structures"
+        ],
+        "id": "m11e-algo-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "algorithms-data-structures"
+        ],
+        "id": "m11e-algo-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-algo-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "concurrency"
+        ],
+        "id": "m11e-concurrency-canonical",
+        "predicted_tags": [
+          "concurrency"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "concurrency"
+        ],
+        "id": "m11e-concurrency-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "concurrency"
+        ],
+        "id": "m11e-concurrency-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-concurrency-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-distsys-canonical",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-distsys-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-distsys-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-distsys-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "system-design"
+        ],
+        "id": "m11e-sysdesign-canonical",
+        "predicted_tags": [
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "system-design"
+        ],
+        "id": "m11e-sysdesign-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "system-design"
+        ],
+        "id": "m11e-sysdesign-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-perf-canonical",
+        "predicted_tags": [
+          "performance-optimization"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-perf-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-perf-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "os-networking"
+        ],
+        "id": "m11e-osnet-canonical",
+        "predicted_tags": [
+          "os-networking"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "os-networking"
+        ],
+        "id": "m11e-osnet-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "os-networking"
+        ],
+        "id": "m11e-osnet-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-osnet-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "database-design"
+        ],
+        "id": "m11e-dbdesign-canonical",
+        "predicted_tags": [
+          "database-design"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "database-design"
+        ],
+        "id": "m11e-dbdesign-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "database-design"
+        ],
+        "id": "m11e-dbdesign-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-dbdesign-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "ml-fundamentals"
+        ],
+        "id": "m11e-mlfund-canonical",
+        "predicted_tags": [
+          "ml-fundamentals"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "ml-fundamentals"
+        ],
+        "id": "m11e-mlfund-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "ml-fundamentals"
+        ],
+        "id": "m11e-mlfund-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-mlfund-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "gpu-parallel-computing"
+        ],
+        "id": "m11e-gpu-canonical",
+        "predicted_tags": [
+          "gpu-parallel-computing"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "gpu-parallel-computing"
+        ],
+        "id": "m11e-gpu-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "gpu-parallel-computing"
+        ],
+        "id": "m11e-gpu-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "signal-processing"
+        ],
+        "id": "m11e-signal-canonical",
+        "predicted_tags": [
+          "signal-processing"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "signal-processing"
+        ],
+        "id": "m11e-signal-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "signal-processing"
+        ],
+        "id": "m11e-signal-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "circuit-theory"
+        ],
+        "id": "m11e-circuit-canonical",
+        "predicted_tags": [
+          "circuit-theory"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "circuit-theory"
+        ],
+        "id": "m11e-circuit-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "circuit-theory"
+        ],
+        "id": "m11e-circuit-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-circuit-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "embedded-systems-design"
+        ],
+        "id": "m11e-embedded-canonical",
+        "predicted_tags": [
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "embedded-systems-design"
+        ],
+        "id": "m11e-embedded-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "embedded-systems-design"
+        ],
+        "id": "m11e-embedded-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-embedded-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "control-systems"
+        ],
+        "id": "m11e-controls-canonical",
+        "predicted_tags": [
+          "control-systems"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "control-systems"
+        ],
+        "id": "m11e-controls-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "control-systems"
+        ],
+        "id": "m11e-controls-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "computer-vision"
+        ],
+        "id": "m11e-cv-canonical",
+        "predicted_tags": [
+          "computer-vision"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "computer-vision"
+        ],
+        "id": "m11e-cv-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "computer-vision"
+        ],
+        "id": "m11e-cv-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-cv-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11e-security-canonical",
+        "predicted_tags": [
+          "cybersecurity-threat-modeling"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11e-security-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11e-security-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-security-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "digital-logic"
+        ],
+        "id": "m11e-digitallogic-canonical",
+        "predicted_tags": [
+          "digital-logic"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "digital-logic"
+        ],
+        "id": "m11e-digitallogic-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "digital-logic"
+        ],
+        "id": "m11e-digitallogic-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "quantum-computing"
+        ],
+        "id": "m11e-quantum-canonical",
+        "predicted_tags": [
+          "quantum-computing"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "quantum-computing"
+        ],
+        "id": "m11e-quantum-equivalent",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "quantum-computing"
+        ],
+        "id": "m11e-quantum-narrower",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-quantum-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-conditional-01",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "embedded-systems-design"
+        ],
+        "id": "m11e-conditional-02",
+        "predicted_tags": [
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 3,
+        "exact_set_match": true,
+        "expected_tags": [
+          "concurrency",
+          "database-design",
+          "system-design"
+        ],
+        "id": "m11e-and-01",
+        "predicted_tags": [
+          "concurrency",
+          "database-design",
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-orany-01",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-mixed-01",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-ambiguous-necessity-01",
+        "predicted_tags": [
+          "performance-optimization"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11e-ambiguous-necessity-02",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "control-systems"
+        ],
+        "id": "m11e-ambiguous-necessity-03",
+        "predicted_tags": [
+          "control-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 2,
+        "exact_set_match": true,
+        "expected_tags": [
+          "database-design",
+          "system-design"
+        ],
+        "id": "m11e-multi-01",
+        "predicted_tags": [
+          "database-design",
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 2,
+        "exact_set_match": true,
+        "expected_tags": [
+          "digital-logic",
+          "embedded-systems-design"
+        ],
+        "id": "m11e-multi-02",
+        "predicted_tags": [
+          "digital-logic",
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-outside-taxonomy-01",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-outside-taxonomy-02",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-outside-taxonomy-03",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "algorithms-data-structures"
+        ],
+        "id": "m11e-grammar-01",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-grammar-02",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "database-design"
+        ],
+        "id": "m11e-grammar-03",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 1,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": false,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-grammar-04",
+        "predicted_tags": []
+      }
+    ],
+    "qualification_extraction_coverage": {
+      "denominator": 82,
+      "numerator": 26
+    },
+    "tag_level_prediction_metrics": {
+      "false_negatives": 39,
+      "false_positives": 0,
+      "precision": {
+        "denominator": 29,
+        "numerator": 29
+      },
+      "recall": {
+        "denominator": 68,
+        "numerator": 29
+      },
+      "true_positives": 29
+    }
+  },
+  "v2_m11e": {
+    "conservative_declines": {
+      "missed_tag_decline": 0,
+      "out_of_scope_decline": 17,
+      "safety_correct_decline": 10,
+      "total": 27
+    },
+    "exact_set_accuracy": {
+      "denominator": 79,
+      "numerator": 78
+    },
+    "false_accepts_non_qualification": 0,
+    "per_control": [
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "algorithms-data-structures"
+        ],
+        "id": "m11e-algo-canonical",
+        "predicted_tags": [
+          "algorithms-data-structures"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "algorithms-data-structures"
+        ],
+        "id": "m11e-algo-equivalent",
+        "predicted_tags": [
+          "algorithms-data-structures"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "algorithms-data-structures"
+        ],
+        "id": "m11e-algo-narrower",
+        "predicted_tags": [
+          "algorithms-data-structures"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-algo-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "concurrency"
+        ],
+        "id": "m11e-concurrency-canonical",
+        "predicted_tags": [
+          "concurrency"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "concurrency"
+        ],
+        "id": "m11e-concurrency-equivalent",
+        "predicted_tags": [
+          "concurrency"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "concurrency"
+        ],
+        "id": "m11e-concurrency-narrower",
+        "predicted_tags": [
+          "concurrency"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-concurrency-related",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-distsys-canonical",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-distsys-equivalent",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-distsys-narrower",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-distsys-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "system-design"
+        ],
+        "id": "m11e-sysdesign-canonical",
+        "predicted_tags": [
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "system-design"
+        ],
+        "id": "m11e-sysdesign-equivalent",
+        "predicted_tags": [
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "system-design"
+        ],
+        "id": "m11e-sysdesign-narrower",
+        "predicted_tags": [
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-perf-canonical",
+        "predicted_tags": [
+          "performance-optimization"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-perf-equivalent",
+        "predicted_tags": [
+          "performance-optimization"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-perf-narrower",
+        "predicted_tags": [
+          "performance-optimization"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "os-networking"
+        ],
+        "id": "m11e-osnet-canonical",
+        "predicted_tags": [
+          "os-networking"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "os-networking"
+        ],
+        "id": "m11e-osnet-equivalent",
+        "predicted_tags": [
+          "os-networking"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "os-networking"
+        ],
+        "id": "m11e-osnet-narrower",
+        "predicted_tags": [
+          "os-networking"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-osnet-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "database-design"
+        ],
+        "id": "m11e-dbdesign-canonical",
+        "predicted_tags": [
+          "database-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "database-design"
+        ],
+        "id": "m11e-dbdesign-equivalent",
+        "predicted_tags": [
+          "database-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "database-design"
+        ],
+        "id": "m11e-dbdesign-narrower",
+        "predicted_tags": [
+          "database-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-dbdesign-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "ml-fundamentals"
+        ],
+        "id": "m11e-mlfund-canonical",
+        "predicted_tags": [
+          "ml-fundamentals"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "ml-fundamentals"
+        ],
+        "id": "m11e-mlfund-equivalent",
+        "predicted_tags": [
+          "ml-fundamentals"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "ml-fundamentals"
+        ],
+        "id": "m11e-mlfund-narrower",
+        "predicted_tags": [
+          "ml-fundamentals"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-mlfund-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "gpu-parallel-computing"
+        ],
+        "id": "m11e-gpu-canonical",
+        "predicted_tags": [
+          "gpu-parallel-computing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "gpu-parallel-computing"
+        ],
+        "id": "m11e-gpu-equivalent",
+        "predicted_tags": [
+          "gpu-parallel-computing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "gpu-parallel-computing"
+        ],
+        "id": "m11e-gpu-narrower",
+        "predicted_tags": [
+          "gpu-parallel-computing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "signal-processing"
+        ],
+        "id": "m11e-signal-canonical",
+        "predicted_tags": [
+          "signal-processing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "signal-processing"
+        ],
+        "id": "m11e-signal-equivalent",
+        "predicted_tags": [
+          "signal-processing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "signal-processing"
+        ],
+        "id": "m11e-signal-narrower",
+        "predicted_tags": [
+          "signal-processing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "circuit-theory"
+        ],
+        "id": "m11e-circuit-canonical",
+        "predicted_tags": [
+          "circuit-theory"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "circuit-theory"
+        ],
+        "id": "m11e-circuit-equivalent",
+        "predicted_tags": [
+          "circuit-theory"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "circuit-theory"
+        ],
+        "id": "m11e-circuit-narrower",
+        "predicted_tags": [
+          "circuit-theory"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-circuit-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "embedded-systems-design"
+        ],
+        "id": "m11e-embedded-canonical",
+        "predicted_tags": [
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "embedded-systems-design"
+        ],
+        "id": "m11e-embedded-equivalent",
+        "predicted_tags": [
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "embedded-systems-design"
+        ],
+        "id": "m11e-embedded-narrower",
+        "predicted_tags": [
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-embedded-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "control-systems"
+        ],
+        "id": "m11e-controls-canonical",
+        "predicted_tags": [
+          "control-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "control-systems"
+        ],
+        "id": "m11e-controls-equivalent",
+        "predicted_tags": [
+          "control-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "control-systems"
+        ],
+        "id": "m11e-controls-narrower",
+        "predicted_tags": [
+          "control-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "computer-vision"
+        ],
+        "id": "m11e-cv-canonical",
+        "predicted_tags": [
+          "computer-vision"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "computer-vision"
+        ],
+        "id": "m11e-cv-equivalent",
+        "predicted_tags": [
+          "computer-vision"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "computer-vision"
+        ],
+        "id": "m11e-cv-narrower",
+        "predicted_tags": [
+          "computer-vision"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-cv-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11e-security-canonical",
+        "predicted_tags": [
+          "cybersecurity-threat-modeling"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11e-security-equivalent",
+        "predicted_tags": [
+          "cybersecurity-threat-modeling"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11e-security-narrower",
+        "predicted_tags": [
+          "cybersecurity-threat-modeling"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-security-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "digital-logic"
+        ],
+        "id": "m11e-digitallogic-canonical",
+        "predicted_tags": [
+          "digital-logic"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "digital-logic"
+        ],
+        "id": "m11e-digitallogic-equivalent",
+        "predicted_tags": [
+          "digital-logic"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "digital-logic"
+        ],
+        "id": "m11e-digitallogic-narrower",
+        "predicted_tags": [
+          "digital-logic"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "quantum-computing"
+        ],
+        "id": "m11e-quantum-canonical",
+        "predicted_tags": [
+          "quantum-computing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "quantum-computing"
+        ],
+        "id": "m11e-quantum-equivalent",
+        "predicted_tags": [
+          "quantum-computing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "quantum-computing"
+        ],
+        "id": "m11e-quantum-narrower",
+        "predicted_tags": [
+          "quantum-computing"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-quantum-related",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-conditional-01",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "embedded-systems-design"
+        ],
+        "id": "m11e-conditional-02",
+        "predicted_tags": [
+          "embedded-systems-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 3,
+        "exact_set_match": true,
+        "expected_tags": [
+          "concurrency",
+          "database-design",
+          "system-design"
+        ],
+        "id": "m11e-and-01",
+        "predicted_tags": [
+          "concurrency",
+          "database-design",
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-orany-01",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-mixed-01",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-ambiguous-necessity-01",
+        "predicted_tags": [
+          "performance-optimization"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "cybersecurity-threat-modeling"
+        ],
+        "id": "m11e-ambiguous-necessity-02",
+        "predicted_tags": [
+          "cybersecurity-threat-modeling"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "control-systems"
+        ],
+        "id": "m11e-ambiguous-necessity-03",
+        "predicted_tags": [
+          "control-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 2,
+        "exact_set_match": true,
+        "expected_tags": [
+          "database-design",
+          "system-design"
+        ],
+        "id": "m11e-multi-01",
+        "predicted_tags": [
+          "database-design",
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 1,
+        "control_tp": 2,
+        "exact_set_match": false,
+        "expected_tags": [
+          "digital-logic",
+          "embedded-systems-design"
+        ],
+        "id": "m11e-multi-02",
+        "predicted_tags": [
+          "digital-logic",
+          "embedded-systems-design",
+          "system-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-outside-taxonomy-01",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-outside-taxonomy-02",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 0,
+        "exact_set_match": true,
+        "expected_tags": [],
+        "id": "m11e-outside-taxonomy-03",
+        "predicted_tags": []
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "algorithms-data-structures"
+        ],
+        "id": "m11e-grammar-01",
+        "predicted_tags": [
+          "algorithms-data-structures"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "distributed-systems"
+        ],
+        "id": "m11e-grammar-02",
+        "predicted_tags": [
+          "distributed-systems"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "database-design"
+        ],
+        "id": "m11e-grammar-03",
+        "predicted_tags": [
+          "database-design"
+        ]
+      },
+      {
+        "control_fn": 0,
+        "control_fp": 0,
+        "control_tp": 1,
+        "exact_set_match": true,
+        "expected_tags": [
+          "performance-optimization"
+        ],
+        "id": "m11e-grammar-04",
+        "predicted_tags": [
+          "performance-optimization"
+        ]
+      }
+    ],
+    "qualification_extraction_coverage": {
+      "denominator": 82,
+      "numerator": 65
+    },
+    "tag_level_prediction_metrics": {
+      "false_negatives": 0,
+      "false_positives": 1,
+      "precision": {
+        "denominator": 69,
+        "numerator": 68
+      },
+      "recall": {
+        "denominator": 68,
+        "numerator": 68
+      },
+      "true_positives": 68
+    }
+  }
+}
