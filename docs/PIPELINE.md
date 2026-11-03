@@ -627,6 +627,17 @@ test. `_requirements_from_claim` still has zero representation for
 `docs/evaluation/MILESTONE_11_C_COMPETENCY_EXTRACTION.md` for the full
 evaluation-first comparison and offline prototype.
 
+**Milestone 11-E follow-up (no pipeline flow change):** the same
+module gained a second, additive function,
+`extract_competency_qualifications_v2()`, tolerant of paraphrased
+competency language (plurals, grammatical variants, a bounded alias
+table) -- v1 is unmodified; **neither v1 nor v2 is called anywhere in
+this pipeline**, confirmed by a dedicated test. See
+`docs/ARCHITECTURE.md`'s Milestone 11-E section and
+`docs/evaluation/MILESTONE_11_E_PARAPHRASE_EXTRACTION.md` for the full
+comparison, measured results, and the one disclosed precision cost
+(an unexpected sibling tag on one compound-phrase shape).
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

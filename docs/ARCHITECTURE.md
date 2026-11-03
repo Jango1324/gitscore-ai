@@ -4963,3 +4963,67 @@ unchanged; every named historical evaluation byte-identical; frozen
 detector, no public schema/matcher/scoring/API/frontend change — see
 that document's own five STOP questions and
 `docs/CHANGELOG_DEV.md`'s Milestone 11-C entry for the complete record.
+
+### Milestone 11-E — paraphrase-tolerant competency extraction (v2, additive to v1)
+
+Following M11-D's own independent-holdout finding (`TECHNICAL_COMPETENCY`
+recall collapsing 93%→5% on authentic postings, dominated by exact-
+phrase vocabulary intolerance to ordinary paraphrasing), this
+milestone built and measured a general-mechanism response: a new,
+bounded, auditable alias table
+(`src/gitscore/jobs/parsing/competency_aliases.py`, 54 aliases across
+all 17 existing tags, each classified `SEMANTICALLY_EQUIVALENT` /
+`NARROWER_OR_MORE_SPECIFIC` / `RELATED_ONLY` / `UNKNOWN` — only the
+first two ever compiled into an active matcher) and a new,
+paraphrase-tolerant extraction function,
+`extract_competency_qualifications_v2()`, added to
+`competency_extraction.py` as a byte-for-byte-additive extension — v1
+is completely unmodified, confirmed by re-running its own development
+harness identically after v2 was added.
+
+v2 matches text against a STEMMED copy of the canonical+alias
+vocabulary (a small, fixed suffix-stripping function — never a
+dictionary, never statistical — tolerating plurals and `-ing`/`-ic`
+suffix variation while preserving phrase structure, unlike unordered
+bag-of-words matching), gated by a qualifying-intent template covering
+both the leading ("experience with X") and trailing ("X experience is
+required") real-world sentence shapes, and reports each match's
+strength via the EXISTING `ParserConfidence` field (`HIGH` for exact/
+equivalent, `MEDIUM` for narrower) rather than inventing a new one.
+Chosen over two alternatives measured on a fresh, 92-control
+development corpus (`evaluation/m11e/paraphrase_development_controls.json`):
+a bag-of-words strategy (31/64 recall, 5 unexpected tags — worse on
+both axes) and the alias table alone with no stemming (62/64 recall,
+zero grammatical tolerance).
+
+**Measured, reconciled result** (`scripts/evaluate_m11e_v2_extractor.py`,
+same corpus, both v1 and v2 run against it): tag recall 39%→**100%**,
+tag precision 100%→**100%**, qualification recall 32%→**79%** — the
+79% figure's own 21-point gap from 100% is ENTIRELY attributable to
+18 controls v2 is correctly expected to decline (13 `related_only`/
+`unknown` terms that must never auto-map, 1 `missing_contract` shape,
+3 controls entirely outside a competency-only extractor's own scope),
+confirmed by exact arithmetic, not estimated. One real, measured
+precision cost was found and is NOT minimized: stemming "systems"→
+"system" makes "embedded system**s** design" also match the bare
+`system-design` canonical phrase, producing one unexpected sibling
+tag — counted explicitly (`unexpected_additional_tag_count: 1`) in
+both the Phase 3 strategy comparison and the Phase 5 production
+measurement after a gap in the evaluation harness's own completeness
+(it initially did not check for this at all) was found and fixed
+during this same milestone's own reconciliation pass — the harness
+code was corrected, no annotation was altered to make a number look
+better. Every v1 safety behavior (negation/narrative/responsibility
+rejection, `missing_contract` decline, `MIXED_UNSUPPORTED` detection,
+applicability-condition routing, AND-splitting into siblings, the
+unchanged observability policy table) is preserved and reused
+byte-for-byte, confirmed by dedicated tests reusing v1's own fixture
+sentences. Full regression suite 1372→1406 passed/13 skipped
+unchanged; every named historical evaluation byte-identical; frozen
+`8c:v1`/`8c:v1.1` FRESH. No live-parser wiring, no competency evidence
+detector, no public schema/matcher/scoring/API/frontend change, no
+new independently-sourced validation corpus acquired this milestone
+(stated explicitly, not implied) — see
+`docs/evaluation/MILESTONE_11_E_PARAPHRASE_EXTRACTION.md`'s own
+13-item report and `docs/CHANGELOG_DEV.md`'s Milestone 11-E entry for
+the complete record.

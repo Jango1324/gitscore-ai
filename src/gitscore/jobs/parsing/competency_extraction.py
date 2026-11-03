@@ -43,6 +43,7 @@ import re
 from dataclasses import dataclass
 
 from gitscore.jobs.models import SourceSpan
+from gitscore.jobs.parsing.competency_aliases import ACTIVE_ALIAS_PATTERNS, AliasRelation
 from gitscore.jobs.parsing.narrative import contains_narrative_cue
 from gitscore.jobs.parsing.necessity import infer_necessity
 from gitscore.jobs.parsing.qualification import (
@@ -51,7 +52,7 @@ from gitscore.jobs.parsing.qualification import (
     Qualification,
     QualificationKind,
 )
-from gitscore.jobs.types import GithubObservability
+from gitscore.jobs.types import GithubObservability, ParserConfidence
 
 # ---------------------------------------------------------------------------
 # Bounded competency vocabulary -- mirrors
@@ -293,6 +294,214 @@ def extract_competency_qualifications(
             source_span=span,
             necessity=necessity,
             applicability_condition=applicability,
+            logical_composition=LogicalComposition.AND,
+            normalized_reference=NormalizedReference(competency_tag=tag),
+            github_observability=_COMPETENCY_OBSERVABILITY.get(tag, _DEFAULT_COMPETENCY_OBSERVABILITY),
+        )
+        for tag in tags
+    )
+
+
+# ===========================================================================
+# Milestone 11-E -- v2: a backward-compatible, paraphrase-tolerant EXTENSION.
+#
+# `extract_competency_qualifications()` above (v1, M11-C) is completely
+# UNCHANGED by everything below -- confirmed by re-running M11-C's own
+# development harness byte-identically. v2 is a SEPARATE function,
+# reusing v1's exact-phrase vocabulary, every rejection filter, and every
+# safety rule (missing-contract decline, MIXED_UNSUPPORTED detection,
+# necessity/applicability handling, AND-splitting into siblings) --
+# the ONLY thing v2 changes is HOW a competency tag is recognized:
+# v1 requires an exact canonical phrase; v2 ALSO recognizes the bounded,
+# auditable `competency_aliases` table, matched against a STEMMED copy
+# of the text (tolerating plurals/`-ing`/`-ic` suffix variation without
+# resorting to unordered bag-of-words matching -- see
+# `docs/evaluation/MILESTONE_11_E_PARAPHRASE_EXTRACTION.md`'s own Phase 3
+# comparison for why this, Option C, was chosen over a naive bigger
+# phrase list (Option A, 62/64 recall on the Phase 2 dev corpus, zero
+# grammatical tolerance) or bag-of-words keyword overlap (Option B,
+# 31/64 recall, worse precision too).
+# ===========================================================================
+
+_QUALIFYING_INTENT_V2 = re.compile(
+    r"\b(?:experience|knowledge|understanding|familiarity|proficiency|skills?|background|expertise|grounding|grasp)\s+"
+    r"(?:with|of|in|building|optimizing|debugging)\b|\bstrong\b|\bsolid\b|\bdeep\b|\bcomfortable\b|"
+    r"\b(?:is|are)\s+(?:required|preferred|necessary|a\s+plus)\b",
+    re.IGNORECASE,
+)
+"""A bounded, auditable qualification-INTENT gate -- v2's own additional
+precision guard beyond v1's exact-phrase matching, since the alias
+table's looser (stemmed) matching needs a stronger signal that the
+sentence is actually MAKING a qualification claim, not just containing
+competency-adjacent words somewhere. Covers the two dominant real-world
+sentence shapes a bounded qualifying-lead-in check must handle -- a
+LEADING qualifier ("experience with X") and the equally common
+TRAILING shape ("X experience is required") -- both confirmed present
+in this milestone's own Phase 2/3 comparison, not assumed."""
+
+_WORD_TOKEN_V2 = re.compile(r"(?<!\\)[a-zA-Z][a-zA-Z0-9]*")
+
+
+def _stem_v2(word: str) -> str:
+    """The SAME small, fixed suffix-stripping rule set verified during
+    this milestone's own Phase 3 comparison -- never context-dependent,
+    never a dictionary lookup, never a statistical model. Only strips a
+    suffix when the remainder stays >=4 characters, so short/ambiguous
+    words (and short all-caps acronyms like "RTOS") are left alone."""
+    for suffix, replacement in (("ically", ""), ("ization", "ize"), ("izations", "ize"),
+                                 ("ications", "ic"), ("ations", ""), ("ation", ""),
+                                 ("ical", ""), ("ing", ""), ("ies", "y"), ("ic", ""), ("s", "")):
+        if word.endswith(suffix) and len(word) - len(suffix) + len(replacement) >= 4:
+            return word[: -len(suffix)] + replacement
+    return word
+
+
+def _stem_token_v2(match: "re.Match[str]") -> str:
+    return _stem_v2(match.group(0).lower())
+
+
+def _stemmed_text_v2(text: str) -> str:
+    """Stems each word IN PLACE (via substitution, not extract-and-rejoin)
+    so non-alphanumeric separators within a phrase (e.g. the `&` in
+    `DS&A`) survive identically to how `_stem_pattern_source_v2` already
+    preserves them on the pattern side -- confirmed, during this
+    milestone's own test-writing, that extracting words and rejoining
+    them with plain spaces silently DROPS such separators, breaking any
+    alias whose own trigger phrase contains one (`DS&A` stemmed to
+    `ds a` on the text side but stayed `DS&A` on the pattern side,
+    never matching). Both sides now go through the identical
+    substitution-based path."""
+    return _WORD_TOKEN_V2.sub(_stem_token_v2, text.lower())
+
+
+def _stem_pattern_source_v2(raw_pattern: str) -> str:
+    return _WORD_TOKEN_V2.sub(_stem_token_v2, raw_pattern)
+
+
+_STEMMED_COMPETENCY_PATTERNS_V2: tuple[tuple[str, "re.Pattern[str]"], ...] = tuple(
+    (tag, re.compile(_stem_pattern_source_v2(pattern.pattern), re.IGNORECASE)) for tag, pattern in _COMPETENCY_PATTERNS
+)
+_STEMMED_ACTIVE_ALIAS_PATTERNS_V2: tuple[tuple[str, "re.Pattern[str]", AliasRelation], ...] = tuple(
+    (tag, re.compile(_stem_pattern_source_v2(pattern.pattern), re.IGNORECASE), relation)
+    for tag, pattern, relation in ACTIVE_ALIAS_PATTERNS
+)
+
+_RELATION_CONFIDENCE: dict[AliasRelation, ParserConfidence] = {
+    AliasRelation.SEMANTICALLY_EQUIVALENT: ParserConfidence.HIGH,
+    AliasRelation.NARROWER_OR_MORE_SPECIFIC: ParserConfidence.MEDIUM,
+}
+
+
+def find_competency_mentions_v2(text: str) -> dict[str, AliasRelation]:
+    """Every DISTINCT competency tag found via EITHER the exact canonical
+    vocabulary OR the bounded alias table, matched against STEMMED text
+    on both sides -- mapping tag -> the STRONGEST relation found for it
+    (`SEMANTICALLY_EQUIVALENT` beats `NARROWER_OR_MORE_SPECIFIC` if a
+    sentence somehow matches both for the same tag). Requires
+    `_QUALIFYING_INTENT_V2` to match somewhere in `text` first -- returns
+    `{}` immediately otherwise, exactly like v1's own `not tags` case.
+    `RELATED_ONLY`/`UNKNOWN` aliases are never consulted here at all
+    (excluded at import time in `competency_aliases.py`), so this
+    function cannot promote an explicitly-rejected adjacent term into a
+    tag no matter how the text is phrased.
+    """
+    if not _QUALIFYING_INTENT_V2.search(text):
+        return {}
+    stemmed = _stemmed_text_v2(text)
+    found: dict[str, AliasRelation] = {}
+    for tag, pattern in _STEMMED_COMPETENCY_PATTERNS_V2:
+        if pattern.search(stemmed):
+            found[tag] = AliasRelation.SEMANTICALLY_EQUIVALENT
+    for tag, pattern, relation in _STEMMED_ACTIVE_ALIAS_PATTERNS_V2:
+        if pattern.search(stemmed):
+            if tag not in found or relation == AliasRelation.SEMANTICALLY_EQUIVALENT:
+                found[tag] = relation
+    return found
+
+
+def extract_competency_qualifications_v2(
+    text: str, span: SourceSpan
+) -> tuple[Qualification, ...] | DeclinedExtraction:
+    """The paraphrase-tolerant sibling of `extract_competency_qualifications()`
+    (v1). Identical rejection/necessity/structural logic throughout --
+    only `find_competency_mentions_v2()` (stemmed canonical+alias
+    matching) replaces v1's exact-phrase-only `find_competency_mentions()`.
+    Each produced `Qualification.interpretation_certainty` reflects the
+    STRENGTH of the match that produced it (`HIGH` for an exact/
+    canonical/semantically-equivalent hit, `MEDIUM` for a
+    narrower-or-more-specific one) -- reusing the EXISTING, Stage-1-
+    approved `ParserConfidence` field, never a new one, and never
+    silently treating a narrower match as equally certain as an exact
+    one.
+    """
+    tag_relations = find_competency_mentions_v2(text)
+    if not tag_relations:
+        return DeclinedExtraction(reason="no_competency_language", detail="no vocabulary or alias term matched")
+
+    if any(pattern.search(text) for pattern in _NEGATION_PATTERNS):
+        return DeclinedExtraction(reason="negation", detail="explicit negation of the requirement")
+    if contains_narrative_cue(text) or _BROADER_NARRATIVE_SUBJECT.search(text):
+        return DeclinedExtraction(reason="narrative_cue", detail="company/product or learning-opportunity narrative shape")
+    if _RESPONSIBILITY_LEAD.match(text.strip()):
+        return DeclinedExtraction(reason="responsibility_lead", detail="sentence opens with a bare imperative duty verb")
+
+    tags = list(tag_relations.keys())
+    necessity = infer_necessity(text, None)
+    applicability = _applicability_condition(text)
+    has_and = _AND_WORD.search(text) is not None
+    has_or = _OR_WORD.search(text) is not None
+    exhaustive = _EXHAUSTIVE_CUE.search(text) is not None
+    illustrative = _ILLUSTRATIVE_CUE.search(text) is not None
+
+    def _confidence_for(tag: str) -> ParserConfidence:
+        return _RELATION_CONFIDENCE[tag_relations[tag]]
+
+    if len(tags) == 1:
+        qualification = Qualification(
+            qualification_kind=QualificationKind.TECHNICAL_COMPETENCY,
+            source_text=text,
+            source_span=span,
+            necessity=necessity,
+            applicability_condition=applicability,
+            interpretation_certainty=_confidence_for(tags[0]),
+            logical_composition=LogicalComposition.SINGLE,
+            normalized_reference=NormalizedReference(competency_tag=tags[0]),
+            github_observability=_COMPETENCY_OBSERVABILITY.get(tags[0], _DEFAULT_COMPETENCY_OBSERVABILITY),
+        )
+        return (qualification,)
+
+    if has_or and not has_and and (exhaustive or illustrative or True):
+        return DeclinedExtraction(
+            reason="missing_contract",
+            detail=(
+                f"an alternative group of {len(tags)} competency tags {tags!r} has no safe "
+                "NormalizedReference representation -- same missing-contract gap v1 found, "
+                "unchanged by v2's own broader matching"
+            ),
+        )
+
+    if has_and and has_or and _MIXED_SHAPE.search(text):
+        qualification = Qualification(
+            qualification_kind=QualificationKind.TECHNICAL_COMPETENCY,
+            source_text=text,
+            source_span=span,
+            necessity=necessity,
+            applicability_condition=applicability,
+            interpretation_certainty=_confidence_for(tags[0]),
+            logical_composition=LogicalComposition.MIXED_UNSUPPORTED,
+            normalized_reference=None,
+            github_observability=_COMPETENCY_OBSERVABILITY.get(tags[0], _DEFAULT_COMPETENCY_OBSERVABILITY),
+        )
+        return (qualification,)
+
+    return tuple(
+        Qualification(
+            qualification_kind=QualificationKind.TECHNICAL_COMPETENCY,
+            source_text=text,
+            source_span=span,
+            necessity=necessity,
+            applicability_condition=applicability,
+            interpretation_certainty=_confidence_for(tag),
             logical_composition=LogicalComposition.AND,
             normalized_reference=NormalizedReference(competency_tag=tag),
             github_observability=_COMPETENCY_OBSERVABILITY.get(tag, _DEFAULT_COMPETENCY_OBSERVABILITY),

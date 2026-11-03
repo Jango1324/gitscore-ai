@@ -1,0 +1,348 @@
+{
+  "option_a": {
+    "mismatches": [
+      {
+        "error": "false_negative",
+        "id": "m11e-grammar-03",
+        "strategy": "option_a"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-grammar-04",
+        "strategy": "option_a"
+      }
+    ],
+    "precision_related_unknown_rejection": {
+      "denominator": 13,
+      "numerator": 13
+    },
+    "recall": {
+      "denominator": 64,
+      "numerator": 62
+    },
+    "relation_label_sensitivity": {
+      "denominator": 62,
+      "numerator": 62
+    },
+    "strategy": "option_a",
+    "structural_cases_correctly_undetermined": {
+      "denominator": 2,
+      "numerator": 2
+    },
+    "unexpected_additional_tag_count": 0
+  },
+  "option_b": {
+    "mismatches": [
+      {
+        "error": "false_negative",
+        "id": "m11e-algo-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "actual": "semantically_equivalent",
+        "error": "relation_label_mismatch",
+        "expected": "narrower_or_more_specific",
+        "id": "m11e-algo-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-concurrency-canonical",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-concurrency-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "actual": "semantically_equivalent",
+        "error": "relation_label_mismatch",
+        "expected": "narrower_or_more_specific",
+        "id": "m11e-concurrency-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-concurrency-related",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-distsys-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "actual": "semantically_equivalent",
+        "error": "relation_label_mismatch",
+        "expected": "narrower_or_more_specific",
+        "id": "m11e-distsys-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-sysdesign-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-sysdesign-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-perf-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-osnet-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-dbdesign-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-mlfund-canonical",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-mlfund-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-mlfund-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-gpu-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-gpu-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-signal-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "actual": "semantically_equivalent",
+        "error": "relation_label_mismatch",
+        "expected": "narrower_or_more_specific",
+        "id": "m11e-signal-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "unexpected_additional_tag",
+        "id": "m11e-circuit-equivalent",
+        "strategy": "option_b",
+        "tags": [
+          "quantum-computing"
+        ]
+      },
+      {
+        "actual": "semantically_equivalent",
+        "error": "relation_label_mismatch",
+        "expected": "narrower_or_more_specific",
+        "id": "m11e-circuit-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "unexpected_additional_tag",
+        "id": "m11e-embedded-canonical",
+        "strategy": "option_b",
+        "tags": [
+          "os-networking"
+        ]
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-embedded-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-controls-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "actual": "semantically_equivalent",
+        "error": "relation_label_mismatch",
+        "expected": "narrower_or_more_specific",
+        "id": "m11e-controls-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-cv-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-cv-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-security-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-security-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "unexpected_additional_tag",
+        "id": "m11e-digitallogic-canonical",
+        "strategy": "option_b",
+        "tags": [
+          "signal-processing"
+        ]
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-digitallogic-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-digitallogic-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-quantum-canonical",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-quantum-equivalent",
+        "strategy": "option_b"
+      },
+      {
+        "actual": "semantically_equivalent",
+        "error": "relation_label_mismatch",
+        "expected": "narrower_or_more_specific",
+        "id": "m11e-quantum-narrower",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-conditional-01",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-conditional-02",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-and-01",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-multi-01",
+        "strategy": "option_b"
+      },
+      {
+        "error": "unexpected_additional_tag",
+        "id": "m11e-multi-02",
+        "strategy": "option_b",
+        "tags": [
+          "digital-logic",
+          "signal-processing",
+          "system-design"
+        ]
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-grammar-01",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-grammar-02",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-grammar-03",
+        "strategy": "option_b"
+      },
+      {
+        "error": "unexpected_additional_tag",
+        "id": "m11e-grammar-04",
+        "strategy": "option_b",
+        "tags": [
+          "gpu-parallel-computing"
+        ]
+      }
+    ],
+    "precision_related_unknown_rejection": {
+      "denominator": 13,
+      "numerator": 13
+    },
+    "recall": {
+      "denominator": 64,
+      "numerator": 31
+    },
+    "relation_label_sensitivity": {
+      "denominator": 31,
+      "numerator": 24
+    },
+    "strategy": "option_b",
+    "structural_cases_correctly_undetermined": {
+      "denominator": 2,
+      "numerator": 2
+    },
+    "unexpected_additional_tag_count": 5
+  },
+  "option_c": {
+    "mismatches": [
+      {
+        "error": "false_negative",
+        "id": "m11e-algo-equivalent",
+        "strategy": "option_c"
+      },
+      {
+        "error": "unexpected_additional_tag",
+        "id": "m11e-multi-02",
+        "strategy": "option_c",
+        "tags": [
+          "digital-logic",
+          "system-design"
+        ]
+      }
+    ],
+    "precision_related_unknown_rejection": {
+      "denominator": 13,
+      "numerator": 13
+    },
+    "recall": {
+      "denominator": 64,
+      "numerator": 63
+    },
+    "relation_label_sensitivity": {
+      "denominator": 63,
+      "numerator": 63
+    },
+    "strategy": "option_c",
+    "structural_cases_correctly_undetermined": {
+      "denominator": 2,
+      "numerator": 2
+    },
+    "unexpected_additional_tag_count": 1
+  }
+}

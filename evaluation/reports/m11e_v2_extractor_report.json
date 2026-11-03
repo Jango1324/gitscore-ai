@@ -1,0 +1,455 @@
+{
+  "m11d_historical_context_only": {
+    "note": "M11-D's own independent holdout measurement (hardcoded for context only, never recomputed here -- that corpus is private/already-inspected per its own publication-safety disposition).",
+    "technical_competency_precision": {
+      "denominator": 6,
+      "numerator": 3
+    },
+    "technical_competency_recall": {
+      "denominator": 59,
+      "numerator": 3
+    }
+  },
+  "v1_m11c": {
+    "by_domain": {
+      "ai_ml": {
+        "fn": 6,
+        "fp": 0,
+        "total_competency": 11,
+        "tp": 3
+      },
+      "backend_distributed_systems": {
+        "fn": 5,
+        "fp": 0,
+        "total_competency": 10,
+        "tp": 4
+      },
+      "biotech": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 1,
+        "tp": 0
+      },
+      "cybersecurity": {
+        "fn": 3,
+        "fp": 0,
+        "total_competency": 5,
+        "tp": 1
+      },
+      "data_engineering": {
+        "fn": 3,
+        "fp": 0,
+        "total_competency": 6,
+        "tp": 2
+      },
+      "electrical_engineering": {
+        "fn": 6,
+        "fp": 0,
+        "total_competency": 10,
+        "tp": 3
+      },
+      "embedded_systems": {
+        "fn": 2,
+        "fp": 0,
+        "total_competency": 6,
+        "tp": 3
+      },
+      "finance": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 1,
+        "tp": 0
+      },
+      "infrastructure_cloud": {
+        "fn": 4,
+        "fp": 0,
+        "total_competency": 10,
+        "tp": 3
+      },
+      "mechanical_engineering": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 1,
+        "tp": 0
+      },
+      "research": {
+        "fn": 2,
+        "fp": 0,
+        "total_competency": 4,
+        "tp": 1
+      },
+      "robotics_autonomy": {
+        "fn": 2,
+        "fp": 0,
+        "total_competency": 4,
+        "tp": 2
+      },
+      "software_engineering_general": {
+        "fn": 3,
+        "fp": 0,
+        "total_competency": 6,
+        "tp": 2
+      },
+      "systems_performance_engineering": {
+        "fn": 3,
+        "fp": 0,
+        "total_competency": 4,
+        "tp": 1
+      }
+    },
+    "competency_tag_assignment": {
+      "precision": {
+        "denominator": 25,
+        "numerator": 25
+      },
+      "recall": {
+        "denominator": 64,
+        "numerator": 25
+      }
+    },
+    "explicit_declines": {
+      "missing_contract": 1,
+      "narrative_cue": 4,
+      "negation": 1,
+      "no_competency_language": 58,
+      "responsibility_lead": 2
+    },
+    "false_positives": {
+      "from_company_narratives": 0,
+      "from_related_or_unknown_terminology": 0,
+      "from_responsibilities": 0
+    },
+    "logical_grouping": {
+      "denominator": 29,
+      "numerator": 29
+    },
+    "mismatches": [
+      {
+        "error": "false_negative",
+        "id": "m11e-algo-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-algo-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-concurrency-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-concurrency-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-concurrency-related"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-distsys-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-distsys-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-sysdesign-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-sysdesign-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-perf-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-perf-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-osnet-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-osnet-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-dbdesign-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-dbdesign-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-mlfund-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-mlfund-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-gpu-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-gpu-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-signal-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-signal-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-circuit-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-circuit-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-embedded-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-embedded-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-controls-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-controls-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-cv-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-cv-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-security-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-security-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-digitallogic-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-digitallogic-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-quantum-equivalent"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-quantum-narrower"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-ambiguous-necessity-02"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-grammar-01"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-grammar-03"
+      },
+      {
+        "error": "false_negative",
+        "id": "m11e-grammar-04"
+      }
+    ],
+    "necessity_classification": {
+      "denominator": 27,
+      "numerator": 27
+    },
+    "qualification_detection": {
+      "precision": {
+        "denominator": 26,
+        "numerator": 26
+      },
+      "recall": {
+        "denominator": 82,
+        "numerator": 26
+      }
+    },
+    "scoring_safety": {
+      "never_falsely_assessable_without_concept_mapping": true,
+      "never_supported_with_empty_evidence": true,
+      "safety_checks_run": 25
+    },
+    "source_span_exactness": {
+      "denominator": 29,
+      "numerator": 29
+    },
+    "unexpected_additional_tag_count": 0
+  },
+  "v2_m11e": {
+    "by_domain": {
+      "ai_ml": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 11,
+        "tp": 9
+      },
+      "backend_distributed_systems": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 10,
+        "tp": 9
+      },
+      "biotech": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 1,
+        "tp": 0
+      },
+      "cybersecurity": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 5,
+        "tp": 4
+      },
+      "data_engineering": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 6,
+        "tp": 5
+      },
+      "electrical_engineering": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 10,
+        "tp": 9
+      },
+      "embedded_systems": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 6,
+        "tp": 5
+      },
+      "finance": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 1,
+        "tp": 0
+      },
+      "infrastructure_cloud": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 10,
+        "tp": 7
+      },
+      "mechanical_engineering": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 1,
+        "tp": 0
+      },
+      "research": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 4,
+        "tp": 3
+      },
+      "robotics_autonomy": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 4,
+        "tp": 4
+      },
+      "software_engineering_general": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 6,
+        "tp": 5
+      },
+      "systems_performance_engineering": {
+        "fn": 0,
+        "fp": 0,
+        "total_competency": 4,
+        "tp": 4
+      }
+    },
+    "competency_tag_assignment": {
+      "precision": {
+        "denominator": 64,
+        "numerator": 64
+      },
+      "recall": {
+        "denominator": 64,
+        "numerator": 64
+      }
+    },
+    "explicit_declines": {
+      "missing_contract": 1,
+      "narrative_cue": 2,
+      "negation": 1,
+      "no_competency_language": 23
+    },
+    "false_positives": {
+      "from_company_narratives": 0,
+      "from_related_or_unknown_terminology": 0,
+      "from_responsibilities": 0
+    },
+    "logical_grouping": {
+      "denominator": 69,
+      "numerator": 69
+    },
+    "mismatches": [
+      {
+        "error": "unexpected_additional_tag",
+        "id": "m11e-multi-02",
+        "tags": [
+          "system-design"
+        ]
+      }
+    ],
+    "necessity_classification": {
+      "denominator": 66,
+      "numerator": 66
+    },
+    "qualification_detection": {
+      "precision": {
+        "denominator": 65,
+        "numerator": 65
+      },
+      "recall": {
+        "denominator": 82,
+        "numerator": 65
+      }
+    },
+    "scoring_safety": {
+      "never_falsely_assessable_without_concept_mapping": true,
+      "never_supported_with_empty_evidence": true,
+      "safety_checks_run": 64
+    },
+    "source_span_exactness": {
+      "denominator": 69,
+      "numerator": 69
+    },
+    "unexpected_additional_tag_count": 1
+  }
+}
