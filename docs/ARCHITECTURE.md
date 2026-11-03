@@ -4896,3 +4896,70 @@ observability-policy table (Phase 4) and holdout-corpus manifest
 format (Phase 5, methodology only — no content authored), and
 `docs/CHANGELOG_DEV.md`'s Milestone 11-B Stage 2B entry for the
 complete verification record.
+
+### Milestone 11-C — generalized technical-competency extraction (Path B offline prototype)
+
+Evaluation-first review
+(`docs/evaluation/MILESTONE_11_C_COMPETENCY_EXTRACTION.md`): authored a
+new, independent 45-example evaluation corpus
+(`evaluation/m11c/competency_extraction_controls.json`) BEFORE
+implementing any extraction strategy, spanning all 16 of the mission's
+own named engineering disciplines plus one deliberately unlisted
+domain (quantum computing, the generalization test case), 8
+adversarial/baseline negatives (company narrative, responsibility
+bullets, learning opportunities, negated requirements,
+already-solved baseline categories), and every other named dimension
+(AND/OR groups, conditional qualifications, line-wrap, bulleted,
+outside-section). Compared three real offline prototypes
+(`scripts/evaluation_lib/m11c_competency_prototypes.py`, measured by
+`scripts/evaluate_m11c_competency_extraction.py`): Option A (naive
+keyword scan, 28/28 recall but 28/34 precision — 6 false positives
+across responsibility/narrative/learning/negation), Option B (reuses
+the EXISTING `infer_necessity`/`contains_narrative_cue` unmodified,
+28/30 precision — 2 residual false positives, confirming the existing
+narrative-cue regex is too narrow for new company-narrative phrasing
+this milestone's own corpus surfaced), Option C (Option B plus one new,
+bounded, additive narrative-subject heuristic — **28/28 precision,
+zero false positives of any kind**, same recall/necessity/
+logical-grouping as A/B). Chose Option C — not on recall alone (all
+three tie there), on measured precision.
+
+Implemented Option C as a real, standalone offline extractor,
+`src/gitscore/jobs/parsing/competency_extraction.py` (confirmed not
+imported by `parser.py`/`segmentation.py`/`necessity.py`/`narrative.py`),
+producing actual `Qualification` objects (Milestone 11-B Stage 1,
+unmodified) from already-segmented claim text/spans. Found and
+explicitly DECLINED (never invented a workaround for) one genuine
+missing contract: `NormalizedReference` has a field for one registered
+concept, a GROUP of registered concepts, or ONE competency tag — but
+none for a GROUP of multiple competency tags ("at least one of:
+distributed systems, concurrent programming, or high-performance
+computing") — fixing this would require a Stage-1 schema addition
+outside this milestone's own approval, so the extractor reports a
+named `DeclinedExtraction(reason="missing_contract", ...)` instead of
+silently discarding which options were named. Added a new,
+documentation-equivalent competency-observability POLICY TABLE (never
+an evidence detector — a plain lookup, like `observability.py`'s own
+existing tables), confirming empirically
+(`scripts/evaluate_m11c_offline_extractor_safety.py`, against the REAL
+`match_requirement()`) that every competency-tagged requirement this
+prototype can produce resolves to `NOT_ASSESSABLE` with zero concept
+mapping — never falsely `SUPPORTED`, never silently entering
+`assessable_count`'s own denominator (`never_supported_with_empty_evidence`
+and `never_falsely_assessable_without_concept_mapping` both measured
+`True` across all 28 cases).
+
+Measured against the REAL module (not just the comparison prototype):
+26/28 recall (the 2 "losses" are the disclosed missing-contract
+declines, never a false positive), 26/26 precision, 20/20 necessity
+classification (correctly excluding genuinely-unknown cases from the
+denominator rather than penalizing them), 27/28 logical grouping (the
+one residual being a disclosed, M11-B-precedented limitation — sibling
+composition across DIFFERENT qualification kinds within one sentence
+is out of this extractor's own scope), 28/28 source-span exactness,
+fully deterministic. Full regression suite 1343→1372 passed/13 skipped
+unchanged; every named historical evaluation byte-identical; frozen
+`8c:v1`/`8c:v1.1` FRESH. No live-parser wiring, no competency evidence
+detector, no public schema/matcher/scoring/API/frontend change — see
+that document's own five STOP questions and
+`docs/CHANGELOG_DEV.md`'s Milestone 11-C entry for the complete record.

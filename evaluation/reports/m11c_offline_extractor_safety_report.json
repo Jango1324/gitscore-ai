@@ -1,0 +1,36 @@
+{
+  "deterministic": true,
+  "false_positive_breakdown": {
+    "administrative": 0,
+    "company_narrative": 0,
+    "learning_opportunity": 0,
+    "missing_contract_declined": 2,
+    "negation": 0,
+    "other_baseline": 0,
+    "responsibility": 0
+  },
+  "logical_grouping": {
+    "denominator": 28,
+    "numerator": 27
+  },
+  "mismatches": [],
+  "necessity_classification": {
+    "denominator": 20,
+    "numerator": 20
+  },
+  "never_falsely_assessable_without_concept_mapping": true,
+  "never_supported_with_empty_evidence": true,
+  "qualification_precision": {
+    "denominator": 26,
+    "numerator": 26
+  },
+  "qualification_recall": {
+    "denominator": 28,
+    "numerator": 26
+  },
+  "safety_checks_run": 28,
+  "source_span_exactness": {
+    "denominator": 28,
+    "numerator": 28
+  }
+}

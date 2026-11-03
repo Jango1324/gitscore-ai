@@ -1,0 +1,877 @@
+{
+  "corpus_version": "m11c:v1",
+  "annotation_provenance": "Authored in a single session as NEW development material for Milestone 11-C's technical-competency extraction investigation. None of these sentences are drawn from evaluation/m11/corpus.json (M11) or evaluation/m11b/structured_qualification_controls.json (M11-B Stage 1) -- those remain cited only as DEVELOPMENT background, per M11-B's own established discipline. Every field below was decided from first principles (what the SENTENCE itself means, independent of any candidate extractor's output) BEFORE any extraction strategy in Phase 3 was implemented or run against this corpus -- there is no 'baseline outcome' column here the way M10E/M11-A1/M11-A2 had, because no live-parser detector exists for most of these categories to measure a baseline against (see docs/evaluation/MILESTONE_11_C_COMPETENCY_EXTRACTION.md Phase 1/1.4's own confirmation). This corpus is explicitly DEVELOPMENT material, never re-described as held-out -- see that document's own Phase 2 holdout-protocol section for the separate, unauthored holdout methodology.",
+  "schema_notes": {
+    "text_category": "named_technology | technical_competency | education | experience | nontechnical | responsibility | learning_opportunity | company_narrative | administrative | ambiguous -- the 9-way Phase 1 taxonomy PLUS named_technology, which Phase 1 treats as the already-solved baseline case",
+    "is_applicant_qualification": "true | false -- decision A (does the text express an applicant qualification at all)",
+    "qualification_kind": "a gitscore.jobs.parsing.qualification.QualificationKind value, or null when is_applicant_qualification is false",
+    "necessity": "REQUIRED | PREFERRED | null (genuinely unknown/unresolved -- never a third value)",
+    "competency_concept": "{'type':'competency_tag','id':'<slug>'} for a technical competency with no registry concept; {'type':'concept','id':'<registry id>'} for a named technology; null when neither applies",
+    "logical_composition": "SINGLE | AND | OR_ANY | MIXED_UNSUPPORTED",
+    "applicability_condition": "null, or the exact conditional clause verbatim",
+    "github_observability": "NOT_OBSERVABLE | PARTIALLY_OBSERVABLE | STRONGLY_OBSERVABLE | null (null only when is_applicant_qualification is false)",
+    "expected_conservative_projection": "job_requirement | unparsed_claim -- the SAFE destination per project_qualification()'s own existing rules, not a recall target",
+    "sibling_qualifications": "optional -- additional qualification objects the SAME sentence also implies, mirroring M11-B's own precedent for 'one sentence, multiple qualifications'"
+  },
+  "controls": [
+    {
+      "id": "m11c-tech-01",
+      "category": "named_technology_baseline",
+      "section_context": "Requirements:",
+      "text": "Experience with Kubernetes is required.",
+      "text_category": "named_technology",
+      "is_applicant_qualification": true,
+      "qualification_kind": "specific_technology",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "concept",
+        "id": "infra.kubernetes"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "STRONGLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Control baseline -- already fully solved by the existing parser, included to confirm the new extractor does not regress the already-working case."
+    },
+    {
+      "id": "m11c-algo-01",
+      "category": "technical_competency.algorithms",
+      "section_context": "Requirements:",
+      "text": "Strong understanding of algorithms and data structures is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "algorithms-data-structures"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Classic competency phrasing. A repository with algorithmic implementations (sorting, graph traversal) is a plausible but inconclusive proxy -- never proof."
+    },
+    {
+      "id": "m11c-concurrency-01",
+      "category": "technical_competency.concurrency",
+      "section_context": "Requirements:",
+      "text": "You should be comfortable reasoning about concurrency, race conditions, and lock-free programming.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "concurrency"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Unusual wording ('you should be comfortable') -- no explicit 'required'/'must' marker, yet unambiguously REQUIRED in context (no hedge/preference language either)."
+    },
+    {
+      "id": "m11c-distsys-01",
+      "category": "technical_competency.distributed_systems",
+      "section_context": "Requirements:",
+      "text": "Deep knowledge of distributed systems, consensus algorithms, and fault tolerance is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "distributed-systems"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Three related sub-competencies (distributed systems, consensus, fault tolerance) named in one sentence -- annotated as ONE competency claim (the sentence's own 'and' is listing attributes of a single area, not three independent requirements), contrast m11c-multi-02 below where splitting IS correct."
+    },
+    {
+      "id": "m11c-sysdesign-01",
+      "category": "technical_competency.system_design",
+      "section_context": "Requirements:",
+      "text": "Proven ability to design scalable system architecture for high-traffic services.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "system-design"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "'Proven ability' could also read as an EXPERIENCE claim (a track record) -- annotated TECHNICAL_COMPETENCY since the sentence names a specific technical domain (system architecture), not a bare years-of-experience claim."
+    },
+    {
+      "id": "m11c-perf-01",
+      "category": "technical_competency.debugging_performance",
+      "section_context": "Requirements:",
+      "text": "Experience debugging and optimizing performance-critical code paths.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": null,
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "performance-optimization"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "Ambiguous necessity -- no REQUIRED/PREFERRED marker anywhere in the sentence or its (unspecified here) section context; genuinely unresolved, not guessable, so necessity=null is the honest annotation and the SAFE projection is UnparsedClaim, not a guessed REQUIRED row."
+    },
+    {
+      "id": "m11c-os-net-01",
+      "category": "technical_competency.os_networking",
+      "section_context": "Requirements:",
+      "text": "Solid grasp of operating systems internals and TCP/IP networking fundamentals is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "os-networking"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "TCP/IP is arguably a 'named technology' in isolation, but here it modifies a broader competency claim ('networking fundamentals') -- annotated as the competency, not a specific_technology row, since the sentence is not asserting direct TCP/IP tooling usage."
+    },
+    {
+      "id": "m11c-dbdesign-01",
+      "category": "technical_competency.database_design",
+      "section_context": "Requirements:",
+      "text": "Experience designing normalized relational schemas and indexing strategies for large datasets.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": null,
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "database-design"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "Database DESIGN competency, distinct from naming a specific database technology (contrast m11c-tech-01-style PostgreSQL mentions). No necessity marker present -- ambiguous, annotated null."
+    },
+    {
+      "id": "m11c-mlfund-01",
+      "category": "technical_competency.ml_fundamentals",
+      "section_context": "Preferred Qualifications:",
+      "text": "Understanding of ML fundamentals such as overfitting, regularization, and bias-variance tradeoff is a plus.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "PREFERRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "ml-fundamentals"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "NOT_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "A conceptual-understanding competency with NO plausible GitHub evidence at all (unlike concurrency/system-design, which at least have weak implementation proxies) -- annotated NOT_OBSERVABLE, the sharpest TECHNICAL_COMPETENCY/observability contrast case after m11c-circuit-01."
+    },
+    {
+      "id": "m11c-gpu-01",
+      "category": "technical_competency.gpu_parallel",
+      "section_context": "Requirements:",
+      "text": "Experience with GPU programming and parallel computing paradigms is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "gpu-parallel-computing"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Contrast with m11c-cuda-adversarial-01 below -- a specific CUDA dependency is never, by itself, proof of this broader competency."
+    },
+    {
+      "id": "m11c-signal-01",
+      "category": "technical_competency.signal_processing",
+      "section_context": "Requirements:",
+      "text": "Background in digital signal processing, including FFTs and filter design, is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "signal-processing"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Engineering discipline outside typical software job postings -- generalization test case."
+    },
+    {
+      "id": "m11c-circuit-01",
+      "category": "technical_competency.circuit_theory",
+      "section_context": "Requirements:",
+      "text": "Strong foundation in circuit theory and analog electronics is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "circuit-theory"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "NOT_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "The sharpest NOT_OBSERVABLE contrast -- a hardware-design domain with no software artifact possible regardless of specificity (M11-B's own m11b-competency-02 precedent, re-confirmed here in a new sentence)."
+    },
+    {
+      "id": "m11c-embedded-01",
+      "category": "technical_competency.embedded_design",
+      "section_context": "Requirements:",
+      "text": "Experience designing firmware for resource-constrained embedded systems is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "embedded-systems-design"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "A firmware repository (RTOS usage, interrupt handlers, memory-constrained patterns) is a genuine, if imperfect, implementation proxy."
+    },
+    {
+      "id": "m11c-controls-01",
+      "category": "technical_competency.control_systems",
+      "section_context": "Requirements:",
+      "text": "Familiarity with control systems theory, including PID and state-space methods, is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "control-systems"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "'Familiarity with' is normally a LOW-importance marker (importance.py) -- that axis is independent of necessity, which is still REQUIRED here ('is required' is explicit)."
+    },
+    {
+      "id": "m11c-cv-01",
+      "category": "technical_competency.computer_vision",
+      "section_context": "Requirements:",
+      "text": "Experience with computer vision techniques such as object detection and image segmentation is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "computer-vision"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "'Such as X and Y' illustrative framing (M11-B's own illustrative-vs-exhaustive distinction) -- OR_ANY, not AND, since object detection and image segmentation are offered as EXAMPLES of the broader competency, not two independently required sub-skills."
+    },
+    {
+      "id": "m11c-security-01",
+      "category": "technical_competency.cybersecurity",
+      "section_context": "Requirements:",
+      "text": "Understanding of threat modeling, common attack vectors, and secure coding practices is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "cybersecurity-threat-modeling"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Security-review activity (CVE fixes, dependency-vulnerability commits) is a genuine, bounded proxy."
+    },
+    {
+      "id": "m11c-digitallogic-01",
+      "category": "technical_competency.digital_logic",
+      "section_context": "Requirements:",
+      "text": "Knowledge of digital logic design and Boolean algebra is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "digital-logic"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "An HDL repository (Verilog/VHDL) is a genuine, bounded proxy -- unlike circuit theory's own NOT_OBSERVABLE (analog domain), digital logic has a direct software-adjacent artifact (the existing hdl.verilog concept)."
+    },
+    {
+      "id": "m11c-outside-section-01",
+      "category": "requirement_outside_formal_section",
+      "section_context": null,
+      "text": "Candidates must demonstrate strong algorithmic problem-solving skills.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "algorithms-data-structures"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Genuinely unsectioned -- 'must demonstrate' is a local REQUIRED marker, so necessity/qualification_kind are both determinable from the local sentence alone (M10E's own existing precedent: a local marker always wins regardless of section origin)."
+    },
+    {
+      "id": "m11c-mixed-tech-competency-01",
+      "category": "competency_mixed_with_technology",
+      "section_context": "Requirements:",
+      "text": "Experience with Python and a strong understanding of algorithmic complexity (Big-O analysis) are both required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "algorithms-data-structures"
+      },
+      "logical_composition": "and",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "ONE sentence, TWO qualification objects (M11-B's own established precedent) -- the Python half is a SPECIFIC_TECHNOLOGY sibling, annotated separately below.",
+      "sibling_qualifications": [
+        {
+          "qualification_kind": "specific_technology",
+          "necessity": "REQUIRED",
+          "competency_concept": {
+            "type": "concept",
+            "id": "language.python"
+          },
+          "github_observability": "STRONGLY_OBSERVABLE",
+          "note": "the Python half of the same sentence -- already fully solved by the EXISTING parser, included here to confirm the competency extractor does not disturb it"
+        }
+      ]
+    },
+    {
+      "id": "m11c-multi-02",
+      "category": "multiple_competencies_one_sentence",
+      "section_context": "Requirements:",
+      "text": "Required: strong skills in concurrency, distributed systems, and database design.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "concurrency"
+      },
+      "logical_composition": "and",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "THREE independently-named, unrelated competency AREAS (contrast m11c-distsys-01's single area with three descriptive sub-terms) -- genuinely three sibling qualification objects, annotated here as the first with two more below.",
+      "sibling_qualifications": [
+        {
+          "qualification_kind": "technical_competency",
+          "necessity": "REQUIRED",
+          "competency_concept": {
+            "type": "competency_tag",
+            "id": "distributed-systems"
+          },
+          "github_observability": "PARTIALLY_OBSERVABLE",
+          "note": "second named area"
+        },
+        {
+          "qualification_kind": "technical_competency",
+          "necessity": "REQUIRED",
+          "competency_concept": {
+            "type": "competency_tag",
+            "id": "database-design"
+          },
+          "github_observability": "PARTIALLY_OBSERVABLE",
+          "note": "third named area"
+        }
+      ]
+    },
+    {
+      "id": "m11c-orany-01",
+      "category": "or_any_competency_group",
+      "section_context": "Requirements:",
+      "text": "Experience with at least one of the following: distributed systems, concurrent programming, or high-performance computing.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "concept",
+        "id": null,
+        "members": [
+          "distributed-systems",
+          "concurrency",
+          "high-performance-computing"
+        ],
+        "exhaustive": true
+      },
+      "logical_composition": "or_any",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "'At least one of the following' is the exhaustive-list idiom (M10D Root Cause 4's own ANY-of trigger phrase, re-applied here to competency tags rather than concept ids)."
+    },
+    {
+      "id": "m11c-mixed-logical-01",
+      "category": "mixed_and_or_competency",
+      "section_context": "Requirements:",
+      "text": "Experience with algorithms and data structures, and familiarity with either distributed systems or high-performance computing.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": null,
+      "logical_composition": "mixed_unsupported",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "An AND of (one fixed competency) and (an OR-group of two others) -- M10D's own Root Cause 6 shape, re-confirmed here for competencies. MIXED_UNSUPPORTED is the honest diagnostic value; routes to UnparsedClaim, the original text fully preserved, never falsely simplified."
+    },
+    {
+      "id": "m11c-narrative-01",
+      "category": "competency_in_company_narrative",
+      "section_context": "About Us:",
+      "text": "Our engineering team has deep expertise in distributed systems and has built some of the most resilient infrastructure in the industry.",
+      "text_category": "company_narrative",
+      "is_applicant_qualification": false,
+      "qualification_kind": null,
+      "necessity": null,
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "ADVERSARIAL NEGATIVE: 'distributed systems' appears, but describes the EXISTING TEAM's own expertise, never the applicant -- a company-narrative sentence (M10E's own narrative-cue precedent), must not be extracted as a candidate qualification despite containing a real competency term."
+    },
+    {
+      "id": "m11c-responsibility-01",
+      "category": "competency_in_job_duty",
+      "section_context": "Responsibilities:",
+      "text": "Design and implement distributed systems that scale to millions of users.",
+      "text_category": "responsibility",
+      "is_applicant_qualification": false,
+      "qualification_kind": null,
+      "necessity": null,
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "ADVERSARIAL NEGATIVE: a RESPONSIBILITY/duty bullet describing WHAT THE JOB ENTAILS DOING, never a stated applicant QUALIFICATION (Manulife's own M10E precedent, re-applied to a competency term instead of a soft-skill phrase). Must not be scored as a REQUIRED competency merely because it names one."
+    },
+    {
+      "id": "m11c-learning-01",
+      "category": "competency_in_learning_opportunity",
+      "section_context": "What You'll Learn:",
+      "text": "You'll gain hands-on experience with distributed systems design and large-scale data processing.",
+      "text_category": "learning_opportunity",
+      "is_applicant_qualification": false,
+      "qualification_kind": null,
+      "necessity": null,
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "ADVERSARIAL NEGATIVE: a LEARNING-opportunity promise (M10C's own LEARNING section kind, SOTI's own M10E precedent) -- never a requirement, regardless of the competency term it names."
+    },
+    {
+      "id": "m11c-negated-01",
+      "category": "negated_requirement",
+      "section_context": "Requirements:",
+      "text": "No prior experience with distributed systems is necessary -- we will train you.",
+      "text_category": "ambiguous",
+      "is_applicant_qualification": false,
+      "qualification_kind": null,
+      "necessity": null,
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "ADVERSARIAL NEGATIVE: an EXPLICIT negation ('no prior experience... is necessary') -- the competency term is present but the sentence asserts the OPPOSITE of a requirement. The safest, most conservative behavior is to NOT extract a REQUIRED/PREFERRED competency row at all -- routing to UnparsedClaim never fabricates a false positive, even though it also does not yet recognize negation as its own first-class signal (see Phase 1.4/Phase 3's own limitation note: negation detection is a Phase 3 evaluation axis, not a guaranteed Phase 4 capability)."
+    },
+    {
+      "id": "m11c-conditional-01",
+      "category": "conditional_competency",
+      "section_context": "Requirements:",
+      "text": "Experience with GPU programming is required, unless you have equivalent experience with other forms of parallel computing.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "gpu-parallel-computing"
+      },
+      "logical_composition": "single",
+      "applicability_condition": "unless you have equivalent experience with other forms of parallel computing",
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "A material applicability condition -- Qualification CAN represent this (applicability_condition field), but project_qualification()'s own existing safety rule (Stage 1, unchanged) routes it to UnparsedClaim since JobRequirement has no field to hold the condition. The condition text survives verbatim in the UnparsedClaim's own text."
+    },
+    {
+      "id": "m11c-linewrap-01",
+      "category": "formatting_line_wrap",
+      "section_context": "Requirements:",
+      "text": "Strong understanding of\nconcurrency and\nlock-free data structures is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "concurrency"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Soft-wrapped across three physical lines, each ending in an ordinary content word with no comma/semicolon -- the SAME disclosed M11-A2 residual ambiguity, re-exercised here for a competency sentence; this corpus entry's TEXT is pre-joined (segmentation's own line-wrap behavior is tested elsewhere, M11-A2) so this control isolates the competency-recognition question from the segmentation question."
+    },
+    {
+      "id": "m11c-unrecognized-domain-01",
+      "category": "unrecognized_technical_domain",
+      "section_context": "Requirements:",
+      "text": "Experience with quantum circuit design and qubit error correction is required.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "quantum-computing"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "NOT_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "A domain OUTSIDE the mission's own example list (quantum computing) -- the key generalization test: can the chosen strategy recognize this as TECHNICAL_COMPETENCY without having 'quantum' hardcoded, or does it fail silently to UNINTERPRETABLE/UNPARSED. Simulators exist but genuine quantum-hardware competency has no realistic GitHub proxy -- NOT_OBSERVABLE."
+    },
+    {
+      "id": "m11c-admin-01",
+      "category": "administrative_compensation",
+      "section_context": "Benefits:",
+      "text": "We offer competitive compensation, comprehensive health benefits, and a 401(k) match.",
+      "text_category": "administrative",
+      "is_applicant_qualification": false,
+      "qualification_kind": null,
+      "necessity": null,
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "Pure administrative/compensation text -- no competency term present at all, included as a baseline exclusion case."
+    },
+    {
+      "id": "m11c-education-01",
+      "category": "education_baseline",
+      "section_context": "Requirements:",
+      "text": "Bachelor's or Master's degree in Computer Science, Electrical Engineering, or a related field is required.",
+      "text_category": "education",
+      "is_applicant_qualification": true,
+      "qualification_kind": "education",
+      "necessity": "REQUIRED",
+      "competency_concept": null,
+      "logical_composition": "or_any",
+      "applicability_condition": null,
+      "github_observability": "NOT_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Already-solved baseline category, included to confirm the competency extractor does not relabel an education claim as a technical competency merely because it names technical FIELDS of study."
+    },
+    {
+      "id": "m11c-experience-01",
+      "category": "experience_baseline",
+      "section_context": "Requirements:",
+      "text": "5+ years of professional software engineering experience is required.",
+      "text_category": "experience",
+      "is_applicant_qualification": true,
+      "qualification_kind": "experience",
+      "necessity": "REQUIRED",
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "NOT_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Already-solved baseline category, included for the same reason as m11c-education-01."
+    },
+    {
+      "id": "m11c-nontechnical-01",
+      "category": "nontechnical_baseline",
+      "section_context": "Requirements:",
+      "text": "Excellent communication and cross-functional collaboration skills are required.",
+      "text_category": "nontechnical",
+      "is_applicant_qualification": true,
+      "qualification_kind": "nontechnical",
+      "necessity": "REQUIRED",
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "NOT_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Already-solved baseline category, included for the same reason."
+    },
+    {
+      "id": "m11c-cuda-adversarial-01",
+      "category": "technology_does_not_prove_competency",
+      "section_context": "Requirements:",
+      "text": "Experience with CUDA is required.",
+      "text_category": "named_technology",
+      "is_applicant_qualification": true,
+      "qualification_kind": "specific_technology",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "concept",
+        "id": "platform.cuda"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "STRONGLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "ADVERSARIAL/BOUNDARY CASE for Phase 5: this is a NAMED TECHNOLOGY claim (CUDA), not a competency claim -- the correct extraction is SPECIFIC_TECHNOLOGY, exactly as the existing parser already does. The adversarial point (tested in Phase 5, not by this row's own extraction) is that a candidate's CUDA repository dependency must NEVER be treated by any FUTURE evidence detector as proof of the SEPARATE 'GPU and parallel computing' competency (m11c-gpu-01) -- a technology mention is not evidence of the broader competency it merely uses."
+    },
+    {
+      "id": "m11c-python-adversarial-01",
+      "category": "technology_does_not_prove_competency",
+      "section_context": "Requirements:",
+      "text": "Experience with Python is required.",
+      "text_category": "named_technology",
+      "is_applicant_qualification": true,
+      "qualification_kind": "specific_technology",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "concept",
+        "id": "language.python"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "STRONGLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Same boundary point as m11c-cuda-adversarial-01: Python usage must never be treated as proof of the SEPARATE 'algorithms and data structures' competency (m11c-algo-01) by any future evidence detector."
+    },
+    {
+      "id": "m11c-react-adversarial-01",
+      "category": "technology_does_not_prove_competency",
+      "section_context": "Requirements:",
+      "text": "Experience with React is required.",
+      "text_category": "named_technology",
+      "is_applicant_qualification": true,
+      "qualification_kind": "specific_technology",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "concept",
+        "id": "framework.react"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "STRONGLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Same boundary point: React usage must never be treated as proof of the SEPARATE 'system design and architecture' competency (m11c-sysdesign-01)."
+    },
+    {
+      "id": "m11c-outside-section-02",
+      "category": "requirement_outside_formal_section",
+      "section_context": null,
+      "text": "Applicants should have hands-on experience with digital signal processing.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "signal-processing"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "'Should have' is a softer REQUIRED framing than 'must'/'required' -- annotated REQUIRED since there is no PREFERRED/hedge marker and the sentence is unconditional; a second, genuinely unsectioned example."
+    },
+    {
+      "id": "m11c-preferred-mixed-01",
+      "category": "preferred_competency",
+      "section_context": "Nice to Have:",
+      "text": "Prior exposure to machine learning fundamentals and basic statistics is a plus.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "PREFERRED",
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "ml-fundamentals"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "NOT_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Explicit PREFERRED marker ('a plus') -- also LOW importance by the existing importance.py table, an independent axis not re-annotated per-row in this corpus (Stage 1's own Qualification model carries no importance field at all, see M11-B's own documented scope)."
+    },
+    {
+      "id": "m11c-ambiguous-domain-01",
+      "category": "ambiguous_statement",
+      "section_context": "Requirements:",
+      "text": "A strong technical background is required.",
+      "text_category": "ambiguous",
+      "is_applicant_qualification": true,
+      "qualification_kind": "uninterpretable",
+      "necessity": "REQUIRED",
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "M11-B's own m11b-uninterpretable-01, re-confirmed here: genuinely unclear whether this means SPECIFIC_TECHNOLOGY, TECHNICAL_COMPETENCY, or EXPERIENCE -- UNINTERPRETABLE is the honest answer, not a forced guess at a specific competency tag."
+    },
+    {
+      "id": "m11c-ambiguous-domain-02",
+      "category": "ambiguous_statement",
+      "section_context": "Requirements:",
+      "text": "Must be technically proficient.",
+      "text_category": "ambiguous",
+      "is_applicant_qualification": true,
+      "qualification_kind": "uninterpretable",
+      "necessity": "REQUIRED",
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "Even shorter and vaguer than m11c-ambiguous-domain-01 -- a second genuinely uninterpretable case, since 'technically proficient' names no domain at all."
+    },
+    {
+      "id": "m11c-narrative-02",
+      "category": "competency_in_company_narrative",
+      "section_context": "About the Role:",
+      "text": "We're a small team solving hard problems in computer vision and machine learning at scale.",
+      "text_category": "company_narrative",
+      "is_applicant_qualification": false,
+      "qualification_kind": null,
+      "necessity": null,
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "ADVERSARIAL NEGATIVE: a second company-narrative case naming TWO competency terms (computer vision, machine learning) describing the TEAM's own work, not an applicant qualification -- a harder case than m11c-narrative-01 since it has no 'our team has expertise' phrase, only a 'we're solving problems in X' framing."
+    },
+    {
+      "id": "m11c-responsibility-02",
+      "category": "competency_in_job_duty",
+      "section_context": "Responsibilities:",
+      "text": "Debug and optimize performance-critical systems under tight latency constraints.",
+      "text_category": "responsibility",
+      "is_applicant_qualification": false,
+      "qualification_kind": null,
+      "necessity": null,
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "ADVERSARIAL NEGATIVE: second responsibility-bullet case, imperative mood ('Debug and optimize...') -- a duty description, not a qualification, despite naming the same competency as m11c-perf-01."
+    },
+    {
+      "id": "m11c-exhaustive-02",
+      "category": "exhaustive_competency_list",
+      "section_context": "Requirements:",
+      "text": "Proficiency in one of the following areas: distributed systems, database internals, or operating systems.",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": "REQUIRED",
+      "competency_concept": {
+        "type": "concept",
+        "id": null,
+        "members": [
+          "distributed-systems",
+          "database-design",
+          "os-networking"
+        ],
+        "exhaustive": true
+      },
+      "logical_composition": "or_any",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "job_requirement",
+      "notes": "Second exhaustive-list idiom case ('one of the following areas') -- contrast m11c-cv-01's illustrative 'such as' framing (exhaustive=false there)."
+    },
+    {
+      "id": "m11c-bullet-01",
+      "category": "formatting_bulleted",
+      "section_context": "Requirements:",
+      "text": "- Solid understanding of operating systems and process scheduling",
+      "text_category": "technical_competency",
+      "is_applicant_qualification": true,
+      "qualification_kind": "technical_competency",
+      "necessity": null,
+      "competency_concept": {
+        "type": "competency_tag",
+        "id": "os-networking"
+      },
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": "PARTIALLY_OBSERVABLE",
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "A bare bulleted item with no local necessity marker at all -- necessity depends entirely on the (unspecified here) section's own hint; annotated null/UnparsedClaim to isolate the per-sentence competency-recognition question from section-level necessity inheritance (already covered by M10B/M10E)."
+    },
+    {
+      "id": "m11c-admin-02",
+      "category": "administrative_compensation",
+      "section_context": "How to Apply:",
+      "text": "Please submit your resume and cover letter through our careers portal by March 15th.",
+      "text_category": "administrative",
+      "is_applicant_qualification": false,
+      "qualification_kind": null,
+      "necessity": null,
+      "competency_concept": null,
+      "logical_composition": "single",
+      "applicability_condition": null,
+      "github_observability": null,
+      "expected_conservative_projection": "unparsed_claim",
+      "notes": "Second administrative baseline exclusion case, no competency term present."
+    }
+  ]
+}

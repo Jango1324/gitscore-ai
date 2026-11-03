@@ -1,5 +1,150 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-02 — Milestone 11-C: generalized technical-competency extraction, offline Path B prototype
+
+**What changed:** An evaluation-first investigation into Path B
+(independent semantic qualification extraction), per Milestone 11-B
+Stage 2A's own dependency-ordered plan. Produced a new 45-example
+evaluation corpus, compared three real offline extraction strategies,
+and implemented the winning strategy as a standalone, unwired
+prototype module -- no production code touched.
+
+`evaluation/m11c/competency_extraction_controls.json` (new, 45
+entries) -- authored BEFORE any strategy was implemented or run
+against it, covering all 16 mission-named engineering disciplines
+(algorithms, concurrency, distributed systems, system design,
+debugging/performance, OS/networking, database design, ML
+fundamentals, GPU/parallel computing, signal processing, circuit
+theory, embedded systems, control systems, computer vision,
+cybersecurity, digital logic) plus one deliberately unlisted domain
+(quantum computing) as a generalization test, 8 adversarial/baseline
+negatives (company narrative x2, responsibility bullets x2, a learning
+opportunity, a negated requirement, administrative text x2), AND/OR
+logical structures, conditional qualifications, line-wrap/bulleted
+formatting, and requirements outside formal sections. One
+corpus-authoring bug found and fixed DURING comparison (not after):
+11 entries had `logical_composition` set to `"and"`/`"or_any"` for
+sentences that are genuinely ONE competency claim with descriptive
+sub-terms, inconsistent with the corpus's own notes field and with
+`LogicalComposition`'s actual Stage-1 semantics -- corrected to
+`"single"`, discovered the same way M11-A2/M11-B's own corpus bugs
+were (a real prototype's measured output forcing a re-read of the
+annotation's own stated intent).
+
+`scripts/evaluation_lib/m11c_competency_prototypes.py` +
+`scripts/evaluate_m11c_competency_extraction.py` (new) -- three real
+offline prototypes sharing one bounded, 17-tag competency vocabulary
+(the same closed, generic-phrase-table design `non_technical.py`
+already uses). Option A (naive, no sentence-role awareness): 28/28
+recall, 28/34 precision (6 false positives). Option B (reuses the
+EXISTING, unmodified `infer_necessity`/`contains_narrative_cue` plus 2
+new bounded signals -- responsibility-lead detection, negation): 28/30
+precision (2 residual false positives -- confirmed directly that
+`contains_narrative_cue()`'s own three M10E-tuned alternatives do not
+match either of this corpus's new company-narrative phrasings). Option
+C (Option B plus one more bounded, additive narrative-subject pattern,
+never a `narrative.py` edit): **28/28 precision, zero false positives
+of any kind**, identical recall/necessity/logical-grouping to A and B.
+Chosen on measured precision, not recall (all three tied on recall).
+
+`src/gitscore/jobs/parsing/competency_extraction.py` (new, standalone,
+confirmed not imported by `parser.py`/`segmentation.py`/
+`necessity.py`/`narrative.py`) -- the real Option C implementation,
+producing actual `Qualification` objects (Stage 1, unmodified) from
+already-segmented claim text/spans. Found one genuine missing
+contract, declined rather than invented around: `NormalizedReference`
+has no field for a GROUP of multiple competency tags (only one
+registered concept, a GROUP of registered concepts, or ONE competency
+tag) -- "at least one of: distributed systems, concurrent programming,
+or high-performance computing" cannot be safely represented today;
+the extractor returns a named `DeclinedExtraction(reason=
+"missing_contract", ...)` whose own detail text names every option
+found, rather than silently discarding them. Added a new, data-only
+competency-observability policy table (`_COMPETENCY_OBSERVABILITY`,
+never an evidence detector -- a plain lookup, mirroring
+`observability.py`'s own existing design): `circuit-theory`,
+`ml-fundamentals`, and `quantum-computing` map to `NOT_OBSERVABLE`;
+every other tag maps to `PARTIALLY_OBSERVABLE`; none maps to
+`STRONGLY_OBSERVABLE`.
+
+`scripts/evaluate_m11c_offline_extractor_safety.py` (new) -- re-measured
+the REAL module (not just the comparison prototype) and empirically
+verified the Phase 5 safety requirement by actually calling the REAL,
+unmodified `match_requirement()` against an empty candidate evidence
+profile for every produced requirement: `never_supported_with_empty_evidence`
+and `never_falsely_assessable_without_concept_mapping` both `True`
+across all 28 cases -- a technical competency can never be silently
+scored `SUPPORTED` or enter `assessable_count`'s denominator without a
+real concept mapping, confirmed directly rather than assumed.
+
+**Why:** Milestone 11's own finding (9% `TECHNICAL_COMPETENCY` recall,
+a structural absence, not a detection miss) and Stage 2A's own
+dependency-ordered plan named Path B extraction as the step requiring
+its own evaluation-first milestone, explicitly deferred until Path
+A/tooling work was committed. This milestone is that step, held to the
+EXACT same discipline: corpus before code, measured comparison before
+a choice, explicit STOP on anything the existing model cannot safely
+represent.
+
+**Measured results (the real module, not the comparison prototype):**
+26/28 recall (2 disclosed missing-contract declines, never a false
+positive), 26/26 precision (zero false positives of any kind), 20/20
+necessity classification (genuinely-unknown cases correctly excluded
+from the denominator, never penalized as wrong), 27/28 logical
+grouping (the one residual is a disclosed, M11-B-precedented
+limitation: this extractor does not coordinate with a technology-
+mention detector to recognize sibling composition ACROSS different
+qualification kinds within one sentence), 28/28 source-span exactness,
+fully deterministic.
+
+**Files affected:** `evaluation/m11c/competency_extraction_controls.json`
+(new); `scripts/evaluation_lib/m11c_competency_prototypes.py` (new);
+`scripts/evaluate_m11c_competency_extraction.py` (new);
+`src/gitscore/jobs/parsing/competency_extraction.py` (new);
+`tests/test_m11c_competency_extraction.py` (new, 29 tests);
+`scripts/evaluate_m11c_offline_extractor_safety.py` (new);
+`docs/evaluation/MILESTONE_11_C_COMPETENCY_EXTRACTION.md` (new);
+`docs/ARCHITECTURE.md` (new subsection); `docs/PIPELINE.md` (follow-up
+note). No existing `src/gitscore` file modified; no matcher, scoring,
+public schema, API, frontend, or concept-registry change;
+`JOB_DESCRIPTION_PARSER_VERSION` stays `job_description_parser:v10`
+(the live parser has not changed).
+
+**Risks / limitations:** vocabulary coverage, not language
+understanding (17 tags, no recall claim beyond them); necessity
+detection is local-marker-only (no section-hint threading, a real
+future integration question); negation handling is three fixed
+phrases, not a general capability; the missing-contract gap (OR_ANY
+groups of competency tags) is real and unfixed; no claim of universal
+postings understanding is made anywhere in this entry or the design
+doc -- 45 single-session development examples is not a representative
+holdout sample, and the design doc's own Phase 2 holdout protocol
+(unchanged from Stage 2A, content still unauthored) remains the
+required bar before any broader claim.
+
+**How to test it:** `pytest tests/test_m11c_competency_extraction.py -q`
+(29 tests); full suite `pytest -q` (1343 pre-existing + 29 new = 1372
+passed, 13 skipped, unchanged skip set);
+`python scripts/evaluate_m11c_competency_extraction.py` (the Phase 3
+strategy comparison); `python scripts/evaluate_m11c_offline_extractor_safety.py`
+(the Phase 4/5 real-module measurement and scoring-safety
+verification); `python scripts/evaluate_m11_generalization.py`,
+`python scripts/evaluate_m10a_realworld.py`,
+`python scripts/evaluate_m9b_preservation.py`,
+`python scripts/evaluate_m10d_alternatives.py`, and
+`python scripts/check_evaluation_staleness.py` all byte-identical to
+the Stage 2B baseline (frozen `8c:v1`/`8c:v1.1` FRESH, 0 diffs).
+`evaluate_m11a2_line_wrap.py` was also re-run to confirm its baseline
+column is unchanged; its own and `evaluate_m10d_alternatives.py`'s
+regenerated tracked report files were reverted via `git checkout --`
+afterward, matching every prior milestone's own practice.
+
+**Not done, by explicit scope:** no live parser wiring (confirmed by
+test); no competency GitHub evidence detector; no public schema/
+matcher/scoring/API/frontend change; no holdout corpus content
+authored (methodology only, unchanged from Stage 2A); no commit, no
+push -- held for separate, explicit authorization.
+
 ## 2026-11-02 — Milestone 11-B Stage 2B: Path A compatibility adapter + offline shadow-evaluation harness
 
 **What changed:** Following Stage 2A's architecture-only review

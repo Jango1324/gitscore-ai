@@ -1,0 +1,332 @@
+{
+  "option_a": {
+    "deterministic": true,
+    "false_positive_breakdown": {
+      "administrative": 0,
+      "company_narrative": 2,
+      "learning_opportunity": 1,
+      "negation": 1,
+      "other_baseline": 0,
+      "responsibility": 2
+    },
+    "logical_grouping": {
+      "denominator": 28,
+      "numerator": 27
+    },
+    "mismatches": [
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-concurrency-01",
+        "strategy": "option_a"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-sysdesign-01",
+        "strategy": "option_a"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-outside-section-01",
+        "strategy": "option_a"
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "and",
+        "id": "m11c-mixed-tech-competency-01",
+        "strategy": "option_a"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-orany-01",
+        "strategy": "option_a"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-mixed-logical-01",
+        "strategy": "option_a"
+      },
+      {
+        "error": "false_positive_company_narrative",
+        "id": "m11c-narrative-01",
+        "strategy": "option_a",
+        "text": "Our engineering team has deep expertise in distributed systems and has built some of the most resilient infrastructure in the industry."
+      },
+      {
+        "error": "false_positive_responsibility",
+        "id": "m11c-responsibility-01",
+        "strategy": "option_a",
+        "text": "Design and implement distributed systems that scale to millions of users."
+      },
+      {
+        "error": "false_positive_learning_opportunity",
+        "id": "m11c-learning-01",
+        "strategy": "option_a",
+        "text": "You'll gain hands-on experience with distributed systems design and large-scale data processing."
+      },
+      {
+        "error": "false_positive_negation",
+        "id": "m11c-negated-01",
+        "strategy": "option_a",
+        "text": "No prior experience with distributed systems is necessary -- we will train you."
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-outside-section-02",
+        "strategy": "option_a"
+      },
+      {
+        "error": "false_positive_company_narrative",
+        "id": "m11c-narrative-02",
+        "strategy": "option_a",
+        "text": "We're a small team solving hard problems in computer vision and machine learning at scale."
+      },
+      {
+        "error": "false_positive_responsibility",
+        "id": "m11c-responsibility-02",
+        "strategy": "option_a",
+        "text": "Debug and optimize performance-critical systems under tight latency constraints."
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-exhaustive-02",
+        "strategy": "option_a"
+      }
+    ],
+    "multi_competency_splitting": {
+      "denominator": 2,
+      "numerator": 2
+    },
+    "necessity_classification": {
+      "denominator": 28,
+      "numerator": 21
+    },
+    "qualification_precision": {
+      "denominator": 34,
+      "numerator": 28
+    },
+    "qualification_recall": {
+      "denominator": 28,
+      "numerator": 28
+    },
+    "strategy": "option_a",
+    "uninterpretable_correctly_declined": {
+      "denominator": 2,
+      "numerator": 2
+    }
+  },
+  "option_b": {
+    "deterministic": true,
+    "false_positive_breakdown": {
+      "administrative": 0,
+      "company_narrative": 2,
+      "learning_opportunity": 0,
+      "negation": 0,
+      "other_baseline": 0,
+      "responsibility": 0
+    },
+    "logical_grouping": {
+      "denominator": 28,
+      "numerator": 27
+    },
+    "mismatches": [
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-concurrency-01",
+        "strategy": "option_b"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-sysdesign-01",
+        "strategy": "option_b"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-outside-section-01",
+        "strategy": "option_b"
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "and",
+        "id": "m11c-mixed-tech-competency-01",
+        "strategy": "option_b"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-orany-01",
+        "strategy": "option_b"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-mixed-logical-01",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_positive_company_narrative",
+        "id": "m11c-narrative-01",
+        "strategy": "option_b",
+        "text": "Our engineering team has deep expertise in distributed systems and has built some of the most resilient infrastructure in the industry."
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-outside-section-02",
+        "strategy": "option_b"
+      },
+      {
+        "error": "false_positive_company_narrative",
+        "id": "m11c-narrative-02",
+        "strategy": "option_b",
+        "text": "We're a small team solving hard problems in computer vision and machine learning at scale."
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-exhaustive-02",
+        "strategy": "option_b"
+      }
+    ],
+    "multi_competency_splitting": {
+      "denominator": 2,
+      "numerator": 2
+    },
+    "necessity_classification": {
+      "denominator": 28,
+      "numerator": 21
+    },
+    "qualification_precision": {
+      "denominator": 30,
+      "numerator": 28
+    },
+    "qualification_recall": {
+      "denominator": 28,
+      "numerator": 28
+    },
+    "strategy": "option_b",
+    "uninterpretable_correctly_declined": {
+      "denominator": 2,
+      "numerator": 2
+    }
+  },
+  "option_c": {
+    "deterministic": true,
+    "false_positive_breakdown": {
+      "administrative": 0,
+      "company_narrative": 0,
+      "learning_opportunity": 0,
+      "negation": 0,
+      "other_baseline": 0,
+      "responsibility": 0
+    },
+    "logical_grouping": {
+      "denominator": 28,
+      "numerator": 27
+    },
+    "mismatches": [
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-concurrency-01",
+        "strategy": "option_c"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-sysdesign-01",
+        "strategy": "option_c"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-outside-section-01",
+        "strategy": "option_c"
+      },
+      {
+        "actual": "single",
+        "error": "logical_composition_mismatch",
+        "expected": "and",
+        "id": "m11c-mixed-tech-competency-01",
+        "strategy": "option_c"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-orany-01",
+        "strategy": "option_c"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-mixed-logical-01",
+        "strategy": "option_c"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-outside-section-02",
+        "strategy": "option_c"
+      },
+      {
+        "actual": null,
+        "error": "necessity_mismatch",
+        "expected": "REQUIRED",
+        "id": "m11c-exhaustive-02",
+        "strategy": "option_c"
+      }
+    ],
+    "multi_competency_splitting": {
+      "denominator": 2,
+      "numerator": 2
+    },
+    "necessity_classification": {
+      "denominator": 28,
+      "numerator": 21
+    },
+    "qualification_precision": {
+      "denominator": 28,
+      "numerator": 28
+    },
+    "qualification_recall": {
+      "denominator": 28,
+      "numerator": 28
+    },
+    "strategy": "option_c",
+    "uninterpretable_correctly_declined": {
+      "denominator": 2,
+      "numerator": 2
+    }
+  }
+}

@@ -615,6 +615,18 @@ anywhere in this pipeline, confirmed by a dedicated test. See
 `docs/evaluation/MILESTONE_11_B_STAGE_2A_SHADOW_INTEGRATION.md`'s
 implementation addendum.
 
+**Milestone 11-C follow-up (no pipeline flow change):** a new,
+standalone `jobs/parsing/competency_extraction.py` module can produce
+`Qualification` objects for technical-competency language ("concurrency,"
+"circuit theory," ...) from already-segmented claim text -- but **is
+not called anywhere in this pipeline today**, confirmed by a dedicated
+test. `_requirements_from_claim` still has zero representation for
+`TECHNICAL_COMPETENCY` claims, exactly as described above (M11's own
+9% recall finding, unchanged). See `docs/ARCHITECTURE.md`'s Milestone
+11-C section and
+`docs/evaluation/MILESTONE_11_C_COMPETENCY_EXTRACTION.md` for the full
+evaluation-first comparison and offline prototype.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat
