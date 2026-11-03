@@ -1,0 +1,146 @@
+{
+  "corpus_version": "m11d-holdout:v1",
+  "methodology": "Each posting below was located via WebSearch (queries targeting boards.greenhouse.io / job-boards.greenhouse.io / jobs.lever.co, scoped by role and discipline) and its content retrieved via WebFetch with an explicit instruction to return the complete, verbatim posting text rather than a summary. WebFetch processes fetched HTML through a small extraction model before returning it to the caller -- this is NOT a byte-for-byte scrape of the live page's raw HTML/DOM, and is disclosed explicitly as a corpus-integrity limitation in docs/evaluation/MILESTONE_11_D_GENERALIZATION_VALIDATION.md. The returned text was saved verbatim (no editing, no paraphrasing, no correction of the extraction tool's own formatting choices) to the sibling source/*.txt file, then hashed with SHA-256 BEFORE any annotation was written. None of these 12 postings is SOTI, Manulife, NVIDIA, or any posting previously inspected in M11/M11-B/M11-C's own development material.",
+  "acquisition_date": "2026-11-03",
+  "target_vs_actual": {
+    "target_postings": "20-30",
+    "actual_postings": 12,
+    "target_annotated_spans": ">=100",
+    "shortfall_reason": "A majority of job-posting URLs returned by WebSearch for boards.greenhouse.io had already migrated or expired by fetch time (WebFetch returned the company's general job-index page instead of the specific posting, or a 404) -- confirmed directly, not assumed; this reflects how quickly real postings churn, not a tooling malfunction. Acquisition was stopped at 12 verified, successfully-fetched, domain-diverse postings rather than padding the corpus with synthetic or non-independently-sourced material. This shortfall is reported explicitly per this milestone's own instruction, not minimized."
+  },
+  "postings": [
+    {
+      "id": "m11d-fieldai-robotics-01",
+      "employer": "Field AI",
+      "role_title": "Robotics Software Engineer, Robot Integrations",
+      "domain": "robotics_autonomy",
+      "seniority": "mid",
+      "source_url": "https://jobs.lever.co/field-ai/b5f58151-9a46-441f-badf-2e91244bfd39",
+      "source_file": "evaluation/m11d/source/fieldai_robotics_software_engineer.txt",
+      "sha256": "f86fd410103cd6c427ce4d9b87bf059a24bbe450361e85f1083ee9681a1c3d5c"
+    },
+    {
+      "id": "m11d-fieldai-autonomy-01",
+      "employer": "Field AI",
+      "role_title": "Robotics Autonomy Engineer, Systems",
+      "domain": "robotics_autonomy",
+      "seniority": "senior",
+      "source_url": "https://jobs.lever.co/field-ai/73c30d65-3a05-4ba3-99b6-af2d2b13e85e",
+      "source_file": "evaluation/m11d/source/fieldai_robotics_autonomy_engineer.txt",
+      "sha256": "0cb86bbe1430b50fb4ab24ba21b26afe48deced753cf94762abc5a462100a04d"
+    },
+    {
+      "id": "m11d-maymobility-ml-01",
+      "employer": "May Mobility",
+      "role_title": "Machine Learning Engineer II - Autonomous Driving Performance Evaluation",
+      "domain": "ai_ml",
+      "seniority": "mid",
+      "source_url": "https://job-boards.greenhouse.io/maymobility/jobs/8187068002",
+      "source_file": "evaluation/m11d/source/maymobility_ml_engineer_ii.txt",
+      "sha256": "6c5a389bb96f1940a4a6bc3f6d2981a5640c99d62504437b57bf5eddd2dff89f"
+    },
+    {
+      "id": "m11d-figma-distsys-01",
+      "employer": "Figma",
+      "role_title": "Software Engineer - Distributed Systems",
+      "domain": "backend_distributed_systems",
+      "seniority": "senior",
+      "source_url": "https://job-boards.greenhouse.io/figma/jobs/5552549004",
+      "source_file": "evaluation/m11d/source/figma_swe_distributed_systems.txt",
+      "sha256": "a470e441aeccaf02fd5a5445f6d77450a9b9461b858f03627a6b11ac262efb74"
+    },
+    {
+      "id": "m11d-anduril-firmware-01",
+      "employer": "Anduril Industries",
+      "role_title": "Senior Firmware Engineer, Embedded Systems",
+      "domain": "embedded_systems",
+      "seniority": "senior",
+      "source_url": "https://job-boards.greenhouse.io/andurilindustries/jobs/5118040007",
+      "source_file": "evaluation/m11d/source/anduril_senior_firmware_engineer.txt",
+      "sha256": "02c92ef281449f1f8e7c9d8a5dbd8caf691ee3180dc4a538d32b99182950fc65"
+    },
+    {
+      "id": "m11d-voyager-electrical-01",
+      "employer": "Voyager Technologies, Inc.",
+      "role_title": "Senior Electrical Hardware Engineer (Avionics)",
+      "domain": "electrical_engineering",
+      "seniority": "senior",
+      "source_url": "https://job-boards.greenhouse.io/voyagertechnologiesinc/jobs/4403076009",
+      "source_file": "evaluation/m11d/source/voyager_senior_electrical_hardware_engineer.txt",
+      "sha256": "fcc405a85075191f10154650fbace398f9ec5846dc4754a72bae57f9aaa598ff"
+    },
+    {
+      "id": "m11d-anthropic-dataeng-01",
+      "employer": "Anthropic",
+      "role_title": "Data Engineer",
+      "domain": "data_engineering",
+      "seniority": "mid",
+      "source_url": "https://job-boards.greenhouse.io/anthropic/jobs/5464234008",
+      "source_file": "evaluation/m11d/source/anthropic_data_engineer.txt",
+      "sha256": "71d0e655119468bafca88ff3816bdb960ffa145a589e55c1ccb2121c719f9a60"
+    },
+    {
+      "id": "m11d-anthropic-secengr-01",
+      "employer": "Anthropic",
+      "role_title": "Security Engineer, Detection & Response",
+      "domain": "cybersecurity",
+      "seniority": "mid",
+      "source_url": "https://job-boards.greenhouse.io/anthropic/jobs/4982193008",
+      "source_file": "evaluation/m11d/source/anthropic_security_engineer_detection_response.txt",
+      "sha256": "166794ba7e692efa8034bea7355468311cd1fc44a386f593e297f6ead766d17e"
+    },
+    {
+      "id": "m11d-scaleai-newgrad-01",
+      "employer": "Scale AI",
+      "role_title": "Software Engineer - New Grad",
+      "domain": "software_engineering_general",
+      "seniority": "junior_new_grad",
+      "source_url": "https://job-boards.greenhouse.io/scaleai/jobs/4730836005",
+      "source_file": "evaluation/m11d/source/scaleai_swe_new_grad.txt",
+      "sha256": "95732bb2bc1333274f4ab51aaefabc561d62d0dce5f099297269989d3b549842"
+    },
+    {
+      "id": "m11d-spacex-newgrad-01",
+      "employer": "SpaceX",
+      "role_title": "New Graduate Engineer, Software",
+      "domain": "software_engineering_general",
+      "seniority": "junior_new_grad",
+      "source_url": "https://job-boards.greenhouse.io/spacex/jobs/8493079002",
+      "source_file": "evaluation/m11d/source/spacex_new_graduate_engineer_software.txt",
+      "sha256": "4becb0cd43d308eba91a60ff926aa0d2b1fd8716d771918c0b3f73783f4f603a"
+    },
+    {
+      "id": "m11d-rti-performance-01",
+      "employer": "Real-Time Innovations (RTI)",
+      "role_title": "Performance Engineer",
+      "domain": "systems_performance_engineering",
+      "seniority": "senior",
+      "source_url": "https://job-boards.greenhouse.io/rti/jobs/8069024",
+      "source_file": "evaluation/m11d/source/rti_performance_engineer.txt",
+      "sha256": "8081a5cfe3bd4d2dc94dd8c1884a447c98da76cf5105d528bf4266ddec4ddb5c"
+    },
+    {
+      "id": "m11d-togetherai-platform-01",
+      "employer": "Together AI",
+      "role_title": "Staff Platform Infrastructure Engineer",
+      "domain": "infrastructure_cloud",
+      "seniority": "staff_senior",
+      "source_url": "https://job-boards.greenhouse.io/togetherai/jobs/5180690007",
+      "source_file": "evaluation/m11d/source/togetherai_staff_platform_infrastructure_engineer.txt",
+      "sha256": "14818156d04530250776148f537ba6a9f41b51aa0df2090b65780751279178be"
+    }
+  ],
+  "domain_coverage_vs_requested": {
+    "software_engineering_general": 2,
+    "backend_distributed_systems": 1,
+    "ai_ml": 1,
+    "robotics_autonomy": 2,
+    "embedded_systems": 1,
+    "electrical_engineering": 1,
+    "systems_performance_engineering": 1,
+    "cybersecurity": 1,
+    "infrastructure_cloud": 1,
+    "data_engineering": 1,
+    "note": "All 10 requested domains have at least one posting. robotics_autonomy and software_engineering_general have 2 each; the remaining 8 domains have exactly 1 each -- a single posting per domain is a thin sample and this is disclosed explicitly in the design doc's own limitations section, not treated as a statistically representative sample of that domain."
+  }
+}

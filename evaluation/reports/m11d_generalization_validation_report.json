@@ -1,0 +1,131 @@
+{
+  "by_domain": {
+    "ai_ml": {
+      "fn": 4,
+      "fp": 0,
+      "total_competency": 4,
+      "tp": 0
+    },
+    "backend_distributed_systems": {
+      "fn": 2,
+      "fp": 0,
+      "total_competency": 4,
+      "tp": 2
+    },
+    "cybersecurity": {
+      "fn": 6,
+      "fp": 0,
+      "total_competency": 6,
+      "tp": 0
+    },
+    "data_engineering": {
+      "fn": 2,
+      "fp": 0,
+      "total_competency": 2,
+      "tp": 0
+    },
+    "electrical_engineering": {
+      "fn": 6,
+      "fp": 0,
+      "total_competency": 6,
+      "tp": 0
+    },
+    "embedded_systems": {
+      "fn": 5,
+      "fp": 1,
+      "total_competency": 6,
+      "tp": 1
+    },
+    "infrastructure_cloud": {
+      "fn": 5,
+      "fp": 0,
+      "total_competency": 5,
+      "tp": 0
+    },
+    "robotics_autonomy": {
+      "fn": 16,
+      "fp": 0,
+      "total_competency": 16,
+      "tp": 0
+    },
+    "software_engineering_general": {
+      "fn": 5,
+      "fp": 0,
+      "total_competency": 5,
+      "tp": 0
+    },
+    "systems_performance_engineering": {
+      "fn": 5,
+      "fp": 0,
+      "total_competency": 5,
+      "tp": 0
+    }
+  },
+  "corpus": {
+    "claims": 165,
+    "postings": 12
+  },
+  "false_positives": {
+    "from_company_narratives": 1,
+    "from_other_non_qualification_or_different_kind": 2,
+    "from_responsibilities": 0
+  },
+  "logical_grouping": {
+    "denominator": 6,
+    "numerator": 5
+  },
+  "mismatches": [
+    {
+      "error": "false_positive_baseline_experience",
+      "id": "m11d-anduril-firmware-01-02",
+      "text_length_chars": 58,
+      "text_sha256": "cc5888e298fccc0e5ce55f4790b742ac75297c64a2f53f86df187ab45b76a0ae"
+    },
+    {
+      "error": "false_positive_baseline_named_technology",
+      "id": "m11d-anduril-firmware-01-03",
+      "text_length_chars": 44,
+      "text_sha256": "2be2b62186fc26206705906f0923997236b4f67b64bac8b198fbb123d961da72"
+    },
+    {
+      "actual": "single",
+      "error": "logical_composition_mismatch",
+      "expected": "or_any",
+      "id": "m11d-anduril-firmware-01-05"
+    },
+    {
+      "error": "false_positive_company_narrative",
+      "id": "m11d-anduril-firmware-01-14",
+      "text_length_chars": 67,
+      "text_sha256": "3d30c706c39e96bb3a5275902ce404314227a122ffbaff480cac7edf3178d54e"
+    }
+  ],
+  "missing_contract_declines": 0,
+  "necessity_classification": {
+    "denominator": 0,
+    "numerator": 0
+  },
+  "publication_note": "Mismatch entries are fingerprinted (text_length_chars/text_sha256), never verbatim -- see this script's own module docstring. Aggregate counts and domain breakdowns below are complete.",
+  "qualification_precision_technical_competency": {
+    "denominator": 6,
+    "numerator": 3
+  },
+  "qualification_recall_technical_competency": {
+    "denominator": 59,
+    "numerator": 3
+  },
+  "scoring_safety": {
+    "never_falsely_assessable_without_concept_mapping": true,
+    "never_supported_with_empty_evidence": true,
+    "safety_checks_run": 0
+  },
+  "source_span_exactness": {
+    "denominator": 6,
+    "numerator": 6
+  },
+  "vocabulary_coverage_gap": {
+    "correctly_declined_as_no_competency_language": 32,
+    "total_new_vocabulary_claims": 32,
+    "unexpectedly_recognized_anyway": 0
+  }
+}
