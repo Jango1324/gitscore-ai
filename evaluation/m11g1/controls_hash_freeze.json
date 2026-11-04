@@ -1,0 +1,8 @@
+{
+  "frozen_file": "evaluation/m11g1/alternative_requirement_controls.json",
+  "sha256": "6f77cf62c9df0643ca6607c57f2f69eaf61f3499e173df4cf1a312278a0f5a03",
+  "total_controls": 32,
+  "categories_covered": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+  "note": "Expected outcomes frozen BEFORE any production or offline-extractor code was modified for Milestone 11-G1. Any future diff against this hash means expected outcomes were changed after the fix was already known -- a sign of tuning against the gold rather than fixing the extractor.",
+  "corpus_authoring_fix_disclosed": "Four controls (m11g1-12, m11g1-12b, m11g1-15, m11g1-15b) were revised BEFORE this hash was taken (and before any extractor code was touched) to fix two test-authoring mistakes discovered while establishing the baseline: category-12's original sentences did not contain any _QUALIFYING_INTENT_V2 cue word at all, so they short-circuited to no_competency_language before ever reaching the narrative/responsibility filters they were meant to exercise; and category-15's original 'unless the team lead approves an exception' phrase accidentally collided with _BROADER_NARRATIVE_SUBJECT's existing '\\bthe\\s+team\\b' pattern. Both are corpus-authoring bugs, not extraction defects -- fixed by rewording the sentences, never by changing production code to match a flawed expectation. This is the ONLY revision made to this corpus; the hash above is the first and only freeze."
+}

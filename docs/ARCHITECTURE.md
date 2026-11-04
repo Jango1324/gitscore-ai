@@ -5027,3 +5027,55 @@ new independently-sourced validation corpus acquired this milestone
 `docs/evaluation/MILESTONE_11_E_PARAPHRASE_EXTRACTION.md`'s own
 13-item report and `docs/CHANGELOG_DEV.md`'s Milestone 11-E entry for
 the complete record.
+
+### Milestone 11-G1 — alternative-requirement (OR-list) safety fix (v2 only)
+
+M11-F's own independent-holdout evaluation surfaced a real safety defect
+in `extract_competency_qualifications_v2` (and, identically,
+unmodified v1): the `has_or`/`has_and` structural flags were only ever
+consulted inside the `len(tags) > 1` branch, so a sentence whose
+OR-list names several alternatives but where only ONE happens to match
+a known competency tag took the `len(tags) == 1` fast path instead —
+returning a fully-confident single-tag `Qualification` that silently
+discarded every other named alternative and presented one matched tag
+as though equivalent to the complete requirement.
+
+A new structural check (`_split_alternative_segments_v2` +
+`_segment_competency_tags_v2`, both v2-only) now runs BEFORE the
+tag-count branching: it segments a confidently-list-shaped OR sentence
+(comma/semicolon-separated, or a plain two-way "X or Y") and
+independently re-matches each segment against the same stemmed
+canonical+alias vocabulary v2 already uses. If any segment matches
+nothing, or segments collectively span more than one distinct tag, the
+sentence declines as `missing_contract` regardless of how many tags
+the whole-sentence match found. If every segment agrees on the SAME
+single tag (three synonymous phrasings of one competency, e.g.
+"concurrency, race conditions, or multithreading"), it falls through
+unchanged to the pre-existing single/AND-split logic. The segmentation
+helper deliberately treats ordinary prose and the common
+"...or equivalent/similar X" substitutability idiom as "not a list,"
+falling back to prior behavior rather than risk a new false decline.
+
+The shared `DeclinedExtraction` type gained three optional,
+default-empty diagnostic fields (`source_text`, `source_span`,
+`recognized_tags`) — additive to this module-LOCAL helper type (never
+`Qualification`/`NormalizedReference`, the Stage-1 shared contracts),
+so no architectural blocker was hit. `extract_competency_qualifications`
+(v1) has zero lines changed in its own function body; `git diff --stat`
+confirms the entire production change is +138/−0 lines in one file.
+
+**Measured result:** a fresh, hash-frozen, 32-control synthetic
+corpus covering all 18 required categories
+(`evaluation/m11g1/alternative_requirement_controls.json`) went
+25/32→**32/32**, with the 7 baseline failures all exactly the targeted
+shape. M11-E's own 92-control development corpus is byte-identical
+before/after. M11-F's independent holdout, used only as an
+already-inspected diagnostic benchmark (never retuned, its frozen
+gold never touched): tag precision 12/13→**12/12** (the one false
+positive this fix targets, now a correct decline), tag recall
+unchanged at 12/74. Full regression suite 1406→**1439** passed/13
+skipped unchanged. No live-parser wiring, no competency evidence
+detector, no public schema/matcher/scoring/API/frontend change — see
+`docs/evaluation/MILESTONE_11_G1_ALTERNATIVE_REQUIREMENT_SAFETY.md`'s
+own 10-item report and `docs/CHANGELOG_DEV.md`'s Milestone 11-G1
+entry for the complete record.

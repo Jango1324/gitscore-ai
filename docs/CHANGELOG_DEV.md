@@ -1,5 +1,68 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-04 — Milestone 11-G1: alternative-requirement (OR-list) safety fix for v2
+
+**What changed:** M11-F's own independent-holdout evaluation surfaced one real
+safety defect: `extract_competency_qualifications_v2` (and, identically,
+unmodified v1) only consulted its `has_or`/`has_and` flags inside the
+`len(tags) > 1` branch. A sentence whose OR-list names several alternatives
+but where only ONE alternative happens to match a known competency tag took
+the `len(tags) == 1` fast path instead, returning a fully-confident single-tag
+`Qualification` that silently discarded every other named alternative.
+
+`src/gitscore/jobs/parsing/competency_extraction.py` (extended, +138/−0 lines,
+v2 ONLY -- `extract_competency_qualifications` (v1) has zero lines changed in
+its own function body) -- a new structural check
+(`_split_alternative_segments_v2` + `_segment_competency_tags_v2`) runs BEFORE
+the tag-count branching: it segments a confidently-list-shaped OR sentence
+and independently re-matches each segment. If any segment matches nothing, or
+segments collectively span more than one distinct tag, the sentence declines
+as `missing_contract` regardless of how many tags the whole-sentence match
+found. If every segment agrees on the SAME single tag (e.g. three synonymous
+phrasings of one competency), it falls through unchanged to the pre-existing
+logic. The segmentation helper deliberately returns "not a list" (falling
+back to prior behavior) for ordinary prose and for the common
+"...or equivalent/similar X" substitutability idiom, to avoid new false
+declines. The shared `DeclinedExtraction` type gained three optional,
+default-empty diagnostic fields (`source_text`, `source_span`,
+`recognized_tags`) -- additive to this module-local helper type, not to the
+Stage-1 `Qualification`/`NormalizedReference` contracts.
+
+`evaluation/m11g1/alternative_requirement_controls.json` (new, 32 controls,
+18 categories) + `tests/test_m11g1_alternative_requirement_safety.py` (new,
+26 tests) + `scripts/evaluate_m11g1_alternative_requirements.py` (new) --
+expected outcomes hash-frozen before any extractor code was touched.
+
+**Why:** Resolving a single matched tag as though it were equivalent to a
+whole unresolved alternative list is a false-confidence risk this project's
+own established discipline (M11-C through M11-F) has consistently treated as
+worse than an honest decline.
+
+**Measured result:** G1 corpus 25/32→**32/32** (the 7 baseline failures were
+exactly this shape, nothing broader). M11-E's own 92-control development
+corpus: byte-identical before/after (necessity 66/66, logical grouping 69/69,
+span 69/69, 1 pre-existing unrelated mismatch). M11-F's independent holdout,
+used only as an already-inspected diagnostic benchmark (never retuned, never
+rewritten): tag precision 12/13→**12/12** (the one false positive the fix
+targets, now a correct decline), tag recall unchanged at 12/74 (that control
+was never gold-expected to contribute a tag). Full backend suite:
+1413→**1439 passed**, 13 skipped.
+
+**Risks/limitations:** Still cannot REPRESENT a genuine alternative group of
+two different, real, recognized tags -- only decides whether to decline one;
+no schema change was made or needed. Nested alternative structures beyond the
+existing flat-list/`MIXED_SHAPE` cases are not specially parsed. The
+"or equivalent/similar/comparable" guard is the only general safeguard
+against idiomatic, non-list "or" usage; verified against this milestone's own
+32-control corpus, not against unbounded real-world phrasing.
+
+**How to test:** `pytest tests/test_m11g1_alternative_requirement_safety.py`;
+`python scripts/evaluate_m11g1_alternative_requirements.py` (hash-verifies the
+frozen corpus first); full suite via `pytest -q`.
+
+See `docs/evaluation/MILESTONE_11_G1_ALTERNATIVE_REQUIREMENT_SAFETY.md` for
+the full root-cause trace, control inventory, and before/after metrics.
+
 ## 2026-11-03 — Milestone 11-E: paraphrase-tolerant competency extraction (v2, additive to v1)
 
 **What changed:** Following M11-D's own independent-holdout finding

@@ -1,0 +1,1336 @@
+{
+  "label": "after",
+  "v1_m11c": {
+    "pass_count": 21,
+    "total": 32,
+    "failures": [
+      {
+        "id": "m11g1-02",
+        "category": 2,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-02b",
+        "category": 2,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-03",
+        "category": 3,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-03b",
+        "category": 3,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-04c",
+        "category": 4,
+        "pass": false,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-06",
+        "category": 6,
+        "pass": false,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-06b",
+        "category": 6,
+        "pass": false,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-07",
+        "category": 7,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-08",
+        "category": 8,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-17b",
+        "category": 17,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-20",
+        "category": 4,
+        "pass": false,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      }
+    ],
+    "all_results": [
+      {
+        "id": "m11g1-01",
+        "category": 1,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-01b",
+        "category": 1,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-02",
+        "category": 2,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-02b",
+        "category": 2,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-03",
+        "category": 3,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-03b",
+        "category": 3,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-04",
+        "category": 4,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-04b",
+        "category": 4,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "algorithms-data-structures"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-04c",
+        "category": 4,
+        "pass": false,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-05",
+        "category": 5,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-06",
+        "category": 6,
+        "pass": false,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-06b",
+        "category": 6,
+        "pass": false,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-07",
+        "category": 7,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-08",
+        "category": 8,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-09",
+        "category": 9,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [],
+          "logical_composition": "mixed_unsupported",
+          "necessity": null,
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-10",
+        "category": 10,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency",
+            "database-design",
+            "system-design"
+          ],
+          "logical_composition": "and",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-11",
+        "category": 11,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-11b",
+        "category": 11,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": null,
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-12",
+        "category": 12,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "narrative_cue",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-12b",
+        "category": 12,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "responsibility_lead",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-13",
+        "category": 13,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "logical_composition": "single",
+          "necessity": "PREFERRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-13b",
+        "category": 13,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "logical_composition": "single",
+          "necessity": "PREFERRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-14",
+        "category": 14,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-15",
+        "category": 15,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-15b",
+        "category": 15,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": true,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-16",
+        "category": 16,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-17",
+        "category": 17,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-17b",
+        "category": 17,
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-18",
+        "category": 18,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "algorithms-data-structures"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-18b",
+        "category": 18,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-19",
+        "category": 3,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-20",
+        "category": 4,
+        "pass": false,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      }
+    ]
+  },
+  "v2_m11e_or_g1": {
+    "pass_count": 32,
+    "total": 32,
+    "failures": [],
+    "all_results": [
+      {
+        "id": "m11g1-01",
+        "category": 1,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "concurrency",
+            "distributed-systems"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-01b",
+        "category": 1,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "database-design",
+            "system-design"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-02",
+        "category": 2,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "concurrency"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-02b",
+        "category": 2,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "embedded-systems-design"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-03",
+        "category": 3,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "embedded-systems-design"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-03b",
+        "category": 3,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "concurrency"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-04",
+        "category": 4,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-04b",
+        "category": 4,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "algorithms-data-structures"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-04c",
+        "category": 4,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "os-networking"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-05",
+        "category": 5,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-06",
+        "category": 6,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "algorithms-data-structures"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-06b",
+        "category": 6,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "os-networking"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-07",
+        "category": 7,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "concurrency"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-08",
+        "category": 8,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "distributed-systems"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-09",
+        "category": 9,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [],
+          "logical_composition": "mixed_unsupported",
+          "necessity": null,
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-10",
+        "category": 10,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency",
+            "database-design",
+            "system-design"
+          ],
+          "logical_composition": "and",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-11",
+        "category": 11,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-11b",
+        "category": 11,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": null,
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-12",
+        "category": 12,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "narrative_cue",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-12b",
+        "category": 12,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "responsibility_lead",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [],
+          "decline_has_source_text": false,
+          "decline_has_source_span": false
+        }
+      },
+      {
+        "id": "m11g1-13",
+        "category": 13,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "logical_composition": "single",
+          "necessity": "PREFERRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-13b",
+        "category": 13,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "logical_composition": "single",
+          "necessity": "PREFERRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-14",
+        "category": 14,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "control-systems",
+            "embedded-systems-design"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-15",
+        "category": 15,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "concurrency",
+            "distributed-systems"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-15b",
+        "category": 15,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": true,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-16",
+        "category": 16,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "concurrency",
+            "distributed-systems"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-17",
+        "category": 17,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "concurrency",
+            "distributed-systems",
+            "performance-optimization"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-17b",
+        "category": 17,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "embedded-systems-design"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-18",
+        "category": 18,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "algorithms-data-structures"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-18b",
+        "category": 18,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      },
+      {
+        "id": "m11g1-19",
+        "category": 3,
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "logical_composition": null,
+          "necessity": null,
+          "applicability_condition_present": null,
+          "recognized_tags_in_decline": [
+            "concurrency",
+            "database-design",
+            "distributed-systems",
+            "system-design"
+          ],
+          "decline_has_source_text": true,
+          "decline_has_source_span": true
+        }
+      },
+      {
+        "id": "m11g1-20",
+        "category": 4,
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "logical_composition": "single",
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false,
+          "recognized_tags_in_decline": null,
+          "decline_has_source_text": null,
+          "decline_has_source_span": null
+        }
+      }
+    ]
+  }
+}

@@ -638,6 +638,16 @@ this pipeline**, confirmed by a dedicated test. See
 comparison, measured results, and the one disclosed precision cost
 (an unexpected sibling tag on one compound-phrase shape).
 
+**Milestone 11-G1 follow-up (no pipeline flow change):** `extract_competency_qualifications_v2()`
+gained a structural fix for alternative-requirement (OR-list) safety --
+a sentence naming several alternatives where only one matches a known
+tag now correctly declines (`missing_contract`) instead of silently
+resolving to that one tag. v1 is unmodified; **neither v1 nor v2 is
+called anywhere in this pipeline**, confirmed by a dedicated test. See
+`docs/ARCHITECTURE.md`'s Milestone 11-G1 section and
+`docs/evaluation/MILESTONE_11_G1_ALTERNATIVE_REQUIREMENT_SAFETY.md` for
+the full root-cause trace and measured results.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

@@ -203,6 +203,9 @@ class DeclinedExtraction:
 
     reason: str
     detail: str
+    source_text: str | None = None
+    source_span: SourceSpan | None = None
+    recognized_tags: tuple[str, ...] = ()
 
 
 def extract_competency_qualifications(
@@ -391,6 +394,97 @@ _RELATION_CONFIDENCE: dict[AliasRelation, ParserConfidence] = {
     AliasRelation.NARROWER_OR_MORE_SPECIFIC: ParserConfidence.MEDIUM,
 }
 
+# ---------------------------------------------------------------------------
+# Milestone 11-G1 -- structural alternative-list safety (v2 ONLY).
+#
+# Root cause (confirmed by direct trace, see
+# docs/evaluation/MILESTONE_11_G1_ALTERNATIVE_REQUIREMENT_SAFETY.md
+# Phase 1): the pre-existing `has_or and not has_and` missing-contract
+# check below was only ever consulted when `len(tags) > 1` -- i.e. when
+# the WHOLE-SENTENCE match already found two or more DIFFERENT
+# competency tags. A sentence naming an alternative list where only
+# ONE of several named options happens to match a known tag (e.g. a
+# seven-item OR-list where six items are outside the vocabulary and
+# one is "Operating Systems") never reached that check at all: it took
+# the `len(tags) == 1` fast path and returned a single, fully-confident
+# `Qualification` for the one matched tag -- silently discarding the
+# other named alternatives and presenting the matched tag as though it
+# were equivalent to the complete requirement. This affects v1
+# identically (confirmed), but this milestone fixes v2 only.
+#
+# The fix inspects the ORIGINAL logical structure (the list's own
+# segments) before any tag-count branching, not just how many DISTINCT
+# tags the whole sentence happened to match.
+# ---------------------------------------------------------------------------
+
+_OR_LIST_FINAL_ITEM_V2 = re.compile(r"^\s*or\s+(.*)$", re.IGNORECASE)
+_EQUIVALENT_SUBSTITUTE_V2 = re.compile(r"^(?:equivalent|similar|comparable)\b", re.IGNORECASE)
+
+
+def _split_alternative_segments_v2(text: str) -> list[str] | None:
+    """Split `text` into the segments of an OR-separated alternative
+    list, IF it confidently looks like one. Returns `None` whenever the
+    text's own "or" cannot be confidently resolved into a clean list of
+    sibling alternatives -- callers must then fall back to the
+    pre-existing (pre-M11-G1) tag-count-based behavior rather than risk
+    a false decline on ordinary prose that merely contains an unrelated
+    "or" (M11-G1 Phase 3's own explicit instruction: "Do not assume all
+    occurrences of 'or' are logical requirement alternatives").
+
+    Two shapes are recognized:
+      - A comma/semicolon-separated list whose LAST piece is introduced
+        by a bare "or " (the dominant real-world shape: "A, B, C, or D").
+      - A plain two-way "X or Y" with no comma at all.
+
+    In both shapes, a final segment beginning with "equivalent",
+    "similar", or "comparable" (the common "...or equivalent
+    experience" / "...or similar background" idiom) is treated as a
+    substitutability clause about the FIRST option, not a sibling
+    competency alternative -- `None` is returned so the sentence falls
+    through to ordinary single-tag resolution.
+    """
+    if not _OR_WORD.search(text):
+        return None
+
+    pieces = [p.strip() for p in re.split(r"[,;]", text) if p.strip()]
+    if len(pieces) < 2:
+        match = re.search(r"\bor\b", text, re.IGNORECASE)
+        if match is None:
+            return None
+        before, after = text[: match.start()].strip(), text[match.end():].strip()
+        if not before or not after:
+            return None
+        if _EQUIVALENT_SUBSTITUTE_V2.match(after):
+            return None
+        return [before, after]
+
+    last_match = _OR_LIST_FINAL_ITEM_V2.match(pieces[-1])
+    if last_match is None:
+        return None
+    last_remainder = last_match.group(1).strip()
+    if not last_remainder or _EQUIVALENT_SUBSTITUTE_V2.match(last_remainder):
+        return None
+    pieces[-1] = last_remainder
+    return pieces
+
+
+def _segment_competency_tags_v2(segment: str) -> set[str]:
+    """Every competency tag (canonical OR active-alias, matched against
+    STEMMED text -- the exact same primitives `find_competency_mentions_v2`
+    uses for a whole sentence) found within this ONE alternative-list
+    segment on its own. Does NOT re-check `_QUALIFYING_INTENT_V2` --
+    that gate is about the sentence's overall intent and is already
+    satisfied once, before any segment-level helper is ever called."""
+    stemmed = _stemmed_text_v2(segment)
+    found: set[str] = set()
+    for tag, pattern in _STEMMED_COMPETENCY_PATTERNS_V2:
+        if pattern.search(stemmed):
+            found.add(tag)
+    for tag, pattern, _relation in _STEMMED_ACTIVE_ALIAS_PATTERNS_V2:
+        if pattern.search(stemmed):
+            found.add(tag)
+    return found
+
 
 def find_competency_mentions_v2(text: str) -> dict[str, AliasRelation]:
     """Every DISTINCT competency tag found via EITHER the exact canonical
@@ -456,6 +550,47 @@ def extract_competency_qualifications_v2(
     def _confidence_for(tag: str) -> ParserConfidence:
         return _RELATION_CONFIDENCE[tag_relations[tag]]
 
+    # Milestone 11-G1: check the ORIGINAL logical structure BEFORE any
+    # tag-count branching -- including the `len(tags) == 1` fast path
+    # below, which is exactly what let a confidently-matched single tag
+    # silently stand in for a whole alternative list that named other,
+    # unmatched options. `_split_alternative_segments_v2` only returns
+    # a segment list when it is confident the text IS a clean OR-list
+    # (never for ordinary prose containing an unrelated "or", and never
+    # for the common "...or equivalent experience" substitutability
+    # idiom) -- everything else falls through to the pre-existing logic
+    # unchanged.
+    if has_or and not has_and:
+        segments = _split_alternative_segments_v2(text)
+        if segments is not None and len(segments) >= 2:
+            segment_tag_sets = [_segment_competency_tags_v2(seg) for seg in segments]
+            all_segment_tags: set[str] = set()
+            for s in segment_tag_sets:
+                all_segment_tags |= s
+            has_unmatched_segment = any(not s for s in segment_tag_sets)
+            if has_unmatched_segment or len(all_segment_tags) > 1:
+                return DeclinedExtraction(
+                    reason="missing_contract",
+                    detail=(
+                        f"an alternative list of {len(segments)} segments names at least one "
+                        f"unmatched alternative, or spans multiple competency tags "
+                        f"{sorted(all_segment_tags)!r} -- resolving to any single recognized tag "
+                        "would silently discard the other named alternatives and present it as "
+                        "though equivalent to the complete requirement. No safe "
+                        "NormalizedReference representation exists for a GROUP of alternatives "
+                        "(see this module's own docstring)."
+                    ),
+                    source_text=text,
+                    source_span=span,
+                    recognized_tags=tuple(sorted(all_segment_tags)),
+                )
+            # Every segment independently matched, and all of them
+            # agree on the SAME single tag (e.g. "concurrency, race
+            # conditions, or multithreading" -- three synonymous
+            # phrasings of one competency, not sibling alternatives) --
+            # safe to fall through to the ordinary single/AND-split
+            # logic below using the whole-sentence `tags` already found.
+
     if len(tags) == 1:
         qualification = Qualification(
             qualification_kind=QualificationKind.TECHNICAL_COMPETENCY,
@@ -478,6 +613,9 @@ def extract_competency_qualifications_v2(
                 "NormalizedReference representation -- same missing-contract gap v1 found, "
                 "unchanged by v2's own broader matching"
             ),
+            source_text=text,
+            source_span=span,
+            recognized_tags=tuple(tags),
         )
 
     if has_and and has_or and _MIXED_SHAPE.search(text):
