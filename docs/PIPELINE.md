@@ -648,6 +648,22 @@ called anywhere in this pipeline**, confirmed by a dedicated test. See
 `docs/evaluation/MILESTONE_11_G1_ALTERNATIVE_REQUIREMENT_SAFETY.md` for
 the full root-cause trace and measured results.
 
+**Milestone 11-G2 follow-up (no pipeline flow change):** `extract_competency_qualifications_v2()`
+gained three new, OPT-IN, keyword-only parameters
+(`section_kind`/`document_has_recognized_heading`/`has_section_context`,
+each defaulted so every existing call site is byte-identical to
+before) letting a caller supply real section context (the same
+`Claim.section_kind` this pipeline's own `segment_description()`
+already computes) so necessity resolution can reuse the REAL,
+already-tested `resolve_necessity_hint()` instead of always passing a
+hardcoded `None` hint. v1 is unmodified; **neither v1 nor v2 is called
+anywhere in this pipeline**, confirmed by a dedicated test -- this
+module still does not call `segment_description()` itself, nor is it
+wired into `_requirements_from_claim`. See `docs/ARCHITECTURE.md`'s
+Milestone 11-G2 section and
+`docs/evaluation/MILESTONE_11_G2_SECTION_CONTEXT.md` for the full
+root-cause trace and measured results.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

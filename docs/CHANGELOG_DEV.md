@@ -1,5 +1,84 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-05 — Milestone 11-G2: section-aware qualification/necessity inference for v2 (opt-in)
+
+**What changed:** `extract_competency_qualifications_v2`'s necessity inference was
+always purely LOCAL (`infer_necessity(text, None)`), even though
+`jobs/parsing/segmentation.py` already computes exactly the section-origin signal
+needed (`Claim.section_kind`) and `jobs/parsing/necessity.py::resolve_necessity_hint`
+(Milestone 10E) already implements the full, already-tested policy for using it --
+confirmed as the exact mechanism M11-F's own independent holdout found missing
+(`necessity: 0/0` -- every genuinely-matched control carried no resolvable
+necessity, because real "Requirements:" bullets rarely repeat "is required" per
+sentence).
+
+`src/gitscore/jobs/parsing/competency_extraction.py` (extended, +81/-3 lines, v2
+ONLY -- `extract_competency_qualifications` (v1) has zero lines changed and zero
+new parameters, confirmed by a dedicated test inspecting its signature) -- three
+new, keyword-only, DEFAULTED parameters (`section_kind`,
+`document_has_recognized_heading`, `has_section_context=False`) make this
+fully opt-in and backward-compatible: every pre-existing call site (M11-E's and
+M11-F's own harnesses included) is byte-identical to before. A new helper
+(`_claim_necessity_hint_for_section_v2`) mirrors `Claim.necessity_hint`'s own
+computation by reusing the REAL `_SectionKind`/`_SECTION_NECESSITY_HINT` constants
+directly (never a second, independently-maintained copy), then feeds the REAL
+`resolve_necessity_hint()` before the existing, unchanged `infer_necessity()` runs
+-- the identical two-step pattern `jobs/parsing/parser.py::_requirements_from_claim`
+already uses for its own non-competency pathway.
+
+`evaluation/m11g2/section_context_controls.json` (new, 49 self-authored
+assertions: 36 hand-specified + 13 targets across 10 real mini-postings run
+through the actual, unmodified `segment_description()`) +
+`scripts/evaluation_lib/m11g2_section_strategy_prototypes.py` (new, Phase 3) +
+`scripts/evaluate_m11g2_strategy_comparison.py` (new) +
+`scripts/evaluate_m11g2_section_context.py` (new) +
+`tests/test_m11g2_section_context.py` (new, 19 tests) -- expected outcomes hash-
+frozen before any extractor code was touched; four corpus-authoring mistakes
+(phrasing that accidentally re-triggered M11-E's own already-disclosed stemming
+overlap, and one sentence that didn't satisfy the existing qualifying-intent gate)
+found and fixed before the freeze, not after.
+
+**Why:** Three candidate designs were measured before implementation (Option A:
+reuse of `resolve_necessity_hint`; Option B: an independent, hand-rolled duplicate;
+Option C: hybrid, found to already equal Option A). All three tied 33/33 on the
+frozen corpus, so the choice was made on architectural grounds, not recall: probing
+outside the frozen set found Option B's own hand-rolled marker regex already
+missing coverage the production one has ("would be nice" -- PREFERRED under the
+real regex, wrongly REQUIRED under the duplicate) -- the exact drift risk reuse
+avoids.
+
+**Measured result:** G2 corpus 28/49 (no section awareness existed) ->
+**49/49** opt-in; the SAME corpus through the unchanged legacy call path stays
+byte-identical at 28/49. Zero false REQUIRED/PREFERRED assignments, zero false
+qualification creation, zero genuine-qualification suppression. A responsibility-
+sourced claim with qualifying-intent language but no explicit local marker now
+correctly resolves to `necessity=None` (UNKNOWN) -- conservative uncertainty, not a
+new "responsibility rejected" decline -- mirroring the live parser's own
+`necessity_unknown` -> `UnparsedClaim` precedent exactly. M11-G1's OR-list safety
+fix is completely unaffected (that check runs and returns before necessity is ever
+computed). M11-E's own 92-control corpus, M11-C's harness, M11-F's independent
+holdout (used only as an already-inspected diagnostic benchmark, its committed
+report regenerated locally for confirmation then `git checkout`-restored, never
+rewritten), and M11-G1's own 32-control safety corpus are all byte-identical
+before/after. Full backend suite: 1439->**1458 passed**, 13 skipped.
+
+**Risks/limitations:** this module still does not call `segment_description()`
+itself -- a caller must run real segmentation separately and pass
+`Claim.section_kind`/`document_has_recognized_heading` through explicitly; no
+evaluation harness today does this on bare, context-free sentences. Options A and
+C are literally the same implementation (not a genuinely independent third data
+point). "Reject as a qualification" (the mission brief's own phrase) is
+implemented as necessity=UNKNOWN rather than a literal `DeclinedExtraction` -- a
+deliberate, disclosed interpretation choice.
+
+**How to test:** `pytest tests/test_m11g2_section_context.py`;
+`python scripts/evaluate_m11g2_section_context.py` (and `--baseline` for the
+legacy-path comparison; both hash-verify the frozen corpus first);
+`python scripts/evaluate_m11g2_strategy_comparison.py`; full suite via `pytest -q`.
+
+See `docs/evaluation/MILESTONE_11_G2_SECTION_CONTEXT.md` for the full root-cause
+trace, control inventory, strategy comparison, and before/after metrics.
+
 ## 2026-11-04 — Milestone 11-G1: alternative-requirement (OR-list) safety fix for v2
 
 **What changed:** M11-F's own independent-holdout evaluation surfaced one real

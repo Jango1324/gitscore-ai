@@ -45,13 +45,14 @@ from dataclasses import dataclass
 from gitscore.jobs.models import SourceSpan
 from gitscore.jobs.parsing.competency_aliases import ACTIVE_ALIAS_PATTERNS, AliasRelation
 from gitscore.jobs.parsing.narrative import contains_narrative_cue
-from gitscore.jobs.parsing.necessity import infer_necessity
+from gitscore.jobs.parsing.necessity import infer_necessity, resolve_necessity_hint
 from gitscore.jobs.parsing.qualification import (
     LogicalComposition,
     NormalizedReference,
     Qualification,
     QualificationKind,
 )
+from gitscore.jobs.parsing.segmentation import _SECTION_NECESSITY_HINT, _SectionKind
 from gitscore.jobs.types import GithubObservability, ParserConfidence
 
 # ---------------------------------------------------------------------------
@@ -513,8 +514,61 @@ def find_competency_mentions_v2(text: str) -> dict[str, AliasRelation]:
     return found
 
 
+# ---------------------------------------------------------------------------
+# Milestone 11-G2 -- section-aware necessity resolution (v2 ONLY).
+#
+# Root cause (see docs/evaluation/MILESTONE_11_G2_SECTION_CONTEXT.md
+# Phase 1): this module's necessity inference has always been purely
+# LOCAL (`infer_necessity(text, None)` -- the hint is hardcoded `None`
+# regardless of what section the claim actually came from), even though
+# the live parser's own `jobs/parsing/segmentation.py` already computes
+# exactly the section-origin signal needed (`Claim.section_kind`) and
+# `jobs/parsing/necessity.py::resolve_necessity_hint` already implements
+# the full, already-tested policy for using it (local marker always
+# wins; REQUIRED/PREFERRED sections, or a genuinely unsectioned whole
+# document, keep their default; RESPONSIBILITY/LEARNING/UNKNOWN origins,
+# or a PREAMBLE claim preceding the same document's own later real
+# sections, are downgraded to unresolved). Phase 3's own comparison
+# (Option A: reuse vs. Option B: an independent, hand-rolled duplicate)
+# found Option B's own independently-authored marker regex already
+# missing coverage the production one has (confirmed divergence:
+# "would be nice" -- PREFERRED under the real regex, wrongly REQUIRED
+# under the hand-rolled one) -- Option A (pure reuse, below) was chosen.
+#
+# This is OPT-IN and fully backward-compatible: `has_section_context`
+# defaults to `False`, in which case this function's necessity
+# computation is BYTE-IDENTICAL to its pre-M11-G2 form
+# (`infer_necessity(text, None)`) -- every existing caller that does not
+# pass the new keyword-only arguments is completely unaffected.
+# ---------------------------------------------------------------------------
+
+
+def _claim_necessity_hint_for_section_v2(section_kind: str | None) -> "object":
+    """Mirrors `Claim.necessity_hint`'s OWN computation in
+    `segmentation.py::segment_description` exactly, reusing its real
+    `_SectionKind`/`_SECTION_NECESSITY_HINT` constants directly (never a
+    second, independently-maintained copy) -- `section_kind is None`
+    maps to `Necessity.REQUIRED`, Milestone 6B's own "no section at
+    all" default; `UNKNOWN`/`LEARNING` map to `None`; everything else
+    (`REQUIRED`/`PREFERRED`/`RESPONSIBILITY`) uses the real
+    `_SECTION_NECESSITY_HINT` table."""
+    from gitscore.jobs.types import Necessity
+
+    if section_kind is None:
+        return Necessity.REQUIRED
+    kind = _SectionKind[section_kind]
+    if kind in (_SectionKind.UNKNOWN, _SectionKind.LEARNING):
+        return None
+    return _SECTION_NECESSITY_HINT.get(kind, Necessity.REQUIRED)
+
+
 def extract_competency_qualifications_v2(
-    text: str, span: SourceSpan
+    text: str,
+    span: SourceSpan,
+    *,
+    section_kind: str | None = None,
+    document_has_recognized_heading: bool = False,
+    has_section_context: bool = False,
 ) -> tuple[Qualification, ...] | DeclinedExtraction:
     """The paraphrase-tolerant sibling of `extract_competency_qualifications()`
     (v1). Identical rejection/necessity/structural logic throughout --
@@ -527,6 +581,21 @@ def extract_competency_qualifications_v2(
     approved `ParserConfidence` field, never a new one, and never
     silently treating a narrower match as equally certain as an exact
     one.
+
+    Milestone 11-G2 (opt-in, see module-level banner above): when
+    `has_section_context=True`, necessity is resolved via the REAL
+    `resolve_necessity_hint()` using `section_kind`/
+    `document_has_recognized_heading` -- otherwise (the default)
+    necessity resolution is byte-identical to this function's pre-M11-G2
+    form. This does not change WHETHER a `Qualification` is produced
+    (that decision -- negation/narrative/responsibility-lead rejection,
+    tag matching, OR-list safety -- is entirely unaffected); it only
+    changes what `necessity` value a produced `Qualification` carries.
+    A `Qualification` with `necessity=None` still routes conservatively
+    through `project_qualification()`'s own existing `necessity_unknown`
+    safety rule to `UnparsedClaim` -- never silently scored -- exactly
+    the same mechanism the live parser's own `_requirements_from_claim`
+    already relies on for non-competency requirements.
     """
     tag_relations = find_competency_mentions_v2(text)
     if not tag_relations:
@@ -540,7 +609,16 @@ def extract_competency_qualifications_v2(
         return DeclinedExtraction(reason="responsibility_lead", detail="sentence opens with a bare imperative duty verb")
 
     tags = list(tag_relations.keys())
-    necessity = infer_necessity(text, None)
+    if has_section_context:
+        effective_hint = resolve_necessity_hint(
+            text,
+            _claim_necessity_hint_for_section_v2(section_kind),
+            section_kind=section_kind,
+            document_has_recognized_heading=document_has_recognized_heading,
+        )
+        necessity = infer_necessity(text, effective_hint)
+    else:
+        necessity = infer_necessity(text, None)
     applicability = _applicability_condition(text)
     has_and = _AND_WORD.search(text) is not None
     has_or = _OR_WORD.search(text) is not None

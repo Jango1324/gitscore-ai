@@ -1,0 +1,10 @@
+{
+  "frozen_file": "evaluation/m11g2/section_context_controls.json",
+  "sha256": "7b21d2e0b1cbfd2be007e95996543fb6bd506bce52f318262acf5e6e2afad6e0",
+  "total_direct_controls": 36,
+  "total_mini_postings": 10,
+  "total_mini_posting_targets": 13,
+  "total_evaluated_assertions": 49,
+  "note": "Expected outcomes frozen BEFORE any production or offline-extractor code was modified for Milestone 11-G2. Any future diff against this hash means expected outcomes were changed after the fix was already known.",
+  "corpus_authoring_fix_disclosed": "Three controls (m11g2-d10, m11g2-d11, m11g2-m03) originally used 'systems architecture'/'systems design' phrasing that -- discovered during baseline establishment -- accidentally triggers the SAME pre-existing, already-disclosed M11-E stemming-overlap artifact (text-side stemming turns 'systems'->'system', so 'embedded systems design' also matches the bare system-design canonical phrase) unrelated to what this milestone tests; reworded to avoid it (e.g. 'distributed systems reliability' instead of 'distributed systems architecture'), each re-verified to match exactly one tag before this freeze. A fourth control (m11g2-d25) used 'distributed systems experience for' phrasing that does not satisfy the existing _QUALIFYING_INTENT_V2 gate at all ('experience' must be directly followed by with/of/in/building/optimizing/debugging, not 'for') -- reworded to 'experience with distributed systems for...'. All four are corpus-authoring fixes, not extraction defects; all mini-posting predictions were re-verified directly against the REAL, unmodified segment_description() after these fixes and before this freeze."
+}

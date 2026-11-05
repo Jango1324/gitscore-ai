@@ -1,0 +1,20 @@
+{
+  "total_relevant_controls": 33,
+  "strategies": {
+    "option_a": {
+      "correct": 33,
+      "total": 33,
+      "mismatches": []
+    },
+    "option_b": {
+      "correct": 33,
+      "total": 33,
+      "mismatches": []
+    },
+    "option_c": {
+      "correct": 33,
+      "total": 33,
+      "mismatches": []
+    }
+  }
+}

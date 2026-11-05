@@ -5079,3 +5079,62 @@ detector, no public schema/matcher/scoring/API/frontend change — see
 `docs/evaluation/MILESTONE_11_G1_ALTERNATIVE_REQUIREMENT_SAFETY.md`'s
 own 10-item report and `docs/CHANGELOG_DEV.md`'s Milestone 11-G1
 entry for the complete record.
+
+### Milestone 11-G2 — section-aware qualification/necessity inference (v2 only, opt-in)
+
+`extract_competency_qualifications_v2`'s necessity inference was always
+purely LOCAL (`infer_necessity(text, None)` -- the hint hardcoded
+`None` regardless of what section a claim actually came from), even
+though `jobs/parsing/segmentation.py` already computes exactly the
+section-origin signal needed (`Claim.section_kind`) and
+`jobs/parsing/necessity.py::resolve_necessity_hint` (Milestone 10E)
+already implements the full, already-tested policy for using it --
+confirmed as the exact mechanism M11-F's own independent holdout found
+missing (`necessity: 0/0`, every genuinely-matched control carrying no
+resolvable necessity because real "Requirements:" bullets rarely
+repeat "is required" per sentence).
+
+Three new, keyword-only, DEFAULTED parameters (`section_kind`,
+`document_has_recognized_heading`, `has_section_context=False`) make
+this opt-in and fully backward-compatible: every pre-existing call site
+(M11-E's and M11-F's own harnesses included) is byte-identical to
+before. When a caller opts in, a new helper
+(`_claim_necessity_hint_for_section_v2`) mirrors `Claim.necessity_hint`'s
+own computation by reusing the REAL `_SectionKind`/
+`_SECTION_NECESSITY_HINT` constants directly (never a second,
+independently-maintained copy), then feeds the REAL
+`resolve_necessity_hint()` before the existing, unchanged
+`infer_necessity()` runs -- the identical two-step pattern
+`jobs/parsing/parser.py::_requirements_from_claim` already uses for its
+own non-competency pathway.
+
+Three candidate designs were measured before implementation (Option A:
+pure reuse; Option B: an independent, hand-rolled duplicate; Option C:
+hybrid, found to already equal Option A): all three tied 33/33 on the
+frozen 49-assertion development corpus, so Option A/C was chosen on
+architectural grounds, not recall -- a probe outside the frozen set
+found Option B's own hand-rolled marker regex already missing coverage
+the production one has ("would be nice" -- PREFERRED under the real
+regex, wrongly REQUIRED under the duplicate), the exact drift risk
+reuse avoids.
+
+**Measured result:** the frozen corpus went 28/49 (no section
+awareness existed) -> **49/49** opt-in, while the SAME corpus run
+through the unchanged legacy call path remains byte-identical at
+28/49 -- direct confirmation that every existing caller is unaffected.
+Zero false REQUIRED/PREFERRED assignments, zero false qualification
+creation, zero genuine-qualification suppression. A responsibility-
+sourced claim with qualifying-intent language but no explicit local
+marker now correctly resolves to `necessity=None` (UNKNOWN) rather than
+either a false default or a fabricated rejection -- mirroring the live
+parser's own `necessity_unknown` -> `UnparsedClaim` precedent exactly,
+not a new decline reason. M11-G1's OR-list safety fix is completely
+unaffected (that check runs and returns before necessity is ever
+computed). Full regression suite 1439->**1458** passed/13 skipped
+unchanged; every named historical evaluation (M11-C, M11-E, M11-F's own
+diagnostic benchmark, M11-G1's own safety controls) byte-identical. No
+live-parser wiring, no competency evidence detector, no public
+schema/matcher/scoring/API/frontend change — see
+`docs/evaluation/MILESTONE_11_G2_SECTION_CONTEXT.md`'s own 11-item
+report and `docs/CHANGELOG_DEV.md`'s Milestone 11-G2 entry for the
+complete record.

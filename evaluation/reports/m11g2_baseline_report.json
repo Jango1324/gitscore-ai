@@ -1,0 +1,1006 @@
+{
+  "label": "baseline",
+  "use_section_context": false,
+  "result": {
+    "pass_count": 28,
+    "total": 49,
+    "failures": [
+      {
+        "id": "m11g2-d01",
+        "category": "required_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d02",
+        "category": "required_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "algorithms-data-structures"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d03",
+        "category": "required_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d04",
+        "category": "preferred_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d05",
+        "category": "preferred_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d06",
+        "category": "preferred_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d18",
+        "category": "unsectioned_document",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d19",
+        "category": "unsectioned_document",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d20",
+        "category": "unsectioned_document",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d28",
+        "category": "conditional_requirement",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": true
+        }
+      },
+      {
+        "id": "m11g2-d35",
+        "category": "alias_match_required_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "os-networking"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d36",
+        "category": "alias_match_preferred_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-m01",
+        "category": "employer_specific_required_heading",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m02",
+        "category": "employer_specific_preferred_heading",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Knowledge of concurrency."
+      },
+      {
+        "id": "m11g2-m04",
+        "category": "required_preferred_transition",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m04",
+        "category": "required_preferred_transition",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Knowledge of concurrency."
+      },
+      {
+        "id": "m11g2-m05",
+        "category": "blank_lines_between_heading_and_content",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m06",
+        "category": "wrapped_qualification_across_lines",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong experience with\ndistributed systems."
+      },
+      {
+        "id": "m11g2-m07",
+        "category": "bulleted_list_under_heading",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m07",
+        "category": "bulleted_list_under_heading",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Knowledge of concurrency."
+      },
+      {
+        "id": "m11g2-m09",
+        "category": "mixed_technical_and_nontechnical_in_same_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong experience with distributed systems."
+      }
+    ],
+    "all_results": [
+      {
+        "id": "m11g2-d01",
+        "category": "required_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d02",
+        "category": "required_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "algorithms-data-structures"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d03",
+        "category": "required_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d04",
+        "category": "preferred_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d05",
+        "category": "preferred_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d06",
+        "category": "preferred_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d07",
+        "category": "ambiguous_heading",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d08",
+        "category": "ambiguous_heading",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d09",
+        "category": "ambiguous_heading",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d10",
+        "category": "responsibility_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d11",
+        "category": "responsibility_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d12",
+        "category": "responsibility_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d13",
+        "category": "preamble_before_real_sections",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d14",
+        "category": "preamble_before_real_sections",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d15",
+        "category": "learning_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d16",
+        "category": "learning_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d17",
+        "category": "learning_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d18",
+        "category": "unsectioned_document",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d19",
+        "category": "unsectioned_document",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d20",
+        "category": "unsectioned_document",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d21",
+        "category": "local_overrides_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": "PREFERRED",
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d22",
+        "category": "local_overrides_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d23",
+        "category": "local_overrides_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d24",
+        "category": "local_overrides_section",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "necessity": "PREFERRED",
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d25",
+        "category": "qualification_embedded_in_responsibility",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d26",
+        "category": "qualification_embedded_in_responsibility",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": "PREFERRED",
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d27",
+        "category": "negated_requirement",
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "negation",
+          "tags": null,
+          "necessity": null,
+          "applicability_condition_present": null
+        }
+      },
+      {
+        "id": "m11g2-d28",
+        "category": "conditional_requirement",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": true
+        }
+      },
+      {
+        "id": "m11g2-d29",
+        "category": "conditional_requirement",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": true
+        }
+      },
+      {
+        "id": "m11g2-d30",
+        "category": "or_list_safety",
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "necessity": null,
+          "applicability_condition_present": null
+        }
+      },
+      {
+        "id": "m11g2-d31",
+        "category": "or_list_safety",
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "missing_contract",
+          "tags": null,
+          "necessity": null,
+          "applicability_condition_present": null
+        }
+      },
+      {
+        "id": "m11g2-d32",
+        "category": "or_list_safety",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d33",
+        "category": "necessity_unresolvable",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "control-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d34",
+        "category": "necessity_unresolvable",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d35",
+        "category": "alias_match_required_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "os-networking"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-d36",
+        "category": "alias_match_preferred_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        }
+      },
+      {
+        "id": "m11g2-m01",
+        "category": "employer_specific_required_heading",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m02",
+        "category": "employer_specific_preferred_heading",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Knowledge of concurrency."
+      },
+      {
+        "id": "m11g2-m03",
+        "category": "employer_specific_responsibility_heading",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong ownership of the embedded systems rollout."
+      },
+      {
+        "id": "m11g2-m04",
+        "category": "required_preferred_transition",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m04",
+        "category": "required_preferred_transition",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Knowledge of concurrency."
+      },
+      {
+        "id": "m11g2-m05",
+        "category": "blank_lines_between_heading_and_content",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m06",
+        "category": "wrapped_qualification_across_lines",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong experience with\ndistributed systems."
+      },
+      {
+        "id": "m11g2-m07",
+        "category": "bulleted_list_under_heading",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m07",
+        "category": "bulleted_list_under_heading",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "concurrency"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Knowledge of concurrency."
+      },
+      {
+        "id": "m11g2-m08",
+        "category": "unsupported_unknown_heading",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Experience with embedded systems."
+      },
+      {
+        "id": "m11g2-m08b",
+        "category": "unsupported_unknown_heading_with_local_marker",
+        "pass": true,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "embedded-systems-design"
+          ],
+          "necessity": "REQUIRED",
+          "applicability_condition_present": false
+        },
+        "target_text": "Embedded systems experience is required."
+      },
+      {
+        "id": "m11g2-m09",
+        "category": "mixed_technical_and_nontechnical_in_same_section",
+        "pass": false,
+        "actual": {
+          "declined": false,
+          "reason": null,
+          "tags": [
+            "distributed-systems"
+          ],
+          "necessity": null,
+          "applicability_condition_present": false
+        },
+        "target_text": "Strong experience with distributed systems."
+      },
+      {
+        "id": "m11g2-m09",
+        "category": "mixed_technical_and_nontechnical_in_same_section",
+        "pass": true,
+        "actual": {
+          "declined": true,
+          "reason": "no_competency_language",
+          "tags": null,
+          "necessity": null,
+          "applicability_condition_present": null
+        },
+        "target_text": "Bachelor's degree in Computer Science."
+      }
+    ]
+  }
+}

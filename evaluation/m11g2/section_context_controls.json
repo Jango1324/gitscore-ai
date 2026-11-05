@@ -1,0 +1,571 @@
+{
+  "corpus_version": "m11g2-dev:v1",
+  "annotation_provenance": "Self-authored synthetic controls, no third-party text. Expected outcomes frozen BEFORE any production or offline-extractor code was modified for Milestone 11-G2. direct_controls exercise the new section-aware necessity logic directly via a hand-specified (section_kind, document_has_recognized_heading) pair; mini_posting_controls run the REAL, unmodified segment_description() over a genuine multi-line mini-posting to confirm end-to-end plumbing (heading -> Claim.section_kind -> offline extractor).",
+  "direct_controls": [
+    {
+      "id": "m11g2-d01",
+      "category": "required_section",
+      "text": "Experience with distributed systems.",
+      "section_kind": "REQUIRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d02",
+      "category": "required_section",
+      "text": "Strong understanding of algorithms and data structures.",
+      "section_kind": "REQUIRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "algorithms-data-structures",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d03",
+      "category": "required_section",
+      "text": "Knowledge of control systems.",
+      "section_kind": "REQUIRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "control-systems",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d04",
+      "category": "preferred_section",
+      "text": "Experience with distributed systems.",
+      "section_kind": "PREFERRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": "PREFERRED"
+    },
+    {
+      "id": "m11g2-d05",
+      "category": "preferred_section",
+      "text": "Familiarity with embedded systems.",
+      "section_kind": "PREFERRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": "PREFERRED"
+    },
+    {
+      "id": "m11g2-d06",
+      "category": "preferred_section",
+      "text": "Knowledge of concurrency.",
+      "section_kind": "PREFERRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "concurrency",
+      "expect_necessity": "PREFERRED"
+    },
+    {
+      "id": "m11g2-d07",
+      "category": "ambiguous_heading",
+      "text": "Experience with distributed systems.",
+      "section_kind": "UNKNOWN",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d08",
+      "category": "ambiguous_heading",
+      "text": "Knowledge of concurrency.",
+      "section_kind": "UNKNOWN",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "concurrency",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d09",
+      "category": "ambiguous_heading",
+      "text": "Distributed systems experience is required.",
+      "section_kind": "UNKNOWN",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": "REQUIRED",
+      "notes": "explicit local marker preserves genuine qualifications under unconventional headings"
+    },
+    {
+      "id": "m11g2-d10",
+      "category": "responsibility_section",
+      "text": "Strong ownership of distributed systems reliability.",
+      "section_kind": "RESPONSIBILITY",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d11",
+      "category": "responsibility_section",
+      "text": "Deep expertise in the project's embedded systems reliability strategy.",
+      "section_kind": "RESPONSIBILITY",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d12",
+      "category": "responsibility_section",
+      "text": "Solid ownership of control systems tuning efforts.",
+      "section_kind": "RESPONSIBILITY",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "control-systems",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d13",
+      "category": "preamble_before_real_sections",
+      "text": "Strong background in distributed systems.",
+      "section_kind": null,
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d14",
+      "category": "preamble_before_real_sections",
+      "text": "Deep expertise in concurrency.",
+      "section_kind": null,
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "concurrency",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d15",
+      "category": "learning_section",
+      "text": "Strong exposure to distributed systems.",
+      "section_kind": "LEARNING",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d16",
+      "category": "learning_section",
+      "text": "Deep familiarity with embedded systems.",
+      "section_kind": "LEARNING",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d17",
+      "category": "learning_section",
+      "text": "Embedded systems experience is required.",
+      "section_kind": "LEARNING",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": "REQUIRED",
+      "notes": "explicit local marker preserved even under a LEARNING heading"
+    },
+    {
+      "id": "m11g2-d18",
+      "category": "unsectioned_document",
+      "text": "Strong understanding of concurrency.",
+      "section_kind": null,
+      "document_has_recognized_heading": false,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "concurrency",
+      "expect_necessity": "REQUIRED",
+      "notes": "Milestone 6B's own 'no section at all -> default REQUIRED' policy preserved"
+    },
+    {
+      "id": "m11g2-d19",
+      "category": "unsectioned_document",
+      "text": "Experience with embedded systems.",
+      "section_kind": null,
+      "document_has_recognized_heading": false,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d20",
+      "category": "unsectioned_document",
+      "text": "Knowledge of control systems.",
+      "section_kind": null,
+      "document_has_recognized_heading": false,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "control-systems",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d21",
+      "category": "local_overrides_section",
+      "text": "Distributed systems experience is preferred.",
+      "section_kind": "REQUIRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": "PREFERRED"
+    },
+    {
+      "id": "m11g2-d22",
+      "category": "local_overrides_section",
+      "text": "Concurrency experience is required.",
+      "section_kind": "PREFERRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "concurrency",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d23",
+      "category": "local_overrides_section",
+      "text": "Embedded systems experience is required.",
+      "section_kind": "RESPONSIBILITY",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d24",
+      "category": "local_overrides_section",
+      "text": "Control systems experience is preferred.",
+      "section_kind": "UNKNOWN",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "control-systems",
+      "expect_necessity": "PREFERRED"
+    },
+    {
+      "id": "m11g2-d25",
+      "category": "qualification_embedded_in_responsibility",
+      "text": "Candidates must have experience with distributed systems for this responsibility area.",
+      "section_kind": "RESPONSIBILITY",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d26",
+      "category": "qualification_embedded_in_responsibility",
+      "text": "A strong candidate will have embedded systems experience, which is preferred for this duty.",
+      "section_kind": "RESPONSIBILITY",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": "PREFERRED"
+    },
+    {
+      "id": "m11g2-d27",
+      "category": "negated_requirement",
+      "text": "No prior experience with embedded systems is necessary.",
+      "section_kind": "REQUIRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": true,
+      "expect_reason": "negation",
+      "expect_tag": null,
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d28",
+      "category": "conditional_requirement",
+      "text": "Experience with distributed systems is expected, unless a manager approves an exception.",
+      "section_kind": "REQUIRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "distributed-systems",
+      "expect_necessity": "REQUIRED",
+      "expect_applicability_present": true
+    },
+    {
+      "id": "m11g2-d29",
+      "category": "conditional_requirement",
+      "text": "Strong grasp of concurrency is expected, unless a manager approves an exception.",
+      "section_kind": "RESPONSIBILITY",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "concurrency",
+      "expect_necessity": null,
+      "expect_applicability_present": true
+    },
+    {
+      "id": "m11g2-d30",
+      "category": "or_list_safety",
+      "text": "Experience with concurrency or distributed systems is required.",
+      "section_kind": "REQUIRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": true,
+      "expect_reason": "missing_contract",
+      "expect_tag": null,
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d31",
+      "category": "or_list_safety",
+      "text": "Experience with concurrency or culinary arts is preferred.",
+      "section_kind": "PREFERRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": true,
+      "expect_reason": "missing_contract",
+      "expect_tag": null,
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d32",
+      "category": "or_list_safety",
+      "text": "Strong grasp of concurrency, race conditions, or multithreading is expected.",
+      "section_kind": "RESPONSIBILITY",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "concurrency",
+      "expect_necessity": null,
+      "notes": "synonymous OR of the same tag still resolves safely, not declined"
+    },
+    {
+      "id": "m11g2-d33",
+      "category": "necessity_unresolvable",
+      "text": "Experience with control systems.",
+      "section_kind": "LEARNING",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "control-systems",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d34",
+      "category": "necessity_unresolvable",
+      "text": "Knowledge of embedded systems.",
+      "section_kind": null,
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": null
+    },
+    {
+      "id": "m11g2-d35",
+      "category": "alias_match_required_section",
+      "text": "Knowledge of network protocols.",
+      "section_kind": "REQUIRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "os-networking",
+      "expect_necessity": "REQUIRED"
+    },
+    {
+      "id": "m11g2-d36",
+      "category": "alias_match_preferred_section",
+      "text": "Experience with bare-metal programming.",
+      "section_kind": "PREFERRED",
+      "document_has_recognized_heading": true,
+      "expect_decline": false,
+      "expect_reason": null,
+      "expect_tag": "embedded-systems-design",
+      "expect_necessity": "PREFERRED"
+    }
+  ],
+  "mini_posting_controls": [
+    {
+      "id": "m11g2-m01",
+      "category": "employer_specific_required_heading",
+      "description": "Minimum Qualifications:\nStrong experience with distributed systems.\n",
+      "targets": [
+        {
+          "target_text": "Strong experience with distributed systems.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED"
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m02",
+      "category": "employer_specific_preferred_heading",
+      "description": "Nice to Have:\nKnowledge of concurrency.\n",
+      "targets": [
+        {
+          "target_text": "Knowledge of concurrency.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "PREFERRED"
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m03",
+      "category": "employer_specific_responsibility_heading",
+      "description": "What You'll Do:\nStrong ownership of the embedded systems rollout.\n",
+      "targets": [
+        {
+          "target_text": "Strong ownership of the embedded systems rollout.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": null
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m04",
+      "category": "required_preferred_transition",
+      "description": "Requirements:\nExperience with distributed systems.\n\nPreferred Qualifications:\nKnowledge of concurrency.\n",
+      "targets": [
+        {
+          "target_text": "Experience with distributed systems.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED"
+        },
+        {
+          "target_text": "Knowledge of concurrency.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "PREFERRED"
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m05",
+      "category": "blank_lines_between_heading_and_content",
+      "description": "Requirements:\n\n\nExperience with distributed systems.\n",
+      "targets": [
+        {
+          "target_text": "Experience with distributed systems.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED"
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m06",
+      "category": "wrapped_qualification_across_lines",
+      "description": "Requirements:\nStrong experience with\ndistributed systems.\n",
+      "targets": [
+        {
+          "target_text": "Strong experience with\ndistributed systems.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED"
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m07",
+      "category": "bulleted_list_under_heading",
+      "description": "Requirements:\n- Strong experience with distributed systems.\n- Knowledge of concurrency.\n",
+      "targets": [
+        {
+          "target_text": "Strong experience with distributed systems.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED"
+        },
+        {
+          "target_text": "Knowledge of concurrency.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED"
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m08",
+      "category": "unsupported_unknown_heading",
+      "description": "Additional Information:\nExperience with embedded systems.\n",
+      "targets": [
+        {
+          "target_text": "Experience with embedded systems.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": null
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m08b",
+      "category": "unsupported_unknown_heading_with_local_marker",
+      "description": "Additional Information:\nEmbedded systems experience is required.\n",
+      "targets": [
+        {
+          "target_text": "Embedded systems experience is required.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "REQUIRED"
+        }
+      ]
+    },
+    {
+      "id": "m11g2-m09",
+      "category": "mixed_technical_and_nontechnical_in_same_section",
+      "description": "Requirements:\n- Strong experience with distributed systems.\n- Bachelor's degree in Computer Science.\n",
+      "targets": [
+        {
+          "target_text": "Strong experience with distributed systems.",
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED"
+        },
+        {
+          "target_text": "Bachelor's degree in Computer Science.",
+          "expect_decline": true,
+          "expect_reason": "no_competency_language",
+          "expect_tag": null,
+          "expect_necessity": null
+        }
+      ]
+    }
+  ]
+}
