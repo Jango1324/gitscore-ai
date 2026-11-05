@@ -1,5 +1,70 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-05 — Milestone 11-G3: offline end-to-end qualification-understanding evaluation (no production change)
+
+**What changed:** An integration-VALIDATION milestone, not an extraction-development
+one -- `git diff --stat -- src/` is empty; zero production code was touched. A new,
+purely additive OFFLINE evaluation harness
+(`scripts/evaluate_m11g3_end_to_end.py` + `scripts/evaluate_m11g3_pre_freeze_check.py`
++ `scripts/evaluation_lib/m11g3_build_postings.py`, new) chains four already-existing,
+already-tested functions into one pathway: `segment_description()` /
+`document_has_any_recognized_heading()` (unmodified) ->
+`extract_competency_qualifications_v2(..., has_section_context=True)` (M11-G1/M11-G2,
+unmodified) -> `project_qualification()` (M11-B Stage 1, unmodified). The live parser's
+own pathway (`parse_job_description()`/`_parse()`/`_requirements_from_claim`) is never
+called, imported, or modified -- confirmed by a dedicated test inspecting `parser.py`'s
+own source for any reference to either function.
+
+`evaluation/m11g3/full_posting_controls.json` (new, 28 self-authored mini-postings, 81
+independently-annotated controls spanning all 6 qualification-intent categories A-F) +
+`tests/test_m11g3_end_to_end_pathway.py` (new, 12 tests) -- expected outcomes hash-
+frozen only after a separate pre-freeze verification script found and fixed 16 initial
+corpus-authoring mistakes against the real, unmodified pipeline (all disclosed in the
+freeze file), plus one later coverage gap (named-technology/education controls) closed
+before the final freeze. No sentence is copied, paraphrased, or reconstructed from
+M11-D's or M11-F's own private real-posting corpora -- every sentence is either already
+self-authored and publicly committed in M11-G1/M11-G2's own corpora/tests, or freshly
+built using only the 17-tag canonical/alias VOCABULARY already present in production
+source code.
+
+**Why:** M11-G1 and M11-G2 each fixed one isolated defect; this milestone confirms those
+fixes, plus the already-existing segmentation and projection machinery, actually compose
+correctly on COMPLETE, multi-section postings -- not just in the single-sentence
+isolation every prior milestone's own test suite exercised.
+
+**Measured result:** applicant-qualification identification 57/57, competency-tag
+prediction (per-prediction methodology) 65/65, necessity classification 66/66 (UNKNOWN
+never coerced to REQUIRED/PREFERRED, zero exceptions), logical grouping 66/66,
+source-span exactness 66/66, conservative projection correctness 66/66, zero false
+qualifications across 9 responsibility + 4 learning + 3 narrative controls (6 of the 13
+instead safely construct a Qualification with necessity=None, the M11-G2-disclosed
+interpretation choice, now measured directly), 57/57 isolated matcher checks confirming
+NOT_ASSESSABLE safety with empty evidence. Explicitly reported as an INTEGRATION-
+correctness result on synthetic development controls, not a generalization claim. Full
+backend suite: 1458->**1470 passed**, 13 skipped. M11-G1/M11-G2's own controls and the
+M11-C/M11-E harnesses are byte-identical before/after; M11-F's independent holdout
+(diagnostic only) is also byte-identical, its committed report regenerated locally for
+confirmation then `git checkout`-restored, never rewritten.
+
+**Risks/limitations (reported, not fixed -- outside this milestone's authorized scope):**
+one genuine, systemic integration-interface mismatch was found: `segmentation.py`'s own
+`_looks_like_requirement` admission-gate vocabulary is narrower than
+`competency_extraction.py`'s own `_QUALIFYING_INTENT_V2` gate (the latter additionally
+recognizes bare "strong"/"solid"/"deep"/"comfortable") -- a sentence like "Strong
+understanding of X" outside a recognized REQUIRED/PREFERRED/RESPONSIBILITY section never
+becomes a `Claim` at all, confirmed directly by a dedicated test. A second, lower-
+severity, pre-existing cross-tag alias overlap was also found and disclosed:
+"distributed architecture" matches both `system-design`'s own canonical phrase and a
+pre-existing `distributed-systems` alias. Neither was patched.
+
+**How to test:** `pytest tests/test_m11g3_end_to_end_pathway.py`;
+`python scripts/evaluate_m11g3_end_to_end.py` (hash-verifies the frozen corpus first);
+`python scripts/evaluate_m11g3_pre_freeze_check.py` for the detailed per-control
+diagnostic; full suite via `pytest -q`.
+
+See `docs/evaluation/MILESTONE_11_G3_END_TO_END_QUALIFICATION_UNDERSTANDING.md` for the
+full architecture, control inventory, and before/after metrics.
+
 ## 2026-11-05 — Milestone 11-G2: section-aware qualification/necessity inference for v2 (opt-in)
 
 **What changed:** `extract_competency_qualifications_v2`'s necessity inference was

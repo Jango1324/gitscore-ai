@@ -1,0 +1,1298 @@
+{
+  "corpus_version": "m11g3-dev:v1",
+  "annotation_provenance": "19 self-authored mini-postings. Every sentence is either already self-authored and publicly committed in M11-G1/M11-G2's own corpora/tests, or freshly authored using only the 17-tag canonical/alias VOCABULARY already present in production source code (never posting TEXT). No sentence is copied, paraphrased, or reconstructed from M11-D's or M11-F's own private real-posting corpora. Qualification-intent categories (A-F) and all expected outcomes were annotated BEFORE segment_description()/extract_competency_qualifications_v2()/project_qualification() were ever run against this corpus.",
+  "postings": [
+    {
+      "id": "p01",
+      "title": "Backend Engineer",
+      "description": "Requirements:\nExperience with distributed systems is required.\nStrong understanding of algorithms and data structures.\nPreferred Qualifications:\nKnowledge of concurrency.\nResponsibilities:\nDesign and build systems with strong distributed systems expertise.\nStrong ownership of distributed systems reliability.\n",
+      "controls": [
+        {
+          "target_text": "Experience with distributed systems is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Strong understanding of algorithms and data structures.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "algorithms-data-structures",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Knowledge of concurrency.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Design and build systems with strong distributed systems expertise.",
+          "category": "B",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Strong ownership of distributed systems reliability.",
+          "category": "B",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "genuine duty wording with qualifying-intent language; the G2-disclosed tradeoff -- a Qualification is still constructed but safely routed via necessity=UNKNOWN, never scored"
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "title": "Embedded Systems Engineer",
+      "description": "What You'll Bring:\nEmbedded systems experience is required.\nExperience with bare-metal programming.\nNice to Have:\nExperience with network protocols.\n",
+      "controls": [
+        {
+          "target_text": "Embedded systems experience is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "UNKNOWN-heading preservation via explicit local marker"
+        },
+        {
+          "target_text": "Experience with bare-metal programming.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown"
+        },
+        {
+          "target_text": "Experience with network protocols.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "os-networking",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "title": "Computer Vision Engineer",
+      "description": "Required Skills:\nStrong background in object detection and image segmentation is required.\nWhat You'll Learn:\nFamiliarity with distributed systems.\n",
+      "controls": [
+        {
+          "target_text": "Strong background in object detection and image segmentation is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "computer-vision",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with distributed systems.",
+          "category": "C",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown"
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "title": "Security Engineer",
+      "description": "Requirements:\nStrong background in threat modeling and secure coding practices is required.\nWe offer competitive compensation and comprehensive benefits.\n",
+      "controls": [
+        {
+          "target_text": "Strong background in threat modeling and secure coding practices is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "cybersecurity-threat-modeling",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "We offer competitive compensation and comprehensive benefits.",
+          "category": "E",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "no_competency_language",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "administrative text remaining under the still-open REQUIRED section (no closing heading); safely declined by the competency extractor regardless"
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "title": "Data Engineer",
+      "description": "Our team has years of experience with distributed systems.\n\nRequirements:\nExperience with distributed systems is required.\n",
+      "controls": [
+        {
+          "target_text": "Our team has years of experience with distributed systems.",
+          "category": "D",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "narrative_cue",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "preamble before the document's own later real heading"
+        },
+        {
+          "target_text": "Experience with distributed systems is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p06",
+      "title": "Robotics Engineer",
+      "description": "Requirements:\nKnowledge of control systems.\nExperience with concurrency or distributed systems is required.\n",
+      "controls": [
+        {
+          "target_text": "Knowledge of control systems.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "control-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Experience with concurrency or distributed systems is required.",
+          "category": "F",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "missing_contract",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "M11-G1's OR-list safety fix, confirmed intact end-to-end under section context"
+        }
+      ]
+    },
+    {
+      "id": "p07",
+      "title": "Machine Learning Engineer",
+      "description": "Requirements:\nFamiliarity with overfitting and regularization techniques is required.\nPreferred Qualifications:\nKnowledge of bias-variance tradeoffs.\n",
+      "controls": [
+        {
+          "target_text": "Familiarity with overfitting and regularization techniques is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "ml-fundamentals",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Knowledge of bias-variance tradeoffs.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "ml-fundamentals",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p08",
+      "title": "Data Scientist",
+      "description": "Requirements:\nSolid grounding in basic statistics is required.\nResponsibilities:\nCollaborate across teams with strong machine learning fundamentals expertise.\n",
+      "controls": [
+        {
+          "target_text": "Solid grounding in basic statistics is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "ml-fundamentals",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Collaborate across teams with strong machine learning fundamentals expertise.",
+          "category": "B",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p09",
+      "title": "Hardware / Digital Logic Engineer",
+      "description": "Requirements:\nStrong grasp of digital logic design and boolean algebra is required.\nNice to Have:\nFamiliarity with circuit theory and analog electronics.\n",
+      "controls": [
+        {
+          "target_text": "Strong grasp of digital logic design and boolean algebra is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "digital-logic",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with circuit theory and analog electronics.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "circuit-theory",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p10",
+      "title": "Signal Processing Engineer",
+      "description": "Requirements:\nExperience with digital signal processing and filter design is required.\nWhat You'll Learn:\nFamiliarity with FFTs and filter design techniques.\n",
+      "controls": [
+        {
+          "target_text": "Experience with digital signal processing and filter design is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "signal-processing",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with FFTs and filter design techniques.",
+          "category": "C",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "signal-processing",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown"
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "title": "Database Engineer",
+      "description": "Requirements:\nStrong background in database design and relational schemas is required.\nPreferred Qualifications:\nKnowledge of indexing strategies.\n",
+      "controls": [
+        {
+          "target_text": "Strong background in database design and relational schemas is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "database-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Knowledge of indexing strategies.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "database-design",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p12",
+      "title": "GPU / HPC Engineer",
+      "description": "Requirements:\nExperience with GPU programming and parallel computing is required.\nResponsibilities:\nOptimize workloads with strong GPU programming and high-performance computing expertise.\n",
+      "controls": [
+        {
+          "target_text": "Experience with GPU programming and parallel computing is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "gpu-parallel-computing",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Optimize workloads with strong GPU programming and high-performance computing expertise.",
+          "category": "B",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p13",
+      "title": "Systems / OS Engineer",
+      "description": "Requirements:\nStrong understanding of operating systems internals is required.\nNice to Have:\nFamiliarity with TCP/IP networking and process scheduling.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of operating systems internals is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "os-networking",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with TCP/IP networking and process scheduling.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "os-networking",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p14",
+      "title": "Performance Engineering",
+      "description": "Requirements:\nExperience debugging and optimizing performance-critical systems is required.\nResponsibilities:\nMaintain systems with strong performance-critical optimization expertise.\n",
+      "controls": [
+        {
+          "target_text": "Experience debugging and optimizing performance-critical systems is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "performance-optimization",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Maintain systems with strong performance-critical optimization expertise.",
+          "category": "B",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p15",
+      "title": "Control Systems Engineer",
+      "description": "Requirements:\nStrong understanding of control systems theory and PID is required.\nNice to Have:\nFamiliarity with state-space methods.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of control systems theory and PID is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "control-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with state-space methods.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "control-systems",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p16",
+      "title": "Quantum Computing Research",
+      "description": "Requirements:\nExperience with quantum circuit design and qubit error correction is required.\nAdditional Information:\nQuantum computing experience is required.\n",
+      "controls": [
+        {
+          "target_text": "Experience with quantum circuit design and qubit error correction is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "quantum-computing",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Quantum computing experience is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "quantum-computing",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "UNKNOWN-heading preservation via explicit local marker"
+        }
+      ]
+    },
+    {
+      "id": "p17",
+      "title": "Infrastructure Engineer",
+      "description": "Requirements:\nStrong skills in concurrency, system design, and database design are required.\n- Experience with embedded systems.\n- Knowledge of concurrency.\n",
+      "controls": [
+        {
+          "target_text": "Strong skills in concurrency, system design, and database design are required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "and",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "expect_sibling_tags": [
+            "system-design",
+            "database-design"
+          ]
+        },
+        {
+          "target_text": "Experience with embedded systems.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "bulleted list item under REQUIRED"
+        },
+        {
+          "target_text": "Knowledge of concurrency.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "second bulleted list item under the same REQUIRED section"
+        }
+      ]
+    },
+    {
+      "id": "p18",
+      "title": "Platform Engineer",
+      "description": "Requirements:\nExperience with distributed systems is expected, unless a manager approves an exception.\nDeep familiarity with\nconcurrency fundamentals.\n",
+      "controls": [
+        {
+          "target_text": "Experience with distributed systems is expected, unless a manager approves an exception.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "material_applicability_condition_not_representable_on_job_requirement",
+          "expect_applicability_present": true,
+          "notes": "project_qualification's own pre-existing, unmodified safety rule: ANY applicability condition routes to UnparsedClaim, never JobRequirement -- the condition is preserved (applicability_condition is not None) but never silently scored"
+        },
+        {
+          "target_text": "Deep familiarity with\nconcurrency fundamentals.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "soft line-wrap across two physical lines, joined by segment_description's own M11-A2 logic"
+        }
+      ]
+    },
+    {
+      "id": "p19",
+      "title": "Unsectioned Mini-Posting",
+      "description": "Experience with concurrency.\nStrong understanding of concurrency.\nOur company offers great perks and a fun culture.\n",
+      "controls": [
+        {
+          "target_text": "Experience with concurrency.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "genuinely unsectioned whole document -- Milestone 6B's own 'no section at all -> default REQUIRED' policy"
+        },
+        {
+          "target_text": "Strong understanding of concurrency.",
+          "category": "F",
+          "is_competency_relevant": false,
+          "expect_no_claim": true,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "DELIBERATE integration-interface-mismatch demonstration (Phase 6): segmentation.py's own _looks_like_requirement vocabulary does not include 'strong'/'understanding of', even though competency_extraction.py's own _QUALIFYING_INTENT_V2 gate explicitly recognizes 'strong' as a bare qualifying cue -- outside a recognized section, this sentence never reaches the offline extractor at all, confirmed directly, not assumed"
+        },
+        {
+          "target_text": "Our company offers great perks and a fun culture.",
+          "category": "E",
+          "is_competency_relevant": false,
+          "expect_no_claim": true,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "no REQUIREMENT_SIGNAL word and no concept mention -- never becomes a Claim at all"
+        }
+      ]
+    },
+    {
+      "id": "p20",
+      "title": "Mixed Structure / Negation / Alias",
+      "description": "Requirements:\nExperience with system design, and familiarity with either distributed systems or performance optimization.\nNo prior experience with embedded systems is necessary.\nExperience with computer vision and object detection is required.\nKnowledge of socket programming.\n",
+      "controls": [
+        {
+          "target_text": "Experience with system design, and familiarity with either distributed systems or performance optimization.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": null,
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "mixed_unsupported",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "mixed_unsupported_logical_structure",
+          "notes": "genuine AND-of-OR structure, M11-E's own already-public test sentence"
+        },
+        {
+          "target_text": "No prior experience with embedded systems is necessary.",
+          "category": "F",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "negation",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Experience with computer vision and object detection is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "computer-vision",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "two canonical phrases for the SAME tag, not a sibling-tag AND"
+        },
+        {
+          "target_text": "Knowledge of socket programming.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "os-networking",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "alias-based match (semantically_equivalent) under a REQUIRED section"
+        }
+      ]
+    },
+    {
+      "id": "p21",
+      "title": "Responsibility and Narrative Diversity",
+      "description": "Our engineering team has years of experience with concurrency.\nRequirements:\nExperience with lock-free programming is required.\nResponsibilities:\nBuild and maintain systems with strong distributed systems expertise.\nLead the group with strong consensus algorithm and fault tolerance expertise.\n",
+      "controls": [
+        {
+          "target_text": "Our engineering team has years of experience with concurrency.",
+          "category": "D",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "narrative_cue",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Experience with lock-free programming is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Build and maintain systems with strong distributed systems expertise.",
+          "category": "B",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Lead the group with strong consensus algorithm and fault tolerance expertise.",
+          "category": "B",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "starts with 'Lead', a bare imperative duty verb, despite containing distributed-systems vocabulary"
+        }
+      ]
+    },
+    {
+      "id": "p22",
+      "title": "Additional Required/Preferred Domain Pairs",
+      "description": "Requirements:\nStrong understanding of distributed consensus algorithms and fault tolerance is required.\nExperience with scalable system architecture is required.\nPreferred Qualifications:\nKnowledge of database internals.\nFamiliarity with attack vectors and secure coding.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of distributed consensus algorithms and fault tolerance is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "distinct canonical alternatives within the distributed-systems pattern"
+        },
+        {
+          "target_text": "Experience with scalable system architecture is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "system-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Knowledge of database internals.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "database-design",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with attack vectors and secure coding.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "cybersecurity-threat-modeling",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "p23",
+      "title": "Qualification Embedded in Responsibility",
+      "description": "Responsibilities:\nCandidates must have experience with distributed systems for this responsibility area.\nA strong candidate will have embedded systems experience, which is preferred for this duty.\n",
+      "controls": [
+        {
+          "target_text": "Candidates must have experience with distributed systems for this responsibility area.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "explicit local REQUIRED marker preserved under a RESPONSIBILITY section (reused from M11-G2)"
+        },
+        {
+          "target_text": "A strong candidate will have embedded systems experience, which is preferred for this duty.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "explicit local PREFERRED marker preserved under a RESPONSIBILITY section (reused from M11-G2)"
+        }
+      ]
+    },
+    {
+      "id": "p24",
+      "title": "Required/Preferred Transition with Bullets",
+      "description": "Requirements:\n- Experience with multithreading and concurrent programming is required.\n- Experience with resource-constrained embedded systems is required.\nPreferred Qualifications:\n- Experience with high-performance computing.\n- Experience with analog electronics.\n",
+      "controls": [
+        {
+          "target_text": "Experience with multithreading and concurrent programming is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "bulleted list item, two canonical alternatives for the SAME tag"
+        },
+        {
+          "target_text": "Experience with resource-constrained embedded systems is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "bulleted list item under the same REQUIRED section"
+        },
+        {
+          "target_text": "Experience with high-performance computing.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "gpu-parallel-computing",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "bulleted list item under PREFERRED"
+        },
+        {
+          "target_text": "Experience with analog electronics.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "circuit-theory",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "second bulleted list item under the same PREFERRED section"
+        }
+      ]
+    },
+    {
+      "id": "p25",
+      "title": "Algorithms / Firmware / Image Segmentation",
+      "description": "Requirements:\nStrong background in algorithmic problem-solving and big-O analysis is required.\nExperience with firmware development is required.\nPreferred Qualifications:\nKnowledge of image segmentation.\nFamiliarity with race conditions.\nWhat You'll Learn:\nFamiliarity with machine learning fundamentals.\n",
+      "controls": [
+        {
+          "target_text": "Strong background in algorithmic problem-solving and big-O analysis is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "algorithms-data-structures",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Experience with firmware development is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Knowledge of image segmentation.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "computer-vision",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with race conditions.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with machine learning fundamentals.",
+          "category": "C",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "ml-fundamentals",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown"
+        }
+      ]
+    },
+    {
+      "id": "p26",
+      "title": "Multi-Section Mixed Posting",
+      "description": "Minimum Qualifications:\nExperience with distributed architecture is required.\nNice to Have:\nKnowledge of qubit error correction.\nResponsibilities:\nArchitect systems with strong performance-critical infrastructure expertise.\nStrong ownership of control systems reliability.\nAdditional Information:\nDatabase design experience is required.\nWe are a fast-growing company building the future of logistics.\n",
+      "controls": [
+        {
+          "target_text": "Experience with distributed architecture is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "system-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "and",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "expect_sibling_tags": [
+            "distributed-systems"
+          ],
+          "notes": "employer-specific REQUIRED heading wording ('Minimum Qualifications:'); DISCOVERED cross-tag vocabulary overlap -- 'distributed architecture' is simultaneously system-design's own canonical phrase AND a pre-existing distributed-systems SEMANTICALLY_EQUIVALENT alias (from M11-E's own alias table), so both tags fire even though the sentence names only one concept and contains no 'and'/'or' word at all"
+        },
+        {
+          "target_text": "Knowledge of qubit error correction.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "quantum-computing",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Architect systems with strong performance-critical infrastructure expertise.",
+          "category": "B",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "starts with 'Architect', a bare imperative duty verb, despite containing performance-optimization vocabulary"
+        },
+        {
+          "target_text": "Strong ownership of control systems reliability.",
+          "category": "B",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "control-systems",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "RESPONSIBILITY-section duty wording with qualifying-intent language and no local marker"
+        },
+        {
+          "target_text": "Database design experience is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "database-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "UNKNOWN-heading preservation via explicit local marker"
+        },
+        {
+          "target_text": "We are a fast-growing company building the future of logistics.",
+          "category": "D",
+          "is_competency_relevant": false,
+          "expect_no_claim": true,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "company narrative with no REQUIREMENT_SIGNAL word and no concept mention -- never becomes a Claim at all"
+        }
+      ]
+    },
+    {
+      "id": "p27",
+      "title": "Final Coverage Pad",
+      "description": "Preferred Qualifications:\nKnowledge of lock-free data structures and concurrent programming.\nExperience with networking fundamentals.\nLearning Opportunities:\nFamiliarity with quantum computing.\nRequired Qualifications:\nExperience with distributed systems is required.\n",
+      "controls": [
+        {
+          "target_text": "Knowledge of lock-free data structures and concurrent programming.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Experience with networking fundamentals.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "os-networking",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Familiarity with quantum computing.",
+          "category": "C",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "quantum-computing",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "employer-specific LEARNING heading wording ('Learning Opportunities:')"
+        },
+        {
+          "target_text": "Experience with distributed systems is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "employer-specific REQUIRED heading wording ('Required Qualifications:')"
+        }
+      ]
+    },
+    {
+      "id": "p28",
+      "title": "Named Technology and Education",
+      "description": "Requirements:\nExperience with Python is required.\nBachelor's degree in Computer Science is required.\nThree years of professional software engineering experience is required.\nExperience with distributed systems is required.\n",
+      "controls": [
+        {
+          "target_text": "Experience with Python is required.",
+          "category": "A",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "no_competency_language",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "genuine qualification (named technology), but outside the 17-tag competency vocabulary by design -- correctly declined, not fabricated into a competency tag"
+        },
+        {
+          "target_text": "Bachelor's degree in Computer Science is required.",
+          "category": "A",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "no_competency_language",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "genuine qualification (education), outside competency scope by design"
+        },
+        {
+          "target_text": "Three years of professional software engineering experience is required.",
+          "category": "A",
+          "is_competency_relevant": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "no_competency_language",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "genuine qualification (years of experience), outside competency scope by design"
+        },
+        {
+          "target_text": "Experience with distributed systems is required.",
+          "category": "A",
+          "is_competency_relevant": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "confirms mixing non-competency qualification lines with a genuine competency line in the same REQUIRED section does not cause cross-contamination"
+        }
+      ]
+    }
+  ]
+}

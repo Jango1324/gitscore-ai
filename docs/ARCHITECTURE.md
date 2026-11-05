@@ -5138,3 +5138,58 @@ schema/matcher/scoring/API/frontend change — see
 `docs/evaluation/MILESTONE_11_G2_SECTION_CONTEXT.md`'s own 11-item
 report and `docs/CHANGELOG_DEV.md`'s Milestone 11-G2 entry for the
 complete record.
+
+### Milestone 11-G3 — offline end-to-end qualification-understanding evaluation (no production change)
+
+An integration-VALIDATION milestone, not an extraction-development
+one: `git diff --stat -- src/` is empty for this milestone -- zero
+production code was touched. A new, purely additive evaluation
+harness chains four already-existing, already-tested functions into
+one offline pathway: `segment_description()` /
+`document_has_any_recognized_heading()` (unmodified) ->
+`extract_competency_qualifications_v2(..., has_section_context=True)`
+(M11-G1/M11-G2, unmodified) -> `project_qualification()` (M11-B Stage
+1, unmodified). The live parser's own pathway
+(`parse_job_description()`/`_parse()`/`_requirements_from_claim`) is
+never called, imported, or modified -- confirmed by a dedicated test
+inspecting `parser.py`'s own source for any reference to either
+function.
+
+Measured against a fresh, hash-frozen, 81-control development corpus
+(28 self-authored mini-postings, `evaluation/m11g3/full_posting_controls.json`,
+16 corpus-authoring mistakes found and fixed during pre-freeze
+verification against the real pipeline, all disclosed): applicant-
+qualification identification 57/57, competency-tag prediction (per-
+prediction methodology) 65/65, necessity classification 66/66 (UNKNOWN
+never coerced to REQUIRED/PREFERRED, confirmed with zero exceptions),
+logical grouping 66/66, source-span exactness 66/66, conservative
+projection correctness 66/66, zero false qualifications on 9
+responsibility + 4 learning + 3 narrative controls, 57/57 isolated
+matcher checks confirming NOT_ASSESSABLE safety with empty evidence.
+Explicitly reported as an INTEGRATION-correctness result on synthetic
+controls, not a generalization claim (consistent with M11-F's own
+independent-holdout finding that recall collapses on genuinely unseen
+real postings).
+
+**One genuine, systemic, material finding, reported rather than
+fixed** (outside this milestone's own authorized scope):
+`segmentation.py`'s own `_looks_like_requirement` admission-gate
+vocabulary is narrower than `competency_extraction.py`'s own
+`_QUALIFYING_INTENT_V2` gate (the latter additionally recognizes bare
+`strong`/`solid`/`deep`/`comfortable`) -- so a sentence like "Strong
+understanding of X" outside a recognized REQUIRED/PREFERRED/
+RESPONSIBILITY section never becomes a `Claim` at all, confirmed
+directly by a dedicated test, not assumed. A second, lower-severity,
+pre-existing cross-tag alias overlap was also found and disclosed
+(`"distributed architecture"` matches both `system-design`'s own
+canonical phrase and a pre-existing `distributed-systems` alias).
+Neither was patched -- both are named as the basis for a future,
+narrowly-scoped follow-up milestone. Full regression suite
+1458->**1470** passed/13 skipped unchanged; every named historical
+evaluation (M11-C, M11-E, M11-F's own diagnostic benchmark, M11-G1's
+and M11-G2's own controls) byte-identical. No live-parser wiring, no
+competency evidence detector, no public schema/matcher/scoring/API/
+frontend change — see
+`docs/evaluation/MILESTONE_11_G3_END_TO_END_QUALIFICATION_UNDERSTANDING.md`'s
+own 12-item report and `docs/CHANGELOG_DEV.md`'s Milestone 11-G3 entry
+for the complete record.

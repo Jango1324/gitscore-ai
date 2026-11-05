@@ -664,6 +664,24 @@ Milestone 11-G2 section and
 `docs/evaluation/MILESTONE_11_G2_SECTION_CONTEXT.md` for the full
 root-cause trace and measured results.
 
+**Milestone 11-G3 follow-up (no pipeline flow change, no production code touched):** a new,
+purely additive OFFLINE EVALUATION harness chains
+`segment_description()`/`document_has_any_recognized_heading()` ->
+`extract_competency_qualifications_v2(..., has_section_context=True)`
+-> `project_qualification()` to validate that these already-existing,
+already-tested pieces compose correctly on complete, multi-section job
+descriptions. **This pathway is never called by `parse_job_description()`/
+`_parse()`/`_requirements_from_claim`**, confirmed by a dedicated test
+inspecting `parser.py`'s own source. One genuine, systemic integration-
+interface mismatch was found and disclosed, not fixed: `segmentation.py`'s
+own claim-admission vocabulary is narrower than `competency_extraction.py`'s
+own qualifying-intent vocabulary, so some sentences the offline extractor
+could recognize never become a `Claim` at all outside a recognized
+section. See `docs/ARCHITECTURE.md`'s Milestone 11-G3 section and
+`docs/evaluation/MILESTONE_11_G3_END_TO_END_QUALIFICATION_UNDERSTANDING.md`
+for the full architecture, measured results, and this finding's exact
+reproduction.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

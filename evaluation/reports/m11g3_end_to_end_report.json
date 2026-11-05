@@ -1,0 +1,83 @@
+{
+  "total_postings": 28,
+  "total_controls": 81,
+  "applicant_qualification_identification": {
+    "true_positives": 57,
+    "false_negatives": 0,
+    "true_negatives_correct_declines": 9,
+    "false_qualifications_confident_necessity_on_non_A": 0,
+    "safe_nonqualification_construction_necessity_none": 6
+  },
+  "out_of_competency_scope_correctly_declined": {
+    "numerator": 3,
+    "denominator": 3
+  },
+  "technical_competency_tag_prediction": {
+    "true_positives": 65,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": {
+      "numerator": 65,
+      "denominator": 65
+    },
+    "recall": {
+      "numerator": 65,
+      "denominator": 65
+    }
+  },
+  "necessity_classification": {
+    "numerator": 66,
+    "denominator": 66
+  },
+  "narrative_and_learning_false_positives": 0,
+  "logical_grouping": {
+    "numerator": 66,
+    "denominator": 66
+  },
+  "source_span_exactness": {
+    "numerator": 66,
+    "denominator": 66
+  },
+  "conservative_projection_correctness": {
+    "numerator": 66,
+    "denominator": 66
+  },
+  "unsupported_declined_cases_by_reason": {
+    "responsibility_lead": 7,
+    "no_competency_language": 4,
+    "narrative_cue": 2,
+    "missing_contract": 1,
+    "negation": 1
+  },
+  "no_claim_expectations": {
+    "numerator": 3,
+    "denominator": 3
+  },
+  "qualification_intent_category_breakdown": {
+    "A": {
+      "total": 60,
+      "matched_expectation": 60
+    },
+    "B": {
+      "total": 9,
+      "matched_expectation": 9
+    },
+    "C": {
+      "total": 4,
+      "matched_expectation": 4
+    },
+    "E": {
+      "total": 2,
+      "matched_expectation": 2
+    },
+    "D": {
+      "total": 3,
+      "matched_expectation": 3
+    },
+    "F": {
+      "total": 3,
+      "matched_expectation": 3
+    }
+  },
+  "mismatches": []
+}
