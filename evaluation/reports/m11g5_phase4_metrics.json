@@ -1,0 +1,234 @@
+{
+  "corpus_version": "m11g5-independent:v1",
+  "n_controls_total": 161,
+  "n_controls_matched_to_span": 161,
+  "n_controls_unmatched": 0,
+  "unmatched_ids": [],
+  "category_a_all_genuine_qualifications": {
+    "n_positive_controls": 143,
+    "n_negative_controls": 18,
+    "path_a": {
+      "recognized_tp": 135,
+      "missed_fn": 8,
+      "recall": 0.9441,
+      "false_requirements_from_non_qualifications": 0,
+      "false_requirement_denominator": 18
+    },
+    "candidate": {
+      "recognized_tp": 135,
+      "missed_fn": 8,
+      "recall": 0.9441,
+      "false_requirements_from_non_qualifications": 0,
+      "false_requirement_denominator": 18,
+      "recovered_only_count": 0,
+      "recovered_only_ids": []
+    },
+    "missed_by_category": {
+      "path_a_recall_by_kind": {
+        "education": {
+          "n": 12,
+          "recognized": 11
+        },
+        "nontechnical": {
+          "n": 30,
+          "recognized": 28
+        },
+        "specific_technology": {
+          "n": 44,
+          "recognized": 42
+        },
+        "technical_competency": {
+          "n": 57,
+          "recognized": 54
+        }
+      },
+      "candidate_recall_by_kind": {
+        "education": {
+          "n": 12,
+          "recognized": 11
+        },
+        "nontechnical": {
+          "n": 30,
+          "recognized": 28
+        },
+        "specific_technology": {
+          "n": 44,
+          "recognized": 42
+        },
+        "technical_competency": {
+          "n": 57,
+          "recognized": 54
+        }
+      }
+    },
+    "path_a_missed_ids": [
+      "m11g5-p03-01",
+      "m11g5-p03-02",
+      "m11g5-p03-03",
+      "m11g5-p03-04",
+      "m11g5-p03-05",
+      "m11g5-p03-06",
+      "m11g5-p03-07",
+      "m11g5-p18-04"
+    ],
+    "candidate_missed_ids": [
+      "m11g5-p03-01",
+      "m11g5-p03-02",
+      "m11g5-p03-03",
+      "m11g5-p03-04",
+      "m11g5-p03-05",
+      "m11g5-p03-06",
+      "m11g5-p03-07",
+      "m11g5-p18-04"
+    ]
+  },
+  "category_b_technical_competencies": {
+    "n_technical_competency_controls": 57,
+    "n_taggable_expected_tag": 40,
+    "n_untaggable_expected_no_tag": 17,
+    "tag_level_tp": 5,
+    "tag_level_fn": 35,
+    "tag_level_fn_ids": [
+      "m11g5-p01-01",
+      "m11g5-p01-03",
+      "m11g5-p02-01",
+      "m11g5-p02-03",
+      "m11g5-p03-02",
+      "m11g5-p03-04",
+      "m11g5-p03-05",
+      "m11g5-p04-01b",
+      "m11g5-p04-02",
+      "m11g5-p04-03",
+      "m11g5-p05-02",
+      "m11g5-p07-05",
+      "m11g5-p07-08",
+      "m11g5-p08-03",
+      "m11g5-p10-01",
+      "m11g5-p10-08",
+      "m11g5-p11-01",
+      "m11g5-p11-02",
+      "m11g5-p11-03",
+      "m11g5-p11-05",
+      "m11g5-p11-07",
+      "m11g5-p12-05",
+      "m11g5-p12-06",
+      "m11g5-p13-01",
+      "m11g5-p14-02",
+      "m11g5-p14-03",
+      "m11g5-p14-06",
+      "m11g5-p15-02",
+      "m11g5-p15-04",
+      "m11g5-p15-05",
+      "m11g5-p16-02",
+      "m11g5-p16-04",
+      "m11g5-p16-05",
+      "m11g5-p16-06",
+      "m11g5-p18-07"
+    ],
+    "prediction_level": {
+      "total_tag_predictions_emitted": 7,
+      "correct_primary_tag_emitted": 5,
+      "accepted_sibling_tag_emitted": 1,
+      "incorrect_sibling_or_unrelated_tag_emitted": 1,
+      "incorrect_emissions": [
+        {
+          "id": "m11g5-p16-05",
+          "tag": "os-networking",
+          "expected": "embedded-systems-design"
+        }
+      ],
+      "precision": 0.8571,
+      "precision_formula": "(correct_primary + accepted_sibling) / total_tag_predictions_emitted"
+    },
+    "recall": 0.125,
+    "untagged_vocabulary_hits_no_resolved_tag": 0,
+    "untaggable_controls_correctly_declined": 17,
+    "untaggable_controls_wrongly_tagged": 0
+  },
+  "category_c_semantic_correctness": {
+    "necessity_agreement": {
+      "n_checked": 6,
+      "n_agree": 6,
+      "rate": 1.0
+    },
+    "logical_composition_agreement": {
+      "n_checked": 6,
+      "n_agree": 1,
+      "rate": 0.1667
+    },
+    "exact_source_span_preservation": {
+      "n_checked": 6,
+      "n_exact": 6,
+      "rate": 1.0
+    },
+    "decline_reason_distribution": {
+      "no_competency_language": 147
+    },
+    "domain_leak_trap_cases": [
+      {
+        "id": "m11g5-p03-resp",
+        "is_applicant_qualification": false,
+        "a_admitted_as_requirement": false,
+        "candidate_found_competency": false,
+        "candidate_relationship": null
+      },
+      {
+        "id": "m11g5-p06-narr1",
+        "is_applicant_qualification": false,
+        "a_admitted_as_requirement": false,
+        "candidate_found_competency": false,
+        "candidate_relationship": "path_b_declines_already_admitted"
+      },
+      {
+        "id": "m11g5-p09-resp",
+        "is_applicant_qualification": false,
+        "a_admitted_as_requirement": false,
+        "candidate_found_competency": false,
+        "candidate_relationship": "path_b_declines_already_admitted"
+      },
+      {
+        "id": "m11g5-p11-resp",
+        "is_applicant_qualification": false,
+        "a_admitted_as_requirement": false,
+        "candidate_found_competency": false,
+        "candidate_relationship": "path_b_declines_already_admitted"
+      },
+      {
+        "id": "m11g5-p14-resp",
+        "is_applicant_qualification": false,
+        "a_admitted_as_requirement": false,
+        "candidate_found_competency": false,
+        "candidate_relationship": "path_b_declines_already_admitted"
+      },
+      {
+        "id": "m11g5-p15-resp",
+        "is_applicant_qualification": false,
+        "a_admitted_as_requirement": false,
+        "candidate_found_competency": false,
+        "candidate_relationship": "path_b_declines_already_admitted"
+      },
+      {
+        "id": "m11g5-p16-resp",
+        "is_applicant_qualification": false,
+        "a_admitted_as_requirement": false,
+        "candidate_found_competency": false,
+        "candidate_relationship": "path_b_declines_already_admitted"
+      },
+      {
+        "id": "m11g5-p18-14",
+        "is_applicant_qualification": true,
+        "a_admitted_as_requirement": false,
+        "candidate_found_competency": false,
+        "candidate_relationship": "path_b_declines_already_admitted"
+      }
+    ]
+  },
+  "category_d_combined_interpretation": {
+    "unique_genuine_qualifications_recognized_by_candidate": 135,
+    "contradictory_relationship_count": 0,
+    "contradictory_ids": [],
+    "competency_found_but_projection_declined_count": 0,
+    "competency_found_but_projection_declined_ids": [],
+    "note_on_duplicate_outputs": "Reconciliation operates on exact source spans; no two ClaimComparison rows ever share an identical span, so 'duplicate outputs' in this corpus means two DIFFERENT spans describing overlapping real-world skill content (e.g. the same technology list appearing once under a Responsibilities heading and once under Qualifications -- m11g5-p05-resp1/m11g5-p05-04). These are reported as distinct recognized claims, not merged, since merging across sections is out of scope for an evaluation-only harness and was never attempted."
+  }
+}
