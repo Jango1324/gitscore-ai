@@ -682,6 +682,22 @@ section. See `docs/ARCHITECTURE.md`'s Milestone 11-G3 section and
 for the full architecture, measured results, and this finding's exact
 reproduction.
 
+**Milestone 11-G4 follow-up (no pipeline flow change, segmentation.py byte-unchanged):**
+a new, purely additive OFFLINE module,
+`qualification_admission_recovery.py`, closes exactly the gap M11-G3
+disclosed: `recover_unadmitted_qualification_claims()` re-walks a
+description using `segmentation.py`'s own real, private helpers
+(reused via import, never duplicated) and recovers a `Claim` for
+content outside a recognized section that fails `_looks_like_requirement`
+but passes `competency_extraction.py`'s own `_QUALIFYING_INTENT_V2`
+gate. **`segmentation.py` itself was never modified** -- confirmed by
+`git diff` and by a dedicated test that fails if it ever is. **This
+recovery function is never called by `parse_job_description()`/`_parse()`/
+`_requirements_from_claim`**, confirmed by a dedicated test. See
+`docs/ARCHITECTURE.md`'s Milestone 11-G4 section and
+`docs/evaluation/MILESTONE_11_G4_QUALIFICATION_ADMISSION.md` for the
+full strategy comparison and measured results.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

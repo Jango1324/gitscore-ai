@@ -1,5 +1,80 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-06 — Milestone 11-G4: offline-only qualification-admission recovery (segmentation.py byte-unchanged)
+
+**What changed:** Fixes exactly the one systemic finding M11-G3 disclosed rather
+than fixed: `segmentation.py`'s own `_looks_like_requirement()` admission gate --
+consulted only for content outside a recognized REQUIRED/PREFERRED/RESPONSIBILITY
+section -- recognizes a STRICT SUBSET of `competency_extraction.py`'s own,
+already-approved `_QUALIFYING_INTENT_V2` vocabulary, missing the bare cue words
+"strong"/"solid"/"deep"/"comfortable" and the leading qualifiers "understanding"/
+"background"/"expertise"/"grounding"/"grasp". A sentence like "Strong
+understanding of distributed systems." outside a recognized section never became
+a `Claim` at all, even though the offline extractor would recognize it.
+
+`src/gitscore/jobs/parsing/qualification_admission_recovery.py` (new -- the ONLY
+new production file this milestone adds) -- `recover_unadmitted_qualification_claims()`
+mirrors `segment_description()`'s own per-line loop exactly, reusing every one of
+its real, private helpers via import (`_SectionKind`, `_SECTION_NECESSITY_HINT`,
+`_BULLET_PREFIX`, `_classify_heading_line`, `_looks_like_requirement`,
+`_ends_incomplete`, `_is_paragraph_gap`, `_line_content_span`, `_split_sentences`)
+-- zero duplicated regex or admission logic, only the orchestration shape is
+mirrored. Never recovers content inside a recognized section, never recovers
+content under a SKIP section, never recovers a line `_looks_like_requirement`
+would already admit -- avoiding duplication by construction, not a post-hoc
+dedup step. Recovers a line only when the REAL `_QUALIFYING_INTENT_V2` gate
+passes. Recovered `Claim`s are returned in the exact shape real ones have, so
+every existing, unmodified downstream safety check applies unchanged.
+`segmentation.py` itself is byte-unchanged -- confirmed both by `git diff` and by
+a dedicated test that fails loudly if it is ever modified.
+
+`evaluation/m11g4/admission_recovery_controls.json` (new, 22 self-authored
+postings, 42 controls) + `tests/test_m11g4_admission_recovery.py` (new, 15
+tests) -- a preliminary freeze recorded independent predictions BEFORE
+implementation; a pre-freeze verification pass against the real, implemented
+pipeline found 5 mismatches (all disclosed in the freeze file, all the author's
+own prediction errors -- two sentences already matched segmentation's existing
+vocabulary without being noticed, three preamble/unsectioned-necessity-default
+mispredictions), fixed before the final freeze. Zero mismatches at the final
+hash.
+
+**Why:** Three candidate strategies were compared before implementation:
+widening `segmentation.py`'s own vocabulary directly (would require a production
+change this milestone was explicitly restricted from making without a STOP);
+this offline-only recovery pass (selected, on architectural grounds -- reuse
+over duplication, zero production-file risk); a future shared, context-aware
+admission policy both parsers could adopt (the new predicate is written cleanly
+enough to be adoptable there later, not wired in now).
+
+**Measured result:** on the frozen 42-control corpus: admission 41/41,
+applicant-qualification identification 26/26, competency-tag prediction 31/31,
+necessity 31/31, logical structure handling 31/31, source-span exactness 31/31,
+safe projection 31/31, previously-correct (already-admitted) behavior preserved
+14/14, zero false narrative/responsibility admissions, zero duplicate claims.
+Re-running M11-G3's own, untouched 81-control corpus through the combined
+(admitted + recovered) pathway as development/regression material (never
+independent generalization evidence) recovers EXACTLY the one claim M11-G3
+itself disclosed as missing, and nothing else -- confirmed to now resolve
+correctly (`concurrency`, REQUIRED, job_requirement). Full backend suite:
+1470->**1485 passed**, 13 skipped. M11-G1/M11-G2/M11-G3's own controls and the
+M11-C/M11-E harnesses are byte-identical before/after.
+
+**Risks/limitations:** the recovery pass duplicates `segment_description()`'s
+own per-line orchestration SHAPE (though none of its regex/classification/
+joining logic, all reused via import) -- a future Option-C-style unification
+(folding this widened check directly into `segmentation.py`) would remove even
+that, at the cost of touching a production file this milestone was explicitly
+restricted from modifying. This pathway remains entirely offline -- nothing
+calls it except this milestone's own evaluation harness and tests.
+
+**How to test:** `pytest tests/test_m11g4_admission_recovery.py`;
+`python scripts/evaluate_m11g4_admission_recovery.py` (hash-verifies the frozen
+corpus first); `python scripts/evaluate_m11g4_pre_freeze_check.py` for the
+detailed per-control diagnostic; full suite via `pytest -q`.
+
+See `docs/evaluation/MILESTONE_11_G4_QUALIFICATION_ADMISSION.md` for the full
+root-cause trace, strategy comparison, and before/after metrics.
+
 ## 2026-11-05 — Milestone 11-G3: offline end-to-end qualification-understanding evaluation (no production change)
 
 **What changed:** An integration-VALIDATION milestone, not an extraction-development

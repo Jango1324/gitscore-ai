@@ -1,0 +1,66 @@
+{
+  "total_postings": 22,
+  "total_controls": 42,
+  "total_recovered_claims": 27,
+  "applicant_qualification_identification": {
+    "true_positives": 26,
+    "false_negatives": 0,
+    "precision": {
+      "numerator": 26,
+      "denominator": 26
+    },
+    "recall": {
+      "numerator": 26,
+      "denominator": 26
+    }
+  },
+  "admission": {
+    "true_positives": 41,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": {
+      "numerator": 41,
+      "denominator": 41
+    },
+    "recall": {
+      "numerator": 41,
+      "denominator": 41
+    }
+  },
+  "technical_competency_tag_prediction": {
+    "true_positives": 31,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": {
+      "numerator": 31,
+      "denominator": 31
+    },
+    "recall": {
+      "numerator": 31,
+      "denominator": 31
+    }
+  },
+  "false_narrative_responsibility_admissions": 0,
+  "duplicate_qualification_count": 0,
+  "necessity_accuracy": {
+    "numerator": 31,
+    "denominator": 31
+  },
+  "logical_structure_handling": {
+    "numerator": 31,
+    "denominator": 31
+  },
+  "source_span_exactness": {
+    "numerator": 31,
+    "denominator": 31
+  },
+  "safe_projection_behavior": {
+    "numerator": 31,
+    "denominator": 31
+  },
+  "previously_correct_behavior_preserved": {
+    "numerator": 14,
+    "denominator": 14
+  },
+  "mismatches": []
+}

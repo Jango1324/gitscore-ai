@@ -5193,3 +5193,69 @@ frontend change — see
 `docs/evaluation/MILESTONE_11_G3_END_TO_END_QUALIFICATION_UNDERSTANDING.md`'s
 own 12-item report and `docs/CHANGELOG_DEV.md`'s Milestone 11-G3 entry
 for the complete record.
+
+### Milestone 11-G4 — offline-only qualification-admission recovery (no segmentation.py change)
+
+Fixes exactly the one systemic finding M11-G3 disclosed rather than
+fixed: `segmentation.py`'s own `_looks_like_requirement()` admission
+gate -- consulted only for content outside a recognized `REQUIRED`/
+`PREFERRED`/`RESPONSIBILITY` section -- recognizes a STRICT SUBSET of
+`competency_extraction.py`'s own, already-approved
+`_QUALIFYING_INTENT_V2` vocabulary, missing the bare cue words
+`strong`/`solid`/`deep`/`comfortable` and the leading qualifiers
+`understanding`/`background`/`expertise`/`grounding`/`grasp`. A
+sentence like "Strong understanding of distributed systems." outside
+a recognized section never became a `Claim` at all, even though the
+offline extractor would recognize it.
+
+`src/gitscore/jobs/parsing/qualification_admission_recovery.py` (new,
+the ONLY new production file this milestone adds) --
+`recover_unadmitted_qualification_claims()` mirrors
+`segment_description()`'s own per-line loop exactly, reusing every one
+of its real, private helpers via import (`_SectionKind`,
+`_SECTION_NECESSITY_HINT`, `_BULLET_PREFIX`, `_classify_heading_line`,
+`_looks_like_requirement`, `_ends_incomplete`, `_is_paragraph_gap`,
+`_line_content_span`, `_split_sentences`) -- zero duplicated regex or
+admission logic, only the orchestration shape is mirrored. It never
+recovers content inside a recognized section (already admitted
+unconditionally), never recovers content under a `SKIP` section
+(mirroring `segment_description()`'s own unconditional suppression),
+and never recovers a line `_looks_like_requirement` would already
+admit -- avoiding duplication by construction. A line is recovered
+only when the REAL `_QUALIFYING_INTENT_V2` gate passes. Recovered
+`Claim`s are returned in the exact shape real ones have, so every
+EXISTING, unmodified downstream safety check (negation, narrative,
+responsibility-lead, M11-G1's OR-list safety, M11-G2's section-aware
+necessity, `project_qualification`'s conservative projection rules)
+applies unchanged. `segmentation.py` itself is byte-unchanged --
+confirmed both by `git diff` and by a dedicated test that fails loudly
+if it is ever modified.
+
+Three candidate strategies were compared before implementation:
+widening `segmentation.py`'s own vocabulary directly (would require a
+production change this milestone was explicitly restricted from
+making without a STOP); this offline-only recovery pass (selected); a
+future shared, context-aware admission policy both parsers could
+adopt (the new function's own predicate is written cleanly enough to
+be adoptable there later, but is not wired in now).
+
+**Measured result:** on a fresh, hash-frozen, 42-control development
+corpus (`evaluation/m11g4/admission_recovery_controls.json`, 5
+corpus-authoring prediction errors found and fixed before the final
+freeze): admission 41/41, applicant-qualification identification
+26/26, competency-tag prediction 31/31, necessity 31/31, logical
+structure handling 31/31, source-span exactness 31/31, safe projection
+31/31, previously-correct (already-admitted) behavior preserved 14/14,
+zero false narrative/responsibility admissions, zero duplicate claims.
+Re-running M11-G3's own, untouched 81-control corpus through the
+combined (admitted + recovered) pathway as development/regression
+material (never independent generalization evidence) recovers EXACTLY
+the one claim M11-G3 itself disclosed as missing, and nothing else --
+confirmed to now resolve correctly. Full regression suite
+1470->**1485** passed/13 skipped unchanged; every named historical
+evaluation (M11-C, M11-E, M11-G1, M11-G2, M11-G3's own unmodified
+harness) byte-identical. No live-parser wiring, no competency evidence
+detector, no public schema/matcher/scoring/API/frontend change — see
+`docs/evaluation/MILESTONE_11_G4_QUALIFICATION_ADMISSION.md`'s own
+9-item report and `docs/CHANGELOG_DEV.md`'s Milestone 11-G4 entry for
+the complete record.

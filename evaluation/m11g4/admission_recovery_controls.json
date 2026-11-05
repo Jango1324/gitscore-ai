@@ -1,0 +1,782 @@
+{
+  "corpus_version": "m11g4-dev:v1",
+  "annotation_provenance": "Self-authored synthetic controls, no third-party text. Expected outcomes frozen BEFORE any new offline admission-recovery code was implemented. Admission status ('currently_admitted') was verified directly against the real, unmodified segment_description()/_looks_like_requirement before freezing; extractor/projection outcomes were verified against the real, unmodified extract_competency_qualifications_v2/project_qualification given the predicted section context. Whether each 'expect_recovered' control is ACTUALLY recovered by the new offline function is verified AFTER implementation, never tuned backwards into this gold.",
+  "postings": [
+    {
+      "id": "q01",
+      "title": "Genuinely Unsectioned, Recoverable Qualification",
+      "description": "Strong understanding of distributed systems.\nOur company offers great perks.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of distributed systems.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "genuinely unsectioned document -- Milestone 6B's own default-REQUIRED policy applies once recovered"
+        },
+        {
+          "target_text": "Our company offers great perks.",
+          "category": "E",
+          "currently_admitted": false,
+          "expect_recovered": false,
+          "expect_no_claim": true,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "fails BOTH _looks_like_requirement and _QUALIFYING_INTENT_V2 -- must stay excluded even after the fix"
+        }
+      ]
+    },
+    {
+      "id": "q02",
+      "title": "Recoverable Preamble Before Real Heading",
+      "description": "Strong understanding of concurrency.\n\nRequirements:\nExperience with embedded systems is required.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of concurrency.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "preamble before the document's own later real heading -- M11-G2's section-eligibility rule downgrades it, exactly as an already-admitted preamble claim would be"
+        },
+        {
+          "target_text": "Experience with embedded systems is required.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "already-admitted baseline, confirms unaffected"
+        }
+      ]
+    },
+    {
+      "id": "q03",
+      "title": "Recoverable UNKNOWN Heading vs. Already-Admitted Local Marker",
+      "description": "Additional Information:\nStrong understanding of control systems.\nControl systems experience is required.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of control systems.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "control-systems",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "UNKNOWN-heading content with no local marker -- correctly stays UNKNOWN necessity once recovered"
+        },
+        {
+          "target_text": "Control systems experience is required.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "control-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "already-admitted today via local REQUIRED marker -- confirms unaffected, not duplicated"
+        }
+      ]
+    },
+    {
+      "id": "q04",
+      "title": "Recoverable LEARNING Heading",
+      "description": "What You'll Learn:\nStrong understanding of quantum computing.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of quantum computing.",
+          "category": "C",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "quantum-computing",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown"
+        }
+      ]
+    },
+    {
+      "id": "q05",
+      "title": "Responsibility Duty Under an Unrecognized Heading, Not Recovered as a Qualification",
+      "description": "Additional Information:\nDesign and build strong distributed systems architecture.\n",
+      "controls": [
+        {
+          "target_text": "Design and build strong distributed systems architecture.",
+          "category": "B",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "the WIDENED admission gate recovers this line as a Claim (it now reaches the extractor), but the extractor's own, UNCHANGED _RESPONSIBILITY_LEAD check still correctly declines it -- recovering admission never means confidently accepting the content"
+        }
+      ]
+    },
+    {
+      "id": "q06",
+      "title": "Company Narrative, Not Recovered as a False Qualification",
+      "description": "Our team has deep expertise in distributed systems.\n\nRequirements:\nKnowledge of concurrency.\n",
+      "controls": [
+        {
+          "target_text": "Our team has deep expertise in distributed systems.",
+          "category": "D",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "narrative_cue",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "recovered as a Claim, then correctly declined by the extractor's own unchanged narrative check"
+        },
+        {
+          "target_text": "Knowledge of concurrency.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "q06b",
+      "title": "Company Product Narrative, Not Recovered as a False Qualification",
+      "description": "We've built and leveraged strong distributed systems expertise.\n",
+      "controls": [
+        {
+          "target_text": "We've built and leveraged strong distributed systems expertise.",
+          "category": "D",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "narrative_cue",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "a DIFFERENT narrative trigger (company/product narrative, not the broader-subject one) -- same safety property confirmed"
+        }
+      ]
+    },
+    {
+      "id": "q07",
+      "title": "Negation, Recovered Then Declined",
+      "description": "No prior knowledge with control systems is necessary.\n",
+      "controls": [
+        {
+          "target_text": "No prior knowledge with control systems is necessary.",
+          "category": "F",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "negation",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "q08",
+      "title": "Conditional Statement, Recovered",
+      "description": "Strong understanding of distributed systems is expected, unless a manager approves an exception.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of distributed systems is expected, unless a manager approves an exception.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "material_applicability_condition_not_representable_on_job_requirement",
+          "expect_applicability_present": true
+        }
+      ]
+    },
+    {
+      "id": "q09",
+      "title": "Multi-Competency AND Statement, Recovered",
+      "description": "Deep expertise in concurrency, system design, and database design.\n",
+      "controls": [
+        {
+          "target_text": "Deep expertise in concurrency, system design, and database design.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "and",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "expect_sibling_tags": [
+            "system-design",
+            "database-design"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "title": "OR-List Safety, Recovered",
+      "description": "Strong understanding of concurrency or distributed systems.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of concurrency or distributed systems.",
+          "category": "F",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "missing_contract",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "M11-G1's OR-list safety fix, confirmed intact for a recovered claim"
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "title": "Wrapped Statement, Recovered",
+      "description": "Strong understanding of\ndistributed systems.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of\ndistributed systems.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "soft line-wrap across two physical lines, joined by the SAME M11-A2 logic reused via import"
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "title": "Education and Ambiguous Statements, No Tag Fabrication",
+      "description": "Strong background in a relevant engineering discipline.\nA strong technical aptitude is expected.\nBachelor's degree in Computer Science.\n",
+      "controls": [
+        {
+          "target_text": "Strong background in a relevant engineering discipline.",
+          "category": "F",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "no_competency_language",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "recovered as a Claim, but no competency tag exists for this phrasing -- confirms widened admission never fabricates a tag"
+        },
+        {
+          "target_text": "A strong technical aptitude is expected.",
+          "category": "F",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "no_competency_language",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Bachelor's degree in Computer Science.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "no_competency_language",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "already-admitted today via 'degree' -- confirms unaffected baseline"
+        }
+      ]
+    },
+    {
+      "id": "q13",
+      "title": "Full Multi-Section Posting: Recovered, Already-Admitted, and Excluded Content Together",
+      "description": "Our team has deep expertise in distributed systems.\n\nRequirements:\nExperience with concurrency is required.\nWhat You'll Learn:\nStrong exposure to quantum computing.\nResponsibilities:\nDesign and build systems with strong database design expertise.\nAdditional Information:\nStrong understanding of control systems.\n",
+      "controls": [
+        {
+          "target_text": "Our team has deep expertise in distributed systems.",
+          "category": "D",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "narrative_cue",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Experience with concurrency is required.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Strong exposure to quantum computing.",
+          "category": "C",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "quantum-computing",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown"
+        },
+        {
+          "target_text": "Design and build systems with strong database design expertise.",
+          "category": "B",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "responsibility_lead",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "under a RESPONSIBILITY heading, already admitted unconditionally by segment_description itself (in_recognized_section bypass) -- this recovery pass must never touch it"
+        },
+        {
+          "target_text": "Strong understanding of control systems.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "control-systems",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown"
+        }
+      ]
+    },
+    {
+      "id": "q14",
+      "title": "Bulleted Recoverable Qualifications",
+      "description": "- Strong understanding of embedded systems.\n- Familiarity with network protocols.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of embedded systems.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "bulleted, unsectioned -- confirms bullet-prefix stripping is preserved via reuse"
+        },
+        {
+          "target_text": "Familiarity with network protocols.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "os-networking",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "already-admitted today via 'familiar*' -- confirms unaffected"
+        }
+      ]
+    },
+    {
+      "id": "q15",
+      "title": "Proficiency and Comfortable Constructions, Recovered",
+      "description": "Proficiency with GPU programming and parallel computing.\nComfortable with digital logic design and boolean algebra.\n",
+      "controls": [
+        {
+          "target_text": "Proficiency with GPU programming and parallel computing.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "gpu-parallel-computing",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "'Proficiency' DOES match segmentation's own 'proficien*' root -- already admitted today, confirms unaffected baseline rather than a recovery case"
+        },
+        {
+          "target_text": "Comfortable with digital logic design and boolean algebra.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "digital-logic",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "'comfortable' is one of _QUALIFYING_INTENT_V2's own bare cue words, absent entirely from segmentation's own vocabulary -- a genuine gap case"
+        }
+      ]
+    },
+    {
+      "id": "q16",
+      "title": "Already-Admitted REQUIRED/PREFERRED Baseline, Confirms No Duplication",
+      "description": "Requirements:\nStrong understanding of signal processing.\nPreferred Qualifications:\nStrong understanding of circuit theory.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of signal processing.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "signal-processing",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "REQUIRED section -- already admitted unconditionally via in_recognized_section bypass; this recovery pass must never touch (or duplicate) content here at all"
+        },
+        {
+          "target_text": "Strong understanding of circuit theory.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "circuit-theory",
+          "expect_necessity": "PREFERRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "PREFERRED section -- same confirmation"
+        }
+      ]
+    },
+    {
+      "id": "q17",
+      "title": "Recoverable Qualifications Across Additional Domains",
+      "description": "Strong understanding of computer vision and object detection.\nDeep expertise in cybersecurity threat modeling.\nSolid grasp of algorithms and data structures.\n",
+      "controls": [
+        {
+          "target_text": "Strong understanding of computer vision and object detection.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "computer-vision",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Deep expertise in cybersecurity threat modeling.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "cybersecurity-threat-modeling",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        },
+        {
+          "target_text": "Solid grasp of algorithms and data structures.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "algorithms-data-structures",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null
+        }
+      ]
+    },
+    {
+      "id": "q18",
+      "title": "Learning Opportunity With Explicit Local Marker Preserved",
+      "description": "What You'll Learn:\nEmbedded systems experience is required.\nStrong understanding of embedded systems.\n",
+      "controls": [
+        {
+          "target_text": "Embedded systems experience is required.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "already admitted today ('experience' signal word) -- local REQUIRED marker preserved under LEARNING, confirms unaffected"
+        },
+        {
+          "target_text": "Strong understanding of embedded systems.",
+          "category": "C",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "embedded-systems-design",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "recovered sibling line, no local marker -- correctly stays UNKNOWN"
+        }
+      ]
+    },
+    {
+      "id": "q19",
+      "title": "Mixed AND/OR Structure, Recovered",
+      "description": "Strong background in system design, and familiarity with either distributed systems or performance optimization.\n",
+      "controls": [
+        {
+          "target_text": "Strong background in system design, and familiarity with either distributed systems or performance optimization.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": null,
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "mixed_unsupported",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "mixed_unsupported_logical_structure",
+          "notes": "'familiarity' already matches segmentation's own 'familiar*' root -- already admitted today; confirms the genuine AND-of-OR MIXED_UNSUPPORTED structure is unaffected baseline, not a recovery case"
+        }
+      ]
+    },
+    {
+      "id": "q20",
+      "title": "Responsibility Phrased Without Imperative Lead, Outside a Recognized Section",
+      "description": "Strong ownership of distributed systems reliability.\n\nRequirements:\nExperience with concurrency is required.\n",
+      "controls": [
+        {
+          "target_text": "Strong ownership of distributed systems reliability.",
+          "category": "B",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "genuine duty wording with qualifying-intent vocabulary and NO imperative lead verb, preceding the document's own later real heading -- recovered as a Claim (the admission gate is widened), but correctly stays UNKNOWN necessity (a preamble claim is ineligible for the section default once the document has real structure elsewhere) -- never confidently scored, the same G2-disclosed tradeoff measured in M11-G3 \u00a75"
+        },
+        {
+          "target_text": "Experience with concurrency is required.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "concurrency",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "already-admitted baseline, confirms unaffected"
+        }
+      ]
+    },
+    {
+      "id": "q21",
+      "title": "Final Coverage Pad: Grounding/Grasp Cues and a Second Preamble Case",
+      "description": "Solid grounding in database design and relational schemas.\nDeep grasp of control systems theory and PID.\nOur engineering team has deep expertise in concurrency.\n\nRequired Qualifications:\nExperience with distributed systems is required.\n",
+      "controls": [
+        {
+          "target_text": "Solid grounding in database design and relational schemas.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "database-design",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "'grounding' is one of _QUALIFYING_INTENT_V2's own leading-qualifier words, absent from segmentation's own vocabulary; this line precedes the posting's own LATER real heading, so once recovered it is a preamble claim -- ineligible for a default necessity, correctly stays UNKNOWN (NOT the same as a genuinely unsectioned whole document, already covered by q01/q17)"
+        },
+        {
+          "target_text": "Deep grasp of control systems theory and PID.",
+          "category": "A",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "control-systems",
+          "expect_necessity": null,
+          "expect_logical_composition": "single",
+          "expect_projection": "unparsed_claim",
+          "expect_unsafe_reason": "necessity_unknown",
+          "notes": "'grasp' is likewise absent from segmentation's own vocabulary; same preamble-ineligibility reasoning"
+        },
+        {
+          "target_text": "Our engineering team has deep expertise in concurrency.",
+          "category": "D",
+          "currently_admitted": false,
+          "expect_recovered": true,
+          "expect_no_claim": false,
+          "expect_decline": true,
+          "expect_reason": "narrative_cue",
+          "expect_tag": null,
+          "expect_necessity": null,
+          "expect_logical_composition": null,
+          "expect_projection": null,
+          "expect_unsafe_reason": null,
+          "notes": "second _BROADER_NARRATIVE_SUBJECT trigger ('our engineering team'), preamble position"
+        },
+        {
+          "target_text": "Experience with distributed systems is required.",
+          "category": "A",
+          "currently_admitted": true,
+          "expect_recovered": false,
+          "expect_no_claim": false,
+          "expect_decline": false,
+          "expect_reason": null,
+          "expect_tag": "distributed-systems",
+          "expect_necessity": "REQUIRED",
+          "expect_logical_composition": "single",
+          "expect_projection": "job_requirement",
+          "expect_unsafe_reason": null,
+          "notes": "employer-specific REQUIRED heading wording ('Required Qualifications:'), already admitted"
+        }
+      ]
+    }
+  ]
+}
