@@ -1,0 +1,7 @@
+{
+  "frozen_file": "evaluation/m11g9/holdout_annotations.json",
+  "sha256": "a1683657887607868bb5886c1f52b5b436cbb5e52fa8e57dbe7241fb26f68469",
+  "length_bytes": 76733,
+  "frozen_at_utc": "2026-11-06T06:45:09Z",
+  "note": "Computed immediately after independent annotation was completed and BEFORE the v3 prototype (Phase 3) was written or run against this corpus for the first time. Any future diff against this hash means the gold was altered after the freeze point."
+}

@@ -1,0 +1,474 @@
+{
+  "corpus": "m11g9-holdout",
+  "n_controls_total": 100,
+  "extractors": {
+    "v2": {
+      "n_technical_competency_controls": 27,
+      "n_recognized_any_tag": 1,
+      "n_declined_when_technical_competency_expected": 26,
+      "tag_level": {
+        "tp": 1,
+        "fn": 16,
+        "fp_count": 0,
+        "fp_rows": []
+      },
+      "denominator_A_original_17_tags": {
+        "n_taggable": 17,
+        "n_correct": 1,
+        "recall": 0.0588
+      },
+      "denominator_B_new_concepts_only": {
+        "n_taggable": 3,
+        "n_correct": 0,
+        "recall": 0.0
+      },
+      "necessity_accuracy": {
+        "correct": 0,
+        "total": 1,
+        "unresolved_no_section_context": 1,
+        "accuracy_among_resolved": null
+      },
+      "false_positive_safety": {
+        "n_non_technical_competency_controls_checked": 73,
+        "n_false_positives": 1,
+        "rows": [
+          {
+            "id": "m11g9-holdout_07_simberobotics_robotics_cv-15",
+            "text_category": "nontechnical",
+            "predicted_tags": [
+              "performance-optimization"
+            ]
+          }
+        ]
+      },
+      "rows": [
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-04",
+          "expected_tag": "distributed-systems",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-05",
+          "expected_tag": null,
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-06",
+          "expected_tag": null,
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-10",
+          "expected_tag": null,
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-11",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-12",
+          "expected_tag": "os-networking",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-13",
+          "expected_tag": "distributed-systems",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_02_basis_software_auth-09",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_02_basis_software_auth-10",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_03_portcast_ml-08",
+          "expected_tag": "ml-fundamentals",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_04_firework_dataeng-12",
+          "expected_tag": "algorithms-data-structures",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_04_firework_dataeng-13",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_05_alifsemi_embedded-08",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "embedded-systems-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-holdout_05_alifsemi_embedded-09",
+          "expected_tag": "embedded-systems-design",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_05_alifsemi_embedded-10",
+          "expected_tag": "embedded-systems-design",
+          "relation": "narrower_or_more_specific",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_05_alifsemi_embedded-11",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-07",
+          "expected_tag": "embedded-systems-design",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-10",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-11",
+          "expected_tag": "signal-processing",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-12",
+          "expected_tag": "circuit-theory",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-14",
+          "expected_tag": "signal-processing",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-15",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-08",
+          "expected_tag": "computer-vision",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-10",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-12",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-13",
+          "expected_tag": "computer-vision",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-14",
+          "expected_tag": "embedded-systems-design",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        }
+      ]
+    },
+    "v3": {
+      "n_technical_competency_controls": 27,
+      "n_recognized_any_tag": 2,
+      "n_declined_when_technical_competency_expected": 25,
+      "tag_level": {
+        "tp": 1,
+        "fn": 16,
+        "fp_count": 0,
+        "fp_rows": []
+      },
+      "denominator_A_original_17_tags": {
+        "n_taggable": 17,
+        "n_correct": 1,
+        "recall": 0.0588
+      },
+      "denominator_B_new_concepts_only": {
+        "n_taggable": 3,
+        "n_correct": 1,
+        "recall": 0.3333
+      },
+      "necessity_accuracy": {
+        "correct": 0,
+        "total": 2,
+        "unresolved_no_section_context": 2,
+        "accuracy_among_resolved": null
+      },
+      "false_positive_safety": {
+        "n_non_technical_competency_controls_checked": 73,
+        "n_false_positives": 1,
+        "rows": [
+          {
+            "id": "m11g9-holdout_07_simberobotics_robotics_cv-15",
+            "text_category": "nontechnical",
+            "predicted_tags": [
+              "performance-optimization"
+            ]
+          }
+        ]
+      },
+      "rows": [
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-04",
+          "expected_tag": "distributed-systems",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-05",
+          "expected_tag": null,
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-06",
+          "expected_tag": null,
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-10",
+          "expected_tag": null,
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-11",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-12",
+          "expected_tag": "os-networking",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_01_extremenetworks_software-13",
+          "expected_tag": "distributed-systems",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_02_basis_software_auth-09",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_02_basis_software_auth-10",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_03_portcast_ml-08",
+          "expected_tag": "ml-fundamentals",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_04_firework_dataeng-12",
+          "expected_tag": "algorithms-data-structures",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_04_firework_dataeng-13",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [
+            "data-engineering-pipelines"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-holdout_05_alifsemi_embedded-08",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "embedded-systems-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-holdout_05_alifsemi_embedded-09",
+          "expected_tag": "embedded-systems-design",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_05_alifsemi_embedded-10",
+          "expected_tag": "embedded-systems-design",
+          "relation": "narrower_or_more_specific",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_05_alifsemi_embedded-11",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-07",
+          "expected_tag": "embedded-systems-design",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-10",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-11",
+          "expected_tag": "signal-processing",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-12",
+          "expected_tag": "circuit-theory",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-14",
+          "expected_tag": "signal-processing",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_06_laminar_embedded-15",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-08",
+          "expected_tag": "computer-vision",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-10",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-12",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-13",
+          "expected_tag": "computer-vision",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-holdout_07_simberobotics_robotics_cv-14",
+          "expected_tag": "embedded-systems-design",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        }
+      ]
+    }
+  }
+}

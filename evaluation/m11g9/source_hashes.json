@@ -1,0 +1,86 @@
+[
+  {
+    "split": "dev",
+    "id": "m11g9-dev-01-wmg-software.txt",
+    "length_bytes": 1543,
+    "sha256": "f147783a5c54b15026b7098a2c8a041e0e4e3b579165ce02fc0cc241a5b3217f"
+  },
+  {
+    "split": "dev",
+    "id": "m11g9-dev-02-moonpay-ml.txt",
+    "length_bytes": 1243,
+    "sha256": "4a9e1ebd802f8836ab59bdef9e035ac95232d589aafb43a794aaec9d4a9809ca"
+  },
+  {
+    "split": "dev",
+    "id": "m11g9-dev-03-vidahealth-dataeng.txt",
+    "length_bytes": 2037,
+    "sha256": "053db9a7db999290378888c7269136543dbf946035c15ba9227286c7ba6abc53"
+  },
+  {
+    "split": "dev",
+    "id": "m11g9-dev-04-lumotive-embedded.txt",
+    "length_bytes": 2970,
+    "sha256": "470364712126d2e118cb62034d5bd0dc4379d12315a943a6092725473525e37d"
+  },
+  {
+    "split": "dev",
+    "id": "m11g9-dev-05-boardintelligence-cybersecurity.txt",
+    "length_bytes": 1654,
+    "sha256": "1dca2f3d4dd7f1ae190b751a4b4a73a4fe4f354c2b04554bd453ff9db98f337f"
+  },
+  {
+    "split": "dev",
+    "id": "m11g9-dev-06-hydrow-electrical.txt",
+    "length_bytes": 1525,
+    "sha256": "1279126d160fec8ad81d2d05515a7f94fa80533e02f8580bdaa67f1b9643b737"
+  },
+  {
+    "split": "dev",
+    "id": "m11g9-dev-07-pointclickcare-infra.txt",
+    "length_bytes": 2041,
+    "sha256": "fdd7a1f24da7a0a3d1e1e46565464612fa651bec43a49748f2b58ac73a72d9ea"
+  },
+  {
+    "split": "holdout",
+    "id": "m11g9-holdout-01-extremenetworks-software.txt",
+    "length_bytes": 1698,
+    "sha256": "d2d3ea53e045551c6eeda46c2ce47667f34ec5be58f76e30315955be356c88a0"
+  },
+  {
+    "split": "holdout",
+    "id": "m11g9-holdout-02-basis-software-auth.txt",
+    "length_bytes": 1754,
+    "sha256": "5b32bae43f50525b9f58ba80cd37f30b09f5ddcf5a2291eed2df11950f1aa421"
+  },
+  {
+    "split": "holdout",
+    "id": "m11g9-holdout-03-portcast-ml.txt",
+    "length_bytes": 2025,
+    "sha256": "3ec154e8607d795a42cfad2b827dab83efabc5d342fa36783327d45a1ddf44aa"
+  },
+  {
+    "split": "holdout",
+    "id": "m11g9-holdout-04-firework-dataeng.txt",
+    "length_bytes": 2423,
+    "sha256": "7f078396642af1efac9c9486b84c3b3db3c22e40f8063ed07230ec4e8553d11a"
+  },
+  {
+    "split": "holdout",
+    "id": "m11g9-holdout-05-alifsemi-embedded.txt",
+    "length_bytes": 1498,
+    "sha256": "df10c33e15ebbd57e7805272e810fe6941e2f8218fd12368d84fcc5228bb874b"
+  },
+  {
+    "split": "holdout",
+    "id": "m11g9-holdout-06-laminar-embedded.txt",
+    "length_bytes": 1815,
+    "sha256": "bb3cbb57902f1960f31df99431bc1286f5821a76fb3872b156b7547aa21a18b9"
+  },
+  {
+    "split": "holdout",
+    "id": "m11g9-holdout-07-simberobotics-robotics-cv.txt",
+    "length_bytes": 2856,
+    "sha256": "3dc7f3ca12dbabfefaba90f30e37079708f796d5e6ccec7a13bd8db0b3429d34"
+  }
+]

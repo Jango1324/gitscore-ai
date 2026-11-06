@@ -1,0 +1,542 @@
+{
+  "corpus": "m11g9-dev (DIAGNOSTIC ONLY -- never used for the Phase 5 decision)",
+  "n_controls_total": 122,
+  "extractors": {
+    "v2": {
+      "n_technical_competency_controls": 31,
+      "n_recognized_any_tag": 4,
+      "n_declined_when_technical_competency_expected": 27,
+      "tag_level": {
+        "tp": 4,
+        "fn": 17,
+        "fp_count": 0,
+        "fp_rows": []
+      },
+      "denominator_A_original_17_tags": {
+        "n_taggable": 21,
+        "n_correct": 4,
+        "recall": 0.1905
+      },
+      "denominator_B_new_concepts_only": {
+        "n_taggable": 1,
+        "n_correct": 0,
+        "recall": 0.0
+      },
+      "necessity_accuracy": {
+        "correct": 0,
+        "total": 4,
+        "unresolved_no_section_context": 4,
+        "accuracy_among_resolved": null
+      },
+      "false_positive_safety": {
+        "n_non_technical_competency_controls_checked": 91,
+        "n_false_positives": 1,
+        "rows": [
+          {
+            "id": "m11g9-dev_04_lumotive_embedded-19",
+            "text_category": "named_technology",
+            "predicted_tags": [
+              "control-systems"
+            ]
+          }
+        ]
+      },
+      "rows": [
+        {
+          "id": "m11g9-dev_01_wmg_software-09",
+          "expected_tag": null,
+          "relation": "risky_related",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_01_wmg_software-12",
+          "expected_tag": null,
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-05",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-06",
+          "expected_tag": "system-design",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-08",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-10",
+          "expected_tag": "ml-fundamentals",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-11",
+          "expected_tag": "ml-fundamentals",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-09",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-10",
+          "expected_tag": "database-design",
+          "relation": "narrower_or_more_specific",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-11",
+          "expected_tag": "distributed-systems",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-12",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-13",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-14",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "embedded-systems-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-15",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "embedded-systems-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-16",
+          "expected_tag": "digital-logic",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-17",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "embedded-systems-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-23",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-24",
+          "expected_tag": "digital-logic",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-25",
+          "expected_tag": "embedded-systems-design",
+          "relation": "narrower_or_more_specific",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-30",
+          "expected_tag": "embedded-systems-design",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_05_boardintelligence_cybersecurity-09",
+          "expected_tag": "system-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "system-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_05_boardintelligence_cybersecurity-11",
+          "expected_tag": "cybersecurity-threat-modeling",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-07",
+          "expected_tag": "circuit-theory",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-11",
+          "expected_tag": "circuit-theory",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-12",
+          "expected_tag": "circuit-theory",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-13",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-14",
+          "expected_tag": "circuit-theory",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_07_pointclickcare_infra-14",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_07_pointclickcare_infra-15",
+          "expected_tag": "ml-fundamentals",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_07_pointclickcare_infra-17",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_07_pointclickcare_infra-18",
+          "expected_tag": "performance-optimization",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        }
+      ]
+    },
+    "v3": {
+      "n_technical_competency_controls": 31,
+      "n_recognized_any_tag": 5,
+      "n_declined_when_technical_competency_expected": 26,
+      "tag_level": {
+        "tp": 4,
+        "fn": 17,
+        "fp_count": 0,
+        "fp_rows": []
+      },
+      "denominator_A_original_17_tags": {
+        "n_taggable": 21,
+        "n_correct": 4,
+        "recall": 0.1905
+      },
+      "denominator_B_new_concepts_only": {
+        "n_taggable": 1,
+        "n_correct": 1,
+        "recall": 1.0
+      },
+      "necessity_accuracy": {
+        "correct": 0,
+        "total": 5,
+        "unresolved_no_section_context": 5,
+        "accuracy_among_resolved": null
+      },
+      "false_positive_safety": {
+        "n_non_technical_competency_controls_checked": 91,
+        "n_false_positives": 1,
+        "rows": [
+          {
+            "id": "m11g9-dev_04_lumotive_embedded-19",
+            "text_category": "named_technology",
+            "predicted_tags": [
+              "control-systems"
+            ]
+          }
+        ]
+      },
+      "rows": [
+        {
+          "id": "m11g9-dev_01_wmg_software-09",
+          "expected_tag": null,
+          "relation": "risky_related",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_01_wmg_software-12",
+          "expected_tag": null,
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-05",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-06",
+          "expected_tag": "system-design",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-08",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-10",
+          "expected_tag": "ml-fundamentals",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_02_moonpay_ml-11",
+          "expected_tag": "ml-fundamentals",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-09",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-10",
+          "expected_tag": "database-design",
+          "relation": "narrower_or_more_specific",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-11",
+          "expected_tag": "distributed-systems",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-12",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_03_vidahealth_dataeng-13",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-14",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "embedded-systems-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-15",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "embedded-systems-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-16",
+          "expected_tag": "digital-logic",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-17",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "embedded-systems-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-23",
+          "expected_tag": "embedded-systems-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-24",
+          "expected_tag": "digital-logic",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-25",
+          "expected_tag": "embedded-systems-design",
+          "relation": "narrower_or_more_specific",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_04_lumotive_embedded-30",
+          "expected_tag": "embedded-systems-design",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_05_boardintelligence_cybersecurity-09",
+          "expected_tag": "system-design",
+          "relation": "semantically_equivalent",
+          "predicted_tags": [
+            "system-design"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_05_boardintelligence_cybersecurity-11",
+          "expected_tag": "cybersecurity-threat-modeling",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-07",
+          "expected_tag": "circuit-theory",
+          "relation": "unknown",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-11",
+          "expected_tag": "circuit-theory",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-12",
+          "expected_tag": "circuit-theory",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-13",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_06_hydrow_electrical-14",
+          "expected_tag": "circuit-theory",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_07_pointclickcare_infra-14",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [
+            "cloud-infrastructure-devops"
+          ],
+          "declined": false
+        },
+        {
+          "id": "m11g9-dev_07_pointclickcare_infra-15",
+          "expected_tag": "ml-fundamentals",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_07_pointclickcare_infra-17",
+          "expected_tag": null,
+          "relation": "out_of_ontology",
+          "predicted_tags": [],
+          "declined": true
+        },
+        {
+          "id": "m11g9-dev_07_pointclickcare_infra-18",
+          "expected_tag": "performance-optimization",
+          "relation": "related_only",
+          "predicted_tags": [],
+          "declined": true
+        }
+      ]
+    }
+  }
+}
