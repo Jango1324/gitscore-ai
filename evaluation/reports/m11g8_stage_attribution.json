@@ -1,0 +1,945 @@
+{
+  "m11g5": {
+    "corpus": "m11g5",
+    "n_technical_competency_total": 57,
+    "n_taggable": 40,
+    "n_untaggable_category_g": 17,
+    "untaggable_ids": [
+      "m11g5-p02-02",
+      "m11g5-p04-04",
+      "m11g5-p04-08",
+      "m11g5-p05-03",
+      "m11g5-p07-03",
+      "m11g5-p07-07",
+      "m11g5-p08-02",
+      "m11g5-p08-06",
+      "m11g5-p12-02",
+      "m11g5-p16-08",
+      "m11g5-p16-10",
+      "m11g5-p16-12",
+      "m11g5-p17-06",
+      "m11g5-p17-07",
+      "m11g5-p18-12",
+      "m11g5-p18-13",
+      "m11g5-p18-14"
+    ],
+    "body_lookup_failures": [],
+    "stage_counts_among_confirmed_fn": {
+      "C": 18,
+      "B": 15,
+      "A": 1,
+      "D": 1
+    },
+    "n_confirmed_fn": 35,
+    "n_confirmed_tp_not_fn": 5,
+    "double_blocking_analysis": {
+      "b_recoverable_by_intent_fix_alone": [
+        "m11g5-p04-01b",
+        "m11g5-p07-05",
+        "m11g5-p07-08",
+        "m11g5-p16-02"
+      ],
+      "b_double_blocked_needs_vocab_too": [
+        "m11g5-p02-03",
+        "m11g5-p04-03",
+        "m11g5-p05-02",
+        "m11g5-p11-02",
+        "m11g5-p11-05",
+        "m11g5-p11-07",
+        "m11g5-p12-06",
+        "m11g5-p14-02",
+        "m11g5-p14-06",
+        "m11g5-p15-02",
+        "m11g5-p16-04"
+      ],
+      "n_b_recoverable_by_intent_fix_alone": 4,
+      "n_b_double_blocked": 11,
+      "c_would_clear_downstream_if_vocab_fixed": [
+        "m11g5-p01-01",
+        "m11g5-p01-03",
+        "m11g5-p02-01",
+        "m11g5-p03-02",
+        "m11g5-p03-04",
+        "m11g5-p04-02",
+        "m11g5-p08-03",
+        "m11g5-p10-01",
+        "m11g5-p10-08",
+        "m11g5-p11-01",
+        "m11g5-p11-03",
+        "m11g5-p12-05",
+        "m11g5-p13-01",
+        "m11g5-p14-03",
+        "m11g5-p15-04",
+        "m11g5-p15-05",
+        "m11g5-p16-06",
+        "m11g5-p18-07"
+      ],
+      "c_would_still_be_blocked_by_e": [],
+      "n_c_would_clear_downstream": 18,
+      "n_c_would_still_be_blocked_by_e": 0
+    },
+    "rows": [
+      {
+        "id": "m11g5-p01-01",
+        "expected_tag": "system-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p01-02",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11g5-p01-03",
+        "expected_tag": "database-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p02-01",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p02-03",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p03-02",
+        "expected_tag": "system-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p03-04",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [
+          "system-design"
+        ],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p03-05",
+        "expected_tag": "system-design",
+        "sibling_tags": [],
+        "stage": "A",
+        "detail": "never admitted by segmentation, never recovered by M11-G4"
+      },
+      {
+        "id": "m11g5-p04-01b",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p04-02",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p04-03",
+        "expected_tag": "database-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p05-02",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p06-02",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [
+          "control-systems"
+        ],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11g5-p07-05",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p07-08",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [
+          "signal-processing",
+          "control-systems"
+        ],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p08-03",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p10-01",
+        "expected_tag": "system-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p10-08",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p11-01",
+        "expected_tag": "cybersecurity-threat-modeling",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p11-02",
+        "expected_tag": "cybersecurity-threat-modeling",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p11-03",
+        "expected_tag": "cybersecurity-threat-modeling",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p11-05",
+        "expected_tag": "cybersecurity-threat-modeling",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p11-07",
+        "expected_tag": "cybersecurity-threat-modeling",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p12-05",
+        "expected_tag": "control-systems",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p12-06",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p13-01",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p14-02",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p14-03",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p14-06",
+        "expected_tag": "gpu-parallel-computing",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p15-02",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p15-04",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p15-05",
+        "expected_tag": "system-design",
+        "sibling_tags": [
+          "ml-fundamentals"
+        ],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p15-08",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11g5-p16-02",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p16-04",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11g5-p16-05",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "D",
+        "detail": "wrong tag(s) found: ['os-networking'], expected one of ['embedded-systems-design']"
+      },
+      {
+        "id": "m11g5-p16-06",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p18-07",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11g5-p18-15",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11g5-p18-16",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      }
+    ]
+  },
+  "m11f": {
+    "corpus": "m11f",
+    "n_technical_competency_total": 85,
+    "n_taggable": 64,
+    "n_untaggable_category_g": 21,
+    "untaggable_ids": [
+      "m11f-zoox-04",
+      "m11f-zoox-05",
+      "m11f-aver-01",
+      "m11f-aver-02",
+      "m11f-aver-03",
+      "m11f-octfed-05",
+      "m11f-canon-03",
+      "m11f-canon-05",
+      "m11f-venus-05",
+      "m11f-venus-09",
+      "m11f-venus-10",
+      "m11f-array-02",
+      "m11f-spry-01",
+      "m11f-spry-02",
+      "m11f-deliv-01",
+      "m11f-deliv-03",
+      "m11f-deliv-04",
+      "m11f-kit-05",
+      "m11f-field1-04",
+      "m11f-vida-04",
+      "m11f-field2-02"
+    ],
+    "body_lookup_failures": [],
+    "stage_counts_among_confirmed_fn": {
+      "B": 24,
+      "C": 29
+    },
+    "n_confirmed_fn": 53,
+    "n_confirmed_tp_not_fn": 11,
+    "double_blocking_analysis": {
+      "b_recoverable_by_intent_fix_alone": [
+        "m11f-main-01",
+        "m11f-venus-01",
+        "m11f-kit-04"
+      ],
+      "b_double_blocked_needs_vocab_too": [
+        "m11f-zoox-01",
+        "m11f-aver-04",
+        "m11f-main-02",
+        "m11f-main-03",
+        "m11f-main-04",
+        "m11f-venus-03",
+        "m11f-venus-06",
+        "m11f-array-04",
+        "m11f-array-05",
+        "m11f-ces-01",
+        "m11f-ces-03",
+        "m11f-ces-04",
+        "m11f-shyft-02",
+        "m11f-shyft-04",
+        "m11f-kit-03",
+        "m11f-field1-03",
+        "m11f-vida-01",
+        "m11f-vida-05",
+        "m11f-mult-01",
+        "m11f-mult-02",
+        "m11f-mult-03"
+      ],
+      "n_b_recoverable_by_intent_fix_alone": 3,
+      "n_b_double_blocked": 21,
+      "c_would_clear_downstream_if_vocab_fixed": [
+        "m11f-zoox-02",
+        "m11f-zoox-03",
+        "m11f-aver-05",
+        "m11f-octfed-01",
+        "m11f-octfed-02",
+        "m11f-octfed-03",
+        "m11f-octfed-04",
+        "m11f-octfed-06",
+        "m11f-canon-01",
+        "m11f-canon-02",
+        "m11f-canon-04",
+        "m11f-main-06",
+        "m11f-venus-07",
+        "m11f-venus-08",
+        "m11f-array-03",
+        "m11f-ces-02",
+        "m11f-ces-05",
+        "m11f-shyft-01",
+        "m11f-shyft-03",
+        "m11f-deliv-02",
+        "m11f-kit-01",
+        "m11f-kit-02",
+        "m11f-field1-05",
+        "m11f-vida-02",
+        "m11f-vida-03",
+        "m11f-field2-01",
+        "m11f-field2-03",
+        "m11f-field2-05",
+        "m11f-mult-04"
+      ],
+      "c_would_still_be_blocked_by_e": [],
+      "n_c_would_clear_downstream": 29,
+      "n_c_would_still_be_blocked_by_e": 0
+    },
+    "rows": [
+      {
+        "id": "m11f-zoox-01",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-zoox-02",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-zoox-03",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-aver-04",
+        "expected_tag": "cybersecurity-threat-modeling",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-aver-05",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-octfed-01",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [
+          "digital-logic"
+        ],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-octfed-02",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-octfed-03",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-octfed-04",
+        "expected_tag": "digital-logic",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-octfed-06",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [
+          "digital-logic"
+        ],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-canon-01",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-canon-02",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-canon-04",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [
+          "os-networking"
+        ],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-main-01",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-main-02",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-main-03",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-main-04",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-main-05",
+        "expected_tag": "control-systems",
+        "sibling_tags": [
+          "circuit-theory"
+        ],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-main-06",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-venus-01",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-venus-02",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-venus-03",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-venus-04",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [
+          "concurrency"
+        ],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-venus-06",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-venus-07",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-venus-08",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-array-01",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [
+          "os-networking"
+        ],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-array-03",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-array-04",
+        "expected_tag": "concurrency",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-array-05",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-ces-01",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-ces-02",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-ces-03",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-ces-04",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [
+          "system-design"
+        ],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-ces-05",
+        "expected_tag": "circuit-theory",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-spry-03",
+        "expected_tag": "cybersecurity-threat-modeling",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-shyft-01",
+        "expected_tag": "database-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-shyft-02",
+        "expected_tag": "database-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-shyft-03",
+        "expected_tag": "database-design",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-shyft-04",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-deliv-02",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-kit-01",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-kit-02",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-kit-03",
+        "expected_tag": "computer-vision",
+        "sibling_tags": [
+          "ml-fundamentals"
+        ],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-kit-04",
+        "expected_tag": "computer-vision",
+        "sibling_tags": [
+          "ml-fundamentals"
+        ],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-rov-01",
+        "expected_tag": "database-design",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-field1-01",
+        "expected_tag": "control-systems",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-field1-02",
+        "expected_tag": "control-systems",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-field1-03",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-field1-05",
+        "expected_tag": "signal-processing",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-vida-01",
+        "expected_tag": "database-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-vida-02",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-vida-03",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-vida-05",
+        "expected_tag": "distributed-systems",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-field2-01",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [
+          "control-systems"
+        ],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-field2-03",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-field2-04",
+        "expected_tag": "control-systems",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-field2-05",
+        "expected_tag": "ml-fundamentals",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-mult-01",
+        "expected_tag": "system-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-mult-02",
+        "expected_tag": "system-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-mult-03",
+        "expected_tag": "embedded-systems-design",
+        "sibling_tags": [],
+        "stage": "B",
+        "detail": "_QUALIFYING_INTENT_V2 gate rejected before vocabulary matching"
+      },
+      {
+        "id": "m11f-mult-04",
+        "expected_tag": "os-networking",
+        "sibling_tags": [],
+        "stage": "C",
+        "detail": "intent gate passed; zero canonical/alias terms matched"
+      },
+      {
+        "id": "m11f-paytm-01",
+        "expected_tag": "system-design",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      },
+      {
+        "id": "m11f-paytm-02",
+        "expected_tag": "performance-optimization",
+        "sibling_tags": [],
+        "stage": "NONE",
+        "detail": "expected tag WAS produced -- this control is not actually an FN"
+      }
+    ]
+  }
+}
