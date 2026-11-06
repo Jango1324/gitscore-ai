@@ -134,33 +134,49 @@ def test_recovered_claim_is_labeled_path_b_only_recovered_not_silently_merged():
 
 
 # ---------------------------------------------------------------------------
-# 3. A characterized, pre-existing Path A gap -- pinned, not fixed.
+# 3. A characterized, pre-existing Path A gap -- FIXED by Milestone
+# 11-G6 (approved and implemented after this file was originally
+# written; see docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md).
 #
-# Root cause (confirmed directly against `segmentation.py`): the SKIP/
-# NON_QUALIFICATION heading root `\bwho we are\b` is intended to suppress
-# "Who We Are" company-narrative headings, but also matches the unrelated,
-# authentic qualifications-section heading style "Who We Are Looking
-# For:" (seen verbatim in this milestone's p03-alluxio-distributed.txt).
-# The effect: `_classify_heading_line` returns `_SectionKind.SKIP` for
-# that heading, and the ENTIRE section under it -- here, seven genuine
-# REQUIRED qualifications, not a single phrasing edge case -- is admitted
-# as zero claims (not even as diagnostic `unparsed_claim`s). This predates
-# M11-G5 and is NOT a regression introduced by G1-G4; it is reported here,
-# pinned by a characterization test, because the milestone instructions
-# forbid changing `segmentation.py` in this evaluation-only pass. See
-# `docs/evaluation/MILESTONE_11_G5_FULL_PIPELINE_VALIDATION.md` Phase 6.
+# Root cause (confirmed directly against `segmentation.py` at the time):
+# the SKIP/NON_QUALIFICATION heading root `\bwho we are\b` was intended
+# to suppress "Who We Are" company-narrative headings, but also matched
+# the unrelated, authentic qualifications-section heading style "Who We
+# Are Looking For:" (seen verbatim in this milestone's own
+# p03-alluxio-distributed.txt). The effect: `_classify_heading_line`
+# returned `_SectionKind.SKIP` for that heading, and the ENTIRE section
+# under it -- seven genuine REQUIRED qualifications, not a single
+# phrasing edge case -- was admitted as zero claims (not even as
+# diagnostic `unparsed_claim`s). This predated M11-G5 and was NOT a
+# regression introduced by G1-G4; M11-G5 pinned it with a
+# characterization test because its own instructions forbade changing
+# `segmentation.py` in that evaluation-only pass. M11-G6 then
+# root-caused, evaluated, and (on explicit approval) fixed it with a
+# new, generic `_CANDIDATE_PROFILE_ROOT` exclusion signal -- these two
+# tests are updated below to characterize the NEW, correct behavior,
+# exactly as M11-G6's own approval anticipated.
 # ---------------------------------------------------------------------------
 
 
-def test_who_we_are_looking_for_heading_is_a_known_false_positive_skip_collision():
+def test_who_we_are_looking_for_heading_is_no_longer_a_false_positive_skip_collision():
     from gitscore.jobs.parsing.segmentation import _classify_heading_line, _SectionKind
 
+    # `content` is passed WITH its trailing colon, matching every real
+    # caller (`segment_description`/`document_has_any_recognized_heading`
+    # always pass the full, undecorated line content, colon included --
+    # `_classify_heading_line` strips it internally). The original v1 of
+    # this test passed a pre-stripped `content` with no colon, which is
+    # not how the function is ever actually invoked, and -- discovered
+    # while fixing this test -- resolves differently (NOT_A_HEADING, the
+    # same "weak shape signal with zero families" rule the M11-G6 design
+    # doc's em-dash edge case also hits) once the colon's own
+    # strong-shape-signal contribution is missing.
     assert _classify_heading_line(
-        "Who We Are Looking For:", "Who We Are Looking For"
-    ) is _SectionKind.SKIP
+        "Who We Are Looking For:", "Who We Are Looking For:"
+    ) is _SectionKind.UNKNOWN
 
 
-def test_entire_qualifications_section_under_that_heading_is_admitted_as_zero_claims():
+def test_qualifications_section_under_that_heading_is_now_admitted():
     from gitscore.jobs.parsing.segmentation import segment_description
 
     description = (
@@ -168,4 +184,4 @@ def test_entire_qualifications_section_under_that_heading_is_admitted_as_zero_cl
         "A four-year degree in a relevant field.\n"
         "Several years of hands-on experience with a general-purpose programming language.\n"
     )
-    assert segment_description(description) == ()
+    assert len(segment_description(description)) > 0

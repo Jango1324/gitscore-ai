@@ -1,0 +1,380 @@
+{
+  "corpus_version": "m11g6-heading-controls:v2",
+  "n_controls": 44,
+  "summary": {
+    "current": {
+      "matches_gold": 35,
+      "regressions_vs_current": 0,
+      "fixes_vs_current": 0
+    },
+    "A_precedence": {
+      "matches_gold": 32,
+      "regressions_vs_current": 3,
+      "fixes_vs_current": 0
+    },
+    "B_full_coverage": {
+      "matches_gold": 35,
+      "regressions_vs_current": 9,
+      "fixes_vs_current": 9
+    },
+    "C_candidate_profile_exclusion": {
+      "matches_gold": 44,
+      "regressions_vs_current": 0,
+      "fixes_vs_current": 9
+    }
+  },
+  "rows": [
+    {
+      "id": "m11g6-001-who-we-are-bare",
+      "expected": "SKIP",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "SKIP"
+    },
+    {
+      "id": "m11g6-002-who-we-are-with-mission",
+      "expected": "SKIP",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "SKIP"
+    },
+    {
+      "id": "m11g6-003-who-we-are-looking-for",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-004-who-we-are-looking-for-degree",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-005-what-were-looking-for",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-006-what-were-looking-for-plus-plain",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_precedence": "NOT_A_HEADING",
+      "B_full_coverage": "NOT_A_HEADING",
+      "C_candidate_profile_exclusion": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g6-007-what-we-need-to-see",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-008-what-we-need-to-see-second",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-009-what-youll-bring",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-010-what-you-bring-contraction-free",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-011-about-us",
+      "expected": "SKIP",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "SKIP"
+    },
+    {
+      "id": "m11g6-012-about-the-company",
+      "expected": "SKIP",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "SKIP"
+    },
+    {
+      "id": "m11g6-013-about-the-role",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "RESPONSIBILITY",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-014-about-the-role-with-requirement",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "RESPONSIBILITY",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-015-your-qualifications",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_precedence": "REQUIRED",
+      "B_full_coverage": "REQUIRED",
+      "C_candidate_profile_exclusion": "REQUIRED"
+    },
+    {
+      "id": "m11g6-016-your-qualifications-plain",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_precedence": "REQUIRED",
+      "B_full_coverage": "REQUIRED",
+      "C_candidate_profile_exclusion": "REQUIRED"
+    },
+    {
+      "id": "m11g6-017-required-qualifications",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_precedence": "REQUIRED",
+      "B_full_coverage": "REQUIRED",
+      "C_candidate_profile_exclusion": "REQUIRED"
+    },
+    {
+      "id": "m11g6-018-required-qualifications-colon-caps",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_precedence": "REQUIRED",
+      "B_full_coverage": "REQUIRED",
+      "C_candidate_profile_exclusion": "REQUIRED"
+    },
+    {
+      "id": "m11g6-019-preferred-qualifications",
+      "expected": "PREFERRED",
+      "current": "PREFERRED",
+      "A_precedence": "PREFERRED",
+      "B_full_coverage": "PREFERRED",
+      "C_candidate_profile_exclusion": "PREFERRED"
+    },
+    {
+      "id": "m11g6-020-preferred-qualifications-markdown",
+      "expected": "PREFERRED",
+      "current": "PREFERRED",
+      "A_precedence": "PREFERRED",
+      "B_full_coverage": "PREFERRED",
+      "C_candidate_profile_exclusion": "PREFERRED"
+    },
+    {
+      "id": "m11g6-021-nice-to-have",
+      "expected": "PREFERRED",
+      "current": "PREFERRED",
+      "A_precedence": "PREFERRED",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "PREFERRED"
+    },
+    {
+      "id": "m11g6-022-nice-to-haves-plural",
+      "expected": "PREFERRED",
+      "current": "PREFERRED",
+      "A_precedence": "PREFERRED",
+      "B_full_coverage": "PREFERRED",
+      "C_candidate_profile_exclusion": "PREFERRED"
+    },
+    {
+      "id": "m11g6-023-what-youll-do",
+      "expected": "RESPONSIBILITY",
+      "current": "RESPONSIBILITY",
+      "A_precedence": "RESPONSIBILITY",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "RESPONSIBILITY"
+    },
+    {
+      "id": "m11g6-024-what-you-will-do-full",
+      "expected": "RESPONSIBILITY",
+      "current": "RESPONSIBILITY",
+      "A_precedence": "RESPONSIBILITY",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "RESPONSIBILITY"
+    },
+    {
+      "id": "m11g6-025-our-mission",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-026-why-join-us",
+      "expected": "SKIP",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "SKIP"
+    },
+    {
+      "id": "m11g6-027-the-ideal-candidate",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-028-you-might-be-a-fit",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-029-additional-information",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-030-good-to-know",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-031-who-we-are-bare-prefix-control",
+      "expected": "SKIP",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "SKIP"
+    },
+    {
+      "id": "m11g6-032-who-we-are-and-what-youll-do",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "RESPONSIBILITY",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-033-who-we-are-looking-for-nbsp",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-034-who-we-are-looking-for-em-dash",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-035-who-we-are-looking-for-markdown-atx",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-036-who-we-are-looking-for-markdown-bold",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-037-mixed-narrative-and-qualification",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-038-mixed-narrative-with-explicit-requirement",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-039-transition-defect-heading-then-required",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-040-transition-full-two-heading-document",
+      "expected": "UNKNOWN",
+      "current": "SKIP",
+      "A_precedence": "SKIP",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-041-unsectioned-plain",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_precedence": "NOT_A_HEADING",
+      "B_full_coverage": "NOT_A_HEADING",
+      "C_candidate_profile_exclusion": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g6-042-unsectioned-narrative-then-requirement",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_precedence": "NOT_A_HEADING",
+      "B_full_coverage": "NOT_A_HEADING",
+      "C_candidate_profile_exclusion": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g6-043-what-were-looking-for-with-preferred",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    },
+    {
+      "id": "m11g6-044-the-ideal-candidate-with-required",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_precedence": "UNKNOWN",
+      "B_full_coverage": "UNKNOWN",
+      "C_candidate_profile_exclusion": "UNKNOWN"
+    }
+  ]
+}

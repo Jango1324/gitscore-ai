@@ -1,0 +1,8 @@
+{
+  "frozen_file": "evaluation/m11g6/heading_controls.json",
+  "sha256": "56e92f18eeb040ae1ea522d398b0a735e23a45ac5602136cc18af844bc6140c5",
+  "length_bytes": 47571,
+  "frozen_at_utc": "2026-11-05T19:23:51Z",
+  "supersedes": "m11g6-heading-controls:v1 (three rounds of same-session authoring-error corrections, before any commit -- see this file's own correction_log; all 9 defect-relevant rows unchanged in substance)",
+  "note": "Final freeze for this milestone. Computed immediately after all v2 correction rounds were completed and BEFORE any candidate-fix simulation (Phase 3) was run. Any future diff against this hash means gold was altered after this freeze point."
+}

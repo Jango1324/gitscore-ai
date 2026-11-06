@@ -1,5 +1,105 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-06 — Milestone 11-G6: heading-classification correctness fix (segmentation.py, approved production change)
+
+**What changed:** M11-G5's independent validation traced 7 of 8 missed
+qualifications on one real posting to a single root cause in
+`segmentation.py`: `_NON_QUALIFICATION_ROOT`'s unanchored substring
+match `\bwho we are\b` fires identically on genuine company-narrative
+headings ("Who We Are:") and on unrelated candidate-profile headings
+that merely start the same way ("Who We Are Looking For:"), because
+nothing else on the second heading's line matches any other family, so
+the existing "more than one family -> honest `UNKNOWN`" collision rule
+never engages. The result is `_SectionKind.SKIP` -- total,
+unrecoverable suppression (zero `Claim`s, not even a diagnostic),
+upstream of `necessity.py`'s own local-marker-always-wins safety net,
+and explicitly excluded from M11-G4's own recovery pass by design.
+
+`src/gitscore/jobs/parsing/segmentation.py` (the only file with
+behavioral changes): a new, generic, closed-vocabulary
+`_CANDIDATE_PROFILE_ROOT` constant ("looking for" / "we need" / "we
+want" / "you('ll) bring" / "ideal candidate") is added near the other
+root-word tables, and `_matched_heading_families()`'s `NON_QUALIFICATION`
+firing condition changes from `if has_non_qualification:` to
+`has_non_qualification and not has_candidate_profile` -- mirroring the
+EXISTING `qualification`-excluded-by-`preferred` precedent already
+shipped in the same function. The new signal is NEVER added to
+`families` itself, so it can never become its own section kind and
+never defaults anything to REQUIRED/PREFERRED; a rescued heading falls
+through to the EXISTING, already-tested "zero families + strong shape
+signal -> `UNKNOWN`" path. `src/gitscore/jobs/parsing/parser.py`:
+`JOB_DESCRIPTION_PARSER_VERSION` bumped `v10` -> `v11` (label-only to
+that module).
+
+`evaluation/m11g6/heading_controls.json` (new, 44 independently-authored,
+synthetic controls across 22 categories; three disclosed, same-session
+self-correction rounds before the final freeze -- a terminology
+mix-up, two pre-existing shape-gate rule misunderstandings, and
+confounded body-text wording, none touching the 9 genuine defect rows)
++ `tests/test_m11g6_heading_classification.py` (new, 104 tests,
+written and run against the real classifier BEFORE implementation --
+confirmed red on exactly the 9 target rows, confirmed green after,
+with 2 explicit, documented `xfail`s for one narrow, verified-safe
+weak-shape-signal formatting edge case) +
+`scripts/evaluation_lib/m11g6_build_heading_controls.py`/
+`m11g6_phase1_current_behavior.py`/`m11g6_phase3_candidate_fix_simulation.py`
+(new, evaluation-only harness and strategy-comparison simulation).
+
+**Why:** Three candidate strategies were compared and simulated
+against production's own real regexes before any `src/gitscore` edit
+(full comparison in the design doc): (A) fixed family-precedence order
+-- fixes 0 of the 9 target rows (no competing match exists in the base
+case to prefer) while regressing 3 already-correct ambiguous cases,
+rejected; (B) strict per-word family-coverage boundary matching -- 9
+regressions for 9 fixes, a wash, rejected; (C) the generic exclusion
+signal above -- 44/44 frozen controls matched, 0 regressions, exactly
+the 9 target rows fixed. Selected and implemented verbatim, on
+explicit approval.
+
+**Measured result:** `tests/test_m11g6_heading_classification.py`:
+102 passed, 2 documented `xfail` (one weak-shape-signal, no-colon
+formatting variant resolves to `NOT_A_HEADING` rather than `UNKNOWN`,
+verified SAFE -- confirmed not to fabricate anything and not to
+reintroduce the reported defect for any realistic, colon-terminated
+heading; disclosed and pinned, not hidden by editing frozen gold).
+Full backend suite: 1493->**1595 passed**, 13 skipped unchanged, 2
+xfailed. The original M11-G5 private posting fixture: 0/0
+`JobRequirement`/`UnparsedClaim` before -> 0 `JobRequirement` / 6
+`UnparsedClaim` after, recovering 5 of its 7 genuine qualifications as
+diagnostics (none individually carry a local REQUIRED/PREFERRED
+marker, so none are scored -- the "do not assume a qualification
+heading means REQUIRED" guarantee holding exactly as designed); the
+remaining 2 stay unrecovered for a separate, already-disclosed reason
+(the generic `_looks_like_requirement` admission gate's own vocabulary
+completeness, unrelated to heading classification) -- out of this
+fix's scope. SOTI and Manulife re-run end-to-end:
+byte-identical `JobRequirement`/`UnparsedClaim` counts to before (SOTI
+1/7, Manulife 5/9), only the version label differs -- neither
+posting's headings contain any phrase from the new vocabulary.
+Across the 9 target-defect rows in the frozen corpus: `JobRequirement`
+count 2->4 (+2, both carrying an explicit local marker), `UnparsedClaim`
+count 0->6 (+6, diagnostic only) -- zero new false REQUIRED/PREFERRED
+defaults, zero narrative/responsibility content promoted, zero
+contradictory claims.
+
+**Risks/limitations:** the new vocabulary is a bounded, non-exhaustive
+list (consistent with every other root-word table in this file) -- a
+candidate-seeking heading phrased with a continuation NOT in the list
+would still reproduce the original defect; disclosed, not claimed as a
+complete fix for every conceivable phrasing. The one weak-shape-signal
+formatting edge case above is a known, narrow residual, not expected
+to affect realistic (colon-terminated) real-world postings. No
+scoring/matcher/schema/API/frontend/competency-evidence/LLM change of
+any kind.
+
+**How to test:** `pytest tests/test_m11g6_heading_classification.py`;
+`python scripts/evaluation_lib/m11g6_phase1_current_behavior.py`
+(hash-verifies the frozen corpus first); full suite via `pytest -q`.
+
+See `docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md` for the
+full root-cause trace, strategy comparison, and before/after
+reconciliation.
+
 ## 2026-11-06 — Milestone 11-G4: offline-only qualification-admission recovery (segmentation.py byte-unchanged)
 
 **What changed:** Fixes exactly the one systemic finding M11-G3 disclosed rather

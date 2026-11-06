@@ -698,6 +698,26 @@ recovery function is never called by `parse_job_description()`/`_parse()`/
 `docs/evaluation/MILESTONE_11_G4_QUALIFICATION_ADMISSION.md` for the
 full strategy comparison and measured results.
 
+**Milestone 11-G6 fix (live pipeline flow unchanged — same stages,
+same call order; `segmentation.py`'s heading-family matching logic is
+the only thing that changed within Stage 1 of the job-description
+parse):** M11-G5's independent validation traced 7 of 8 missed
+qualifications on a real posting to `segmentation.py` misclassifying a
+genuine candidate-profile heading ("Who We Are Looking For:") as a
+company-narrative `SKIP` section — total, unrecoverable suppression,
+upstream of even the local-REQUIRED/PREFERRED-marker safety net in
+`necessity.py`. A new, generic `_CANDIDATE_PROFILE_ROOT` vocabulary now
+excludes that false `SKIP` match; the heading falls through to the
+EXISTING `UNKNOWN` path instead (diagnostic-eligible, never a forced
+`REQUIRED` default). `JOB_DESCRIPTION_PARSER_VERSION` bumps `v10` ->
+`v11`. Every downstream stage (necessity resolution, `_requirements_from_claim`,
+dedup, matcher, scoring) is unmodified and untouched by this fix — it
+only changes which claims REACH those stages. See `docs/ARCHITECTURE.md`'s
+Milestone 11-G6 section and
+`docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md` for the
+full root-cause trace, strategy comparison, and measured before/after
+results.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

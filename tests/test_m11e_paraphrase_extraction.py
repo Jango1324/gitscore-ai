@@ -241,5 +241,10 @@ def test_module_still_not_imported_by_the_live_parser():
 
 
 def test_parser_version_unchanged():
+    # Milestone 11-G6 subsequently bumped v10 -> v11 (an unrelated,
+    # later, approved segmentation.py heading-classification fix) --
+    # this test's own purpose, confirming this milestone itself never
+    # touched the version, is unaffected; only the literal expected
+    # value tracks the current version.
     from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v10"
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v11"

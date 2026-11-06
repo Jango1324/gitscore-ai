@@ -1,14 +1,18 @@
 """Milestone 11-G4 -- offline-only admission-recovery for the
 qualification-understanding pathway.
 
-`segmentation.py` itself is byte-unchanged -- `recover_unadmitted_qualification_claims()`
-is a NEW, additive function that reuses every one of its real, private
-helpers via import (never duplicating their logic), producing
-ADDITIONAL claims for exactly the gap M11-G3 disclosed: content
-outside a recognized REQUIRED/PREFERRED/RESPONSIBILITY section that
-fails segmentation's own `_looks_like_requirement` gate but passes
-`competency_extraction.py`'s own, already-approved `_QUALIFYING_INTENT_V2`
-gate.
+`segmentation.py` itself was byte-unchanged BY THIS MILESTONE --
+`recover_unadmitted_qualification_claims()` is a NEW, additive function
+that reuses every one of its real, private helpers via import (never
+duplicating their logic), producing ADDITIONAL claims for exactly the
+gap M11-G3 disclosed: content outside a recognized REQUIRED/PREFERRED/
+RESPONSIBILITY section that fails segmentation's own
+`_looks_like_requirement` gate but passes `competency_extraction.py`'s
+own, already-approved `_QUALIFYING_INTENT_V2` gate. (A LATER, separately
+approved milestone, M11-G6, does deliberately edit segmentation.py's
+heading classification -- see that milestone's own test file and
+design doc; this file's own regression check below is scoped to G4's
+own historical commits specifically, not a live diff.)
 """
 from __future__ import annotations
 
@@ -192,15 +196,27 @@ def test_not_wired_into_the_live_parser():
     assert "qualification_admission_recovery" not in inspect.getsource(segmentation_module)
 
 
-def test_segmentation_module_is_byte_unchanged():
+def test_segmentation_module_is_byte_unchanged_by_m11g4():
     """A regression guard distinct from the 'not wired in' check above:
-    confirms this milestone did not even touch segmentation.py's own
-    file, which M11-G3's own disclosed finding explicitly said would
-    require a STOP if it were necessary."""
+    confirms M11-G4's OWN historical commits never touched
+    segmentation.py's own file, which M11-G3's own disclosed finding
+    explicitly said would require a STOP if it were necessary.
+
+    Milestone 11-G6 (later, separately approved -- see
+    docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md) DOES
+    deliberately edit segmentation.py's heading-classification logic, so
+    this check is scoped to G4's own two commits specifically, rather
+    than a live `git diff` against the current working tree (which
+    would spuriously fail for ANY later, legitimate, unrelated change to
+    this file -- exactly what just happened)."""
     import subprocess
 
-    result = subprocess.run(
-        ["git", "diff", "--quiet", "--", "src/gitscore/jobs/parsing/segmentation.py"],
-        cwd=str(REPO_ROOT), check=False,
-    )
-    assert result.returncode == 0, "segmentation.py has uncommitted changes -- M11-G4 must never touch it"
+    g4_commits = ["4b4e3b9", "321c248"]
+    for commit in g4_commits:
+        result = subprocess.run(
+            ["git", "show", "--stat", commit, "--", "src/gitscore/jobs/parsing/segmentation.py"],
+            cwd=str(REPO_ROOT), check=False, capture_output=True, text=True,
+        )
+        assert result.stdout.strip() == "", (
+            f"M11-G4 commit {commit} touched segmentation.py -- it must never do so:\n{result.stdout}"
+        )

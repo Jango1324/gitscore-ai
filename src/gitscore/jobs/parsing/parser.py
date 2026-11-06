@@ -188,6 +188,18 @@ milestone (a length- or part-of-speech-based heuristic was evaluated
 and rejected -- see that document's §3/§5.3 for the concrete
 counter-example this finding is based on, not merely asserted).
 `JOB_DESCRIPTION_PARSER_VERSION` bumps `v9` -> `v10` accordingly.
+
+**Milestone 11-G6 -- heading-classification correctness.** A narrow,
+label-only-to-this-module version bump: the actual fix is entirely
+within `jobs/parsing/segmentation.py`'s `_matched_heading_families()`
+(see that module's own docstring and
+`docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md`) -- a new,
+generic `_CANDIDATE_PROFILE_ROOT` vocabulary excludes a false
+`_SectionKind.SKIP` match on genuine candidate-profile headings like
+"Who We Are Looking For:" that previously collided with the
+`NON_QUALIFICATION` family's unanchored `\bwho we are\b` substring
+match. Nothing in THIS module changes except the version bump.
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v10` -> `v11` accordingly.
 """
 from __future__ import annotations
 
@@ -214,7 +226,7 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, document_has_any_recognized_heading, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v10"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v11"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:

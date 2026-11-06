@@ -5259,3 +5259,98 @@ detector, no public schema/matcher/scoring/API/frontend change — see
 `docs/evaluation/MILESTONE_11_G4_QUALIFICATION_ADMISSION.md`'s own
 9-item report and `docs/CHANGELOG_DEV.md`'s Milestone 11-G4 entry for
 the complete record.
+
+### Milestone 11-G6 — heading-classification correctness (`segmentation.py`, production fix)
+
+M11-G5's independent validation traced 7 of 8 missed qualifications on
+one real posting to a single root cause: `segmentation.py`'s
+`_NON_QUALIFICATION_ROOT` matches the UNANCHORED substring
+`\bwho we are\b` anywhere within a heading-shaped line, with no
+corroborating signal. A genuine company-narrative heading ("Who We
+Are:") and an unrelated candidate-profile heading that merely starts
+the same way ("Who We Are Looking For:") both match it identically, and
+since nothing else on the second line's content matches ANY other
+family, the EXISTING "more than one family -> honest `UNKNOWN`"
+collision rule (already shipped for `"Preferred Qualifications"`/
+`"About the Role"`-style genuine ambiguity) never engages -- there is
+no competing match for it to prefer. The result,
+`_SectionKind.SKIP`, is categorically worse than any other
+misclassification: `segment_description()`'s own loop drops SKIP
+content before a single `Claim` is ever constructed, upstream of even
+`necessity.py`'s local-marker-always-wins safety net, and M11-G4's own
+recovery pass explicitly excludes `SKIP` content by design -- an
+unrecoverable, silent loss, not merely a mis-scored one.
+
+**Evaluation-first process (both phases, both fully documented in
+`docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md`):** a Phase
+0-5 architecture-and-evaluation review (STOPPED for approval before any
+`src/gitscore` edit) built a 44-control, 22-category synthetic heading
+corpus (`evaluation/m11g6/heading_controls.json`; three disclosed,
+same-session self-correction rounds before the final freeze -- a
+terminology mix-up, two shape-gate misunderstandings, and confounded
+body-text wording, none of which touched the 9 genuine defect rows),
+then simulated three general correction strategies against it without
+touching production: (A) fixed family precedence -- fixes nothing (no
+competing match exists in the base case to prefer), 3 regressions,
+rejected; (B) strict per-word family-coverage boundary matching -- 9
+regressions for 9 fixes, a wash, rejected; (C) a new, generic,
+closed-vocabulary `_CANDIDATE_PROFILE_ROOT` family ("looking for",
+"we need", "we want", "you('ll) bring", "ideal candidate"), used PURELY
+as an exclusion signal against `NON_QUALIFICATION` in
+`_matched_heading_families` -- mirroring the EXISTING `qualification`-
+excluded-by-`preferred` precedent already shipped there -- 44/44 match,
+0 regressions, exactly the 9 target rows fixed. Approved; implemented
+verbatim.
+
+**Implementation, entirely within `segmentation.py`:** one new ~8-line
+regex constant plus one changed boolean (`non_qualification_fires =
+has_non_qualification and not has_candidate_profile`) inside
+`_matched_heading_families`. The new signal is NEVER appended to
+`families` itself -- it can never become its own section kind and
+never defaults anything to `REQUIRED`/`PREFERRED`; a rescued heading
+falls through to the EXISTING, already-tested "zero families + strong
+shape signal -> `UNKNOWN`" path, unchanged. No `necessity.py`/
+`narrative.py`/`qualification.py`/scoring/matcher/schema/API change.
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v10` -> `v11` (`parser.py`,
+label-only to that module).
+
+**One narrow, discovered-during-testing, confirmed-SAFE residual
+divergence from the pre-implementation simulation:** a single
+weak-shape-signal formatting variant (no colon/ALL-CAPS/Markdown, e.g.
+an em-dash-terminated heading with no trailing colon) resolves to
+`NOT_A_HEADING` rather than `UNKNOWN` once the `SKIP` family is
+excluded and zero families remain to corroborate the heading shape --
+the same pre-existing, already-documented M10C "weak signal without
+ANY family corroboration" rule ("Additional Information" with no colon
+already exercises it). Verified directly: this does not fabricate a
+requirement and does not reintroduce the reported defect for any
+STRONG-shape-signal heading (colon-terminated -- how every realistic
+posting, including the original M11-G5 example, actually writes this
+heading); the EXISTING, independent M10E narrative-cue veto in
+`necessity.py` still prevents any unsafe promotion even if a stale
+section were to stay open across it. Disclosed, pinned by an
+explicit `xfail` in `tests/test_m11g6_heading_classification.py`
+(frozen gold itself was never edited to hide it), not silently
+resolved.
+
+**Measured result:** `tests/test_m11g6_heading_classification.py` (new,
+written and run against the REAL classifier BEFORE implementation,
+confirmed red on exactly the 9 target rows, confirmed green after) --
+102 passed, 2 documented xfail. Full regression suite
+1493->**1595** passed/13 skipped unchanged, 2 xfailed (both the single
+known-safe divergence above). The original M11-G5 private posting
+fixture recovers 5 of its 7 genuine qualifications as diagnostic
+`UnparsedClaim`s (none individually carry a local REQUIRED/PREFERRED
+marker, so none are scored -- exactly the "do not assume a
+qualification heading means REQUIRED" guarantee holding); the remaining
+2 stay unrecovered for a separate, already-disclosed reason (the
+generic `_looks_like_requirement` vocabulary gate's own completeness,
+unrelated to heading classification) -- out of this fix's scope. SOTI
+and Manulife re-run end-to-end: byte-identical `JobRequirement`/
+`UnparsedClaim` counts to before, only the version label differs (v10
+-> v11) -- neither posting's headings contain any phrase from the new
+vocabulary. No competency evidence detector, no LLM integration, no
+scoring/matcher/schema/API/frontend change — see
+`docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md` for the
+complete root-cause trace, strategy comparison, and before/after
+reconciliation.

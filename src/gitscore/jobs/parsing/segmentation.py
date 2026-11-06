@@ -163,6 +163,33 @@ is untouched, `RESPONSIBILITY` still maps to `Necessity.REQUIRED` here,
 exactly as M10C left it; the new gating happens strictly downstream, in
 `necessity.py`/`parser.py`. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v7`
 -> `v8` accordingly (`jobs/parsing/parser.py`).
+
+**Milestone 11-G6 -- heading-classification correctness.** M11-G5's
+independent validation found `_NON_QUALIFICATION_ROOT`'s unanchored
+`\bwho we are\b` substring match misclassifying genuine candidate-
+profile headings ("Who We Are Looking For:") as `_SectionKind.SKIP`
+(total, unrecoverable suppression) whenever nothing else on the same
+line matched any other family -- categorically worse than any other
+wrong `_SectionKind`, since `segment_description()`'s own `SKIP` branch
+drops the line before a single `Claim` is ever constructed, upstream of
+even `necessity.py`'s own local-marker-always-wins safety net. See
+`docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md` for the full
+root-cause trace and the evaluation-first comparison (Option A: fixed
+precedence -- fixes nothing, 3 regressions; Option B: strict per-word
+family-coverage boundary matching -- 9 regressions for 9 fixes, a wash;
+Option C, selected: one new, generic, closed-vocabulary
+`_CANDIDATE_PROFILE_ROOT` family, used PURELY as an exclusion signal
+against `NON_QUALIFICATION` in `_matched_heading_families`, mirroring
+the EXISTING `qualification`-excluded-by-`preferred` precedent already
+shipped there) this implements verbatim from that document's own
+simulation (44/44 frozen controls, 0 regressions). The new signal is
+NEVER added to `families` itself -- it can never become its own section
+kind and never defaults anything to REQUIRED/PREFERRED; a heading it
+rescues from `SKIP` falls through to the EXISTING, already-tested
+"zero families + strong shape signal -> `UNKNOWN`" path, unchanged.
+No `necessity.py`/`narrative.py`/`qualification.py`/scoring/matcher
+change. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v10` -> `v11`
+accordingly.
 """
 from __future__ import annotations
 
@@ -244,6 +271,37 @@ _NON_QUALIFICATION_ROOT = re.compile(
     re.IGNORECASE,
 )
 
+# Milestone 11-G6 -- a bounded, generic, closed-vocabulary "candidate-
+# profile-seeking" signal (same non-employer-specific discipline every
+# root table in this module already follows -- see
+# docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md Phase 1/3
+# for the full root-cause trace and strategy comparison this
+# implements). Root cause: `_NON_QUALIFICATION_ROOT`'s `\bwho we are\b`
+# is an unanchored substring match -- it fires identically whether the
+# heading is genuine company narrative ("Who We Are:") or a candidate-
+# profile heading that merely happens to start the same way ("Who We
+# Are Looking For:"), because nothing else on that second line matches
+# ANY family, so there is no competing signal for the EXISTING
+# "more than one family -> honest UNKNOWN" collision rule to engage at
+# all. `_CANDIDATE_PROFILE_ROOT` is deliberately NOT about one exact
+# phrase: "looking for"/"we need"/"we want"/"you('ll) bring"/"ideal
+# candidate" each independently also cover "What We're Looking For",
+# "What We Need to See", "What You'll Bring", and "The Ideal Candidate"
+# -- four other headings this same milestone's evaluation corpus names
+# as sharing the identical risk shape. Used ONLY as an exclusion signal
+# against NON_QUALIFICATION in `_matched_heading_families` below
+# (mirroring the EXISTING `qualification`-excluded-by-`preferred`
+# precedent already shipped there) -- never added to `families` itself,
+# so it can never become its own section kind and never defaults
+# anything to REQUIRED/PREFERRED. Measured (Phase 3 simulation, ported
+# verbatim): 44/44 frozen controls match gold, 0 regressions, exactly
+# the 9 confirmed-defect rows corrected.
+_CANDIDATE_PROFILE_ROOT = re.compile(
+    r"\blooking for\b|\bwe(?:'re| are) seeking\b|\bwe need\b|\bwe want\b|"
+    r"\byou(?:'ll| will) bring\b|\byou bring\b|\bideal candidate\b",
+    re.IGNORECASE,
+)
+
 
 def _strip_heading_decoration(content: str) -> str:
     """Zero-width/invisible characters, a Markdown ATX leader (`#`..`######`),
@@ -300,12 +358,23 @@ def _matched_heading_families(content: str) -> list[_SectionKind]:
     has_learning = bool(_LEARNING_ROOT.search(content))
     has_responsibility = bool(_RESPONSIBILITY_ROOT.search(content))
     has_non_qualification = bool(_NON_QUALIFICATION_ROOT.search(content))
+    has_candidate_profile = bool(_CANDIDATE_PROFILE_ROOT.search(content))
 
     # A bare `qualif*` root never fires REQUIRED when a `preferr*` root is
     # ALSO present on the same line -- "Preferred Qualifications" must
     # resolve to PREFERRED, never REQUIRED (the collision this
     # milestone's evaluation corpus names explicitly).
     required_fires = has_required or (has_qualification and not has_preferred)
+
+    # Milestone 11-G6 -- mirrors the exclusion above exactly: a bare
+    # NON_QUALIFICATION root never fires when a CANDIDATE_PROFILE root is
+    # ALSO present on the same line ("Who We Are Looking For" must fall
+    # through to the EXISTING zero-families-plus-strong-shape-signal
+    # UNKNOWN path, never a confident SKIP). The candidate-profile signal
+    # is deliberately NEVER appended to `families` itself -- it is used
+    # purely as an exclusion/corroboration check, never its own section
+    # kind, and never a default REQUIRED/PREFERRED.
+    non_qualification_fires = has_non_qualification and not has_candidate_profile
 
     families: list[_SectionKind] = []
     if required_fires:
@@ -316,7 +385,7 @@ def _matched_heading_families(content: str) -> list[_SectionKind]:
         families.append(_SectionKind.LEARNING)
     if has_responsibility:
         families.append(_SectionKind.RESPONSIBILITY)
-    if has_non_qualification:
+    if non_qualification_fires:
         families.append(_SectionKind.SKIP)
     return families
 
