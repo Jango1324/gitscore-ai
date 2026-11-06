@@ -200,6 +200,22 @@ generic `_CANDIDATE_PROFILE_ROOT` vocabulary excludes a false
 `NON_QUALIFICATION` family's unanchored `\bwho we are\b` substring
 match. Nothing in THIS module changes except the version bump.
 `JOB_DESCRIPTION_PARSER_VERSION` bumps `v10` -> `v11` accordingly.
+
+**Milestone 11-G7 -- section-boundary integrity.** Another narrow,
+label-only-to-this-module version bump: the actual fix is entirely
+within `jobs/parsing/segmentation.py`'s `_classify_heading_line()` (see
+that module's own docstring and
+`docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md`) -- the
+word-count shape gate now branches on signal strength (14 words for
+colon/ALL-CAPS/Markdown-terminated lines, the unchanged 7 for bare
+title-case lines) instead of applying one fixed limit uniformly,
+fixing a confirmed defect where a genuine long heading going
+unrecognized could let a stale section state leak across the boundary
+-- in the worst cases, fabricating a scored `JobRequirement` from
+responsibility prose, or silently suppressing a genuine REQUIRED
+qualification entirely. Nothing in THIS module changes except the
+version bump. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v11` -> `v12`
+accordingly.
 """
 from __future__ import annotations
 
@@ -226,7 +242,7 @@ from gitscore.jobs.parsing.observability import observability_for_non_technical,
 from gitscore.jobs.parsing.segmentation import Claim, document_has_any_recognized_heading, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v11"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v12"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:

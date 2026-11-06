@@ -718,6 +718,31 @@ Milestone 11-G6 section and
 full root-cause trace, strategy comparison, and measured before/after
 results.
 
+**Milestone 11-G7 fix (live pipeline flow unchanged — same stages,
+same call order; `segmentation.py`'s heading word-count shape gate is
+the only thing that changed within Stage 1):** a genuine heading over
+7 words going unrecognized let `segment_description()`'s single
+forward-carrying section state leak across the boundary into
+subsequent content — confirmed, in the worst cases, to fabricate a
+scored, assessable `JobRequirement` from responsibility prose (a stale
+`REQUIRED`/`PREFERRED` state admits content unconditionally) or to
+silently, totally suppress a genuine REQUIRED qualification (a stale
+`SKIP` state drops content before a `Claim` exists). The word-count
+cap now branches on signal strength — 14 words for colon/ALL-CAPS/
+Markdown-terminated (strong-signal) lines, the unchanged 7 for bare
+title-case (weak-signal) lines — recognizing genuine long headings
+while still rejecting long colon-terminated lead-in sentences that
+introduce sub-lists from inside an already-open section (confirmed,
+by adversarial testing, to be the real risk a naive uniform raise or
+an unbounded removal would have reintroduced). `JOB_DESCRIPTION_PARSER_VERSION`
+bumps `v11` -> `v12`. Every downstream stage (necessity resolution,
+`_requirements_from_claim`, dedup, matcher, scoring) is unmodified and
+untouched — this fix only changes WHETHER a line is recognized as a
+heading at all. See `docs/ARCHITECTURE.md`'s Milestone 11-G7 section
+and `docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md`
+for the full root-cause trace, strategy comparison, and measured
+before/after results.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

@@ -1,0 +1,7 @@
+{
+  "frozen_file": "evaluation/m11g7/boundary_controls.json",
+  "sha256": "563e9b9ad353c42d428bf19d999674ac4a2fb72244c9672549a3118eb8c6ef00",
+  "length_bytes": 53797,
+  "frozen_at_utc": "2026-11-06T00:30:23Z",
+  "note": "FINAL freeze for this milestone. Computed after two correction rounds (metadata field-scope, and batch-verified family-matching) plus one structural-bug fix (a leftover edit fragment had silently shifted body_qualifications/severity_tier positional arguments for m11g7-025) -- zero metadata mismatches, all 42 controls structurally valid -- and BEFORE any candidate-fix simulation was run. Any future diff against this hash means gold was altered after this freeze point."
+}

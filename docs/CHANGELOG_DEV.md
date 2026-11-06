@@ -1,5 +1,99 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-06 — Milestone 11-G7: section-boundary integrity fix (segmentation.py, approved production change)
+
+**What changed:** `_classify_heading_line()`'s word-count shape gate
+rejected ANY heading-shaped line over 7 words UNIFORMLY, regardless of
+signal strength. When a genuine, long, colon/ALL-CAPS/Markdown-
+terminated heading was misjudged as ordinary content, `current_kind`
+(the single forward-carrying section state in
+`segment_description()`'s loop) never updated, letting whatever
+section was open BEFORE that line leak across the boundary into
+content AFTER it. Confirmed, by direct execution, THREE severity
+tiers — two newly discovered and more severe than this milestone's own
+initial framing: a stale `UNKNOWN`/`LEARNING` state admits content at
+worst as a diagnostic (never scored, LOW); a stale `REQUIRED`/
+`PREFERRED` state admits content UNCONDITIONALLY, confirmed to
+fabricate a scored, ASSESSABLE `JobRequirement` from responsibility
+prose naming a real technology (HIGH); a stale `SKIP` state drops
+content before a `Claim` exists, confirmed to SILENTLY, TOTALLY
+SUPPRESS a genuine, locally-marked REQUIRED qualification — the exact
+M11-G5 failure mode, now reachable by heading LENGTH alone (HIGH).
+
+`src/gitscore/jobs/parsing/segmentation.py` (the only file with
+behavioral changes): the existing `has_strong_shape_signal` computation
+moved above the word-count decision (pure reordering), and the
+word-count condition changed from a fixed `7` to `14 if
+has_strong_shape_signal else 7`. ~5 changed lines.
+`src/gitscore/jobs/parsing/parser.py`: `JOB_DESCRIPTION_PARSER_VERSION`
+bumped `v11` -> `v12` (label-only to that module).
+
+`evaluation/m11g7/boundary_controls.json` (new, 42 independently-
+authored, synthetic controls across 16 categories; two disclosed,
+same-session self-correction rounds before the final freeze — a
+field-scope error, and a batch-verified family-matching correction,
+neither touching any safety-relevant outcome) +
+`tests/test_m11g7_section_boundary_integrity.py` (new, 137 tests,
+written and run against the real classifier BEFORE implementation —
+confirmed red on exactly the defect rows, confirmed green after, with
+3 characterization tests updated post-fix to assert the new correct
+behavior) + `scripts/evaluation_lib/m11g7_build_boundary_controls.py`/
+`m11g7_preflight_check.py`/`m11g7_phase1_current_behavior.py`/
+`m11g7_phase3_candidate_fix_simulation.py` (new, evaluation-only
+harness and strategy-comparison simulation).
+
+**Why:** Three strategies compared and simulated against production's
+own real regexes before any `src/gitscore` edit: (A) uniformly raise
+the cap for every line — fixes all 18 defect rows but wrongly
+reclassifies a long, colon-terminated lead-in sentence introducing a
+sub-list from inside an already-open section as a new heading
+(demoting the bare one-word value that follows it out of its real
+section), rejected; (B) remove the cap entirely for strong-signal
+lines — same lead-in failure, plus mis-heading-ifies a deliberately
+degenerate 42-word run-on clause, rejected; (C) the signal-dependent
+branch above — 42/42 frozen controls matched, 0 regressions, every
+adversarial lead-in/degenerate-run-on case passed. Selected and
+implemented verbatim, on explicit approval.
+
+**Measured result:** `tests/test_m11g7_section_boundary_integrity.py`:
+137 passed, 0 failed. Full backend suite: 1595->**1732 passed**, 13
+skipped unchanged, 2 xfailed unchanged (the two M11-G6 em-dash-case
+xfails are confirmed unrelated — that control's heading is 5 words,
+below even the unchanged weak-signal cap). Against the frozen 42-control
+corpus: heading-kind mismatches 18->**0**, false requirement
+fabrications 5->**0**, silent suppressions 1->**0**. End-to-end on the
+three HIGH-severity controls (real `match_job`/`assess_job`,
+deterministic empty candidate fixture): REQUIRED-tier fabrication
+`assessable_count`/`alignment_score` 1/0 (corrupted) -> 0/None
+(correctly undefined); SKIP-tier silent suppression 0/0 requirements
+(total loss) -> a genuinely recovered, assessable `JobRequirement`
+(`assessable_count=1`, `alignment_score=0` — the CORRECT effect of
+recovering a real requirement this candidate shows no evidence for,
+not a defect); PREFERRED-tier fabrication eliminated while the genuine
+PREFERRED qualification on the same control is preserved. No scoring
+formula change — the alignment-score changes measured above are the
+direct, intended, legitimate effect of correcting the underlying
+requirement set, never a change to how a score is computed from a
+given requirement set.
+
+**Risks/limitations:** the 14-word cap is a measured, disclosed,
+bounded constant sized to this milestone's own 42-control corpus (max
+13 words authored) with a 1-word margin — not independently re-derived
+from a larger real-world heading-length survey; a genuine heading
+longer than 14 words would still be missed. This defect is confirmed
+independent of the separately-measured competency-recall limitation
+(different module, zero overlap) — this fix has no bearing on that
+limitation and does not attempt to address it. No scoring/matcher/
+schema/API/frontend/competency-evidence/LLM change of any kind.
+
+**How to test:** `pytest tests/test_m11g7_section_boundary_integrity.py`;
+`python scripts/evaluation_lib/m11g7_phase1_current_behavior.py`
+(hash-verifies the frozen corpus first); full suite via `pytest -q`.
+
+See `docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md` for
+the full root-cause trace, strategy comparison, and before/after
+reconciliation.
+
 ## 2026-11-06 — Milestone 11-G6: heading-classification correctness fix (segmentation.py, approved production change)
 
 **What changed:** M11-G5's independent validation traced 7 of 8 missed

@@ -1,0 +1,434 @@
+{
+  "corpus_version": "m11g7-boundary-controls:v1",
+  "n_controls": 42,
+  "summary": {
+    "current": {
+      "matches_gold": 24,
+      "regressions_vs_current": 0,
+      "fixes_vs_current": 0
+    },
+    "A_naive_uniform_raise_to_20": {
+      "matches_gold": 42,
+      "regressions_vs_current": 0,
+      "fixes_vs_current": 18
+    },
+    "B_uncapped_strong_signal": {
+      "matches_gold": 42,
+      "regressions_vs_current": 0,
+      "fixes_vs_current": 18
+    },
+    "C_bounded_raise_strong_signal_14": {
+      "matches_gold": 42,
+      "regressions_vs_current": 0,
+      "fixes_vs_current": 18
+    }
+  },
+  "adversarial_leadin_results": {
+    "m11g7-014-leadin-not-heading-required-section": {
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    "m11g7-015-leadin-not-heading-responsibility-section": {
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    "m11g7-037-leadin-not-heading-inside-skip-section": {
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    }
+  },
+  "adversarial_leadin_note": "NOT_A_HEADING is the SAFE outcome for every lead-in -- it means the lead-in sentence does NOT reset current_kind away from the section it is actually inside of. Any OTHER value (UNKNOWN/REQUIRED/etc.) means the strategy WRONGLY promoted this lead-in to a new heading, which would demote the following one-item-per-line value out of its real section.",
+  "degenerate_runon_results": {
+    "current": "NOT_A_HEADING",
+    "A_naive_uniform_raise_to_20": "NOT_A_HEADING",
+    "B_uncapped_strong_signal": "UNKNOWN",
+    "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+  },
+  "degenerate_runon_note": "NOT_A_HEADING is the SAFE outcome. Any other value means the strategy heading-ified a 42-word run-on clause.",
+  "rows": [
+    {
+      "id": "m11g7-001-short-required-colon",
+      "category": "short_genuine_heading_baseline",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-002-short-responsibility-colon",
+      "category": "short_genuine_heading_baseline",
+      "expected": "RESPONSIBILITY",
+      "current": "RESPONSIBILITY",
+      "A_naive_uniform_raise_to_20": "RESPONSIBILITY",
+      "B_uncapped_strong_signal": "RESPONSIBILITY",
+      "C_bounded_raise_strong_signal_14": "RESPONSIBILITY"
+    },
+    {
+      "id": "m11g7-003-exactly-seven-words",
+      "category": "short_genuine_heading_baseline",
+      "expected": "RESPONSIBILITY",
+      "current": "RESPONSIBILITY",
+      "A_naive_uniform_raise_to_20": "RESPONSIBILITY",
+      "B_uncapped_strong_signal": "RESPONSIBILITY",
+      "C_bounded_raise_strong_signal_14": "RESPONSIBILITY"
+    },
+    {
+      "id": "m11g7-004-long-responsibility-colon-9words",
+      "category": "long_genuine_heading_colon",
+      "expected": "UNKNOWN",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-005-long-required-colon-10words",
+      "category": "long_genuine_heading_colon",
+      "expected": "REQUIRED",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-006-long-preferred-colon-8words",
+      "category": "long_genuine_heading_colon",
+      "expected": "PREFERRED",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "PREFERRED",
+      "B_uncapped_strong_signal": "PREFERRED",
+      "C_bounded_raise_strong_signal_14": "PREFERRED"
+    },
+    {
+      "id": "m11g7-007-long-qualification-colon-9words",
+      "category": "long_genuine_heading_colon",
+      "expected": "REQUIRED",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-008-long-markdown-atx-9words",
+      "category": "long_genuine_heading_markdown",
+      "expected": "UNKNOWN",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-009-long-markdown-bold-9words",
+      "category": "long_genuine_heading_markdown",
+      "expected": "UNKNOWN",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-010-long-allcaps-9words",
+      "category": "long_genuine_heading_allcaps",
+      "expected": "UNKNOWN",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-011-long-no-family-colon-9words",
+      "category": "long_heading_no_family_root",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-012-long-weak-signal-no-colon",
+      "category": "long_weak_signal_heading",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "NOT_A_HEADING",
+      "B_uncapped_strong_signal": "NOT_A_HEADING",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g7-013-long-weak-signal-no-family",
+      "category": "long_weak_signal_heading",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "NOT_A_HEADING",
+      "B_uncapped_strong_signal": "NOT_A_HEADING",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g7-014-leadin-not-heading-required-section",
+      "category": "long_colon_leadin_not_a_heading",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-015-leadin-not-heading-responsibility-section",
+      "category": "long_colon_leadin_not_a_heading",
+      "expected": "RESPONSIBILITY",
+      "current": "RESPONSIBILITY",
+      "A_naive_uniform_raise_to_20": "RESPONSIBILITY",
+      "B_uncapped_strong_signal": "RESPONSIBILITY",
+      "C_bounded_raise_strong_signal_14": "RESPONSIBILITY"
+    },
+    {
+      "id": "m11g7-016-ordinary-long-prose-period",
+      "category": "ordinary_long_prose_sentence",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "NOT_A_HEADING",
+      "B_uncapped_strong_signal": "NOT_A_HEADING",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g7-017-long-bulleted-item",
+      "category": "bullet_list_item_long",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-018-severity-unknown-carryforward",
+      "category": "severity_tier_unknown_carryforward",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-019-severity-required-carryforward-HIGH",
+      "category": "severity_tier_required_carryforward",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-020-severity-skip-carryforward-HIGH",
+      "category": "severity_tier_skip_carryforward",
+      "expected": "SKIP",
+      "current": "SKIP",
+      "A_naive_uniform_raise_to_20": "SKIP",
+      "B_uncapped_strong_signal": "SKIP",
+      "C_bounded_raise_strong_signal_14": "SKIP"
+    },
+    {
+      "id": "m11g7-021-transition-long-heading-resets-correctly",
+      "category": "section_transition_correctness",
+      "expected": "PREFERRED",
+      "current": "PREFERRED",
+      "A_naive_uniform_raise_to_20": "PREFERRED",
+      "B_uncapped_strong_signal": "PREFERRED",
+      "C_bounded_raise_strong_signal_14": "PREFERRED"
+    },
+    {
+      "id": "m11g7-022-long-heading-em-dash",
+      "category": "unicode_and_punctuation_variants",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "NOT_A_HEADING",
+      "B_uncapped_strong_signal": "NOT_A_HEADING",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g7-023-long-heading-nbsp",
+      "category": "unicode_and_punctuation_variants",
+      "expected": "UNKNOWN",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-024-mixed-qualifications-after-long-heading",
+      "category": "mixed_qualification_after_long_heading",
+      "expected": "UNKNOWN",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-025-long-narrative-heading",
+      "category": "narrative_sections",
+      "expected": "UNKNOWN",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-026-long-narrative-heading-anchored",
+      "category": "narrative_sections",
+      "expected": "SKIP",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "SKIP",
+      "B_uncapped_strong_signal": "SKIP",
+      "C_bounded_raise_strong_signal_14": "SKIP"
+    },
+    {
+      "id": "m11g7-027-degenerate-very-long-colon-line",
+      "category": "adversarial_degenerate_cases",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "NOT_A_HEADING",
+      "B_uncapped_strong_signal": "NOT_A_HEADING",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g7-028-eight-word-boundary-plus-one",
+      "category": "long_genuine_heading_colon",
+      "expected": "REQUIRED",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-029-twelve-word-heading",
+      "category": "long_genuine_heading_colon",
+      "expected": "REQUIRED",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-030-severity-preferred-carryforward",
+      "category": "severity_tier_required_carryforward",
+      "expected": "PREFERRED",
+      "current": "PREFERRED",
+      "A_naive_uniform_raise_to_20": "PREFERRED",
+      "B_uncapped_strong_signal": "PREFERRED",
+      "C_bounded_raise_strong_signal_14": "PREFERRED"
+    },
+    {
+      "id": "m11g7-031-severity-learning-carryforward",
+      "category": "severity_tier_unknown_carryforward",
+      "expected": "LEARNING",
+      "current": "LEARNING",
+      "A_naive_uniform_raise_to_20": "LEARNING",
+      "B_uncapped_strong_signal": "LEARNING",
+      "C_bounded_raise_strong_signal_14": "LEARNING"
+    },
+    {
+      "id": "m11g7-032-long-inline-colon-list",
+      "category": "ordinary_long_prose_sentence",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-033-long-numbered-bullet",
+      "category": "bullet_list_item_long",
+      "expected": "REQUIRED",
+      "current": "REQUIRED",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-034-long-markdown-no-family",
+      "category": "long_heading_no_family_root",
+      "expected": "UNKNOWN",
+      "current": "UNKNOWN",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-035-long-heading-zero-width-space",
+      "category": "unicode_and_punctuation_variants",
+      "expected": "UNKNOWN",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "UNKNOWN",
+      "B_uncapped_strong_signal": "UNKNOWN",
+      "C_bounded_raise_strong_signal_14": "UNKNOWN"
+    },
+    {
+      "id": "m11g7-036-exactly-seven-weak-signal-zero-family",
+      "category": "long_weak_signal_heading",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "NOT_A_HEADING",
+      "B_uncapped_strong_signal": "NOT_A_HEADING",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g7-037-leadin-not-heading-inside-skip-section",
+      "category": "long_colon_leadin_not_a_heading",
+      "expected": "SKIP",
+      "current": "SKIP",
+      "A_naive_uniform_raise_to_20": "SKIP",
+      "B_uncapped_strong_signal": "SKIP",
+      "C_bounded_raise_strong_signal_14": "SKIP"
+    },
+    {
+      "id": "m11g7-038-g6-g7-interaction-long-compound",
+      "category": "adversarial_degenerate_cases",
+      "expected": "RESPONSIBILITY",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "RESPONSIBILITY",
+      "B_uncapped_strong_signal": "RESPONSIBILITY",
+      "C_bounded_raise_strong_signal_14": "RESPONSIBILITY"
+    },
+    {
+      "id": "m11g7-039-long-prose-no-terminal-punctuation",
+      "category": "ordinary_long_prose_sentence",
+      "expected": "NOT_A_HEADING",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "NOT_A_HEADING",
+      "B_uncapped_strong_signal": "NOT_A_HEADING",
+      "C_bounded_raise_strong_signal_14": "NOT_A_HEADING"
+    },
+    {
+      "id": "m11g7-040-long-learning-heading-direct",
+      "category": "long_genuine_heading_colon",
+      "expected": "LEARNING",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "LEARNING",
+      "B_uncapped_strong_signal": "LEARNING",
+      "C_bounded_raise_strong_signal_14": "LEARNING"
+    },
+    {
+      "id": "m11g7-041-long-required-markdown-bold-10words",
+      "category": "long_genuine_heading_markdown",
+      "expected": "REQUIRED",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    },
+    {
+      "id": "m11g7-042-fourteen-word-heading-upper-bound-probe",
+      "category": "adversarial_degenerate_cases",
+      "expected": "REQUIRED",
+      "current": "NOT_A_HEADING",
+      "A_naive_uniform_raise_to_20": "REQUIRED",
+      "B_uncapped_strong_signal": "REQUIRED",
+      "C_bounded_raise_strong_signal_14": "REQUIRED"
+    }
+  ]
+}

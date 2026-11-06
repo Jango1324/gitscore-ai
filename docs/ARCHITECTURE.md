@@ -5354,3 +5354,101 @@ scoring/matcher/schema/API/frontend change — see
 `docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md` for the
 complete root-cause trace, strategy comparison, and before/after
 reconciliation.
+
+### Milestone 11-G7 — section-boundary integrity (`segmentation.py`, production fix)
+
+`_classify_heading_line()`'s word-count shape gate rejected ANY
+heading-shaped line over 7 words UNIFORMLY, regardless of signal
+strength -- a genuine, long, colon/ALL-CAPS/Markdown-terminated
+heading was indistinguishable, at that one check, from an unreliable
+long run of bare prose (the EXACT false-positive risk the cap exists
+to prevent, per the module's own docstring: "a single bare capitalized
+word standing alone"). When such a heading was misjudged as ordinary
+content, `current_kind` -- the single forward-carrying state in
+`segment_description()`'s main loop, updated ONLY when
+`_classify_heading_line()` returns non-`None` -- never updated,
+letting whatever section was open BEFORE that line leak across the
+boundary into every line AFTER it.
+
+**Confirmed, by direct execution (not assumed), THREE distinct
+severity tiers** -- two of them newly discovered, more severe than
+this milestone's own initial mission framing ("a responsibility
+sentence appears as an UnparsedClaim," the LOW tier only):
+
+- **LOW** -- a stale `UNKNOWN`/`LEARNING` state admits content at worst
+  as a diagnostic `UnparsedClaim` (necessity `None`) -- never scored.
+- **HIGH** -- a stale `REQUIRED`/`PREFERRED` state admits content
+  UNCONDITIONALLY with a default necessity matching the stale state --
+  a responsibility/duty sentence naming a real technology becomes a
+  SCORED, ASSESSABLE `JobRequirement`, confirmed directly to produce a
+  non-`None`, non-zero-denominator `alignment_score` from text that
+  was never a qualification at all.
+- **HIGH** -- a stale `SKIP` state drops content UNCONDITIONALLY
+  before a `Claim` even exists -- confirmed directly to SILENTLY,
+  TOTALLY SUPPRESS a genuine, explicitly locally-marked REQUIRED
+  qualification (zero `JobRequirement`s, zero `UnparsedClaim`s) -- the
+  exact M11-G5 failure mode, now shown reachable by heading LENGTH
+  alone, no vocabulary collision required.
+
+**Evaluation-first process:** a Phase 0–7 architecture-and-evaluation
+review (STOPPED for approval before any `src/gitscore` edit) built a
+42-control, 16-category synthetic corpus
+(`evaluation/m11g7/boundary_controls.json`; two disclosed, same-session
+self-correction rounds before the final freeze -- a field-scope error,
+and a batch-verified family-matching correction, neither touching any
+safety-relevant outcome), then simulated three strategies without
+touching production: (A) uniformly raise the cap for every line --
+fixes all 18 defect rows but WRONGLY reclassifies a long,
+colon-terminated lead-in sentence introducing a sub-list from INSIDE
+an already-open section as a NEW heading, which would demote the bare
+one-word qualification value that follows it out of that section,
+confirmed directly, rejected; (B) remove the cap entirely for
+strong-signal lines -- same lead-in failure, PLUS mis-heading-ifies a
+deliberately degenerate 42-word run-on clause ending in a bare colon,
+rejected; (C) `has_strong_shape_signal` computed BEFORE the word-count
+decision, which branches on it (14 words for strong-signal lines, the
+unchanged 7 for weak-signal lines) -- 42/42 match, 0 regressions,
+every adversarial lead-in/degenerate-run-on case passes. Approved;
+implemented verbatim.
+
+**Implementation, entirely within `segmentation.py`:** the existing
+`has_strong_shape_signal` computation moved above the word-count
+check (a pure reordering, no new logic), and the word-count condition
+changed from a single fixed `7` to `14 if has_strong_shape_signal else
+7`. Approximately 5 changed lines. No new function, no new
+`_SectionKind`, no new `Claim` field, no `necessity.py`/`narrative.py`/
+`qualification.py`/scoring/matcher/schema/API change -- the fix only
+changes WHETHER a line is recognized as a heading at all, never what
+happens once it is. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v11` ->
+`v12` (`parser.py`, label-only to that module).
+
+**Measured result:** `tests/test_m11g7_section_boundary_integrity.py`
+(new, 137 tests covering heading-kind matching, false-fabrication
+safety, silent-suppression safety, and 10 named categories A–J,
+written and run against the REAL classifier BEFORE implementation --
+confirmed red on exactly the defect rows, confirmed green after,
+3 characterization tests updated post-fix to assert the new correct
+behavior, exactly as M11-G6's own precedent did for its characterized
+defect). Full regression suite 1595->**1732** passed/13 skipped
+unchanged, 2 xfailed unchanged (the two M11-G6 em-dash-case xfails are
+unaffected -- that control's heading is 5 words, below even the
+UNCHANGED weak-signal cap, confirmed unrelated to this fix's own
+7-vs-14 branch). Against the frozen 42-control corpus: heading-kind
+mismatches 18->**0**, false requirement fabrications 5->**0**, silent
+suppressions 1->**0**. End-to-end on the three HIGH-severity controls
+(real `match_job`/`assess_job`, deterministic empty candidate): the
+REQUIRED-tier fabrication's `assessable_count`/`alignment_score` go
+from `1`/`0` (corrupted) to `0`/`None` (correctly undefined); the
+SKIP-tier silent suppression goes from `0`/`0` requirements (total
+loss) to a genuinely recovered, assessable `JobRequirement`
+(`assessable_count=1`, `alignment_score=0` -- the CORRECT effect of
+recovering a real requirement this candidate shows no evidence for,
+not a defect); the PREFERRED-tier fabrication is eliminated while the
+genuine PREFERRED qualification on the same control is preserved
+unchanged. No competency evidence detector, no LLM integration, no
+scoring/matcher/schema/API/frontend change, confirmed independent of
+the separately-measured competency-recall limitation (different
+module, zero overlap) — see
+`docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md` for the
+complete root-cause trace, strategy comparison, and before/after
+reconciliation.

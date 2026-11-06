@@ -190,6 +190,44 @@ rescues from `SKIP` falls through to the EXISTING, already-tested
 No `necessity.py`/`narrative.py`/`qualification.py`/scoring/matcher
 change. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v10` -> `v11`
 accordingly.
+
+**Milestone 11-G7 -- section-boundary integrity.** `_classify_heading_line()`'s
+word-count shape gate rejected ANY heading-shaped line over 7 words
+UNIFORMLY, regardless of signal strength -- a genuine, long,
+colon/ALL-CAPS/Markdown-terminated heading was indistinguishable, at
+that check, from an unreliable long run of bare prose. When such a
+heading was misjudged as ordinary content, `current_kind` (the single
+forward-carrying state in `segment_description()`'s loop) never
+updated, letting whatever section was open BEFORE it leak across the
+boundary into content AFTER it. Confirmed, by direct execution, to
+have THREE severity tiers: a stale `UNKNOWN`/`LEARNING` state produces
+a diagnostic `UnparsedClaim` at worst (never scored); a stale
+`REQUIRED`/`PREFERRED` state can admit a responsibility sentence
+UNCONDITIONALLY with a default necessity, fabricating an ASSESSABLE,
+SCORED `JobRequirement` from pure duty prose that happens to name a
+real technology; a stale `SKIP` state can SILENTLY, TOTALLY SUPPRESS a
+genuine, locally-marked REQUIRED qualification -- the exact M11-G5
+failure mode, now shown reachable by heading LENGTH alone, no
+vocabulary collision required. See
+`docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md` for the
+full trace and the evaluation-first comparison (Option A: raise the
+cap uniformly for every line -- wrongly reclassifies a long,
+colon-terminated lead-in sentence introducing a sub-list from INSIDE
+an already-open section, demoting the bare one-word value that
+follows it out of that section; Option B: remove the cap entirely for
+strong-signal lines -- same lead-in failure, PLUS mis-heading-ifies a
+deliberately degenerate 42-word run-on clause; Option C, selected:
+`has_strong_shape_signal` is now computed BEFORE the word-count
+decision, which branches on it -- 14 words for strong-signal lines,
+the unchanged 7 for weak-signal lines) this implements verbatim from
+that document's own simulation (42/42 frozen controls, 0 regressions,
+every adversarial lead-in/degenerate-run-on case passes). 14 is a
+measured, disclosed, BOUNDED constant -- never unlimited, never
+uniform across signal strength. No `necessity.py`/`narrative.py`/
+`qualification.py`/scoring/matcher change -- the fix only changes
+WHETHER a line is recognized as a heading at all, never what happens
+once it is. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v11` -> `v12`
+accordingly.
 """
 from __future__ import annotations
 
@@ -414,9 +452,6 @@ def _classify_heading_line(line: str, content: str) -> _SectionKind | None:
 
     ends_with_bare_colon = decorated.endswith(":")
     content_no_colon = decorated[:-1].strip() if ends_with_bare_colon else decorated
-    word_count = len(content_no_colon.split())
-    if word_count == 0 or word_count > 7:
-        return None
 
     is_all_caps = any(ch.isalpha() for ch in content_no_colon) and all(
         (not ch.isalpha()) or ch.isupper() for ch in content_no_colon
@@ -433,6 +468,30 @@ def _classify_heading_line(line: str, content: str) -> _SectionKind | None:
     # titlecase word, no colon, no family root) must never become a
     # phantom heading and swallow a real requirement list item.
     has_strong_shape_signal = ends_with_bare_colon or is_all_caps or is_markdown_or_bold
+
+    # Milestone 11-G7 -- computed BEFORE the word-count decision (was
+    # computed after it) so the cap itself can depend on signal
+    # strength: a weak-signal (bare title-case) line keeps the
+    # EXISTING <=7-word cap unchanged (the false-positive risk the cap
+    # was built for -- a short, bare, unreliable phrase -- is entirely
+    # about WEAK-signal lines); a strong-signal (colon/ALL-CAPS/
+    # Markdown) line gets a bounded, still-finite 14-word cap instead
+    # of the same 7, confirmed by the evaluation-first comparison
+    # (`docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md`)
+    # to recognize every genuine long heading in that milestone's own
+    # 44-word-max synthetic corpus while STILL correctly rejecting
+    # every tested adversarial case: a long, colon-terminated lead-in
+    # sentence introducing a sub-list from INSIDE an already-open
+    # section (which must never reset `current_kind` away from that
+    # section), and a deliberately degenerate 42-word run-on clause
+    # ending in a bare colon. 14 is a measured, disclosed, bounded
+    # constant -- never unlimited, never uniform across signal strength
+    # (both of which that same comparison confirmed unsafe).
+    word_count = len(content_no_colon.split())
+    _word_count_cap = 14 if has_strong_shape_signal else 7
+    if word_count == 0 or word_count > _word_count_cap:
+        return None
+
     is_plain_titlecase = _is_titlecase_heading(content_no_colon)
     if not has_strong_shape_signal and not is_plain_titlecase:
         return None

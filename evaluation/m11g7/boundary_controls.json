@@ -1,0 +1,968 @@
+{
+  "corpus_version": "m11g7-boundary-controls:v1",
+  "authorship_note": "Every control's text is independently hand-authored for this milestone, synthetic and generic -- never copied from any real job posting (same discipline as M11-G6's corpus). Safe to commit in full, including verbatim text.",
+  "correction_log": "Pre-freeze verification (via m11g7_preflight_check.py, run BEFORE the hash freeze -- learned from M11-G6's post-freeze correction rounds) caught and fixed, before any freeze: (a) m11g7-007's word count (10->9, a manual counting error) and its expected_heading_kind (UNKNOWN->REQUIRED, corrected after directly executing _matched_heading_families on the real text rather than assuming a two-family collision that does not actually occur); (b) m11g7-018/019/020/021/030/031's top-level heading_word_count/has_strong_shape_signal fields described the WRONG heading (the embedded, second, defect-triggering heading inside body_lines) instead of heading_line itself -- corrected to describe heading_line consistently, with the second heading's own word count stated in prose instead; (c) m11g7-021 was authored as a 'positive control' claiming an 8-word second heading was 'already recognized today' without verifying this directly -- direct execution showed it was ALSO defective (8 > 7); replaced with a genuinely-verified 6-word heading (confirmed to already resolve correctly today) so this control tests what it was always meant to test (clean transition behavior once a heading IS recognized), with the 8-word defect shape now covered properly by m11g7-030 instead; (d) m11g7-038/042's word counts (13->12, manual counting errors). A SECOND pre-freeze round, caught by batch-verifying every distinct heading-like string against `_matched_heading_families` directly rather than assuming: the phrase 'What You Will Be Able To Build And Own' (used across controls 004/008/009/010/023/035 and embedded in several severity-tier controls) does NOT match `_RESPONSIBILITY_ROOT` at all -- that root requires the bare word 'respons*', 'duties'/'duty', the EXACT phrase 'what you'll do'/'what you will do', 'the role', or 'day in this role'; 'build and own' matches none of these. Corrected expected_heading_kind from RESPONSIBILITY to UNKNOWN for all six. m11g7-022 (the same phrase, em-dash terminated, weak shape signal) has zero family AND weak signal, so it correctly stays NOT_A_HEADING under ANY G7 fix -- corrected from RESPONSIBILITY. m11g7-025's 'A Little More About Our Company...' does NOT trigger `_NON_QUALIFICATION_ROOT`'s `^about\\b` (anchored to the literal FIRST character, 'A', not 'About') -- corrected from SKIP to UNKNOWN. m11g7-038's 'What You Will Be Responsible For' DOES match the bare `respons*` root (a broader alternative than 'what you'll do' that an earlier draft missed) -- corrected from UNKNOWN to RESPONSIBILITY. No control's SAFETY-RELEVANT expected outcome (which lines must never be scored, which must never be silently lost) was changed by any of these corrections -- all were either pure label/field-scope fixes or corrections to match directly-verified, pre-existing, unrelated behavior.",
+  "schema_notes": {
+    "body_qualifications.should_enter_assessment": "Asymmetric by design, matching the two DIFFERENT safety invariants this milestone measures: for a genuine qualification (is_genuine_qualification=true), True means 'must be admitted as AT LEAST a diagnostic claim (a JobRequirement OR an UnparsedClaim) -- never silently, totally dropped' (the HIGH_silent_total_suppression risk). For a non-qualification (is_genuine_qualification=false), False means 'must NEVER become a SCORED JobRequirement' (the HIGH_fabricated_assessable_requirement risk) -- it says nothing about whether the line may still, safely, appear as a diagnostic UnparsedClaim (confirmed, by direct execution, to be the existing, safe, intended behavior for RESPONSIBILITY-section content with no local marker). Exact diagnostic-admission COUNTS are a Phase 1/4 MEASUREMENT against the real pipeline, not a gold prediction -- learned directly from an authoring error caught before this freeze (see correction_log).",
+    "expected_heading_kind": "Gold answer for what the heading_line SHOULD resolve to under a correct, safe fix -- real _SectionKind enum member names (REQUIRED/PREFERRED/RESPONSIBILITY/LEARNING/SKIP/UNKNOWN) or NOT_A_HEADING (should never be recognized as a heading at all, under ANY safe fix -- the adversarial/weak-signal controls).",
+    "severity_tier": "For carry-forward scenario controls only: the measured severity of what happens if this specific defect instance is left unfixed -- LOW_diagnostic_only (never scored), HIGH_fabricated_assessable_requirement (confirmed to produce a non-None alignment_score from non-qualification prose), or HIGH_silent_total_suppression (confirmed to silently drop a genuine, locally-marked REQUIRED claim entirely). null for controls not testing a carry-forward scenario."
+  },
+  "controls": [
+    {
+      "id": "m11g7-001-short-required-colon",
+      "category": "short_genuine_heading_baseline",
+      "heading_line": "Required Qualifications:",
+      "body_lines": [
+        "Experience with Python."
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 2,
+      "has_strong_shape_signal": true,
+      "rationale": "Already-correct 2-word heading, baseline positive control any fix must preserve.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with Python.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-002-short-responsibility-colon",
+      "category": "short_genuine_heading_baseline",
+      "heading_line": "What You'll Do:",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "RESPONSIBILITY",
+      "heading_word_count": 3,
+      "has_strong_shape_signal": true,
+      "rationale": "Already-correct 3-word heading, baseline positive control.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-003-exactly-seven-words",
+      "category": "short_genuine_heading_baseline",
+      "heading_line": "What You Will Be Responsible For Delivering:",
+      "body_lines": [
+        "Lead the platform migration."
+      ],
+      "expected_heading_kind": "RESPONSIBILITY",
+      "heading_word_count": 7,
+      "has_strong_shape_signal": true,
+      "rationale": "Exactly at the current 7-word boundary -- must remain classified identically under any candidate fix (the fix only changes behavior ABOVE this boundary, never at or below it).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Lead the platform migration.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-004-long-responsibility-colon-9words",
+      "category": "long_genuine_heading_colon",
+      "heading_line": "What You Will Be Able To Build And Own:",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "9-word colon-terminated heading (the exact M11-G5 p03 shape, reconstructed generically) -- currently NOT_A_HEADING (exceeds the 7-word cap). Confirmed by direct execution of `_matched_heading_families`: this phrase does NOT match `_RESPONSIBILITY_ROOT` at all (which requires the bare word 'respons*', 'duties'/'duty', the EXACT phrase 'what you(\\'ll| will) do', 'the role', or 'day in this role' -- 'build and own' matches none of these) -- zero family, strong signal (colon) -> UNKNOWN once the word-count gate is fixed, not RESPONSIBILITY.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-005-long-required-colon-10words",
+      "category": "long_genuine_heading_colon",
+      "heading_line": "Required Technical Skills And Experience For This Senior Role:",
+      "body_lines": [
+        "Experience with distributed systems is required."
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "9-word colon-terminated REQUIRED heading -- currently UNKNOWN or NOT_A_HEADING depending on family match, should resolve to REQUIRED.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with distributed systems is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-006-long-preferred-colon-8words",
+      "category": "long_genuine_heading_colon",
+      "heading_line": "Additional Skills That Would Be Nice To Have:",
+      "body_lines": [
+        "Familiarity with Kubernetes."
+      ],
+      "expected_heading_kind": "PREFERRED",
+      "heading_word_count": 8,
+      "has_strong_shape_signal": true,
+      "rationale": "8-word colon-terminated PREFERRED heading (via the 'nice to have' root) -- currently exceeds the cap.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Familiarity with Kubernetes.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "PREFERRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-007-long-qualification-colon-9words",
+      "category": "long_genuine_heading_colon",
+      "heading_line": "The Qualifications We Are Looking For In This Candidate:",
+      "body_lines": [
+        "A degree in Computer Science is required."
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "9-word colon-terminated heading. Contains 'qualifications' (QUALIFICATION_ROOT) and a candidate-seeking continuation ('looking for', the G6-added CANDIDATE_PROFILE_ROOT signal), but NOT the 'who we are' trigram, so NON_QUALIFICATION never fires here at all -- confirmed by direct execution of `_matched_heading_families` on this exact text: exactly one family (REQUIRED) fires. Expected REQUIRED once the word-count gate is fixed, not UNKNOWN.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "A degree in Computer Science is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-008-long-markdown-atx-9words",
+      "category": "long_genuine_heading_markdown",
+      "heading_line": "## What You Will Be Able To Build And Own",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "Markdown ATX variant of control 004 (see its corrected rationale -- zero family match, expected UNKNOWN, not RESPONSIBILITY).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-009-long-markdown-bold-9words",
+      "category": "long_genuine_heading_markdown",
+      "heading_line": "**What You Will Be Able To Build And Own**",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "Markdown-bold variant of control 004 (zero family match, expected UNKNOWN, not RESPONSIBILITY).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-010-long-allcaps-9words",
+      "category": "long_genuine_heading_allcaps",
+      "heading_line": "WHAT YOU WILL BE ABLE TO BUILD AND OWN",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "ALL-CAPS variant of control 004 (no colon at all; zero family match, expected UNKNOWN, not RESPONSIBILITY).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-011-long-no-family-colon-9words",
+      "category": "long_heading_no_family_root",
+      "heading_line": "Some Additional Context About This Particular Opening:",
+      "body_lines": [
+        "You will enjoy flexible hours and great benefits."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 7,
+      "has_strong_shape_signal": true,
+      "rationale": "9-word colon-terminated heading matching NO family root at all -- already-existing 'zero families + strong shape signal -> UNKNOWN' rule should apply once recognized as heading-shaped; must not become SKIP, REQUIRED, or any forced default.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "You will enjoy flexible hours and great benefits.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-012-long-weak-signal-no-colon",
+      "category": "long_weak_signal_heading",
+      "heading_line": "What You Will Be Able To Build And Own",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "NOT_A_HEADING",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": false,
+      "rationale": "Same 9-word phrase as control 004 but with NO colon/ALL-CAPS/Markdown -- bare plain title-case only. Must remain NOT_A_HEADING under ANY safe fix: a long, weak-signal, family-root-having phrase is not meaningfully more trustworthy than a short one once the colon/caps/markdown corroboration is absent (this control DOES match RESPONSIBILITY_ROOT, unlike the zero-family weak-signal case below -- adversarial precisely because it has a family match AND weak shape, testing whether a fix accidentally lets family-match alone override the weak-signal exclusion for LONG phrases).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-013-long-weak-signal-no-family",
+      "category": "long_weak_signal_heading",
+      "heading_line": "Some Additional Context About This Particular Opening",
+      "body_lines": [
+        "You will enjoy flexible hours and great benefits."
+      ],
+      "expected_heading_kind": "NOT_A_HEADING",
+      "heading_word_count": 7,
+      "has_strong_shape_signal": false,
+      "rationale": "Same phrase as control 011 but with the colon removed -- bare weak signal, zero family match. Must remain NOT_A_HEADING under any fix (already the existing, correct, pre-G7 behavior).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "You will enjoy flexible hours and great benefits.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-014-leadin-not-heading-required-section",
+      "category": "long_colon_leadin_not_a_heading",
+      "heading_line": "Required Qualifications:",
+      "body_lines": [
+        "Our ideal candidate will bring deep expertise across the following broad set of complementary technical and professional areas:",
+        "Python"
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 2,
+      "has_strong_shape_signal": true,
+      "rationale": "The SECOND line is a long (17-word), colon-terminated, otherwise heading-SHAPED lead-in sentence introducing a one-word-per-line sub-list ('Python') WITHIN the already-open REQUIRED section -- semantically a claim/lead-in, not a new section boundary. A naive 'just raise the word cap' fix risks reclassifying this as a NEW heading (likely UNKNOWN, since it matches no REQUIRED/PREFERRED/RESPONSIBILITY root), which would WRONGLY demote 'Python' on the next line out of the REQUIRED section it is actually inside of. The existing sentence-terminal-punctuation guard does NOT exclude this (it ends in ':', not '.'/'?'/'!') and `_has_inline_colon_list` does not fire either (no comma-separated list on the SAME line) -- this is deliberately the hardest, most realistic adversarial case.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Python",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true,
+          "note": "Must remain REQUIRED -- the lead-in sentence must NOT be treated as a heading that resets current_kind."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-015-leadin-not-heading-responsibility-section",
+      "category": "long_colon_leadin_not_a_heading",
+      "heading_line": "What You'll Do:",
+      "body_lines": [
+        "You will partner closely with product, design, and other engineering teams across the following major functional areas of ownership:",
+        "Backend services"
+      ],
+      "expected_heading_kind": "RESPONSIBILITY",
+      "heading_word_count": 3,
+      "has_strong_shape_signal": true,
+      "rationale": "Same adversarial shape as control 014, inside a RESPONSIBILITY section instead -- the 18-word lead-in must not reset current_kind away from RESPONSIBILITY before 'Backend services' is reached.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Backend services",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-016-ordinary-long-prose-period",
+      "category": "ordinary_long_prose_sentence",
+      "heading_line": null,
+      "body_lines": [
+        "We are looking for a software engineer who can work independently and collaborate effectively across multiple distributed teams."
+      ],
+      "expected_heading_kind": "NOT_A_HEADING",
+      "heading_word_count": 19,
+      "has_strong_shape_signal": false,
+      "rationale": "A 19-word ordinary sentence ending in a period -- already excluded by the pre-existing sentence-terminal-punctuation check regardless of word count; must remain unaffected by any word-count-focused fix.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "We are looking for a software engineer who can work independently and collaborate effectively across multiple distributed teams.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false,
+          "note": "No heading line in this control; this is a standalone sentence under the M6B 'no section at all' default, declined by _looks_like_requirement (no signal word)."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-017-long-bulleted-item",
+      "category": "bullet_list_item_long",
+      "heading_line": "Required Qualifications:",
+      "body_lines": [
+        "- Experience with distributed systems, cloud infrastructure, container orchestration, and modern CI/CD pipelines across production environments"
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 2,
+      "has_strong_shape_signal": true,
+      "rationale": "A long (14-word) BULLETED line -- `_BULLET_PREFIX` already excludes any bulleted line from heading classification regardless of word count; confirms this exclusion is unaffected by any fix.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with distributed systems, cloud infrastructure, container orchestration, and modern CI/CD pipelines across production environments",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-018-severity-unknown-carryforward",
+      "category": "severity_tier_unknown_carryforward",
+      "heading_line": "Who We Are Looking For:",
+      "body_lines": [
+        "Someone with experience thriving in ambiguity.",
+        "What You Will Be Able To Build And Own:",
+        "Mentor junior engineers on architecture reviews."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 5,
+      "has_strong_shape_signal": true,
+      "rationale": "LOW-severity tier. `heading_word_count`/`has_strong_shape_signal` describe `heading_line` itself (the FIRST heading, 5 words, already correctly UNKNOWN via M11-G6's fix) -- the actual G7 target defect is the SECOND, embedded heading ('What You Will Be Able To Build And Own:', 9 words, inside body_lines). Before any G7 fix, current_kind stays UNKNOWN across that second heading, so the final sentence is at worst a diagnostic UnparsedClaim (confirmed safe: necessity=None, never scored).",
+      "severity_tier": "LOW_diagnostic_only",
+      "body_qualifications": [
+        {
+          "text": "Someone with experience thriving in ambiguity.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "UNKNOWN",
+          "should_enter_assessment": true
+        },
+        {
+          "text": "Mentor junior engineers on architecture reviews.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false,
+          "note": "A responsibility sentence that may be admitted as a diagnostic (necessity=None) if it passes the generic signal gate ('mentor') -- diagnostic-only, never scored, regardless of this fix."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-019-severity-required-carryforward-HIGH",
+      "category": "severity_tier_required_carryforward",
+      "heading_line": "Requirements:",
+      "body_lines": [
+        "Experience with distributed systems is required.",
+        "What You Will Be Able To Build And Own In This Role:",
+        "Mentor junior engineers while writing production Python and Go services daily."
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 1,
+      "has_strong_shape_signal": true,
+      "rationale": "HIGH-severity tier, CONFIRMED by direct execution (not assumed). `heading_word_count`/`has_strong_shape_signal` describe `heading_line` itself ('Requirements:', 1 word, already correctly REQUIRED) -- the actual G7 target defect is the SECOND, embedded heading (10 words, inside body_lines): currently NOT_A_HEADING, so current_kind stays REQUIRED across it -- the responsibility sentence becomes an ASSESSABLE, SCORED JobRequirement (necessity=REQUIRED, concept_id=language.python, github_observability=STRONGLY_OBSERVABLE), producing a non-None alignment_score from pure duty prose. This is the single most severe confirmed finding of this milestone.",
+      "severity_tier": "HIGH_fabricated_assessable_requirement",
+      "body_qualifications": [
+        {
+          "text": "Experience with distributed systems is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        },
+        {
+          "text": "Mentor junior engineers while writing production Python and Go services daily.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false,
+          "note": "MUST NOT become a scored JobRequirement under any safe fix -- confirmed to currently do so."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-020-severity-skip-carryforward-HIGH",
+      "category": "severity_tier_skip_carryforward",
+      "heading_line": "About Us:",
+      "body_lines": [
+        "We are a fast growing company in the logistics space.",
+        "Why This Role Matters To Our Growing Engineering Team:",
+        "Experience with Python and distributed systems is required."
+      ],
+      "expected_heading_kind": "SKIP",
+      "heading_word_count": 2,
+      "has_strong_shape_signal": true,
+      "rationale": "HIGH-severity tier, CONFIRMED by direct execution (not assumed). `heading_word_count`/`has_strong_shape_signal` describe `heading_line` itself ('About Us:', 2 words, already correctly SKIP) -- the actual G7 target defect is the SECOND, embedded heading (9 words, inside body_lines): currently NOT_A_HEADING, so current_kind stays SKIP across it -- the explicit, locally-marked genuine REQUIRED qualification on the final line is SILENTLY, TOTALLY SUPPRESSED (0 requirements, 0 diagnostics) -- the exact same failure mode M11-G5 originally found, triggered here by heading LENGTH rather than vocabulary collision.",
+      "severity_tier": "HIGH_silent_total_suppression",
+      "body_qualifications": [
+        {
+          "text": "We are a fast growing company in the logistics space.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        },
+        {
+          "text": "Experience with Python and distributed systems is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true,
+          "note": "MUST be recovered under any safe fix -- confirmed to currently be silently lost entirely."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-021-transition-long-heading-resets-correctly",
+      "category": "section_transition_correctness",
+      "heading_line": "Preferred Qualifications:",
+      "body_lines": [
+        "Experience with Kubernetes.",
+        "Other Responsibilities You Will Take On:",
+        "Mentor junior engineers."
+      ],
+      "expected_heading_kind": "PREFERRED",
+      "heading_word_count": 2,
+      "has_strong_shape_signal": true,
+      "rationale": "`heading_word_count`/`has_strong_shape_signal` describe `heading_line` itself ('Preferred Qualifications:', 2 words, already correctly PREFERRED). The SECOND, embedded heading ('Other Responsibilities You Will Take On:', 6 words -- AT, not over, the 7-word cap, confirmed by direct execution to already correctly resolve to RESPONSIBILITY TODAY) correctly resets current_kind away from PREFERRED -- 'Mentor junior engineers.' correctly does NOT inherit PREFERRED necessity. A genuine POSITIVE control (not a defect row): confirms clean section-transition behavior already works for a heading just inside the cap, which any G7 fix must continue to preserve. (v1 of this control used an 8-word second heading and mischaracterized it as already-working when it was in fact ALSO defective -- corrected before freeze via direct verification, see m11g7-030 for that same PREFERRED-tier defect shape covered properly as a defect row instead.)",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with Kubernetes.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "PREFERRED",
+          "should_enter_assessment": true
+        },
+        {
+          "text": "Mentor junior engineers.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-022-long-heading-em-dash",
+      "category": "unicode_and_punctuation_variants",
+      "heading_line": "What You Will Be Able To Build And Own\u2014",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "NOT_A_HEADING",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": false,
+      "rationale": "Em-dash-terminated (no bare colon) variant of control 004. Unlike the M11-G6 em-dash finding (where a family DID match, via 'who we are'), this phrase matches ZERO families (confirmed directly) -- so weak shape signal + zero families triggers the weak-signal-without-corroboration exclusion regardless of word count, correctly remaining NOT_A_HEADING under ANY safe G7 fix (a useful contrast with control 004's colon-terminated form, which DOES gain strong-signal corroboration from the colon alone).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-023-long-heading-nbsp",
+      "category": "unicode_and_punctuation_variants",
+      "heading_line": "What\u00a0You\u00a0Will\u00a0Be\u00a0Able\u00a0To\u00a0Build\u00a0And\u00a0Own:",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "Real non-breaking-space (U+00A0) variant of control 004 -- `_RESPONSIBILITY_ROOT`'s `what you(?:'ll| will) do` pattern requires literal ASCII spaces and does NOT match 'what you will do' when NBSP-separated (mirrors the M11-G6 NBSP finding precisely) -- but this heading doesn't contain the word 'do' at all regardless, so it is a zero-family, strong-signal (colon) case either way, expected UNKNOWN, not RESPONSIBILITY, once recognized as heading-shaped -- flagged for direct verification.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-024-mixed-qualifications-after-long-heading",
+      "category": "mixed_qualification_after_long_heading",
+      "heading_line": "Who We Are Looking For In This Particular Role:",
+      "body_lines": [
+        "A degree in Computer Science is required.",
+        "Experience with Kubernetes is preferred."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "9-word candidate-profile heading (contains the M11-G6-fixed 'looking for' exclusion signal too, but no SKIP-family root fires here at all since 'who we are' is absent -- 'Who We' alone is not the trigram) -- zero family match, strong signal (colon) -> UNKNOWN once recognized. Both body lines carry explicit local markers and must resolve to their own stated necessity regardless of the UNKNOWN section default.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "A degree in Computer Science is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        },
+        {
+          "text": "Experience with Kubernetes is preferred.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "PREFERRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-025-long-narrative-heading",
+      "category": "narrative_sections",
+      "heading_line": "A Little More About Our Company And What We Value:",
+      "body_lines": [
+        "We believe in transparency and continuous learning."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 10,
+      "has_strong_shape_signal": true,
+      "rationale": "10-word narrative-flavored heading. `_NON_QUALIFICATION_ROOT`'s `^about\\b` is anchored to the very FIRST character of content, which here is 'A' (from 'A Little More...'), not 'About' -- confirmed directly: zero family match. Strong signal (colon) + zero family -> UNKNOWN once length-fixed, NOT SKIP (contrast with control 026, where 'About' genuinely starts the content and correctly resolves to SKIP) -- a useful adversarial pair showing the anchor is positional, not merely 'contains the word about'.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "We believe in transparency and continuous learning.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-026-long-narrative-heading-anchored",
+      "category": "narrative_sections",
+      "heading_line": "About Our Company Culture And What We Value Most:",
+      "body_lines": [
+        "We believe in transparency and continuous learning."
+      ],
+      "expected_heading_kind": "SKIP",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "9-word narrative/SKIP heading with '^about' correctly anchored at the very start -- should resolve to SKIP once recognized, currently NOT_A_HEADING.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "We believe in transparency and continuous learning.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-027-degenerate-very-long-colon-line",
+      "category": "adversarial_degenerate_cases",
+      "heading_line": null,
+      "body_lines": [
+        "In order to be considered for this role you must demonstrate a strong track record of delivering complex technical projects on time and within budget while managing cross-functional stakeholders across the organization and communicating clearly with both technical and non-technical audiences:"
+      ],
+      "expected_heading_kind": "NOT_A_HEADING",
+      "heading_word_count": 42,
+      "has_strong_shape_signal": false,
+      "rationale": "A deliberately DEGENERATE case: a 42-word run-on clause that happens to end in a bare colon (no sentence-terminal punctuation) -- structurally passes the colon/strong-signal check but is obviously not a heading by any reasonable standard. Tests whether any candidate fix needs an UPPER bound even for strong-signal lines, or whether removing the cap entirely for strong signals would wrongly heading-ify this. No heading_line (treated as a standalone body line) so its OWN classification is checked directly in the strategy-comparison script, not via this field.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false,
+          "note": "Placeholder -- this control's real check is the heading classification of its own single line, done directly in the Phase 3 simulation, not via body-line admission."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-028-eight-word-boundary-plus-one",
+      "category": "long_genuine_heading_colon",
+      "heading_line": "Technical Requirements And Qualifications Expected Of All Applicants:",
+      "body_lines": [
+        "Experience with SQL is required."
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 8,
+      "has_strong_shape_signal": true,
+      "rationale": "8 words -- one past the current cap, a minimal boundary-plus-one case distinct from the 9/10-word controls above.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with SQL is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-029-twelve-word-heading",
+      "category": "long_genuine_heading_colon",
+      "heading_line": "A Full And Complete List Of All Required Technical Qualifications For This Position:",
+      "body_lines": [
+        "Experience with Go is required."
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 13,
+      "has_strong_shape_signal": true,
+      "rationale": "13-word heading -- tests whether any proposed new cap (if the chosen strategy keeps a bounded, raised cap rather than removing it for strong signals) is itself wide enough, or whether this stays correctly/safely NOT_A_HEADING under a bounded-raise strategy.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with Go is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-030-severity-preferred-carryforward",
+      "category": "severity_tier_required_carryforward",
+      "heading_line": "Preferred Qualifications:",
+      "body_lines": [
+        "Experience with Kubernetes is preferred.",
+        "Additional Things You Might End Up Doing Occasionally:",
+        "Mentor junior engineers while writing production Rust services."
+      ],
+      "expected_heading_kind": "PREFERRED",
+      "heading_word_count": 2,
+      "has_strong_shape_signal": true,
+      "rationale": "`heading_word_count`/`has_strong_shape_signal` describe `heading_line` itself ('Preferred Qualifications:', 2 words, already correctly PREFERRED). PREFERRED-tier variant of the HIGH-severity carry-forward: the SECOND, embedded heading (8 words, confirmed NOT_A_HEADING by direct execution) means current_kind stays PREFERRED across it, so the responsibility sentence could become a fabricated, ASSESSABLE PREFERRED requirement (concept_id=language.rust) -- measured directly in Phase 4, not assumed identical to the REQUIRED case.",
+      "severity_tier": "HIGH_fabricated_assessable_requirement",
+      "body_qualifications": [
+        {
+          "text": "Experience with Kubernetes is preferred.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "PREFERRED",
+          "should_enter_assessment": true
+        },
+        {
+          "text": "Mentor junior engineers while writing production Rust services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false,
+          "note": "MUST NOT become a scored requirement under any safe fix."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-031-severity-learning-carryforward",
+      "category": "severity_tier_unknown_carryforward",
+      "heading_line": "Skills You Will Learn On The Job:",
+      "body_lines": [
+        "You will grow your distributed-systems expertise.",
+        "What You Will Be Able To Build And Own Over Time:",
+        "Mentor junior engineers on system design."
+      ],
+      "expected_heading_kind": "LEARNING",
+      "heading_word_count": 7,
+      "has_strong_shape_signal": true,
+      "rationale": "`heading_word_count`/`has_strong_shape_signal` describe `heading_line` itself ('Skills You Will Learn On The Job:', 7 words, AT the cap, matches `_LEARNING_ROOT`'s 'skills you will learn' phrase, confirmed by direct execution to already correctly resolve to LEARNING today). The SECOND, embedded heading (10 words) is the actual defect. LEARNING-tier variant: LEARNING content never receives a default necessity either (same as UNKNOWN) -- confirms the carry-forward from a stale LEARNING state is also LOW severity, diagnostic-only.",
+      "severity_tier": "LOW_diagnostic_only",
+      "body_qualifications": [
+        {
+          "text": "You will grow your distributed-systems expertise.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        },
+        {
+          "text": "Mentor junior engineers on system design.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-032-long-inline-colon-list",
+      "category": "ordinary_long_prose_sentence",
+      "heading_line": "Required Qualifications:",
+      "body_lines": [
+        "Experience with the following widely used modern technologies: Python, Go, Rust, Kubernetes"
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 2,
+      "has_strong_shape_signal": true,
+      "rationale": "The body line itself (not the heading) contains an inline colon followed by a comma-separated list -- already excluded from EVER being misclassified as a heading by `_has_inline_colon_list` regardless of word count; confirms this exclusion is unaffected by any word-count-focused fix.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with the following widely used modern technologies: Python, Go, Rust, Kubernetes",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-033-long-numbered-bullet",
+      "category": "bullet_list_item_long",
+      "heading_line": "Required Qualifications:",
+      "body_lines": [
+        "1. Experience with distributed systems, container orchestration, and modern continuous delivery pipelines"
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 2,
+      "has_strong_shape_signal": true,
+      "rationale": "A long (12-word) NUMBERED bullet -- `_BULLET_PREFIX` already matches numbered markers too; confirms unaffected by any fix.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with distributed systems, container orchestration, and modern continuous delivery pipelines",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-034-long-markdown-no-family",
+      "category": "long_heading_no_family_root",
+      "heading_line": "## Some Additional Context About This Particular Opening",
+      "body_lines": [
+        "You will enjoy flexible hours and great benefits."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 7,
+      "has_strong_shape_signal": true,
+      "rationale": "Markdown ATX variant of control 011 -- zero family match, strong signal via Markdown -- should resolve to UNKNOWN once recognized.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "You will enjoy flexible hours and great benefits.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-035-long-heading-zero-width-space",
+      "category": "unicode_and_punctuation_variants",
+      "heading_line": "What You Will Be Able To Build And Own:",
+      "body_lines": [
+        "Design backend services."
+      ],
+      "expected_heading_kind": "UNKNOWN",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "Zero-width-space (U+200B) variant of control 004 (zero family match, expected UNKNOWN, not RESPONSIBILITY -- see control 004's own corrected rationale) -- `_INVISIBLE_CHARS` already strips these during `_strip_heading_decoration` for classification purposes; confirms unaffected by any word-count fix (word count is computed on the ALREADY-stripped content).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Design backend services.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-036-exactly-seven-weak-signal-zero-family",
+      "category": "long_weak_signal_heading",
+      "heading_line": "Some Interesting Context About This Opening Today",
+      "body_lines": [
+        "You will enjoy flexible hours and great benefits."
+      ],
+      "expected_heading_kind": "NOT_A_HEADING",
+      "heading_word_count": 7,
+      "has_strong_shape_signal": false,
+      "rationale": "Exactly 7 words (AT the boundary, not over it), weak signal, zero family -- already correctly NOT_A_HEADING today via the existing weak-signal-without-corroboration rule, unrelated to the word-count cap itself; must remain unaffected by any G7 fix (the fix only changes behavior for word_count > 7).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "You will enjoy flexible hours and great benefits.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-037-leadin-not-heading-inside-skip-section",
+      "category": "long_colon_leadin_not_a_heading",
+      "heading_line": "Why Join Us:",
+      "body_lines": [
+        "We offer a comprehensive and highly competitive total rewards package including the following notable highlights:",
+        "Unlimited vacation"
+      ],
+      "expected_heading_kind": "SKIP",
+      "heading_word_count": 3,
+      "has_strong_shape_signal": true,
+      "rationale": "A long (14-word) colon-terminated lead-in INSIDE an already-open SKIP (narrative/benefits) section -- must not be reclassified as a new heading under any fix, which would wrongly reset current_kind away from SKIP and risk admitting 'Unlimited vacation' as a diagnostic or (worse) a claim.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Unlimited vacation",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false,
+          "note": "Must remain fully suppressed (SKIP) -- a benefits-list item, not a qualification, must never leak into assessment via a wrongly-reset section boundary."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-038-g6-g7-interaction-long-compound",
+      "category": "adversarial_degenerate_cases",
+      "heading_line": "Who We Are Looking For And What You Will Be Responsible For:",
+      "body_lines": [
+        "A degree in Computer Science is required.",
+        "Mentor junior engineers on system design."
+      ],
+      "expected_heading_kind": "RESPONSIBILITY",
+      "heading_word_count": 12,
+      "has_strong_shape_signal": true,
+      "rationale": "A 12-word compound heading combining the M11-G6-fixed 'who we are'+'looking for' exclusion AND the M11-G7 word-count cap in one line. Also contains 'Responsible', which DOES match `_RESPONSIBILITY_ROOT`'s bare `\\brespons\\w*\\b` alternative (confirmed directly -- a broader match than 'what you'll do' alone, missed in an earlier draft of this rationale). Exactly one family fires (RESPONSIBILITY); the G6 exclusion correctly prevents a SKIP mismatch that never would have fired anyway (no 'who we are' trigram here, only 'who we' + 'are looking for' separately). Confirms the two milestones' fixes compose safely -- a single, unambiguous family wins, no collision.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "A degree in Computer Science is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        },
+        {
+          "text": "Mentor junior engineers on system design.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-039-long-prose-no-terminal-punctuation",
+      "category": "ordinary_long_prose_sentence",
+      "heading_line": null,
+      "body_lines": [
+        "We are looking for a software engineer who can work independently across distributed teams and own outcomes end to end"
+      ],
+      "expected_heading_kind": "NOT_A_HEADING",
+      "heading_word_count": 20,
+      "has_strong_shape_signal": false,
+      "rationale": "A 20-word ordinary sentence with NO terminal punctuation at all (neither period nor colon) -- excluded purely by the word-count cap today (word_count > 7), NOT by the sentence-terminal-punctuation guard (which only fires on '.'/'?'/'!', never on absence of punctuation) and NOT by the colon-based strong-shape check (no colon present, so has_strong_shape_signal=False here, relying on word-count-gated weak-signal titlecase path) -- a distinct adversarial shape from control 016's period-terminated version, testing the weak-signal (not strong-signal) path specifically at long length.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "We are looking for a software engineer who can work independently across distributed teams and own outcomes end to end",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false,
+          "note": "Standalone sentence, no heading line, M6B 'no section' default REQUIRED hint but declined by _looks_like_requirement (no literal signal word present)."
+        }
+      ]
+    },
+    {
+      "id": "m11g7-040-long-learning-heading-direct",
+      "category": "long_genuine_heading_colon",
+      "heading_line": "Skills And Technologies You Will Learn And Grow Into:",
+      "body_lines": [
+        "You will gain exposure to Kubernetes."
+      ],
+      "expected_heading_kind": "LEARNING",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "9-word LEARNING heading (via 'learn' root) -- currently NOT_A_HEADING, should resolve to LEARNING once fixed; LEARNING content never gets a default necessity either way (same diagnostic-only guarantee as UNKNOWN).",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "You will gain exposure to Kubernetes.",
+          "is_genuine_qualification": false,
+          "expected_necessity": null,
+          "should_enter_assessment": false
+        }
+      ]
+    },
+    {
+      "id": "m11g7-041-long-required-markdown-bold-10words",
+      "category": "long_genuine_heading_markdown",
+      "heading_line": "**Required Technical Skills And Experience For This Senior Role**",
+      "body_lines": [
+        "Experience with distributed systems is required."
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 9,
+      "has_strong_shape_signal": true,
+      "rationale": "Markdown-bold variant of control 005.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with distributed systems is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    },
+    {
+      "id": "m11g7-042-fourteen-word-heading-upper-bound-probe",
+      "category": "adversarial_degenerate_cases",
+      "heading_line": "A Complete And Thorough Overview Of Every Single Required Technical Qualification Expected:",
+      "body_lines": [
+        "Experience with C++ is required."
+      ],
+      "expected_heading_kind": "REQUIRED",
+      "heading_word_count": 12,
+      "has_strong_shape_signal": true,
+      "rationale": "12-word heading, probing further toward a plausible upper bound than control 029's 13-word case with different wording -- used together to triangulate whether a bounded-raise strategy's chosen cap (if any) is wide enough for realistic long headings without being unbounded.",
+      "severity_tier": null,
+      "body_qualifications": [
+        {
+          "text": "Experience with C++ is required.",
+          "is_genuine_qualification": true,
+          "expected_necessity": "REQUIRED",
+          "should_enter_assessment": true
+        }
+      ]
+    }
+  ]
+}

@@ -36,14 +36,15 @@ MANULIFE_TEXT = (
 
 
 def test_parser_version_bumped_to_v10():
-    # Milestone 11-G6 subsequently bumped v10 -> v11 (an unrelated,
-    # later, approved change to segmentation.py's heading
-    # classification -- see docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md).
+    # Milestone 11-G6 bumped v10 -> v11, and M11-G7 subsequently bumped
+    # v11 -> v12 (both unrelated, later, approved segmentation.py
+    # changes -- see docs/evaluation/MILESTONE_11_G6_HEADING_CLASSIFICATION.md
+    # and docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md).
     # This test's own purpose -- confirming M11-A2 itself bumped the
     # version exactly once, to the value current at THAT milestone's
     # own completion -- is unaffected; only the literal expected string
     # needs to track the CURRENT version going forward.
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v11"
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v12"
 
 
 def _outcome(doc_text: str):
