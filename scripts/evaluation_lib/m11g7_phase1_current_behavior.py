@@ -10,7 +10,6 @@ production code; never mutates gold after its freeze point.
 """
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -52,9 +51,9 @@ def build_description(control: dict) -> str:
 
 def main() -> None:
     gold = json.loads(GOLD_PATH.read_text(encoding="utf-8"))
-    freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
-    actual_hash = hashlib.sha256(GOLD_PATH.read_bytes()).hexdigest()
-    assert actual_hash == freeze["sha256"], "gold has drifted since freeze -- aborting"
+    sys.path.insert(0, str(REPO_ROOT / "scripts" / "evaluation_lib"))
+    from gold_integrity import verify_frozen_file  # M11-G14: line-ending-portable; raises if gold drifted
+    verify_frozen_file(GOLD_PATH, FREEZE_PATH)
 
     rows = []
     heading_mismatches = []
@@ -117,7 +116,7 @@ def main() -> None:
 
     out = {
         "corpus_version": gold["corpus_version"],
-        "gold_hash_verified": actual_hash == freeze["sha256"],
+        "gold_hash_verified": True,  # verify_frozen_file() above raises otherwise
         "n_controls": len(gold["controls"]),
         "n_heading_kind_mismatches": len(heading_mismatches),
         "heading_kind_mismatch_ids": heading_mismatches,

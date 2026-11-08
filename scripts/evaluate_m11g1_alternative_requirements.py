@@ -17,7 +17,6 @@ Writes evaluation/reports/m11g1_<label>_report.json.
 """
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -37,13 +36,15 @@ HASH_FREEZE_PATH = REPO_ROOT / "evaluation" / "m11g1" / "controls_hash_freeze.js
 
 
 def _verify_hash_freeze() -> None:
-    freeze = json.loads(HASH_FREEZE_PATH.read_text(encoding="utf-8"))
-    actual = hashlib.sha256(CORPUS_PATH.read_bytes()).hexdigest()
-    if actual != freeze["sha256"]:
+    sys.path.insert(0, str(REPO_ROOT / "scripts" / "evaluation_lib"))
+    from gold_integrity import FreezeIntegrityError, verify_frozen_file  # M11-G14: line-ending-portable
+    try:
+        verify_frozen_file(CORPUS_PATH, HASH_FREEZE_PATH)
+    except FreezeIntegrityError as exc:
         raise SystemExit(
-            f"G1 CONTROL HASH MISMATCH: expected {freeze['sha256']}, got {actual}. "
+            f"G1 CONTROL HASH MISMATCH: {exc} "
             "Refusing to evaluate against a corpus that may have been altered after freezing."
-        )
+        ) from exc
 
 
 def _evaluate(extractor, controls: list[dict]) -> dict:

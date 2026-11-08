@@ -6,7 +6,6 @@ production.
 """
 from __future__ import annotations
 
-import hashlib
 import inspect
 import json
 import sys
@@ -23,6 +22,7 @@ import evaluate_m11g12_validator_hardening as ev  # noqa: E402
 import m11g10_competency_concept_model as g10  # noqa: E402
 import m11g11_structured_extraction_feasibility as g11  # noqa: E402
 import m11g12_validator_hardening as g12  # noqa: E402
+from gold_integrity import verify_frozen_file  # noqa: E402  (M11-G14)
 from gitscore.jobs.models import SourceSpan  # noqa: E402
 from gitscore.jobs.parsing.qualification import QualificationKind  # noqa: E402
 
@@ -68,8 +68,8 @@ def _necessity(text, span, necessity, evidence, graph, **kw):
 
 
 def test_controls_match_hash_freeze():
-    freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
-    assert hashlib.sha256(CONTROLS_PATH.read_bytes()).hexdigest() == freeze["sha256"]
+    # M11-G14: raw sha256 first; a CRLF<->LF-only checkout difference is accepted via the attested manifest.
+    verify_frozen_file(CONTROLS_PATH, FREEZE_PATH)
 
 
 def test_control_corpus_shape_and_coverage():

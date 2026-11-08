@@ -241,10 +241,9 @@ def classify_with_strategy(heading_line: str, strategy_fn) -> str:
 
 def main() -> None:
     gold = json.loads(GOLD_PATH.read_text(encoding="utf-8"))
-    import hashlib
-    freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
-    assert hashlib.sha256(GOLD_PATH.read_bytes()).hexdigest() == freeze["sha256"], \
-        "gold has drifted since freeze -- aborting"
+    sys.path.insert(0, str(REPO_ROOT / "scripts" / "evaluation_lib"))
+    from gold_integrity import verify_frozen_file  # M11-G14: line-ending-portable; raises if gold drifted
+    verify_frozen_file(GOLD_PATH, FREEZE_PATH)
 
     rows = []
     summary = {name: {"matches_gold": 0, "regressions_vs_current": 0, "fixes_vs_current": 0}

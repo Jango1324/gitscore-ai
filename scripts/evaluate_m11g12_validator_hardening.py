@@ -45,12 +45,12 @@ CONTAMINATION_CATEGORIES = frozenset({"cross_claim_contamination", "cross_senten
 
 
 def load_frozen_controls() -> dict:
-    raw = CONTROLS_PATH.read_bytes()
-    freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
-    digest = hashlib.sha256(raw).hexdigest()
-    if digest != freeze["sha256"]:
-        raise SystemExit(f"FROZEN CONTROLS CHANGED: sha256 {digest} != frozen {freeze['sha256']}")
-    return json.loads(raw.decode("utf-8"))
+    from gold_integrity import FreezeIntegrityError, verify_frozen_file  # M11-G14: line-ending-portable
+    try:
+        verify_frozen_file(CONTROLS_PATH, FREEZE_PATH)
+    except FreezeIntegrityError as exc:
+        raise SystemExit(f"FROZEN CONTROLS CHANGED: {exc}") from exc
+    return json.loads(CONTROLS_PATH.read_bytes().decode("utf-8"))
 
 
 def _ref(d: dict) -> "g10.ConceptRef":

@@ -20,7 +20,6 @@ Writes evaluation/reports/m11g3_end_to_end_report.json.
 """
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from pathlib import Path
@@ -45,10 +44,12 @@ REPORT_PATH = REPO_ROOT / "evaluation" / "reports" / "m11g3_end_to_end_report.js
 
 
 def _verify_hash_freeze() -> None:
-    freeze = json.loads(HASH_FREEZE_PATH.read_text(encoding="utf-8"))
-    actual = hashlib.sha256(CORPUS_PATH.read_bytes()).hexdigest()
-    if actual != freeze["sha256"]:
-        raise SystemExit(f"G3 CONTROL HASH MISMATCH: expected {freeze['sha256']}, got {actual}.")
+    sys.path.insert(0, str(REPO_ROOT / "scripts" / "evaluation_lib"))
+    from gold_integrity import FreezeIntegrityError, verify_frozen_file  # M11-G14: line-ending-portable
+    try:
+        verify_frozen_file(CORPUS_PATH, HASH_FREEZE_PATH)
+    except FreezeIntegrityError as exc:
+        raise SystemExit(f"G3 CONTROL HASH MISMATCH: {exc}") from exc
 
 
 def main() -> None:

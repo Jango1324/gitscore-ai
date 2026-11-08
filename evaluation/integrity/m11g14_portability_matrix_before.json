@@ -1,0 +1,173 @@
+{
+  "head": "80bb294b477ffbae936e376351c0433e47ab2713",
+  "overlay": [],
+  "private_corpora_copied": false,
+  "by_autocrlf": {
+    "true": {
+      "freezes": [
+        {
+          "file": "evaluation/m11g1/alternative_requirement_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g12/validator_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g13/generalization_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g2/section_context_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g3/full_posting_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g4/admission_recovery_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g6/heading_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g7/boundary_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        }
+      ],
+      "script_verifiers": {
+        "G1": "FAILED: G1 CONTROL HASH MISMATCH: expected 6f77cf62c9df0643ca6607c57f2f69eaf61f3499e173df4cf1a312278a0f5a03, got 14fbd56f36c290a677638d848c59c52bb603b73b986dd9c304f70ea",
+        "G2": "verified",
+        "G2-strategy": "verified",
+        "G3": "verified",
+        "G4": "verified",
+        "G6-phase1": "verified",
+        "G6-phase3": "verified",
+        "G7-phase1": "verified",
+        "G7-phase3": "verified",
+        "G12": "FAILED: FROZEN CONTROLS CHANGED: sha256 f69da739f09da7dcdf779039fda350838ed064f994df406576f69051ff99d9cb != frozen abfd3a37295098d41ce3350ef3e48b1821c12fcbcb02ea91ae831",
+        "G13": "verified"
+      },
+      "hash_tests": "",
+      "full_suite": "2 failed, 1826 passed, 37 skipped, 18 xfailed, 70 warnings, 6 errors in 22.09s",
+      "hash_test_files": "2 failed, 283 passed, 18 xfailed, 6 errors in 2.49s",
+      "full_suite_failures": [
+        "tests/test_m11g12_validator_hardening.py::test_controls_match_hash_freeze",
+        "tests/test_m11g12_validator_hardening.py::test_ambiguous_alias_forced_resolution_is_flagged",
+        "tests/test_m11g12_validator_hardening.py::test_g11_baseline_failures_are_reproduced",
+        "tests/test_m11g12_validator_hardening.py::test_hardened_validator_safety_metrics",
+        "tests/test_m11g12_validator_hardening.py::test_concept_safeguards_unchanged_from_g11",
+        "tests/test_m11g12_validator_hardening.py::test_concept_outcomes_by_category",
+        "tests/test_m11g12_validator_hardening.py::test_valid_reference_is_not_semantic_correctness",
+        "tests/test_m11g12_validator_hardening.py::test_assessability_and_repository_support_are_separate"
+      ]
+    },
+    "false": {
+      "freezes": [
+        {
+          "file": "evaluation/m11g1/alternative_requirement_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g12/validator_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g13/generalization_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g2/section_context_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g3/full_posting_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g4/admission_recovery_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g6/heading_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g7/boundary_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        }
+      ],
+      "script_verifiers": {
+        "G1": "verified",
+        "G2": "FAILED: G2 CONTROL HASH MISMATCH: expected 7b21d2e0b1cbfd2be007e95996543fb6bd506bce52f318262acf5e6e2afad6e0, got 55c07b70b7e4150d86c96f04f7e4362b66fa90928750f8a950a179a",
+        "G2-strategy": "FAILED: G2 CONTROL HASH MISMATCH: expected 7b21d2e0b1cbfd2be007e95996543fb6bd506bce52f318262acf5e6e2afad6e0, got 55c07b70b7e4150d86c96f04f7e4362b66fa90928750f8a950a179a",
+        "G3": "FAILED: G3 CONTROL HASH MISMATCH: expected 2ecec618a87642266e2b798b1226d1fc8febb2b8cb835b1b2becd2b9e8cc9692, got 90352867a467456994d438e43a5019e524f203005ebd3db651d35c2",
+        "G4": "FAILED: G4 CONTROL HASH MISMATCH: expected 694b98929bbe65b16da8ea965f2811a41c649b29f792a004167549c965dab168, got fd47ed9b08672985fd9bcc09c8a633608be23deb01df5ade7f9539b",
+        "G6-phase1": "FAILED: AssertionError: gold has drifted since freeze -- aborting",
+        "G6-phase3": "FAILED: AssertionError: gold has drifted since freeze -- aborting",
+        "G7-phase1": "FAILED: AssertionError: gold has drifted since freeze -- aborting",
+        "G7-phase3": "FAILED: AssertionError: gold has drifted since freeze -- aborting",
+        "G12": "verified",
+        "G13": "verified"
+      },
+      "hash_tests": "",
+      "full_suite": "2 failed, 1832 passed, 37 skipped, 18 xfailed, 70 warnings in 21.32s",
+      "hash_test_files": "2 failed, 289 passed, 18 xfailed in 1.67s",
+      "full_suite_failures": [
+        "tests/test_m11g6_heading_classification.py::test_gold_hash_matches_freeze_record",
+        "tests/test_m11g7_section_boundary_integrity.py::test_gold_hash_matches_freeze_record"
+      ]
+    }
+  }
+}

@@ -28,8 +28,8 @@ failing on exactly the 9 defect rows, then passing after
 """
 from __future__ import annotations
 
-import hashlib
 import json
+import sys
 from pathlib import Path
 
 import pytest
@@ -39,6 +39,8 @@ from gitscore.jobs.parsing.segmentation import _classify_heading_line, _line_con
 from gitscore.jobs.types import Necessity
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT / "scripts" / "evaluation_lib"))
+from gold_integrity import verify_frozen_file  # noqa: E402  (M11-G14)
 GOLD_PATH = REPO_ROOT / "evaluation" / "m11g6" / "heading_controls.json"
 FREEZE_PATH = REPO_ROOT / "evaluation" / "m11g6" / "gold_hash_freeze.json"
 
@@ -57,13 +59,10 @@ _CONTROLS = _GOLD["controls"]
 
 
 def test_gold_hash_matches_freeze_record():
-    freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
-    actual = GOLD_PATH.read_bytes()
-    assert len(actual) == freeze["length_bytes"]
-    assert hashlib.sha256(actual).hexdigest() == freeze["sha256"], (
-        "evaluation/m11g6/heading_controls.json has changed since its final "
-        "freeze -- gold must never be edited to accommodate implementation"
-    )
+    # evaluation/m11g6/heading_controls.json must never be edited to accommodate implementation.
+    # M11-G14: the historical raw sha256/length are checked first; a checkout that differs ONLY by
+    # CRLF<->LF conversion is accepted via the attested canonical manifest; anything else raises.
+    verify_frozen_file(GOLD_PATH, FREEZE_PATH)
 
 
 def _classify(heading_line: str | None) -> str:

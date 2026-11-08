@@ -1,0 +1,180 @@
+{
+  "head": "80bb294b477ffbae936e376351c0433e47ab2713",
+  "overlay": [
+    "scripts/evaluation_lib/gold_integrity.py",
+    "scripts/evaluation_lib/m11g14_build_canonical_manifest.py",
+    "scripts/evaluation_lib/m11g14_portability_matrix.py",
+    "evaluation/integrity/canonical_hash_manifest.json",
+    "tests/test_m11g14_gold_integrity.py",
+    "scripts/evaluate_m11g12_validator_hardening.py",
+    "scripts/evaluate_m11g1_alternative_requirements.py",
+    "scripts/evaluate_m11g2_section_context.py",
+    "scripts/evaluate_m11g2_strategy_comparison.py",
+    "scripts/evaluate_m11g3_end_to_end.py",
+    "scripts/evaluate_m11g4_admission_recovery.py",
+    "scripts/evaluation_lib/m11g6_phase1_current_behavior.py",
+    "scripts/evaluation_lib/m11g6_phase3_candidate_fix_simulation.py",
+    "scripts/evaluation_lib/m11g7_phase1_current_behavior.py",
+    "scripts/evaluation_lib/m11g7_phase3_candidate_fix_simulation.py",
+    "tests/test_m11g12_validator_hardening.py",
+    "tests/test_m11g6_heading_classification.py",
+    "tests/test_m11g7_section_boundary_integrity.py"
+  ],
+  "private_corpora_copied": false,
+  "by_autocrlf": {
+    "true": {
+      "freezes": [
+        {
+          "file": "evaluation/m11g1/alternative_requirement_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g12/validator_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g13/generalization_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g2/section_context_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g3/full_posting_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g4/admission_recovery_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g6/heading_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g7/boundary_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": true,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        }
+      ],
+      "script_verifiers": {
+        "G1": "verified",
+        "G2": "verified",
+        "G2-strategy": "verified",
+        "G3": "verified",
+        "G4": "verified",
+        "G6-phase1": "verified",
+        "G6-phase3": "verified",
+        "G7-phase1": "verified",
+        "G7-phase3": "verified",
+        "G12": "verified",
+        "G13": "verified"
+      },
+      "hash_tests": "",
+      "full_suite": "1945 passed, 37 skipped, 18 xfailed, 70 warnings in 25.52s",
+      "hash_test_files": "291 passed, 18 xfailed in 1.46s",
+      "full_suite_failures": []
+    },
+    "false": {
+      "freezes": [
+        {
+          "file": "evaluation/m11g1/alternative_requirement_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g12/validator_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g13/generalization_controls.json",
+          "raw_hash_matches_freeze": true,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "match"
+        },
+        {
+          "file": "evaluation/m11g2/section_context_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g3/full_posting_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g4/admission_recovery_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g6/heading_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        },
+        {
+          "file": "evaluation/m11g7/boundary_controls.json",
+          "raw_hash_matches_freeze": false,
+          "checked_out_has_crlf": false,
+          "content_identical_to_blob_modulo_crlf": true,
+          "classification": "newline_conversion_only"
+        }
+      ],
+      "script_verifiers": {
+        "G1": "verified",
+        "G2": "verified",
+        "G2-strategy": "verified",
+        "G3": "verified",
+        "G4": "verified",
+        "G6-phase1": "verified",
+        "G6-phase3": "verified",
+        "G7-phase1": "verified",
+        "G7-phase3": "verified",
+        "G12": "verified",
+        "G13": "verified"
+      },
+      "hash_tests": "",
+      "full_suite": "1945 passed, 37 skipped, 18 xfailed, 70 warnings in 26.65s",
+      "hash_test_files": "291 passed, 18 xfailed in 1.62s",
+      "full_suite_failures": []
+    }
+  }
+}
