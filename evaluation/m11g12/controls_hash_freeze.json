@@ -1,0 +1,7 @@
+{
+  "frozen_file": "evaluation/m11g12/validator_controls.json",
+  "sha256": "abfd3a37295098d41ce3350ef3e48b1821c12fcbcb02ea91ae8314f1f0dca49a",
+  "length_bytes": 106741,
+  "frozen_at_utc": "2026-11-08T10:56:47Z",
+  "note": "Frozen BEFORE any M11-G12 hardened validator code existed. Any future diff against this hash means expected outcomes were altered after the freeze point; corrections must be recorded in the milestone doc's corrections log with a new freeze."
+}
