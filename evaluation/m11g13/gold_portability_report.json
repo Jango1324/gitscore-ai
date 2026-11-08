@@ -1,0 +1,42 @@
+{
+  "head": "f5072f3c4d4ced72ade7000f144be18f8f4fb87d",
+  "gitattributes_present": false,
+  "frozen_files_checked": 7,
+  "blobs_with_cr": 0,
+  "by_autocrlf": {
+    "true": {
+      "raw_hash_matches": 5,
+      "lf_normalized_hash_matches": 2,
+      "of": 7,
+      "raw_mismatched_files": [
+        "evaluation/m11g1/alternative_requirement_controls.json",
+        "evaluation/m11g12/validator_controls.json"
+      ],
+      "hash_tests_in_clone": "1 failed, 1 passed in 2.11s"
+    },
+    "input": {
+      "raw_hash_matches": 2,
+      "lf_normalized_hash_matches": 2,
+      "of": 7,
+      "raw_mismatched_files": [
+        "evaluation/m11g2/section_context_controls.json",
+        "evaluation/m11g3/full_posting_controls.json",
+        "evaluation/m11g4/admission_recovery_controls.json",
+        "evaluation/m11g6/heading_controls.json",
+        "evaluation/m11g7/boundary_controls.json"
+      ]
+    },
+    "false": {
+      "raw_hash_matches": 2,
+      "lf_normalized_hash_matches": 2,
+      "of": 7,
+      "raw_mismatched_files": [
+        "evaluation/m11g2/section_context_controls.json",
+        "evaluation/m11g3/full_posting_controls.json",
+        "evaluation/m11g4/admission_recovery_controls.json",
+        "evaluation/m11g6/heading_controls.json",
+        "evaluation/m11g7/boundary_controls.json"
+      ]
+    }
+  }
+}

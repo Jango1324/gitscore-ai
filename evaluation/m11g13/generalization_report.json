@@ -1,0 +1,2636 @@
+{
+  "milestone": "M11-G13",
+  "controls_sha256": "88de3fb27393a3871dc69841b756cc43893eff821c10791b7ec3327ebc928b3b",
+  "controls_freeze_matched_by": "raw_bytes",
+  "independence": {
+    "synthetic_track": "Authored by the same author as the G12 validator. NON-INDEPENDENT. No separate blinded annotator was available. The author did not run G12 (or G11) on any G13 control before the freeze, and annotated gold from what each sentence means, not from G12's decision rules; but knowledge of those rules cannot be removed, so results are a diagnostic, not independent validation.",
+    "real_text_track": "Gold necessity / qualification labels come from the pre-existing, hash-frozen M11-D, M11-F and M11-G9 holdout annotations, all written BEFORE G12 existed and never against G12's rules. They were produced in earlier milestones, not by a separate human annotator, so they are independent of G12 in time and purpose, not in annotator identity. Extractor proposals for this track are generated MECHANICALLY by the fixed generator rules below, never chosen by hand. Only aggregate counts are emitted; no posting text or posting-identifying id leaves the local machine or enters any output."
+  },
+  "control_counts": {
+    "necessity": 63,
+    "concept": 15,
+    "or_contract": 13
+  },
+  "before_g11": {
+    "necessity": {
+      "1_unsupported_required_accepted": {
+        "count": 24,
+        "denominator": 34,
+        "ids": [
+          "m11g13-n022",
+          "m11g13-n023",
+          "m11g13-n026",
+          "m11g13-n028",
+          "m11g13-n030",
+          "m11g13-n031",
+          "m11g13-n034",
+          "m11g13-n035",
+          "m11g13-n037",
+          "m11g13-n038",
+          "m11g13-n039",
+          "m11g13-n040",
+          "m11g13-n041",
+          "m11g13-n042",
+          "m11g13-n043",
+          "m11g13-n044",
+          "m11g13-n045",
+          "m11g13-n046",
+          "m11g13-n047",
+          "m11g13-n049",
+          "m11g13-n050",
+          "m11g13-n053",
+          "m11g13-n058",
+          "m11g13-n063"
+        ]
+      },
+      "2_unsupported_preferred_accepted": {
+        "count": 0,
+        "denominator": 2,
+        "ids": []
+      },
+      "3_correct_explicit_necessity_preserved": {
+        "all": {
+          "count": 16,
+          "denominator": 27
+        },
+        "abstention_not_acceptable": {
+          "count": 14,
+          "denominator": 23
+        },
+        "abstention_acceptable": {
+          "count": 2,
+          "denominator": 4
+        },
+        "false_declines_abstention_not_acceptable": [
+          "m11g13-n001",
+          "m11g13-n002",
+          "m11g13-n006",
+          "m11g13-n007",
+          "m11g13-n008",
+          "m11g13-n010",
+          "m11g13-n012",
+          "m11g13-n013",
+          "m11g13-n014"
+        ],
+        "false_declines_abstention_acceptable": [
+          "m11g13-n060",
+          "m11g13-n061"
+        ]
+      },
+      "4_correct_qualifications_incorrectly_declined": {
+        "count": 0,
+        "denominator": 49,
+        "ids": []
+      },
+      "4b_non_qualifications_incorrectly_accepted": {
+        "count": 6,
+        "denominator": 6,
+        "ids": [
+          "m11g13-n016",
+          "m11g13-n017",
+          "m11g13-n035",
+          "m11g13-n036",
+          "m11g13-n037",
+          "m11g13-n038"
+        ]
+      },
+      "5_source_span_violations": {
+        "count": 0,
+        "denominator": 63,
+        "ids": []
+      },
+      "6_cross_claim_evidence_contamination_accepted": {
+        "count": 6,
+        "denominator": 7,
+        "ids": [
+          "m11g13-n028",
+          "m11g13-n030",
+          "m11g13-n031",
+          "m11g13-n034",
+          "m11g13-n053",
+          "m11g13-n058"
+        ]
+      },
+      "10_score_eligibility_safety_violations": {
+        "assessable_in_principle": {
+          "count": 0,
+          "denominator": 63,
+          "ids": []
+        },
+        "assessable_by_current_matcher": {
+          "count": 0,
+          "denominator": 63,
+          "ids": []
+        },
+        "necessity_isolated_assuming_assessable_concept": {
+          "count": 23,
+          "denominator": 63,
+          "ids": [
+            "m11g13-n022",
+            "m11g13-n023",
+            "m11g13-n026",
+            "m11g13-n028",
+            "m11g13-n030",
+            "m11g13-n031",
+            "m11g13-n034",
+            "m11g13-n035",
+            "m11g13-n037",
+            "m11g13-n038",
+            "m11g13-n039",
+            "m11g13-n040",
+            "m11g13-n041",
+            "m11g13-n042",
+            "m11g13-n043",
+            "m11g13-n044",
+            "m11g13-n045",
+            "m11g13-n046",
+            "m11g13-n047",
+            "m11g13-n049",
+            "m11g13-n050",
+            "m11g13-n053",
+            "m11g13-n063"
+          ]
+        }
+      },
+      "necessity_decline_reasons": {
+        "necessity_evidence_lacks_supporting_keyword": 22,
+        "necessity_evidence_not_local_or_missing": 1
+      },
+      "4_safe_unknown_declines": {
+        "count": 12,
+        "denominator": 36
+      },
+      "5_genuine_necessities_declined": {
+        "count": 11,
+        "denominator": 27,
+        "ids": [
+          "m11g13-n001",
+          "m11g13-n002",
+          "m11g13-n006",
+          "m11g13-n007",
+          "m11g13-n008",
+          "m11g13-n010",
+          "m11g13-n012",
+          "m11g13-n013",
+          "m11g13-n014",
+          "m11g13-n060",
+          "m11g13-n061"
+        ],
+        "of_which_abstention_acceptable": [
+          "m11g13-n060",
+          "m11g13-n061"
+        ]
+      },
+      "all_unsafe_necessity_acceptances": {
+        "count": 24,
+        "denominator": 63,
+        "ids": [
+          "m11g13-n022",
+          "m11g13-n023",
+          "m11g13-n026",
+          "m11g13-n028",
+          "m11g13-n030",
+          "m11g13-n031",
+          "m11g13-n034",
+          "m11g13-n035",
+          "m11g13-n037",
+          "m11g13-n038",
+          "m11g13-n039",
+          "m11g13-n040",
+          "m11g13-n041",
+          "m11g13-n042",
+          "m11g13-n043",
+          "m11g13-n044",
+          "m11g13-n045",
+          "m11g13-n046",
+          "m11g13-n047",
+          "m11g13-n049",
+          "m11g13-n050",
+          "m11g13-n053",
+          "m11g13-n058",
+          "m11g13-n063"
+        ]
+      }
+    },
+    "concept": {
+      "7_concept_reference_validity": {
+        "count": 12,
+        "denominator": 13,
+        "valid_ids": [
+          "m11g13-k001",
+          "m11g13-k002",
+          "m11g13-k003",
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k006",
+          "m11g13-k007",
+          "m11g13-k008",
+          "m11g13-k010",
+          "m11g13-k013",
+          "m11g13-k014",
+          "m11g13-k015"
+        ]
+      },
+      "8_concept_assignment_correctness_vs_gold": {
+        "count": 4,
+        "denominator": 11,
+        "correct_ids": [
+          "m11g13-k001",
+          "m11g13-k002",
+          "m11g13-k013",
+          "m11g13-k014"
+        ],
+        "incorrect_ids": [
+          "m11g13-k003",
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k006",
+          "m11g13-k007",
+          "m11g13-k008",
+          "m11g13-k015"
+        ]
+      },
+      "9_ambiguous_mapping_declines": {
+        "count": 1,
+        "denominator": 2,
+        "ids": [
+          "m11g13-k011"
+        ]
+      },
+      "outcome_counts": {
+        "gold_confirmed_correct": 4,
+        "gold_confirmed_incorrect": 7,
+        "semantically_unresolved_mapping": 3,
+        "structurally_invalid_reference": 1
+      },
+      "automatic_accepts_that_gold_marks_incorrect": {
+        "count": 7,
+        "denominator": 11,
+        "ids": [
+          "m11g13-k003",
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k006",
+          "m11g13-k007",
+          "m11g13-k008",
+          "m11g13-k015"
+        ]
+      },
+      "wrong_concept_score_eligible_assessable_in_principle": {
+        "count": 6,
+        "denominator": 15,
+        "ids": [
+          "m11g13-k003",
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k006",
+          "m11g13-k008",
+          "m11g13-k015"
+        ]
+      },
+      "wrong_concept_score_eligible_current_matcher": {
+        "count": 3,
+        "denominator": 15,
+        "ids": [
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k015"
+        ]
+      },
+      "per_control": {
+        "m11g13-k001": {
+          "outcome": "gold_confirmed_correct",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": true,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "matches gold"
+        },
+        "m11g13-k002": {
+          "outcome": "gold_confirmed_correct",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": true,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "matches gold"
+        },
+        "m11g13-k003": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "valid reference, wrong concept"
+        },
+        "m11g13-k004": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "valid reference, wrong concept"
+        },
+        "m11g13-k005": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "valid reference, wrong concept"
+        },
+        "m11g13-k006": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "valid reference, wrong concept"
+        },
+        "m11g13-k007": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "gold mapping is 'not_a_qualification'; any in-ontology assignment is wrong"
+        },
+        "m11g13-k008": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "gold mapping is 'absent_from_ontology'; any in-ontology assignment is wrong"
+        },
+        "m11g13-k009": {
+          "outcome": "semantically_unresolved_mapping",
+          "A_valid_identifier": null,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": null,
+          "E_proposed_assessable": null,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "no reference proposed"
+        },
+        "m11g13-k010": {
+          "outcome": "semantically_unresolved_mapping",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": null,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "gold is ambiguous; a single forced reading cannot be confirmed"
+        },
+        "m11g13-k011": {
+          "outcome": "semantically_unresolved_mapping",
+          "A_valid_identifier": null,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": null,
+          "E_proposed_assessable": null,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "no reference proposed"
+        },
+        "m11g13-k012": {
+          "outcome": "structurally_invalid_reference",
+          "A_valid_identifier": false,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": null,
+          "E_proposed_assessable": null,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "proposal violates the G11/G10 reference contract"
+        },
+        "m11g13-k013": {
+          "outcome": "gold_confirmed_correct",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": true,
+          "E_proposed_assessable": false,
+          "E_gold_assessable": false,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "matches gold"
+        },
+        "m11g13-k014": {
+          "outcome": "gold_confirmed_correct",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": true,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "matches gold"
+        },
+        "m11g13-k015": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "supported_for_proposed_only",
+          "note": "valid reference, wrong concept"
+        }
+      },
+      "8_structurally_invalid_references_rejected": {
+        "count": 1,
+        "denominator": 1,
+        "ids": [
+          "m11g13-k012"
+        ]
+      }
+    }
+  },
+  "after_g12": {
+    "necessity": {
+      "1_unsupported_required_accepted": {
+        "count": 12,
+        "denominator": 34,
+        "ids": [
+          "m11g13-n026",
+          "m11g13-n030",
+          "m11g13-n035",
+          "m11g13-n037",
+          "m11g13-n038",
+          "m11g13-n043",
+          "m11g13-n044",
+          "m11g13-n046",
+          "m11g13-n047",
+          "m11g13-n049",
+          "m11g13-n050",
+          "m11g13-n063"
+        ]
+      },
+      "2_unsupported_preferred_accepted": {
+        "count": 0,
+        "denominator": 2,
+        "ids": []
+      },
+      "3_correct_explicit_necessity_preserved": {
+        "all": {
+          "count": 16,
+          "denominator": 27
+        },
+        "abstention_not_acceptable": {
+          "count": 16,
+          "denominator": 23
+        },
+        "abstention_acceptable": {
+          "count": 0,
+          "denominator": 4
+        },
+        "false_declines_abstention_not_acceptable": [
+          "m11g13-n002",
+          "m11g13-n007",
+          "m11g13-n008",
+          "m11g13-n012",
+          "m11g13-n013",
+          "m11g13-n014",
+          "m11g13-n024"
+        ],
+        "false_declines_abstention_acceptable": [
+          "m11g13-n027",
+          "m11g13-n029",
+          "m11g13-n060",
+          "m11g13-n061"
+        ]
+      },
+      "4_correct_qualifications_incorrectly_declined": {
+        "count": 0,
+        "denominator": 49,
+        "ids": []
+      },
+      "4b_non_qualifications_incorrectly_accepted": {
+        "count": 6,
+        "denominator": 6,
+        "ids": [
+          "m11g13-n016",
+          "m11g13-n017",
+          "m11g13-n035",
+          "m11g13-n036",
+          "m11g13-n037",
+          "m11g13-n038"
+        ]
+      },
+      "5_source_span_violations": {
+        "count": 0,
+        "denominator": 63,
+        "ids": []
+      },
+      "6_cross_claim_evidence_contamination_accepted": {
+        "count": 1,
+        "denominator": 7,
+        "ids": [
+          "m11g13-n030"
+        ]
+      },
+      "10_score_eligibility_safety_violations": {
+        "assessable_in_principle": {
+          "count": 0,
+          "denominator": 63,
+          "ids": []
+        },
+        "assessable_by_current_matcher": {
+          "count": 0,
+          "denominator": 63,
+          "ids": []
+        },
+        "necessity_isolated_assuming_assessable_concept": {
+          "count": 12,
+          "denominator": 63,
+          "ids": [
+            "m11g13-n026",
+            "m11g13-n030",
+            "m11g13-n035",
+            "m11g13-n037",
+            "m11g13-n038",
+            "m11g13-n043",
+            "m11g13-n044",
+            "m11g13-n046",
+            "m11g13-n047",
+            "m11g13-n049",
+            "m11g13-n050",
+            "m11g13-n063"
+          ]
+        }
+      },
+      "necessity_decline_reasons": {
+        "necessity_evidence_lacks_explicit_marker": 14,
+        "necessity_evidence_outside_claim_scope": 9,
+        "necessity_evidence_missing": 1,
+        "negated_or_scope_sensitive_marker": 6,
+        "conflicting_necessity_evidence_in_claim": 3,
+        "conditional_without_declared_condition": 1,
+        "quoted_marker": 1
+      },
+      "4_safe_unknown_declines": {
+        "count": 24,
+        "denominator": 36
+      },
+      "5_genuine_necessities_declined": {
+        "count": 11,
+        "denominator": 27,
+        "ids": [
+          "m11g13-n002",
+          "m11g13-n007",
+          "m11g13-n008",
+          "m11g13-n012",
+          "m11g13-n013",
+          "m11g13-n014",
+          "m11g13-n024",
+          "m11g13-n027",
+          "m11g13-n029",
+          "m11g13-n060",
+          "m11g13-n061"
+        ],
+        "of_which_abstention_acceptable": [
+          "m11g13-n027",
+          "m11g13-n029",
+          "m11g13-n060",
+          "m11g13-n061"
+        ]
+      },
+      "all_unsafe_necessity_acceptances": {
+        "count": 12,
+        "denominator": 63,
+        "ids": [
+          "m11g13-n026",
+          "m11g13-n030",
+          "m11g13-n035",
+          "m11g13-n037",
+          "m11g13-n038",
+          "m11g13-n043",
+          "m11g13-n044",
+          "m11g13-n046",
+          "m11g13-n047",
+          "m11g13-n049",
+          "m11g13-n050",
+          "m11g13-n063"
+        ]
+      }
+    },
+    "concept": {
+      "7_concept_reference_validity": {
+        "count": 12,
+        "denominator": 13,
+        "valid_ids": [
+          "m11g13-k001",
+          "m11g13-k002",
+          "m11g13-k003",
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k006",
+          "m11g13-k007",
+          "m11g13-k008",
+          "m11g13-k010",
+          "m11g13-k013",
+          "m11g13-k014",
+          "m11g13-k015"
+        ]
+      },
+      "8_concept_assignment_correctness_vs_gold": {
+        "count": 4,
+        "denominator": 11,
+        "correct_ids": [
+          "m11g13-k001",
+          "m11g13-k002",
+          "m11g13-k013",
+          "m11g13-k014"
+        ],
+        "incorrect_ids": [
+          "m11g13-k003",
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k006",
+          "m11g13-k007",
+          "m11g13-k008",
+          "m11g13-k015"
+        ]
+      },
+      "9_ambiguous_mapping_declines": {
+        "count": 1,
+        "denominator": 2,
+        "ids": [
+          "m11g13-k011"
+        ]
+      },
+      "outcome_counts": {
+        "gold_confirmed_correct": 4,
+        "gold_confirmed_incorrect": 7,
+        "semantically_unresolved_mapping": 3,
+        "structurally_invalid_reference": 1
+      },
+      "automatic_accepts_that_gold_marks_incorrect": {
+        "count": 7,
+        "denominator": 11,
+        "ids": [
+          "m11g13-k003",
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k006",
+          "m11g13-k007",
+          "m11g13-k008",
+          "m11g13-k015"
+        ]
+      },
+      "wrong_concept_score_eligible_assessable_in_principle": {
+        "count": 6,
+        "denominator": 15,
+        "ids": [
+          "m11g13-k003",
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k006",
+          "m11g13-k008",
+          "m11g13-k015"
+        ]
+      },
+      "wrong_concept_score_eligible_current_matcher": {
+        "count": 3,
+        "denominator": 15,
+        "ids": [
+          "m11g13-k004",
+          "m11g13-k005",
+          "m11g13-k015"
+        ]
+      },
+      "per_control": {
+        "m11g13-k001": {
+          "outcome": "gold_confirmed_correct",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": true,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "matches gold"
+        },
+        "m11g13-k002": {
+          "outcome": "gold_confirmed_correct",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": true,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "matches gold"
+        },
+        "m11g13-k003": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "valid reference, wrong concept"
+        },
+        "m11g13-k004": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "valid reference, wrong concept"
+        },
+        "m11g13-k005": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "valid reference, wrong concept"
+        },
+        "m11g13-k006": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "valid reference, wrong concept"
+        },
+        "m11g13-k007": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "gold mapping is 'not_a_qualification'; any in-ontology assignment is wrong"
+        },
+        "m11g13-k008": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "gold mapping is 'absent_from_ontology'; any in-ontology assignment is wrong"
+        },
+        "m11g13-k009": {
+          "outcome": "semantically_unresolved_mapping",
+          "A_valid_identifier": null,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": null,
+          "E_proposed_assessable": null,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "no reference proposed"
+        },
+        "m11g13-k010": {
+          "outcome": "semantically_unresolved_mapping",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": null,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "gold is ambiguous; a single forced reading cannot be confirmed"
+        },
+        "m11g13-k011": {
+          "outcome": "semantically_unresolved_mapping",
+          "A_valid_identifier": null,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": null,
+          "E_proposed_assessable": null,
+          "E_gold_assessable": null,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "no reference proposed"
+        },
+        "m11g13-k012": {
+          "outcome": "structurally_invalid_reference",
+          "A_valid_identifier": false,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": null,
+          "E_proposed_assessable": null,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "proposal violates the G11/G10 reference contract"
+        },
+        "m11g13-k013": {
+          "outcome": "gold_confirmed_correct",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": true,
+          "E_proposed_assessable": false,
+          "E_gold_assessable": false,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "matches gold"
+        },
+        "m11g13-k014": {
+          "outcome": "gold_confirmed_correct",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": true,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "not_evaluated",
+          "note": "matches gold"
+        },
+        "m11g13-k015": {
+          "outcome": "gold_confirmed_incorrect",
+          "A_valid_identifier": true,
+          "B_valid_relationship": null,
+          "C_source_grounded": true,
+          "D_semantically_correct_gold": false,
+          "E_proposed_assessable": true,
+          "E_gold_assessable": true,
+          "F_repository_support_gold": "supported_for_proposed_only",
+          "note": "valid reference, wrong concept"
+        }
+      },
+      "8_structurally_invalid_references_rejected": {
+        "count": 1,
+        "denominator": 1,
+        "ids": [
+          "m11g13-k012"
+        ]
+      }
+    }
+  },
+  "per_control": {
+    "m11g13-n001": {
+      "category": "explicit_required",
+      "proposed": "required",
+      "expected": "required",
+      "before": "unknown",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n002": {
+      "category": "explicit_required",
+      "proposed": "required",
+      "expected": "required",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n003": {
+      "category": "explicit_required",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n004": {
+      "category": "markdown_structure",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n005": {
+      "category": "explicit_required",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n006": {
+      "category": "explicit_required",
+      "proposed": "required",
+      "expected": "required",
+      "before": "unknown",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n007": {
+      "category": "explicit_required",
+      "proposed": "required",
+      "expected": "required",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n008": {
+      "category": "explicit_preferred",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n009": {
+      "category": "explicit_preferred",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "preferred",
+      "after": "preferred",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n010": {
+      "category": "explicit_preferred",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "unknown",
+      "after": "preferred",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n011": {
+      "category": "explicit_preferred",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "preferred",
+      "after": "preferred",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n012": {
+      "category": "explicit_preferred",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n013": {
+      "category": "markdown_structure",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n014": {
+      "category": "explicit_preferred",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n015": {
+      "category": "unknown_necessity",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n016": {
+      "category": "employer_narrative",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n017": {
+      "category": "employer_narrative",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n018": {
+      "category": "unknown_necessity",
+      "proposed": "preferred",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_missing",
+      "accepted_after": true
+    },
+    "m11g13-n019": {
+      "category": "unknown_necessity",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n020": {
+      "category": "negation",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "negated_or_scope_sensitive_marker",
+      "accepted_after": true
+    },
+    "m11g13-n021": {
+      "category": "negation",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "negated_or_scope_sensitive_marker",
+      "accepted_after": true
+    },
+    "m11g13-n022": {
+      "category": "negation",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "negated_or_scope_sensitive_marker",
+      "accepted_after": true
+    },
+    "m11g13-n023": {
+      "category": "negation",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "negated_or_scope_sensitive_marker",
+      "accepted_after": true
+    },
+    "m11g13-n024": {
+      "category": "negation",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "conflicting_necessity_evidence_in_claim",
+      "accepted_after": true
+    },
+    "m11g13-n025": {
+      "category": "negation",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "negated_or_scope_sensitive_marker",
+      "accepted_after": true
+    },
+    "m11g13-n026": {
+      "category": "negation",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n027": {
+      "category": "negation",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "negated_or_scope_sensitive_marker",
+      "accepted_after": true
+    },
+    "m11g13-n028": {
+      "category": "cross_claim_contamination",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n029": {
+      "category": "cross_sentence",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n030": {
+      "category": "cross_claim_contamination",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n031": {
+      "category": "cross_claim_contamination",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n032": {
+      "category": "cross_sentence",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n033": {
+      "category": "explicit_required",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n034": {
+      "category": "cross_sentence",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n035": {
+      "category": "responsibility",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n036": {
+      "category": "responsibility",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n037": {
+      "category": "responsibility",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n038": {
+      "category": "responsibility",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n039": {
+      "category": "contradictory",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "conflicting_necessity_evidence_in_claim",
+      "accepted_after": true
+    },
+    "m11g13-n040": {
+      "category": "contradictory",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "conflicting_necessity_evidence_in_claim",
+      "accepted_after": true
+    },
+    "m11g13-n041": {
+      "category": "contradictory",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "conditional_without_declared_condition",
+      "accepted_after": true
+    },
+    "m11g13-n042": {
+      "category": "quoted_text",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "quoted_marker",
+      "accepted_after": true
+    },
+    "m11g13-n043": {
+      "category": "quoted_text",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n044": {
+      "category": "prompt_injection",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n045": {
+      "category": "prompt_injection",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n046": {
+      "category": "prompt_injection",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n047": {
+      "category": "conditional",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n048": {
+      "category": "conditional",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n049": {
+      "category": "conditional",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n050": {
+      "category": "conditional",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n051": {
+      "category": "conditional",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n052": {
+      "category": "markdown_structure",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "preferred",
+      "after": "preferred",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n053": {
+      "category": "markdown_structure",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n054": {
+      "category": "markdown_structure",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n055": {
+      "category": "markdown_structure",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n056": {
+      "category": "and_or_group",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n057": {
+      "category": "and_or_group",
+      "proposed": "required",
+      "expected": "required",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-n058": {
+      "category": "and_or_group",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_outside_claim_scope",
+      "accepted_after": true
+    },
+    "m11g13-n059": {
+      "category": "ambiguous",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n060": {
+      "category": "ambiguous",
+      "proposed": "required",
+      "expected": "required",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n061": {
+      "category": "ambiguous",
+      "proposed": "preferred",
+      "expected": "preferred",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n062": {
+      "category": "ambiguous",
+      "proposed": "preferred",
+      "expected": "unknown",
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": "necessity_evidence_lacks_explicit_marker",
+      "accepted_after": true
+    },
+    "m11g13-n063": {
+      "category": "ambiguous",
+      "proposed": "required",
+      "expected": "unknown",
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k001": {
+      "category": "correct_mapping",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k002": {
+      "category": "correct_mapping",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k003": {
+      "category": "valid_id_wrong_concept",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k004": {
+      "category": "related_confusion",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k005": {
+      "category": "multi_concept",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k006": {
+      "category": "broader_narrower_overinterpretation",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k007": {
+      "category": "employer_narrative_keyword",
+      "proposed": "unknown",
+      "expected": null,
+      "before": "unknown",
+      "after": "unknown",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k008": {
+      "category": "absent_from_ontology",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k009": {
+      "category": "absent_from_ontology",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k010": {
+      "category": "ambiguous_alias",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k011": {
+      "category": "ambiguous_alias",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k012": {
+      "category": "structurally_invalid",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k013": {
+      "category": "valid_not_assessable",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k014": {
+      "category": "rejected_concept",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    },
+    "m11g13-k015": {
+      "category": "valid_id_wrong_concept",
+      "proposed": "required",
+      "expected": null,
+      "before": "required",
+      "after": "required",
+      "after_reason": null,
+      "accepted_after": true
+    }
+  },
+  "or_contract": {
+    "production_reference": {
+      "correct_satisfaction_on_decidable": {
+        "count": 5,
+        "denominator": 8,
+        "ids": [
+          "m11g13-o001",
+          "m11g13-o002",
+          "m11g13-o004",
+          "m11g13-o006",
+          "m11g13-o013"
+        ]
+      },
+      "dropped_decidable_requirements": {
+        "count": 3,
+        "denominator": 8,
+        "ids": [
+          "m11g13-o007",
+          "m11g13-o008",
+          "m11g13-o012"
+        ]
+      },
+      "denominator_violations": {
+        "count": 2,
+        "denominator": 13,
+        "ids": [
+          "m11g13-o003",
+          "m11g13-o011"
+        ]
+      },
+      "false_positive_satisfaction": {
+        "count": 1,
+        "denominator": 13,
+        "ids": [
+          "m11g13-o011"
+        ]
+      },
+      "undercount": {
+        "count": 1,
+        "denominator": 13,
+        "ids": [
+          "m11g13-o008"
+        ]
+      },
+      "overcount": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "member_provenance": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "cross_requirement_propagation": {
+        "field_semantics": "alternatives",
+        "separate_kubernetes_requirement": "not_observed",
+        "false_positive": false
+      },
+      "per_control": {
+        "m11g13-o001": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "alternatives",
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o002": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 0,
+          "group_semantics": "alternatives",
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o003": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 0,
+          "group_semantics": "alternatives",
+          "member_provenance": false,
+          "denominator_violation": true,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o004": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 2,
+          "assessable_rows": 2,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o005": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o006": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o007": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o008": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": true,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o009": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o010": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o011": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "alternatives",
+          "member_provenance": false,
+          "denominator_violation": true,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": true,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o012": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o013": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "alternatives",
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        }
+      }
+    },
+    "A_equivalent_only": {
+      "correct_satisfaction_on_decidable": {
+        "count": 3,
+        "denominator": 8,
+        "ids": [
+          "m11g13-o004",
+          "m11g13-o006",
+          "m11g13-o007"
+        ]
+      },
+      "dropped_decidable_requirements": {
+        "count": 5,
+        "denominator": 8,
+        "ids": [
+          "m11g13-o001",
+          "m11g13-o002",
+          "m11g13-o008",
+          "m11g13-o012",
+          "m11g13-o013"
+        ]
+      },
+      "denominator_violations": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "false_positive_satisfaction": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "undercount": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "overcount": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "member_provenance": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "cross_requirement_propagation": {
+        "field_semantics": null,
+        "separate_kubernetes_requirement": "not_observed",
+        "false_positive": false
+      },
+      "per_control": {
+        "m11g13-o001": {
+          "declined": true,
+          "decline_reason": "declined_non_equivalent_group",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o002": {
+          "declined": true,
+          "decline_reason": "declined_non_equivalent_group",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o003": {
+          "declined": true,
+          "decline_reason": "member_not_in_concept_graph",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o004": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 2,
+          "assessable_rows": 2,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o005": {
+          "declined": true,
+          "decline_reason": "member_not_in_concept_graph",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o006": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o007": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o008": {
+          "declined": true,
+          "decline_reason": "member_not_in_concept_graph",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o009": {
+          "declined": true,
+          "decline_reason": "member_not_in_concept_graph",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o010": {
+          "declined": true,
+          "decline_reason": "necessity_unknown",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o011": {
+          "declined": true,
+          "decline_reason": "member_not_in_concept_graph",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o012": {
+          "declined": true,
+          "decline_reason": "member_not_in_concept_graph",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o013": {
+          "declined": true,
+          "decline_reason": "declined_non_equivalent_group",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        }
+      }
+    },
+    "B_distinct_members_in_g11_field": {
+      "correct_satisfaction_on_decidable": {
+        "count": 7,
+        "denominator": 8,
+        "ids": [
+          "m11g13-o001",
+          "m11g13-o002",
+          "m11g13-o004",
+          "m11g13-o006",
+          "m11g13-o007",
+          "m11g13-o012",
+          "m11g13-o013"
+        ]
+      },
+      "dropped_decidable_requirements": {
+        "count": 0,
+        "denominator": 8,
+        "ids": []
+      },
+      "denominator_violations": {
+        "count": 4,
+        "denominator": 13,
+        "ids": [
+          "m11g13-o003",
+          "m11g13-o005",
+          "m11g13-o009",
+          "m11g13-o011"
+        ]
+      },
+      "false_positive_satisfaction": {
+        "count": 2,
+        "denominator": 13,
+        "ids": [
+          "m11g13-o008",
+          "m11g13-o011"
+        ]
+      },
+      "undercount": {
+        "count": 1,
+        "denominator": 13,
+        "ids": [
+          "m11g13-o008"
+        ]
+      },
+      "overcount": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "member_provenance": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "cross_requirement_propagation": {
+        "field_semantics": "equivalence",
+        "separate_kubernetes_requirement": "supported",
+        "false_positive": true
+      },
+      "per_control": {
+        "m11g13-o001": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o002": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 0,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o003": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 0,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": true,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o004": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 2,
+          "assessable_rows": 2,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o005": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 0,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": true,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o006": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o007": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o008": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": true,
+          "overcount": false,
+          "false_positive_satisfaction": true,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o009": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 0,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": true,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o010": {
+          "declined": true,
+          "decline_reason": "necessity_unknown",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o011": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": true,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": true,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o012": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o013": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "equivalence",
+          "member_provenance": false,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        }
+      }
+    },
+    "C_separate_grouping": {
+      "correct_satisfaction_on_decidable": {
+        "count": 6,
+        "denominator": 8,
+        "ids": [
+          "m11g13-o001",
+          "m11g13-o002",
+          "m11g13-o004",
+          "m11g13-o006",
+          "m11g13-o007",
+          "m11g13-o013"
+        ]
+      },
+      "dropped_decidable_requirements": {
+        "count": 2,
+        "denominator": 8,
+        "ids": [
+          "m11g13-o008",
+          "m11g13-o012"
+        ]
+      },
+      "denominator_violations": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "false_positive_satisfaction": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "undercount": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "overcount": {
+        "count": 0,
+        "denominator": 13,
+        "ids": []
+      },
+      "member_provenance": {
+        "count": 13,
+        "denominator": 13,
+        "ids": [
+          "m11g13-o001",
+          "m11g13-o002",
+          "m11g13-o003",
+          "m11g13-o004",
+          "m11g13-o005",
+          "m11g13-o006",
+          "m11g13-o007",
+          "m11g13-o008",
+          "m11g13-o009",
+          "m11g13-o010",
+          "m11g13-o011",
+          "m11g13-o012",
+          "m11g13-o013"
+        ]
+      },
+      "cross_requirement_propagation": {
+        "field_semantics": "alternatives",
+        "separate_kubernetes_requirement": "not_observed",
+        "false_positive": false
+      },
+      "per_control": {
+        "m11g13-o001": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "alternatives",
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o002": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 0,
+          "group_semantics": "alternatives",
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o003": {
+          "declined": true,
+          "decline_reason": "alternative_not_currently_evidenceable",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o004": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 2,
+          "assessable_rows": 2,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o005": {
+          "declined": true,
+          "decline_reason": "alternative_not_currently_evidenceable",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o006": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o007": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o008": {
+          "declined": true,
+          "decline_reason": "mixed_and_or_structure",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o009": {
+          "declined": true,
+          "decline_reason": "alternative_not_currently_evidenceable",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o010": {
+          "declined": true,
+          "decline_reason": "necessity_unknown",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o011": {
+          "declined": true,
+          "decline_reason": "ambiguous_list_grouping",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": false
+        },
+        "m11g13-o012": {
+          "declined": true,
+          "decline_reason": "alternative_not_currently_evidenceable",
+          "rows": 0,
+          "assessable_rows": 0,
+          "supported_rows": 0,
+          "group_semantics": null,
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": false,
+          "dropped_decidable_requirement": true
+        },
+        "m11g13-o013": {
+          "declined": false,
+          "decline_reason": null,
+          "rows": 1,
+          "assessable_rows": 1,
+          "supported_rows": 1,
+          "group_semantics": "alternatives",
+          "member_provenance": true,
+          "denominator_violation": false,
+          "undercount": false,
+          "overcount": false,
+          "false_positive_satisfaction": false,
+          "correct_satisfaction": true,
+          "dropped_decidable_requirement": false
+        }
+      }
+    }
+  }
+}

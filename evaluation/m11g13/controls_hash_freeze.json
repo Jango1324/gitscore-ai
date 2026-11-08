@@ -1,0 +1,8 @@
+{
+  "frozen_file": "evaluation/m11g13/generalization_controls.json",
+  "sha256": "88de3fb27393a3871dc69841b756cc43893eff821c10791b7ec3327ebc928b3b",
+  "sha256_lf_normalized": "88de3fb27393a3871dc69841b756cc43893eff821c10791b7ec3327ebc928b3b",
+  "length_bytes": 102616,
+  "frozen_at_utc": "2026-11-08T19:44:16Z",
+  "note": "Frozen BEFORE G11 or G12 was run on any G13 control. Protocol embedded in the frozen file. sha256_lf_normalized is recorded so the freeze can be verified after a CRLF checkout (see the milestone doc's gold-portability section)."
+}

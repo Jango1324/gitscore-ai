@@ -1,0 +1,170 @@
+{
+  "available": true,
+  "rows": {
+    "m11d": 165,
+    "m11f": 103,
+    "m11g9": 100
+  },
+  "rows_located_verbatim": {
+    "m11d": 164,
+    "m11f": 103,
+    "m11g9": 100
+  },
+  "per_dataset": {
+    "m11d": {
+      "R1_own_text_gold": {
+        "proposals": 136,
+        "g11_kept": 3,
+        "g12_kept": 3,
+        "posthoc_evidence_has_tier_marker": 3,
+        "posthoc_g12_kept_given_marker": 3,
+        "posthoc_g11_kept_given_marker": 3
+      },
+      "R2_heading_gold": {
+        "proposals": 13,
+        "g11_kept": 6,
+        "g12_kept": 12,
+        "posthoc_evidence_has_tier_marker": 13,
+        "posthoc_g12_kept_given_marker": 12,
+        "posthoc_g11_kept_given_marker": 6
+      },
+      "R3_overclaim_own_text": {
+        "proposals": 60,
+        "g11_kept": 0,
+        "g12_kept": 0,
+        "row_text_contains_required_language": 0
+      },
+      "R4_borrowed_required": {
+        "proposals": 39,
+        "g11_kept": 6,
+        "g12_kept": 0
+      },
+      "R5_borrowed_preferred": {
+        "proposals": 61,
+        "g11_kept": 27,
+        "g12_kept": 0
+      },
+      "R6_nonqualification_required": {
+        "proposals": 18,
+        "g11_kept": 3,
+        "g12_kept": 2
+      }
+    },
+    "m11f": {
+      "R1_own_text_gold": {
+        "proposals": 93,
+        "g11_kept": 1,
+        "g12_kept": 5,
+        "posthoc_evidence_has_tier_marker": 2,
+        "posthoc_g12_kept_given_marker": 1,
+        "posthoc_g11_kept_given_marker": 1
+      },
+      "R2_heading_gold": {
+        "proposals": 93,
+        "g11_kept": 4,
+        "g12_kept": 7,
+        "posthoc_evidence_has_tier_marker": 9,
+        "posthoc_g12_kept_given_marker": 2,
+        "posthoc_g11_kept_given_marker": 2
+      },
+      "R3_overclaim_own_text": {
+        "proposals": 5,
+        "g11_kept": 0,
+        "g12_kept": 0,
+        "row_text_contains_required_language": 0
+      },
+      "R5_borrowed_preferred": {
+        "proposals": 38,
+        "g11_kept": 7,
+        "g12_kept": 0
+      },
+      "R6_nonqualification_required": {
+        "proposals": 1,
+        "g11_kept": 0,
+        "g12_kept": 0
+      }
+    },
+    "m11g9": {
+      "R1_own_text_gold": {
+        "proposals": 56,
+        "g11_kept": 8,
+        "g12_kept": 10,
+        "posthoc_evidence_has_tier_marker": 8,
+        "posthoc_g12_kept_given_marker": 8,
+        "posthoc_g11_kept_given_marker": 8
+      },
+      "R2_heading_gold": {
+        "proposals": 56,
+        "g11_kept": 0,
+        "g12_kept": 0
+      },
+      "R3_overclaim_own_text": {
+        "proposals": 7,
+        "g11_kept": 1,
+        "g12_kept": 0,
+        "row_text_contains_required_language": 1
+      },
+      "R4_borrowed_required": {
+        "proposals": 1,
+        "g11_kept": 0,
+        "g12_kept": 0
+      },
+      "R5_borrowed_preferred": {
+        "proposals": 24,
+        "g11_kept": 7,
+        "g12_kept": 1
+      },
+      "R6_nonqualification_required": {
+        "proposals": 16,
+        "g11_kept": 0,
+        "g12_kept": 0
+      }
+    }
+  },
+  "totals": {
+    "R1_own_text_gold": {
+      "proposals": 285,
+      "g11_kept": 12,
+      "g12_kept": 18,
+      "posthoc_evidence_has_tier_marker": 13,
+      "posthoc_g12_kept_given_marker": 12,
+      "posthoc_g11_kept_given_marker": 12
+    },
+    "R2_heading_gold": {
+      "proposals": 162,
+      "g11_kept": 10,
+      "g12_kept": 19,
+      "posthoc_evidence_has_tier_marker": 22,
+      "posthoc_g12_kept_given_marker": 14,
+      "posthoc_g11_kept_given_marker": 8
+    },
+    "R3_overclaim_own_text": {
+      "proposals": 72,
+      "g11_kept": 1,
+      "g12_kept": 0,
+      "row_text_contains_required_language": 1
+    },
+    "R4_borrowed_required": {
+      "proposals": 40,
+      "g11_kept": 6,
+      "g12_kept": 0
+    },
+    "R5_borrowed_preferred": {
+      "proposals": 123,
+      "g11_kept": 41,
+      "g12_kept": 1
+    },
+    "R6_nonqualification_required": {
+      "proposals": 35,
+      "g11_kept": 3,
+      "g12_kept": 2
+    }
+  },
+  "interpretation": {
+    "preservation_generators": [
+      "R1_own_text_gold",
+      "R2_heading_gold"
+    ],
+    "note": "For R1/R2 'kept' counts genuine gold necessities the validator preserved. For R3-R6 'kept' counts UNSAFE acceptances: the proposal disagrees with gold yet was returned unchanged with accepted_for_review=True. Counts include candidates whose concept is unresolved; with any resolved assessable concept each unsafe acceptance would be score-eligible."
+  }
+}
