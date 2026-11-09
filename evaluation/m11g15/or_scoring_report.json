@@ -1,0 +1,5945 @@
+{
+  "milestone": "M11-G15",
+  "controls_sha256_lf_normalized": "cd015c9608f06f8e24899708f068a0045c6866bdd7ed708f966a2d82a0433fc7",
+  "policies": [
+    "A_production",
+    "B_exclude_unresolved_groups",
+    "C_partial_state",
+    "D_parser_unsafe_fallback"
+  ],
+  "metrics": {
+    "A_production": {
+      "1_false_supported": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1"
+        ]
+      },
+      "2_false_not_observed": {
+        "count": 12,
+        "denominator": 55,
+        "ids": [
+          "m11g15-D1/azure_only_truth/g1",
+          "m11g15-D1/neither/g1",
+          "m11g15-E1/azure_truth/g1",
+          "m11g15-E1/neither/g1",
+          "m11g15-F1/azure_only_truth/g1",
+          "m11g15-F1/neither/g1",
+          "m11g15-H1/azure_only_truth/g1",
+          "m11g15-O1/three_plus_azure_truth/g4",
+          "m11g15-P1/nothing/g3",
+          "m11g15-P1/go_only/g3",
+          "m11g15-P1/go_k8s/g3",
+          "m11g15-P1/go_k8s_gcp_truth/g3"
+        ]
+      },
+      "2b_false_not_observed_where_candidate_truly_qualifies": {
+        "count": 6,
+        "denominator": 55,
+        "ids": [
+          "m11g15-D1/azure_only_truth/g1",
+          "m11g15-E1/azure_truth/g1",
+          "m11g15-F1/azure_only_truth/g1",
+          "m11g15-H1/azure_only_truth/g1",
+          "m11g15-O1/three_plus_azure_truth/g4",
+          "m11g15-P1/go_k8s_gcp_truth/g3"
+        ]
+      },
+      "3_non_assessable_counted_in_denominator": {
+        "count": 13,
+        "denominator": 55,
+        "ids": [
+          "m11g15-D1/azure_only_truth/g1",
+          "m11g15-D1/neither/g1",
+          "m11g15-E1/azure_truth/g1",
+          "m11g15-E1/neither/g1",
+          "m11g15-F1/azure_only_truth/g1",
+          "m11g15-F1/neither/g1",
+          "m11g15-H1/azure_only_truth/g1",
+          "m11g15-L1/docker_evidence/g1",
+          "m11g15-O1/three_plus_azure_truth/g4",
+          "m11g15-P1/nothing/g3",
+          "m11g15-P1/go_only/g3",
+          "m11g15-P1/go_k8s/g3",
+          "m11g15-P1/go_k8s_gcp_truth/g3"
+        ]
+      },
+      "4_positive_evidence_discarded": {
+        "count": 7,
+        "denominator": 55,
+        "ids": [
+          "m11g15-G2/elixir_language_evidence/g1",
+          "m11g15-I1/k8s_evidence/g1",
+          "m11g15-I2/docker_evidence/g1",
+          "m11g15-P1/go_only/g1",
+          "m11g15-P1/go_k8s/g1",
+          "m11g15-P1/go_k8s_aws/g1",
+          "m11g15-P1/go_k8s_gcp_truth/g1"
+        ]
+      },
+      "4b_positive_evidence_discarded_excluding_parser_unrepresented": {
+        "count": 3,
+        "denominator": 55,
+        "ids": [
+          "m11g15-G2/elixir_language_evidence/g1",
+          "m11g15-I1/k8s_evidence/g1",
+          "m11g15-I2/docker_evidence/g1"
+        ]
+      },
+      "0_gold_requirement_unrepresented_by_parser": {
+        "count": 5,
+        "denominator": 55,
+        "ids": [
+          "m11g15-P1/nothing/g1",
+          "m11g15-P1/go_only/g1",
+          "m11g15-P1/go_k8s/g1",
+          "m11g15-P1/go_k8s_aws/g1",
+          "m11g15-P1/go_k8s_gcp_truth/g1"
+        ]
+      },
+      "5_duplicate_denominator_counting": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "5b_merged_requirements_counted_as_one": {
+        "count": 4,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1",
+          "m11g15-K1/python_only/g2",
+          "m11g15-K1/docker_and_python/g1",
+          "m11g15-K1/docker_and_python/g2"
+        ]
+      },
+      "6_evidence_leakage_between_requirements": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1"
+        ]
+      },
+      "9_denominator_unstable_across_candidates": {
+        "count": 0,
+        "denominator": 19,
+        "ids": []
+      },
+      "denominators_by_control": {
+        "m11g15-A1": [
+          1
+        ],
+        "m11g15-B1": [
+          1
+        ],
+        "m11g15-C1": [
+          1
+        ],
+        "m11g15-D1": [
+          1
+        ],
+        "m11g15-E1": [
+          1
+        ],
+        "m11g15-F1": [
+          1
+        ],
+        "m11g15-G1": [
+          0
+        ],
+        "m11g15-G2": [
+          0
+        ],
+        "m11g15-G3": [
+          1
+        ],
+        "m11g15-H1": [
+          1
+        ],
+        "m11g15-I1": [
+          0
+        ],
+        "m11g15-I2": [
+          0
+        ],
+        "m11g15-J1": [
+          2
+        ],
+        "m11g15-K1": [
+          1
+        ],
+        "m11g15-L1": [
+          1
+        ],
+        "m11g15-M1": [
+          2
+        ],
+        "m11g15-N1": [
+          1
+        ],
+        "m11g15-O1": [
+          4
+        ],
+        "m11g15-P1": [
+          2
+        ]
+      }
+    },
+    "B_exclude_unresolved_groups": {
+      "1_false_supported": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1"
+        ]
+      },
+      "2_false_not_observed": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "2b_false_not_observed_where_candidate_truly_qualifies": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "3_non_assessable_counted_in_denominator": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "4_positive_evidence_discarded": {
+        "count": 13,
+        "denominator": 55,
+        "ids": [
+          "m11g15-C1/aws_evidence/g1",
+          "m11g15-F1/elixir_language_evidence/g1",
+          "m11g15-G2/elixir_language_evidence/g1",
+          "m11g15-G3/zig_language_evidence/g1",
+          "m11g15-H1/aws_evidence/g1",
+          "m11g15-I1/k8s_evidence/g1",
+          "m11g15-I2/docker_evidence/g1",
+          "m11g15-O1/all_four_with_aws/g4",
+          "m11g15-P1/go_only/g1",
+          "m11g15-P1/go_k8s/g1",
+          "m11g15-P1/go_k8s_aws/g1",
+          "m11g15-P1/go_k8s_aws/g3",
+          "m11g15-P1/go_k8s_gcp_truth/g1"
+        ]
+      },
+      "4b_positive_evidence_discarded_excluding_parser_unrepresented": {
+        "count": 9,
+        "denominator": 55,
+        "ids": [
+          "m11g15-C1/aws_evidence/g1",
+          "m11g15-F1/elixir_language_evidence/g1",
+          "m11g15-G2/elixir_language_evidence/g1",
+          "m11g15-G3/zig_language_evidence/g1",
+          "m11g15-H1/aws_evidence/g1",
+          "m11g15-I1/k8s_evidence/g1",
+          "m11g15-I2/docker_evidence/g1",
+          "m11g15-O1/all_four_with_aws/g4",
+          "m11g15-P1/go_k8s_aws/g3"
+        ]
+      },
+      "0_gold_requirement_unrepresented_by_parser": {
+        "count": 5,
+        "denominator": 55,
+        "ids": [
+          "m11g15-P1/nothing/g1",
+          "m11g15-P1/go_only/g1",
+          "m11g15-P1/go_k8s/g1",
+          "m11g15-P1/go_k8s_aws/g1",
+          "m11g15-P1/go_k8s_gcp_truth/g1"
+        ]
+      },
+      "5_duplicate_denominator_counting": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "5b_merged_requirements_counted_as_one": {
+        "count": 4,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1",
+          "m11g15-K1/python_only/g2",
+          "m11g15-K1/docker_and_python/g1",
+          "m11g15-K1/docker_and_python/g2"
+        ]
+      },
+      "6_evidence_leakage_between_requirements": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1"
+        ]
+      },
+      "9_denominator_unstable_across_candidates": {
+        "count": 0,
+        "denominator": 19,
+        "ids": []
+      },
+      "denominators_by_control": {
+        "m11g15-A1": [
+          1
+        ],
+        "m11g15-B1": [
+          1
+        ],
+        "m11g15-C1": [
+          0
+        ],
+        "m11g15-D1": [
+          0
+        ],
+        "m11g15-E1": [
+          0
+        ],
+        "m11g15-F1": [
+          0
+        ],
+        "m11g15-G1": [
+          0
+        ],
+        "m11g15-G2": [
+          0
+        ],
+        "m11g15-G3": [
+          0
+        ],
+        "m11g15-H1": [
+          0
+        ],
+        "m11g15-I1": [
+          0
+        ],
+        "m11g15-I2": [
+          0
+        ],
+        "m11g15-J1": [
+          2
+        ],
+        "m11g15-K1": [
+          1
+        ],
+        "m11g15-L1": [
+          0
+        ],
+        "m11g15-M1": [
+          2
+        ],
+        "m11g15-N1": [
+          1
+        ],
+        "m11g15-O1": [
+          3
+        ],
+        "m11g15-P1": [
+          1
+        ]
+      }
+    },
+    "C_partial_state": {
+      "1_false_supported": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1"
+        ]
+      },
+      "2_false_not_observed": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "2b_false_not_observed_where_candidate_truly_qualifies": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "3_non_assessable_counted_in_denominator": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-L1/docker_evidence/g1"
+        ]
+      },
+      "4_positive_evidence_discarded": {
+        "count": 7,
+        "denominator": 55,
+        "ids": [
+          "m11g15-G2/elixir_language_evidence/g1",
+          "m11g15-I1/k8s_evidence/g1",
+          "m11g15-I2/docker_evidence/g1",
+          "m11g15-P1/go_only/g1",
+          "m11g15-P1/go_k8s/g1",
+          "m11g15-P1/go_k8s_aws/g1",
+          "m11g15-P1/go_k8s_gcp_truth/g1"
+        ]
+      },
+      "4b_positive_evidence_discarded_excluding_parser_unrepresented": {
+        "count": 3,
+        "denominator": 55,
+        "ids": [
+          "m11g15-G2/elixir_language_evidence/g1",
+          "m11g15-I1/k8s_evidence/g1",
+          "m11g15-I2/docker_evidence/g1"
+        ]
+      },
+      "0_gold_requirement_unrepresented_by_parser": {
+        "count": 5,
+        "denominator": 55,
+        "ids": [
+          "m11g15-P1/nothing/g1",
+          "m11g15-P1/go_only/g1",
+          "m11g15-P1/go_k8s/g1",
+          "m11g15-P1/go_k8s_aws/g1",
+          "m11g15-P1/go_k8s_gcp_truth/g1"
+        ]
+      },
+      "5_duplicate_denominator_counting": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "5b_merged_requirements_counted_as_one": {
+        "count": 4,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1",
+          "m11g15-K1/python_only/g2",
+          "m11g15-K1/docker_and_python/g1",
+          "m11g15-K1/docker_and_python/g2"
+        ]
+      },
+      "6_evidence_leakage_between_requirements": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1"
+        ]
+      },
+      "9_denominator_unstable_across_candidates": {
+        "count": 5,
+        "denominator": 19,
+        "ids": [
+          "m11g15-F1",
+          "m11g15-G3",
+          "m11g15-H1",
+          "m11g15-O1",
+          "m11g15-P1"
+        ]
+      },
+      "denominators_by_control": {
+        "m11g15-A1": [
+          1
+        ],
+        "m11g15-B1": [
+          1
+        ],
+        "m11g15-C1": [
+          1
+        ],
+        "m11g15-D1": [
+          0
+        ],
+        "m11g15-E1": [
+          0
+        ],
+        "m11g15-F1": [
+          0,
+          1
+        ],
+        "m11g15-G1": [
+          0
+        ],
+        "m11g15-G2": [
+          0
+        ],
+        "m11g15-G3": [
+          0,
+          1
+        ],
+        "m11g15-H1": [
+          0,
+          1
+        ],
+        "m11g15-I1": [
+          0
+        ],
+        "m11g15-I2": [
+          0
+        ],
+        "m11g15-J1": [
+          2
+        ],
+        "m11g15-K1": [
+          1
+        ],
+        "m11g15-L1": [
+          1
+        ],
+        "m11g15-M1": [
+          2
+        ],
+        "m11g15-N1": [
+          1
+        ],
+        "m11g15-O1": [
+          3,
+          4
+        ],
+        "m11g15-P1": [
+          1,
+          2
+        ]
+      }
+    },
+    "D_parser_unsafe_fallback": {
+      "1_false_supported": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1"
+        ]
+      },
+      "2_false_not_observed": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "2b_false_not_observed_where_candidate_truly_qualifies": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "3_non_assessable_counted_in_denominator": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "4_positive_evidence_discarded": {
+        "count": 13,
+        "denominator": 55,
+        "ids": [
+          "m11g15-C1/aws_evidence/g1",
+          "m11g15-F1/elixir_language_evidence/g1",
+          "m11g15-G2/elixir_language_evidence/g1",
+          "m11g15-G3/zig_language_evidence/g1",
+          "m11g15-H1/aws_evidence/g1",
+          "m11g15-I1/k8s_evidence/g1",
+          "m11g15-I2/docker_evidence/g1",
+          "m11g15-O1/all_four_with_aws/g4",
+          "m11g15-P1/go_only/g1",
+          "m11g15-P1/go_k8s/g1",
+          "m11g15-P1/go_k8s_aws/g1",
+          "m11g15-P1/go_k8s_aws/g3",
+          "m11g15-P1/go_k8s_gcp_truth/g1"
+        ]
+      },
+      "4b_positive_evidence_discarded_excluding_parser_unrepresented": {
+        "count": 9,
+        "denominator": 55,
+        "ids": [
+          "m11g15-C1/aws_evidence/g1",
+          "m11g15-F1/elixir_language_evidence/g1",
+          "m11g15-G2/elixir_language_evidence/g1",
+          "m11g15-G3/zig_language_evidence/g1",
+          "m11g15-H1/aws_evidence/g1",
+          "m11g15-I1/k8s_evidence/g1",
+          "m11g15-I2/docker_evidence/g1",
+          "m11g15-O1/all_four_with_aws/g4",
+          "m11g15-P1/go_k8s_aws/g3"
+        ]
+      },
+      "0_gold_requirement_unrepresented_by_parser": {
+        "count": 5,
+        "denominator": 55,
+        "ids": [
+          "m11g15-P1/nothing/g1",
+          "m11g15-P1/go_only/g1",
+          "m11g15-P1/go_k8s/g1",
+          "m11g15-P1/go_k8s_aws/g1",
+          "m11g15-P1/go_k8s_gcp_truth/g1"
+        ]
+      },
+      "5_duplicate_denominator_counting": {
+        "count": 0,
+        "denominator": 55,
+        "ids": []
+      },
+      "5b_merged_requirements_counted_as_one": {
+        "count": 4,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1",
+          "m11g15-K1/python_only/g2",
+          "m11g15-K1/docker_and_python/g1",
+          "m11g15-K1/docker_and_python/g2"
+        ]
+      },
+      "6_evidence_leakage_between_requirements": {
+        "count": 1,
+        "denominator": 55,
+        "ids": [
+          "m11g15-K1/python_only/g1"
+        ]
+      },
+      "9_denominator_unstable_across_candidates": {
+        "count": 0,
+        "denominator": 19,
+        "ids": []
+      },
+      "denominators_by_control": {
+        "m11g15-A1": [
+          1
+        ],
+        "m11g15-B1": [
+          1
+        ],
+        "m11g15-C1": [
+          0
+        ],
+        "m11g15-D1": [
+          0
+        ],
+        "m11g15-E1": [
+          0
+        ],
+        "m11g15-F1": [
+          0
+        ],
+        "m11g15-G1": [
+          0
+        ],
+        "m11g15-G2": [
+          0
+        ],
+        "m11g15-G3": [
+          0
+        ],
+        "m11g15-H1": [
+          0
+        ],
+        "m11g15-I1": [
+          0
+        ],
+        "m11g15-I2": [
+          0
+        ],
+        "m11g15-J1": [
+          2
+        ],
+        "m11g15-K1": [
+          1
+        ],
+        "m11g15-L1": [
+          0
+        ],
+        "m11g15-M1": [
+          2
+        ],
+        "m11g15-N1": [
+          1
+        ],
+        "m11g15-O1": [
+          3
+        ],
+        "m11g15-P1": [
+          1
+        ]
+      }
+    }
+  },
+  "7_scores": {
+    "m11g15-A1": {
+      "docker_evidence": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      }
+    },
+    "m11g15-B1": {
+      "no_evidence": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": 0,
+        "C_partial_state": 0,
+        "D_parser_unsafe_fallback": 0
+      },
+      "knows_k8s_no_evidence": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": 0,
+        "C_partial_state": 0,
+        "D_parser_unsafe_fallback": 0
+      }
+    },
+    "m11g15-C1": {
+      "aws_evidence": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-D1": {
+      "azure_only_truth": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      },
+      "neither": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-E1": {
+      "azure_truth": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      },
+      "neither": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-F1": {
+      "elixir_language_evidence": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": null
+      },
+      "azure_only_truth": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      },
+      "neither": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-G1": {
+      "terraform_truth": {
+        "A_production": null,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-G2": {
+      "elixir_language_evidence": {
+        "A_production": null,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      },
+      "neither": {
+        "A_production": null,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-G3": {
+      "zig_language_evidence": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": null
+      },
+      "neither": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-H1": {
+      "azure_only_truth": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      },
+      "aws_evidence": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-I1": {
+      "k8s_evidence": {
+        "A_production": null,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      },
+      "neither": {
+        "A_production": null,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-I2": {
+      "docker_evidence": {
+        "A_production": null,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      },
+      "clearance_only_truth": {
+        "A_production": null,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": null,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-J1": {
+      "python_only": {
+        "A_production": 50,
+        "B_exclude_unresolved_groups": 50,
+        "C_partial_state": 50,
+        "D_parser_unsafe_fallback": 50
+      }
+    },
+    "m11g15-K1": {
+      "python_only": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      },
+      "docker_and_python": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      }
+    },
+    "m11g15-L1": {
+      "docker_evidence": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": null,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": null
+      }
+    },
+    "m11g15-M1": {
+      "docker_only": {
+        "A_production": 50,
+        "B_exclude_unresolved_groups": 50,
+        "C_partial_state": 50,
+        "D_parser_unsafe_fallback": 50
+      }
+    },
+    "m11g15-N1": {
+      "python_duplicate_evidence": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      }
+    },
+    "m11g15-O1": {
+      "three_plus_azure_truth": {
+        "A_production": 75,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      },
+      "all_four_with_aws": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      }
+    },
+    "m11g15-P1": {
+      "nothing": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": 0,
+        "C_partial_state": 0,
+        "D_parser_unsafe_fallback": 0
+      },
+      "go_only": {
+        "A_production": 0,
+        "B_exclude_unresolved_groups": 0,
+        "C_partial_state": 0,
+        "D_parser_unsafe_fallback": 0
+      },
+      "go_k8s": {
+        "A_production": 50,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      },
+      "go_k8s_aws": {
+        "A_production": 100,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      },
+      "go_k8s_gcp_truth": {
+        "A_production": 50,
+        "B_exclude_unresolved_groups": 100,
+        "C_partial_state": 100,
+        "D_parser_unsafe_fallback": 100
+      }
+    }
+  },
+  "7_score_changes_vs_production": {
+    "B_exclude_unresolved_groups": {
+      "count": 16,
+      "ids": [
+        "m11g15-C1/aws_evidence",
+        "m11g15-D1/azure_only_truth",
+        "m11g15-D1/neither",
+        "m11g15-E1/azure_truth",
+        "m11g15-E1/neither",
+        "m11g15-F1/azure_only_truth",
+        "m11g15-F1/elixir_language_evidence",
+        "m11g15-F1/neither",
+        "m11g15-G3/neither",
+        "m11g15-G3/zig_language_evidence",
+        "m11g15-H1/aws_evidence",
+        "m11g15-H1/azure_only_truth",
+        "m11g15-L1/docker_evidence",
+        "m11g15-O1/three_plus_azure_truth",
+        "m11g15-P1/go_k8s",
+        "m11g15-P1/go_k8s_gcp_truth"
+      ]
+    },
+    "C_partial_state": {
+      "count": 11,
+      "ids": [
+        "m11g15-D1/azure_only_truth",
+        "m11g15-D1/neither",
+        "m11g15-E1/azure_truth",
+        "m11g15-E1/neither",
+        "m11g15-F1/azure_only_truth",
+        "m11g15-F1/neither",
+        "m11g15-G3/neither",
+        "m11g15-H1/azure_only_truth",
+        "m11g15-O1/three_plus_azure_truth",
+        "m11g15-P1/go_k8s",
+        "m11g15-P1/go_k8s_gcp_truth"
+      ]
+    },
+    "D_parser_unsafe_fallback": {
+      "count": 16,
+      "ids": [
+        "m11g15-C1/aws_evidence",
+        "m11g15-D1/azure_only_truth",
+        "m11g15-D1/neither",
+        "m11g15-E1/azure_truth",
+        "m11g15-E1/neither",
+        "m11g15-F1/azure_only_truth",
+        "m11g15-F1/elixir_language_evidence",
+        "m11g15-F1/neither",
+        "m11g15-G3/neither",
+        "m11g15-G3/zig_language_evidence",
+        "m11g15-H1/aws_evidence",
+        "m11g15-H1/azure_only_truth",
+        "m11g15-L1/docker_evidence",
+        "m11g15-O1/three_plus_azure_truth",
+        "m11g15-P1/go_k8s",
+        "m11g15-P1/go_k8s_gcp_truth"
+      ]
+    }
+  },
+  "results": {
+    "m11g15-A1": {
+      "rows": [
+        {
+          "concepts": [
+            "infra.docker",
+            "infra.kubernetes"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "docker_evidence": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.docker": true,
+              "infra.kubernetes": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-B1": {
+      "rows": [
+        {
+          "concepts": [
+            "infra.docker",
+            "infra.kubernetes"
+          ],
+          "category": null,
+          "necessity": "preferred",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "no_evidence": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.docker": false,
+              "infra.kubernetes": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        },
+        "knows_k8s_no_evidence": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.docker": false,
+              "infra.kubernetes": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-C1": {
+      "rows": [
+        {
+          "concepts": [
+            "cloud.aws",
+            "unresolved:azure"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "aws_evidence": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "cloud.aws": true,
+              "unresolved:azure": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-D1": {
+      "rows": [
+        {
+          "concepts": [
+            "cloud.aws",
+            "unresolved:azure"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "azure_only_truth": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "cloud.aws": false,
+              "unresolved:azure": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "neither": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "cloud.aws": false,
+              "unresolved:azure": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-E1": {
+      "rows": [
+        {
+          "concepts": [
+            "unresolved:azure",
+            "unresolved:gcp"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "azure_truth": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "unresolved:azure": false,
+              "unresolved:gcp": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "neither": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "unresolved:azure": false,
+              "unresolved:gcp": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-F1": {
+      "rows": [
+        {
+          "concepts": [
+            "cloud.aws",
+            "unresolved:azure",
+            "unresolved:elixir"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "elixir_language_evidence": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "cloud.aws": false,
+              "unresolved:azure": false,
+              "unresolved:elixir": true
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "azure_only_truth": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "cloud.aws": false,
+              "unresolved:azure": false,
+              "unresolved:elixir": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "neither": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "cloud.aws": false,
+              "unresolved:azure": false,
+              "unresolved:elixir": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-G1": {
+      "rows": [
+        {
+          "concepts": [],
+          "category": "unresolved_requirement",
+          "necessity": "required",
+          "observability": "PARTIALLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "terraform_truth": {
+          "production_row_status": [
+            "not_assessable"
+          ],
+          "member_evidence": {
+            "g1": {
+              "unresolved:terraform": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-G2": {
+      "rows": [
+        {
+          "concepts": [],
+          "category": "unresolved_requirement",
+          "necessity": "required",
+          "observability": "PARTIALLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "elixir_language_evidence": {
+          "production_row_status": [
+            "not_assessable"
+          ],
+          "member_evidence": {
+            "g1": {
+              "unresolved:elixir": true
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        },
+        "neither": {
+          "production_row_status": [
+            "not_assessable"
+          ],
+          "member_evidence": {
+            "g1": {
+              "unresolved:elixir": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-G3": {
+      "rows": [
+        {
+          "concepts": [
+            "unresolved:elixir",
+            "unresolved:zig"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "zig_language_evidence": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "unresolved:elixir": false,
+              "unresolved:zig": true
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "neither": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "unresolved:elixir": false,
+              "unresolved:zig": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-H1": {
+      "rows": [
+        {
+          "concepts": [
+            "cloud.aws",
+            "unresolved:azure"
+          ],
+          "category": null,
+          "necessity": "preferred",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "azure_only_truth": {
+          "production_row_status": [
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "cloud.aws": false,
+              "unresolved:azure": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "aws_evidence": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "cloud.aws": true,
+              "unresolved:azure": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-I1": {
+      "rows": [
+        {
+          "concepts": [],
+          "category": "alternative_requirement",
+          "necessity": "required",
+          "observability": "PARTIALLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "k8s_evidence": {
+          "production_row_status": [
+            "not_assessable"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.kubernetes": true
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        },
+        "neither": {
+          "production_row_status": [
+            "not_assessable"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.kubernetes": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-I2": {
+      "rows": [
+        {
+          "concepts": [],
+          "category": "alternative_requirement",
+          "necessity": "required",
+          "observability": "PARTIALLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "docker_evidence": {
+          "production_row_status": [
+            "not_assessable"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.docker": true,
+              "non_technical:security_clearance": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        },
+        "clearance_only_truth": {
+          "production_row_status": [
+            "not_assessable"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.docker": false,
+              "non_technical:security_clearance": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-J1": {
+      "rows": [
+        {
+          "concepts": [
+            "language.python"
+          ],
+          "category": "language",
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        },
+        {
+          "concepts": [
+            "infra.docker"
+          ],
+          "category": "infrastructure",
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g2"
+          ]
+        }
+      ],
+      "candidates": {
+        "python_only": {
+          "production_row_status": [
+            "supported",
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.python": true
+            },
+            "g2": {
+              "infra.docker": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-K1": {
+      "rows": [
+        {
+          "concepts": [
+            "infra.docker",
+            "infra.kubernetes",
+            "language.python"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1",
+            "g2"
+          ]
+        }
+      ],
+      "candidates": {
+        "python_only": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.docker": false,
+              "infra.kubernetes": false
+            },
+            "g2": {
+              "language.python": true
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": true,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": true,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": true,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": true,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        },
+        "docker_and_python": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.docker": true,
+              "infra.kubernetes": false
+            },
+            "g2": {
+              "language.python": true
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": true,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-L1": {
+      "rows": [
+        {
+          "concepts": [
+            "infra.docker",
+            "infra.kubernetes",
+            "unresolved:terraform"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "docker_evidence": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.docker": true,
+              "infra.kubernetes": false,
+              "unresolved:terraform": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": null,
+              "supported": 0,
+              "assessable": 0,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-M1": {
+      "rows": [
+        {
+          "concepts": [
+            "infra.kubernetes"
+          ],
+          "category": "infrastructure",
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        },
+        {
+          "concepts": [
+            "infra.docker"
+          ],
+          "category": "infrastructure",
+          "necessity": "preferred",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g2"
+          ]
+        }
+      ],
+      "candidates": {
+        "docker_only": {
+          "production_row_status": [
+            "not_observed",
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "infra.kubernetes": false
+            },
+            "g2": {
+              "infra.docker": true
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-N1": {
+      "rows": [
+        {
+          "concepts": [
+            "language.go",
+            "language.python"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        }
+      ],
+      "candidates": {
+        "python_duplicate_evidence": {
+          "production_row_status": [
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.python": true,
+              "language.go": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-O1": {
+      "rows": [
+        {
+          "concepts": [
+            "language.python"
+          ],
+          "category": "language",
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g1"
+          ]
+        },
+        {
+          "concepts": [
+            "infra.docker"
+          ],
+          "category": "infrastructure",
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g2"
+          ]
+        },
+        {
+          "concepts": [
+            "database.postgresql"
+          ],
+          "category": "database",
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g3"
+          ]
+        },
+        {
+          "concepts": [
+            "cloud.aws",
+            "unresolved:azure"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g4"
+          ]
+        }
+      ],
+      "candidates": {
+        "three_plus_azure_truth": {
+          "production_row_status": [
+            "supported",
+            "supported",
+            "supported",
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.python": true
+            },
+            "g2": {
+              "infra.docker": true
+            },
+            "g3": {
+              "database.postgresql": true
+            },
+            "g4": {
+              "cloud.aws": false,
+              "unresolved:azure": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    2
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g4": {
+                  "rows": [
+                    3
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 3,
+              "assessable": 3,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    2
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g4": {
+                  "rows": [
+                    3
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 3,
+              "assessable": 3,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    2
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g4": {
+                  "rows": [
+                    3
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 3,
+              "assessable": 3,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    2
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g4": {
+                  "rows": [
+                    3
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "all_four_with_aws": {
+          "production_row_status": [
+            "supported",
+            "supported",
+            "supported",
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.python": true
+            },
+            "g2": {
+              "infra.docker": true
+            },
+            "g3": {
+              "database.postgresql": true
+            },
+            "g4": {
+              "cloud.aws": true,
+              "unresolved:azure": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    2
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g4": {
+                  "rows": [
+                    3
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 3,
+              "assessable": 3,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    2
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g4": {
+                  "rows": [
+                    3
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    2
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g4": {
+                  "rows": [
+                    3
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 3,
+              "assessable": 3,
+              "per_gold": {
+                "g1": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g2": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    2
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g4": {
+                  "rows": [
+                    3
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "m11g15-P1": {
+      "rows": [
+        {
+          "concepts": [
+            "infra.kubernetes"
+          ],
+          "category": "infrastructure",
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": false,
+          "covers_gold": [
+            "g2"
+          ]
+        },
+        {
+          "concepts": [
+            "cloud.aws",
+            "unresolved:azure",
+            "unresolved:gcp"
+          ],
+          "category": null,
+          "necessity": "required",
+          "observability": "STRONGLY_OBSERVABLE",
+          "has_unresolved_member": true,
+          "covers_gold": [
+            "g3"
+          ]
+        }
+      ],
+      "candidates": {
+        "nothing": {
+          "production_row_status": [
+            "not_observed",
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.go": false
+            },
+            "g2": {
+              "infra.kubernetes": false
+            },
+            "g3": {
+              "cloud.aws": false,
+              "unresolved:azure": false,
+              "unresolved:gcp": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "go_only": {
+          "production_row_status": [
+            "not_observed",
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.go": true
+            },
+            "g2": {
+              "infra.kubernetes": false
+            },
+            "g3": {
+              "cloud.aws": false,
+              "unresolved:azure": false,
+              "unresolved:gcp": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "go_k8s": {
+          "production_row_status": [
+            "supported",
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.go": true
+            },
+            "g2": {
+              "infra.kubernetes": true
+            },
+            "g3": {
+              "cloud.aws": false,
+              "unresolved:azure": false,
+              "unresolved:gcp": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "go_k8s_aws": {
+          "production_row_status": [
+            "supported",
+            "supported"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.go": true
+            },
+            "g2": {
+              "infra.kubernetes": true
+            },
+            "g3": {
+              "cloud.aws": true,
+              "unresolved:azure": false,
+              "unresolved:gcp": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 100,
+              "supported": 2,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 2,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        },
+        "go_k8s_gcp_truth": {
+          "production_row_status": [
+            "supported",
+            "not_observed"
+          ],
+          "member_evidence": {
+            "g1": {
+              "language.go": true
+            },
+            "g2": {
+              "infra.kubernetes": true
+            },
+            "g3": {
+              "cloud.aws": false,
+              "unresolved:azure": false,
+              "unresolved:gcp": false
+            }
+          },
+          "policies": {
+            "A_production": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_observed",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                }
+              }
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1,
+              "per_gold": {
+                "g1": {
+                  "rows": [],
+                  "status": "unrepresented",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                },
+                "g2": {
+                  "rows": [
+                    0
+                  ],
+                  "status": "supported",
+                  "counted_rows": 1,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": true
+                },
+                "g3": {
+                  "rows": [
+                    1
+                  ],
+                  "status": "not_assessable",
+                  "counted_rows": 0,
+                  "merged_with_other_gold": false,
+                  "support_from_other_requirement": false,
+                  "diagnostic_retained": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "frozen_8c_matrices": {
+    "8c:v1": {
+      "pairs_evaluated": 12,
+      "pairs": [
+        {
+          "candidate": "karpathy",
+          "job_id": "ml_engineering_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4
+            },
+            "C_partial_state": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 75,
+            "supported": 3,
+            "assessable": 4
+          }
+        },
+        {
+          "candidate": "karpathy",
+          "job_id": "computer_vision_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 100,
+            "supported": 4,
+            "assessable": 4
+          }
+        },
+        {
+          "candidate": "karpathy",
+          "job_id": "frontend_01",
+          "or_groups_with_unresolved_member": 1,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 50,
+              "supported": 3,
+              "assessable": 6
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 60,
+              "supported": 3,
+              "assessable": 5
+            },
+            "C_partial_state": {
+              "score": 60,
+              "supported": 3,
+              "assessable": 5
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 60,
+              "supported": 3,
+              "assessable": 5
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 60,
+            "supported": 3,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "torvalds",
+          "job_id": "systems_cpp_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 67,
+              "supported": 2,
+              "assessable": 3
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 67,
+              "supported": 2,
+              "assessable": 3
+            },
+            "C_partial_state": {
+              "score": 67,
+              "supported": 2,
+              "assessable": 3
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 67,
+              "supported": 2,
+              "assessable": 3
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 67,
+            "supported": 2,
+            "assessable": 3
+          }
+        },
+        {
+          "candidate": "torvalds",
+          "job_id": "embedded_firmware_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 3,
+          "scores": {
+            "A_production": {
+              "score": 20,
+              "supported": 1,
+              "assessable": 5
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2
+            },
+            "C_partial_state": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 20,
+            "supported": 1,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "torvalds",
+          "job_id": "data_science_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 1,
+          "scores": {
+            "A_production": {
+              "score": 20,
+              "supported": 1,
+              "assessable": 5
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 25,
+              "supported": 1,
+              "assessable": 4
+            },
+            "C_partial_state": {
+              "score": 25,
+              "supported": 1,
+              "assessable": 4
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 25,
+              "supported": 1,
+              "assessable": 4
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 20,
+            "supported": 1,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "sindresorhus",
+          "job_id": "frontend_01",
+          "or_groups_with_unresolved_member": 1,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 67,
+              "supported": 4,
+              "assessable": 6
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 80,
+              "supported": 4,
+              "assessable": 5
+            },
+            "C_partial_state": {
+              "score": 80,
+              "supported": 4,
+              "assessable": 5
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 80,
+              "supported": 4,
+              "assessable": 5
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 80,
+            "supported": 4,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "sindresorhus",
+          "job_id": "fullstack_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 57,
+              "supported": 4,
+              "assessable": 7
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 57,
+              "supported": 4,
+              "assessable": 7
+            },
+            "C_partial_state": {
+              "score": 57,
+              "supported": 4,
+              "assessable": 7
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 57,
+              "supported": 4,
+              "assessable": 7
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 57,
+            "supported": 4,
+            "assessable": 7
+          }
+        },
+        {
+          "candidate": "sindresorhus",
+          "job_id": "robotics_controls_01",
+          "or_groups_with_unresolved_member": 1,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 25,
+              "supported": 1,
+              "assessable": 4
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 33,
+              "supported": 1,
+              "assessable": 3
+            },
+            "C_partial_state": {
+              "score": 33,
+              "supported": 1,
+              "assessable": 3
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 33,
+              "supported": 1,
+              "assessable": 3
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 33,
+            "supported": 1,
+            "assessable": 3
+          }
+        },
+        {
+          "candidate": "Jango1324",
+          "job_id": "embedded_firmware_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 3,
+          "scores": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 5
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 2
+            },
+            "C_partial_state": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 2
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 2
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 0,
+            "supported": 0,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "Jango1324",
+          "job_id": "ml_engineering_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 50,
+              "supported": 2,
+              "assessable": 4
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 50,
+              "supported": 2,
+              "assessable": 4
+            },
+            "C_partial_state": {
+              "score": 50,
+              "supported": 2,
+              "assessable": 4
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 50,
+              "supported": 2,
+              "assessable": 4
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 50,
+            "supported": 2,
+            "assessable": 4
+          }
+        },
+        {
+          "candidate": "Jango1324",
+          "job_id": "general_swe_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 100,
+            "supported": 1,
+            "assessable": 1
+          }
+        }
+      ],
+      "pairs_with_changed_alignment_vs_production": {
+        "B_exclude_unresolved_groups": {
+          "count": 5,
+          "ids": [
+            "karpathy/frontend_01",
+            "torvalds/embedded_firmware_01",
+            "torvalds/data_science_01",
+            "sindresorhus/frontend_01",
+            "sindresorhus/robotics_controls_01"
+          ]
+        },
+        "C_partial_state": {
+          "count": 5,
+          "ids": [
+            "karpathy/frontend_01",
+            "torvalds/embedded_firmware_01",
+            "torvalds/data_science_01",
+            "sindresorhus/frontend_01",
+            "sindresorhus/robotics_controls_01"
+          ]
+        },
+        "D_parser_unsafe_fallback": {
+          "count": 5,
+          "ids": [
+            "karpathy/frontend_01",
+            "torvalds/embedded_firmware_01",
+            "torvalds/data_science_01",
+            "sindresorhus/frontend_01",
+            "sindresorhus/robotics_controls_01"
+          ]
+        }
+      },
+      "pairs_changed_by_or_groups_alone": {
+        "count": 3,
+        "ids": [
+          "karpathy/frontend_01",
+          "sindresorhus/frontend_01",
+          "sindresorhus/robotics_controls_01"
+        ]
+      }
+    },
+    "8c:v1.1": {
+      "pairs_evaluated": 12,
+      "pairs": [
+        {
+          "candidate": "karpathy",
+          "job_id": "ml_engineering_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4
+            },
+            "C_partial_state": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 75,
+              "supported": 3,
+              "assessable": 4
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 75,
+            "supported": 3,
+            "assessable": 4
+          }
+        },
+        {
+          "candidate": "karpathy",
+          "job_id": "computer_vision_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 4,
+              "assessable": 4
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 100,
+            "supported": 4,
+            "assessable": 4
+          }
+        },
+        {
+          "candidate": "karpathy",
+          "job_id": "frontend_01",
+          "or_groups_with_unresolved_member": 1,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 50,
+              "supported": 3,
+              "assessable": 6
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 60,
+              "supported": 3,
+              "assessable": 5
+            },
+            "C_partial_state": {
+              "score": 60,
+              "supported": 3,
+              "assessable": 5
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 60,
+              "supported": 3,
+              "assessable": 5
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 60,
+            "supported": 3,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "torvalds",
+          "job_id": "systems_cpp_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 67,
+              "supported": 2,
+              "assessable": 3
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 67,
+              "supported": 2,
+              "assessable": 3
+            },
+            "C_partial_state": {
+              "score": 67,
+              "supported": 2,
+              "assessable": 3
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 67,
+              "supported": 2,
+              "assessable": 3
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 67,
+            "supported": 2,
+            "assessable": 3
+          }
+        },
+        {
+          "candidate": "torvalds",
+          "job_id": "embedded_firmware_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 3,
+          "scores": {
+            "A_production": {
+              "score": 20,
+              "supported": 1,
+              "assessable": 5
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2
+            },
+            "C_partial_state": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 50,
+              "supported": 1,
+              "assessable": 2
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 20,
+            "supported": 1,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "torvalds",
+          "job_id": "data_science_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 1,
+          "scores": {
+            "A_production": {
+              "score": 20,
+              "supported": 1,
+              "assessable": 5
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 25,
+              "supported": 1,
+              "assessable": 4
+            },
+            "C_partial_state": {
+              "score": 25,
+              "supported": 1,
+              "assessable": 4
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 25,
+              "supported": 1,
+              "assessable": 4
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 20,
+            "supported": 1,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "sindresorhus",
+          "job_id": "frontend_01",
+          "or_groups_with_unresolved_member": 1,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 67,
+              "supported": 4,
+              "assessable": 6
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 80,
+              "supported": 4,
+              "assessable": 5
+            },
+            "C_partial_state": {
+              "score": 80,
+              "supported": 4,
+              "assessable": 5
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 80,
+              "supported": 4,
+              "assessable": 5
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 80,
+            "supported": 4,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "sindresorhus",
+          "job_id": "fullstack_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 57,
+              "supported": 4,
+              "assessable": 7
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 57,
+              "supported": 4,
+              "assessable": 7
+            },
+            "C_partial_state": {
+              "score": 57,
+              "supported": 4,
+              "assessable": 7
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 57,
+              "supported": 4,
+              "assessable": 7
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 57,
+            "supported": 4,
+            "assessable": 7
+          }
+        },
+        {
+          "candidate": "sindresorhus",
+          "job_id": "robotics_controls_01",
+          "or_groups_with_unresolved_member": 1,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 25,
+              "supported": 1,
+              "assessable": 4
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 33,
+              "supported": 1,
+              "assessable": 3
+            },
+            "C_partial_state": {
+              "score": 33,
+              "supported": 1,
+              "assessable": 3
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 33,
+              "supported": 1,
+              "assessable": 3
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 33,
+            "supported": 1,
+            "assessable": 3
+          }
+        },
+        {
+          "candidate": "Jango1324",
+          "job_id": "embedded_firmware_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 3,
+          "scores": {
+            "A_production": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 5
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 2
+            },
+            "C_partial_state": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 2
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 0,
+              "supported": 0,
+              "assessable": 2
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 0,
+            "supported": 0,
+            "assessable": 5
+          }
+        },
+        {
+          "candidate": "Jango1324",
+          "job_id": "ml_engineering_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 50,
+              "supported": 2,
+              "assessable": 4
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 50,
+              "supported": 2,
+              "assessable": 4
+            },
+            "C_partial_state": {
+              "score": 50,
+              "supported": 2,
+              "assessable": 4
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 50,
+              "supported": 2,
+              "assessable": 4
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 50,
+            "supported": 2,
+            "assessable": 4
+          }
+        },
+        {
+          "candidate": "Jango1324",
+          "job_id": "general_swe_01",
+          "or_groups_with_unresolved_member": 0,
+          "single_unresolved_concept_rows": 0,
+          "scores": {
+            "A_production": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1
+            },
+            "B_exclude_unresolved_groups": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1
+            },
+            "C_partial_state": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1
+            },
+            "D_parser_unsafe_fallback": {
+              "score": 100,
+              "supported": 1,
+              "assessable": 1
+            }
+          },
+          "attribution_B_applied_to_or_groups_only": {
+            "score": 100,
+            "supported": 1,
+            "assessable": 1
+          }
+        }
+      ],
+      "pairs_with_changed_alignment_vs_production": {
+        "B_exclude_unresolved_groups": {
+          "count": 5,
+          "ids": [
+            "karpathy/frontend_01",
+            "torvalds/embedded_firmware_01",
+            "torvalds/data_science_01",
+            "sindresorhus/frontend_01",
+            "sindresorhus/robotics_controls_01"
+          ]
+        },
+        "C_partial_state": {
+          "count": 5,
+          "ids": [
+            "karpathy/frontend_01",
+            "torvalds/embedded_firmware_01",
+            "torvalds/data_science_01",
+            "sindresorhus/frontend_01",
+            "sindresorhus/robotics_controls_01"
+          ]
+        },
+        "D_parser_unsafe_fallback": {
+          "count": 5,
+          "ids": [
+            "karpathy/frontend_01",
+            "torvalds/embedded_firmware_01",
+            "torvalds/data_science_01",
+            "sindresorhus/frontend_01",
+            "sindresorhus/robotics_controls_01"
+          ]
+        }
+      },
+      "pairs_changed_by_or_groups_alone": {
+        "count": 3,
+        "ids": [
+          "karpathy/frontend_01",
+          "sindresorhus/frontend_01",
+          "sindresorhus/robotics_controls_01"
+        ]
+      }
+    }
+  }
+}

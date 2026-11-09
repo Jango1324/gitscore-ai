@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g15/or_scoring_controls.json",
+  "sha256": "cd015c9608f06f8e24899708f068a0045c6866bdd7ed708f966a2d82a0433fc7",
+  "sha256_lf_normalized": "cd015c9608f06f8e24899708f068a0045c6866bdd7ed708f966a2d82a0433fc7",
+  "length_bytes": 45775,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-09T06:37:26Z",
+  "note": "Frozen BEFORE the production matcher/assessor or any policy simulation ran on these controls."
+}

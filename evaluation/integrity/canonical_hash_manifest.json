@@ -28,6 +28,14 @@
       "canonical_length_bytes": 102616,
       "attested_from_commit": "80bb294b477ffbae936e376351c0433e47ab2713"
     },
+    "evaluation/m11g15/or_scoring_controls.json": {
+      "freeze_record": "evaluation/m11g15/controls_hash_freeze.json",
+      "historical_raw_sha256": "cd015c9608f06f8e24899708f068a0045c6866bdd7ed708f966a2d82a0433fc7",
+      "historical_newline_form": "lf",
+      "canonical_sha256": "cd015c9608f06f8e24899708f068a0045c6866bdd7ed708f966a2d82a0433fc7",
+      "canonical_length_bytes": 45775,
+      "attested_from_commit": "staged-for-commit-on-parent-9c82073012b2173c1046e908a671510fbeca45e1"
+    },
     "evaluation/m11g2/section_context_controls.json": {
       "freeze_record": "evaluation/m11g2/controls_hash_freeze.json",
       "historical_raw_sha256": "7b21d2e0b1cbfd2be007e95996543fb6bd506bce52f318262acf5e6e2afad6e0",

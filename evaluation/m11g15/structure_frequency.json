@@ -1,0 +1,91 @@
+{
+  "note": "aggregate counts of live parser v12 output; 'or_groups_possible_and_or_mixing' is a lexical flag (an 'and' inside the OR group's source span), not a confirmed flattening",
+  "tracked": {
+    "evaluation_jobs_8c_corpus": {
+      "postings": 15,
+      "rows": 84,
+      "technical_rows": 60,
+      "or_groups": 13,
+      "or_groups_all_registry": 7,
+      "or_groups_with_unresolved_member": 6,
+      "or_groups_mixed_registry_and_unresolved": 3,
+      "or_groups_all_unresolved": 3,
+      "or_groups_possible_and_or_mixing": 0,
+      "unsafe_alternative_fallback_rows": 1,
+      "unresolved_requirement_fallback_rows": 12,
+      "single_unresolved_concept_rows": 4
+    },
+    "m10_tracked_sources": {
+      "postings": 2,
+      "rows": 6,
+      "technical_rows": 2,
+      "or_groups": 2,
+      "or_groups_all_registry": 1,
+      "or_groups_with_unresolved_member": 1,
+      "or_groups_mixed_registry_and_unresolved": 1,
+      "or_groups_all_unresolved": 0,
+      "or_groups_possible_and_or_mixing": 0,
+      "unsafe_alternative_fallback_rows": 0,
+      "unresolved_requirement_fallback_rows": 2,
+      "single_unresolved_concept_rows": 0
+    }
+  },
+  "private_inspected_not_independent": {
+    "m11d": {
+      "postings": 12,
+      "rows": 57,
+      "technical_rows": 14,
+      "or_groups": 2,
+      "or_groups_all_registry": 1,
+      "or_groups_with_unresolved_member": 1,
+      "or_groups_mixed_registry_and_unresolved": 0,
+      "or_groups_all_unresolved": 1,
+      "or_groups_possible_and_or_mixing": 0,
+      "unsafe_alternative_fallback_rows": 7,
+      "unresolved_requirement_fallback_rows": 18,
+      "single_unresolved_concept_rows": 4
+    },
+    "m11f": {
+      "postings": 18,
+      "rows": 111,
+      "technical_rows": 41,
+      "or_groups": 2,
+      "or_groups_all_registry": 1,
+      "or_groups_with_unresolved_member": 1,
+      "or_groups_mixed_registry_and_unresolved": 1,
+      "or_groups_all_unresolved": 0,
+      "or_groups_possible_and_or_mixing": 2,
+      "unsafe_alternative_fallback_rows": 5,
+      "unresolved_requirement_fallback_rows": 27,
+      "single_unresolved_concept_rows": 17
+    },
+    "m11g5": {
+      "postings": 18,
+      "rows": 122,
+      "technical_rows": 54,
+      "or_groups": 5,
+      "or_groups_all_registry": 2,
+      "or_groups_with_unresolved_member": 3,
+      "or_groups_mixed_registry_and_unresolved": 3,
+      "or_groups_all_unresolved": 0,
+      "or_groups_possible_and_or_mixing": 1,
+      "unsafe_alternative_fallback_rows": 10,
+      "unresolved_requirement_fallback_rows": 25,
+      "single_unresolved_concept_rows": 22
+    },
+    "m11g9": {
+      "postings": 14,
+      "rows": 89,
+      "technical_rows": 34,
+      "or_groups": 1,
+      "or_groups_all_registry": 0,
+      "or_groups_with_unresolved_member": 1,
+      "or_groups_mixed_registry_and_unresolved": 1,
+      "or_groups_all_unresolved": 0,
+      "or_groups_possible_and_or_mixing": 0,
+      "unsafe_alternative_fallback_rows": 7,
+      "unresolved_requirement_fallback_rows": 19,
+      "single_unresolved_concept_rows": 23
+    }
+  }
+}

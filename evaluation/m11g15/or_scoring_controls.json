@@ -1,0 +1,1517 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G15",
+  "provenance": "original synthetic text and candidates authored for M11-G15; no real or private posting",
+  "authorship_disclosure": "same author as the G10-G14 research; not independently annotated",
+  "categories": {
+    "satisfied_by_observed_evidence": "an acceptable alternative has observed GitHub evidence",
+    "not_observed_fully_assessable": "every alternative is evidenceable and none has evidence",
+    "partially_observable_no_positive_evidence": "some alternative can never be evidenced and no evidenceable alternative has evidence -- absence proves nothing",
+    "completely_non_assessable": "no alternative can ever be evidenced",
+    "structurally_ambiguous": "the logical grouping itself cannot be determined from the text",
+    "unsupported_related_evidence_only": "evidence exists only for a related concept that is NOT an acceptable alternative (related is never entailment)"
+  },
+  "member_evidenceability_vocabulary": [
+    "registry",
+    "language_stats",
+    "none",
+    "non_technical"
+  ],
+  "controls": [
+    {
+      "id": "m11g15-A1",
+      "case": "A",
+      "description": "Two assessable alternatives, one supported.",
+      "job_text": "Experience with Docker or Kubernetes is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Docker or Kubernetes",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "docker_evidence",
+          "evidence": [
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "infra.docker"
+          ]
+        }
+      ],
+      "expected": {
+        "docker_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-B1",
+      "case": "B",
+      "description": "Two assessable alternatives, neither supported.",
+      "job_text": "Experience with Docker or Kubernetes is preferred.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Docker or Kubernetes",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "or",
+          "necessity": "preferred",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "no_evidence",
+          "evidence": [],
+          "true_competencies": []
+        },
+        {
+          "name": "knows_k8s_no_evidence",
+          "evidence": [],
+          "true_competencies": [
+            "infra.kubernetes"
+          ]
+        }
+      ],
+      "expected": {
+        "no_evidence": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          }
+        },
+        "knows_k8s_no_evidence": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": true,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-C1",
+      "case": "C",
+      "description": "Assessable + non-assessable; assessable branch supported.",
+      "job_text": "Experience with AWS or Azure is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with AWS or Azure",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "aws_evidence",
+          "evidence": [
+            "cloud.aws"
+          ],
+          "true_competencies": [
+            "cloud.aws"
+          ]
+        }
+      ],
+      "expected": {
+        "aws_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-D1",
+      "case": "D",
+      "description": "Assessable + non-assessable; no evidence for the assessable branch.",
+      "job_text": "Experience with AWS or Azure is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with AWS or Azure",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "azure_only_truth",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        },
+        {
+          "name": "neither",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "azure_only_truth": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        },
+        "neither": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": false,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-E1",
+      "case": "E",
+      "description": "Two non-assessable alternatives.",
+      "job_text": "Experience with Azure or GCP is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Azure or GCP",
+          "members": [
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            },
+            {
+              "concept_id": "unresolved:gcp",
+              "surface": "GCP",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "azure_truth",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        },
+        {
+          "name": "neither",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "azure_truth": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_ASSESSABLE"
+          }
+        },
+        "neither": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_ASSESSABLE"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-F1",
+      "case": "F",
+      "description": "Three alternatives with mixed observability (registry, none, language statistics).",
+      "job_text": "Experience with at least one of AWS, Azure, or Elixir is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "at least one of AWS, Azure, or Elixir",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            },
+            {
+              "concept_id": "unresolved:elixir",
+              "surface": "Elixir",
+              "evidenceability": "language_stats"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "elixir_language_evidence",
+          "evidence": [
+            "unresolved:elixir"
+          ],
+          "true_competencies": [
+            "unresolved:elixir"
+          ]
+        },
+        {
+          "name": "azure_only_truth",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        },
+        {
+          "name": "neither",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "elixir_language_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        },
+        "azure_only_truth": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        },
+        "neither": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": false,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-G1",
+      "case": "G",
+      "description": "Single unresolved, non-evidenceable concept.",
+      "job_text": "Experience with Terraform is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Terraform",
+          "members": [
+            {
+              "concept_id": "unresolved:terraform",
+              "surface": "Terraform",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "terraform_truth",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:terraform"
+          ]
+        }
+      ],
+      "expected": {
+        "terraform_truth": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_ASSESSABLE"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-G2",
+      "case": "G",
+      "description": "Single unresolved concept that IS evidenceable through language statistics.",
+      "job_text": "Experience with Elixir is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Elixir",
+          "members": [
+            {
+              "concept_id": "unresolved:elixir",
+              "surface": "Elixir",
+              "evidenceability": "language_stats"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "elixir_language_evidence",
+          "evidence": [
+            "unresolved:elixir"
+          ],
+          "true_competencies": [
+            "unresolved:elixir"
+          ]
+        },
+        {
+          "name": "neither",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "elixir_language_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        },
+        "neither": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-G3",
+      "case": "G",
+      "description": "OR group of two unresolved languages, both evidenceable through language statistics.",
+      "job_text": "Experience with Elixir or Zig is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Elixir or Zig",
+          "members": [
+            {
+              "concept_id": "unresolved:elixir",
+              "surface": "Elixir",
+              "evidenceability": "language_stats"
+            },
+            {
+              "concept_id": "unresolved:zig",
+              "surface": "Zig",
+              "evidenceability": "language_stats"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "zig_language_evidence",
+          "evidence": [
+            "unresolved:zig"
+          ],
+          "true_competencies": [
+            "unresolved:zig"
+          ]
+        },
+        {
+          "name": "neither",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "zig_language_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        },
+        "neither": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-H1",
+      "case": "H",
+      "description": "PREFERRED mixed-observability group (sub-score tier).",
+      "job_text": "Experience with AWS or Azure is preferred.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with AWS or Azure",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "preferred",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "azure_only_truth",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        },
+        {
+          "name": "aws_evidence",
+          "evidence": [
+            "cloud.aws"
+          ],
+          "true_competencies": [
+            "cloud.aws"
+          ]
+        }
+      ],
+      "expected": {
+        "azure_only_truth": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        },
+        "aws_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-I1",
+      "case": "I",
+      "description": "Equivalent aliases of one concept (not distinct alternatives).",
+      "job_text": "Experience with Kubernetes or k8s is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Kubernetes or k8s",
+          "members": [
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "alias",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "k8s_evidence",
+          "evidence": [
+            "infra.kubernetes"
+          ],
+          "true_competencies": [
+            "infra.kubernetes"
+          ]
+        },
+        {
+          "name": "neither",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "k8s_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        },
+        "neither": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-I2",
+      "case": "I",
+      "description": "Non-technical alternative beside a technical one.",
+      "job_text": "Experience with Docker or a security clearance is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Docker or a security clearance",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "non_technical:security_clearance",
+              "surface": "a security clearance",
+              "evidenceability": "non_technical"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "docker_evidence",
+          "evidence": [
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "infra.docker"
+          ]
+        },
+        {
+          "name": "clearance_only_truth",
+          "evidence": [],
+          "true_competencies": [
+            "non_technical:security_clearance"
+          ]
+        }
+      ],
+      "expected": {
+        "docker_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        },
+        "clearance_only_truth": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-J1",
+      "case": "J",
+      "description": "AND requirement: two separate requirements.",
+      "job_text": "Experience with Python and Docker is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_only",
+          "evidence": [
+            "language.python"
+          ],
+          "true_competencies": [
+            "language.python"
+          ]
+        }
+      ],
+      "expected": {
+        "python_only": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-K1",
+      "case": "K",
+      "description": "Nested AND/OR: (Docker or Kubernetes) AND Python.",
+      "job_text": "Experience with Docker or Kubernetes, and Python, is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Docker or Kubernetes",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_only",
+          "evidence": [
+            "language.python"
+          ],
+          "true_competencies": [
+            "language.python"
+          ]
+        },
+        {
+          "name": "docker_and_python",
+          "evidence": [
+            "infra.docker",
+            "language.python"
+          ],
+          "true_competencies": [
+            "infra.docker",
+            "language.python"
+          ]
+        }
+      ],
+      "expected": {
+        "python_only": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        },
+        "docker_and_python": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-L1",
+      "case": "L",
+      "description": "'A, B or C' list whose grouping is ambiguous.",
+      "job_text": "Experience with Docker, Kubernetes or Terraform is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Docker, Kubernetes or Terraform",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:terraform",
+              "surface": "Terraform",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "ambiguous_list",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "docker_evidence",
+          "evidence": [
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "infra.docker"
+          ]
+        }
+      ],
+      "expected": {
+        "docker_evidence": {
+          "g1": {
+            "category": "structurally_ambiguous",
+            "truth_satisfied": null,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "no status for 'grouping undetermined'; NOT_ASSESSABLE is the closest safe one"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-M1",
+      "case": "M",
+      "description": "Evidence belongs to a different, related requirement.",
+      "job_text": "Kubernetes experience is required. Docker experience is a plus.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Kubernetes experience",
+          "members": [
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": [
+            "infra.docker"
+          ]
+        },
+        {
+          "gid": "g2",
+          "span_text": "Docker experience",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "preferred",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "docker_only",
+          "evidence": [
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "infra.docker"
+          ]
+        }
+      ],
+      "expected": {
+        "docker_only": {
+          "g1": {
+            "category": "unsupported_related_evidence_only",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED (the related evidence must not count)"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-N1",
+      "case": "N",
+      "description": "Duplicate alternative and duplicate evidence.",
+      "job_text": "Experience with Python or Go or Python is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Experience with Python or Go or Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "language.go",
+              "surface": "Go",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_duplicate_evidence",
+          "evidence": [
+            "language.python",
+            "language.python"
+          ],
+          "true_competencies": [
+            "language.python"
+          ]
+        }
+      ],
+      "expected": {
+        "python_duplicate_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-O1",
+      "case": "O",
+      "description": "Mixed-observability OR group alongside unrelated fully assessable requirements.",
+      "job_text": "Required:\n- Python\n- Docker\n- PostgreSQL\n- AWS or Azure",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "PostgreSQL",
+          "members": [
+            {
+              "concept_id": "database.postgresql",
+              "surface": "PostgreSQL",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g4",
+          "span_text": "AWS or Azure",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "three_plus_azure_truth",
+          "evidence": [
+            "language.python",
+            "infra.docker",
+            "database.postgresql"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker",
+            "database.postgresql",
+            "unresolved:azure"
+          ]
+        },
+        {
+          "name": "all_four_with_aws",
+          "evidence": [
+            "language.python",
+            "infra.docker",
+            "database.postgresql",
+            "cloud.aws"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker",
+            "database.postgresql",
+            "cloud.aws"
+          ]
+        }
+      ],
+      "expected": {
+        "three_plus_azure_truth": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g4": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        },
+        "all_four_with_aws": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g4": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g15-P1",
+      "case": "P",
+      "description": "Identical job, varying candidate evidence.",
+      "job_text": "Required:\n- Go\n- Kubernetes\n- AWS, Azure or GCP experience",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Go",
+          "members": [
+            {
+              "concept_id": "language.go",
+              "surface": "Go",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Kubernetes",
+          "members": [
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "AWS, Azure or GCP experience",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            },
+            {
+              "concept_id": "unresolved:gcp",
+              "surface": "GCP",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "nothing",
+          "evidence": [],
+          "true_competencies": []
+        },
+        {
+          "name": "go_only",
+          "evidence": [
+            "language.go"
+          ],
+          "true_competencies": [
+            "language.go"
+          ]
+        },
+        {
+          "name": "go_k8s",
+          "evidence": [
+            "language.go",
+            "infra.kubernetes"
+          ],
+          "true_competencies": [
+            "language.go",
+            "infra.kubernetes"
+          ]
+        },
+        {
+          "name": "go_k8s_aws",
+          "evidence": [
+            "language.go",
+            "infra.kubernetes",
+            "cloud.aws"
+          ],
+          "true_competencies": [
+            "language.go",
+            "infra.kubernetes",
+            "cloud.aws"
+          ]
+        },
+        {
+          "name": "go_k8s_gcp_truth",
+          "evidence": [
+            "language.go",
+            "infra.kubernetes"
+          ],
+          "true_competencies": [
+            "language.go",
+            "infra.kubernetes",
+            "unresolved:gcp"
+          ]
+        }
+      ],
+      "expected": {
+        "nothing": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          },
+          "g3": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": false,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        },
+        "go_only": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "negative_decidable": true,
+            "positive_observed": false,
+            "match_status_representable": true,
+            "closest_public_status": "NOT_OBSERVED"
+          },
+          "g3": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": false,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        },
+        "go_k8s": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g3": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": false,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        },
+        "go_k8s_aws": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          }
+        },
+        "go_k8s_gcp_truth": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": true,
+            "match_status_representable": true,
+            "closest_public_status": "SUPPORTED"
+          },
+          "g3": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "negative_decidable": false,
+            "positive_observed": false,
+            "match_status_representable": false,
+            "closest_public_status": "NOT_OBSERVED overclaims a decidable negative; NOT_ASSESSABLE hides that part is checkable"
+          }
+        }
+      }
+    }
+  ]
+}
