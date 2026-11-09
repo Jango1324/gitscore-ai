@@ -1,0 +1,82 @@
+{
+  "head": "1faf5d78bda680c2c6bde59970265a33caa9be82",
+  "note": "patches applied ONLY to throwaway clones; repository untouched",
+  "head_identity_guards": [
+    "test_g10_g11_g12_and_production_unchanged",
+    "test_no_production_change_and_no_production_import"
+  ],
+  "options": {
+    "baseline_unpatched_clone": {
+      "files_patched": [],
+      "suite": "2008 passed, 37 skipped, 18 xfailed, 70 warnings in 58.11s",
+      "failed_tests": [],
+      "head_identity_guard_failures": 0,
+      "behavioural_failures": [],
+      "behavioural_failure_files": []
+    },
+    "B_or_groups_only (G15 scope)": {
+      "files_patched": [
+        "src/gitscore/assessment/models.py"
+      ],
+      "suite": "7 failed, 2001 passed, 37 skipped, 18 xfailed, 70 warnings in 56.07s",
+      "failed_tests": [
+        "tests/test_assessment_engine.py::test_or_group_counts_as_exactly_one_assessable_requirement",
+        "tests/test_m11g13_generalization_and_or_contract.py::test_g10_g11_g12_and_production_unchanged",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_no_production_change_and_no_production_import",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_policy_a_score_equals_the_real_assessor",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_report_is_reproducible",
+        "tests/test_m11g16_compound_requirement_logic.py::test_no_production_change_and_no_production_import",
+        "tests/test_m11g16_compound_requirement_logic.py::test_report_is_reproducible"
+      ],
+      "head_identity_guard_failures": 3,
+      "behavioural_failures": [
+        "tests/test_assessment_engine.py::test_or_group_counts_as_exactly_one_assessable_requirement",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_policy_a_score_equals_the_real_assessor",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_report_is_reproducible",
+        "tests/test_m11g16_compound_requirement_logic.py::test_report_is_reproducible"
+      ],
+      "behavioural_failure_files": [
+        "tests/test_assessment_engine.py",
+        "tests/test_m11g15_mixed_observability_or_scoring.py",
+        "tests/test_m11g16_compound_requirement_logic.py"
+      ]
+    },
+    "B_equals_C_declared (OR groups + standalone)": {
+      "files_patched": [
+        "src/gitscore/assessment/models.py"
+      ],
+      "suite": "12 failed, 1996 passed, 37 skipped, 18 xfailed, 70 warnings in 54.62s",
+      "failed_tests": [
+        "tests/test_assessment_engine.py::test_adversarial_case_strong_headline_despite_zero_required_support",
+        "tests/test_assessment_engine.py::test_alignment_score_bounds",
+        "tests/test_assessment_engine.py::test_half_up_rounding_62_5_rounds_up_to_63",
+        "tests/test_assessment_engine.py::test_half_up_rounding_72_5_rounds_up_to_73",
+        "tests/test_assessment_engine.py::test_or_group_counts_as_exactly_one_assessable_requirement",
+        "tests/test_assessment_engine.py::test_unresolved_concept_requirement_scored_like_any_other",
+        "tests/test_m11g13_generalization_and_or_contract.py::test_g10_g11_g12_and_production_unchanged",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_no_production_change_and_no_production_import",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_policy_a_score_equals_the_real_assessor",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_report_is_reproducible",
+        "tests/test_m11g16_compound_requirement_logic.py::test_no_production_change_and_no_production_import",
+        "tests/test_m11g16_compound_requirement_logic.py::test_report_is_reproducible"
+      ],
+      "head_identity_guard_failures": 3,
+      "behavioural_failures": [
+        "tests/test_assessment_engine.py::test_adversarial_case_strong_headline_despite_zero_required_support",
+        "tests/test_assessment_engine.py::test_alignment_score_bounds",
+        "tests/test_assessment_engine.py::test_half_up_rounding_62_5_rounds_up_to_63",
+        "tests/test_assessment_engine.py::test_half_up_rounding_72_5_rounds_up_to_73",
+        "tests/test_assessment_engine.py::test_or_group_counts_as_exactly_one_assessable_requirement",
+        "tests/test_assessment_engine.py::test_unresolved_concept_requirement_scored_like_any_other",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_policy_a_score_equals_the_real_assessor",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_report_is_reproducible",
+        "tests/test_m11g16_compound_requirement_logic.py::test_report_is_reproducible"
+      ],
+      "behavioural_failure_files": [
+        "tests/test_assessment_engine.py",
+        "tests/test_m11g15_mixed_observability_or_scoring.py",
+        "tests/test_m11g16_compound_requirement_logic.py"
+      ]
+    }
+  }
+}

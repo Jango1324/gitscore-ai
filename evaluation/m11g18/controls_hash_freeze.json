@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g18/eligibility_controls.json",
+  "sha256": "b9f155b2776a151b691a6cf837924d4549278338651a09f7db17a9a9834bf859",
+  "sha256_lf_normalized": "b9f155b2776a151b691a6cf837924d4549278338651a09f7db17a9a9834bf859",
+  "length_bytes": 103822,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-09T22:45:20Z",
+  "note": "Frozen BEFORE the production matcher/assessor or any policy simulation ran on these controls."
+}

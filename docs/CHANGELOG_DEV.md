@@ -1,5 +1,37 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-09 — Milestone 11-G18: observability-aware score eligibility (evaluation only, no production change)
+
+**What changed:** Added an evaluation-only study of which requirements may legitimately enter the
+GitHub Evidence Alignment score. New: frozen controls `evaluation/m11g18/eligibility_controls.json`
+(26 controls, 54 candidate variants, 106 outcomes; G14-portable freeze), builder
+`scripts/evaluation_lib/m11g18_build_controls.py`, capability classifier + policy simulation
+`scripts/evaluation_lib/m11g18_eligibility.py`, runner `scripts/evaluate_m11g18_scoring_eligibility.py`
+(report `evaluation/m11g18/eligibility_report.json`; opt-in counts-only private aggregates), regression
+probe `scripts/evaluation_lib/m11g18_option_regression_probe.py`, 29 focused tests
+`tests/test_m11g18_observability_aware_scoring.py`, and
+`docs/evaluation/MILESTONE_11_G18_OBSERVABILITY_AWARE_SCORING.md`.
+
+**Why:** Production counts every evaluable technical row in the denominator, including mixed OR groups
+("AWS or Azure") and standalone `unresolved:` rows (Terraform, NumPy, SPI) that no extractor can ever
+evidence, so they can only add NOT_OBSERVED. Measured: 27 false NOT_OBSERVED (13 for truly qualified
+candidates) and 33 uncheckable rows counted on the frozen controls; 50 % of technical rows in the
+(previously inspected) private corpora are of this kind.
+
+**How it works:** `concept_capability()` derives ASSESSABLE / NOT_ASSESSABLE / UNRESOLVED from what the
+extractors can emit (registry aliases, README-safe aliases, Docker detector; `unresolved:` ids are
+UNRESOLVED because no GitHub-language vocabulary is declared). A requirement is score-eligible iff every
+member is ASSESSABLE -- candidate-independent. Policies are simulated on real `RequirementMatch`
+results with the unchanged production rounding.
+
+**Risks / limitations:** synthetic controls by the same author; the capability contract excludes genuine
+evidence for unregistered GitHub languages (2/54 synthetic pairs drop); 6/12 frozen 8c pairs would
+change under a future scoring v2. Nothing is implemented: recommendation and approval questions are in
+the milestone document.
+
+**How to test:** `pytest tests/test_m11g18_observability_aware_scoring.py`;
+`python scripts/evaluate_m11g18_scoring_eligibility.py [--private-corpora]`.
+
 ## 2026-11-09 — Milestone 11-G17: compound AND/OR containment (alternatives.py, approved production change)
 
 **What changed:** Parser v12 flattened mixed AND/OR qualifications

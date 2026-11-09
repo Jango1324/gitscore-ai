@@ -1,0 +1,50 @@
+{
+  "note": "previously inspected private postings -- not independent; integer counts only",
+  "m11d": {
+    "postings": 12,
+    "rows_by_eligibility_reason": {
+      "all_members_assessable": 9,
+      "no_concept_mapping": 27,
+      "not_observable": 16,
+      "or_group_without_assessable_member": 1,
+      "standalone": 4
+    },
+    "technical_rows": 14,
+    "technical_rows_excluded_by_capability_contract": 5
+  },
+  "m11f": {
+    "postings": 18,
+    "rows_by_eligibility_reason": {
+      "all_members_assessable": 23,
+      "no_concept_mapping": 34,
+      "not_observable": 37,
+      "standalone": 17
+    },
+    "technical_rows": 40,
+    "technical_rows_excluded_by_capability_contract": 17
+  },
+  "m11g5": {
+    "postings": 18,
+    "rows_by_eligibility_reason": {
+      "all_members_assessable": 29,
+      "mixed_or_group": 3,
+      "no_concept_mapping": 35,
+      "not_observable": 33,
+      "standalone": 22
+    },
+    "technical_rows": 54,
+    "technical_rows_excluded_by_capability_contract": 25
+  },
+  "m11g9": {
+    "postings": 14,
+    "rows_by_eligibility_reason": {
+      "all_members_assessable": 10,
+      "mixed_or_group": 1,
+      "no_concept_mapping": 27,
+      "not_observable": 28,
+      "standalone": 23
+    },
+    "technical_rows": 34,
+    "technical_rows_excluded_by_capability_contract": 24
+  }
+}

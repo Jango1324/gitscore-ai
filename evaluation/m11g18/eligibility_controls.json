@@ -1,0 +1,3526 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G18",
+  "provenance": "original synthetic text and candidates authored for M11-G18; no real or private posting",
+  "authorship_disclosure": "same author as the G10-G17 research; not independently annotated. Job texts were parsed while authoring to confirm each phrasing produces rows; the matcher, assessor and every policy ran only after the freeze.",
+  "categories": {
+    "satisfied_by_observed_evidence": "an acceptable alternative has observed GitHub evidence",
+    "not_observed_fully_assessable": "every alternative is evidenceable and none has evidence",
+    "partially_observable_no_positive_evidence": "some alternative can never be evidenced and no evidenceable alternative has evidence -- absence proves nothing",
+    "completely_non_assessable": "no alternative can ever be evidenced",
+    "structurally_ambiguous": "the logical grouping itself cannot be determined from the text",
+    "unsupported_related_evidence_only": "evidence exists only for a related concept that is NOT an acceptable alternative (related is never entailment)",
+    "compound_logic_contained": "mixed AND/OR claim; G17 contract routes it to a non-scoreable placeholder",
+    "non_technical_claim": "education / soft skill / other claim GitHub evidence cannot speak to",
+    "not_a_requirement": "narrative or company text, not a candidate qualification"
+  },
+  "member_evidenceability_vocabulary": [
+    "registry",
+    "language_stats",
+    "none",
+    "non_technical"
+  ],
+  "structure_vocabulary": [
+    "single",
+    "or",
+    "alias",
+    "ambiguous_list",
+    "compound",
+    "non_technical",
+    "non_requirement"
+  ],
+  "controls": [
+    {
+      "id": "m11g18-01",
+      "family": "or_fully_assessable",
+      "description": "OR of two registered concepts.",
+      "job_text": "Requirements:\n- Experience with Docker or Kubernetes",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Docker or Kubernetes",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "docker",
+          "evidence": [
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "infra.docker"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        },
+        {
+          "name": "k8s_true_no_evidence",
+          "evidence": [],
+          "true_competencies": [
+            "infra.kubernetes"
+          ]
+        }
+      ],
+      "expected": {
+        "docker": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        },
+        "k8s_true_no_evidence": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "docker": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          }
+        },
+        "k8s_true_no_evidence": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-02",
+      "family": "aws_or_azure",
+      "description": "Mixed OR: registered AWS + unregistered, never-evidenceable Azure (REQUIRED).",
+      "job_text": "Requirements:\n- Experience with AWS or Azure",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "AWS or Azure",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "aws",
+          "evidence": [
+            "cloud.aws"
+          ],
+          "true_competencies": [
+            "cloud.aws"
+          ]
+        },
+        {
+          "name": "azure_true_no_evidence",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "aws": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "azure_true_no_evidence": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "aws": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "azure_true_no_evidence": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-03",
+      "family": "aws_or_azure",
+      "description": "Mixed OR, PREFERRED.",
+      "job_text": "Nice to have:\n- Experience with AWS or Azure",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "AWS or Azure",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "preferred",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "aws",
+          "evidence": [
+            "cloud.aws"
+          ],
+          "true_competencies": [
+            "cloud.aws"
+          ]
+        },
+        {
+          "name": "azure_true_no_evidence",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        }
+      ],
+      "expected": {
+        "aws": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "preferred"
+          }
+        },
+        "azure_true_no_evidence": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "preferred"
+          }
+        }
+      },
+      "expected_scores": {
+        "aws": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "azure_true_no_evidence": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-04",
+      "family": "azure_or_gcp",
+      "description": "OR of two never-evidenceable cloud vendors.",
+      "job_text": "Requirements:\n- Experience with Azure or GCP",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Azure or GCP",
+          "members": [
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            },
+            {
+              "concept_id": "unresolved:gcp",
+              "surface": "GCP",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "azure_true_no_evidence",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "azure_true_no_evidence": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "azure_true_no_evidence": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-05",
+      "family": "two_non_assessable",
+      "description": "OR of two unknown tools no extractor emits.",
+      "job_text": "Requirements:\n- Experience with Terraform or Ansible",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Terraform or Ansible",
+          "members": [
+            {
+              "concept_id": "unresolved:terraform",
+              "surface": "Terraform",
+              "evidenceability": "none"
+            },
+            {
+              "concept_id": "unresolved:ansible",
+              "surface": "Ansible",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "terraform_true_no_evidence",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:terraform"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "terraform_true_no_evidence": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "terraform_true_no_evidence": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-06",
+      "family": "unregistered_languages_or",
+      "description": "OR of two GitHub languages outside the registry (language-stats fallback).",
+      "job_text": "Requirements:\n- Experience with Elixir or Zig",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Elixir or Zig",
+          "members": [
+            {
+              "concept_id": "unresolved:elixir",
+              "surface": "Elixir",
+              "evidenceability": "language_stats"
+            },
+            {
+              "concept_id": "unresolved:zig",
+              "surface": "Zig",
+              "evidenceability": "language_stats"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "zig_language_evidence",
+          "evidence": [
+            "unresolved:zig"
+          ],
+          "true_competencies": [
+            "unresolved:zig"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "zig_language_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "zig_language_evidence": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-07",
+      "family": "mixed_registered_and_language",
+      "description": "OR of a registered framework and an unregistered GitHub language.",
+      "job_text": "Requirements:\n- Experience with Vue or React",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Vue or React",
+          "members": [
+            {
+              "concept_id": "unresolved:vue",
+              "surface": "Vue",
+              "evidenceability": "language_stats"
+            },
+            {
+              "concept_id": "framework.react",
+              "surface": "React",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "vue_language_evidence",
+          "evidence": [
+            "unresolved:vue"
+          ],
+          "true_competencies": [
+            "unresolved:vue"
+          ]
+        },
+        {
+          "name": "react",
+          "evidence": [
+            "framework.react"
+          ],
+          "true_competencies": [
+            "framework.react"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "vue_language_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "react": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "vue_language_evidence": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "react": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-08",
+      "family": "standalone_supported",
+      "description": "Standalone registered technology.",
+      "job_text": "Requirements:\n- Experience with PostgreSQL",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "PostgreSQL",
+          "members": [
+            {
+              "concept_id": "database.postgresql",
+              "surface": "PostgreSQL",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "postgres",
+          "evidence": [
+            "database.postgresql"
+          ],
+          "true_competencies": [
+            "database.postgresql"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "postgres": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "postgres": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-09",
+      "family": "standalone_unsupported_tool",
+      "description": "Enumeration with an unknown tool no extractor emits.",
+      "job_text": "Requirements:\n- Python, Terraform, Docker",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Terraform",
+          "members": [
+            {
+              "concept_id": "unresolved:terraform",
+              "surface": "Terraform",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_docker_terraform_true",
+          "evidence": [
+            "language.python",
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker",
+            "unresolved:terraform"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "python_docker_terraform_true": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "python_docker_terraform_true": {
+          "ideal": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          },
+          "declared": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 2,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 2,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-10",
+      "family": "standalone_unregistered_language",
+      "description": "Enumeration with a GitHub language outside the registry.",
+      "job_text": "Requirements:\n- Python, Elixir, Docker",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Elixir",
+          "members": [
+            {
+              "concept_id": "unresolved:elixir",
+              "surface": "Elixir",
+              "evidenceability": "language_stats"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_elixir_evidence",
+          "evidence": [
+            "language.python",
+            "unresolved:elixir"
+          ],
+          "true_competencies": [
+            "language.python",
+            "unresolved:elixir"
+          ]
+        },
+        {
+          "name": "python_docker_elixir_true_no_evidence",
+          "evidence": [
+            "language.python",
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker",
+            "unresolved:elixir"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "python_elixir_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        },
+        "python_docker_elixir_true_no_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "python_elixir_evidence": {
+          "ideal": {
+            "supported": 2,
+            "eligible": 3,
+            "score": 67
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 2,
+            "score": 50
+          }
+        },
+        "python_docker_elixir_true_no_evidence": {
+          "ideal": {
+            "supported": 2,
+            "eligible": 3,
+            "score": 67
+          },
+          "declared": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 3,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 2,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-11",
+      "family": "package_without_detector",
+      "description": "Enumeration with a package the dependency extractor skips.",
+      "job_text": "Requirements:\n- Proficiency in Python, NumPy, and Pandas",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "NumPy",
+          "members": [
+            {
+              "concept_id": "unresolved:numpy",
+              "surface": "NumPy",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "Pandas",
+          "members": [
+            {
+              "concept_id": "data.library.pandas",
+              "surface": "Pandas",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_pandas_numpy_true",
+          "evidence": [
+            "language.python",
+            "data.library.pandas"
+          ],
+          "true_competencies": [
+            "language.python",
+            "data.library.pandas",
+            "unresolved:numpy"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "python_pandas_numpy_true": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "python_pandas_numpy_true": {
+          "ideal": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          },
+          "declared": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 2,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 2,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-12",
+      "family": "hardware_interfaces",
+      "description": "Hardware communication interfaces (never evidenceable).",
+      "job_text": "Requirements:\n- Python, SPI, I2C, UART",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "SPI",
+          "members": [
+            {
+              "concept_id": "unresolved:spi",
+              "surface": "SPI",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "I2C",
+          "members": [
+            {
+              "concept_id": "unresolved:i2c",
+              "surface": "I2C",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g4",
+          "span_text": "UART",
+          "members": [
+            {
+              "concept_id": "unresolved:uart",
+              "surface": "UART",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_and_interfaces_true",
+          "evidence": [
+            "language.python"
+          ],
+          "true_competencies": [
+            "language.python",
+            "unresolved:spi",
+            "unresolved:i2c",
+            "unresolved:uart"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "python_and_interfaces_true": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g4": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g4": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "python_and_interfaces_true": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-13",
+      "family": "hardware_with_prose_unsafe_alias",
+      "description": "Bare 'C' in an enumeration (a prose-unsafe registered alias) next to Verilog and SPI.",
+      "job_text": "Requirements:\n- C, Verilog, SPI",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "C",
+          "members": [
+            {
+              "concept_id": "language.c",
+              "surface": "C",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Verilog",
+          "members": [
+            {
+              "concept_id": "hdl.verilog",
+              "surface": "Verilog",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "SPI",
+          "members": [
+            {
+              "concept_id": "unresolved:spi",
+              "surface": "SPI",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "c_verilog_evidence",
+          "evidence": [
+            "language.c",
+            "hdl.verilog"
+          ],
+          "true_competencies": [
+            "language.c",
+            "hdl.verilog",
+            "unresolved:spi"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "c_verilog_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "c_verilog_evidence": {
+          "ideal": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          },
+          "declared": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 2,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 2,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-14",
+      "family": "non_technical_and_education",
+      "description": "Education and soft skill next to one technology.",
+      "job_text": "Requirements:\n- Bachelor's degree in Computer Science\n- Strong communication skills\n- Experience with Docker",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Bachelor's degree in Computer Science",
+          "members": [
+            {
+              "concept_id": "non_technical:education",
+              "surface": "Bachelor's degree",
+              "evidenceability": "non_technical"
+            }
+          ],
+          "structure": "non_technical",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Strong communication skills",
+          "members": [
+            {
+              "concept_id": "non_technical:communication",
+              "surface": "communication skills",
+              "evidenceability": "non_technical"
+            }
+          ],
+          "structure": "non_technical",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "docker",
+          "evidence": [
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "infra.docker",
+            "non_technical:education"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": [
+            "non_technical:education"
+          ]
+        }
+      ],
+      "expected": {
+        "docker": {
+          "g1": {
+            "category": "non_technical_claim",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "non_technical_claim",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "non_technical_claim",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "non_technical_claim",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "docker": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-15",
+      "family": "duplicate_alternatives",
+      "description": "Two spellings of one never-evidenceable vendor.",
+      "job_text": "Requirements:\n- Experience with Azure or Microsoft Azure",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Azure or Microsoft Azure",
+          "members": [
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "alias",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "azure_true_no_evidence",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        }
+      ],
+      "expected": {
+        "azure_true_no_evidence": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "azure_true_no_evidence": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-16",
+      "family": "duplicate_alternatives",
+      "description": "Two spellings of one registered language.",
+      "job_text": "Requirements:\n- Experience with Go or Golang",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Go or Golang",
+          "members": [
+            {
+              "concept_id": "language.go",
+              "surface": "Go",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "alias",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "go",
+          "evidence": [
+            "language.go"
+          ],
+          "true_competencies": [
+            "language.go"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "go": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "go": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-17",
+      "family": "ambiguous_combination",
+      "description": "'A, B or C' list whose grouping is ambiguous, with an unknown tool.",
+      "job_text": "Requirements:\n- Python, Docker or Terraform",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python, Docker or Terraform",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:terraform",
+              "surface": "Terraform",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "ambiguous_list",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python",
+          "evidence": [
+            "language.python"
+          ],
+          "true_competencies": [
+            "language.python"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "python": {
+          "g1": {
+            "category": "structurally_ambiguous",
+            "truth_satisfied": null,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "structurally_ambiguous",
+            "truth_satisfied": null,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "python": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-18",
+      "family": "multiple_independent",
+      "description": "Four independent requirements, one mixed OR; evidence varies, job fixed.",
+      "job_text": "Requirements:\n- Python\n- Docker\n- Experience with AWS or Azure\n- PostgreSQL",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "AWS or Azure",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "unresolved:azure",
+              "surface": "Azure",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g4",
+          "span_text": "PostgreSQL",
+          "members": [
+            {
+              "concept_id": "database.postgresql",
+              "surface": "PostgreSQL",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "all_four_with_aws",
+          "evidence": [
+            "language.python",
+            "infra.docker",
+            "cloud.aws",
+            "database.postgresql"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker",
+            "cloud.aws",
+            "database.postgresql"
+          ]
+        },
+        {
+          "name": "three_plus_azure_true",
+          "evidence": [
+            "language.python",
+            "infra.docker",
+            "database.postgresql"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker",
+            "database.postgresql",
+            "unresolved:azure"
+          ]
+        },
+        {
+          "name": "python_only",
+          "evidence": [
+            "language.python"
+          ],
+          "true_competencies": [
+            "language.python"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "all_four_with_aws": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g4": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "three_plus_azure_true": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g4": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "python_only": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g4": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g4": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "all_four_with_aws": {
+          "ideal": {
+            "supported": 3,
+            "eligible": 3,
+            "score": 100
+          },
+          "declared": {
+            "supported": 3,
+            "eligible": 3,
+            "score": 100
+          }
+        },
+        "three_plus_azure_true": {
+          "ideal": {
+            "supported": 3,
+            "eligible": 3,
+            "score": 100
+          },
+          "declared": {
+            "supported": 3,
+            "eligible": 3,
+            "score": 100
+          }
+        },
+        "python_only": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 3,
+            "score": 33
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 3,
+            "score": 33
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 3,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 3,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-19",
+      "family": "g17_placeholder_interaction",
+      "description": "G17-contained compound claim next to an independent requirement.",
+      "job_text": "Requirements:\n- Experience with Docker or Kubernetes, and Python\n- Experience with PostgreSQL",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Docker or Kubernetes, and Python",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "compound",
+          "necessity": "required",
+          "related_only_concepts": [],
+          "groups": [
+            [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            [
+              "language.python"
+            ]
+          ]
+        },
+        {
+          "gid": "g2",
+          "span_text": "PostgreSQL",
+          "members": [
+            {
+              "concept_id": "database.postgresql",
+              "surface": "PostgreSQL",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_docker_postgres",
+          "evidence": [
+            "language.python",
+            "infra.docker",
+            "database.postgresql"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker",
+            "database.postgresql"
+          ]
+        },
+        {
+          "name": "python_postgres",
+          "evidence": [
+            "language.python",
+            "database.postgresql"
+          ],
+          "true_competencies": [
+            "language.python",
+            "database.postgresql"
+          ]
+        }
+      ],
+      "expected": {
+        "python_docker_postgres": {
+          "g1": {
+            "category": "compound_logic_contained",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "python_postgres": {
+          "g1": {
+            "category": "compound_logic_contained",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "python_docker_postgres": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          }
+        },
+        "python_postgres": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-20",
+      "family": "single_sentence_unknown",
+      "description": "Single-sentence unknown tool (existing unresolved_requirement placeholder).",
+      "job_text": "Experience with Terraform is required.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Terraform",
+          "members": [
+            {
+              "concept_id": "unresolved:terraform",
+              "surface": "Terraform",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "terraform_true_no_evidence",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:terraform"
+          ]
+        }
+      ],
+      "expected": {
+        "terraform_true_no_evidence": {
+          "g1": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "terraform_true_no_evidence": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-21",
+      "family": "preferred_enumeration_unknown",
+      "description": "PREFERRED enumeration with an unknown tool.",
+      "job_text": "Preferred qualifications:\n- Python, Kafka, Docker",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "preferred",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Kafka",
+          "members": [
+            {
+              "concept_id": "unresolved:kafka",
+              "surface": "Kafka",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "single",
+          "necessity": "preferred",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "preferred",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_only_kafka_true",
+          "evidence": [
+            "language.python"
+          ],
+          "true_competencies": [
+            "language.python",
+            "unresolved:kafka"
+          ]
+        },
+        {
+          "name": "python_docker",
+          "evidence": [
+            "language.python",
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker"
+          ]
+        }
+      ],
+      "expected": {
+        "python_only_kafka_true": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "preferred"
+          },
+          "g2": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "preferred"
+          },
+          "g3": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "preferred"
+          }
+        },
+        "python_docker": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "preferred"
+          },
+          "g2": {
+            "category": "completely_non_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "preferred"
+          },
+          "g3": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "preferred"
+          }
+        }
+      },
+      "expected_scores": {
+        "python_only_kafka_true": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 2,
+            "score": 50
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 2,
+            "score": 50
+          }
+        },
+        "python_docker": {
+          "ideal": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          },
+          "declared": {
+            "supported": 2,
+            "eligible": 2,
+            "score": 100
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-22",
+      "family": "or_with_non_technical",
+      "description": "OR of a technology and a non-technical alternative.",
+      "job_text": "Requirements:\n- Experience with Docker or a security clearance",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Docker or a security clearance",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            },
+            {
+              "concept_id": "non_technical:security_clearance",
+              "surface": "a security clearance",
+              "evidenceability": "non_technical"
+            }
+          ],
+          "structure": "or",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "docker",
+          "evidence": [
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "infra.docker"
+          ]
+        },
+        {
+          "name": "clearance_true",
+          "evidence": [],
+          "true_competencies": [
+            "non_technical:security_clearance"
+          ]
+        }
+      ],
+      "expected": {
+        "docker": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "clearance_true": {
+          "g1": {
+            "category": "partially_observable_no_positive_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "docker": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        },
+        "clearance_true": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-23",
+      "family": "standalone_unregistered_language",
+      "description": "Enumeration with MATLAB (GitHub language outside the registry).",
+      "job_text": "Requirements:\n- Python, MATLAB, Docker",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "MATLAB",
+          "members": [
+            {
+              "concept_id": "unresolved:matlab",
+              "surface": "MATLAB",
+              "evidenceability": "language_stats"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_matlab_evidence",
+          "evidence": [
+            "language.python",
+            "unresolved:matlab"
+          ],
+          "true_competencies": [
+            "language.python",
+            "unresolved:matlab"
+          ]
+        },
+        {
+          "name": "none",
+          "evidence": [],
+          "true_competencies": []
+        }
+      ],
+      "expected": {
+        "python_matlab_evidence": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        },
+        "none": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g2": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": false,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          },
+          "g3": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "python_matlab_evidence": {
+          "ideal": {
+            "supported": 2,
+            "eligible": 3,
+            "score": 67
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 2,
+            "score": 50
+          }
+        },
+        "none": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 3,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 2,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-24",
+      "family": "related_only_evidence",
+      "description": "Related-concept evidence only (never entailment).",
+      "job_text": "Requirements:\n- Experience with Kubernetes",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Kubernetes",
+          "members": [
+            {
+              "concept_id": "infra.kubernetes",
+              "surface": "Kubernetes",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": [
+            "infra.docker"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "name": "docker_only",
+          "evidence": [
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "infra.docker"
+          ]
+        }
+      ],
+      "expected": {
+        "docker_only": {
+          "g1": {
+            "category": "unsupported_related_evidence_only",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "docker_only": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-25",
+      "family": "narrative_non_requirement",
+      "description": "Company narrative naming technologies -- not a qualification.",
+      "job_text": "About us: we use Python, Terraform and Docker.",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "Python",
+          "members": [
+            {
+              "concept_id": "language.python",
+              "surface": "Python",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "non_requirement",
+          "necessity": "unknown",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g2",
+          "span_text": "Terraform",
+          "members": [
+            {
+              "concept_id": "unresolved:terraform",
+              "surface": "Terraform",
+              "evidenceability": "none"
+            }
+          ],
+          "structure": "non_requirement",
+          "necessity": "unknown",
+          "related_only_concepts": []
+        },
+        {
+          "gid": "g3",
+          "span_text": "Docker",
+          "members": [
+            {
+              "concept_id": "infra.docker",
+              "surface": "Docker",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "non_requirement",
+          "necessity": "unknown",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "python_docker",
+          "evidence": [
+            "language.python",
+            "infra.docker"
+          ],
+          "true_competencies": [
+            "language.python",
+            "infra.docker"
+          ]
+        }
+      ],
+      "expected": {
+        "python_docker": {
+          "g1": {
+            "category": "not_a_requirement",
+            "truth_satisfied": null,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "unknown"
+          },
+          "g2": {
+            "category": "not_a_requirement",
+            "truth_satisfied": null,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "unknown"
+          },
+          "g3": {
+            "category": "not_a_requirement",
+            "truth_satisfied": null,
+            "eligible_ideal": false,
+            "eligible_declared": false,
+            "counted_status_ideal": "excluded",
+            "counted_status_declared": "excluded",
+            "positive_evidence_observed": false,
+            "negative_decidable": false,
+            "necessity": "unknown"
+          }
+        }
+      },
+      "expected_scores": {
+        "python_docker": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 0,
+            "score": null
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g18-26",
+      "family": "standalone_registered_cloud",
+      "description": "Standalone registered AWS; Azure-only candidate.",
+      "job_text": "Requirements:\n- Experience with AWS",
+      "gold_requirements": [
+        {
+          "gid": "g1",
+          "span_text": "AWS",
+          "members": [
+            {
+              "concept_id": "cloud.aws",
+              "surface": "AWS",
+              "evidenceability": "registry"
+            }
+          ],
+          "structure": "single",
+          "necessity": "required",
+          "related_only_concepts": []
+        }
+      ],
+      "candidates": [
+        {
+          "name": "aws",
+          "evidence": [
+            "cloud.aws"
+          ],
+          "true_competencies": [
+            "cloud.aws"
+          ]
+        },
+        {
+          "name": "azure_only_true",
+          "evidence": [],
+          "true_competencies": [
+            "unresolved:azure"
+          ]
+        }
+      ],
+      "expected": {
+        "aws": {
+          "g1": {
+            "category": "satisfied_by_observed_evidence",
+            "truth_satisfied": true,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "supported",
+            "counted_status_declared": "supported",
+            "positive_evidence_observed": true,
+            "negative_decidable": false,
+            "necessity": "required"
+          }
+        },
+        "azure_only_true": {
+          "g1": {
+            "category": "not_observed_fully_assessable",
+            "truth_satisfied": false,
+            "eligible_ideal": true,
+            "eligible_declared": true,
+            "counted_status_ideal": "not_observed",
+            "counted_status_declared": "not_observed",
+            "positive_evidence_observed": false,
+            "negative_decidable": true,
+            "necessity": "required"
+          }
+        }
+      },
+      "expected_scores": {
+        "aws": {
+          "ideal": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          },
+          "declared": {
+            "supported": 1,
+            "eligible": 1,
+            "score": 100
+          }
+        },
+        "azure_only_true": {
+          "ideal": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          },
+          "declared": {
+            "supported": 0,
+            "eligible": 1,
+            "score": 0
+          }
+        }
+      }
+    }
+  ]
+}

@@ -44,6 +44,14 @@
       "canonical_length_bytes": 191221,
       "attested_from_commit": "staged-for-commit-on-parent-8d5b3801049f7d28736e921885681bd46db3c58b"
     },
+    "evaluation/m11g18/eligibility_controls.json": {
+      "freeze_record": "evaluation/m11g18/controls_hash_freeze.json",
+      "historical_raw_sha256": "b9f155b2776a151b691a6cf837924d4549278338651a09f7db17a9a9834bf859",
+      "historical_newline_form": "lf",
+      "canonical_sha256": "b9f155b2776a151b691a6cf837924d4549278338651a09f7db17a9a9834bf859",
+      "canonical_length_bytes": 103822,
+      "attested_from_commit": "staged-for-commit-on-parent-1faf5d78bda680c2c6bde59970265a33caa9be82"
+    },
     "evaluation/m11g2/section_context_controls.json": {
       "freeze_record": "evaluation/m11g2/controls_hash_freeze.json",
       "historical_raw_sha256": "7b21d2e0b1cbfd2be007e95996543fb6bd506bce52f318262acf5e6e2afad6e0",
