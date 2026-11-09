@@ -83,21 +83,28 @@ def test_m10d_corpus_control(control):
 
 
 def test_m10d_corpus_control_e1_mixed_and_or_stays_safe_not_fabricating():
-    """Root Cause 6 -- NOT fixed by this milestone. Pinned to the
-    CURRENT, measured behavior (still flattens the mandatory "and SQL"
-    clause into the OR-group) so a future change to this known
-    limitation is a deliberate decision, not a silent drift."""
+    """Root Cause 6 -- NOT fixed by M10D, which pinned the then-current
+    flattening (a 3-way ANY-group swallowing the mandatory "and SQL") so
+    that changing it would be a deliberate decision. Milestone 11-G17
+    (parser v13) is that decision: the mixed claim is now CONTAINED --
+    `unsafe`, the conservative fallback this control's own frozen
+    annotation already names (`conservative_fallback_expected:
+    "unsupported_mixed"`) -- never a flat OR group and never fabricated
+    concepts. Not decomposed (that would be Option C, not approved)."""
     control = MIXED_CONTROLS["m10d-e1"]
+    assert control["conservative_fallback_expected"] == "unsupported_mixed"
     claim = classify_alternative_claim(control["text"])
-    assert claim.kind == "technical"
-    assert sorted(claim.concept_ids) == ["language.java", "language.python", "language.sql"]
+    assert claim.kind == "unsafe"
+    assert claim.concept_ids == ()
 
 
 def test_m10d_corpus_control_e2_mixed_and_or_stays_safe_not_fabricating():
+    # Milestone 11-G17 (parser v13): contained as `unsafe`, see e1's docstring.
     control = MIXED_CONTROLS["m10d-e2"]
+    assert control["conservative_fallback_expected"] == "unsupported_mixed"
     claim = classify_alternative_claim(control["text"])
-    assert claim.kind == "technical"
-    assert sorted(claim.concept_ids) == ["database.postgresql", "language.python", "unresolved:mysql"]
+    assert claim.kind == "unsafe"
+    assert claim.concept_ids == ()
 
 
 def test_m10d_corpus_control_h6_two_clauses_one_bullet_stays_unsafe_not_fabricating():

@@ -134,6 +134,21 @@ MIXED requirement is already representable today as one
 `alternative_concept_ids` group plus one ordinary single-`concept_id`
 row, exactly mirroring how "Docker and Kubernetes" already becomes two
 independent rows).
+
+**Milestone 11-G17 -- Root Cause 6 CONTAINED (not decomposed).** A
+`technical` result whose claim is structurally mixed AND/OR
+(`is_structurally_mixed()`, below) is returned as `unsafe` instead, so
+the parser's existing 6B.1 fallback produces a non-scoreable
+`alternative_requirement` placeholder (NOT_ASSESSABLE, never in the
+alignment denominator, original text/span/necessity kept) rather than a
+flat OR group that one alternative could satisfy while a mandatory
+conjunct is missing. This is Option D exactly as evaluated in
+`docs/evaluation/MILESTONE_11_G16_COMPOUND_REQUIREMENT_LOGIC.md`; mixed
+claims are deliberately NOT decomposed into several rows (Option C, not
+approved). Known residuals the detector cannot see: a mixed-kind comma
+list with no conjunction ("Python, Docker or Kubernetes") and a segment
+whose second concept is unrecognised (bare "Go" in prose).
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v12` -> `v13`.
 """
 from __future__ import annotations
 
@@ -445,6 +460,45 @@ def _classify_any_of_trigger(text: str, registry) -> AlternativeClaim | None:
     return result
 
 
+# Milestone 11-G17 -- structural signals that a claim combines AND and OR
+# (Option D as evaluated in M11-G16). Each is structural, never a bare
+# keyword anywhere in the claim: a cardinality of two or more ("at least
+# two of"), an explicit all-of/both lead-in, or a comma item that BEGINS
+# with a conjunction (", and Python").
+_MIXED_AT_LEAST_TWO = re.compile(r"\bat\s+least\s+(?:two|three|four|five|[2-9])\b", re.IGNORECASE)
+_MIXED_ALL_OF_LEAD_IN = re.compile(r"\b(?:both|all\s+of)\b", re.IGNORECASE)
+_MIXED_CONJUNCTION_ITEM = re.compile(r",\s*(?:and|as\s+well\s+as|plus|along\s+with)\b", re.IGNORECASE)
+
+
+def is_structurally_mixed(text: str, registry=None) -> bool:
+    """Milestone 11-G17 -- True when a claim that would otherwise become
+    ONE flat OR group actually mixes AND with OR, so a flat group would
+    let a single alternative satisfy a requirement whose mandatory
+    conjunct is missing. Detected only from structure: a k>=2-of / both /
+    all-of lead-in, a conjunction-led comma item, or an OR segment that
+    itself resolves to two or more distinct concepts ("Java and SQL",
+    "Kubernetes; Python")."""
+    if _MIXED_AT_LEAST_TWO.search(text) or _MIXED_ALL_OF_LEAD_IN.search(text) \
+            or _MIXED_CONJUNCTION_ITEM.search(text):
+        return True
+    registry = registry or default_registry()
+    for segment in _split_alternative_segments(text):
+        segment_ids = _resolve_segment(segment, registry)
+        if segment_ids is not None and len(set(segment_ids)) >= 2:
+            return True
+    return False
+
+
+def _contain_mixed(result: AlternativeClaim, text: str, registry) -> AlternativeClaim:
+    """Milestone 11-G17 -- a `technical` (flat OR) result for a
+    structurally mixed claim is returned as `unsafe`, routing it to the
+    parser's existing non-scoreable fallback instead of a flat OR group.
+    Every other result passes through unchanged."""
+    if result.kind == "technical" and is_structurally_mixed(text, registry):
+        return AlternativeClaim(kind="unsafe")
+    return result
+
+
 def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
     registry = registry or default_registry()
 
@@ -455,7 +509,7 @@ def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
     # SOTI's and Manulife's real sentences).
     trigger_result = _classify_any_of_trigger(text, registry)
     if trigger_result is not None:
-        return trigger_result
+        return _contain_mixed(trigger_result, text, registry)
 
     if not contains_alternative_marker(text):
         return AlternativeClaim(kind="not_technical")
@@ -464,4 +518,4 @@ def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
     result = _classify_segment_list(segments, registry)
     if result is None:
         return AlternativeClaim(kind="not_technical")
-    return result
+    return _contain_mixed(result, text, registry)

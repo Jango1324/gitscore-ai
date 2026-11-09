@@ -743,6 +743,18 @@ and `docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md`
 for the full root-cause trace, strategy comparison, and measured
 before/after results.
 
+### Compound AND/OR containment -- Milestone 11-G17
+
+Inside per-claim alternative classification (`alternatives.py`), a claim
+that would become one flat OR group but structurally mixes AND with OR
+("Docker or Kubernetes, and Python") is now classified `unsafe`, so
+`_requirements_from_claim` emits the existing non-scoreable
+`alternative_requirement` placeholder (NOT_ASSESSABLE; excluded from the
+alignment denominator; visible as `unparsed_placeholder`) instead of an OR
+group one alternative could satisfy. Simple OR and simple AND are
+unchanged. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v12` -> `v13`. Matcher,
+assessment and scoring are untouched.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

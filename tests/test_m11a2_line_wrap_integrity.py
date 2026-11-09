@@ -44,7 +44,9 @@ def test_parser_version_bumped_to_v10():
     # version exactly once, to the value current at THAT milestone's
     # own completion -- is unaffected; only the literal expected string
     # needs to track the CURRENT version going forward.
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v12"
+    # M11-G17 then bumped v12 -> v13 (alternatives.py compound AND/OR containment); this test's
+    # own purpose is unaffected -- only the literal tracks the current version.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
 
 
 def _outcome(doc_text: str):

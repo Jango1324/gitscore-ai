@@ -1,5 +1,60 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-09 — Milestone 11-G17: compound AND/OR containment (alternatives.py, approved production change)
+
+**What changed:** Parser v12 flattened mixed AND/OR qualifications
+("Docker or Kubernetes, and Python"; "Python and either Docker or
+Kubernetes"; "Python or Go, and Docker or Kubernetes"; "at least two of
+...") into ONE OR group, so a single alternative could satisfy a
+requirement whose mandatory conjunct was missing. This is M10D's deferred
+"Root Cause 6"; M11-G16 measured 106/414 claim-level false SUPPORTED on
+its frozen controls. `src/gitscore/jobs/parsing/alternatives.py` (the only
+file with behavioural changes) adds `is_structurally_mixed()` and
+`_contain_mixed()`: a `technical` result is returned as `unsafe` when an
+OR segment resolves to >= 2 distinct concepts, a comma item begins with a
+conjunction, or a k>=2-of / both / all-of lead-in is present.
+`src/gitscore/jobs/parsing/parser.py`: `JOB_DESCRIPTION_PARSER_VERSION`
+bumped `v12` -> `v13` (label-only to that module).
+
+**Why:** Option D exactly as evaluated in M11-G16 (structural guard, not
+decomposition -- Option C was not approved). Routing to the EXISTING 6B.1
+fallback (user decision) keeps the claim visible as a non-scoreable
+`alternative_requirement` placeholder (NOT_ASSESSABLE, never in the
+denominator, `interpretation_status="unparsed_placeholder"`, original
+text/span/necessity kept) instead of a flat OR group.
+
+**Files affected:** `alternatives.py`, `parser.py` (label);
+`tests/test_m11g17_compound_logic_containment.py` (new, written before
+the change: 10 red on v12, 18/18 green on v13); version-literal updates in
+`tests/test_m11a2_*`, `test_m11b_*`, `test_m11c_*`, `test_m11e_*`;
+`tests/test_m10d_*` e1/e2 now assert the contained `unsafe` outcome (M10D
+pinned the v12 flattening precisely so this change would be deliberate);
+G15/G16 tests made explicitly version-aware (their frozen v12 reports are
+untouched); new `scripts/evaluate_m11g17_v12_v13.py`,
+`scripts/evaluation_lib/m11g17_parse_dump.py`, `evaluation/m11g17/*`;
+`docs/evaluation/MILESTONE_11_G17_SAFE_COMPOUND_LOGIC_CONTAINMENT.md`.
+
+**How it works / measured result (real v12 clone vs v13, nothing
+simulated):** false SUPPORTED 106 -> **7**/414 (99 eliminated, 0 new);
+genuine compound claims declined 2 -> 24/43 (recall cost: 77 satisfied
+outcomes no longer scored); 0 outcomes scored more favourably; G15 only K1
+changes; frozen 8c:v1/v1.1 0/12 pairs change; SOTI/Manulife identical;
+1/62 inspected private postings changes. Identical to G16's Option D
+simulation.
+
+**Risks / limitations:** residual false SUPPORTED from mixed-kind lists
+without a conjunction ("Python, Docker or Kubernetes") and bare "Go";
+"at least two of" without "or", "One of:" sub-lists, cross-sentence
+"Alternatively" and responsibility misclassification remain; G15 Policy B
+not implemented. The three research-milestone "production unchanged since
+HEAD" guard tests fail only while this `src/` change is uncommitted.
+
+**How to test it:**
+```
+.venv/Scripts/python.exe -m pytest tests/test_m11g17_compound_logic_containment.py -q
+.venv/Scripts/python.exe scripts/evaluate_m11g17_v12_v13.py
+```
+
 ## 2026-11-06 — Milestone 11-G7: section-boundary integrity fix (segmentation.py, approved production change)
 
 **What changed:** `_classify_heading_line()`'s word-count shape gate

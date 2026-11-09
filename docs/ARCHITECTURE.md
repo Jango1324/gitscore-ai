@@ -5452,3 +5452,24 @@ module, zero overlap) — see
 `docs/evaluation/MILESTONE_11_G7_SECTION_BOUNDARY_INTEGRITY.md` for the
 complete root-cause trace, strategy comparison, and before/after
 reconciliation.
+
+
+### Milestone 11-G17 — compound AND/OR containment (`alternatives.py`, production fix)
+
+`classify_alternative_claim()` now applies `_contain_mixed()` to the
+result of BOTH of its paths (the M10D explicit any-of trigger and the bare
+"or" path). A `technical` result -- which the parser would turn into ONE
+flat `alternative_concept_ids` group -- is returned as `unsafe` when
+`is_structurally_mixed()` finds AND mixed with OR: an OR segment resolving
+to two or more distinct concepts, a comma item beginning with a
+conjunction, or a k>=2-of / both / all-of lead-in. `unsafe` is handled by
+the parser's EXISTING Milestone 6B.1 fallback (`category=
+"alternative_requirement"`, PARTIALLY_OBSERVABLE, no concept -> always
+NOT_ASSESSABLE), so a mixed claim stays visible but can no longer be
+satisfied by one alternative while a mandatory conjunct is missing. No
+new parser path, model, field, matcher or scoring change; mixed claims
+are contained, not decomposed. `JOB_DESCRIPTION_PARSER_VERSION` bumps
+`v12` -> `v13` (`parser.py`, label-only). Measured with the real v12 and
+v13 code: false SUPPORTED 106 -> 7 of 414 on M11-G16's frozen controls, 0
+new, 0 frozen-8c pairs changed. See
+`docs/evaluation/MILESTONE_11_G17_SAFE_COMPOUND_LOGIC_CONTAINMENT.md`.

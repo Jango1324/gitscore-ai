@@ -32,9 +32,17 @@ def controls():
     return orsc.load_frozen_controls()
 
 
+# The committed G15 report is a FROZEN measurement of parser v12 (the
+# version live when G15 ran). M11-G17 moved production to v13, so the
+# property tests below validate that frozen research result, and
+# test_report_is_reproducible checks the explicit v12-vs-v13 relationship.
+G15_REPORT_PARSER_VERSION = "job_description_parser:v12"
+K1 = "m11g15-K1"
+
+
 @pytest.fixture(scope="module")
 def report():
-    return runner.run()
+    return json.loads((M11G15 / "or_scoring_report.json").read_text(encoding="utf-8"))
 
 
 def test_controls_match_portable_freeze():
@@ -67,8 +75,26 @@ def test_unrepresentable_categories_are_explicit(controls):
 
 
 def test_report_is_reproducible(report):
-    committed = json.loads((M11G15 / "or_scoring_report.json").read_text(encoding="utf-8"))
-    assert json.loads(json.dumps(report)) == committed
+    """Under v12 the live run must reproduce the frozen report exactly.
+    Under v13 (M11-G17) a live re-run may differ ONLY on K1 -- the one G15
+    control M11-G16 identified as a mixed AND/OR flattening -- where the
+    flattened row is now contained (never SUPPORTED); every other control
+    and the frozen 8c re-score must be identical."""
+    from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
+    live = json.loads(json.dumps(runner.run()))
+    if JOB_DESCRIPTION_PARSER_VERSION == G15_REPORT_PARSER_VERSION:
+        assert live == report
+        return
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+    for cid, result in report["results"].items():
+        if cid != K1:
+            assert live["results"][cid] == result, cid
+    assert live["frozen_8c_matrices"] == report["frozen_8c_matrices"]
+    k1_live = live["results"][K1]["candidates"]["python_only"]["policies"]["A_production"]["per_gold"]["g1"]
+    k1_v12 = report["results"][K1]["candidates"]["python_only"]["policies"]["A_production"]["per_gold"]["g1"]
+    assert k1_v12["status"] == "supported"        # the v12 false SUPPORTED G15 measured
+    assert k1_live["status"] != "supported"       # contained by v13
+    assert live["results"][K1]["rows"][0]["category"] == "alternative_requirement"
 
 
 def test_policy_a_score_equals_the_real_assessor(controls):

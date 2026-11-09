@@ -1,0 +1,194 @@
+{
+  "parser_versions": [
+    "job_description_parser:v12",
+    "job_description_parser:v13"
+  ],
+  "g16_414": {
+    "false_supported": {
+      "v12": 106,
+      "v13": 7,
+      "denominator": 414,
+      "v13_residual_ids": [
+        "m11g16-018/only_A",
+        "m11g16-018/only_C",
+        "m11g16-018/only_D",
+        "m11g16-043/only_A",
+        "m11g16-043/only_B",
+        "m11g16-043/only_C",
+        "m11g16-043/B_and_C"
+      ]
+    },
+    "false_supported_eliminated": 99,
+    "new_false_supported_introduced": [],
+    "genuine_satisfied_outcomes_no_longer_scored": 77,
+    "controls_with_changed_rows": [
+      "m11g16-007",
+      "m11g16-008",
+      "m11g16-009",
+      "m11g16-010",
+      "m11g16-011",
+      "m11g16-012",
+      "m11g16-013",
+      "m11g16-014",
+      "m11g16-015",
+      "m11g16-016",
+      "m11g16-017",
+      "m11g16-019",
+      "m11g16-020",
+      "m11g16-021",
+      "m11g16-024",
+      "m11g16-025",
+      "m11g16-026",
+      "m11g16-029",
+      "m11g16-030",
+      "m11g16-031",
+      "m11g16-034",
+      "m11g16-036",
+      "m11g16-039",
+      "m11g16-040",
+      "m11g16-042",
+      "m11g16-046",
+      "m11g16-048",
+      "m11g16-049",
+      "m11g16-051",
+      "m11g16-052",
+      "m11g16-053"
+    ],
+    "controls_newly_declined": [
+      "m11g16-007",
+      "m11g16-008",
+      "m11g16-009",
+      "m11g16-010",
+      "m11g16-011",
+      "m11g16-012",
+      "m11g16-013",
+      "m11g16-014",
+      "m11g16-015",
+      "m11g16-016",
+      "m11g16-017",
+      "m11g16-019",
+      "m11g16-020",
+      "m11g16-021",
+      "m11g16-024",
+      "m11g16-025",
+      "m11g16-026",
+      "m11g16-029",
+      "m11g16-030",
+      "m11g16-031",
+      "m11g16-034",
+      "m11g16-036",
+      "m11g16-039",
+      "m11g16-040",
+      "m11g16-042",
+      "m11g16-046",
+      "m11g16-048",
+      "m11g16-049",
+      "m11g16-051",
+      "m11g16-052",
+      "m11g16-053"
+    ],
+    "controls_with_changed_unparsed_claims": [],
+    "declined_placeholder_span_equals_original_text": true,
+    "fixture_outcomes_with_changed_denominator": 238,
+    "fixture_outcomes_with_changed_score": 238,
+    "fixture_outcomes_scored_more_favorably_in_v13": []
+  },
+  "g15_controls": {
+    "controls": 19,
+    "changed": [
+      "m11g15-K1"
+    ],
+    "changes": {
+      "m11g15-K1": {
+        "v12": {
+          "rows": [
+            {
+              "members": [
+                "infra.docker",
+                "infra.kubernetes",
+                "language.python"
+              ],
+              "category": null,
+              "necessity": "required"
+            }
+          ],
+          "candidates": {
+            "python_only": {
+              "statuses": [
+                "supported"
+              ],
+              "assessable": 1,
+              "supported": 1,
+              "score": 100,
+              "claim_satisfied": true,
+              "not_assessable": 0
+            },
+            "docker_and_python": {
+              "statuses": [
+                "supported"
+              ],
+              "assessable": 1,
+              "supported": 1,
+              "score": 100,
+              "claim_satisfied": true,
+              "not_assessable": 0
+            }
+          }
+        },
+        "v13": {
+          "rows": [
+            {
+              "members": [],
+              "category": "alternative_requirement",
+              "necessity": "required"
+            }
+          ],
+          "candidates": {
+            "python_only": {
+              "statuses": [
+                "not_assessable"
+              ],
+              "assessable": 0,
+              "supported": 0,
+              "score": null,
+              "claim_satisfied": false,
+              "not_assessable": 1
+            },
+            "docker_and_python": {
+              "statuses": [
+                "not_assessable"
+              ],
+              "assessable": 0,
+              "supported": 0,
+              "score": null,
+              "claim_satisfied": false,
+              "not_assessable": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "frozen_8c": {
+    "8c:v1": {
+      "pairs": 12,
+      "changed": []
+    },
+    "8c:v1.1": {
+      "pairs": 12,
+      "changed": []
+    }
+  },
+  "m10_soti_manulife": {
+    "manulife_raw": {
+      "identical": true,
+      "rows_v12": 5,
+      "rows_v13": 5
+    },
+    "soti_raw": {
+      "identical": true,
+      "rows_v12": 1,
+      "rows_v13": 1
+    }
+  }
+}

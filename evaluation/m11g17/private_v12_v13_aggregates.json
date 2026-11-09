@@ -1,0 +1,35 @@
+{
+  "note": "previously inspected private postings -- not independent; counts only",
+  "m11d": {
+    "postings": 12,
+    "postings_changed": 0,
+    "placeholders_v12": 7,
+    "placeholders_v13": 7,
+    "scoreable_rows_v12": 14,
+    "scoreable_rows_v13": 14
+  },
+  "m11f": {
+    "postings": 18,
+    "postings_changed": 1,
+    "placeholders_v12": 5,
+    "placeholders_v13": 6,
+    "scoreable_rows_v12": 41,
+    "scoreable_rows_v13": 40
+  },
+  "m11g5": {
+    "postings": 18,
+    "postings_changed": 0,
+    "placeholders_v12": 10,
+    "placeholders_v13": 10,
+    "scoreable_rows_v12": 54,
+    "scoreable_rows_v13": 54
+  },
+  "m11g9": {
+    "postings": 14,
+    "postings_changed": 0,
+    "placeholders_v12": 7,
+    "placeholders_v13": 7,
+    "scoreable_rows_v12": 34,
+    "scoreable_rows_v13": 34
+  }
+}

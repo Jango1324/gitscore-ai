@@ -34,9 +34,18 @@ def controls():
     return sim.load_frozen_controls()["controls"]
 
 
+# The committed G16 report is a FROZEN measurement of parser v12, with
+# options simulated on top of it. M11-G17 implemented Option D as parser
+# v13, so re-running the simulation now measures v13 as "production" (and
+# C's guard can no longer see the flat OR it decomposes). The property tests
+# below therefore validate the frozen v12 research result, and
+# test_report_is_reproducible checks the explicit v12-vs-v13 relationship.
+G16_REPORT_PARSER_VERSION = "job_description_parser:v12"
+
+
 @pytest.fixture(scope="module")
 def report():
-    return runner.run()
+    return json.loads((M11G16 / "compound_logic_report.json").read_text(encoding="utf-8"))
 
 
 def test_controls_match_portable_freeze():
@@ -58,8 +67,18 @@ def test_expectations_follow_the_frozen_derivation_rules(controls):
 
 
 def test_report_is_reproducible(report):
-    committed = json.loads((M11G16 / "compound_logic_report.json").read_text(encoding="utf-8"))
-    assert json.loads(json.dumps(report)) == committed
+    """Under v12 the live run must reproduce the frozen report exactly.
+    Under v13 (M11-G17 = Option D) the live production parser must
+    reproduce, for every one of the 58 controls and every evidence
+    fixture, exactly what the frozen report SIMULATED for Option D."""
+    live = json.loads(json.dumps(runner.run()))
+    if parser_mod.JOB_DESCRIPTION_PARSER_VERSION == G16_REPORT_PARSER_VERSION:
+        assert live == report
+        return
+    assert parser_mod.JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+    for cid, modes in report["results"].items():
+        assert live["results"][cid]["production"] == modes["D_structural_guard"], cid
+    assert live["metrics"]["production"] == report["metrics"]["D_structural_guard"]
 
 
 def test_simulation_always_restores_the_parser(controls):
