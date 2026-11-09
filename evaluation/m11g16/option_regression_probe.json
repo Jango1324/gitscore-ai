@@ -1,0 +1,36 @@
+{
+  "head": "8d5b3801049f7d28736e921885681bd46db3c58b",
+  "note": "options installed in memory inside throwaway clones only; repository untouched",
+  "options": {
+    "A_lexical_guard": {
+      "suite": "2 failed, 1966 passed, 37 skipped, 18 xfailed, 70 warnings in 36.96s",
+      "failed_tests": [
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_report_is_reproducible",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_simulated_policy_properties"
+      ],
+      "failed_test_files": [
+        "tests/test_m11g15_mixed_observability_or_scoring.py"
+      ]
+    },
+    "D_structural_guard": {
+      "suite": "2 failed, 1966 passed, 37 skipped, 18 xfailed, 70 warnings in 65.13s (0:01:05)",
+      "failed_tests": [
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_report_is_reproducible",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_simulated_policy_properties"
+      ],
+      "failed_test_files": [
+        "tests/test_m11g15_mixed_observability_or_scoring.py"
+      ]
+    },
+    "C_decompose": {
+      "suite": "2 failed, 1966 passed, 37 skipped, 18 xfailed, 70 warnings in 30.02s",
+      "failed_tests": [
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_report_is_reproducible",
+        "tests/test_m11g15_mixed_observability_or_scoring.py::test_simulated_policy_properties"
+      ],
+      "failed_test_files": [
+        "tests/test_m11g15_mixed_observability_or_scoring.py"
+      ]
+    }
+  }
+}

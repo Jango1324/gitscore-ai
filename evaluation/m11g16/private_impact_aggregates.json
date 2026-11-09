@@ -1,0 +1,75 @@
+{
+  "note": "previously inspected private postings -- not independent; counts only",
+  "m11d": {
+    "texts": 12,
+    "A_lexical_guard": {
+      "texts_with_changed_rows": 0,
+      "rows_production": 57,
+      "rows_option": 57
+    },
+    "D_structural_guard": {
+      "texts_with_changed_rows": 0,
+      "rows_production": 57,
+      "rows_option": 57
+    },
+    "C_decompose": {
+      "texts_with_changed_rows": 0,
+      "rows_production": 57,
+      "rows_option": 57
+    }
+  },
+  "m11f": {
+    "texts": 18,
+    "A_lexical_guard": {
+      "texts_with_changed_rows": 2,
+      "rows_production": 111,
+      "rows_option": 111
+    },
+    "D_structural_guard": {
+      "texts_with_changed_rows": 1,
+      "rows_production": 111,
+      "rows_option": 111
+    },
+    "C_decompose": {
+      "texts_with_changed_rows": 1,
+      "rows_production": 111,
+      "rows_option": 111
+    }
+  },
+  "m11g5": {
+    "texts": 18,
+    "A_lexical_guard": {
+      "texts_with_changed_rows": 1,
+      "rows_production": 122,
+      "rows_option": 122
+    },
+    "D_structural_guard": {
+      "texts_with_changed_rows": 0,
+      "rows_production": 122,
+      "rows_option": 122
+    },
+    "C_decompose": {
+      "texts_with_changed_rows": 0,
+      "rows_production": 122,
+      "rows_option": 122
+    }
+  },
+  "m11g9": {
+    "texts": 14,
+    "A_lexical_guard": {
+      "texts_with_changed_rows": 0,
+      "rows_production": 89,
+      "rows_option": 89
+    },
+    "D_structural_guard": {
+      "texts_with_changed_rows": 0,
+      "rows_production": 89,
+      "rows_option": 89
+    },
+    "C_decompose": {
+      "texts_with_changed_rows": 0,
+      "rows_production": 89,
+      "rows_option": 89
+    }
+  }
+}

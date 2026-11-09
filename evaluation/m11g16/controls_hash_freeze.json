@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g16/compound_logic_controls.json",
+  "sha256": "7078c3fc80bad84bd7cc789f62fcd5ca436f17e0e1592914ec87938dc7bb9bc0",
+  "sha256_lf_normalized": "7078c3fc80bad84bd7cc789f62fcd5ca436f17e0e1592914ec87938dc7bb9bc0",
+  "length_bytes": 191221,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-09T08:01:52Z",
+  "note": "Frozen BEFORE any production run or candidate fix strategy on these controls."
+}

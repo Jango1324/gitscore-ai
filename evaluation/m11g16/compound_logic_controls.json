@@ -1,0 +1,7001 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G16",
+  "provenance": "original synthetic text authored for M11-G16; no real or private posting",
+  "authorship_disclosure": "same author as G10-G15; not independently annotated",
+  "derivation_rules": "representable(), faithful_rows(), fixtures(), kleene() in m11g16_build_controls.py",
+  "controls": [
+    {
+      "id": "m11g16-001",
+      "family": "simple_or",
+      "text": "Experience with Docker or Kubernetes is required.",
+      "source_span": {
+        "start": 0,
+        "end": 49
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "infra.kubernetes",
+            "surface": "Kubernetes",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-002",
+      "family": "simple_or",
+      "text": "Python or Rust experience is preferred.",
+      "source_span": {
+        "start": 0,
+        "end": 39
+      },
+      "is_qualification": true,
+      "necessity": "preferred",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python",
+              "language.rust"
+            ],
+            "necessity": "preferred"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-003",
+      "family": "simple_or",
+      "text": "Either Java or TypeScript is required.",
+      "source_span": {
+        "start": 0,
+        "end": 38
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "language.java",
+            "surface": "Java",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.typescript",
+            "surface": "TypeScript",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java",
+              "language.typescript"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "language.typescript"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.java",
+              "language.typescript"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-004",
+      "family": "simple_and",
+      "text": "Experience with Python and Docker is required.",
+      "source_span": {
+        "start": 0,
+        "end": 46
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-005",
+      "family": "simple_and",
+      "text": "Both Kubernetes and AWS experience are required.",
+      "source_span": {
+        "start": 0,
+        "end": 48
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "infra.kubernetes",
+            "surface": "Kubernetes",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "cloud.aws",
+            "surface": "AWS",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "cloud.aws"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "infra.kubernetes",
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-006",
+      "family": "simple_and",
+      "text": "All of the following are required: Python, PostgreSQL, Docker.",
+      "source_span": {
+        "start": 0,
+        "end": 62
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "database.postgresql",
+            "surface": "PostgreSQL",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "database.postgresql"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "database.postgresql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "B_and_C": {
+            "evidence": [
+              "database.postgresql",
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "database.postgresql",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 3,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-007",
+      "family": "or_then_and",
+      "text": "Experience with Docker or Kubernetes, and Python, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 62
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-008",
+      "family": "or_then_and",
+      "text": "Docker or Kubernetes experience as well as Python is required.",
+      "source_span": {
+        "start": 0,
+        "end": 62
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-009",
+      "family": "or_then_and",
+      "text": "You need Docker or Kubernetes plus AWS.",
+      "source_span": {
+        "start": 0,
+        "end": 39
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "cloud.aws",
+            "surface": "AWS",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "cloud.aws"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.docker",
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes",
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-010",
+      "family": "or_then_and",
+      "text": "Required: Docker or Kubernetes; Python.",
+      "source_span": {
+        "start": 0,
+        "end": 39
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-011",
+      "family": "or_then_and",
+      "text": "Experience with (Docker or Kubernetes) and Python is required.",
+      "source_span": {
+        "start": 0,
+        "end": 62
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-012",
+      "family": "and_then_or",
+      "text": "Experience with Python and either Docker or Kubernetes is required.",
+      "source_span": {
+        "start": 0,
+        "end": 67
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-013",
+      "family": "and_then_or",
+      "text": "Python and Docker or Kubernetes experience required.",
+      "source_span": {
+        "start": 0,
+        "end": 52
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": true,
+      "conditional": false,
+      "note": "precedence undetermined: Python AND (Docker OR K8s) vs (Python AND Docker) OR K8s",
+      "expected": {
+        "behavior": "decline",
+        "representable": true,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-014",
+      "family": "and_then_or",
+      "text": "Experience with Python and one of Docker or Kubernetes is required.",
+      "source_span": {
+        "start": 0,
+        "end": 67
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-015",
+      "family": "and_then_or",
+      "text": "Python, plus either AWS or Docker, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 47
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "cloud.aws",
+                "surface": "AWS",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-016",
+      "family": "or_and_or",
+      "text": "Experience with Python or Go, and Docker or Kubernetes, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 68
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.go",
+                "surface": "Go",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.go",
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.go"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_D": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.go",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.go",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-017",
+      "family": "or_and_or",
+      "text": "Python or Java; PostgreSQL or Redis (required).",
+      "source_span": {
+        "start": 0,
+        "end": 47
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.java",
+                "surface": "Java",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "database.postgresql",
+                "surface": "PostgreSQL",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "database.redis",
+                "surface": "Redis",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java",
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "database.postgresql",
+              "database.redis"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "database.postgresql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_D": {
+            "evidence": [
+              "database.redis"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "database.postgresql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "database.postgresql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "database.postgresql",
+              "database.redis"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-018",
+      "family": "or_and_or",
+      "text": "Either Python or Go and either Docker or Kubernetes is required.",
+      "source_span": {
+        "start": 0,
+        "end": 64
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.go",
+                "surface": "Go",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.go",
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.go"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_D": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.go",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.go",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-019",
+      "family": "or_of_and",
+      "text": "Experience with Rust, or both Docker and Kubernetes, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 65
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "and",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": false,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.rust",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.rust",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-020",
+      "family": "or_of_and",
+      "text": "Either Python, or Java and SQL, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 44
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "and",
+            "args": [
+              {
+                "leaf": "language.java",
+                "surface": "Java",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.sql",
+                "surface": "SQL",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": false,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.sql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.sql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "language.sql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "language.sql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-021",
+      "family": "or_of_and",
+      "text": "Experience with AWS or with both Docker and Kubernetes is required.",
+      "source_span": {
+        "start": 0,
+        "end": 67
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "cloud.aws",
+            "surface": "AWS",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "and",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": false,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "cloud.aws",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "cloud.aws",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-022",
+      "family": "three_plus",
+      "text": "Experience with Python, Java, or Rust is required.",
+      "source_span": {
+        "start": 0,
+        "end": 50
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.java",
+            "surface": "Java",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java",
+              "language.python",
+              "language.rust"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_C": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-023",
+      "family": "three_plus",
+      "text": "Experience with Python, Java, and Rust is required.",
+      "source_span": {
+        "start": 0,
+        "end": 51
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.java",
+            "surface": "Java",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.java"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.rust"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 3,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-024",
+      "family": "three_plus",
+      "text": "Experience with Python or Java or Rust, and Docker is required.",
+      "source_span": {
+        "start": 0,
+        "end": 63
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.java",
+                "surface": "Java",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.rust",
+                "surface": "Rust",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java",
+              "language.python",
+              "language.rust"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_D": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "language.rust",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-025",
+      "family": "nested",
+      "text": "Experience with Python and either Docker, Kubernetes or AWS is required.",
+      "source_span": {
+        "start": 0,
+        "end": 72
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "cloud.aws",
+                "surface": "AWS",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "cloud.aws",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_D": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "infra.kubernetes",
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-026",
+      "family": "nested",
+      "text": "Either Python and Docker, or Java and Kubernetes, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 62
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "op": "and",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "op": "and",
+            "args": [
+              {
+                "leaf": "language.java",
+                "surface": "Java",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": false,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_D": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "language.java",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-027",
+      "family": "bullets",
+      "text": "Required:\n- Python\n- Docker or Kubernetes\n- PostgreSQL",
+      "source_span": {
+        "start": 0,
+        "end": 54
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "database.postgresql",
+            "surface": "PostgreSQL",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "database.postgresql"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_D": {
+            "evidence": [
+              "database.postgresql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "infra.kubernetes",
+              "database.postgresql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 3,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-028",
+      "family": "bullets",
+      "text": "Required:\n- One of:\n  - Docker\n  - Kubernetes\n- Python",
+      "source_span": {
+        "start": 0,
+        "end": 54
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-029",
+      "family": "bullets",
+      "text": "Requirements:\n- Python or Java, and SQL",
+      "source_span": {
+        "start": 0,
+        "end": 39
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.java",
+                "surface": "Java",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.sql",
+            "surface": "SQL",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java",
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.sql"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.sql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.sql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "language.sql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "language.sql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-030",
+      "family": "natural_language",
+      "text": "You should know Python, and also Docker or Kubernetes.",
+      "source_span": {
+        "start": 0,
+        "end": 54
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-031",
+      "family": "natural_language",
+      "text": "We need someone with Java experience along with either AWS or Docker.",
+      "source_span": {
+        "start": 0,
+        "end": 69
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.java",
+            "surface": "Java",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "cloud.aws",
+                "surface": "AWS",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.java",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.java",
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-032",
+      "family": "either_both",
+      "text": "One of the following is required: Python, Java, Rust.",
+      "source_span": {
+        "start": 0,
+        "end": 53
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.java",
+            "surface": "Java",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java",
+              "language.python",
+              "language.rust"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_C": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-033",
+      "family": "either_both",
+      "text": "All of Python, Docker and PostgreSQL are required.",
+      "source_span": {
+        "start": 0,
+        "end": 50
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "database.postgresql",
+            "surface": "PostgreSQL",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "database.postgresql"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "database.postgresql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "database.postgresql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "database.postgresql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "database.postgresql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 3,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-034",
+      "family": "either_both",
+      "text": "Both Python and Go are required, or equivalent Rust experience.",
+      "source_span": {
+        "start": 0,
+        "end": 63
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "op": "and",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.go",
+                "surface": "Go",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": false,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.go"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.go",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.go",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-035",
+      "family": "k_of_n",
+      "text": "Experience with at least one of Python, Go, or Rust is required.",
+      "source_span": {
+        "start": 0,
+        "end": 64
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "kof",
+        "k": 1,
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.go",
+            "surface": "Go",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.go",
+              "language.python",
+              "language.rust"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "language.go"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_C": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.go",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.go",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-036",
+      "family": "k_of_n",
+      "text": "Experience with at least two of Python, Java, or Rust is required.",
+      "source_span": {
+        "start": 0,
+        "end": 66
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "kof",
+        "k": 2,
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.java",
+            "surface": "Java",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": false,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-037",
+      "family": "k_of_n",
+      "text": "Strong skills in at least two of: Docker, Kubernetes, AWS.",
+      "source_span": {
+        "start": 0,
+        "end": 58
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "kof",
+        "k": 2,
+        "args": [
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "infra.kubernetes",
+            "surface": "Kubernetes",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "cloud.aws",
+            "surface": "AWS",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": false,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.docker",
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes",
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-038",
+      "family": "conditional",
+      "text": "For backend roles, Python or Java is required, and Docker.",
+      "source_span": {
+        "start": 0,
+        "end": 58
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.java",
+                "surface": "Java",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": true,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": true,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-039",
+      "family": "conditional",
+      "text": "Go or Rust is required if you join the platform team, and Docker always.",
+      "source_span": {
+        "start": 0,
+        "end": 72
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.go",
+                "surface": "Go",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.rust",
+                "surface": "Rust",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": true,
+      "note": "",
+      "expected": {
+        "behavior": "decline",
+        "representable": true,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.go"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.go",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.rust",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.go",
+              "language.rust",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-040",
+      "family": "necessity_mix",
+      "text": "Python is required; Docker or Kubernetes is preferred.",
+      "source_span": {
+        "start": 0,
+        "end": 54
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ],
+            "necessity": "preferred"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "preferred"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-041",
+      "family": "necessity_mix",
+      "text": "Required: Python or Java. Nice to have: Docker and Kubernetes.",
+      "source_span": {
+        "start": 0,
+        "end": 62
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.java",
+                "surface": "Java",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry",
+            "necessity": "preferred"
+          },
+          {
+            "leaf": "infra.kubernetes",
+            "surface": "Kubernetes",
+            "evidenceability": "registry",
+            "necessity": "preferred"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java",
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "preferred"
+          },
+          {
+            "members": [
+              "infra.kubernetes"
+            ],
+            "necessity": "preferred"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_D": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.java",
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.java",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 3,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 3,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-042",
+      "family": "necessity_mix",
+      "text": "Python or Go is required, and Docker is a plus.",
+      "source_span": {
+        "start": 0,
+        "end": 47
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.go",
+                "surface": "Go",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry",
+            "necessity": "preferred"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.go",
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "preferred"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.go"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.go",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.go",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-043",
+      "family": "ambiguous_list",
+      "text": "Experience with Python, Docker or Kubernetes is required.",
+      "source_span": {
+        "start": 0,
+        "end": 57
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": true,
+      "conditional": false,
+      "note": "mixed-kind list: one OR of three vs Python AND (Docker OR Kubernetes)",
+      "expected": {
+        "behavior": "decline",
+        "representable": true,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-044",
+      "family": "ambiguous_list",
+      "text": "Java, Python or Rust experience is required.",
+      "source_span": {
+        "start": 0,
+        "end": 44
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "language.java",
+            "surface": "Java",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "language.rust",
+            "surface": "Rust",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "same-kind language list read as one OR of three (annotation convention)",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.java",
+              "language.python",
+              "language.rust"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.java"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_C": {
+            "evidence": [
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.java",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.java",
+              "language.python",
+              "language.rust"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-045",
+      "family": "ambiguous_list",
+      "text": "Docker, Kubernetes or Terraform experience is required.",
+      "source_span": {
+        "start": 0,
+        "end": 55
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "infra.kubernetes",
+            "surface": "Kubernetes",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "unresolved:terraform",
+            "surface": "Terraform",
+            "evidenceability": "none"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "same-kind infrastructure list read as one OR of three",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes",
+              "unresolved:terraform"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 1,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "U",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "U",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "mixed_observability_all_evidenceable": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-046",
+      "family": "unregistered",
+      "text": "Experience with Terraform or Ansible, and Python, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 62
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "unresolved:terraform",
+                "surface": "Terraform",
+                "evidenceability": "none"
+              },
+              {
+                "leaf": "unresolved:ansible",
+                "surface": "Ansible",
+                "evidenceability": "none"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "unresolved:ansible",
+              "unresolved:terraform"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 1,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "mixed_observability_all_evidenceable": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-047",
+      "family": "unregistered",
+      "text": "Experience with Kafka and either Spark or Flink is required.",
+      "source_span": {
+        "start": 0,
+        "end": 60
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "leaf": "unresolved:kafka",
+            "surface": "Kafka",
+            "evidenceability": "none"
+          },
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "unresolved:spark",
+                "surface": "Spark",
+                "evidenceability": "none"
+              },
+              {
+                "leaf": "unresolved:flink",
+                "surface": "Flink",
+                "evidenceability": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "unresolved:kafka"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "unresolved:flink",
+              "unresolved:spark"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 2,
+        "per_fixture": {
+          "all_members": {
+            "evidence": [],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "mixed_observability_all_evidenceable": {
+            "evidence": [],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-048",
+      "family": "unregistered",
+      "text": "Elixir or Go, and PostgreSQL, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 42
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "unresolved:elixir",
+                "surface": "Elixir",
+                "evidenceability": "language_stats"
+              },
+              {
+                "leaf": "language.go",
+                "surface": "Go",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "database.postgresql",
+            "surface": "PostgreSQL",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.go",
+              "unresolved:elixir"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "database.postgresql"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "unresolved:elixir"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.go"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "database.postgresql"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "unresolved:elixir",
+              "database.postgresql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.go",
+              "database.postgresql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "unresolved:elixir",
+              "language.go",
+              "database.postgresql"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-049",
+      "family": "mixed_observability",
+      "text": "Experience with AWS or Azure, and Docker, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 54
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "cloud.aws",
+                "surface": "AWS",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "unresolved:azure",
+                "surface": "Azure",
+                "evidenceability": "none"
+              }
+            ]
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "cloud.aws",
+              "unresolved:azure"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 1,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "mixed_observability_all_evidenceable": {
+            "evidence": [
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-050",
+      "family": "mixed_observability",
+      "text": "Experience with Docker or a security clearance, and Python, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 72
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "non_technical:security_clearance",
+                "surface": "a security clearance",
+                "evidenceability": "non_technical"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "non_technical:security_clearance"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 1,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "U",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "mixed_observability_all_evidenceable": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-051",
+      "family": "duplicates",
+      "text": "Experience with Docker or Kubernetes, and Docker, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 62
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "absorption: equivalent to Docker alone",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 1,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-052",
+      "family": "duplicates",
+      "text": "Experience with Kubernetes (k8s) or Docker, and Python, is required.",
+      "source_span": {
+        "start": 0,
+        "end": 68
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "alias inside an OR member",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.kubernetes",
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-053",
+      "family": "narrative",
+      "text": "You will maintain services written in Python or Go, and deploy them with Docker.",
+      "source_span": {
+        "start": 0,
+        "end": 80
+      },
+      "is_qualification": false,
+      "necessity": "unknown",
+      "tree": null,
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "not_qualification",
+        "representable": false,
+        "rows": [],
+        "per_fixture": {}
+      }
+    },
+    {
+      "id": "m11g16-054",
+      "family": "narrative",
+      "text": "Our platform uses Docker or Kubernetes and Python.",
+      "source_span": {
+        "start": 0,
+        "end": 50
+      },
+      "is_qualification": false,
+      "necessity": "unknown",
+      "tree": null,
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "not_qualification",
+        "representable": false,
+        "rows": [],
+        "per_fixture": {}
+      }
+    },
+    {
+      "id": "m11g16-055",
+      "family": "narrative",
+      "text": "Our team builds with Java or Rust, and you will learn Docker.",
+      "source_span": {
+        "start": 0,
+        "end": 61
+      },
+      "is_qualification": false,
+      "necessity": "unknown",
+      "tree": null,
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "not_qualification",
+        "representable": false,
+        "rows": [],
+        "per_fixture": {}
+      }
+    },
+    {
+      "id": "m11g16-056",
+      "family": "cross_sentence",
+      "text": "Experience with Docker or Kubernetes is required. Python is also required.",
+      "source_span": {
+        "start": 0,
+        "end": 74
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "infra.docker",
+                "surface": "Docker",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "infra.kubernetes",
+                "surface": "Kubernetes",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "language.python",
+            "surface": "Python",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "infra.docker",
+              "infra.kubernetes"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "language.python"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "infra.kubernetes"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "infra.docker",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "infra.docker",
+              "infra.kubernetes",
+              "language.python"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-057",
+      "family": "cross_sentence",
+      "text": "Experience with Python or Go is required. You must also know Docker.",
+      "source_span": {
+        "start": 0,
+        "end": 68
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "and",
+        "args": [
+          {
+            "op": "or",
+            "args": [
+              {
+                "leaf": "language.python",
+                "surface": "Python",
+                "evidenceability": "registry"
+              },
+              {
+                "leaf": "language.go",
+                "surface": "Go",
+                "evidenceability": "registry"
+              }
+            ]
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": false,
+      "conditional": false,
+      "note": "",
+      "expected": {
+        "behavior": "represent",
+        "representable": true,
+        "rows": [
+          {
+            "members": [
+              "language.go",
+              "language.python"
+            ],
+            "necessity": "required"
+          },
+          {
+            "members": [
+              "infra.docker"
+            ],
+            "necessity": "required"
+          }
+        ],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "language.python"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_B": {
+            "evidence": [
+              "language.go"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "only_C": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 1,
+            "expected_claim_satisfied": false
+          },
+          "A_and_C": {
+            "evidence": [
+              "language.python",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "B_and_C": {
+            "evidence": [
+              "language.go",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "language.python",
+              "language.go",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 2,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 2,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    },
+    {
+      "id": "m11g16-058",
+      "family": "cross_sentence",
+      "text": "Experience with AWS is required. Alternatively, Docker experience is acceptable.",
+      "source_span": {
+        "start": 0,
+        "end": 80
+      },
+      "is_qualification": true,
+      "necessity": "required",
+      "tree": {
+        "op": "or",
+        "args": [
+          {
+            "leaf": "cloud.aws",
+            "surface": "AWS",
+            "evidenceability": "registry"
+          },
+          {
+            "leaf": "infra.docker",
+            "surface": "Docker",
+            "evidenceability": "registry"
+          }
+        ]
+      },
+      "ambiguous": true,
+      "conditional": false,
+      "note": "cross-sentence alternative: not safely linkable by a sentence-level parser",
+      "expected": {
+        "behavior": "decline",
+        "representable": true,
+        "rows": [],
+        "rows_with_unevidenceable_member": 0,
+        "per_fixture": {
+          "only_A": {
+            "evidence": [
+              "cloud.aws"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "only_B": {
+            "evidence": [
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "all_members": {
+            "evidence": [
+              "cloud.aws",
+              "infra.docker"
+            ],
+            "gold_truth": "T",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": true
+          },
+          "none": {
+            "evidence": [],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          },
+          "irrelevant": {
+            "evidence": [
+              "framework.react"
+            ],
+            "gold_truth": "F",
+            "expected_scored_rows": 0,
+            "expected_supported_rows": 0,
+            "expected_claim_satisfied": false
+          }
+        }
+      }
+    }
+  ]
+}
