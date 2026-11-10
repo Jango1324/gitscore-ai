@@ -23,4 +23,31 @@ from the denominator, which facts contribute to
 """
 from __future__ import annotations
 
-SCORING_VERSION = "github_evidence_alignment:v1"
+from enum import Enum
+
+# v1 -> v2 (Milestone 11-G19): a requirement enters the numerator and
+# denominator only if the matcher evaluated it AND every acceptable
+# alternative has a declared GitHub evidence-assessment capability
+# (`gitscore.evidence.capability`). Same formula and rounding; a smaller,
+# candidate-independent eligible set. v1 results stay valid as v1 results.
+SCORING_VERSION = "github_evidence_alignment:v2"
+
+
+class AlignmentExclusionReason(str, Enum):
+    """Why a requirement does NOT count toward the alignment score (v2).
+
+    A stable, closed set -- serialized verbatim as
+    `RequirementOut.alignment_exclusion_reason`; never free text, never
+    model-generated. "Alternative" variants mean at least one acceptable
+    alternative IS GitHub-assessable (a mixed OR group); "technology"
+    variants mean none is. "Unresolved" means GitScore cannot determine
+    whether evidence could exist (the conservative case);
+    "without_evidence_pathway" means it is known that no extractor covers
+    the concept.
+    """
+
+    NOT_ASSESSABLE = "not_assessable"
+    UNRESOLVED_TECHNOLOGY = "unresolved_technology"
+    UNRESOLVED_ALTERNATIVE = "unresolved_alternative"
+    TECHNOLOGY_WITHOUT_EVIDENCE_PATHWAY = "technology_without_evidence_pathway"
+    ALTERNATIVE_WITHOUT_EVIDENCE_PATHWAY = "alternative_without_evidence_pathway"

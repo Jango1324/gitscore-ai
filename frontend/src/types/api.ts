@@ -46,6 +46,20 @@ export type Necessity = "required" | "preferred";
  * `category` (below) is raw passthrough for transparency/debugging. */
 export type InterpretationStatus = "recognized" | "non_technical" | "unparsed_placeholder";
 
+/** Milestone 11-G19 (scoring v2) -- WHY a requirement does not count
+ * toward `github_evidence_alignment`. A closed set mirroring
+ * `gitscore.assessment.AlignmentExclusionReason`; never free text.
+ * "alternative" = at least one acceptable option CAN be checked from
+ * GitHub (a mixed "A or B" group); "technology" = none can. "unresolved"
+ * = GitScore cannot tell whether GitHub evidence could exist;
+ * "without_evidence_pathway" = it is known that no detector covers it. */
+export type AlignmentExclusionReason =
+  | "not_assessable"
+  | "unresolved_technology"
+  | "unresolved_alternative"
+  | "technology_without_evidence_pathway"
+  | "alternative_without_evidence_pathway";
+
 export interface RequirementItem {
   text: string;
   status: RequirementStatus;
@@ -69,6 +83,13 @@ export interface RequirementItem {
   alternative_concept_ids: string[];
   matched_concept_ids: string[];
   evidence: EvidenceItem[];
+  /** Milestone 11-G19, additive. Whether this row is in the alignment
+   * score's numerator/denominator. Independent of `status`: a `supported`
+   * or `not_observed` row can be excluded and keeps its status and
+   * evidence. Every `not_assessable` row is `false`. */
+  counts_toward_alignment: boolean;
+  /** Milestone 11-G19, additive. `null` exactly when counted. */
+  alignment_exclusion_reason: AlignmentExclusionReason | null;
 }
 
 /** Milestone 9C, additive -- one claim segmentation judged requirement-
@@ -108,6 +129,11 @@ export interface Assessment {
    * see `unparsedClaimsCaveat()` in `lib/labels.ts`. These are NOT
    * confirmed job requirements and must never be labeled as such. */
   unparsed_claim_count: number;
+  /** Milestone 11-G19, additive (scoring v2). `supported` + `not_observed`
+   * rows that do NOT count toward the score. Reconciles exactly:
+   * supported.length + not_observed.length ===
+   * assessable_requirement_count + excluded_from_alignment_count. */
+  excluded_from_alignment_count: number;
 }
 
 export interface RepositoryAnalysis {

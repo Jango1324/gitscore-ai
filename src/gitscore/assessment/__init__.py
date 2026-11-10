@@ -47,12 +47,14 @@ considered decision (see the design doc for the full "why" of each):
   never by silently discounting the headline number.
 """
 from gitscore.assessment.engine import assess_job
-from gitscore.assessment.models import JobAssessment, SubscoreFacts
-from gitscore.assessment.types import SCORING_VERSION
+from gitscore.assessment.models import JobAssessment, SubscoreFacts, score_eligibility
+from gitscore.assessment.types import SCORING_VERSION, AlignmentExclusionReason
 
 __all__ = [
     "SCORING_VERSION",
+    "AlignmentExclusionReason",
     "JobAssessment",
     "SubscoreFacts",
     "assess_job",
+    "score_eligibility",
 ]

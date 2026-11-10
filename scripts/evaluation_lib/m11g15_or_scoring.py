@@ -36,7 +36,7 @@ for _p in (_REPO_ROOT / "src", _REPO_ROOT / "scripts" / "evaluation_lib"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-from gitscore.assessment import assess_job  # noqa: E402
+from gitscore.assessment import SCORING_VERSION, assess_job  # noqa: E402
 from gitscore.assessment.models import _round_half_up_percentage  # noqa: E402
 from gitscore.concepts.registry import is_unresolved_concept_id  # noqa: E402
 from gitscore.evidence import (  # noqa: E402
@@ -153,7 +153,11 @@ def evaluate_control(control: dict) -> dict:
         for policy in POLICIES:
             statuses = [policy_status(policy, m) for m in matches]
             sc, sup, ass = score([s for s, _ in statuses])
-            if policy == "A_production":
+            # Fidelity check against the REAL assessor. Under scoring v1 it must
+            # equal simulated policy A; M11-G19 implemented the excluded-unresolved
+            # rule as scoring v2, so under v2 it must equal simulated policy B.
+            # The simulation itself (and therefore this frozen report) is unchanged.
+            if policy == ("A_production" if SCORING_VERSION.endswith(":v1") else "B_exclude_unresolved_groups"):
                 assert sc == assessment.alignment_score and ass == assessment.assessable_count, control["id"]
             per_gold = {}
             for g in golds:

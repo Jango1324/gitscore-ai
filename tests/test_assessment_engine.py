@@ -16,6 +16,7 @@ import dataclasses
 import pytest
 
 from gitscore.assessment import SCORING_VERSION, JobAssessment, SubscoreFacts, assess_job
+from gitscore.concepts.registry import default_registry
 from gitscore.evidence import (
     ConfidenceLevel,
     Evidence,
@@ -187,12 +188,20 @@ def test_all_supported_gives_hundred():
 # Conventional half-up rounding (not Python's banker's rounding)
 # ---------------------------------------------------------------------------
 
+# Milestone 11-G19 (scoring v2): the arithmetic tests below used synthetic
+# `unresolved:cN` ids purely as filler concepts. Under v2 an unresolved id
+# never counts toward the score (no declared evidence pathway), so the
+# filler is now REAL registered concepts -- same counts, same expected
+# numbers; the rounding behaviour under test is unchanged.
+REGISTERED = tuple(sorted(c.concept_id for c in default_registry().all_concepts()))
+
+
 def test_half_up_rounding_62_5_rounds_up_to_63():
     # 5 of 8 assessable supported -> 500/8 = 62.5 -> half-up -> 63.
     # Python's round(62.5) would give 62 (round-half-to-even); this must
     # NOT happen here.
-    reqs = [requirement(f"Concept {i}", concept_id=f"unresolved:c{i}") for i in range(8)]
-    supported_evidence = [ev(f"repo-{i}", f"unresolved:c{i}") for i in range(5)]
+    reqs = [requirement(f"Concept {i}", concept_id=REGISTERED[i]) for i in range(8)]
+    supported_evidence = [ev(f"repo-{i}", REGISTERED[i]) for i in range(5)]
     assessment = assessment_for(reqs, supported_evidence)
     assert assessment.assessable_count == 8
     assert assessment.alignment_score == 63
@@ -201,8 +210,11 @@ def test_half_up_rounding_62_5_rounds_up_to_63():
 
 def test_half_up_rounding_72_5_rounds_up_to_73():
     # 29 of 40 assessable supported -> 2900/40 = 72.5 -> half-up -> 73.
-    reqs = [requirement(f"Concept {i}", concept_id=f"unresolved:c{i}") for i in range(40)]
-    supported_evidence = [ev(f"repo-{i}", f"unresolved:c{i}") for i in range(29)]
+    # The registry holds 39 concepts, so the 40th row repeats the last
+    # (unsupported) one -- two separate rows, both NOT_OBSERVED.
+    concepts = [REGISTERED[i] for i in range(39)] + [REGISTERED[38]]
+    reqs = [requirement(f"Concept {i}", concept_id=concepts[i]) for i in range(40)]
+    supported_evidence = [ev(f"repo-{i}", concepts[i]) for i in range(29)]
     assessment = assessment_for(reqs, supported_evidence)
     assert assessment.assessable_count == 40
     assert assessment.alignment_score == 73
@@ -263,32 +275,44 @@ def test_adversarial_case_strong_headline_despite_zero_required_support():
     it. See docs/design/MILESTONE_7B_SCORING_DESIGN.md Parts 4/9/12 for
     the full rationale a future developer should read before touching
     this test.
+
+    Milestone 11-G19 (scoring v2): React and Kubernetes were
+    `unresolved:` ids when this example was written; both are registered
+    concepts now and use their real ids. "GitHub Actions" is still
+    unregistered, so v2 excludes it from the score (no declared evidence
+    pathway) while keeping its SUPPORTED status and evidence. The pinned
+    v2 values are therefore 71 (5 of 7) and preferred 5-of-5 -- the
+    adversarial property under test (strong, uncapped headline despite
+    0-of-2 required) is unchanged.
     """
     reqs = [
         requirement("Python", necessity=REQUIRED, concept_id="language.python"),
         requirement("PostgreSQL", necessity=REQUIRED, concept_id="database.postgresql"),
         requirement("Docker", necessity=PREFERRED, concept_id="infra.docker"),
         requirement("AWS", necessity=PREFERRED, concept_id="cloud.aws"),
-        requirement("React", necessity=PREFERRED, concept_id="unresolved:react"),
+        requirement("React", necessity=PREFERRED, concept_id="framework.react"),
         requirement("Redis", necessity=PREFERRED, concept_id="database.redis"),
         requirement("GitHub Actions", necessity=PREFERRED, concept_id="unresolved:github_actions"),
-        requirement("Kubernetes", necessity=PREFERRED, concept_id="unresolved:kubernetes"),
+        requirement("Kubernetes", necessity=PREFERRED, concept_id="infra.kubernetes"),
     ]
     preferred_evidence = [
         ev("infra-repo", "infra.docker"),
         ev("infra-repo", "cloud.aws"),
-        ev("frontend-repo", "unresolved:react"),
+        ev("frontend-repo", "framework.react"),
         ev("infra-repo", "database.redis"),
         ev("infra-repo", "unresolved:github_actions"),
-        ev("infra-repo", "unresolved:kubernetes"),
+        ev("infra-repo", "infra.kubernetes"),
     ]
     assessment = assessment_for(reqs, preferred_evidence)
 
-    assert assessment.alignment_score == 75
+    assert assessment.alignment_score == 71
     assert assessment.required == SubscoreFacts(supported=0, assessable=2)
-    assert assessment.preferred == SubscoreFacts(supported=6, assessable=6)
-    # Not a cap, not a discount -- 75 stands uncapped.
+    assert assessment.preferred == SubscoreFacts(supported=5, assessable=5)
+    # Not a cap, not a discount -- 71 stands uncapped.
     assert assessment.alignment_score != 20
+    (excluded,) = assessment.excluded_from_alignment_matches()
+    assert excluded.requirement.original_text == "GitHub Actions"
+    assert excluded.status == MatchStatus.SUPPORTED and excluded.supporting_evidence
 
 
 # ---------------------------------------------------------------------------
@@ -391,30 +415,56 @@ def test_none_parser_confidence_not_counted_as_low():
 
 
 # ---------------------------------------------------------------------------
-# OR groups count once; unresolved concepts get no special treatment
+# OR groups count once. Unresolved concepts: Milestone 8D.1 decided they
+# "get no special treatment"; Milestone 11-G19 (scoring v2, approved after
+# the M11-G15/G18 evaluations) deliberately OVERTURNS that for SCORING
+# only -- matching and evidence are unchanged.
 # ---------------------------------------------------------------------------
 
 def test_or_group_counts_as_exactly_one_assessable_requirement():
-    # Milestone 8D.1: a deliberately synthetic, guaranteed-unregistered
-    # term (Kubernetes is now a registered concept) to keep demonstrating
-    # this section's "unresolved concepts get no special treatment" claim
-    # with an ACTUALLY-unresolved concept id.
+    # A fully assessable OR group still counts exactly once.
     reqs = [
+        requirement(
+            "Docker or Kubernetes",
+            concept_id=None,
+            alternative_concept_ids=("infra.docker", "infra.kubernetes"),
+        )
+    ]
+    assessment = assessment_for(reqs, [ev("repo-a", "infra.docker"), ev("repo-b", "infra.kubernetes")])
+    assert assessment.assessable_count == 1
+    assert assessment.alignment_score == 100
+    # Milestone 11-G19: the 8D.1 version of this test used ("infra.docker",
+    # "unresolved:someunknownorchestrator") and expected 1/1 = 100. Under v2
+    # a mixed group is excluded ONCE (never partially counted) -- absence
+    # of Docker evidence says nothing about the unknown alternative --
+    # while its SUPPORTED status and evidence are kept.
+    mixed = [
         requirement(
             "Docker or SomeUnknownOrchestrator",
             concept_id=None,
             alternative_concept_ids=("infra.docker", "unresolved:someunknownorchestrator"),
         )
     ]
-    assessment = assessment_for(reqs, [ev("repo-a", "infra.docker")])
-    assert assessment.assessable_count == 1
-    assert assessment.alignment_score == 100
+    assessment = assessment_for(mixed, [ev("repo-a", "infra.docker")])
+    assert (assessment.assessable_count, assessment.alignment_score) == (0, None)
+    (match,) = assessment.match_analysis.requirement_matches
+    assert match.status == MatchStatus.SUPPORTED and match.matched_concept_ids == ("infra.docker",)
+    assert assessment.excluded_from_alignment_count == 1
 
 
-def test_unresolved_concept_requirement_scored_like_any_other():
+def test_unresolved_concept_requirement_excluded_from_score_but_keeps_evidence():
+    # Formerly `test_unresolved_concept_requirement_scored_like_any_other`
+    # (Milestone 8D.1, expected 100). Milestone 11-G19 (scoring v2): an
+    # unresolved concept has no declared evidence pathway, so it never
+    # counts -- but the matcher still evaluates it and its evidence stays
+    # visible (e.g. GitHub language-stats evidence for an unregistered
+    # language).
     reqs = [requirement("Some brand-new framework", concept_id="unresolved:newframework")]
     assessment = assessment_for(reqs, [ev("repo-a", "unresolved:newframework")])
-    assert assessment.alignment_score == 100
+    assert assessment.alignment_score is None
+    (match,) = assessment.match_analysis.requirement_matches
+    assert match.status == MatchStatus.SUPPORTED and match.supporting_evidence
+    assert assessment.excluded_from_alignment_matches() == (match,)
 
 
 # ---------------------------------------------------------------------------
@@ -544,17 +594,21 @@ def test_alignment_score_none_iff_assessable_count_zero():
 
 
 def test_alignment_score_bounds():
+    # Milestone 11-G19: registered filler concepts (see REGISTERED above).
     for supported_count in range(0, 4):
-        reqs = [requirement(f"Concept {i}", concept_id=f"unresolved:c{i}") for i in range(3)]
-        evidence = [ev(f"repo-{i}", f"unresolved:c{i}") for i in range(min(supported_count, 3))]
+        reqs = [requirement(f"Concept {i}", concept_id=REGISTERED[i]) for i in range(3)]
+        evidence = [ev(f"repo-{i}", REGISTERED[i]) for i in range(min(supported_count, 3))]
         score = assessment_for(reqs, evidence).alignment_score
         assert score is not None
         assert 0 <= score <= 100
 
 
 def test_low_parser_confidence_count_never_exceeds_assessable_count():
+    # Milestone 11-G19: registered filler concepts, so the rows are actually
+    # assessable and the bound is exercised (with unresolved filler both
+    # counts would be 0 under v2).
     reqs = [
-        requirement(f"Concept {i}", concept_id=f"unresolved:c{i}", parser_confidence=ParserConfidence.LOW)
+        requirement(f"Concept {i}", concept_id=REGISTERED[i], parser_confidence=ParserConfidence.LOW)
         for i in range(3)
     ]
     assessment = assessment_for(reqs)

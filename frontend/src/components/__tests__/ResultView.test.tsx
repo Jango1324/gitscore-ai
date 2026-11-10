@@ -36,6 +36,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 0,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 0,
+        excluded_from_alignment_count: 0,
       },
     });
     render(<ResultView result={response} />);
@@ -343,6 +344,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 3,
         uninterpreted_requirement_count: 2,
         unparsed_claim_count: 0,
+        excluded_from_alignment_count: 0,
       },
     });
     render(<ResultView result={response} />);
@@ -369,6 +371,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 2,
         uninterpreted_requirement_count: 1,
         unparsed_claim_count: 2,
+        excluded_from_alignment_count: 0,
       },
     });
     render(<ResultView result={response} />);
@@ -395,6 +398,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 1,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 1,
+        excluded_from_alignment_count: 0,
       },
     });
     render(<ResultView result={response} />);
@@ -454,6 +458,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 4,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 1,
+        excluded_from_alignment_count: 0,
       },
       required: { supported: 3, assessable: 3 },
       preferred: { supported: 1, assessable: 1 },
@@ -477,6 +482,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 9,
         uninterpreted_requirement_count: 2,
         unparsed_claim_count: 0,
+        excluded_from_alignment_count: 0,
       },
       unparsed_claims: [],
     });
@@ -501,6 +507,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 5,
         uninterpreted_requirement_count: 1,
         unparsed_claim_count: 2,
+        excluded_from_alignment_count: 0,
       },
       unparsed_claims: [{ text: "First unparsed statement" }, { text: "Second unparsed statement" }],
     });
@@ -543,6 +550,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 0,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 1,
+        excluded_from_alignment_count: 0,
       },
       required: null,
       preferred: null,
@@ -565,6 +573,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 2,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 4,
+        excluded_from_alignment_count: 0,
       },
       unparsed_claims: [
         { text: "Claim one" },
@@ -594,6 +603,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 4,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 1,
+        excluded_from_alignment_count: 0,
       },
       unparsed_claims: [{ text: longClaim }],
     });
@@ -628,6 +638,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 3,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 1,
+        excluded_from_alignment_count: 0,
       },
       unparsed_claims: [{ text: "Experience with OpenCV for image processing" }],
     });
@@ -649,6 +660,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 4,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 0,
+        excluded_from_alignment_count: 0,
       },
     });
     const withGap = makeAnalyzeResponse({
@@ -657,6 +669,7 @@ describe("ResultView", () => {
         assessable_requirement_count: 4,
         uninterpreted_requirement_count: 0,
         unparsed_claim_count: 1,
+        excluded_from_alignment_count: 0,
       },
       unparsed_claims: [{ text: "Experience with OpenCV for image processing" }],
     });

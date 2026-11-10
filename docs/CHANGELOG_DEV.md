@@ -1,5 +1,52 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-09 — Milestone 11-G19: observability-aware scoring v2 (production; scoring v1 -> v2)
+
+**What changed:** A requirement now enters the GitHub Evidence Alignment numerator and denominator only
+if the matcher evaluated it AND every acceptable alternative has a declared GitHub evidence-assessment
+capability. New internal `src/gitscore/evidence/capability.py` (ASSESSABLE / NOT_ASSESSABLE / UNRESOLVED,
+with reasons, derived from the README, language-stats and Docker extractors). `assessment/models.py`:
+`score_eligibility()`, `counts_toward_alignment()`, `alignment_exclusion_reason()`; `_assessable_matches`
+filters on eligibility and the numerator counts SUPPORTED within that set; `excluded_from_alignment_*`.
+`assessment/types.py`: `SCORING_VERSION` v1 -> v2 and the closed `AlignmentExclusionReason` set. API
+(additive): `RequirementOut.counts_toward_alignment`, `.alignment_exclusion_reason`,
+`AssessmentOut.excluded_from_alignment_count`. Frontend: "Not counted in alignment score" badge with a
+reason-keyed explanation on excluded supported/not-observed rows, a headline scope sentence and excluded
+count.
+
+**Why:** M11-G15/G18 measured mixed OR groups ("AWS or Azure") and standalone unresolved rows
+(Terraform, NumPy, SPI) scored as NOT_OBSERVED although no extractor can ever evidence them: 27 wrong
+NOT_OBSERVED (13 truly qualified) and 33 uncheckable rows on 106 frozen outcomes. G18's policy B/C was
+approved for production.
+
+**How it works:** eligibility is decided from the requirement alone (candidate-independent); an OR group
+counts once or is excluded once; excluded rows keep MatchStatus, matched concepts and evidence. Formula and
+half-up rounding unchanged; `None` when nothing is eligible. Parser (v13), matcher, extractors, registry,
+`MatchStatus` and `JobRequirement` untouched.
+
+**Measured (actual v1 at ac4a15e vs v2):** live v2 == G18 simulated policy C on 54/54 pairs; wrong
+NOT_OBSERVED 27 -> 0; uncheckable scored 33 -> 2 (control 25's narrative parser defect); 0 status/evidence
+changes in any corpus; 6/12 frozen 8c pairs change exactly as predicted; private corpora (inspected)
+142 -> 71 denominator rows.
+
+**Files affected:** `src/gitscore/evidence/capability.py` (new), `src/gitscore/assessment/{models,types,
+__init__}.py`, `src/gitscore/api/{schemas,serialization}.py`; frontend `types/api.ts`, `lib/labels.ts`,
+`components/{RequirementSection,AlignmentHeadline,ResultView}.tsx`, `app/globals.css`, `test/fixtures.ts`,
+`__tests__/ResultView.test.tsx`, new `__tests__/AlignmentExclusion.test.tsx`; tests
+`test_m11g19_observability_scoring_v2.py` (new, 22 red on v1), `test_assessment_engine.py` (8D.1 overturn
++ fixture migration), `test_api_routes.py`, G15/G16 version-aware reproducibility; G15/G18 research
+fidelity assertions made scoring-version-aware (outputs unchanged); `scripts/evaluate_m11g19_v1_v2.py`,
+`scripts/evaluation_lib/m11g19_scoring_dump.py`, `evaluation/m11g19/*`; docs.
+
+**Risks / limitations:** unregistered GitHub languages (Elixir, MATLAB, ...) are conservatively excluded
+(2/54 synthetic scores drop); fabricated `unresolved:` terms and other parser defects remain (now shown
+as "not counted" rather than penalising); half of real technical rows leave the denominator, so scores
+rise and become undefined more often.
+
+**How to test:** `pytest tests/test_m11g19_observability_scoring_v2.py tests/test_assessment_engine.py`;
+`cd frontend && npx vitest run && npx tsc --noEmit`; `python scripts/evaluate_m11g19_v1_v2.py
+[--private-corpora]`.
+
 ## 2026-11-09 — Milestone 11-G18: observability-aware score eligibility (evaluation only, no production change)
 
 **What changed:** Added an evaluation-only study of which requirements may legitimately enter the

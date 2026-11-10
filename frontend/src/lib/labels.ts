@@ -6,7 +6,7 @@
  * new status/category -- an unrecognized value still renders (falls
  * back to the raw value) rather than disappearing.
  */
-import type { InterpretationStatus, RequirementStatus, UnparsedClaim } from "@/types/api";
+import type { AlignmentExclusionReason, InterpretationStatus, RequirementStatus, UnparsedClaim } from "@/types/api";
 
 const EVIDENCE_TYPE_LABELS: Record<string, string> = {
   repository_language: "Language usage",
@@ -220,3 +220,54 @@ export const UNPARSED_CLAIMS_SECTION_COPY = {
   explanation:
     "GitScore identified these statements in the job posting as possible requirements, but could not interpret them well enough to assess at all. They are shown here exactly as written, with no status or evidence, so nothing about the posting is silently hidden.",
 };
+
+/**
+ * Milestone 11-G19 (scoring v2) -- disclosure for requirements that the
+ * matcher evaluated (status `supported` or `not_observed`) but that do
+ * NOT count toward the GitHub Evidence Alignment score, because not every
+ * acceptable option can be checked from GitHub evidence. Copy is keyed by
+ * the API's closed `alignment_exclusion_reason` set and never implies the
+ * requirement is irrelevant to the job or that the candidate lacks the
+ * skill.
+ */
+export const NOT_COUNTED_LABEL = "Not counted in alignment score";
+
+const ALIGNMENT_EXCLUSION_EXPLANATIONS: Record<AlignmentExclusionReason, string> = {
+  unresolved_alternative:
+    "At least one acceptable option in this requirement cannot be checked from GitHub evidence, so GitHub evidence alone cannot decide it either way.",
+  alternative_without_evidence_pathway:
+    "At least one acceptable option in this requirement cannot be detected in GitHub repositories, so GitHub evidence alone cannot decide it either way.",
+  unresolved_technology:
+    "GitScore cannot determine whether GitHub evidence for this technology could exist, so it is left out of the score. It may still matter for the role.",
+  technology_without_evidence_pathway:
+    "GitScore has no way to detect this technology in GitHub repositories, so it is left out of the score. It may still matter for the role.",
+  not_assessable: "This requirement cannot be assessed from GitHub evidence.",
+};
+
+/** The explanation for one excluded row; an unrecognized value still
+ * renders a neutral sentence rather than disappearing. */
+export function alignmentExclusionExplanation(reason: AlignmentExclusionReason | string | null): string {
+  if (reason !== null && reason in ALIGNMENT_EXCLUSION_EXPLANATIONS) {
+    return ALIGNMENT_EXCLUSION_EXPLANATIONS[reason as AlignmentExclusionReason];
+  }
+  return "This requirement is not counted in the alignment score.";
+}
+
+/** True for a row the matcher evaluated but the score excludes -- the only
+ * rows that get the "Not counted" disclosure (NOT_ASSESSABLE rows already
+ * sit in their own clearly-labelled section). */
+export function isEvaluatedButNotCounted(requirement: {
+  status: RequirementStatus;
+  counts_toward_alignment: boolean;
+}): boolean {
+  return requirement.status !== "not_assessable" && !requirement.counts_toward_alignment;
+}
+
+/** Headline note: what the number covers, and how many evaluated
+ * requirements it leaves out. */
+export function excludedFromAlignmentNote(count: number): string {
+  const plural = count === 1 ? "requirement is" : "requirements are";
+  return `${count} evaluated ${plural} not counted because not every acceptable option can be checked from GitHub evidence -- see "${NOT_COUNTED_LABEL}" below.`;
+}
+
+export const ALIGNMENT_SCOPE_NOTE = "The score covers only requirements GitScore can check from GitHub evidence.";

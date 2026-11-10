@@ -25,7 +25,7 @@ from gitscore.api.schemas import (
     VersionsOut,
 )
 from gitscore.application.job_fit import JobAnalysisResult
-from gitscore.assessment.models import SubscoreFacts
+from gitscore.assessment.models import SubscoreFacts, alignment_exclusion_reason
 from gitscore.concepts.registry import concept_display_label
 from gitscore.evidence.models import Evidence, RepositoryIdentity
 from gitscore.jobs.parsing.parser import UnparsedClaim
@@ -100,6 +100,7 @@ def serialize_evidence(evidence: Evidence) -> EvidenceOut:
 
 def serialize_requirement_match(match: RequirementMatch) -> RequirementOut:
     requirement = match.requirement
+    exclusion = alignment_exclusion_reason(match)
     return RequirementOut(
         text=requirement.original_text,
         status=match.status.value,
@@ -116,6 +117,10 @@ def serialize_requirement_match(match: RequirementMatch) -> RequirementOut:
         alternative_concept_ids=list(requirement.alternative_concept_ids),
         matched_concept_ids=list(match.matched_concept_ids),
         evidence=[serialize_evidence(item) for item in match.supporting_evidence],
+        # Milestone 11-G19 (scoring v2): the SAME per-match rule JobAssessment
+        # scores with -- never re-derived here.
+        counts_toward_alignment=exclusion is None,
+        alignment_exclusion_reason=exclusion.value if exclusion is not None else None,
     )
 
 
@@ -151,6 +156,7 @@ def serialize_job_analysis_result(result: JobAnalysisResult) -> AnalyzeResponse:
             assessable_requirement_count=assessment.assessable_count,
             uninterpreted_requirement_count=uninterpreted_count,
             unparsed_claim_count=len(result.unparsed_claims),
+            excluded_from_alignment_count=assessment.excluded_from_alignment_count,
         ),
         required=serialize_subscore(assessment.required),
         preferred=serialize_subscore(assessment.preferred),

@@ -2505,6 +2505,10 @@ synonym at the presentation boundary.
 
 ### 21.10 Versioning
 
+> **Milestone 11-G19:** bumped to `github_evidence_alignment:v2`
+> (observability-aware score eligibility) -- see the Milestone 11-G19
+> section below. The v1 text in this section describes v1.
+
 `SCORING_VERSION = "github_evidence_alignment:v1"` (`assessment/
 types.py`) — a new, independent constant identifying this package's
 scoring rules (the formula, the rounding policy, which statuses are
@@ -5473,3 +5477,41 @@ are contained, not decomposed. `JOB_DESCRIPTION_PARSER_VERSION` bumps
 v13 code: false SUPPORTED 106 -> 7 of 414 on M11-G16's frozen controls, 0
 new, 0 frozen-8c pairs changed. See
 `docs/evaluation/MILESTONE_11_G17_SAFE_COMPOUND_LOGIC_CONTAINMENT.md`.
+
+### Milestone 11-G19 — observability-aware scoring v2 (`evidence/capability.py`, `assessment/`, API, frontend)
+
+**Capability vs evidence.** `gitscore/evidence/capability.py` (new,
+internal) answers, per concept id and never per candidate, whether any
+existing extractor can EVER emit evidence for it: `ASSESSABLE` (a README-safe
+alias the README extractor scans; a registry `language` concept that GitHub
+language statistics resolve to; or the Docker-file detector's concept),
+`NOT_ASSESSABLE` (registered with no such pathway, or an unknown id) or
+`UNRESOLVED` (`unresolved:<term>` -- only the language extractor emits these,
+and no vocabulary declares which terms are GitHub languages). Dependency
+manifests are deliberately not a capability ground (they resolve arbitrary
+package names). Every decision carries reasons; tests validate each
+ASSESSABLE pathway by running the real extractor.
+
+**Eligibility.** `assessment.models.score_eligibility(requirement)` --
+decided from the job requirement alone: not eligible (`not_assessable`) when
+the matcher would return NOT_ASSESSABLE; otherwise eligible only if EVERY
+acceptable alternative is ASSESSABLE (an OR group counts once or is excluded
+once). `_assessable_matches` (the one "assessable" definition) now filters
+on it, and `alignment_score`'s numerator counts SUPPORTED rows within that
+same set (no longer `match_analysis.supported_count`). Matcher, `MatchStatus`,
+`JobRequirement`, parser and extractors are unchanged: excluded rows keep
+their status, matched concepts and evidence. `SCORING_VERSION`
+`v1` -> `v2`; formula and half-up rounding unchanged; `None` when nothing is
+eligible.
+
+**API (additive).** `RequirementOut.counts_toward_alignment`,
+`RequirementOut.alignment_exclusion_reason` (closed set:
+`not_assessable`, `unresolved_technology`, `unresolved_alternative`,
+`technology_without_evidence_pathway`, `alternative_without_evidence_pathway`)
+and `AssessmentOut.excluded_from_alignment_count`;
+`supported + not_observed == assessable_requirement_count +
+excluded_from_alignment_count`. **Frontend:** evaluated-but-excluded rows show
+"Not counted in alignment score" with a reason-keyed explanation and keep
+their evidence; the headline states the score covers only GitHub-assessable
+requirements and how many evaluated requirements it leaves out. See
+`docs/evaluation/MILESTONE_11_G19_OBSERVABILITY_SCORING_V2.md`.

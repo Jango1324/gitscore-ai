@@ -99,7 +99,9 @@ def test_report_is_reproducible(report):
 
 def test_policy_a_score_equals_the_real_assessor(controls):
     # evaluate_control() asserts, per control and candidate, that the
-    # simulated policy-A score and denominator equal assess_job()'s own.
+    # simulated policy-A score and denominator equal assess_job()'s own
+    # under scoring v1 -- and, since M11-G19 implemented scoring v2, that
+    # simulated policy B equals the real v2 assessor instead.
     for c in controls["controls"]:
         orsc.evaluate_control(c)
 

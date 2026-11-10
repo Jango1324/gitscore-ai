@@ -120,7 +120,14 @@ def test_valid_analyze_request_returns_full_shape(client):
     docker_match = next(r for r in body["requirements"]["supported"] if r["concept_id"] == "infra.docker")
     assert docker_match["evidence"][0]["repository"] == {"owner": "octocat", "name": "api-service"}
     assert body["diagnostics"] == {"extraction_failure_count": 0, "unknown_dependency_count": 0}
-    assert body["versions"]["scoring"] == "github_evidence_alignment:v1"
+    # Milestone 11-G19 bumped scoring v1 -> v2 (observability-aware score
+    # eligibility). Every requirement in this fixture is fully assessable,
+    # so all the score values asserted above are identical under v2.
+    assert body["versions"]["scoring"] == "github_evidence_alignment:v2"
+    # Additive v2 fields are present on every requirement and reconcile.
+    every = [r for group in body["requirements"].values() for r in group]
+    assert all("counts_toward_alignment" in r and "alignment_exclusion_reason" in r for r in every)
+    assert body["assessment"]["excluded_from_alignment_count"] == 0
 
 
 def test_optional_job_title_and_company_pass_through(client):

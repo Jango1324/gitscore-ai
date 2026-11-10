@@ -22,6 +22,8 @@ for _p in (REPO_ROOT / "src", REPO_ROOT / "scripts", REPO_ROOT / "scripts" / "ev
 
 import evaluate_m11g16_compound_logic as runner  # noqa: E402
 import gitscore.jobs.parsing.parser as parser_mod  # noqa: E402
+from gitscore.assessment import SCORING_VERSION  # noqa: E402
+from gitscore.evidence.capability import Capability, concept_capability  # noqa: E402
 import gold_integrity as gi  # noqa: E402
 import m11g16_build_controls as builder  # noqa: E402
 import m11g16_compound_logic as sim  # noqa: E402
@@ -76,9 +78,44 @@ def test_report_is_reproducible(report):
         assert live == report
         return
     assert parser_mod.JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+    if SCORING_VERSION == "github_evidence_alignment:v1":
+        for cid, modes in report["results"].items():
+            assert live["results"][cid]["production"] == modes["D_structural_guard"], cid
+        assert live["metrics"]["production"] == report["metrics"]["D_structural_guard"]
+        return
+    # M11-G19 scoring v2: parsing and matching are unchanged, so rows,
+    # statuses and matched concepts must still equal the frozen Option D
+    # simulation exactly. Only the assessor's `assessable`/`score` may move,
+    # and they must equal a v2 recomputation from the FROZEN statuses: a row
+    # counts iff it was evaluated and every member is GitHub-assessable.
+    assert SCORING_VERSION == "github_evidence_alignment:v2"
+    scoring = ("assessable", "score")
+    changed = set()
     for cid, modes in report["results"].items():
-        assert live["results"][cid]["production"] == modes["D_structural_guard"], cid
-    assert live["metrics"]["production"] == report["metrics"]["D_structural_guard"]
+        frozen, got = modes["D_structural_guard"], live["results"][cid]["production"]
+        assert got["rows"] == frozen["rows"], cid
+        for fx, f in frozen["fixtures"].items():
+            g = got["fixtures"][fx]
+            assert {k: v for k, v in g.items() if k not in scoring} == \
+                {k: v for k, v in f.items() if k not in scoring}, (cid, fx)
+            eligible = [i for i, s in enumerate(f["statuses"]) if s != "not_assessable" and all(
+                concept_capability(m).capability == Capability.ASSESSABLE for m in frozen["rows"][i]["members"])]
+            sup = sum(f["statuses"][i] == "supported" for i in eligible)
+            expected = None if not eligible else (2 * 100 * sup + len(eligible)) // (2 * len(eligible))
+            assert (g["assessable"], g["score"]) == (len(eligible), expected), (cid, fx)
+            if (g["assessable"], g["score"]) != (f["assessable"], f["score"]):
+                changed.add(cid)
+    # 045 "Docker, Kubernetes or Terraform" (unresolved:terraform member) and
+    # 058's fabricated unresolved:alternatively row -- exactly the two G18
+    # predicted for the compound corpus.
+    assert changed == {"m11g16-045", "m11g16-058"}
+    for k, v in report["metrics"]["D_structural_guard"].items():
+        if k == "4_false_declines_of_representable":
+            # 045 is now not scored at all under v2 (its only row is excluded).
+            assert set(live["metrics"]["production"][k]["ids"]) - set(v["ids"]) == {"m11g16-045"}
+            assert set(v["ids"]) <= set(live["metrics"]["production"][k]["ids"])
+        else:
+            assert live["metrics"]["production"][k] == v, k
 
 
 def test_simulation_always_restores_the_parser(controls):

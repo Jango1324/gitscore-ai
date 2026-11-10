@@ -49,7 +49,7 @@ for _p in (_REPO_ROOT / "src", _REPO_ROOT / "scripts" / "evaluation_lib"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
-from gitscore.assessment import assess_job  # noqa: E402
+from gitscore.assessment import SCORING_VERSION, assess_job  # noqa: E402
 from gitscore.assessment.models import _round_half_up_percentage  # noqa: E402
 from gitscore.concepts.registry import ConceptRegistry, default_registry, is_unresolved_concept_id  # noqa: E402
 from gitscore.evidence.extraction.docker import DOCKER_CONCEPT_ID  # noqa: E402
@@ -238,7 +238,10 @@ def evaluate_control(control: dict) -> dict:
         for policy in POLICIES:
             rows = [policy_row(policy, m) for m in matches]
             sc = score_rows(rows)
-            if policy == "A_production":
+            # Fidelity check against the REAL assessor: policy A under scoring v1;
+            # under scoring v2 (M11-G19 implemented C_capability_declared) the real
+            # assessor must equal the simulated C. Simulation output is unchanged.
+            if policy == ("A_production" if SCORING_VERSION.endswith(":v1") else "C_capability_declared"):
                 assert sc["score"] == assessment.alignment_score and sc["eligible"] == assessment.assessable_count
             per_gold = {}
             for g in golds:

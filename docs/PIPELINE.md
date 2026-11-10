@@ -755,6 +755,19 @@ group one alternative could satisfy. Simple OR and simple AND are
 unchanged. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v12` -> `v13`. Matcher,
 assessment and scoring are untouched.
 
+### Observability-aware scoring v2 -- Milestone 11-G19
+
+Scoring step only (`assess_job`): after matching, each requirement is
+score-eligible iff the matcher evaluated it AND every acceptable alternative
+has a declared GitHub evidence-assessment capability
+(`evidence/capability.py`; `unresolved:` concepts are never eligible). Only
+eligible rows enter the numerator and denominator; excluded SUPPORTED /
+NOT_OBSERVED rows keep their status and evidence and are reported with
+`counts_toward_alignment=false` plus a stable `alignment_exclusion_reason`;
+`excluded_from_alignment_count` is added to the API assessment. Eligibility
+never depends on the candidate. `SCORING_VERSION` `v1` -> `v2`; parser,
+matcher and extractors unchanged.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

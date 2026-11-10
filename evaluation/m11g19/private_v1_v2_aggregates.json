@@ -1,0 +1,57 @@
+{
+  "note": "previously inspected private postings -- not independent holdouts; integer counts only",
+  "m11d": {
+    "postings": 12,
+    "technical_rows": 14,
+    "denominator_rows_v1": 14,
+    "denominator_rows_v2": 9,
+    "technical_rows_excluded_v2": 5,
+    "postings_with_any_exclusion_v2": 1,
+    "postings_with_no_eligible_requirement_v1": 7,
+    "postings_with_no_eligible_requirement_v2": 7,
+    "excluded_by_reason_v2": {
+      "unresolved_technology": 5
+    }
+  },
+  "m11f": {
+    "postings": 18,
+    "technical_rows": 40,
+    "denominator_rows_v1": 40,
+    "denominator_rows_v2": 23,
+    "technical_rows_excluded_v2": 17,
+    "postings_with_any_exclusion_v2": 8,
+    "postings_with_no_eligible_requirement_v1": 7,
+    "postings_with_no_eligible_requirement_v2": 8,
+    "excluded_by_reason_v2": {
+      "unresolved_technology": 17
+    }
+  },
+  "m11g5": {
+    "postings": 18,
+    "technical_rows": 54,
+    "denominator_rows_v1": 54,
+    "denominator_rows_v2": 29,
+    "technical_rows_excluded_v2": 25,
+    "postings_with_any_exclusion_v2": 9,
+    "postings_with_no_eligible_requirement_v1": 5,
+    "postings_with_no_eligible_requirement_v2": 6,
+    "excluded_by_reason_v2": {
+      "unresolved_alternative": 3,
+      "unresolved_technology": 22
+    }
+  },
+  "m11g9": {
+    "postings": 14,
+    "technical_rows": 34,
+    "denominator_rows_v1": 34,
+    "denominator_rows_v2": 10,
+    "technical_rows_excluded_v2": 24,
+    "postings_with_any_exclusion_v2": 6,
+    "postings_with_no_eligible_requirement_v1": 5,
+    "postings_with_no_eligible_requirement_v2": 7,
+    "excluded_by_reason_v2": {
+      "unresolved_alternative": 1,
+      "unresolved_technology": 23
+    }
+  }
+}

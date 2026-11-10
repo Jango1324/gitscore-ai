@@ -25,7 +25,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from gitscore.jobs.types import Necessity, ParserConfidence
+from gitscore.assessment.types import AlignmentExclusionReason
+from gitscore.evidence.capability import Capability, concept_capability
+from gitscore.jobs.models import JobRequirement
+from gitscore.jobs.types import GithubObservability, Necessity, ParserConfidence
 from gitscore.matching.models import JobMatchAnalysis, RequirementMatch
 from gitscore.matching.types import MatchStatus
 
@@ -61,16 +64,91 @@ def _round_half_up_percentage(numerator: int, denominator: int) -> int:
     return (2 * 100 * numerator + denominator) // (2 * denominator)
 
 
-def _assessable_matches(matches: tuple[RequirementMatch, ...]) -> tuple[RequirementMatch, ...]:
-    """SUPPORTED + NOT_OBSERVED matches -- the requirements GitHub
-    evidence could meaningfully speak to, regardless of necessity.
-    Excludes NOT_ASSESSABLE (`docs/design/MILESTONE_7B_SCORING_DESIGN.md`
-    Part 3). The ONE definition of "assessable" used everywhere in this
-    module -- `assessable_count`, `low_parser_confidence_count`, and
-    `_subscore_for` all filter through this same function rather than
-    each re-deriving "status != NOT_ASSESSABLE" independently.
+@dataclass(frozen=True)
+class ScoreEligibility:
+    """Whether ONE requirement may enter the alignment numerator and
+    denominator (scoring v2), and if not, why. `reason is None` exactly
+    when `eligible`."""
+
+    eligible: bool
+    reason: AlignmentExclusionReason | None
+
+    def __post_init__(self) -> None:
+        if self.eligible != (self.reason is None):
+            raise ValueError("ScoreEligibility: reason must be None exactly when eligible")
+
+
+def _requirement_members(requirement: JobRequirement) -> tuple[str, ...]:
+    if requirement.alternative_concept_ids:
+        return tuple(requirement.alternative_concept_ids)
+    return (requirement.concept_id,) if requirement.concept_id is not None else ()
+
+
+def score_eligibility(requirement: JobRequirement) -> ScoreEligibility:
+    """Scoring v2 (Milestone 11-G19) eligibility of ONE requirement.
+
+    Decided from the job requirement alone -- never from any candidate's
+    evidence -- so every candidate scored against the same job is scored
+    over the same requirement set.
+
+    1. Mirrors the matcher's own NOT_ASSESSABLE decision table
+       (`matching.engine`): NOT_OBSERVABLE, or no concept mapping at all
+       (non-technical claims, 9A/6B.1/G17 placeholders) -> not eligible,
+       `NOT_ASSESSABLE`.
+    2. Otherwise eligible only if EVERY acceptable alternative (a single
+       requirement is a group of one) is `Capability.ASSESSABLE`
+       (`evidence.capability`). An OR group is one logical entry: it is
+       either counted once or excluded once, never partially.
+
+    A mixed group ("AWS or Azure") is excluded rather than scored on its
+    checkable branch alone: absence of AWS evidence says nothing about an
+    Azure-qualified candidate, and counting it only when AWS evidence
+    exists would make the denominator candidate-dependent (M11-G15/G18).
     """
-    return tuple(m for m in matches if m.status != MatchStatus.NOT_ASSESSABLE)
+    members = _requirement_members(requirement)
+    if requirement.github_observability == GithubObservability.NOT_OBSERVABLE or not members:
+        return ScoreEligibility(False, AlignmentExclusionReason.NOT_ASSESSABLE)
+    capabilities = [concept_capability(member).capability for member in members]
+    blocked = [c for c in capabilities if c != Capability.ASSESSABLE]
+    if not blocked:
+        return ScoreEligibility(True, None)
+    unresolved_only = all(c == Capability.UNRESOLVED for c in blocked)
+    if len(blocked) < len(capabilities):
+        reason = (AlignmentExclusionReason.UNRESOLVED_ALTERNATIVE if unresolved_only
+                  else AlignmentExclusionReason.ALTERNATIVE_WITHOUT_EVIDENCE_PATHWAY)
+    else:
+        reason = (AlignmentExclusionReason.UNRESOLVED_TECHNOLOGY if unresolved_only
+                  else AlignmentExclusionReason.TECHNOLOGY_WITHOUT_EVIDENCE_PATHWAY)
+    return ScoreEligibility(False, reason)
+
+
+def alignment_exclusion_reason(match: RequirementMatch) -> AlignmentExclusionReason | None:
+    """`None` when `match` counts toward the alignment score; otherwise
+    the stable reason it does not. The single per-match rule shared by
+    `JobAssessment` and the API serializer."""
+    if match.status == MatchStatus.NOT_ASSESSABLE:
+        return AlignmentExclusionReason.NOT_ASSESSABLE
+    return score_eligibility(match.requirement).reason
+
+
+def counts_toward_alignment(match: RequirementMatch) -> bool:
+    return alignment_exclusion_reason(match) is None
+
+
+def _assessable_matches(matches: tuple[RequirementMatch, ...]) -> tuple[RequirementMatch, ...]:
+    """The SCORE-ELIGIBLE matches: SUPPORTED or NOT_OBSERVED (never
+    NOT_ASSESSABLE -- `docs/design/MILESTONE_7B_SCORING_DESIGN.md` Part 3)
+    AND, since scoring v2 (Milestone 11-G19), `score_eligibility()` --
+    every acceptable alternative has a declared GitHub evidence-assessment
+    capability. The ONE definition of "assessable" used everywhere in this
+    module -- `assessable_count`, the alignment numerator,
+    `low_parser_confidence_count`, and `_subscore_for` all filter through
+    this same function rather than each re-deriving it independently.
+
+    A row excluded here keeps its `MatchStatus`, matched concepts and
+    evidence unchanged on `match_analysis`; it only stops counting.
+    """
+    return tuple(m for m in matches if counts_toward_alignment(m))
 
 
 def _subscore_for(
@@ -166,27 +244,58 @@ class JobAssessment:
 
     @property
     def assessable_count(self) -> int:
-        """SUPPORTED + NOT_OBSERVED requirement count -- see
+        """The alignment DENOMINATOR: score-eligible SUPPORTED +
+        NOT_OBSERVED requirements (`_assessable_matches`). See
         `docs/design/MILESTONE_7B_SCORING_DESIGN.md` Part 3 for why
-        NOT_ASSESSABLE is excluded from this denominator.
+        NOT_ASSESSABLE is excluded, and Milestone 11-G19 (scoring v2) for
+        why evaluated-but-ineligible rows are excluded too.
         """
         return len(_assessable_matches(self.match_analysis.requirement_matches))
 
     @property
     def alignment_score(self) -> int | None:
-        """GitHub Evidence Alignment: among the assessable requirements,
-        the percentage SUPPORTED, half-up rounded to the nearest integer
-        (`_round_half_up_percentage`).
+        """GitHub Evidence Alignment: among the score-eligible
+        requirements, the percentage SUPPORTED, half-up rounded to the
+        nearest integer (`_round_half_up_percentage`).
+
+        The numerator counts SUPPORTED rows WITHIN the eligible set only
+        -- never `match_analysis.supported_count`, which (since scoring
+        v2) can include SUPPORTED rows that do not count.
 
         `None` -- never `0` -- when `assessable_count == 0` (Edge Cases
         A/G): a job description with no GitHub-assessable requirements
         has no alignment to report, which is a materially different fact
         from "zero alignment observed."
         """
-        assessable = self.assessable_count
-        if assessable == 0:
+        eligible = _assessable_matches(self.match_analysis.requirement_matches)
+        if not eligible:
             return None
-        return _round_half_up_percentage(self.match_analysis.supported_count, assessable)
+        supported = sum(1 for m in eligible if m.status == MatchStatus.SUPPORTED)
+        return _round_half_up_percentage(supported, len(eligible))
+
+    def counts_toward_alignment(self, match: RequirementMatch) -> bool:
+        """Whether this match is in the alignment numerator/denominator set."""
+        return counts_toward_alignment(match)
+
+    def alignment_exclusion_reason(self, match: RequirementMatch) -> AlignmentExclusionReason | None:
+        """`None` when the match counts; otherwise the stable reason it
+        does not (`AlignmentExclusionReason`)."""
+        return alignment_exclusion_reason(match)
+
+    def excluded_from_alignment_matches(self) -> tuple[RequirementMatch, ...]:
+        """SUPPORTED or NOT_OBSERVED matches that do NOT count (scoring v2):
+        the matcher evaluated them, but not every acceptable alternative is
+        GitHub-assessable. Their status and evidence are unchanged.
+        NOT_ASSESSABLE matches are never in this set -- they were never
+        evaluated in the first place."""
+        return tuple(m for m in self.match_analysis.requirement_matches
+                     if m.status != MatchStatus.NOT_ASSESSABLE and not counts_toward_alignment(m))
+
+    @property
+    def excluded_from_alignment_count(self) -> int:
+        """`len(excluded_from_alignment_matches())`. Reconciles exactly:
+        supported + not_observed == assessable_count + this."""
+        return len(self.excluded_from_alignment_matches())
 
     @property
     def required(self) -> SubscoreFacts | None:

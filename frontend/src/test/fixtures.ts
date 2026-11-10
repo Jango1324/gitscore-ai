@@ -15,6 +15,8 @@ export function makeRequirement(overrides: Partial<RequirementItem> = {}): Requi
     alternative_concept_ids: [],
     matched_concept_ids: [],
     evidence: [],
+    counts_toward_alignment: true,
+    alignment_exclusion_reason: null,
     ...overrides,
   };
 }
@@ -28,6 +30,7 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
       assessable_requirement_count: 5,
       uninterpreted_requirement_count: 0,
       unparsed_claim_count: 0,
+      excluded_from_alignment_count: 0,
     },
     required: { supported: 2, assessable: 3 },
     preferred: { supported: 0, assessable: 2 },
@@ -99,6 +102,8 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
           concept_label: null,
           category: "experience",
           interpretation_status: "non_technical",
+          counts_toward_alignment: false,
+          alignment_exclusion_reason: "not_assessable",
         }),
         makeRequirement({
           text: "Excellent written and verbal communication",
@@ -110,6 +115,8 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
           concept_label: null,
           category: "soft_skill",
           interpretation_status: "non_technical",
+          counts_toward_alignment: false,
+          alignment_exclusion_reason: "not_assessable",
         }),
       ],
     },
@@ -117,7 +124,7 @@ export function makeAnalyzeResponse(overrides: Partial<AnalyzeResponse> = {}): A
     diagnostics: { extraction_failure_count: 0, unknown_dependency_count: 0 },
     versions: {
       matcher: "requirement_matcher:v1",
-      scoring: "github_evidence_alignment:v1",
+      scoring: "github_evidence_alignment:v2",
       job_parser: "job_description_parser:v2",
       evidence_schema: 2,
     },

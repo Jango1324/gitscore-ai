@@ -1,0 +1,1374 @@
+{
+  "versions": {
+    "v1": [
+      "github_evidence_alignment:v1",
+      "job_description_parser:v13",
+      "requirement_matcher:v1"
+    ],
+    "v2": [
+      "github_evidence_alignment:v2",
+      "job_description_parser:v13",
+      "requirement_matcher:v1"
+    ]
+  },
+  "note": "actual production v1 (HEAD clone) vs v2 (working tree); real parser/matcher/assessor/API serializer; frozen historical reports untouched",
+  "g18": {
+    "outcomes": 54,
+    "by_direction": {
+      "became_undefined": 17,
+      "decreased": 2,
+      "denominator_only": 8,
+      "increased": 10,
+      "unchanged": 17
+    },
+    "ids_by_direction": {
+      "became_undefined": [
+        "m11g18-02/aws",
+        "m11g18-02/azure_true_no_evidence",
+        "m11g18-02/none",
+        "m11g18-03/aws",
+        "m11g18-03/azure_true_no_evidence",
+        "m11g18-04/azure_true_no_evidence",
+        "m11g18-04/none",
+        "m11g18-05/none",
+        "m11g18-05/terraform_true_no_evidence",
+        "m11g18-06/none",
+        "m11g18-06/zig_language_evidence",
+        "m11g18-07/none",
+        "m11g18-07/react",
+        "m11g18-07/vue_language_evidence",
+        "m11g18-15/azure_true_no_evidence",
+        "m11g18-17/none",
+        "m11g18-17/python"
+      ],
+      "decreased": [
+        "m11g18-10/python_elixir_evidence",
+        "m11g18-23/python_matlab_evidence"
+      ],
+      "denominator_only": [
+        "m11g18-09/none",
+        "m11g18-10/none",
+        "m11g18-11/none",
+        "m11g18-12/none",
+        "m11g18-13/none",
+        "m11g18-18/all_four_with_aws",
+        "m11g18-18/none",
+        "m11g18-23/none"
+      ],
+      "increased": [
+        "m11g18-09/python_docker_terraform_true",
+        "m11g18-10/python_docker_elixir_true_no_evidence",
+        "m11g18-11/python_pandas_numpy_true",
+        "m11g18-12/python_and_interfaces_true",
+        "m11g18-13/c_verilog_evidence",
+        "m11g18-18/python_only",
+        "m11g18-18/three_plus_azure_true",
+        "m11g18-21/python_docker",
+        "m11g18-21/python_only_kafka_true",
+        "m11g18-25/python_docker"
+      ]
+    },
+    "match_status_or_evidence_changed": [],
+    "count_reconciliation_failures": [],
+    "reason_consistency_failures": [],
+    "changes": {
+      "m11g18-02/aws": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-02/azure_true_no_evidence": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-02/none": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-03/aws": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-03/azure_true_no_evidence": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-04/azure_true_no_evidence": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-04/none": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-05/terraform_true_no_evidence": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-05/none": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-06/zig_language_evidence": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-06/none": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-07/vue_language_evidence": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-07/react": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-07/none": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-09/python_docker_terraform_true": {
+        "v1": [
+          67,
+          3
+        ],
+        "v2": [
+          100,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-09/none": {
+        "v1": [
+          0,
+          3
+        ],
+        "v2": [
+          0,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-10/python_elixir_evidence": {
+        "v1": [
+          67,
+          3
+        ],
+        "v2": [
+          50,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-10/python_docker_elixir_true_no_evidence": {
+        "v1": [
+          67,
+          3
+        ],
+        "v2": [
+          100,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-10/none": {
+        "v1": [
+          0,
+          3
+        ],
+        "v2": [
+          0,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-11/python_pandas_numpy_true": {
+        "v1": [
+          67,
+          3
+        ],
+        "v2": [
+          100,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-11/none": {
+        "v1": [
+          0,
+          3
+        ],
+        "v2": [
+          0,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-12/python_and_interfaces_true": {
+        "v1": [
+          25,
+          4
+        ],
+        "v2": [
+          100,
+          1
+        ],
+        "excluded_v2": 3,
+        "reasons_v2": [
+          "unresolved_technology",
+          "unresolved_technology",
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-12/none": {
+        "v1": [
+          0,
+          4
+        ],
+        "v2": [
+          0,
+          1
+        ],
+        "excluded_v2": 3,
+        "reasons_v2": [
+          "unresolved_technology",
+          "unresolved_technology",
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-13/c_verilog_evidence": {
+        "v1": [
+          33,
+          3
+        ],
+        "v2": [
+          100,
+          1
+        ],
+        "excluded_v2": 2,
+        "reasons_v2": [
+          "unresolved_technology",
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-13/none": {
+        "v1": [
+          0,
+          3
+        ],
+        "v2": [
+          0,
+          1
+        ],
+        "excluded_v2": 2,
+        "reasons_v2": [
+          "unresolved_technology",
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-15/azure_true_no_evidence": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-17/python": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-17/none": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-18/all_four_with_aws": {
+        "v1": [
+          100,
+          4
+        ],
+        "v2": [
+          100,
+          3
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-18/three_plus_azure_true": {
+        "v1": [
+          75,
+          4
+        ],
+        "v2": [
+          100,
+          3
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-18/python_only": {
+        "v1": [
+          25,
+          4
+        ],
+        "v2": [
+          33,
+          3
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-18/none": {
+        "v1": [
+          0,
+          4
+        ],
+        "v2": [
+          0,
+          3
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g18-21/python_only_kafka_true": {
+        "v1": [
+          33,
+          3
+        ],
+        "v2": [
+          50,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-21/python_docker": {
+        "v1": [
+          67,
+          3
+        ],
+        "v2": [
+          100,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-23/python_matlab_evidence": {
+        "v1": [
+          67,
+          3
+        ],
+        "v2": [
+          50,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-23/none": {
+        "v1": [
+          0,
+          3
+        ],
+        "v2": [
+          0,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g18-25/python_docker": {
+        "v1": [
+          67,
+          3
+        ],
+        "v2": [
+          100,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      }
+    }
+  },
+  "g15": {
+    "outcomes": 35,
+    "by_direction": {
+      "became_undefined": 13,
+      "denominator_only": 4,
+      "increased": 3,
+      "unchanged": 15
+    },
+    "ids_by_direction": {
+      "became_undefined": [
+        "m11g15-C1/aws_evidence",
+        "m11g15-D1/azure_only_truth",
+        "m11g15-D1/neither",
+        "m11g15-E1/azure_truth",
+        "m11g15-E1/neither",
+        "m11g15-F1/azure_only_truth",
+        "m11g15-F1/elixir_language_evidence",
+        "m11g15-F1/neither",
+        "m11g15-G3/neither",
+        "m11g15-G3/zig_language_evidence",
+        "m11g15-H1/aws_evidence",
+        "m11g15-H1/azure_only_truth",
+        "m11g15-L1/docker_evidence"
+      ],
+      "denominator_only": [
+        "m11g15-O1/all_four_with_aws",
+        "m11g15-P1/go_k8s_aws",
+        "m11g15-P1/go_only",
+        "m11g15-P1/nothing"
+      ],
+      "increased": [
+        "m11g15-O1/three_plus_azure_truth",
+        "m11g15-P1/go_k8s",
+        "m11g15-P1/go_k8s_gcp_truth"
+      ]
+    },
+    "match_status_or_evidence_changed": [],
+    "count_reconciliation_failures": [],
+    "reason_consistency_failures": [],
+    "changes": {
+      "m11g15-C1/aws_evidence": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-D1/azure_only_truth": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-D1/neither": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-E1/azure_truth": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g15-E1/neither": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g15-F1/elixir_language_evidence": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-F1/azure_only_truth": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-F1/neither": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-G3/zig_language_evidence": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g15-G3/neither": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g15-H1/azure_only_truth": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-H1/aws_evidence": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-L1/docker_evidence": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-O1/three_plus_azure_truth": {
+        "v1": [
+          75,
+          4
+        ],
+        "v2": [
+          100,
+          3
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-O1/all_four_with_aws": {
+        "v1": [
+          100,
+          4
+        ],
+        "v2": [
+          100,
+          3
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-P1/nothing": {
+        "v1": [
+          0,
+          2
+        ],
+        "v2": [
+          0,
+          1
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-P1/go_only": {
+        "v1": [
+          0,
+          2
+        ],
+        "v2": [
+          0,
+          1
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-P1/go_k8s": {
+        "v1": [
+          50,
+          2
+        ],
+        "v2": [
+          100,
+          1
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-P1/go_k8s_aws": {
+        "v1": [
+          100,
+          2
+        ],
+        "v2": [
+          100,
+          1
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g15-P1/go_k8s_gcp_truth": {
+        "v1": [
+          50,
+          2
+        ],
+        "v2": [
+          100,
+          1
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      }
+    }
+  },
+  "g16": {
+    "outcomes": 414,
+    "by_direction": {
+      "became_undefined": 6,
+      "denominator_only": 2,
+      "increased": 3,
+      "unchanged": 403
+    },
+    "ids_by_direction": {
+      "became_undefined": [
+        "m11g16-045/all_members",
+        "m11g16-045/irrelevant",
+        "m11g16-045/mixed_observability_all_evidenceable",
+        "m11g16-045/none",
+        "m11g16-045/only_A",
+        "m11g16-045/only_B"
+      ],
+      "denominator_only": [
+        "m11g16-058/irrelevant",
+        "m11g16-058/none"
+      ],
+      "increased": [
+        "m11g16-058/all_members",
+        "m11g16-058/only_A",
+        "m11g16-058/only_B"
+      ]
+    },
+    "match_status_or_evidence_changed": [],
+    "count_reconciliation_failures": [],
+    "reason_consistency_failures": [],
+    "changes": {
+      "m11g16-045/only_A": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g16-045/only_B": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g16-045/all_members": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g16-045/none": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g16-045/irrelevant": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g16-045/mixed_observability_all_evidenceable": {
+        "v1": [
+          100,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      },
+      "m11g16-058/only_A": {
+        "v1": [
+          33,
+          3
+        ],
+        "v2": [
+          50,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g16-058/only_B": {
+        "v1": [
+          33,
+          3
+        ],
+        "v2": [
+          50,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g16-058/all_members": {
+        "v1": [
+          67,
+          3
+        ],
+        "v2": [
+          100,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g16-058/none": {
+        "v1": [
+          0,
+          3
+        ],
+        "v2": [
+          0,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      },
+      "m11g16-058/irrelevant": {
+        "v1": [
+          0,
+          3
+        ],
+        "v2": [
+          0,
+          2
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_technology"
+        ]
+      }
+    }
+  },
+  "frozen_8c": {
+    "8c:v1": {
+      "outcomes": 12,
+      "by_direction": {
+        "denominator_only": 1,
+        "increased": 5,
+        "unchanged": 6
+      },
+      "ids_by_direction": {
+        "denominator_only": [
+          "Jango1324/embedded_firmware_01"
+        ],
+        "increased": [
+          "karpathy/frontend_01",
+          "sindresorhus/frontend_01",
+          "sindresorhus/robotics_controls_01",
+          "torvalds/data_science_01",
+          "torvalds/embedded_firmware_01"
+        ]
+      },
+      "match_status_or_evidence_changed": [],
+      "count_reconciliation_failures": [],
+      "reason_consistency_failures": [],
+      "changes": {
+        "karpathy/frontend_01": {
+          "v1": [
+            50,
+            6
+          ],
+          "v2": [
+            60,
+            5
+          ],
+          "excluded_v2": 1,
+          "reasons_v2": [
+            "unresolved_technology"
+          ]
+        },
+        "torvalds/embedded_firmware_01": {
+          "v1": [
+            20,
+            5
+          ],
+          "v2": [
+            50,
+            2
+          ],
+          "excluded_v2": 3,
+          "reasons_v2": [
+            "unresolved_technology",
+            "unresolved_technology",
+            "unresolved_technology"
+          ]
+        },
+        "torvalds/data_science_01": {
+          "v1": [
+            20,
+            5
+          ],
+          "v2": [
+            25,
+            4
+          ],
+          "excluded_v2": 1,
+          "reasons_v2": [
+            "unresolved_technology"
+          ]
+        },
+        "sindresorhus/frontend_01": {
+          "v1": [
+            67,
+            6
+          ],
+          "v2": [
+            80,
+            5
+          ],
+          "excluded_v2": 1,
+          "reasons_v2": [
+            "unresolved_technology"
+          ]
+        },
+        "sindresorhus/robotics_controls_01": {
+          "v1": [
+            25,
+            4
+          ],
+          "v2": [
+            33,
+            3
+          ],
+          "excluded_v2": 1,
+          "reasons_v2": [
+            "unresolved_technology"
+          ]
+        },
+        "Jango1324/embedded_firmware_01": {
+          "v1": [
+            0,
+            5
+          ],
+          "v2": [
+            0,
+            2
+          ],
+          "excluded_v2": 3,
+          "reasons_v2": [
+            "unresolved_technology",
+            "unresolved_technology",
+            "unresolved_technology"
+          ]
+        }
+      }
+    },
+    "8c:v1.1": {
+      "outcomes": 12,
+      "by_direction": {
+        "denominator_only": 1,
+        "increased": 5,
+        "unchanged": 6
+      },
+      "ids_by_direction": {
+        "denominator_only": [
+          "Jango1324/embedded_firmware_01"
+        ],
+        "increased": [
+          "karpathy/frontend_01",
+          "sindresorhus/frontend_01",
+          "sindresorhus/robotics_controls_01",
+          "torvalds/data_science_01",
+          "torvalds/embedded_firmware_01"
+        ]
+      },
+      "match_status_or_evidence_changed": [],
+      "count_reconciliation_failures": [],
+      "reason_consistency_failures": [],
+      "changes": {
+        "karpathy/frontend_01": {
+          "v1": [
+            50,
+            6
+          ],
+          "v2": [
+            60,
+            5
+          ],
+          "excluded_v2": 1,
+          "reasons_v2": [
+            "unresolved_technology"
+          ]
+        },
+        "torvalds/embedded_firmware_01": {
+          "v1": [
+            20,
+            5
+          ],
+          "v2": [
+            50,
+            2
+          ],
+          "excluded_v2": 3,
+          "reasons_v2": [
+            "unresolved_technology",
+            "unresolved_technology",
+            "unresolved_technology"
+          ]
+        },
+        "torvalds/data_science_01": {
+          "v1": [
+            20,
+            5
+          ],
+          "v2": [
+            25,
+            4
+          ],
+          "excluded_v2": 1,
+          "reasons_v2": [
+            "unresolved_technology"
+          ]
+        },
+        "sindresorhus/frontend_01": {
+          "v1": [
+            67,
+            6
+          ],
+          "v2": [
+            80,
+            5
+          ],
+          "excluded_v2": 1,
+          "reasons_v2": [
+            "unresolved_technology"
+          ]
+        },
+        "sindresorhus/robotics_controls_01": {
+          "v1": [
+            25,
+            4
+          ],
+          "v2": [
+            33,
+            3
+          ],
+          "excluded_v2": 1,
+          "reasons_v2": [
+            "unresolved_technology"
+          ]
+        },
+        "Jango1324/embedded_firmware_01": {
+          "v1": [
+            0,
+            5
+          ],
+          "v2": [
+            0,
+            2
+          ],
+          "excluded_v2": 3,
+          "reasons_v2": [
+            "unresolved_technology",
+            "unresolved_technology",
+            "unresolved_technology"
+          ]
+        }
+      }
+    }
+  },
+  "m10_soti_manulife": {
+    "outcomes": 2,
+    "by_direction": {
+      "became_undefined": 1,
+      "unchanged": 1
+    },
+    "ids_by_direction": {
+      "became_undefined": [
+        "soti_raw"
+      ]
+    },
+    "match_status_or_evidence_changed": [],
+    "count_reconciliation_failures": [],
+    "reason_consistency_failures": [],
+    "changes": {
+      "soti_raw": {
+        "v1": [
+          0,
+          1
+        ],
+        "v2": [
+          null,
+          0
+        ],
+        "excluded_v2": 1,
+        "reasons_v2": [
+          "unresolved_alternative"
+        ]
+      }
+    }
+  },
+  "g18_live_v2_vs_simulated_policy_c": {
+    "candidate_pairs": 54,
+    "equal_to_g18_simulated_policy_c": 54,
+    "mismatches": []
+  }
+}

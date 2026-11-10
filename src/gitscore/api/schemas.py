@@ -130,6 +130,18 @@ class RequirementOut(BaseModel):
     `docs/evaluation/MILESTONE_9E_ASSESSMENT_CLARITY.md` Workstream B.
     Never changes `concept_id`/`matched_concept_ids`/`status` -- purely
     an additional display string.
+
+    `counts_toward_alignment` / `alignment_exclusion_reason` (Milestone
+    11-G19, additive, scoring v2): whether this row is in
+    `github_evidence_alignment`'s numerator/denominator set, and if not,
+    why -- one of the stable `assessment.AlignmentExclusionReason` values
+    ("not_assessable", "unresolved_technology", "unresolved_alternative",
+    "technology_without_evidence_pathway",
+    "alternative_without_evidence_pathway"); `null` exactly when counted.
+    Independent of `status`: a `supported` or `not_observed` row may be
+    excluded (not every acceptable alternative can be checked from
+    GitHub) and keeps its status, matched concepts and evidence. Every
+    `not_assessable` row is excluded with reason "not_assessable".
     """
 
     text: str
@@ -145,6 +157,8 @@ class RequirementOut(BaseModel):
     alternative_concept_ids: list[str]
     matched_concept_ids: list[str]
     evidence: list[EvidenceOut]
+    counts_toward_alignment: bool
+    alignment_exclusion_reason: str | None
 
 
 class SubscoreOut(BaseModel):
@@ -191,12 +205,21 @@ class AssessmentOut(BaseModel):
     affects, `github_evidence_alignment` or `assessable_requirement_count`
     -- those two fields and the underlying formula remain byte-for-byte
     unchanged.
+
+    Scoring v2 (Milestone 11-G19): `assessable_requirement_count` is the
+    alignment denominator -- the requirements that count toward the score.
+    `excluded_from_alignment_count` (additive) counts `supported` +
+    `not_observed` rows that do NOT count (`counts_toward_alignment ==
+    false`). Exact reconciliation:
+    `len(supported) + len(not_observed) == assessable_requirement_count +
+    excluded_from_alignment_count`.
     """
 
     github_evidence_alignment: int | None
     assessable_requirement_count: int
     uninterpreted_requirement_count: int
     unparsed_claim_count: int
+    excluded_from_alignment_count: int
 
 
 class RepositoryAnalysisOut(BaseModel):

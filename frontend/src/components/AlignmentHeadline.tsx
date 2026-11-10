@@ -1,5 +1,7 @@
 import type { UnparsedClaim } from "@/types/api";
 import {
+  ALIGNMENT_SCOPE_NOTE,
+  excludedFromAlignmentNote,
   coverageGapExample,
   coverageGapSummary,
   hasKnownCoverageGap,
@@ -28,6 +30,11 @@ interface AlignmentHeadlineProps {
    * contributes to THAT decision, only to what text is quoted once a
    * gap is already known to exist. */
   unparsedClaims?: UnparsedClaim[];
+  /** Milestone 11-G19, additive (scoring v2) --
+   * `assessment.excluded_from_alignment_count`: evaluated requirements the
+   * score leaves out because not every acceptable option is checkable from
+   * GitHub. Purely a disclosure; never changes `alignment`. */
+  excludedCount?: number;
 }
 
 /**
@@ -52,6 +59,7 @@ export function AlignmentHeadline({
   uninterpretedCount = 0,
   unparsedClaimCount = 0,
   unparsedClaims = [],
+  excludedCount = 0,
 }: AlignmentHeadlineProps) {
   const hasGap = hasKnownCoverageGap(uninterpretedCount, unparsedClaimCount);
   const gapExample = coverageGapExample(unparsedClaims);
@@ -75,6 +83,8 @@ export function AlignmentHeadline({
           {hasGap && <span className="coverage-gap-badge">{KNOWN_COVERAGE_GAP_LABEL}</span>}
         </p>
       )}
+      <p className="alignment-scope-note">{ALIGNMENT_SCOPE_NOTE}</p>
+      {excludedCount > 0 && <p className="alignment-excluded-note">{excludedFromAlignmentNote(excludedCount)}</p>}
       {hasGap && <p className="alignment-coverage-gap-summary">{coverageGapSummary()}</p>}
       {hasGap && gapExample && <p className="alignment-coverage-gap-example">{gapExample}</p>}
       {uninterpretedCount > 0 && (

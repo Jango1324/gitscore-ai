@@ -193,6 +193,8 @@ point (`assessment/engine.py`).
 ## 17. Versioning
 
 `SCORING_VERSION = "github_evidence_alignment:v1"` (new, independent).
+(Milestone 11-G19 later bumped it to `github_evidence_alignment:v2` -- observability-aware
+score eligibility; see `docs/evaluation/MILESTONE_11_G19_OBSERVABILITY_SCORING_V2.md`.)
 `JOB_REQUIREMENT_SCHEMA_VERSION`, `EVIDENCE_SCHEMA_VERSION`,
 `CONCEPT_REGISTRY_VERSION`, `JOB_DESCRIPTION_PARSER_VERSION`,
 `MATCHER_VERSION` all unchanged — confirmed, this milestone is purely

@@ -77,6 +77,7 @@ export function ResultView({ result }: ResultViewProps) {
         uninterpretedCount={result.assessment.uninterpreted_requirement_count}
         unparsedClaimCount={result.assessment.unparsed_claim_count}
         unparsedClaims={result.unparsed_claims}
+        excludedCount={result.assessment.excluded_from_alignment_count}
       />
       <SubscoreRow required={result.required} preferred={result.preferred} />
       <RepositoryCoverage coverage={result.repository_analysis} />

@@ -1,5 +1,12 @@
 import type { InterpretationStatus, RequirementItem, RequirementStatus } from "@/types/api";
-import { necessityLabel, notAssessableSubsectionCopy, requirementSectionCopy } from "@/lib/labels";
+import {
+  alignmentExclusionExplanation,
+  isEvaluatedButNotCounted,
+  necessityLabel,
+  NOT_COUNTED_LABEL,
+  notAssessableSubsectionCopy,
+  requirementSectionCopy,
+} from "@/lib/labels";
 import { EvidenceList } from "@/components/EvidenceList";
 
 interface RequirementSectionProps {
@@ -50,6 +57,15 @@ function RequirementItemsList({
         <li key={index} className="requirement-item">
           <p className="requirement-text">{disambiguatedRequirementText(requirement, duplicateTexts)}</p>
           <span className="requirement-necessity">{necessityLabel(requirement.necessity)}</span>
+          {/* Milestone 11-G19 (scoring v2): an evaluated row the score leaves
+              out keeps its status and evidence, but must never read as a
+              counted result -- or, when not observed, as a penalty. */}
+          {isEvaluatedButNotCounted(requirement) && (
+            <p className="requirement-not-counted">
+              <span className="not-counted-badge">{NOT_COUNTED_LABEL}</span>{" "}
+              {alignmentExclusionExplanation(requirement.alignment_exclusion_reason)}
+            </p>
+          )}
           <EvidenceList evidence={requirement.evidence} />
         </li>
       ))}

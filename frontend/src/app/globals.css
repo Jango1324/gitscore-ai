@@ -380,3 +380,28 @@ button[type="submit"]:disabled {
     font-size: 2rem;
   }
 }
+
+/* Milestone 11-G19 (scoring v2) -- an evaluated requirement that does not
+   count toward the alignment score. Neutral, muted styling: a disclosure,
+   never a warning or a penalty. */
+.requirement-not-counted {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.not-counted-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-border);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+}
+
+.alignment-scope-note,
+.alignment-excluded-note {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
