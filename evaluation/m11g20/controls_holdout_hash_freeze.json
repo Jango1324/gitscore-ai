@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g20/admission_controls_holdout.json",
+  "sha256": "12cc884e33b115391573e702d4fb6dd31783c9c3f3de3a13e3cb513b4087b628",
+  "sha256_lf_normalized": "12cc884e33b115391573e702d4fb6dd31783c9c3f3de3a13e3cb513b4087b628",
+  "length_bytes": 26723,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-10T05:05:27Z",
+  "note": "Frozen BEFORE the production parser or any G20 policy simulation ran on these controls. NOT registered in evaluation/integrity/canonical_hash_manifest.json (pending authorization)."
+}

@@ -1,0 +1,20 @@
+{
+  "purpose": "Freezes the G20 candidate-policy DESIGN before the held-out synthetic controls and the label-backed private postings were evaluated for the first time.",
+  "frozen_at_utc": "2026-11-10T05:18:31Z",
+  "canonical_contract": "crlf-to-lf/v1",
+  "sources": {
+    "scripts/evaluation_lib/m11g20_policies.py": "2ffe2a947407625a37206e38f378abe6bbffd26558f79cdf81b2e3c631461a0b",
+    "scripts/evaluation_lib/m11g20_admission.py": "a00e821de63c9d7a2b63445f5c3803fbc31de0aae9fc988d604ec6671ef37557"
+  },
+  "design_inputs": [
+    "evaluation/m11g20/admission_controls_dev.json",
+    "G15/G16/G18/M10D/M10E/G6/G7 frozen controls",
+    "8c job fixtures",
+    "evaluation/m10/source"
+  ],
+  "not_yet_evaluated_at_freeze": [
+    "evaluation/m11g20/admission_controls_holdout.json (policy outcomes)",
+    "private label-backed claim annotations (m11d/m11f/m11g5/m11g9)"
+  ],
+  "disclosure": "The holdout controls were written by the same author before policy design and could be recalled; they are weakly held out, not independent. The v13 replica fidelity check (outcome-blind) touched holdout texts."
+}

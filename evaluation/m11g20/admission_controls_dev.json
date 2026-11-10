@@ -1,0 +1,1995 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G20",
+  "split": "dev",
+  "provenance": "self-authored synthetic controls; no real posting text or employer names",
+  "authorship_disclosure": "Written by the same author who read the v13 parser source; targeted probes and near-neighbor pairs, not blind or independently validated. 'holdout' means only: not used while designing G20 policies.",
+  "label_timing": "gold labels written and frozen BEFORE the production parser ran on any of this text",
+  "gold_rules": "(one sentence / list item / mixed clause):\n* `span`       exact, unique substring of the control text.\n* `kind`       qualification | responsibility | company | product |\n               benefits | process | tech_discussion | learning |\n               team_practice | stack | negation.\n* `qual`       is this unit a CANDIDATE QUALIFICATION (something the\n               applicant is expected to have)?  A unit that mixes a duty\n               with an explicit qualification clause is a qualification.\n* `nec`        required | preferred | unknown (qualifications only).\n               Rules: an explicit marker in the unit wins (\"required\",\n               \"must\", \"essential\" -> required; \"preferred\", \"a plus\",\n               \"bonus\", \"ideally\", \"would be great\", \"helpful\",\n               \"beneficial\", \"an advantage\", \"appreciated\" -> preferred);\n               a negated required marker with an appreciative tail ->\n               preferred; otherwise the governing heading's meaning\n               (requirements / candidate-profile headings -> required,\n               nice-to-have headings -> preferred); an unsectioned\n               candidate-attribute sentence (\"You have...\", \"You should\n               have...\", \"Candidates must...\") -> required.\n* `tech`       technologies GENUINELY named in the unit, as production\n               concept ids (registered ids, or `unresolved:<slug>` via the\n               production `unresolved_concept_id`). For qualification\n               units these are the expected technical rows.\n* `nt`         ACCEPTABLE non-technical row categories for the unit\n               (education / experience / legal / leadership / soft_skill).\n* `section`    the TRUE governing context of the unit: required |\n               preferred | responsibility | company | benefits | process |\n               learning | stack | none (no heading governs it).\n* `ambiguous`  genuinely ambiguous qualification language: declining is\n               acceptable and the unit is excluded from precision/recall\n               denominators (reported separately).",
+  "controls": [
+    {
+      "id": "m11g20-d001",
+      "family": "company_description",
+      "pair": null,
+      "phase2_case": 1,
+      "text": "About us: our engineers ship features daily with React and TypeScript.",
+      "units": [
+        {
+          "span": "About us: our engineers ship features daily with React and TypeScript.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "framework.react",
+            "language.typescript"
+          ],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "inline 'About us:' prefix"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d002",
+      "family": "company_description",
+      "pair": null,
+      "phase2_case": 1,
+      "text": "We use Kafka, Python and Snowflake to power analytics for retailers.",
+      "units": [
+        {
+          "span": "We use Kafka, Python and Snowflake to power analytics for retailers.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:kafka",
+            "language.python",
+            "unresolved:snowflake"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d003",
+      "family": "product_description",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Our mobile app is written in Swift and Kotlin and serves two million riders.",
+      "units": [
+        {
+          "span": "Our mobile app is written in Swift and Kotlin and serves two million riders.",
+          "kind": "product",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.swift",
+            "language.kotlin"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d052",
+      "family": "company_description",
+      "pair": null,
+      "phase2_case": null,
+      "text": "About the company:\nWe build observability tools in Golang and Rust.",
+      "units": [
+        {
+          "span": "We build observability tools in Golang and Rust.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.go",
+            "language.rust"
+          ],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d004",
+      "family": "responsibility_unsectioned",
+      "pair": null,
+      "phase2_case": 2,
+      "text": "You will build REST APIs in Python and deploy them to AWS.",
+      "units": [
+        {
+          "span": "You will build REST APIs in Python and deploy them to AWS.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python",
+            "cloud.aws"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d005",
+      "family": "mixed_sections",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Responsibilities:\n- Design data pipelines in Python and SQL.\n- Maintain our PostgreSQL clusters.\n\nRequirements:\n- 3+ years of experience with Python.\n- Strong SQL skills.",
+      "units": [
+        {
+          "span": "Design data pipelines in Python and SQL.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python",
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Maintain our PostgreSQL clusters.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "3+ years of experience with Python.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Strong SQL skills.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d006",
+      "family": "responsibility_local_marker",
+      "pair": null,
+      "phase2_case": 6,
+      "text": "What you'll do:\n- You will be required to deploy services to AWS and Kubernetes.\n- Participate in code reviews.",
+      "units": [
+        {
+          "span": "You will be required to deploy services to AWS and Kubernetes.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "cloud.aws",
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty sentence carrying a local 'required' marker"
+        },
+        {
+          "span": "Participate in code reviews.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d039",
+      "family": "misleading_heading",
+      "pair": null,
+      "phase2_case": 6,
+      "text": "Role requirements:\n- Design and ship APIs in Golang.\n- Own the on-call rotation for our Redis clusters.",
+      "units": [
+        {
+          "span": "Design and ship APIs in Golang.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.go"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duties listed under a heading named 'requirements'"
+        },
+        {
+          "span": "Own the on-call rotation for our Redis clusters.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "database.redis"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d040",
+      "family": "misleading_heading",
+      "pair": null,
+      "phase2_case": 6,
+      "text": "Key Requirements:\n- Lead the migration from Java to Kotlin.\n- Expert knowledge of Kotlin.",
+      "units": [
+        {
+          "span": "Lead the migration from Java to Kotlin.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.java",
+            "language.kotlin"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Expert knowledge of Kotlin.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.kotlin"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d053",
+      "family": "product_description",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Responsibilities:\n- Our platform handles payments for 4,000 merchants using Java and PostgreSQL.",
+      "units": [
+        {
+          "span": "Our platform handles payments for 4,000 merchants using Java and PostgreSQL.",
+          "kind": "product",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.java",
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d024",
+      "family": "mixed_responsibility_qualification",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Responsibilities:\n- Maintain our Python services; strong Python experience is required.",
+      "units": [
+        {
+          "span": "Maintain our Python services; strong Python experience is required.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty clause + explicit qualification clause"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d007a",
+      "family": "near_neighbor",
+      "pair": "P01",
+      "phase2_case": null,
+      "text": "Candidates must be proficient in TypeScript.",
+      "units": [
+        {
+          "span": "Candidates must be proficient in TypeScript.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.typescript"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d007b",
+      "family": "near_neighbor",
+      "pair": "P01",
+      "phase2_case": null,
+      "text": "All services must be written in TypeScript.",
+      "units": [
+        {
+          "span": "All services must be written in TypeScript.",
+          "kind": "team_practice",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.typescript"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d008a",
+      "family": "near_neighbor",
+      "pair": "P02",
+      "phase2_case": null,
+      "text": "Experience with Python is required.",
+      "units": [
+        {
+          "span": "Experience with Python is required.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d008b",
+      "family": "near_neighbor",
+      "pair": "P02",
+      "phase2_case": null,
+      "text": "Our team uses Python.",
+      "units": [
+        {
+          "span": "Our team uses Python.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d009a",
+      "family": "near_neighbor",
+      "pair": "P03",
+      "phase2_case": null,
+      "text": "Knowledge of Docker is a plus.",
+      "units": [
+        {
+          "span": "Knowledge of Docker is a plus.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "infra.docker"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d009b",
+      "family": "near_neighbor",
+      "pair": "P03",
+      "phase2_case": null,
+      "text": "We deploy everything with Docker.",
+      "units": [
+        {
+          "span": "We deploy everything with Docker.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.docker"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d010a",
+      "family": "near_neighbor",
+      "pair": "P04",
+      "phase2_case": null,
+      "text": "You have hands-on experience with Kubernetes.",
+      "units": [
+        {
+          "span": "You have hands-on experience with Kubernetes.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d010b",
+      "family": "near_neighbor",
+      "pair": "P04",
+      "phase2_case": null,
+      "text": "You will get hands-on experience with Kubernetes.",
+      "units": [
+        {
+          "span": "You will get hands-on experience with Kubernetes.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d011a",
+      "family": "near_neighbor",
+      "pair": "P05",
+      "phase2_case": null,
+      "text": "Proficiency in Rust is essential.",
+      "units": [
+        {
+          "span": "Proficiency in Rust is essential.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d011b",
+      "family": "near_neighbor",
+      "pair": "P05",
+      "phase2_case": null,
+      "text": "Rust is gaining popularity for systems programming.",
+      "units": [
+        {
+          "span": "Rust is gaining popularity for systems programming.",
+          "kind": "tech_discussion",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d012a",
+      "family": "near_neighbor",
+      "pair": "P06",
+      "phase2_case": null,
+      "text": "Familiarity with PyTorch or TensorFlow is preferred.",
+      "units": [
+        {
+          "span": "Familiarity with PyTorch or TensorFlow is preferred.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "ml.framework.pytorch",
+            "ml.framework.tensorflow"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d012b",
+      "family": "near_neighbor",
+      "pair": "P06",
+      "phase2_case": null,
+      "text": "Our research team trains models in PyTorch or TensorFlow.",
+      "units": [
+        {
+          "span": "Our research team trains models in PyTorch or TensorFlow.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "ml.framework.pytorch",
+            "ml.framework.tensorflow"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d013a",
+      "family": "near_neighbor",
+      "pair": "P07",
+      "phase2_case": null,
+      "text": "Requirements:\n- Bachelor's degree in Computer Science or a related field.",
+      "units": [
+        {
+          "span": "Bachelor's degree in Computer Science or a related field.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "education"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d013b",
+      "family": "near_neighbor",
+      "pair": "P07",
+      "phase2_case": null,
+      "text": "Many of our engineers hold a degree in physics.",
+      "units": [
+        {
+          "span": "Many of our engineers hold a degree in physics.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d014a",
+      "family": "near_neighbor",
+      "pair": "P08",
+      "phase2_case": null,
+      "text": "Strong communication skills are required.",
+      "units": [
+        {
+          "span": "Strong communication skills are required.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d014b",
+      "family": "near_neighbor",
+      "pair": "P08",
+      "phase2_case": null,
+      "text": "We value open communication and collaboration across teams.",
+      "units": [
+        {
+          "span": "We value open communication and collaboration across teams.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d015a",
+      "family": "near_neighbor",
+      "pair": "P09",
+      "phase2_case": null,
+      "text": "Requirements:\n- Experience mentoring junior engineers.",
+      "units": [
+        {
+          "span": "Experience mentoring junior engineers.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "leadership"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d015b",
+      "family": "near_neighbor",
+      "pair": "P09",
+      "phase2_case": null,
+      "text": "You'll be mentored by senior engineers from day one.",
+      "units": [
+        {
+          "span": "You'll be mentored by senior engineers from day one.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d056a",
+      "family": "near_neighbor",
+      "pair": "P10",
+      "phase2_case": null,
+      "text": "You are fluent in SQL.",
+      "units": [
+        {
+          "span": "You are fluent in SQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d056b",
+      "family": "near_neighbor",
+      "pair": "P10",
+      "phase2_case": null,
+      "text": "Our analysts are fluent in SQL.",
+      "units": [
+        {
+          "span": "Our analysts are fluent in SQL.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d057a",
+      "family": "near_neighbor",
+      "pair": "P11",
+      "phase2_case": null,
+      "text": "Experience with React Native is a must.",
+      "units": [
+        {
+          "span": "Experience with React Native is a must.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.react_native"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d057b",
+      "family": "near_neighbor",
+      "pair": "P11",
+      "phase2_case": null,
+      "text": "React Native powers our customer app.",
+      "units": [
+        {
+          "span": "React Native powers our customer app.",
+          "kind": "product",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "framework.react_native"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d058a",
+      "family": "near_neighbor",
+      "pair": "P12",
+      "phase2_case": null,
+      "text": "Requirements:\n- Hands-on AWS experience.",
+      "units": [
+        {
+          "span": "Hands-on AWS experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d058b",
+      "family": "near_neighbor",
+      "pair": "P12",
+      "phase2_case": null,
+      "text": "Hands-on AWS training is provided to all new hires.",
+      "units": [
+        {
+          "span": "Hands-on AWS training is provided to all new hires.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d016",
+      "family": "generic_word",
+      "pair": null,
+      "phase2_case": 3,
+      "text": "Requirements:\n- Ability to react quickly to production incidents.",
+      "units": [
+        {
+          "span": "Ability to react quickly to production incidents.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "'react' is a verb here"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d017",
+      "family": "generic_word",
+      "pair": null,
+      "phase2_case": 3,
+      "text": "Requirements:\n- Able to express complex ideas clearly to non-technical audiences.",
+      "units": [
+        {
+          "span": "Able to express complex ideas clearly to non-technical audiences.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "'express' is a verb here"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d018",
+      "family": "generic_word",
+      "pair": null,
+      "phase2_case": 3,
+      "text": "Requirements:\n- Experience with SQL, attention to detail, and curiosity.",
+      "units": [
+        {
+          "span": "Experience with SQL, attention to detail, and curiosity.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d019",
+      "family": "generic_word",
+      "pair": null,
+      "phase2_case": 3,
+      "text": "Requirements:\n- Strong Java, communication, and problem-solving skills.",
+      "units": [
+        {
+          "span": "Strong Java, communication, and problem-solving skills.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.java"
+          ],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d022",
+      "family": "generic_word",
+      "pair": null,
+      "phase2_case": 3,
+      "text": "Requirements:\n- A swift learner who adapts to new tools.",
+      "units": [
+        {
+          "span": "A swift learner who adapts to new tools.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "'swift' is an adjective here"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d023",
+      "family": "cross_sentence_fragment",
+      "pair": null,
+      "phase2_case": 3,
+      "text": "Requirements:\n- Hands-on PostgreSQL experience. Alternatively, strong Redis experience will be considered.",
+      "units": [
+        {
+          "span": "Hands-on PostgreSQL experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Alternatively, strong Redis experience will be considered.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "unknown",
+          "tech": [
+            "database.redis"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": true,
+          "note": "cross-sentence alternative"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d020",
+      "family": "legitimate_technical",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Requirements:\n- Proficiency in Python, Git, and Linux.",
+      "units": [
+        {
+          "span": "Proficiency in Python, Git, and Linux.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python",
+            "unresolved:git",
+            "unresolved:linux"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d021",
+      "family": "legitimate_technical",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Preferred:\n- Experience with Excel, Tableau, and SQL.",
+      "units": [
+        {
+          "span": "Experience with Excel, Tableau, and SQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:excel",
+            "unresolved:tableau",
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d041",
+      "family": "inherited_list",
+      "pair": null,
+      "phase2_case": 8,
+      "text": "Required skills:\n- Python\n- SQL\n- Docker\n\nPreferred skills:\n- Kubernetes\n- AWS",
+      "units": [
+        {
+          "span": "Python",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "SQL",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Docker",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.docker"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Kubernetes",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "AWS",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d042",
+      "family": "inherited_list",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Requirements:\n- Experience building data pipelines with\n  Python and PostgreSQL.\n- Familiarity with Docker.",
+      "units": [
+        {
+          "span": "Experience building data pipelines with\n  Python and PostgreSQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python",
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Familiarity with Docker.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.docker"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d043",
+      "family": "inherited_list",
+      "pair": null,
+      "phase2_case": 9,
+      "text": "Qualifications:\n1. Experience with React.\n2. Experience with Next.js.\nBonus:\n1. Experience with React Native.",
+      "units": [
+        {
+          "span": "Experience with React.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.react"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Experience with Next.js.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.nextjs"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Experience with React Native.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "framework.react_native"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d054",
+      "family": "non_technical_qualification",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Requirements:\n- 5+ years of software development experience.\n- Master's degree preferred.",
+      "units": [
+        {
+          "span": "5+ years of software development experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Master's degree preferred.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [],
+          "nt": [
+            "education"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d055",
+      "family": "non_technical_qualification",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Requirements:\n- Must be legally authorized to work in Canada.",
+      "units": [
+        {
+          "span": "Must be legally authorized to work in Canada.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "legal"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d025",
+      "family": "embedded_in_prose",
+      "pair": null,
+      "phase2_case": 7,
+      "text": "We are a logistics startup in Montreal. Candidates must have strong experience with Python and PostgreSQL. We offer flexible hours and a learning budget.",
+      "units": [
+        {
+          "span": "We are a logistics startup in Montreal.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Candidates must have strong experience with Python and PostgreSQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python",
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "We offer flexible hours and a learning budget.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d026",
+      "family": "prose_qualification",
+      "pair": null,
+      "phase2_case": 10,
+      "text": "We're hiring a backend developer. You should have solid experience with Golang and Redis. Knowledge of Kubernetes is a plus.",
+      "units": [
+        {
+          "span": "We're hiring a backend developer.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "You should have solid experience with Golang and Redis.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.go",
+            "database.redis"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Knowledge of Kubernetes is a plus.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d027",
+      "family": "prose_qualification",
+      "pair": null,
+      "phase2_case": 10,
+      "text": "Acme Robotics is hiring an embedded engineer. We're looking for someone with deep C++ experience.\n\nResponsibilities:\n- Write firmware for motor controllers.",
+      "units": [
+        {
+          "span": "Acme Robotics is hiring an embedded engineer.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "We're looking for someone with deep C++ experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.cpp"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": "qualification in a preamble before the first heading"
+        },
+        {
+          "span": "Write firmware for motor controllers.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d028",
+      "family": "unconventional_heading",
+      "pair": null,
+      "phase2_case": 8,
+      "text": "About you:\n- 4+ years of experience with Java.\n- Experience with Kafka and Kubernetes.",
+      "units": [
+        {
+          "span": "4+ years of experience with Java.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.java"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Experience with Kafka and Kubernetes.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:kafka",
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d029",
+      "family": "unconventional_heading",
+      "pair": null,
+      "phase2_case": 8,
+      "text": "What you bring:\n- Production experience with TypeScript and React.\n- A degree in a technical field.",
+      "units": [
+        {
+          "span": "Production experience with TypeScript and React.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.typescript",
+            "framework.react"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "A degree in a technical field.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "education"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d030",
+      "family": "unconventional_heading",
+      "pair": null,
+      "phase2_case": 8,
+      "text": "Must-haves:\n- Experience with FastAPI.\n- Experience with PostgreSQL.\n\nNice-to-haves:\n- Experience with Redis.",
+      "units": [
+        {
+          "span": "Experience with FastAPI.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.fastapi"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Experience with PostgreSQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Experience with Redis.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "database.redis"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d031",
+      "family": "stack_listing",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Our stack:\n- Python\n- PostgreSQL\n- Kubernetes",
+      "units": [
+        {
+          "span": "Python",
+          "kind": "stack",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "stack",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "PostgreSQL",
+          "kind": "stack",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "stack",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Kubernetes",
+          "kind": "stack",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "stack",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d032",
+      "family": "section_leak",
+      "pair": null,
+      "phase2_case": 5,
+      "text": "Requirements:\n- Experience with AWS.\n\nWe are a remote-first team that ships with Docker and Kubernetes every day.",
+      "units": [
+        {
+          "span": "Experience with AWS.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "We are a remote-first team that ships with Docker and Kubernetes every day.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.docker",
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": "un-headed paragraph after a list section"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d033",
+      "family": "benefits",
+      "pair": null,
+      "phase2_case": null,
+      "text": "We provide a yearly budget for AWS certification courses.",
+      "units": [
+        {
+          "span": "We provide a yearly budget for AWS certification courses.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d034",
+      "family": "hiring_process",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Our interview process includes a take-home exercise in Python or JavaScript.",
+      "units": [
+        {
+          "span": "Our interview process includes a take-home exercise in Python or JavaScript.",
+          "kind": "process",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python",
+            "language.javascript"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d035",
+      "family": "hiring_process",
+      "pair": null,
+      "phase2_case": null,
+      "text": "How to apply:\n- Send a link to a GitHub project written in Rust or C++.",
+      "units": [
+        {
+          "span": "Send a link to a GitHub project written in Rust or C++.",
+          "kind": "process",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.rust",
+            "language.cpp"
+          ],
+          "nt": [],
+          "section": "process",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d036",
+      "family": "hiring_process",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Hiring process:\n1. A 30-minute call with a recruiter.\n2. A live coding session in Python.",
+      "units": [
+        {
+          "span": "A 30-minute call with a recruiter.",
+          "kind": "process",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "process",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "A live coding session in Python.",
+          "kind": "process",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "process",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d037",
+      "family": "tech_discussion_in_qualifications",
+      "pair": null,
+      "phase2_case": 5,
+      "text": "Requirements:\n- Experience with machine learning in production.\n- PyTorch has become the industry standard for research.",
+      "units": [
+        {
+          "span": "Experience with machine learning in production.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "PyTorch has become the industry standard for research.",
+          "kind": "tech_discussion",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "ml.framework.pytorch"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d038",
+      "family": "narrative_in_qualifications",
+      "pair": null,
+      "phase2_case": 5,
+      "text": "Qualifications:\n- Experience with Docker.\n- Our team has grown to 40 engineers across Python and Golang services.",
+      "units": [
+        {
+          "span": "Experience with Docker.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.docker"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Our team has grown to 40 engineers across Python and Golang services.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python",
+            "language.go"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d050",
+      "family": "learning",
+      "pair": null,
+      "phase2_case": null,
+      "text": "What you'll learn:\n- How to operate Kubernetes clusters at scale.",
+      "units": [
+        {
+          "span": "How to operate Kubernetes clusters at scale.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "learning",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d051",
+      "family": "learning",
+      "pair": null,
+      "phase2_case": null,
+      "text": "This role offers the chance to learn Rust from experienced engineers.",
+      "units": [
+        {
+          "span": "This role offers the chance to learn Rust from experienced engineers.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d060",
+      "family": "tech_discussion",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Kubernetes adoption has grown rapidly across the industry.",
+      "units": [
+        {
+          "span": "Kubernetes adoption has grown rapidly across the industry.",
+          "kind": "tech_discussion",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d044",
+      "family": "necessity",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Requirements:\n- Experience with Python.\n- Familiarity with Rust would be great.",
+      "units": [
+        {
+          "span": "Experience with Python.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        },
+        {
+          "span": "Familiarity with Rust would be great.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d045",
+      "family": "necessity",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Requirements:\n- Exposure to CUDA is helpful but not essential.",
+      "units": [
+        {
+          "span": "Exposure to CUDA is helpful but not essential.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "platform.cuda"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "negated required marker"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d046",
+      "family": "necessity",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Requirements:\n- Experience with Redis is not required, but appreciated.",
+      "units": [
+        {
+          "span": "Experience with Redis is not required, but appreciated.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "database.redis"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "negated required marker"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d047",
+      "family": "negation",
+      "pair": null,
+      "phase2_case": null,
+      "text": "No prior experience with Kubernetes is necessary.",
+      "units": [
+        {
+          "span": "No prior experience with Kubernetes is necessary.",
+          "kind": "negation",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d048",
+      "family": "ambiguous",
+      "pair": null,
+      "phase2_case": null,
+      "text": "Requirements:\n- Python, ideally with some exposure to FastAPI.",
+      "units": [
+        {
+          "span": "Python, ideally with some exposure to FastAPI.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "unknown",
+          "tech": [
+            "language.python",
+            "framework.fastapi"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": true,
+          "note": "two necessities in one clause"
+        }
+      ]
+    },
+    {
+      "id": "m11g20-d049",
+      "family": "ambiguous",
+      "pair": null,
+      "phase2_case": null,
+      "text": "It would help if you have touched Terraform before.",
+      "units": [
+        {
+          "span": "It would help if you have touched Terraform before.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:terraform"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": true,
+          "note": ""
+        }
+      ]
+    }
+  ]
+}

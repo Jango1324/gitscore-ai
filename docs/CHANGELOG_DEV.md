@@ -1,5 +1,47 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-10 — Milestone 11-G20: false qualification admission & parser precision (research only)
+
+**What changed:** Research, evaluation and design only -- no production code changed (parser v13, scoring
+v2, matcher, API and frontend byte-identical to `2144fe6`). New frozen synthetic control sets
+(`evaluation/m11g20/admission_controls_{dev,holdout}.json`, 71/36 controls, 103/46 gold units, labelled and
+frozen before the parser ran; G14-portable freeze records, registered as canonical-manifest entries 12-13, 11 -> 13), a
+policy-design freeze record, a research tracer/replica with policy hooks, three candidate approaches plus
+ablations, a historical/private impact harness, the evaluation report, integer-only private aggregates, and
+26 focused tests.
+
+**Why:** G18 control 25, G17 control 053 and G19's residual list showed the live parser admitting company
+narrative, responsibilities and generic words as REQUIRED technical requirements, which scoring v2 then
+counts.
+
+**How it works:** `scripts/evaluation_lib/m11g20_admission.py` replicates only the `segment_description()`
+and `_parse()` loops (asserted identical to production on 405 texts) and calls the real production helpers
+for every decision; policies plug in as hooks. Root cause: v13 never decides qualification intent --
+in-section claims are admitted unconditionally, unsectioned claims default to REQUIRED, a local marker always
+wins, and concept recognition has no usage check.
+
+**Measured:** v13 false admissions 26/45 (dev) and 16/18 (held-out) synthetic non-qualification units, 30/18
+false rows SUPPORTED and counted for an all-evidence candidate; 6/4 fabricated concepts. Recommended slice
+B1NR (clause-level non-qualification frames + necessity refinement): 0/45 and 1/18, 0 legitimate
+qualifications lost, necessity 46/46 and 19/19, 0 regressions on G15/G16/G18/M10D/M10E/G6/G7 gold, G17
+containment byte-identical, frozen 8c scores unchanged. Real annotated private postings: v13 4/153 false
+admissions (none scored); B1NR loses 0 of 497 qualifications (post-hoc, after two frame defects were found
+on that data). A "require positive intent" variant was rejected (destroys 5 M10D bare lists).
+
+**Files affected:** `docs/evaluation/MILESTONE_11_G20_FALSE_QUALIFICATION_ADMISSION.md` (new),
+`evaluation/m11g20/*` (7 new), `scripts/evaluate_m11g20_false_qualification.py`,
+`scripts/evaluation_lib/m11g20_{build_controls,admission,policies,posthoc,historical}.py`,
+`tests/test_m11g20_false_qualification_admission.py`; `evaluation/integrity/canonical_hash_manifest.json`
+(+2 entries); this changelog.
+
+**Risks / limitations:** self-authored controls (not blind; held-out only weakly held out); synthetic rates
+are not prevalence; the two frame fixes are post-hoc for the previously inspected private sets (1: case-insensitive "us"
+matched "US"; 2: "while not required, ... is a plus" treated as a general negation) -- known G21 risks; candidate-profile headings would
+change 18 frozen G6/G7 heading labels and need a separate decision.
+
+**How to test:** `python -m pytest tests/test_m11g20_false_qualification_admission.py`;
+`python scripts/evaluate_m11g20_false_qualification.py [--private-corpora]` reproduces the report.
+
 ## 2026-11-09 — Milestone 11-G19: observability-aware scoring v2 (production; scoring v1 -> v2)
 
 **What changed:** A requirement now enters the GitHub Evidence Alignment numerator and denominator only
