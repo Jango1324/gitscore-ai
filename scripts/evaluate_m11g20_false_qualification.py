@@ -229,6 +229,12 @@ def heading_kind_divergence(policy) -> dict:
 
 
 def main() -> None:
+    if adm.JOB_DESCRIPTION_PARSER_VERSION != "job_description_parser:v13":
+        # M11-G21: G20's committed outputs are the frozen v13 research results. Re-running this
+        # script on a later parser would overwrite them with mislabelled data. The v13-vs-v14
+        # comparison lives in scripts/evaluate_m11g21_v13_v14.py (pinned v13 clone).
+        raise SystemExit(f"G20 evaluates parser v13 only; live parser is {adm.JOB_DESCRIPTION_PARSER_VERSION}. "
+                         "Use scripts/evaluate_m11g21_v13_v14.py.")
     private = "--private-corpora" in sys.argv
     freezes = verify_freezes()
     controls = _control_by_id()

@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g21/adversarial_controls.json",
+  "sha256": "2cae574ed2ae99fe4cf443b2ef9d4f353ba01398a5dbb42aad81b0d7243908d1",
+  "sha256_lf_normalized": "2cae574ed2ae99fe4cf443b2ef9d4f353ba01398a5dbb42aad81b0d7243908d1",
+  "length_bytes": 23380,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-10T18:09:27Z",
+  "note": "Frozen BEFORE parser v14 or the v13-vs-v14 comparison ran on these controls. NOT registered in the canonical manifest (pending authorization)."
+}

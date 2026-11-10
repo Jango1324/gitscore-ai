@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G21 (Option B negation-scope correction)",
+  "split": "author_created_validation",
+  "provenance": "author-created synthetic examples; no real posting text or employer",
+  "authorship_disclosure": "Written by the implementation's author BEFORE the revised implementation existed; NOT an independent holdout.",
+  "label_timing": "expectations written and frozen BEFORE the revised v14 implementation ran",
+  "controls": [
+    {
+      "id": "m11g21-n01",
+      "family": "elliptical_contrast",
+      "text": "A Master's degree is not required, but strong SQL skills are.",
+      "expected_rows": [
+        [
+          "language.sql",
+          "required"
+        ]
+      ],
+      "expected_limitation": false,
+      "note": "comma-but contrast; ellipsis resolves to 'required'"
+    },
+    {
+      "id": "m11g21-n02",
+      "family": "elliptical_contrast",
+      "text": "Kubernetes certification is not mandatory; hands-on Kubernetes experience is.",
+      "expected_rows": [
+        [
+          "infra.kubernetes",
+          "required"
+        ]
+      ],
+      "expected_limitation": false,
+      "note": "ellipsis resolves to 'mandatory'"
+    },
+    {
+      "id": "m11g21-n03",
+      "family": "elliptical_contrast",
+      "text": "Java is not required; Kotlin is.",
+      "expected_rows": [
+        [
+          "language.kotlin",
+          "required"
+        ]
+      ],
+      "expected_limitation": false,
+      "note": "ellipsis without a candidate-attribute noun"
+    },
+    {
+      "id": "m11g21-n04",
+      "family": "clause_local_negation",
+      "text": "Golang experience is not required; Rust experience is preferred.",
+      "expected_rows": [
+        [
+          "language.rust",
+          "preferred"
+        ]
+      ],
+      "expected_limitation": false,
+      "note": "negated clause + explicit preference clause"
+    },
+    {
+      "id": "m11g21-n05",
+      "family": "clause_local_negation",
+      "text": "A PhD is not required; a Master's degree is preferred.",
+      "expected_rows": [
+        [
+          "education",
+          "preferred"
+        ]
+      ],
+      "expected_limitation": false,
+      "note": "education only from the preferred clause"
+    },
+    {
+      "id": "m11g21-n06",
+      "family": "clause_local_negation",
+      "text": "Experience with Kafka is not needed; we will train you.",
+      "expected_rows": [],
+      "expected_limitation": false,
+      "note": "negation + employer narrative: nothing to admit"
+    },
+    {
+      "id": "m11g21-n07",
+      "family": "clause_local_negation",
+      "text": "No prior Rust experience is necessary, but strong C++ skills are.",
+      "expected_rows": [
+        [
+          "language.cpp",
+          "required"
+        ]
+      ],
+      "expected_limitation": true,
+      "note": "'No <tech> experience is necessary' is outside the negation vocabulary"
+    },
+    {
+      "id": "m11g21-n08",
+      "family": "optionality",
+      "text": "Docker is nice to have but not required.",
+      "expected_rows": [
+        [
+          "infra.docker",
+          "preferred"
+        ]
+      ],
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g21-n09",
+      "family": "optionality",
+      "text": "Experience with Redis is a plus, though not mandatory.",
+      "expected_rows": [
+        [
+          "database.redis",
+          "preferred"
+        ]
+      ],
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g21-n10",
+      "family": "optionality",
+      "text": "React knowledge is welcome though not essential.",
+      "expected_rows": [
+        [
+          "framework.react",
+          "preferred"
+        ]
+      ],
+      "expected_limitation": true,
+      "note": "'welcome' is not in the existing preference vocabulary"
+    },
+    {
+      "id": "m11g21-n11",
+      "family": "optionality",
+      "text": "PyTorch is preferred, although not essential.",
+      "expected_rows": [
+        [
+          "ml.framework.pytorch",
+          "preferred"
+        ]
+      ],
+      "expected_limitation": false,
+      "note": "concession after the preference"
+    },
+    {
+      "id": "m11g21-n12",
+      "family": "requirement_negation",
+      "text": "Prior AWS experience is not essential.",
+      "expected_rows": [],
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g21-n13",
+      "family": "requirement_negation",
+      "text": "Knowledge of Terraform is not needed for this role.",
+      "expected_rows": [],
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g21-n14",
+      "family": "narrative_preference",
+      "text": "Our engineers prefer Rust for systems work.",
+      "expected_rows": [],
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g21-n15",
+      "family": "narrative_preference",
+      "text": "Our team does not require Python; we use Golang.",
+      "expected_rows": [],
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g21-n16",
+      "family": "mixed_necessity",
+      "text": "Strong SQL skills are required; Docker knowledge is preferred.",
+      "expected_rows": [
+        [
+          "language.sql",
+          "required"
+        ],
+        [
+          "infra.docker",
+          "preferred"
+        ]
+      ],
+      "expected_limitation": true,
+      "note": "per-clause necessity needs per-conjunct rows (out of scope)"
+    }
+  ]
+}

@@ -108,7 +108,9 @@ def test_parser_version_unchanged_by_stage_1():
     from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
     # M11-G17 then bumped v12 -> v13 (alternatives.py compound AND/OR containment); this test's
     # own purpose is unaffected -- only the literal tracks the current version.
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+    # M11-G21 then bumped v13 -> v14 (qualification_intent.py admission guard + necessity.refine_necessity);
+    # this test's own purpose is unaffected -- only the literal tracks the current version.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
 
 
 # ---------------------------------------------------------------------------

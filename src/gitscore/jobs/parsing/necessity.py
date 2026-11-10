@@ -79,6 +79,37 @@ _PREFERRED_MARKER = re.compile(
 # qualification rather than a duty description.
 _SECTION_ORIGIN_ALWAYS_ELIGIBLE = frozenset({"REQUIRED", "PREFERRED"})
 
+# Milestone 11-G21 -- vocabulary for `refine_necessity()` (below), also read by
+# `qualification_intent.py`. Ported verbatim from G20's evaluated policy B1NR
+# (G20's research adapter under scripts/evaluation_lib, incl. its post-hoc corrections).
+_NEGATED_REQUIRED = re.compile(r"\bnot\s+(?:required|essential|mandatory)\b", re.IGNORECASE)
+# G20 post-hoc correction 2: a concession is a PREFERRED statement, not a negation.
+CONCESSIVE_NEGATION = re.compile(
+    r"\b(?:while|although|though|even\s+if|whilst)\s+not\s+(?:required|essential|mandatory|necessary)\b",
+    re.IGNORECASE,
+)
+APPRECIATIVE_TAIL = re.compile(
+    r"\b(?:but|though|however)\b[^.;]*\b(?:appreciated|helpful|a\s+plus|welcome|nice|valued)\b|"
+    r"\b(?:helpful|appreciated|a\s+plus)\b[^.;]*\bbut\s+not\b",
+    re.IGNORECASE,
+)
+# Milestone 11-G21 (negation-scope correction): an explicitly negated necessity predicate
+# ("X is not required"), and the ONE contrastive ellipsis it licenses -- a following clause, with
+# its own subject, that ends in a bare copula ("...; strong Python skills are.") and therefore
+# re-uses the negated predicate positively. Nothing else ever resolves an "X are" clause.
+NEGATED_PREDICATE = re.compile(
+    r"\b(?:is|are)\s+not\s+(required|essential|mandatory|necessary|needed|preferred)\b", re.IGNORECASE)
+ELLIPTICAL_CONTRAST = re.compile(
+    r"\b(?:is|are)\s+not\s+(required|essential|mandatory|necessary|needed|preferred)\b[^;]*?"
+    r"(?:;|,\s*but\b)\s*(?!(?:not|never|also|though|although)\b)[^;,]*?\b(?:is|are)\s*[.!]?\s*$",
+    re.IGNORECASE,
+)
+PREFERRED_EXTRA = re.compile(
+    r"\bwould\s+be\s+(?:great|nice|helpful|ideal|an?\s+(?:advantage|asset|bonus))\b|"
+    r"\b(?:is|are)\s+(?:helpful|beneficial|an?\s+(?:advantage|asset))\b|\bhelps\b|\bappreciated\b|\bdesirable\b",
+    re.IGNORECASE,
+)
+
 
 def infer_necessity(claim_text: str, necessity_hint: Necessity | None) -> Necessity | None:
     if _REQUIRED_MARKER.search(claim_text):
@@ -90,6 +121,56 @@ def infer_necessity(claim_text: str, necessity_hint: Necessity | None) -> Necess
 
 def _has_local_marker(claim_text: str) -> bool:
     return _REQUIRED_MARKER.search(claim_text) is not None or _PREFERRED_MARKER.search(claim_text) is not None
+
+
+def has_preference_cue(text: str) -> bool:
+    """The existing preference vocabulary: PREFERRED markers, soft cues, appreciative tails."""
+    return bool(_PREFERRED_MARKER.search(text) or PREFERRED_EXTRA.search(text) or APPRECIATIVE_TAIL.search(text))
+
+
+def refine_necessity(claim_text: str, necessity: Necessity | None, *, full_text: str | None = None) -> Necessity | None:
+    """Milestone 11-G21 -- narrows an ALREADY-INFERRED necessity; never promotes one.
+
+    Called by `jobs/parsing/parser.py` AFTER `infer_necessity()`, which stays
+    unchanged (the shadow competency path also calls it and is unaffected).
+
+    * `None` stays `None` (UNKNOWN is never promoted to REQUIRED/PREFERRED).
+    * A concession ("While not required, Rust experience is a plus") -> PREFERRED.
+    * A negated required marker ("not required" / "not essential" / "not
+      mandatory") with no other un-negated REQUIRED marker: PREFERRED when the
+      claim also carries a preference cue ("... but appreciated", "helpful but not
+      essential"), otherwise `None` -- a bare negation states no requirement.
+    * REQUIRED plus a soft preference cue ("would be great", "is beneficial",
+      "helps", "appreciated", "desirable", or an existing PREFERRED marker) and no
+      un-negated REQUIRED marker -> PREFERRED. This corrects a section-inherited
+      REQUIRED on locally softened wording.
+    * Everything else is returned unchanged.
+
+    G21 negation-scope correction: `claim_text` is the parser's SCOPED text (a negated clause
+    that does not govern the qualification is blanked out by `qualification_intent`), so a
+    negation is applied only to its own clause. `full_text` (the unscoped claim) is consulted
+    for exactly one thing: a contrastive ellipsis ("A degree is not required; strong Python
+    skills are.") resolves the elliptical clause to the negated clause's explicit predicate --
+    REQUIRED for required/essential/mandatory/necessary/needed, PREFERRED for preferred. That
+    is the explicit local predicate the clause re-uses, the same precedence `infer_necessity`
+    gives any explicit local marker; a bare "X are" never resolves on its own.
+    """
+    if necessity is None:
+        return None
+    ellipsis = ELLIPTICAL_CONTRAST.search((full_text or claim_text).strip())
+    if ellipsis is not None:
+        return Necessity.PREFERRED if ellipsis.group(1).lower() == "preferred" else Necessity.REQUIRED
+    text = claim_text.strip()
+    if CONCESSIVE_NEGATION.search(text):
+        return Necessity.PREFERRED
+    negated = _NEGATED_REQUIRED.search(text) is not None
+    unnegated_required = _REQUIRED_MARKER.search(_NEGATED_REQUIRED.sub(" ", text)) is not None
+    preferred_cue = has_preference_cue(text)
+    if negated and not unnegated_required:
+        return Necessity.PREFERRED if preferred_cue else None
+    if necessity == Necessity.REQUIRED and preferred_cue and not unnegated_required:
+        return Necessity.PREFERRED
+    return necessity
 
 
 def resolve_necessity_hint(

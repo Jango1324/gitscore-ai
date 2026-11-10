@@ -216,6 +216,24 @@ responsibility prose, or silently suppressing a genuine REQUIRED
 qualification entirely. Nothing in THIS module changes except the
 version bump. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v11` -> `v12`
 accordingly.
+
+**Milestone 11-G21 -- qualification-intent admission guard (B1NR).**
+`_requirements_from_claim` now asks
+`qualification_intent.decide_qualification_intent()` FIRST, before any row is
+built: a claim carrying positive evidence of a non-qualification frame (employer
+or product narrative, a future duty, learning, benefits, hiring process,
+technology-as-subject discussion, team practice, negation, an inline "About us:"
+prefix, or a bare duty-verb bullet inside a qualifications section) returns `[]`
+and therefore becomes the EXISTING `UnparsedClaim` diagnostic. A local marker no
+longer wins on its own when it sits inside such a frame. After
+`infer_necessity()`, `necessity.refine_necessity()` only NARROWS necessity
+(concessive / negated / softened wording; never promotes). Negation is
+clause-local: a negated clause that does not govern the qualification is blanked
+(length-preserving) out of the text every detector and necessity step analyses,
+while each row keeps `original_text=claim.text` and the claim's span. Segmentation, heading
+classification, alternatives (G17 containment), concept recognition, the matcher
+and scoring v2 are unchanged. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v13` ->
+`v14`. See docs/evaluation/MILESTONE_11_G21_QUALIFICATION_INTENT_GUARD.md.
 """
 from __future__ import annotations
 
@@ -236,13 +254,14 @@ from gitscore.jobs.parsing.confidence import confidence_for
 from gitscore.jobs.parsing.dedup import deduplicate_requirements
 from gitscore.jobs.parsing.experience import find_experience_qualifier
 from gitscore.jobs.parsing.importance import infer_importance
-from gitscore.jobs.parsing.necessity import infer_necessity, resolve_necessity_hint
+from gitscore.jobs.parsing.necessity import infer_necessity, refine_necessity, resolve_necessity_hint
 from gitscore.jobs.parsing.non_technical import find_non_technical_match
 from gitscore.jobs.parsing.observability import observability_for_non_technical, observability_for_technical
+from gitscore.jobs.parsing.qualification_intent import decide_qualification_intent
 from gitscore.jobs.parsing.segmentation import Claim, document_has_any_recognized_heading, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v13"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v14"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:
@@ -278,6 +297,19 @@ def _unresolved_requirement_signal(text: str) -> bool:
 def _requirements_from_claim(
     claim: Claim, registry, *, document_has_recognized_heading: bool
 ) -> list[JobRequirement]:
+    # Milestone 11-G21 -- qualification intent is decided BEFORE any row is
+    # built, from the claim's own text and section kind only (never candidate
+    # evidence). A declined claim returns [] -> the existing UnparsedClaim
+    # diagnostic in `_parse`, with its exact original text and span.
+    decision = decide_qualification_intent(claim.text, claim.section_kind)
+    if not decision.admit:
+        return []
+    # G21 negation-scope correction: a negated clause that does not govern the qualification
+    # ("A degree is not required; strong Python skills are.") is blanked out of the text every
+    # detector and necessity step below analyses. Provenance never changes: every row keeps
+    # `original_text=claim.text` and the claim's exact span. Identical to `claim.text` whenever
+    # nothing is negated.
+    text = decision.scoped_text or claim.text
     # Milestone 10E -- `resolve_necessity_hint` narrows `claim.necessity_hint`
     # (never widens it -- see that function's own docstring) based on
     # section origin (`claim.section_kind`) and narrative-cue content,
@@ -285,12 +317,12 @@ def _requirements_from_claim(
     # explicit local REQUIRED/PREFERRED marker in `claim.text` always
     # wins regardless of this step (both functions check it first).
     effective_hint = resolve_necessity_hint(
-        claim.text,
+        text,
         claim.necessity_hint,
         section_kind=claim.section_kind,
         document_has_recognized_heading=document_has_recognized_heading,
     )
-    necessity = infer_necessity(claim.text, effective_hint)
+    necessity = infer_necessity(text, effective_hint)
     if necessity is None:
         # Milestone 10B -- the claim was admitted from an unrecognized
         # (UNKNOWN) section and carries no local REQUIRED/PREFERRED
@@ -305,10 +337,16 @@ def _requirements_from_claim(
         # -> UnparsedClaim" fallback below -- no new diagnostic type, no
         # JobRequirement schema change.
         return []
-    importance = infer_importance(claim.text, necessity)
+    # Milestone 11-G21 -- narrows only (concessive / negated / softened wording);
+    # a bare negation ("Prior experience with Rust is not required.") yields None
+    # and takes the same UnparsedClaim path as above.
+    necessity = refine_necessity(text, necessity, full_text=claim.text)
+    if necessity is None:
+        return []
+    importance = infer_importance(text, necessity)
     span = SourceSpan(claim.start, claim.end)
 
-    alternative = classify_alternative_claim(claim.text, registry=registry)
+    alternative = classify_alternative_claim(text, registry=registry)
 
     if alternative.kind == "technical":
         # Milestone 6B.1: ONE logical requirement, structured semantics --
@@ -350,7 +388,7 @@ def _requirements_from_claim(
     # through the exact same pipeline as any other claim.
     requirements: list[JobRequirement] = []
 
-    safe_mentions = find_concept_mentions(claim.text, registry=registry)
+    safe_mentions = find_concept_mentions(text, registry=registry)
     mentions = safe_mentions
     mention_confidence_kind = "resolved_concept"
     if not mentions:
@@ -372,7 +410,7 @@ def _requirements_from_claim(
         # environments") get promoted to a fabricated unresolved
         # concept, which this bounded fallback must never cause as a
         # side effect.
-        mentions = find_bare_short_alias_mentions(claim.text, registry=registry)
+        mentions = find_bare_short_alias_mentions(text, registry=registry)
         if mentions:
             mention_confidence_kind = "bare_short_alias_context"
 
@@ -395,7 +433,7 @@ def _requirements_from_claim(
             )
         )
 
-    for term in find_conservative_unknown_terms(claim.text, safe_mentions):
+    for term in find_conservative_unknown_terms(text, safe_mentions):
         concept_id = unresolved_concept_id(term)
         if concept_id in seen_concept_ids:
             continue
@@ -413,7 +451,7 @@ def _requirements_from_claim(
             )
         )
 
-    if find_experience_qualifier(claim.text) is not None:
+    if find_experience_qualifier(text) is not None:
         requirements.append(
             JobRequirement(
                 original_text=claim.text,
@@ -427,7 +465,7 @@ def _requirements_from_claim(
             )
         )
 
-    non_technical = find_non_technical_match(claim.text)
+    non_technical = find_non_technical_match(text)
     if non_technical is not None:
         category, _ = non_technical
         requirements.append(
@@ -443,7 +481,7 @@ def _requirements_from_claim(
             )
         )
 
-    if not requirements and _unresolved_requirement_signal(claim.text):
+    if not requirements and _unresolved_requirement_signal(text):
         # Milestone 9A -- every detector above produced NOTHING for this
         # claim, yet it already survived segmentation's requirement gate
         # AND carries one of the narrow structural signals

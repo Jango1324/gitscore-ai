@@ -95,8 +95,14 @@ def _rows(text):
     return parse_job_description(text).requirements
 
 
+V13 = JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+
+
 def test_g18_control_25_narrative_becomes_required_rows():
     rows = _rows("About us: we use Python, Terraform and Docker.")
+    if not V13:  # M11-G21 (v14) implements the fix G20 recommended: no requirement at all
+        assert rows == ()
+        return
     ids = {r.concept_id for r in rows}
     assert {"language.python", "infra.docker", "unresolved:terraform"} <= ids
     assert all(r.necessity.value == "required" for r in rows)
@@ -104,6 +110,9 @@ def test_g18_control_25_narrative_becomes_required_rows():
 
 def test_g16_053_responsibility_is_a_required_placeholder():
     rows = _rows("You will maintain services written in Python or Go, and deploy them with Docker.")
+    if not V13:  # M11-G21 (v14): declined (UnparsedClaim), no REQUIRED placeholder
+        assert rows == ()
+        return
     assert len(rows) == 1 and rows[0].category == "alternative_requirement" and rows[0].necessity.value == "required"
 
 
@@ -123,7 +132,14 @@ def test_about_you_heading_suppresses_genuine_qualifications():
 @pytest.mark.parametrize("policy", [adm.POLICY_V13, post.POLICY_B1NR, pol.POLICY_C])
 def test_report_aggregates_reproduce(report, split, policy):
     _, agg = adm.run_split(split, policy)
-    assert report["controls"][split][policy.name]["aggregate"] == agg
+    if V13 or policy is not adm.POLICY_V13:
+        assert report["controls"][split][policy.name]["aggregate"] == agg
+        return
+    # M11-G21 (v14): the replica's "v13" policy calls the live production parser, which now IS
+    # B1NR -- so it must reproduce G20's frozen B1NR research aggregate exactly (port fidelity),
+    # while the frozen v13 aggregate stays in the committed report as the v13 research result.
+    assert report["controls"][split][post.POLICY_B1NR.name]["aggregate"] == agg
+    assert report["controls"][split]["v13"]["aggregate"] != agg
 
 
 def test_report_headline_numbers(report):
@@ -159,7 +175,8 @@ def test_heading_component_would_change_frozen_heading_labels(report):
 
 # ---- production untouched -------------------------------------------------------------------------------
 def test_versions_unchanged():
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+    # G20 itself was research-only on v13; M11-G21 then bumped the parser to v14.
+    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14")
     assert SCORING_VERSION == "github_evidence_alignment:v2"
 
 

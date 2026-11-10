@@ -85,7 +85,9 @@ def test_report_is_reproducible(report):
     if JOB_DESCRIPTION_PARSER_VERSION == G15_REPORT_PARSER_VERSION:
         assert live == report
         return
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+    # M11-G21 (v14): the qualification-intent guard changes no G15 control, so the v13
+    # assertions below apply to v14 unchanged.
+    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14")
     for cid, result in report["results"].items():
         if cid != K1:
             assert live["results"][cid] == result, cid

@@ -1,0 +1,223 @@
+{
+ "note": "previously inspected private postings -- NOT independent validation; integer counts only",
+ "m11d": {
+  "postings": 12,
+  "rows_v13": 57,
+  "required_rows_v13": 36,
+  "preferred_rows_v13": 21,
+  "unparsed_claims_v13": 148,
+  "denominator_rows_v13": 9,
+  "postings_with_no_eligible_requirement_v13": 7,
+  "postings_with_no_rows_v13": 2,
+  "rows_v14": 57,
+  "required_rows_v14": 36,
+  "preferred_rows_v14": 21,
+  "unparsed_claims_v14": 148,
+  "denominator_rows_v14": 9,
+  "postings_with_no_eligible_requirement_v14": 7,
+  "postings_with_no_rows_v14": 2,
+  "postings_changed": 0,
+  "postings_losing_all_rows": 0
+ },
+ "m11f": {
+  "postings": 18,
+  "rows_v13": 111,
+  "required_rows_v13": 102,
+  "preferred_rows_v13": 9,
+  "unparsed_claims_v13": 211,
+  "denominator_rows_v13": 23,
+  "postings_with_no_eligible_requirement_v13": 8,
+  "postings_with_no_rows_v13": 1,
+  "rows_v14": 110,
+  "required_rows_v14": 101,
+  "preferred_rows_v14": 9,
+  "unparsed_claims_v14": 212,
+  "denominator_rows_v14": 23,
+  "postings_with_no_eligible_requirement_v14": 8,
+  "postings_with_no_rows_v14": 1,
+  "postings_changed": 1,
+  "postings_losing_all_rows": 0
+ },
+ "m11g5": {
+  "postings": 18,
+  "rows_v13": 122,
+  "required_rows_v13": 97,
+  "preferred_rows_v13": 25,
+  "unparsed_claims_v13": 178,
+  "denominator_rows_v13": 29,
+  "postings_with_no_eligible_requirement_v13": 6,
+  "postings_with_no_rows_v13": 1,
+  "rows_v14": 122,
+  "required_rows_v14": 96,
+  "preferred_rows_v14": 26,
+  "unparsed_claims_v14": 178,
+  "denominator_rows_v14": 29,
+  "postings_with_no_eligible_requirement_v14": 6,
+  "postings_with_no_rows_v14": 1,
+  "postings_changed": 1,
+  "postings_losing_all_rows": 0
+ },
+ "m11g9": {
+  "postings": 14,
+  "rows_v13": 89,
+  "required_rows_v13": 76,
+  "preferred_rows_v13": 13,
+  "unparsed_claims_v13": 160,
+  "denominator_rows_v13": 10,
+  "postings_with_no_eligible_requirement_v13": 7,
+  "postings_with_no_rows_v13": 0,
+  "rows_v14": 89,
+  "required_rows_v14": 75,
+  "preferred_rows_v14": 14,
+  "unparsed_claims_v14": 160,
+  "denominator_rows_v14": 10,
+  "postings_with_no_eligible_requirement_v14": 7,
+  "postings_with_no_rows_v14": 0,
+  "postings_changed": 1,
+  "postings_losing_all_rows": 0
+ },
+ "label_backed": {
+  "m11d": {
+   "claims": 165,
+   "located": 164,
+   "v13": {
+    "nonqual_admitted": 2,
+    "nonqual_admitted_required": 2,
+    "nonqual_claims": 28,
+    "qual_admitted": 57,
+    "qual_claims": 136,
+    "qual_nec_correct": 54,
+    "qual_nec_scored": 57,
+    "qual_preferred_marked_required": 2,
+    "admission_precision": 0.9661,
+    "qualification_recall": 0.4191,
+    "false_admission_rate": 0.0714
+   },
+   "v14": {
+    "nonqual_admitted": 2,
+    "nonqual_admitted_required": 2,
+    "nonqual_claims": 28,
+    "qual_admitted": 57,
+    "qual_claims": 136,
+    "qual_nec_correct": 54,
+    "qual_nec_scored": 57,
+    "qual_preferred_marked_required": 2,
+    "admission_precision": 0.9661,
+    "qualification_recall": 0.4191,
+    "false_admission_rate": 0.0714
+   }
+  },
+  "m11f": {
+   "claims": 103,
+   "located": 103,
+   "v13": {
+    "nonqual_claims": 10,
+    "qual_admitted": 41,
+    "qual_claims": 93,
+    "qual_nec_correct": 40,
+    "qual_nec_scored": 41,
+    "qual_preferred_marked_required": 1,
+    "admission_precision": 1.0,
+    "qualification_recall": 0.4409,
+    "false_admission_rate": 0.0
+   },
+   "v14": {
+    "nonqual_claims": 10,
+    "qual_admitted": 41,
+    "qual_claims": 93,
+    "qual_nec_correct": 40,
+    "qual_nec_scored": 41,
+    "qual_preferred_marked_required": 1,
+    "admission_precision": 1.0,
+    "qualification_recall": 0.4409,
+    "false_admission_rate": 0.0
+   }
+  },
+  "m11g5": {
+   "claims": 161,
+   "located": 161,
+   "v13": {
+    "nonqual_claims": 18,
+    "qual_admitted": 81,
+    "qual_claims": 143,
+    "qual_nec_correct": 75,
+    "qual_nec_scored": 81,
+    "qual_preferred_marked_required": 3,
+    "admission_precision": 1.0,
+    "qualification_recall": 0.5664,
+    "false_admission_rate": 0.0
+   },
+   "v14": {
+    "nonqual_claims": 18,
+    "qual_admitted": 81,
+    "qual_claims": 143,
+    "qual_nec_correct": 76,
+    "qual_nec_scored": 81,
+    "qual_preferred_marked_required": 2,
+    "admission_precision": 1.0,
+    "qualification_recall": 0.5664,
+    "false_admission_rate": 0.0
+   }
+  },
+  "m11g9_dev": {
+   "claims": 122,
+   "located": 122,
+   "v13": {
+    "nonqual_admitted": 1,
+    "nonqual_admitted_required": 1,
+    "nonqual_claims": 53,
+    "qual_admitted": 33,
+    "qual_claims": 69,
+    "qual_nec_correct": 33,
+    "qual_nec_scored": 33,
+    "qual_preferred_marked_required": 0,
+    "admission_precision": 0.9706,
+    "qualification_recall": 0.4783,
+    "false_admission_rate": 0.0189
+   },
+   "v14": {
+    "nonqual_admitted": 1,
+    "nonqual_admitted_required": 1,
+    "nonqual_claims": 53,
+    "qual_admitted": 33,
+    "qual_claims": 69,
+    "qual_nec_correct": 33,
+    "qual_nec_scored": 33,
+    "qual_preferred_marked_required": 0,
+    "admission_precision": 0.9706,
+    "qualification_recall": 0.4783,
+    "false_admission_rate": 0.0189
+   }
+  },
+  "m11g9_holdout": {
+   "claims": 100,
+   "located": 100,
+   "v13": {
+    "nonqual_admitted": 1,
+    "nonqual_admitted_required": 1,
+    "nonqual_claims": 44,
+    "qual_admitted": 30,
+    "qual_claims": 56,
+    "qual_nec_correct": 29,
+    "qual_nec_scored": 30,
+    "qual_preferred_marked_required": 1,
+    "admission_precision": 0.9677,
+    "qualification_recall": 0.5357,
+    "false_admission_rate": 0.0227
+   },
+   "v14": {
+    "nonqual_admitted": 1,
+    "nonqual_admitted_required": 1,
+    "nonqual_claims": 44,
+    "qual_admitted": 30,
+    "qual_claims": 56,
+    "qual_nec_correct": 30,
+    "qual_nec_scored": 30,
+    "qual_preferred_marked_required": 0,
+    "admission_precision": 0.9677,
+    "qualification_recall": 0.5357,
+    "false_admission_rate": 0.0227
+   }
+  }
+ }
+}

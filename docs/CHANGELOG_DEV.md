@@ -1,5 +1,57 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-10 — Milestone 11-G21: qualification-intent admission guard (production; parser v13 -> v14)
+
+**What changed:** New `src/gitscore/jobs/parsing/qualification_intent.py` (G20's evaluated B1NR admission
+decision: closed grammatical qualification / non-qualification frames per clause). `parser.
+_requirements_from_claim` calls it first; a declined claim returns [] and becomes the existing
+`UnparsedClaim`. `necessity.refine_necessity()` (new, called by the parser after the unchanged
+`infer_necessity`) only narrows necessity: concession -> PREFERRED, negated REQUIRED -> PREFERRED or no row,
+REQUIRED + soft cue -> PREFERRED. `JOB_DESCRIPTION_PARSER_VERSION` v13 -> v14. Scoring v2, matcher,
+segmentation, headings, alternatives (G17), concepts, API and frontend unchanged.
+
+**Why:** G20 traced false qualifications (company narrative, duties, technology discussion scored as
+REQUIRED) to the absence of any qualification-intent decision (G18 control 25, G17 control 053).
+
+**How it works:** a claim is declined only on POSITIVE evidence of a non-qualification frame (employer
+subject, future duty, learning, benefit, hiring process, technology-as-subject, team practice, negation,
+inline "About us:", bare duty verb in a qualifications section); a strong candidate frame or a marker
+attached to an attribute in the same clause overrides. Includes G20's two post-hoc corrections
+(case-sensitive "us" vs "US"; concessive "while not required ... a plus").
+
+**Measured (real v13 at a260282 vs v14):** G20 dev false admissions 26 -> 0, held-out 16 -> 1 (h003 "You
+must be on call ..." -- documented), necessity 46/46 and 19/19, near-neighbour pairs 12/12 and 4/4; live v14
+equals G20's frozen B1NR research aggregates exactly. Historical: only G16-053 and G18-25 change (both gold
+fixes), 0 regressions, 0 frozen-8c score changes, G17 guard 0 violations, no status/eligibility change on any
+kept row. Private (inspected, counts only): 0 qualifications lost, necessity 231 -> 233/242. Fresh adversarial
+synthetic set (35 controls, same author, not independent): false admissions 17 -> 11, 2 genuine
+qualifications lost (whole-claim negation; "preferred but not essential").
+
+**Files affected:** `src/gitscore/jobs/parsing/{qualification_intent (new),necessity,parser}.py`;
+`tests/test_m11g21_qualification_intent.py` (new) and version-aware updates to m11a2/m11b/m11c/m11e/G15-G20
+tests (v13 checks kept); `scripts/evaluate_m11g21_v13_v14.py`, `scripts/evaluation_lib/m11g21_{parser_dump,
+build_adversarial}.py` (new); G20 evaluator v13-only guard; `evaluation/m11g21/*`; docs.
+
+**Negation-scope correction (Option B, same milestone):** the first v14 lost 2 genuine qualifications on
+the fresh adversarial set ("A degree is not required; strong Python skills are."; "TypeScript is preferred but
+not essential."). Negation is now clause-local: subjectless "but"-continuations join the clause they complete;
+a negated unit is masked (offsets kept) out of the text the parser analyses when another unit is a
+qualification; the only ellipsis resolved is a contrast after an explicitly negated predicate;
+`refine_necessity(..., full_text=)` resolves it. Result: adversarial losses 2 -> 0, false admissions unchanged
+at 11, necessity 18/18 -> 20/20; G20, historical corpora, scoring and private counts identical to the first
+v14; new author-created negation-scope set 4/16 (v13) -> 14/16. The 35 adversarial controls are development
+data now. Files: also `parser.py` (scoped analysis text), `scripts/evaluation_lib/m11g21_build_negation_scope.py`,
+`evaluation/m11g21/{negation_scope_*,v13_v14_revised_comparison,private_v13_v14_revised_aggregates}.json`.
+
+**Risks / limitations:** strong-subject duties ("You must be on call", "Applicants must complete") and
+company sentences without a We/Our subject still pass; "No prior <tech> experience is necessary" is outside
+the negation vocabulary; per-clause necessity in one sentence ("X is required; Y is preferred") is decided per
+claim; G6 candidate-profile headings (G23) and fabricated
+concepts (G22) untouched.
+
+**How to test:** `python -m pytest tests/test_m11g21_qualification_intent.py`;
+`python scripts/evaluate_m11g21_v13_v14.py [--private-corpora]`.
+
 ## 2026-11-10 — Milestone 11-G20: false qualification admission & parser precision (research only)
 
 **What changed:** Research, evaluation and design only -- no production code changed (parser v13, scoring

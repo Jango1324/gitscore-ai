@@ -76,8 +76,33 @@ def test_expectations_follow_the_frozen_rule(controls):
 
 
 def test_report_is_reproducible(report):
-    assert report["parser_version"] == JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
-    assert json.loads(json.dumps(runner.run())) == report
+    assert report["parser_version"] == "job_description_parser:v13"
+    live = json.loads(json.dumps(runner.run()))
+    if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13":
+        assert live == report
+        return
+    # M11-G21 (v14): the qualification-intent guard declines exactly control 25 ("About us: we
+    # use Python, Terraform and Docker.", gold: non_requirement). Every other section and every
+    # other control must reproduce the frozen v13 report exactly.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
+    for key in report:
+        if key not in ("parser_version", "g18_controls"):
+            assert live[key] == report[key], key
+    frozen_g18, live_g18 = report["g18_controls"], live["g18_controls"]
+    assert set(live_g18["results"]) == set(frozen_g18["results"])
+    for cid, result in frozen_g18["results"].items():
+        if cid != "m11g18-25":
+            assert live_g18["results"][cid] == result, cid
+    c25 = live_g18["results"]["m11g18-25"]
+    assert c25["rows"] == [] and frozen_g18["results"]["m11g18-25"]["rows"]
+    for cand in c25["candidates"].values():
+        for policy in cand["policies"].values():
+            assert (policy["score"], policy["eligible"], policy["supported"]) == (None, 0, 0)
+    for name, frozen in frozen_g18["metrics_summary"].items():
+        got = live_g18["metrics_summary"][name]
+        assert got["11_non_requirement_counted"] == 0 < frozen["11_non_requirement_counted"], name
+        assert got["unrepresented_gold"] == frozen["unrepresented_gold"] + 3, name  # 25's 3 gold units
+        assert got["6_false_supported_counted"] <= frozen["6_false_supported_counted"], name
 
 
 # ----------------------------------------------------------------- capability

@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g21/negation_scope_controls.json",
+  "sha256": "04114d47a93f8a63ab744165673c37ade17f1a924c0513fdd7044e43dd53bbda",
+  "sha256_lf_normalized": "04114d47a93f8a63ab744165673c37ade17f1a924c0513fdd7044e43dd53bbda",
+  "length_bytes": 5474,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-10T21:49:04Z",
+  "note": "Frozen BEFORE the revised (negation-scope) v14 implementation existed. NOT registered in the canonical manifest (pending authorization)."
+}

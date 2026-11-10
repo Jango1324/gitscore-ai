@@ -56,7 +56,9 @@ def _concept_sets(profile) -> list[set[str]]:
 
 
 def test_parser_version_is_v13():
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+    # G17 bumped v12 -> v13. M11-G21 then bumped v13 -> v14 (qualification-intent guard); G17's
+    # containment code is untouched -- only the literal tracks the current version.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
 
 
 # 1. (A OR B) AND C cannot be satisfied by C alone -----------------------------
@@ -193,13 +195,23 @@ def test_live_parser_reproduces_g16_option_d_rows_on_all_58_controls():
     g16 = json.loads((REPO_ROOT / "evaluation" / "m11g16" / "compound_logic_report.json")
                      .read_text(encoding="utf-8"))["results"]
     mismatches = []
+    live_rows = {}
     for c in controls:
         live = [{"members": sorted(r.alternative_concept_ids) if r.alternative_concept_ids
                  else ([r.concept_id] if r.concept_id else []),
                  "necessity": r.necessity.value, "category": r.category}
                 for r in parse_job_description(c["text"]).requirements]
+        live_rows[c["id"]] = live
         expected = [{k: row[k] for k in ("members", "necessity", "category")}
                     for row in g16[c["id"]]["D_structural_guard"]["rows"]]
         if live != expected:
             mismatches.append(c["id"])
-    assert mismatches == []
+    if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13":
+        assert mismatches == []
+    else:
+        # M11-G21 (v14): the qualification-intent guard declines exactly one G16 control -- the
+        # responsibility sentence 053 ("You will maintain services ..."), which G16 gold labels
+        # is_qualification=False. Every other control (incl. all G17-contained compound rows)
+        # must still equal G16's option D exactly.
+        assert mismatches == ["m11g16-053"]
+        assert live_rows["m11g16-053"] == []

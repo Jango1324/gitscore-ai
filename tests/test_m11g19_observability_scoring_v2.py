@@ -285,7 +285,17 @@ def test_live_v2_equals_g18_policy_c_on_all_54_candidate_pairs():
                     (sim["score"], sim["supported"], sim["eligible"]):
                 mismatches.append(f"{c['id']}/{cand['name']}")
     assert sum(len(c["candidates"]) for c in controls) == 54
-    assert mismatches == []
+    from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
+    if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13":
+        assert mismatches == []
+        return
+    # M11-G21 (parser v14): control 25's company narrative is no longer parsed as REQUIRED
+    # Python/Docker rows, so its only candidate now has no eligible requirement (undefined score)
+    # where G18's simulation (made on v13 parse output) scored 100. All 53 other pairs unchanged.
+    assert mismatches == ["m11g18-25/python_docker"]
+    c25 = next(c for c in controls if c["id"] == "m11g18-25")
+    a, _ = run(c25["job_text"], c25["candidates"][0]["evidence"])
+    assert (a.alignment_score, a.assessable_count) == (None, 0)
 
 
 _NOT_SCOREABLE = ("partially_observable_no_positive_evidence", "completely_non_assessable", "structurally_ambiguous",
@@ -318,7 +328,12 @@ def test_g18_acceptance_targets_measured_live():
                     uncheckable.append(key)
     assert outcomes == 106
     assert wrong_not_observed == []
-    assert uncheckable == ["m11g18-25/python_docker/g1", "m11g18-25/python_docker/g3"]
+    from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
+    if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13":
+        assert uncheckable == ["m11g18-25/python_docker/g1", "m11g18-25/python_docker/g3"]
+    else:
+        # M11-G21 (v14): the two remaining uncheckable rows were control 25's narrative parse; gone.
+        assert uncheckable == []
 
 
 # Capability contract (Phase 2) -------------------------------------------------
@@ -416,7 +431,10 @@ def test_api_changes_are_strictly_additive():
     assert [r.status for r in resp.requirements.supported] == ["supported"]
     assert [r.status for r in resp.requirements.not_observed] == ["not_observed"]
     assert resp.versions.matcher == "requirement_matcher:v1"
-    assert resp.versions.job_parser == "job_description_parser:v13"
+    from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
+    # G19 shipped on parser v13; M11-G21 bumped the parser to v14 (scoring/matcher unchanged).
+    assert resp.versions.job_parser == JOB_DESCRIPTION_PARSER_VERSION
+    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14")
 
 
 # Actual v1 vs v2 comparison (Phase 7/8), committed output ----------------------

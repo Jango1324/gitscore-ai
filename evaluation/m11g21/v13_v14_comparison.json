@@ -1,0 +1,2115 @@
+{
+ "versions": {
+  "v13": [
+   "job_description_parser:v13",
+   "github_evidence_alignment:v2",
+   "requirement_matcher:v1",
+   "a2602820b21d521c7ac4006b6738224fde716e2c"
+  ],
+  "v14": [
+   "job_description_parser:v14",
+   "github_evidence_alignment:v2",
+   "requirement_matcher:v1",
+   "working tree"
+  ]
+ },
+ "note": "actual production v13 (pinned clone) vs v14 (working tree); real parser/matcher/scoring v2/API serializer; frozen gold and frozen G20 research outputs untouched",
+ "controls": {
+  "g20_dev": {
+   "v13": {
+    "false_admission_units": 26,
+    "non_qualification_units": 45,
+    "false_required_rows": 33,
+    "preferred_marked_required_units": 3,
+    "fabricated_concepts": 6,
+    "false_supported_counted_full_evidence": 30,
+    "missed_entirely": 2,
+    "declined_visible": 4,
+    "unit_precision": 0.6533,
+    "row_precision": 0.587,
+    "unit_recall": 0.8364,
+    "concept_recall": 0.8889,
+    "necessity": [
+     43,
+     46
+    ],
+    "source_spans_within_unit": true
+   },
+   "v14": {
+    "false_admission_units": 0,
+    "non_qualification_units": 45,
+    "false_required_rows": 0,
+    "preferred_marked_required_units": 0,
+    "fabricated_concepts": 6,
+    "false_supported_counted_full_evidence": 0,
+    "missed_entirely": 2,
+    "declined_visible": 4,
+    "unit_precision": 1.0,
+    "row_precision": 0.9153,
+    "unit_recall": 0.8364,
+    "concept_recall": 0.8889,
+    "necessity": [
+     46,
+     46
+    ],
+    "source_spans_within_unit": true
+   },
+   "near_neighbour_pairs_correct": {
+    "v13": [
+     2,
+     12
+    ],
+    "v14": [
+     12,
+     12
+    ]
+   },
+   "corrected_false_admissions": [
+    "m11g20-d001/u0",
+    "m11g20-d002/u0",
+    "m11g20-d003/u0",
+    "m11g20-d004/u0",
+    "m11g20-d006/u0",
+    "m11g20-d007b/u0",
+    "m11g20-d009b/u0",
+    "m11g20-d010b/u0",
+    "m11g20-d011b/u0",
+    "m11g20-d012b/u0",
+    "m11g20-d013b/u0",
+    "m11g20-d015b/u0",
+    "m11g20-d032/u1",
+    "m11g20-d033/u0",
+    "m11g20-d034/u0",
+    "m11g20-d037/u1",
+    "m11g20-d038/u1",
+    "m11g20-d039/u0",
+    "m11g20-d039/u1",
+    "m11g20-d040/u0",
+    "m11g20-d047/u0",
+    "m11g20-d051/u0",
+    "m11g20-d056b/u0",
+    "m11g20-d057b/u0",
+    "m11g20-d058b/u0",
+    "m11g20-d060/u0"
+   ],
+   "lost_genuine_qualifications": [],
+   "new_false_admissions": [],
+   "necessity_changed_units": [
+    "m11g20-d044/u1",
+    "m11g20-d045/u0",
+    "m11g20-d046/u0"
+   ],
+   "v14_residual_false_admissions": [],
+   "v14_qualifications_not_represented": [
+    "m11g20-d016/u0",
+    "m11g20-d017/u0",
+    "m11g20-d022/u0",
+    "m11g20-d027/u1",
+    "m11g20-d028/u0",
+    "m11g20-d028/u1",
+    "m11g20-d029/u0",
+    "m11g20-d029/u1",
+    "m11g20-d037/u0"
+   ],
+   "v14_wrong_necessity": [],
+   "scoring_full_evidence": {
+    "score_or_denominator_changed": [
+     "m11g20-d001",
+     "m11g20-d002",
+     "m11g20-d003",
+     "m11g20-d004",
+     "m11g20-d006",
+     "m11g20-d007b",
+     "m11g20-d009b",
+     "m11g20-d010b",
+     "m11g20-d011b",
+     "m11g20-d012b",
+     "m11g20-d032",
+     "m11g20-d033",
+     "m11g20-d034",
+     "m11g20-d037",
+     "m11g20-d038",
+     "m11g20-d039",
+     "m11g20-d040",
+     "m11g20-d047",
+     "m11g20-d051",
+     "m11g20-d056b",
+     "m11g20-d057b",
+     "m11g20-d058b",
+     "m11g20-d060"
+    ],
+    "became_undefined": [
+     "m11g20-d001",
+     "m11g20-d002",
+     "m11g20-d003",
+     "m11g20-d004",
+     "m11g20-d006",
+     "m11g20-d007b",
+     "m11g20-d009b",
+     "m11g20-d010b",
+     "m11g20-d011b",
+     "m11g20-d012b",
+     "m11g20-d033",
+     "m11g20-d034",
+     "m11g20-d037",
+     "m11g20-d039",
+     "m11g20-d047",
+     "m11g20-d051",
+     "m11g20-d056b",
+     "m11g20-d057b",
+     "m11g20-d058b",
+     "m11g20-d060"
+    ]
+   },
+   "parse": {
+    "m11g20-d001": {
+     "removed": [
+      [
+       [
+        "framework.react"
+       ],
+       "frontend_framework",
+       [
+        0,
+        70
+       ]
+      ],
+      [
+       [
+        "language.typescript"
+       ],
+       "language",
+       [
+        0,
+        70
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       70
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d002": {
+     "removed": [
+      [
+       [
+        "language.python"
+       ],
+       "language",
+       [
+        0,
+        68
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       68
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d003": {
+     "removed": [
+      [
+       [
+        "language.kotlin"
+       ],
+       "language",
+       [
+        0,
+        76
+       ]
+      ],
+      [
+       [
+        "language.swift"
+       ],
+       "language",
+       [
+        0,
+        76
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       76
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d004": {
+     "removed": [
+      [
+       [
+        "cloud.aws"
+       ],
+       "cloud",
+       [
+        0,
+        58
+       ]
+      ],
+      [
+       [
+        "language.python"
+       ],
+       "language",
+       [
+        0,
+        58
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       58
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d006": {
+     "removed": [
+      [
+       [
+        "cloud.aws"
+       ],
+       "cloud",
+       [
+        18,
+        80
+       ]
+      ],
+      [
+       [
+        "infra.kubernetes"
+       ],
+       "infrastructure",
+       [
+        18,
+        80
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       18,
+       80
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d039": {
+     "removed": [
+      [
+       [
+        "database.redis"
+       ],
+       "database",
+       [
+        55,
+        103
+       ]
+      ],
+      [
+       [
+        "language.go"
+       ],
+       "language",
+       [
+        21,
+        52
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       21,
+       52
+      ],
+      [
+       55,
+       103
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d040": {
+     "removed": [
+      [
+       [
+        "language.java"
+       ],
+       "language",
+       [
+        20,
+        59
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       20,
+       59
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d007b": {
+     "removed": [
+      [
+       [
+        "language.typescript"
+       ],
+       "language",
+       [
+        0,
+        43
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       43
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d009b": {
+     "removed": [
+      [
+       [
+        "infra.docker"
+       ],
+       "infrastructure",
+       [
+        0,
+        33
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       33
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d010b": {
+     "removed": [
+      [
+       [
+        "infra.kubernetes"
+       ],
+       "infrastructure",
+       [
+        0,
+        49
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       49
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d011b": {
+     "removed": [
+      [
+       [
+        "language.rust"
+       ],
+       "language",
+       [
+        0,
+        51
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       51
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d012b": {
+     "removed": [
+      [
+       [
+        "ml.framework.pytorch",
+        "ml.framework.tensorflow"
+       ],
+       null,
+       [
+        0,
+        57
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       57
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d013b": {
+     "removed": [
+      [
+       [],
+       "education",
+       [
+        0,
+        47
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       47
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d015b": {
+     "removed": [
+      [
+       [],
+       "leadership",
+       [
+        0,
+        52
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       52
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d056b": {
+     "removed": [
+      [
+       [
+        "language.sql"
+       ],
+       "language",
+       [
+        0,
+        31
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       31
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d057b": {
+     "removed": [
+      [
+       [
+        "framework.react_native"
+       ],
+       "mobile_framework",
+       [
+        0,
+        37
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       37
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d058b": {
+     "removed": [
+      [
+       [
+        "cloud.aws"
+       ],
+       "cloud",
+       [
+        0,
+        51
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       51
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d032": {
+     "removed": [
+      [
+       [
+        "infra.docker"
+       ],
+       "infrastructure",
+       [
+        38,
+        113
+       ]
+      ],
+      [
+       [
+        "infra.kubernetes"
+       ],
+       "infrastructure",
+       [
+        38,
+        113
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       38,
+       113
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d033": {
+     "removed": [
+      [
+       [
+        "cloud.aws"
+       ],
+       "cloud",
+       [
+        0,
+        57
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       57
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d034": {
+     "removed": [
+      [
+       [
+        "language.javascript",
+        "language.python"
+       ],
+       null,
+       [
+        0,
+        76
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       76
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d037": {
+     "removed": [
+      [
+       [
+        "ml.framework.pytorch"
+       ],
+       "ml_framework",
+       [
+        66,
+        120
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       66,
+       120
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d038": {
+     "removed": [
+      [
+       [
+        "language.go"
+       ],
+       "language",
+       [
+        44,
+        113
+       ]
+      ],
+      [
+       [
+        "language.python"
+       ],
+       "language",
+       [
+        44,
+        113
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       44,
+       113
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d051": {
+     "removed": [
+      [
+       [
+        "language.rust"
+       ],
+       "language",
+       [
+        0,
+        69
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       69
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d060": {
+     "removed": [
+      [
+       [
+        "infra.kubernetes"
+       ],
+       "infrastructure",
+       [
+        0,
+        58
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       58
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d044": {
+     "removed": [],
+     "added": [],
+     "necessity_changed": [
+      [
+       [
+        "language.rust"
+       ],
+       "language",
+       [
+        42,
+        79
+       ]
+      ]
+     ],
+     "newly_declined": [],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d045": {
+     "removed": [],
+     "added": [],
+     "necessity_changed": [
+      [
+       [
+        "platform.cuda"
+       ],
+       "platform",
+       [
+        16,
+        62
+       ]
+      ]
+     ],
+     "newly_declined": [],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d046": {
+     "removed": [],
+     "added": [],
+     "necessity_changed": [
+      [
+       [
+        "database.redis"
+       ],
+       "database",
+       [
+        16,
+        71
+       ]
+      ]
+     ],
+     "newly_declined": [],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-d047": {
+     "removed": [
+      [
+       [
+        "infra.kubernetes"
+       ],
+       "infrastructure",
+       [
+        0,
+        49
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       49
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    }
+   }
+  },
+  "g20_holdout": {
+   "v13": {
+    "false_admission_units": 16,
+    "non_qualification_units": 18,
+    "false_required_rows": 19,
+    "preferred_marked_required_units": 2,
+    "fabricated_concepts": 4,
+    "false_supported_counted_full_evidence": 18,
+    "missed_entirely": 2,
+    "declined_visible": 4,
+    "unit_precision": 0.5676,
+    "row_precision": 0.4894,
+    "unit_recall": 0.7037,
+    "concept_recall": 0.7742,
+    "necessity": [
+     17,
+     19
+    ],
+    "source_spans_within_unit": true
+   },
+   "v14": {
+    "false_admission_units": 1,
+    "non_qualification_units": 18,
+    "false_required_rows": 1,
+    "preferred_marked_required_units": 0,
+    "fabricated_concepts": 4,
+    "false_supported_counted_full_evidence": 1,
+    "missed_entirely": 2,
+    "declined_visible": 4,
+    "unit_precision": 0.9545,
+    "row_precision": 0.8214,
+    "unit_recall": 0.7037,
+    "concept_recall": 0.7742,
+    "necessity": [
+     19,
+     19
+    ],
+    "source_spans_within_unit": true
+   },
+   "near_neighbour_pairs_correct": {
+    "v13": [
+     0,
+     4
+    ],
+    "v14": [
+     4,
+     4
+    ]
+   },
+   "corrected_false_admissions": [
+    "m11g20-h001/u0",
+    "m11g20-h002/u0",
+    "m11g20-h004b/u0",
+    "m11g20-h005b/u0",
+    "m11g20-h006b/u0",
+    "m11g20-h007b/u0",
+    "m11g20-h016/u0",
+    "m11g20-h017/u0",
+    "m11g20-h018/u0",
+    "m11g20-h019/u1",
+    "m11g20-h020/u0",
+    "m11g20-h024/u0",
+    "m11g20-h025/u0",
+    "m11g20-h027/u1",
+    "m11g20-h030/u0"
+   ],
+   "lost_genuine_qualifications": [],
+   "new_false_admissions": [],
+   "necessity_changed_units": [
+    "m11g20-h021/u0",
+    "m11g20-h022/u0"
+   ],
+   "v14_residual_false_admissions": [
+    "m11g20-h003/u0"
+   ],
+   "v14_qualifications_not_represented": [
+    "m11g20-h008/u1",
+    "m11g20-h008/u2",
+    "m11g20-h009/u0",
+    "m11g20-h009/u1",
+    "m11g20-h010/u0",
+    "m11g20-h011/u0",
+    "m11g20-h012/u0",
+    "m11g20-h023/u2"
+   ],
+   "v14_wrong_necessity": [
+    "m11g20-h031/u0"
+   ],
+   "scoring_full_evidence": {
+    "score_or_denominator_changed": [
+     "m11g20-h001",
+     "m11g20-h002",
+     "m11g20-h004b",
+     "m11g20-h005b",
+     "m11g20-h006b",
+     "m11g20-h007b",
+     "m11g20-h016",
+     "m11g20-h017",
+     "m11g20-h018",
+     "m11g20-h020",
+     "m11g20-h024",
+     "m11g20-h027",
+     "m11g20-h030"
+    ],
+    "became_undefined": [
+     "m11g20-h001",
+     "m11g20-h002",
+     "m11g20-h004b",
+     "m11g20-h005b",
+     "m11g20-h006b",
+     "m11g20-h007b",
+     "m11g20-h016",
+     "m11g20-h017",
+     "m11g20-h018",
+     "m11g20-h020",
+     "m11g20-h024",
+     "m11g20-h030"
+    ]
+   },
+   "parse": {
+    "m11g20-h001": {
+     "removed": [
+      [
+       [
+        "language.python"
+       ],
+       "language",
+       [
+        0,
+        67
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       67
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h002": {
+     "removed": [
+      [
+       [
+        "language.java"
+       ],
+       "language",
+       [
+        0,
+        61
+       ]
+      ],
+      [
+       [
+        "language.kotlin"
+       ],
+       "language",
+       [
+        0,
+        61
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       61
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h004b": {
+     "removed": [
+      [
+       [
+        "database.postgresql"
+       ],
+       "database",
+       [
+        0,
+        39
+       ]
+      ],
+      [
+       [
+        "database.redis"
+       ],
+       "database",
+       [
+        0,
+        39
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       39
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h005b": {
+     "removed": [
+      [
+       [
+        "infra.docker"
+       ],
+       "infrastructure",
+       [
+        0,
+        53
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       53
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h006b": {
+     "removed": [
+      [
+       [
+        "language.typescript"
+       ],
+       "language",
+       [
+        0,
+        44
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       44
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h007b": {
+     "removed": [
+      [
+       [
+        "ml.framework.tensorflow"
+       ],
+       "ml_framework",
+       [
+        16,
+        68
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       16,
+       68
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h016": {
+     "removed": [
+      [
+       [
+        "cloud.aws"
+       ],
+       "cloud",
+       [
+        0,
+        72
+       ]
+      ],
+      [
+       [
+        "infra.kubernetes"
+       ],
+       "infrastructure",
+       [
+        0,
+        72
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       72
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h017": {
+     "removed": [
+      [
+       [
+        "language.java",
+        "language.python"
+       ],
+       null,
+       [
+        0,
+        69
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       69
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h018": {
+     "removed": [
+      [
+       [
+        "language.sql"
+       ],
+       "language",
+       [
+        0,
+        55
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       55
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h020": {
+     "removed": [
+      [
+       [
+        "language.rust"
+       ],
+       "language",
+       [
+        0,
+        43
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       43
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h021": {
+     "removed": [],
+     "added": [],
+     "necessity_changed": [
+      [
+       [
+        "database.redis"
+       ],
+       "database",
+       [
+        18,
+        51
+       ]
+      ]
+     ],
+     "newly_declined": [],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h022": {
+     "removed": [],
+     "added": [],
+     "necessity_changed": [
+      [
+       [
+        "language.kotlin"
+       ],
+       "language",
+       [
+        18,
+        53
+       ]
+      ]
+     ],
+     "newly_declined": [],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h024": {
+     "removed": [
+      [
+       [
+        "cloud.aws"
+       ],
+       "cloud",
+       [
+        0,
+        65
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       65
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h025": {
+     "removed": [
+      [
+       [],
+       "leadership",
+       [
+        0,
+        60
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       60
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h027": {
+     "removed": [
+      [
+       [
+        "infra.docker"
+       ],
+       "infrastructure",
+       [
+        39,
+        113
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       39,
+       113
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g20-h030": {
+     "removed": [
+      [
+       [
+        "database.postgresql"
+       ],
+       "database",
+       [
+        0,
+        52
+       ]
+      ],
+      [
+       [
+        "database.redis"
+       ],
+       "database",
+       [
+        0,
+        52
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       52
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    }
+   }
+  },
+  "g21_adversarial": {
+   "v13": {
+    "false_admission_units": 17,
+    "non_qualification_units": 21,
+    "false_required_rows": 19,
+    "preferred_marked_required_units": 2,
+    "fabricated_concepts": 0,
+    "false_supported_counted_full_evidence": 18,
+    "missed_entirely": 0,
+    "declined_visible": 1,
+    "unit_precision": 0.5405,
+    "row_precision": 0.5652,
+    "unit_recall": 0.9524,
+    "concept_recall": 1.0,
+    "necessity": [
+     18,
+     20
+    ],
+    "source_spans_within_unit": true
+   },
+   "v14": {
+    "false_admission_units": 11,
+    "non_qualification_units": 21,
+    "false_required_rows": 13,
+    "preferred_marked_required_units": 0,
+    "fabricated_concepts": 0,
+    "false_supported_counted_full_evidence": 12,
+    "missed_entirely": 0,
+    "declined_visible": 3,
+    "unit_precision": 0.6207,
+    "row_precision": 0.6486,
+    "unit_recall": 0.8571,
+    "concept_recall": 0.9167,
+    "necessity": [
+     18,
+     18
+    ],
+    "source_spans_within_unit": true
+   },
+   "near_neighbour_pairs_correct": {
+    "v13": [
+     0,
+     2
+    ],
+    "v14": [
+     0,
+     2
+    ]
+   },
+   "corrected_false_admissions": [
+    "m11g21-a02/u0",
+    "m11g21-a05/u0",
+    "m11g21-a07/u0",
+    "m11g21-a18/u0",
+    "m11g21-a29/u0",
+    "m11g21-a31/u0"
+   ],
+   "lost_genuine_qualifications": [
+    "m11g21-a19/u0",
+    "m11g21-a20/u0"
+   ],
+   "new_false_admissions": [],
+   "necessity_changed_units": [
+    "m11g21-a21/u0"
+   ],
+   "v14_residual_false_admissions": [
+    "m11g21-a01/u0",
+    "m11g21-a03/u0",
+    "m11g21-a04/u0",
+    "m11g21-a06/u1",
+    "m11g21-a08/u0",
+    "m11g21-a09/u0",
+    "m11g21-a10b/u0",
+    "m11g21-a11b/u0",
+    "m11g21-a17/u0",
+    "m11g21-a27/u0",
+    "m11g21-a28/u0"
+   ],
+   "v14_qualifications_not_represented": [
+    "m11g21-a15/u0",
+    "m11g21-a19/u0",
+    "m11g21-a20/u0"
+   ],
+   "v14_wrong_necessity": [],
+   "scoring_full_evidence": {
+    "score_or_denominator_changed": [
+     "m11g21-a02",
+     "m11g21-a05",
+     "m11g21-a07",
+     "m11g21-a18",
+     "m11g21-a19",
+     "m11g21-a20",
+     "m11g21-a29",
+     "m11g21-a31"
+    ],
+    "became_undefined": [
+     "m11g21-a02",
+     "m11g21-a05",
+     "m11g21-a07",
+     "m11g21-a18",
+     "m11g21-a19",
+     "m11g21-a20",
+     "m11g21-a29"
+    ]
+   },
+   "parse": {
+    "m11g21-a02": {
+     "removed": [
+      [
+       [
+        "language.go"
+       ],
+       "language",
+       [
+        0,
+        68
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       68
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g21-a05": {
+     "removed": [
+      [
+       [
+        "cloud.aws"
+       ],
+       "cloud",
+       [
+        0,
+        50
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       50
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g21-a07": {
+     "removed": [
+      [
+       [
+        "database.redis"
+       ],
+       "database",
+       [
+        0,
+        73
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       73
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g21-a18": {
+     "removed": [
+      [
+       [
+        "infra.kubernetes"
+       ],
+       "infrastructure",
+       [
+        0,
+        38
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       38
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g21-a19": {
+     "removed": [
+      [
+       [],
+       "education",
+       [
+        0,
+        51
+       ]
+      ],
+      [
+       [
+        "language.python"
+       ],
+       "language",
+       [
+        0,
+        51
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       51
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g21-a20": {
+     "removed": [
+      [
+       [
+        "language.typescript"
+       ],
+       "language",
+       [
+        16,
+        58
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       16,
+       58
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g21-a21": {
+     "removed": [],
+     "added": [],
+     "necessity_changed": [
+      [
+       [
+        "ml.framework.pytorch"
+       ],
+       "ml_framework",
+       [
+        0,
+        51
+       ]
+      ]
+     ],
+     "newly_declined": [],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g21-a29": {
+     "removed": [
+      [
+       [
+        "infra.kubernetes"
+       ],
+       "infrastructure",
+       [
+        0,
+        46
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       46
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    },
+    "m11g21-a31": {
+     "removed": [
+      [
+       [
+        "language.python"
+       ],
+       "language",
+       [
+        0,
+        48
+       ]
+      ]
+     ],
+     "added": [],
+     "necessity_changed": [],
+     "newly_declined": [
+      [
+       0,
+       48
+      ]
+     ],
+     "no_longer_declined": [],
+     "span_text_ok": true
+    }
+   }
+  }
+ },
+ "research_adapter_vs_live": {
+  "dev": {
+   "v13_live_equals_g20_frozen_v13": true,
+   "v14_live_equals_g20_frozen_b1nr": true
+  },
+  "holdout": {
+   "v13_live_equals_g20_frozen_v13": true,
+   "v14_live_equals_g20_frozen_b1nr": true
+  }
+ },
+ "corpora": {
+  "g16": {
+   "items": 58,
+   "rows_v13": 76,
+   "rows_v14": 75,
+   "rows_removed": 1,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 1,
+   "unparsed_v13": 3,
+   "unparsed_v14": 4,
+   "span_text_errors_v14": 0,
+   "changed_ids": [
+    "m11g16-053"
+   ],
+   "gold_fixed_ids": [
+    "m11g16-053"
+   ],
+   "gold_regressed_ids": [],
+   "changes": {
+    "m11g16-053": {
+     "removed": [
+      [
+       [],
+       "alternative_requirement",
+       [
+        0,
+        80
+       ]
+      ]
+     ],
+     "newly_declined": [
+      [
+       0,
+       80
+      ]
+     ]
+    }
+   }
+  },
+  "g15": {
+   "items": 19,
+   "rows_v13": 25,
+   "rows_v14": 25,
+   "rows_removed": 0,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 0,
+   "unparsed_v13": 1,
+   "unparsed_v14": 1,
+   "span_text_errors_v14": 0,
+   "changed_ids": [],
+   "gold_fixed_ids": [],
+   "gold_regressed_ids": [],
+   "changes": {}
+  },
+  "g18": {
+   "items": 26,
+   "rows_v13": 49,
+   "rows_v14": 46,
+   "rows_removed": 3,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 1,
+   "unparsed_v13": 0,
+   "unparsed_v14": 1,
+   "span_text_errors_v14": 0,
+   "changed_ids": [
+    "m11g18-25"
+   ],
+   "gold_fixed_ids": [
+    "m11g18-25"
+   ],
+   "gold_regressed_ids": [],
+   "changes": {
+    "m11g18-25": {
+     "removed": [
+      [
+       [
+        "infra.docker"
+       ],
+       "infrastructure",
+       [
+        0,
+        46
+       ]
+      ],
+      [
+       [
+        "language.python"
+       ],
+       "language",
+       [
+        0,
+        46
+       ]
+      ],
+      [
+       [
+        "unresolved:terraform"
+       ],
+       null,
+       [
+        0,
+        46
+       ]
+      ]
+     ],
+     "newly_declined": [
+      [
+       0,
+       46
+      ]
+     ]
+    }
+   }
+  },
+  "m10d": {
+   "items": 41,
+   "rows_v13": 41,
+   "rows_v14": 41,
+   "rows_removed": 0,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 0,
+   "unparsed_v13": 1,
+   "unparsed_v14": 1,
+   "span_text_errors_v14": 0,
+   "changed_ids": [],
+   "gold_fixed_ids": [],
+   "gold_regressed_ids": [],
+   "changes": {}
+  },
+  "m10e": {
+   "items": 51,
+   "rows_v13": 23,
+   "rows_v14": 23,
+   "rows_removed": 0,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 0,
+   "unparsed_v13": 23,
+   "unparsed_v14": 23,
+   "span_text_errors_v14": 0,
+   "changed_ids": [],
+   "gold_fixed_ids": [],
+   "gold_regressed_ids": [],
+   "changes": {}
+  },
+  "g6": {
+   "items": 44,
+   "rows_v13": 16,
+   "rows_v14": 16,
+   "rows_removed": 0,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 0,
+   "unparsed_v13": 19,
+   "unparsed_v14": 19,
+   "span_text_errors_v14": 0,
+   "changed_ids": [],
+   "gold_fixed_ids": [],
+   "gold_regressed_ids": [],
+   "changes": {}
+  },
+  "g7": {
+   "items": 42,
+   "rows_v13": 17,
+   "rows_v14": 17,
+   "rows_removed": 0,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 0,
+   "unparsed_v13": 18,
+   "unparsed_v14": 18,
+   "span_text_errors_v14": 0,
+   "changed_ids": [],
+   "gold_fixed_ids": [],
+   "gold_regressed_ids": [],
+   "changes": {}
+  },
+  "8c_jobs": {
+   "items": 15,
+   "rows_v13": 84,
+   "rows_v14": 84,
+   "rows_removed": 0,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 0,
+   "unparsed_v13": 19,
+   "unparsed_v14": 19,
+   "span_text_errors_v14": 0,
+   "changed_ids": [],
+   "gold_fixed_ids": [],
+   "gold_regressed_ids": [],
+   "changes": {}
+  },
+  "m10_soti_manulife": {
+   "items": 2,
+   "rows_v13": 6,
+   "rows_v14": 6,
+   "rows_removed": 0,
+   "rows_added": 0,
+   "necessity_changed": 0,
+   "newly_declined_claims": 0,
+   "unparsed_v13": 16,
+   "unparsed_v14": 16,
+   "span_text_errors_v14": 0,
+   "changed_ids": [],
+   "gold_fixed_ids": [],
+   "gold_regressed_ids": [],
+   "changes": {}
+  }
+ },
+ "scoring": {
+  "g15": {
+   "outcomes": 35,
+   "numerator_v13": 13,
+   "numerator_v14": 13,
+   "denominator_v13": 19,
+   "denominator_v14": 19,
+   "unparsed_claims_v13": 5,
+   "unparsed_claims_v14": 5,
+   "score_changed": [],
+   "denominator_changed": [],
+   "became_undefined": [],
+   "became_defined": [],
+   "status_changed_on_kept_rows": [],
+   "eligibility_changed_on_kept_rows": [],
+   "new_false_supported_candidates": [],
+   "changes": {}
+  },
+  "g18": {
+   "outcomes": 54,
+   "numerator_v13": 28,
+   "numerator_v14": 26,
+   "denominator_v13": 52,
+   "denominator_v14": 50,
+   "unparsed_claims_v13": 0,
+   "unparsed_claims_v14": 1,
+   "score_changed": [
+    "m11g18-25/python_docker"
+   ],
+   "denominator_changed": [
+    "m11g18-25/python_docker"
+   ],
+   "became_undefined": [
+    "m11g18-25/python_docker"
+   ],
+   "became_defined": [],
+   "status_changed_on_kept_rows": [],
+   "eligibility_changed_on_kept_rows": [],
+   "new_false_supported_candidates": [],
+   "changes": {
+    "m11g18-25/python_docker": {
+     "v13": [
+      2,
+      2,
+      100
+     ],
+     "v14": [
+      0,
+      0,
+      null
+     ]
+    }
+   }
+  },
+  "g16": {
+   "outcomes": 414,
+   "numerator_v13": 146,
+   "numerator_v14": 146,
+   "denominator_v13": 300,
+   "denominator_v14": 300,
+   "unparsed_claims_v13": 8,
+   "unparsed_claims_v14": 8,
+   "score_changed": [],
+   "denominator_changed": [],
+   "became_undefined": [],
+   "became_defined": [],
+   "status_changed_on_kept_rows": [],
+   "eligibility_changed_on_kept_rows": [],
+   "new_false_supported_candidates": [],
+   "changes": {}
+  },
+  "8c:v1": {
+   "outcomes": 12,
+   "numerator_v13": 26,
+   "numerator_v14": 26,
+   "denominator_v13": 44,
+   "denominator_v14": 44,
+   "unparsed_claims_v13": 11,
+   "unparsed_claims_v14": 11,
+   "score_changed": [],
+   "denominator_changed": [],
+   "became_undefined": [],
+   "became_defined": [],
+   "status_changed_on_kept_rows": [],
+   "eligibility_changed_on_kept_rows": [],
+   "new_false_supported_candidates": [],
+   "changes": {}
+  },
+  "8c:v1.1": {
+   "outcomes": 12,
+   "numerator_v13": 26,
+   "numerator_v14": 26,
+   "denominator_v13": 44,
+   "denominator_v14": 44,
+   "unparsed_claims_v13": 11,
+   "unparsed_claims_v14": 11,
+   "score_changed": [],
+   "denominator_changed": [],
+   "became_undefined": [],
+   "became_defined": [],
+   "status_changed_on_kept_rows": [],
+   "eligibility_changed_on_kept_rows": [],
+   "new_false_supported_candidates": [],
+   "changes": {}
+  },
+  "m10": {
+   "outcomes": 2,
+   "numerator_v13": 0,
+   "numerator_v14": 0,
+   "denominator_v13": 1,
+   "denominator_v14": 1,
+   "unparsed_claims_v13": 16,
+   "unparsed_claims_v14": 16,
+   "score_changed": [],
+   "denominator_changed": [],
+   "became_undefined": [],
+   "became_defined": [],
+   "status_changed_on_kept_rows": [],
+   "eligibility_changed_on_kept_rows": [],
+   "new_false_supported_candidates": [],
+   "changes": {}
+  }
+ },
+ "g17_guard": {
+  "g16_controls_with_alternative_rows_still_admitted": 46,
+  "violations": []
+ },
+ "labels": {
+  "g20_dev": "development set (designed against)",
+  "g20_holdout": "weakly held-out synthetic",
+  "g21_adversarial": "newly authored synthetic (G21); not independent external validation"
+ }
+}

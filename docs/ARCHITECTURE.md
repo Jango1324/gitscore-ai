@@ -5515,3 +5515,54 @@ excluded_from_alignment_count`. **Frontend:** evaluated-but-excluded rows show
 their evidence; the headline states the score covers only GitHub-assessable
 requirements and how many evaluated requirements it leaves out. See
 `docs/evaluation/MILESTONE_11_G19_OBSERVABILITY_SCORING_V2.md`.
+
+### Milestone 11-G21 — qualification-intent admission guard (`jobs/parsing/qualification_intent.py`, parser v14)
+
+**Problem (M11-G20).** The live parser never decided whether a claim states a
+CANDIDATE QUALIFICATION: admission came from section context plus vocabulary
+(any registry concept or HR word), necessity from section context plus marker
+words, and a local "must"/"required" marker always won. Company narrative,
+duties and technology discussion therefore became scored REQUIRED rows
+(G18 control 25, G17 control 053).
+
+**Admission.** `qualification_intent.decide_qualification_intent(text,
+section_kind)` (new, pure, candidate-independent) is called FIRST in
+`parser._requirements_from_claim`. Clauses (split on ";" / ", but") are
+classified by closed grammatical frames: positive (a strong candidate subject
+-- "you must have", "candidates should", "we are looking for"; a weak
+candidate-attribute phrase -- "experience", "knowledge", "N years"; a local
+or predicate necessity marker) and negative (employer/product subject, future
+duty, learning, benefit, hiring process, technology-as-subject discussion,
+team practice). A negative frame is overridden only by a strong frame or a
+marker attached to an attribute in the SAME clause. An inline "About us:"
+prefix, or a neutral bare duty-verb bullet inside a REQUIRED/PREFERRED section,
+also declines. **Negation is clause-local** (negation-scope correction): a
+subjectless "but"-continuation ("... but not essential", "... but desirable")
+joins the clause it completes into one unit; a unit negating a requirement
+without optionality is masked out (blanked, offsets kept) of the text the
+detectors and necessity steps analyse whenever another unit is a qualification,
+and declines the claim otherwise. The only ellipsis recognised is a contrast
+after an explicitly negated predicate ("A degree is not required; strong Python
+skills are." -> REQUIRED Python, no degree row). Provenance is always the whole
+claim's original text and span. A declined claim returns `[]` and
+becomes the EXISTING `UnparsedClaim` diagnostic (exact text and span) -- no new
+type, no schema change. Claims are never declined for merely lacking a
+qualification frame (G20 measured that destroying bare lists such as
+"Java, Python and/or Go").
+
+**Necessity.** `necessity.refine_necessity()` runs after the unchanged
+`infer_necessity()` and only narrows: concessive "while not required, ... a
+plus" -> PREFERRED; a negated required marker -> PREFERRED with a preference
+cue, otherwise no row; REQUIRED + soft cue ("would be great", "beneficial",
+"helps", "appreciated") -> PREFERRED. It never promotes.
+
+**Unchanged:** segmentation, heading classification (incl. G6's
+candidate-profile headings), alternatives / G17 containment, concept
+recognition, matcher, scoring v2, API and frontend. `JOB_DESCRIPTION_PARSER_VERSION`
+`v13` -> `v14`. Measured with the real v13 and v14 code: G20 dev false
+admissions 26 -> 0, held-out 16 -> 1 (the documented "You must be on call ..."
+case), 0 historical gold regressions, 0 frozen-8c score changes; on a fresh
+adversarial set 17 -> 11; the first v14 lost 2 genuine qualifications there
+(whole-claim negation; "preferred but not essential"), corrected by the
+clause-local negation scope with 0 losses and no other metric change. See
+`docs/evaluation/MILESTONE_11_G21_QUALIFICATION_INTENT_GUARD.md`.

@@ -1,0 +1,309 @@
+diff --git a/src/gitscore/jobs/parsing/necessity.py b/src/gitscore/jobs/parsing/necessity.py
+index 881f9b5..03473cc 100644
+--- a/src/gitscore/jobs/parsing/necessity.py
++++ b/src/gitscore/jobs/parsing/necessity.py
+@@ -128,7 +128,7 @@ def has_preference_cue(text: str) -> bool:
+     return bool(_PREFERRED_MARKER.search(text) or PREFERRED_EXTRA.search(text) or APPRECIATIVE_TAIL.search(text))
+
+
+-def refine_necessity(claim_text: str, necessity: Necessity | None, *, full_text: str | None = None) -> Necessity | None:
++def refine_necessity(claim_text: str, necessity: Necessity | None) -> Necessity | None:
+     """Milestone 11-G21 -- narrows an ALREADY-INFERRED necessity; never promotes one.
+
+     Called by `jobs/parsing/parser.py` AFTER `infer_necessity()`, which stays
+@@ -157,9 +157,6 @@ def refine_necessity(claim_text: str, necessity: Necessity | None, *, full_text:
+     """
+     if necessity is None:
+         return None
+-    ellipsis = ELLIPTICAL_CONTRAST.search((full_text or claim_text).strip())
+-    if ellipsis is not None:
+-        return Necessity.PREFERRED if ellipsis.group(1).lower() == "preferred" else Necessity.REQUIRED
+     text = claim_text.strip()
+     if CONCESSIVE_NEGATION.search(text):
+         return Necessity.PREFERRED
+diff --git a/src/gitscore/jobs/parsing/parser.py b/src/gitscore/jobs/parsing/parser.py
+index dd94712..fd9d010 100644
+--- a/src/gitscore/jobs/parsing/parser.py
++++ b/src/gitscore/jobs/parsing/parser.py
+@@ -301,15 +301,8 @@ def _requirements_from_claim(
+     # built, from the claim's own text and section kind only (never candidate
+     # evidence). A declined claim returns [] -> the existing UnparsedClaim
+     # diagnostic in `_parse`, with its exact original text and span.
+-    decision = decide_qualification_intent(claim.text, claim.section_kind)
+-    if not decision.admit:
++    if not decide_qualification_intent(claim.text, claim.section_kind).admit:
+         return []
+-    # G21 negation-scope correction: a negated clause that does not govern the qualification
+-    # ("A degree is not required; strong Python skills are.") is blanked out of the text every
+-    # detector and necessity step below analyses. Provenance never changes: every row keeps
+-    # `original_text=claim.text` and the claim's exact span. Identical to `claim.text` whenever
+-    # nothing is negated.
+-    text = decision.scoped_text or claim.text
+     # Milestone 10E -- `resolve_necessity_hint` narrows `claim.necessity_hint`
+     # (never widens it -- see that function's own docstring) based on
+     # section origin (`claim.section_kind`) and narrative-cue content,
+@@ -317,12 +310,12 @@ def _requirements_from_claim(
+     # explicit local REQUIRED/PREFERRED marker in `claim.text` always
+     # wins regardless of this step (both functions check it first).
+     effective_hint = resolve_necessity_hint(
+-        text,
++        claim.text,
+         claim.necessity_hint,
+         section_kind=claim.section_kind,
+         document_has_recognized_heading=document_has_recognized_heading,
+     )
+-    necessity = infer_necessity(text, effective_hint)
++    necessity = infer_necessity(claim.text, effective_hint)
+     if necessity is None:
+         # Milestone 10B -- the claim was admitted from an unrecognized
+         # (UNKNOWN) section and carries no local REQUIRED/PREFERRED
+@@ -340,13 +333,13 @@ def _requirements_from_claim(
+     # Milestone 11-G21 -- narrows only (concessive / negated / softened wording);
+     # a bare negation ("Prior experience with Rust is not required.") yields None
+     # and takes the same UnparsedClaim path as above.
+-    necessity = refine_necessity(text, necessity, full_text=claim.text)
++    necessity = refine_necessity(claim.text, necessity)
+     if necessity is None:
+         return []
+-    importance = infer_importance(text, necessity)
++    importance = infer_importance(claim.text, necessity)
+     span = SourceSpan(claim.start, claim.end)
+
+-    alternative = classify_alternative_claim(text, registry=registry)
++    alternative = classify_alternative_claim(claim.text, registry=registry)
+
+     if alternative.kind == "technical":
+         # Milestone 6B.1: ONE logical requirement, structured semantics --
+@@ -388,7 +381,7 @@ def _requirements_from_claim(
+     # through the exact same pipeline as any other claim.
+     requirements: list[JobRequirement] = []
+
+-    safe_mentions = find_concept_mentions(text, registry=registry)
++    safe_mentions = find_concept_mentions(claim.text, registry=registry)
+     mentions = safe_mentions
+     mention_confidence_kind = "resolved_concept"
+     if not mentions:
+@@ -410,7 +403,7 @@ def _requirements_from_claim(
+         # environments") get promoted to a fabricated unresolved
+         # concept, which this bounded fallback must never cause as a
+         # side effect.
+-        mentions = find_bare_short_alias_mentions(text, registry=registry)
++        mentions = find_bare_short_alias_mentions(claim.text, registry=registry)
+         if mentions:
+             mention_confidence_kind = "bare_short_alias_context"
+
+@@ -433,7 +426,7 @@ def _requirements_from_claim(
+             )
+         )
+
+-    for term in find_conservative_unknown_terms(text, safe_mentions):
++    for term in find_conservative_unknown_terms(claim.text, safe_mentions):
+         concept_id = unresolved_concept_id(term)
+         if concept_id in seen_concept_ids:
+             continue
+@@ -451,7 +444,7 @@ def _requirements_from_claim(
+             )
+         )
+
+-    if find_experience_qualifier(text) is not None:
++    if find_experience_qualifier(claim.text) is not None:
+         requirements.append(
+             JobRequirement(
+                 original_text=claim.text,
+@@ -465,7 +458,7 @@ def _requirements_from_claim(
+             )
+         )
+
+-    non_technical = find_non_technical_match(text)
++    non_technical = find_non_technical_match(claim.text)
+     if non_technical is not None:
+         category, _ = non_technical
+         requirements.append(
+@@ -481,7 +474,7 @@ def _requirements_from_claim(
+             )
+         )
+
+-    if not requirements and _unresolved_requirement_signal(text):
++    if not requirements and _unresolved_requirement_signal(claim.text):
+         # Milestone 9A -- every detector above produced NOTHING for this
+         # claim, yet it already survived segmentation's requirement gate
+         # AND carries one of the narrow structural signals
+diff --git a/src/gitscore/jobs/parsing/qualification_intent.py b/src/gitscore/jobs/parsing/qualification_intent.py
+index 686691c..f3dfc15 100644
+--- a/src/gitscore/jobs/parsing/qualification_intent.py
++++ b/src/gitscore/jobs/parsing/qualification_intent.py
+@@ -52,13 +52,7 @@ from dataclasses import dataclass
+
+ from gitscore.jobs.parsing.concepts import find_concept_mentions
+ from gitscore.jobs.parsing.narrative import contains_narrative_cue
+-from gitscore.jobs.parsing.necessity import (
+-    APPRECIATIVE_TAIL,
+-    CONCESSIVE_NEGATION,
+-    NEGATED_PREDICATE,
+-    _has_local_marker,
+-    has_preference_cue,
+-)
++from gitscore.jobs.parsing.necessity import APPRECIATIVE_TAIL, CONCESSIVE_NEGATION, _has_local_marker
+ from gitscore.jobs.parsing.segmentation import _BULLET_PREFIX
+
+ _I = re.IGNORECASE
+@@ -133,15 +127,6 @@ RESPONSIBILITY_LEAD = re.compile(
+
+ _CLAUSE_SPLIT = re.compile(r";|,\s*but\b|\s+but\s+", _I)
+
+-# G21 negation-scope correction -- a clause introduced by "but" that has NO subject of its own
+-# ("... but not essential", "... but desirable", "..., but appreciated") completes the clause
+-# before it, so the two form one UNIT. A ";" always starts a new unit.
+-_SUBJECTLESS_CONTINUATION = re.compile(
+-    r"^(?:not|never|also|though|although|appreciated|helpful|welcome|valued|desirable|preferred|"
+-    r"beneficial|optional|ideally|a\s+(?:plus|bonus)|nice\s+to\s+have)\b", _I)
+-# A unit with its own subject that ends in a bare copula ("strong Python skills are.").
+-_ELLIPTICAL_TAIL = re.compile(r"\b(?:is|are)\s*[.!]?\s*$", _I)
+-
+ _NONQUAL_FRAME_ORDER = ("employer", "future_duty", "learning", "benefit", "team_practice")
+
+
+@@ -150,16 +135,11 @@ class QualificationIntentDecision:
+     """Internal decision record (never part of any public schema).
+
+     `admit` False -> the parser returns no requirement for the claim (UnparsedClaim).
+-    `role` is 'qual' | 'nonqual' | 'neutral'; `frame` names the deciding frame.
+-    `scoped_text` (G21 negation-scope correction) is the claim text with every NEGATED unit
+-    blanked out by spaces (same length, so offsets are unchanged) when another unit carries the
+-    qualification; `None` when nothing is negated. The parser analyses the scoped text but always
+-    keeps the ORIGINAL claim text and span as the requirement's provenance."""
++    `role` is 'qual' | 'nonqual' | 'neutral'; `frame` names the deciding frame."""
+
+     admit: bool
+     role: str
+     frame: str | None
+-    scoped_text: str | None = None
+
+
+ def _starts_with_concept(text: str) -> bool:
+@@ -195,7 +175,9 @@ def frames(text: str) -> dict[str, bool]:
+     }
+
+
+-def _role_from_frames(f: dict[str, bool]) -> tuple[str, str | None]:
++def clause_role(clause: str) -> tuple[str, str | None]:
++    """'qual' | 'nonqual' | 'neutral' for ONE clause, plus the deciding frame."""
++    f = frames(clause)
+     if f["strong"] or (f["marker"] and f["weak"]):
+         return "qual", "strong" if f["strong"] else "marker+attribute"
+     for key in _NONQUAL_FRAME_ORDER:
+@@ -210,98 +192,29 @@ def _role_from_frames(f: dict[str, bool]) -> tuple[str, str | None]:
+     return "neutral", None
+
+
+-def clause_role(clause: str) -> tuple[str, str | None]:
+-    """'qual' | 'nonqual' | 'neutral' for ONE clause, plus the deciding frame."""
+-    return _role_from_frames(frames(clause))
+-
+-
+-def _units(text: str) -> list[tuple[int, int, bool]]:
+-    """(start, end, merged) spans of the claim's units: clauses split on ";" / ", but" / " but ",
+-    with a subjectless "but"-continuation merged into the clause it completes."""
+-    spans: list[tuple[int, int, str | None]] = []
+-    cursor, sep = 0, None
+-    for m in _CLAUSE_SPLIT.finditer(text):
+-        spans.append((cursor, m.start(), sep))
+-        cursor, sep = m.end(), m.group()
+-    spans.append((cursor, len(text), sep))
+-    units: list[tuple[int, int, bool]] = []
+-    for s, e, before in spans:
+-        piece = text[s:e]
+-        lead, trail = len(piece) - len(piece.lstrip()), len(piece) - len(piece.rstrip())
+-        s, e = s + lead, e - trail
+-        if s >= e:
+-            continue
+-        if units and before is not None and ";" not in before and _SUBJECTLESS_CONTINUATION.match(text[s:e]):
+-            units[-1] = (units[-1][0], e, True)
+-        else:
+-            units.append((s, e, False))
+-    return units
+-
+-
+-def _analyse(text: str) -> list[tuple[int, int, str, str | None]]:
+-    """Per unit: (start, end, role, frame), role in 'qual' | 'nonqual' | 'neutral' | 'negated'.
+-
+-    A unit is NEGATED when it contains a requirement negation that is not optionality --
+-    optionality being a concession, an appreciative tail, or a merged preference continuation
+-    ("preferred but not essential"). A negation never reaches past its own unit."""
+-    out: list[tuple[int, int, str, str | None]] = []
+-    prev_negated_predicate = False
+-    for s, e, merged in _units(text):
+-        unit = text[s:e]
+-        f = frames(unit)
+-        preference = merged and has_preference_cue(unit)
+-        optional = (CONCESSIVE_NEGATION.search(unit) is not None or APPRECIATIVE_TAIL.search(unit) is not None
+-                    or preference)
+-        if NEGATION.search(unit) and not optional:
+-            out.append((s, e, "negated", "negation"))
+-            prev_negated_predicate = NEGATED_PREDICATE.search(unit) is not None
+-            continue
+-        if preference:
+-            f["marker"] = True  # "X is preferred but not essential", "X is optional but desirable"
+-        if prev_negated_predicate and not merged and _ELLIPTICAL_TAIL.search(unit):
+-            f["marker"] = True  # contrastive ellipsis: "A is not required; B are."
+-        role, frame = _role_from_frames(f)
+-        out.append((s, e, role, frame))
+-        prev_negated_predicate = False
+-    return out
+-
+-
+-def _decide(text: str) -> tuple[str, str | None, str | None]:
+-    if frames(text)["inline_nonqual_prefix"]:
+-        return "nonqual", "inline_nonqual_prefix", None
+-    units = _analyse(text)
+-    quals = [u for u in units if u[2] == "qual"]
+-    if quals:
+-        negated = [(a, b) for a, b, role, _ in units if role == "negated"]
+-        scoped = None
+-        if negated:
+-            chars = list(text)
+-            for a, b in negated:
+-                chars[a:b] = " " * (b - a)
+-            scoped = "".join(chars)
+-        return "qual", quals[0][3], scoped
+-    for role in ("negated", "nonqual"):
+-        for _, _, r, frame in units:
+-            if r == role:
+-                return "nonqual", frame, None
+-    return "neutral", None, None
+-
+-
+ def claim_role(text: str) -> tuple[str, str | None]:
+-    """Claim-level role. An inline non-qualification prefix ("About us: ...") governs the whole
+-    claim. Negation is CLAUSE-LOCAL (G21 negation-scope correction): any qualification unit makes
+-    the claim a qualification (negated units are masked out of its analysis); else a negated unit
+-    declines it; else any non-qualification unit declines it."""
+-    role, frame, _ = _decide(text)
+-    return role, frame
++    """Claim-level role from its clauses. A negation or an inline non-qualification prefix
++    ("About us: ...") governs the whole claim; otherwise any qualification clause makes the
++    claim a qualification, else any non-qualification clause makes it a non-qualification."""
++    whole = frames(text)
++    if whole["inline_nonqual_prefix"]:
++        return "nonqual", "inline_nonqual_prefix"
++    if whole["negation"]:
++        return "nonqual", "negation"
++    roles = [clause_role(c) for c in clauses(text)]
++    for role in ("qual", "nonqual"):
++        for r, frame in roles:
++            if r == role:
++                return role, frame
++    return "neutral", None
+
+
+ def decide_qualification_intent(text: str, section_kind: str | None) -> QualificationIntentDecision:
+     """Admit or decline one claim. `section_kind` is the segmentation section-kind name
+     ('REQUIRED' / 'PREFERRED' / 'RESPONSIBILITY' / 'LEARNING' / 'UNKNOWN' / None)."""
+-    role, frame, scoped = _decide(text)
++    role, frame = claim_role(text)
+     if role == "nonqual":
+         return QualificationIntentDecision(False, role, frame)
+     if role == "neutral" and section_kind in ("REQUIRED", "PREFERRED") and frames(text)["duty_lead"]:
+         return QualificationIntentDecision(False, role, "duty_lead_in_qualification_section")
+-    return QualificationIntentDecision(True, role, frame, scoped)
++    return QualificationIntentDecision(True, role, frame)

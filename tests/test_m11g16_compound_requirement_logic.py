@@ -77,7 +77,8 @@ def test_report_is_reproducible(report):
     if parser_mod.JOB_DESCRIPTION_PARSER_VERSION == G16_REPORT_PARSER_VERSION:
         assert live == report
         return
-    assert parser_mod.JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v13"
+    assert parser_mod.JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14")
+    v14 = parser_mod.JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
     if SCORING_VERSION == "github_evidence_alignment:v1":
         for cid, modes in report["results"].items():
             assert live["results"][cid]["production"] == modes["D_structural_guard"], cid
@@ -93,6 +94,17 @@ def test_report_is_reproducible(report):
     changed = set()
     for cid, modes in report["results"].items():
         frozen, got = modes["D_structural_guard"], live["results"][cid]["production"]
+        if v14 and cid == "m11g16-053":
+            # M11-G21: 053 ("You will maintain services ...", gold is_qualification=False) is now
+            # declined by the qualification-intent guard instead of becoming a REQUIRED
+            # not-assessable placeholder. It was never scored, so assessable/score are unchanged.
+            assert [r["category"] for r in frozen["rows"]] == ["alternative_requirement"]
+            assert got["rows"] == []
+            for fx, f in frozen["fixtures"].items():
+                g = got["fixtures"][fx]
+                assert (g["statuses"], g["assessable"], g["score"]) == ([], 0, None), (cid, fx)
+                assert (f["assessable"], f["score"]) == (0, None), (cid, fx)
+            continue
         assert got["rows"] == frozen["rows"], cid
         for fx, f in frozen["fixtures"].items():
             g = got["fixtures"][fx]

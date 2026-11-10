@@ -768,6 +768,21 @@ NOT_OBSERVED rows keep their status and evidence and are reported with
 never depends on the candidate. `SCORING_VERSION` `v1` -> `v2`; parser,
 matcher and extractors unchanged.
 
+### Qualification-intent admission guard -- Milestone 11-G21
+
+Per claim, BEFORE any `JobRequirement` is built, `_requirements_from_claim`
+asks `qualification_intent.decide_qualification_intent()` whether the claim is
+a candidate qualification; a claim with positive evidence of a
+non-qualification frame (narrative, duty, learning, benefit, hiring process,
+technology discussion, team practice, negation) yields no row and surfaces as
+an `UnparsedClaim`. Negation is clause-local: a negated clause that does not
+govern the qualification is masked out of the text the detectors analyse
+("A degree is not required; strong Python skills are." -> Python REQUIRED only),
+while the row keeps the whole claim's text and span. After `infer_necessity`, `refine_necessity` narrows
+necessity on concessive / negated / softened wording (never promotes).
+Segmentation, headings, alternatives (G17), concepts, matcher and scoring v2
+are unchanged. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v13` -> `v14`.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat
