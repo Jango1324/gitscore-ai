@@ -1,5 +1,48 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-11 — Milestone 11-G22-R: ambiguous alias and README evidence audit (research only; no production change)
+
+**What changed:** Research only, committed as a research-only commit ("test: evaluate ambiguous alias README evidence") after authorization.
+
+- **Unchanged:** `src/`; parser v15, scoring v2, matcher v1, `readme:v4`.
+- **Controls:** frozen synthetic DEV (40) and EVAL (36) alias/evidence controls with G14 portable freezes, plus a policy-design freeze.
+- **Manifest:** both freezes registered in `evaluation/integrity/canonical_hash_manifest.json` with their original freeze-time hashes (17 → 19 entries; the previous 17 are unchanged).
+- **G22 test update:** `tests/test_m11g22_concept_recognition_research.py`'s hard-coded "exactly 17 manifest entries" now pins the manifest at G22's commit `fad7c6d` (17 entries, all still present field for field).
+- **Research code:** offline policy adapters, a harness using the real evidence pipeline, a runner, and a pytest plugin that measures existing tests under each policy.
+- **Outputs:** a public report and counts-only private aggregates.
+- **Tests:** 21 research tests.
+- **Doc:** `docs/evaluation/MILESTONE_11_G22R_AMBIGUOUS_ALIAS_EVIDENCE.md`.
+
+**Why:** G22 measured false job-side concept recognition. The README evidence path shares the same alias table and boundary regex, and its effect on SUPPORTED had not been measured.
+
+**How it works:** Synthetic repositories go through `extract_candidate_evidence` via the 8c offline fixture client. Jobs go through the real parser, then `match_job` and `assess_job`. Policies patch `readme.is_non_implementation_mention` per occurrence and reuse G22's job-side adapters.
+
+**Measured:**
+
+- **BASE:** every ordinary-English README use of react, express, swift, rust, ruby, shell, torch, flask, pandas, python or java became MODERATE README evidence. With a matching requirement it became a counted SUPPORTED scoring 100. False SUPPORTED: DEV 21, EVAL 20 (14 each from README extraction).
+- **Structured extractors:** language, manifest and Docker extractors produced 0 false evidence.
+- **Policy D** (per-alias metadata, separate job and README cue rules):
+  - false SUPPORTED: DEV 21 → 5, EVAL 20 → 7;
+  - false job concepts → 0;
+  - genuine README and job recall kept on both sets;
+  - 0 frozen 8c score changes; 337/337 existing extractor, pipeline, capability and parser tests pass.
+- **Occurrence guards** leave G19 capability unchanged. Editing `readme_unsafe_aliases` instead would make Flask and pandas NOT_ASSESSABLE and stop job-side recognition of React, Express, Python and others.
+- **Study R** (README-only evidence insufficient) drops 47 of 126 real 8c README items and lowers 4 frozen 8c pairs in each matrix version. It is a semantic change and not recommended as a small fix.
+
+**Risks / limitations:**
+
+- The synthetic controls were written by the same author, so they are not independent validation. EVAL is only weakly held out.
+- **D's README residuals:** inherited `of`/`and` lead-in cues, and capitalised homonyms (Ruby, Java).
+- **Mention without use** stays SUPPORTED.
+- **D's job side loses React on G21-n10**, as G22 already measured.
+- **M10E-g3** is unchanged.
+- **d22 label erratum:** recorded, and the frozen control is not edited.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22r_ambiguous_alias_evidence.py`
+- `python scripts/evaluate_m11g22r_alias_evidence.py --private-corpora`
+
 ## 2026-11-10 — Milestone 11-G22-Q: canonical alias-equivalence correction (parser v15)
 
 **What changed:** One production logic change plus a version label, committed as "fix: canonicalize equivalent technology alternatives" after authorization.

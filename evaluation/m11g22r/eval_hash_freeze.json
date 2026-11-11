@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g22r/alias_evidence_controls_eval.json",
+  "sha256": "15ae7d6951cafe3ce139e4266e5123c30459d104556237a41534f8c2f8999a81",
+  "sha256_lf_normalized": "15ae7d6951cafe3ce139e4266e5123c30459d104556237a41534f8c2f8999a81",
+  "length_bytes": 22053,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-11T06:17:10Z",
+  "note": "Labels frozen BEFORE any GitScore parser, extractor, matcher or G22-R policy ran on this set. NOT registered in the canonical manifest (pending authorization)."
+}

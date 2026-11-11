@@ -1,0 +1,19 @@
+{
+  "milestone": "M11-G22-R",
+  "frozen_at_utc": "2026-11-11T06:20:32Z",
+  "canonical_contract": "crlf-to-lf/v1",
+  "note": "Policy design (B, C, D README rules; job sides reuse the committed G22 A and B) frozen after DEV design and BEFORE the EVAL controls were run by any GitScore code. Hashes are of the LF-canonical bytes.",
+  "files": {
+    "scripts/evaluation_lib/m11g22r_policies.py": "e0efd597e8a37713d9ecca6e6f88277c94be9b9468215f483c5115b9d8ad6729",
+    "scripts/evaluation_lib/m11g22r_harness.py": "bce3687fce89d6be5d4221f3e4189e7dd04387b67ddf04af98de86ff09aa2ba9",
+    "scripts/evaluation_lib/m11g22_policies.py": "58a582b7053db888e440a4cc3ff864c003f4079b8a41aa74b694569bd4bbfb29"
+  },
+  "design_changes_made_on_dev_before_this_freeze": [
+    "D README list = G22's 7 job aliases + python, java, flask, pandas (DEV d08-d10)",
+    "D README claim-of-use frames (uses / built with / written in / stack: / requires ...) (DEV d19)"
+  ],
+  "label_errata": {
+    "m11g22r-d22": "README text 'plain JavaScript' is a genuine technology mention; the frozen `mentioned` label omitted language.javascript. The frozen control is NOT edited: reports count this extraction as false (raw) and also give the errata-adjusted figure."
+  },
+  "post_hoc_changes": []
+}

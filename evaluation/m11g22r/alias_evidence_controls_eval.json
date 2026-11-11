@@ -1,0 +1,936 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G22-R (ambiguous alias and README evidence audit)",
+  "split": "eval",
+  "provenance": "author-created synthetic job texts and repositories; no real posting, README, employer or private material",
+  "authorship_disclosure": "Written by the same researcher who designs the G22-R candidate policies; NOT an independent validation set.",
+  "label_timing": "authored with DEV but kept unrun until the G22-R policy design freeze; same author, so only weakly held out",
+  "label_semantics": {
+    "job_concepts": "registry concepts the job text genuinely requires",
+    "mentioned": "registry concepts the README text genuinely refers to as a technology",
+    "used": "registry concepts the candidate's repositories genuinely use (README claim of own use, or a repository artifact)",
+    "probe": "README-only controls are scored against 'Experience with <display>.'"
+  },
+  "controls": [
+    {
+      "id": "m11g22r-e01",
+      "split": "eval",
+      "family": "readme_ordinary",
+      "alias": "react",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# incident-notes\n\nTemplates that help on-call teams react calmly during outages.\n",
+          "languages": {
+            "Markdown": 100,
+            "Python": 2000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.python"
+      ],
+      "probe": "framework.react",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e02",
+      "split": "eval",
+      "family": "readme_ordinary",
+      "alias": "express",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# survey\n\nLets students express which topics they found hardest.\n",
+          "languages": {
+            "Ruby": 7000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.ruby"
+      ],
+      "probe": "framework.express",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e03",
+      "split": "eval",
+      "family": "readme_ordinary",
+      "alias": "swift",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# bird-count\n\nCounts swift and swallow sightings from audio recordings.\n",
+          "languages": {
+            "Python": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.python"
+      ],
+      "probe": "language.swift",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e04",
+      "split": "eval",
+      "family": "readme_ordinary",
+      "alias": "rust",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# bike-care\n\nA checklist app to keep your chain free of rust.\n",
+          "languages": {
+            "Kotlin": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.kotlin"
+      ],
+      "probe": "language.rust",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e05",
+      "split": "eval",
+      "family": "readme_ordinary_capitalised",
+      "alias": "ruby",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# gem-catalog\n\nPrices for Ruby, Sapphire and Emerald stones from local jewellers.\n",
+          "languages": {
+            "PHP": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.php"
+      ],
+      "probe": "language.ruby",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e06",
+      "split": "eval",
+      "family": "readme_ordinary",
+      "alias": "shell",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# turtle-tracker\n\nMeasures shell length of rescued sea turtles.\n",
+          "languages": {
+            "R": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [],
+      "probe": "language.shell",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e07",
+      "split": "eval",
+      "family": "readme_ordinary",
+      "alias": "torch",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# camping-list\n\nPacking list: tent, torch, stove and water filter.\n",
+          "languages": {
+            "Dart": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [],
+      "probe": "ml.framework.pytorch",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e08",
+      "split": "eval",
+      "family": "readme_ordinary",
+      "alias": "pandas",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# panda-facts\n\nFun facts about giant pandas for a school project.\n",
+          "languages": {
+            "HTML": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.html"
+      ],
+      "probe": "data.library.pandas",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e09",
+      "split": "eval",
+      "family": "readme_ordinary_capitalised",
+      "alias": "java",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# cafe-menu\n\nThe menu site for our Java coffee bar in Jakarta.\n",
+          "languages": {
+            "HTML": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.html"
+      ],
+      "probe": "language.java",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e10",
+      "split": "eval",
+      "family": "readme_ordinary",
+      "alias": "express",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# train-times\n\nShows departures for local and express trains.\n",
+          "languages": {
+            "Swift": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.swift"
+      ],
+      "probe": "framework.express",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e11",
+      "split": "eval",
+      "family": "readme_ordinary_sentence_initial",
+      "alias": "react",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# alerts\n\nReact to failed builds automatically with this GitHub Action.\n",
+          "languages": {
+            "TypeScript": 8000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.typescript"
+      ],
+      "probe": "framework.react",
+      "note": "sentence-initial capital: no casing signal"
+    },
+    {
+      "id": "m11g22r-e12",
+      "split": "eval",
+      "family": "readme_genuine",
+      "alias": "react",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# portfolio\n\nMy portfolio site. Stack: react, vite, tailwind.\n",
+          "languages": {
+            "JavaScript": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "framework.react"
+      ],
+      "used": [
+        "framework.react",
+        "language.javascript"
+      ],
+      "probe": "framework.react",
+      "note": "lowercase genuine list mention"
+    },
+    {
+      "id": "m11g22r-e13",
+      "split": "eval",
+      "family": "readme_genuine",
+      "alias": "express",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# auth-service\n\nAuthentication microservice (Node.js + Express + Postgres).\n",
+          "languages": {
+            "JavaScript": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "database.postgresql",
+        "framework.express"
+      ],
+      "used": [
+        "database.postgresql",
+        "framework.express",
+        "language.javascript"
+      ],
+      "probe": "framework.express",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e14",
+      "split": "eval",
+      "family": "readme_genuine",
+      "alias": "swift",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# widget-kit\n\nReusable widgets for macOS apps, implemented in Swift.\n",
+          "languages": {
+            "Swift": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "language.swift"
+      ],
+      "used": [
+        "language.swift"
+      ],
+      "probe": "language.swift",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e15",
+      "split": "eval",
+      "family": "readme_genuine",
+      "alias": "rust",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# wasm-game\n\nA browser game compiled from Rust to WebAssembly.\n",
+          "languages": {
+            "Rust": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "language.rust"
+      ],
+      "used": [
+        "language.rust"
+      ],
+      "probe": "language.rust",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e16",
+      "split": "eval",
+      "family": "readme_genuine",
+      "alias": "ruby",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# blog\n\nA blog engine built with Ruby on Rails.\n",
+          "languages": {
+            "Ruby": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "language.ruby"
+      ],
+      "used": [
+        "language.ruby"
+      ],
+      "probe": "language.ruby",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e17",
+      "split": "eval",
+      "family": "readme_genuine_lowercase",
+      "alias": "shell",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# backup\n\nnightly backup via a bash/shell script and cron.\n",
+          "languages": {
+            "Shell": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "language.shell"
+      ],
+      "used": [
+        "language.shell"
+      ],
+      "probe": "language.shell",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e18",
+      "split": "eval",
+      "family": "readme_genuine_lowercase",
+      "alias": "torch",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# diffusion-toy\n\ntoy diffusion model. needs torch >= 2.0.\n",
+          "languages": {
+            "Python": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "ml.framework.pytorch"
+      ],
+      "used": [
+        "language.python",
+        "ml.framework.pytorch"
+      ],
+      "probe": "ml.framework.pytorch",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e19",
+      "split": "eval",
+      "family": "readme_mention_no_use",
+      "alias": "swift",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# api-spec\n\nOpenAPI spec for our service. Clients can be generated for Swift or Kotlin.\n",
+          "languages": {
+            "YAML": 100
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "language.kotlin",
+        "language.swift"
+      ],
+      "used": [],
+      "probe": "language.swift",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e20",
+      "split": "eval",
+      "family": "readme_mention_no_use",
+      "alias": "react",
+      "cell": null,
+      "job_text": null,
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# state-lib\n\nA framework-agnostic state library; works with React, Vue or Svelte.\n",
+          "languages": {
+            "TypeScript": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "framework.react"
+      ],
+      "used": [
+        "language.typescript"
+      ],
+      "probe": "framework.react",
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e21",
+      "split": "eval",
+      "family": "job_ordinary",
+      "alias": "swift",
+      "cell": null,
+      "job_text": "Requirements:\n- Swift decision-making under pressure.",
+      "job_concepts": [],
+      "repos": [],
+      "mentioned": [],
+      "used": [],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e22",
+      "split": "eval",
+      "family": "job_ordinary",
+      "alias": "torch",
+      "cell": null,
+      "job_text": "Requirements:\n- Ready to carry the torch for engineering excellence.",
+      "job_concepts": [],
+      "repos": [],
+      "mentioned": [],
+      "used": [],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e23",
+      "split": "eval",
+      "family": "job_genuine",
+      "alias": "rust",
+      "cell": null,
+      "job_text": "Requirements:\n- Strong Rust programming skills.",
+      "job_concepts": [
+        "language.rust"
+      ],
+      "repos": [],
+      "mentioned": [],
+      "used": [],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e24",
+      "split": "eval",
+      "family": "job_genuine",
+      "alias": "shell",
+      "cell": null,
+      "job_text": "Requirements:\n- Experience writing shell scripts.",
+      "job_concepts": [
+        "language.shell"
+      ],
+      "repos": [],
+      "mentioned": [],
+      "used": [],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e25",
+      "split": "eval",
+      "family": "paired",
+      "alias": "rust",
+      "cell": 1,
+      "job_text": "Requirements:\n- Experience with Rust.",
+      "job_concepts": [
+        "language.rust"
+      ],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# kv-store\n\nAn embedded key-value store in Rust.\n",
+          "languages": {
+            "Rust": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "language.rust"
+      ],
+      "used": [
+        "language.rust"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e26",
+      "split": "eval",
+      "family": "paired",
+      "alias": "swift",
+      "cell": 2,
+      "job_text": "Requirements:\n- Experience with Swift.",
+      "job_concepts": [
+        "language.swift"
+      ],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# deploy\n\nA swift way to deploy static sites.\n",
+          "languages": {
+            "Go": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.go"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e27",
+      "split": "eval",
+      "family": "paired",
+      "alias": "react",
+      "cell": 3,
+      "job_text": "Requirements:\n- Ability to react quickly to production incidents.",
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# web\n\nFrontend built with React.\n",
+          "languages": {
+            "JavaScript": 9000
+          },
+          "files": {
+            "package.json": "{\"name\": \"web\", \"dependencies\": {\"react\": \"^18.3.0\", \"react-dom\": \"^18.3.0\"}}"
+          }
+        }
+      ],
+      "mentioned": [
+        "framework.react"
+      ],
+      "used": [
+        "framework.react",
+        "language.javascript"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e28",
+      "split": "eval",
+      "family": "paired",
+      "alias": "express",
+      "cell": 4,
+      "job_text": "Requirements:\n- Ability to express ideas clearly.",
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# journal\n\nA private journal where you can express yourself freely.\n",
+          "languages": {
+            "Swift": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.swift"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e29",
+      "split": "eval",
+      "family": "paired",
+      "alias": "rust",
+      "cell": 5,
+      "job_text": "Requirements:\n- Must be comfortable working around rust and grease.",
+      "job_concepts": [],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# garage\n\nInventory app for a garage full of rust and old tools.\n",
+          "languages": {
+            "PHP": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.php"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e30",
+      "split": "eval",
+      "family": "paired",
+      "alias": "react",
+      "cell": 6,
+      "job_text": "Requirements:\n- Experience with React.",
+      "job_concepts": [
+        "framework.react"
+      ],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# shop\n\nE-commerce frontend using React.\n",
+          "languages": {
+            "TypeScript": 9000
+          },
+          "files": {
+            "package.json": "{\"name\": \"web\", \"dependencies\": {\"react\": \"^18.3.0\", \"react-dom\": \"^18.3.0\"}}"
+          }
+        }
+      ],
+      "mentioned": [
+        "framework.react"
+      ],
+      "used": [
+        "framework.react",
+        "language.typescript"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e31",
+      "split": "eval",
+      "family": "paired",
+      "alias": "ruby",
+      "cell": 7,
+      "job_text": "Requirements:\n- Experience with Ruby.",
+      "job_concepts": [
+        "language.ruby"
+      ],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# scraper\n\nA web scraper written in Ruby.\n",
+          "languages": {
+            "Ruby": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "language.ruby"
+      ],
+      "used": [
+        "language.ruby"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e32",
+      "split": "eval",
+      "family": "paired",
+      "alias": "swift",
+      "cell": 8,
+      "job_text": "Requirements:\n- Experience with Swift.",
+      "job_concepts": [
+        "language.swift"
+      ],
+      "repos": [
+        {
+          "name": "a",
+          "readme": "# a\n\nA swift static site generator.\n",
+          "languages": {
+            "Go": 9000
+          },
+          "files": {}
+        },
+        {
+          "name": "b",
+          "readme": "# b\n\nA swift image resizer.\n",
+          "languages": {
+            "Go": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "language.go"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e33",
+      "split": "eval",
+      "family": "paired",
+      "alias": "express",
+      "cell": 9,
+      "job_text": "Requirements:\n- Experience with Express.",
+      "job_concepts": [
+        "framework.express"
+      ],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# router\n\nA tiny router. Express is not used.\n",
+          "languages": {
+            "JavaScript": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "framework.express"
+      ],
+      "used": [
+        "language.javascript"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e34",
+      "split": "eval",
+      "family": "paired",
+      "alias": "react",
+      "cell": 10,
+      "job_text": "Requirements:\n- Experience with React.",
+      "job_concepts": [
+        "framework.react"
+      ],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# design-notes\n\nNotes comparing React and Vue for a talk I gave.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "mentioned": [
+        "framework.react"
+      ],
+      "used": [],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e35",
+      "split": "eval",
+      "family": "paired",
+      "alias": "flask",
+      "cell": 6,
+      "job_text": "Requirements:\n- Experience with Flask.",
+      "job_concepts": [
+        "framework.flask"
+      ],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# shortener\n\nURL shortener service.\n",
+          "languages": {
+            "Python": 9000
+          },
+          "files": {
+            "requirements.txt": "flask==3.0.0\n"
+          }
+        }
+      ],
+      "mentioned": [],
+      "used": [
+        "framework.flask",
+        "language.python"
+      ],
+      "probe": null,
+      "note": ""
+    },
+    {
+      "id": "m11g22r-e36",
+      "split": "eval",
+      "family": "paired",
+      "alias": "python",
+      "cell": 2,
+      "job_text": "Requirements:\n- Experience with Python.",
+      "job_concepts": [
+        "language.python"
+      ],
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# snake-game\n\nA snake game where the python grows each level.\n",
+          "languages": {
+            "Lua": 9000
+          },
+          "files": {}
+        }
+      ],
+      "mentioned": [],
+      "used": [],
+      "probe": null,
+      "note": ""
+    }
+  ]
+}

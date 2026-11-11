@@ -60,7 +60,15 @@ def test_control_sets_are_frozen_and_registered_with_their_original_hashes(split
     entry = manifest["entries"][rel]
     assert (entry["freeze_record"], entry["historical_raw_sha256"], entry["canonical_sha256"],
             entry["historical_newline_form"]) == (record, original, original, "lf")
-    assert len(manifest["entries"]) == 17
+    # G22's research commit registered 15 -> 17 entries. Later research commits may only ADD entries (M11-G22-R:
+    # 17 -> 19), so the historical fact is pinned exactly: the manifest at G22's commit had 17 entries, and every one
+    # of them is still present, field for field.
+    import subprocess
+    at_g22 = json.loads(subprocess.run(
+        ["git", "show", "fad7c6dc3dd8608e382478ed10156b414d86b7ae:evaluation/integrity/canonical_hash_manifest.json"],
+        cwd=ROOT, check=True, capture_output=True).stdout)
+    assert len(at_g22["entries"]) == 17 and at_g22["entries"][rel] == entry
+    assert all(manifest["entries"][k] == v for k, v in at_g22["entries"].items())
 
 
 def test_freeze_hashes_are_the_recorded_values():
