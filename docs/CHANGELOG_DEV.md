@@ -1,5 +1,90 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-10 — Milestone 11-G22: technical concept recognition precision (research only; no production change)
+
+**What changed:** Research only. No `src/` change. The parser stays v14, scoring stays v2, and the matcher and extractors are unchanged. Committed as a research-only commit after authorization.
+
+- **Two frozen synthetic control sets** (`evaluation/m11g22/`): DEV (46) and a separately authored EVAL (44). Both were labelled before any parser run, use the G14 portable freezes, and are registered in the G14 manifest with their original pre-evaluation hashes (15 → 17 entries; additive, previous entries unchanged).
+- **Policy-design freeze:** taken before EVAL ran. One recorded post-freeze change is a simulation-fidelity fix.
+- **Offline policy adapters:** `scripts/evaluation_lib/m11g22_policies.py`, plus post-hoc variants in `m11g22_posthoc.py`. They patch only the recognition inputs of the real parser, in-process.
+- **Harness and runner:** `m11g22_concepts.py` and `scripts/evaluate_m11g22_concept_precision.py`.
+- **Report:** public, reproducible byte-identically, plus private aggregates (counts only).
+- **Tests:** 25 research tests.
+- **Doc:** `docs/evaluation/MILESTONE_11_G22_CONCEPT_RECOGNITION_PRECISION.md`.
+
+**Why:** G20 and G21 deferred concept-recognition defects:
+
+- ordinary English words ("react", "express", "swift", "torch", "shell", "rust") recognised as registry technologies, counted and SUPPORTED;
+- single-word fragments ("curiosity", "teamwork", "Alternatively", "context", "Go") minted as `unresolved:` concepts;
+- equivalent aliases ("Go or Golang") turned into a NOT_ASSESSABLE placeholder;
+- bare "Go" not recognised.
+
+**How it works:** Every wrong identity is created at one of three sites:
+
+- `concepts.find_concept_mentions` (no usage check);
+- `concepts._consider_fragment` (single-word exemption from M11-A1's shape gate);
+- `alternatives._classify_segment_list` (one concept named twice is treated as `unsafe`).
+
+After `parser._requirements_from_claim` builds the row, the identity is only an id. The matcher and scoring v2 cannot recover from it.
+
+**Measured** (live v14; "false SUPPORTED" assumes a candidate with evidence for the falsely recognised technology):
+
+| Set | Counted false concepts | Fabricated `unresolved:` (excluded by v2) |
+|---|---|---|
+| DEV | 9, all SUPPORTED | 6 |
+| EVAL | 7, all SUPPORTED | 9 |
+
+Options, with costs measured across DEV, EVAL and the historical corpora:
+
+| Option | What it does | Effect | Cost |
+|---|---|---|---|
+| A | Usage guard, no metadata | Counted false concepts DEV 9→4, EVAL 7→3 | 0 recall loss |
+| B | Reviewed 7-alias metadata + positive cue | Counted false concepts → 0 on DEV and EVAL | Loses Ruby and one G21 React |
+| C | Fragment validation | Fabricated DEV 6→0, EVAL 9→2 | Loses Plotly; no score effect |
+| Q | Alias equivalence | Fixes the frozen-gold discrepancies G15-I1 and G18-16 | none measured |
+| G | Cue-gated capitalised "Go" | +7 historical and +1 private genuine Go rows; contains G16-018 (G16 false SUPPORTED 7→4) | none measured |
+
+- **Historical:** 0 regressions on 456 tracked texts apart from the costs listed. 8c and M10 scores are unchanged, admission is identical, and spans are exact.
+- **Private** (62 postings, counts only): 0 changes under every option except G (1 posting).
+
+**M10E-g3:** the frozen gold is correct and internally consistent:
+
+- `should_create_job_requirement=true` and `technical_concepts_may_enter_scoring=false` are both present, and no gold field names SQL.
+- The M10E test projects only row existence, which v14 satisfies through the SQL row from the learning clause; that row violates the second field.
+- Clause scoping alone (G20 C / G22 E) breaks the gold.
+- Not rewritten.
+
+**Files affected (all new):**
+
+- `evaluation/m11g22/*`
+- `evaluation/integrity/canonical_hash_manifest.json` (+2 entries)
+- `scripts/evaluate_m11g22_concept_precision.py`
+- `scripts/evaluation_lib/m11g22_{build_controls,policies,concepts,posthoc}.py`
+- `tests/test_m11g22_concept_recognition_research.py`
+- `docs/evaluation/MILESTONE_11_G22_CONCEPT_RECOGNITION_PRECISION.md`
+- this entry
+
+**Risks / limitations:**
+
+- Same-author controls; EVAL is only weakly held out.
+- Post-hoc variants (B2, C2, DB2) are not validated.
+- Low real-world prevalence on the inspected private sample.
+- `unresolved:context` and embedded-C-beside-FreeRTOS remain open.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22_concept_recognition_research.py`
+- `python scripts/evaluate_m11g22_concept_precision.py [--private-corpora]` (regenerates the report byte-identically)
+
+**Recommended next:** separate milestones, in this order:
+
+1. Q (alias equivalence; `alternatives.py`)
+2. A (usage guard)
+3. C2 (fragment validation, after fresh validation)
+4. G and B (each need a decision)
+
+The ordering relative to the reserved G23 headings milestone needs approval.
+
 ## 2026-11-10 — Milestone 11-G21: qualification-intent admission guard (production; parser v13 -> v14)
 
 **What changed:** New `src/gitscore/jobs/parsing/qualification_intent.py` (G20's evaluated B1NR admission

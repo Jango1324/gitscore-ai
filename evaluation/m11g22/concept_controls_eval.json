@@ -1,0 +1,924 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G22 (technical concept recognition precision)",
+  "split": "eval",
+  "provenance": "author-created synthetic examples; no real posting text, employer or private material",
+  "authorship_disclosure": "Written by the same researcher who designs the G22 candidate policies; NOT an independent validation set.",
+  "label_timing": "authored separately from DEV; labels frozen before any parser run; run only after the G22 policy design freeze",
+  "controls": [
+    {
+      "id": "m11g22-e01",
+      "split": "eval",
+      "family": "ordinary_verb",
+      "pair": "m11g22-e02",
+      "text": "Requirements:\n- Must be able to react to shifting priorities without losing focus.",
+      "is_qualification": true,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e02",
+      "split": "eval",
+      "family": "clear_registered",
+      "pair": "m11g22-e01",
+      "text": "Requirements:\n- Solid React experience, including hooks and context.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "framework.react"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e03",
+      "split": "eval",
+      "family": "ordinary_adjective",
+      "pair": "m11g22-e04",
+      "text": "Requirements:\n- Comfortable working in an express delivery environment with tight deadlines.",
+      "is_qualification": true,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e04",
+      "split": "eval",
+      "family": "clear_registered",
+      "pair": "m11g22-e03",
+      "text": "Requirements:\n- Production experience with Express.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "framework.express"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e05",
+      "split": "eval",
+      "family": "or_alternative",
+      "pair": "m11g22-e06",
+      "text": "Nice to have:\n- Swift or Kotlin for mobile development.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.kotlin",
+            "language.swift"
+          ],
+          "necessity": "preferred"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e06",
+      "split": "eval",
+      "family": "ordinary_adjective",
+      "pair": "m11g22-e05",
+      "text": "Requirements:\n- Swift turnaround on code reviews.",
+      "is_qualification": true,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e07",
+      "split": "eval",
+      "family": "or_alternative",
+      "pair": "m11g22-e08",
+      "text": "Requirements:\n- Experience with Rust or C++.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.cpp",
+            "language.rust"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e08",
+      "split": "eval",
+      "family": "ordinary_noun",
+      "pair": "m11g22-e07",
+      "text": "Requirements:\n- Experience inspecting steel structures for rust and corrosion.",
+      "is_qualification": true,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e09",
+      "split": "eval",
+      "family": "language_ordinary_meaning",
+      "pair": null,
+      "text": "Requirements:\n- Ruby and Rails experience.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.ruby"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e10",
+      "split": "eval",
+      "family": "genuine_unknown_lowercase",
+      "pair": null,
+      "text": "Requirements:\n- Proficiency with pandas, scikit-learn, and Python.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "data.library.pandas"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:scikit-learn"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "language.python"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e11",
+      "split": "eval",
+      "family": "fragment_abstract_noun",
+      "pair": "m11g22-e12",
+      "text": "Requirements:\n- Experience with Python, creativity, and ownership.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.python"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e12",
+      "split": "eval",
+      "family": "genuine_unknown",
+      "pair": "m11g22-e11",
+      "text": "Requirements:\n- Experience with Python, Spark, and Kafka.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.python"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:spark"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:kafka"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e13",
+      "split": "eval",
+      "family": "fragment_discourse_adverb",
+      "pair": null,
+      "text": "Requirements:\n- Additionally, experience with AWS, Terraform, and Docker.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "cloud.aws"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:terraform"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "infra.docker"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e14",
+      "split": "eval",
+      "family": "fragment_discourse_adverb",
+      "pair": null,
+      "text": "Requirements:\n- Preferably, familiarity with Docker, Helm, and Kubernetes.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "infra.docker"
+          ],
+          "necessity": "preferred"
+        },
+        {
+          "members": [
+            "unresolved:helm"
+          ],
+          "necessity": "preferred"
+        },
+        {
+          "members": [
+            "infra.kubernetes"
+          ],
+          "necessity": "preferred"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": "'Preferably' makes the claim PREFERRED"
+    },
+    {
+      "id": "m11g22-e15",
+      "split": "eval",
+      "family": "genuine_unknown_suffix",
+      "pair": null,
+      "text": "Requirements:\n- Experience with C#, Unity, and Blender.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.csharp"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:unity"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:blender"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": "'Unity' carries an abstract-noun suffix but is a technology"
+    },
+    {
+      "id": "m11g22-e16",
+      "split": "eval",
+      "family": "go_language",
+      "pair": "m11g22-e19",
+      "text": "Requirements:\n- Go experience in production systems.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.go"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e17",
+      "split": "eval",
+      "family": "equivalent_alias",
+      "pair": null,
+      "text": "Requirements:\n- Golang or Go experience.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.go"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e18",
+      "split": "eval",
+      "family": "go_language",
+      "pair": null,
+      "text": "Requirements:\n- Experience with Go, Docker, and Kubernetes.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.go"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "infra.docker"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "infra.kubernetes"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e19",
+      "split": "eval",
+      "family": "go_ordinary",
+      "pair": "m11g22-e16",
+      "text": "Requirements:\n- Ready to go above and beyond for customers.",
+      "is_qualification": true,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e20",
+      "split": "eval",
+      "family": "equivalent_alias",
+      "pair": null,
+      "text": "Requirements:\n- Experience with Postgres or PostgreSQL.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "database.postgresql"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e21",
+      "split": "eval",
+      "family": "equivalent_alias",
+      "pair": null,
+      "text": "Requirements:\n- Experience with K8s or Kubernetes.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "infra.kubernetes"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e22",
+      "split": "eval",
+      "family": "company_narrative",
+      "pair": null,
+      "text": "Our services run on Kubernetes and are written in Rust.",
+      "is_qualification": false,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e23",
+      "split": "eval",
+      "family": "responsibility",
+      "pair": null,
+      "text": "Responsibilities:\n- Maintain our Flask services and Redis caches.",
+      "is_qualification": false,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e24",
+      "split": "eval",
+      "family": "negative_qualification",
+      "pair": null,
+      "text": "Requirements:\n- Experience with Flask is not required.",
+      "is_qualification": false,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e25",
+      "split": "eval",
+      "family": "equivalent_alias",
+      "pair": null,
+      "text": "Requirements:\n- Bash or shell scripting experience.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.shell"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e26",
+      "split": "eval",
+      "family": "mixed",
+      "pair": null,
+      "text": "Requirements:\n- Experience with Java, plus strong written communication.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.java"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e27",
+      "split": "eval",
+      "family": "bare_list",
+      "pair": null,
+      "text": "Requirements:\n- Java, Kotlin, Gradle",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.java"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "language.kotlin"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:gradle"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e28",
+      "split": "eval",
+      "family": "clear_registered",
+      "pair": null,
+      "text": "Requirements:\n- Hands-on experience with PyTorch and CUDA.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "ml.framework.pytorch"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "platform.cuda"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e29",
+      "split": "eval",
+      "family": "ordinary_noun",
+      "pair": null,
+      "text": "Requirements:\n- Carry the torch for engineering quality across teams.",
+      "is_qualification": true,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e30",
+      "split": "eval",
+      "family": "punctuation_variant",
+      "pair": null,
+      "text": "Requirements:\n- Experience with Next.js and React.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "framework.nextjs"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "framework.react"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e31",
+      "split": "eval",
+      "family": "ordinary_verb",
+      "pair": null,
+      "text": "Requirements:\n- Ability to express trade-offs to non-technical stakeholders.",
+      "is_qualification": true,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e32",
+      "split": "eval",
+      "family": "or_alternative",
+      "pair": null,
+      "text": "Requirements:\n- REST API development with Express.js or FastAPI.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "framework.express",
+            "framework.fastapi"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e33",
+      "split": "eval",
+      "family": "genuine_unknown",
+      "pair": null,
+      "text": "Requirements:\n- Experience with SQL, ETL pipelines, and Tableau.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.sql"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:tableau"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e34",
+      "split": "eval",
+      "family": "fragment_abstract_noun",
+      "pair": null,
+      "text": "Requirements:\n- Python, adaptability, and Docker.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.python"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "infra.docker"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e35",
+      "split": "eval",
+      "family": "or_alternative",
+      "pair": null,
+      "text": "Requirements:\n- Experience in Ruby, PHP, or Python.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.php",
+            "language.python",
+            "language.ruby"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e36",
+      "split": "eval",
+      "family": "acronym",
+      "pair": null,
+      "text": "Requirements:\n- Embedded C and FreeRTOS experience.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "language.c"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "embedded.rtos.freertos"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e37",
+      "split": "eval",
+      "family": "genuine_unknown",
+      "pair": null,
+      "text": "Requirements:\n- Comfortable with Linux, Bash, and Git.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "unresolved:linux"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "language.shell"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:git"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e38",
+      "split": "eval",
+      "family": "clear_registered",
+      "pair": null,
+      "text": "Nice to have:\n- Exposure to React Native.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "framework.react_native"
+          ],
+          "necessity": "preferred"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e39",
+      "split": "eval",
+      "family": "or_alternative",
+      "pair": null,
+      "text": "Requirements:\n- React Native or Swift experience.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "framework.react_native",
+            "language.swift"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e40",
+      "split": "eval",
+      "family": "ordinary_verb",
+      "pair": null,
+      "text": "Requirements:\n- Ability to react constructively to feedback.",
+      "is_qualification": true,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e41",
+      "split": "eval",
+      "family": "fragment_abstract_noun",
+      "pair": null,
+      "text": "Requirements:\n- Experience with TensorFlow, Keras, and patience.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "ml.framework.tensorflow"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:keras"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e42",
+      "split": "eval",
+      "family": "fragment_discourse_adverb",
+      "pair": null,
+      "text": "Requirements:\n- Similarly, experience with GCP, Azure, and AWS.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "unresolved:gcp"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:azure"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "cloud.aws"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    },
+    {
+      "id": "m11g22-e43",
+      "split": "eval",
+      "family": "genuine_unknown_suffix",
+      "pair": null,
+      "text": "Requirements:\n- Plotly, Dash, and Python.",
+      "is_qualification": true,
+      "expected_concepts": [
+        {
+          "members": [
+            "unresolved:plotly"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "unresolved:dash"
+          ],
+          "necessity": "required"
+        },
+        {
+          "members": [
+            "language.python"
+          ],
+          "necessity": "required"
+        }
+      ],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": "claim-initial '-ly' word followed by a comma is a technology"
+    },
+    {
+      "id": "m11g22-e44",
+      "split": "eval",
+      "family": "company_narrative",
+      "pair": null,
+      "text": "Requirements:\n- We built our data platform on Spark, Python, and AWS.",
+      "is_qualification": false,
+      "expected_concepts": [],
+      "identity_only": false,
+      "expected_limitation": false,
+      "note": ""
+    }
+  ]
+}

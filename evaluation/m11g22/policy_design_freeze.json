@@ -1,0 +1,26 @@
+{
+  "purpose": "G22 candidate-policy design frozen BEFORE the EVAL controls were run",
+  "files": {
+    "scripts/evaluation_lib/m11g22_policies.py": {
+      "sha256_lf": "0104ade1ccf114825e8e43d2ca2d40ea0ace1a1b9d6e1ad8506cfd236b76a2ef",
+      "length_bytes": 13548
+    },
+    "scripts/evaluation_lib/m11g22_concepts.py": {
+      "sha256_lf": "06e9f9646075803833e166e5b53092d14c6ccc2f247558fa934cb10473dd36d8",
+      "length_bytes": 9523
+    }
+  },
+  "eval_controls_sha256": "29b3ea2acf1363fa6c3c7809581bd251a691e724ec3b6f7ba899504081835cc3",
+  "frozen_at_utc": "2026-11-11T03:01:28Z",
+  "disclosure": "The EVAL texts were authored by the policy designer before this design existed, so EVAL is only weakly held out. Any change after this freeze is reported as post-hoc.",
+  "post_hoc_changes": [
+    {
+      "file": "scripts/evaluation_lib/m11g22_policies.py",
+      "sha256_lf_after": "58a582b7053db888e440a4cc3ff864c003f4079b8a41aa74b694569bd4bbfb29",
+      "length_bytes_after": 14706,
+      "kind": "simulation fidelity fix (not a design change)",
+      "change": "Option G's cue was evaluated on each OR segment that alternatives.py scans ('Go and either Docker'), losing the claim-level context the design specifies ('Python or Go'). Cue-confirmed Go positions are now computed on the claim and mapped onto segments (go_mentions_in).",
+      "effect": "No change to any DEV or EVAL control result for any policy (re-verified); changes G16-018 under G/BG (3-way OR -> contained alternative_requirement placeholder)."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g22/concept_controls_eval.json",
+  "sha256": "29b3ea2acf1363fa6c3c7809581bd251a691e724ec3b6f7ba899504081835cc3",
+  "sha256_lf_normalized": "29b3ea2acf1363fa6c3c7809581bd251a691e724ec3b6f7ba899504081835cc3",
+  "length_bytes": 23219,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-11T02:57:42Z",
+  "note": "Labels frozen BEFORE the live parser or any G22 candidate policy ran on this set. NOT registered in the canonical manifest (pending authorization)."
+}
