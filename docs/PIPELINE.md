@@ -783,6 +783,19 @@ necessity on concessive / negated / softened wording (never promotes).
 Segmentation, headings, alternatives (G17), concepts, matcher and scoring v2
 are unchanged. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v13` -> `v14`.
 
+### Canonical alias equivalence -- Milestone 11-G22-Q
+
+In `classify_alternative_claim`, an OR claim the v14 logic would classify
+`unsafe` is returned as `not_technical` when every alternative is, in its
+entirety, a registry alias of the SAME registered concept ("Kubernetes or
+k8s", "Go or Golang") and the claim is not G17-structurally mixed. The claim
+then takes the ordinary single-concept path: one `concept_id` row with the
+claim's exact text, span and necessity, matched and scored like any
+single-technology requirement (eligible under scoring v2; SUPPORTED or
+NOT_OBSERVED, never auto-supported). Genuine alternatives, mixed AND/OR,
+unknown/unregistered alternatives and embedded aliases ("Docker Compose")
+are unchanged. `JOB_DESCRIPTION_PARSER_VERSION` bumps `v14` -> `v15`.
+
 ### Assessment clarity -- Milestone 9E
 
 Milestone 9D's product-validation pilot found the M9C headline caveat

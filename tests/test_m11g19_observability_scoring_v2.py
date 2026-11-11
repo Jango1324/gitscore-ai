@@ -199,7 +199,16 @@ def test_unregistered_github_language_evidence_visible_but_not_counted():
 # 14. Duplicate alternatives --------------------------------------------------
 def test_duplicate_alternatives():
     assert score(run("Requirements:\n- Experience with Azure or Microsoft Azure")[0]) == (None, 0)   # v1: 0 (0/1)
-    assert score(run("Requirements:\n- Experience with Go or Golang", [PY])[0]) == (None, 0)
+    from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
+    if JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14"):
+        assert score(run("Requirements:\n- Experience with Go or Golang", [PY])[0]) == (None, 0)
+        return
+    # M11-G22-Q (v15): "Go or Golang" is ONE language.go requirement (G18-16 gold), so it is eligible:
+    # unrelated Python evidence leaves it NOT_OBSERVED (0/1); Go evidence supports it (1/1).
+    # Azure is unregistered: its two unresolved ids are never equated, so that line above is unchanged.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15"
+    assert score(run("Requirements:\n- Experience with Go or Golang", [PY])[0]) == (0, 1)
+    assert score(run("Requirements:\n- Experience with Go or Golang", ["language.go"])[0]) == (100, 1)
 
 
 # 15. Candidate evidence changes for the same job -----------------------------
@@ -292,10 +301,23 @@ def test_live_v2_equals_g18_policy_c_on_all_54_candidate_pairs():
     # M11-G21 (parser v14): control 25's company narrative is no longer parsed as REQUIRED
     # Python/Docker rows, so its only candidate now has no eligible requirement (undefined score)
     # where G18's simulation (made on v13 parse output) scored 100. All 53 other pairs unchanged.
-    assert mismatches == ["m11g18-25/python_docker"]
     c25 = next(c for c in controls if c["id"] == "m11g18-25")
     a, _ = run(c25["job_text"], c25["candidates"][0]["evidence"])
     assert (a.alignment_score, a.assessable_count) == (None, 0)
+    if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14":
+        assert mismatches == ["m11g18-25/python_docker"]
+        return
+    # M11-G22-Q (parser v15): control 16 "Go or Golang" was a not-assessable placeholder in the v13
+    # parse G18 simulated on (undefined score); v15 parses it as ONE language.go row, which now
+    # reproduces 16's FROZEN expected_scores exactly. The other 51 pairs are unchanged.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15"
+    assert mismatches == ["m11g18-16/go", "m11g18-16/none", "m11g18-25/python_docker"]
+    c16 = next(c for c in controls if c["id"] == "m11g18-16")
+    for cand in c16["candidates"]:
+        a, resp = run(c16["job_text"], cand["evidence"])
+        exp = c16["expected_scores"][cand["name"]]["declared"]
+        assert (a.alignment_score, sum(r.counts_toward_alignment for r in resp.requirements.supported),
+                a.assessable_count) == (exp["score"], exp["supported"], exp["eligible"])
 
 
 _NOT_SCOREABLE = ("partially_observable_no_positive_evidence", "completely_non_assessable", "structurally_ambiguous",
@@ -432,9 +454,11 @@ def test_api_changes_are_strictly_additive():
     assert [r.status for r in resp.requirements.not_observed] == ["not_observed"]
     assert resp.versions.matcher == "requirement_matcher:v1"
     from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
-    # G19 shipped on parser v13; M11-G21 bumped the parser to v14 (scoring/matcher unchanged).
+    # G19 shipped on parser v13; M11-G21 bumped the parser to v14 and M11-G22-Q to v15
+    # (scoring/matcher unchanged).
     assert resp.versions.job_parser == JOB_DESCRIPTION_PARSER_VERSION
-    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14")
+    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14",
+                                              "job_description_parser:v15")
 
 
 # Actual v1 vs v2 comparison (Phase 7/8), committed output ----------------------

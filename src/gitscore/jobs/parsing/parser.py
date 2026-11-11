@@ -261,7 +261,7 @@ from gitscore.jobs.parsing.qualification_intent import decide_qualification_inte
 from gitscore.jobs.parsing.segmentation import Claim, document_has_any_recognized_heading, segment_description
 from gitscore.jobs.profile import JobRequirementProfile
 
-JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v14"
+JOB_DESCRIPTION_PARSER_VERSION = "job_description_parser:v15"
 
 
 def _unresolved_requirement_signal(text: str) -> bool:

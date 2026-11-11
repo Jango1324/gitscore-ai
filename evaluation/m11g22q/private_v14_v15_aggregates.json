@@ -1,0 +1,259 @@
+{
+ "m11d": {
+  "postings": 12,
+  "rows_v14": 57,
+  "required_rows_v14": 36,
+  "preferred_rows_v14": 21,
+  "unparsed_claims_v14": 148,
+  "denominator_rows_v14": 9,
+  "postings_with_no_eligible_requirement_v14": 7,
+  "postings_with_no_rows_v14": 2,
+  "rows_v15": 57,
+  "required_rows_v15": 36,
+  "preferred_rows_v15": 21,
+  "unparsed_claims_v15": 148,
+  "denominator_rows_v15": 9,
+  "postings_with_no_eligible_requirement_v15": 7,
+  "postings_with_no_rows_v15": 2,
+  "postings_changed": 0,
+  "postings_losing_all_rows": 0
+ },
+ "m11f": {
+  "postings": 18,
+  "rows_v14": 110,
+  "required_rows_v14": 101,
+  "preferred_rows_v14": 9,
+  "unparsed_claims_v14": 212,
+  "denominator_rows_v14": 23,
+  "postings_with_no_eligible_requirement_v14": 8,
+  "postings_with_no_rows_v14": 1,
+  "rows_v15": 110,
+  "required_rows_v15": 101,
+  "preferred_rows_v15": 9,
+  "unparsed_claims_v15": 212,
+  "denominator_rows_v15": 23,
+  "postings_with_no_eligible_requirement_v15": 8,
+  "postings_with_no_rows_v15": 1,
+  "postings_changed": 0,
+  "postings_losing_all_rows": 0
+ },
+ "m11g5": {
+  "postings": 18,
+  "rows_v14": 122,
+  "required_rows_v14": 96,
+  "preferred_rows_v14": 26,
+  "unparsed_claims_v14": 178,
+  "denominator_rows_v14": 29,
+  "postings_with_no_eligible_requirement_v14": 6,
+  "postings_with_no_rows_v14": 1,
+  "rows_v15": 122,
+  "required_rows_v15": 96,
+  "preferred_rows_v15": 26,
+  "unparsed_claims_v15": 178,
+  "denominator_rows_v15": 29,
+  "postings_with_no_eligible_requirement_v15": 6,
+  "postings_with_no_rows_v15": 1,
+  "postings_changed": 0,
+  "postings_losing_all_rows": 0
+ },
+ "m11g9": {
+  "postings": 14,
+  "rows_v14": 89,
+  "required_rows_v14": 75,
+  "preferred_rows_v14": 14,
+  "unparsed_claims_v14": 160,
+  "denominator_rows_v14": 10,
+  "postings_with_no_eligible_requirement_v14": 7,
+  "postings_with_no_rows_v14": 0,
+  "rows_v15": 89,
+  "required_rows_v15": 75,
+  "preferred_rows_v15": 14,
+  "unparsed_claims_v15": 160,
+  "denominator_rows_v15": 10,
+  "postings_with_no_eligible_requirement_v15": 7,
+  "postings_with_no_rows_v15": 0,
+  "postings_changed": 0,
+  "postings_losing_all_rows": 0
+ },
+ "label_backed": {
+  "m11d": {
+   "claims": 165,
+   "located": 164,
+   "v14": {
+    "nonqual_admitted": 2,
+    "nonqual_admitted_required": 2,
+    "nonqual_claims": 28,
+    "qual_admitted": 57,
+    "qual_claims": 136,
+    "qual_nec_correct": 54,
+    "qual_nec_scored": 57,
+    "qual_preferred_marked_required": 2
+   },
+   "v15": {
+    "nonqual_admitted": 2,
+    "nonqual_admitted_required": 2,
+    "nonqual_claims": 28,
+    "qual_admitted": 57,
+    "qual_claims": 136,
+    "qual_nec_correct": 54,
+    "qual_nec_scored": 57,
+    "qual_preferred_marked_required": 2
+   }
+  },
+  "m11f": {
+   "claims": 103,
+   "located": 103,
+   "v14": {
+    "nonqual_claims": 10,
+    "qual_admitted": 41,
+    "qual_claims": 93,
+    "qual_nec_correct": 40,
+    "qual_nec_scored": 41,
+    "qual_preferred_marked_required": 1
+   },
+   "v15": {
+    "nonqual_claims": 10,
+    "qual_admitted": 41,
+    "qual_claims": 93,
+    "qual_nec_correct": 40,
+    "qual_nec_scored": 41,
+    "qual_preferred_marked_required": 1
+   }
+  },
+  "m11g5": {
+   "claims": 161,
+   "located": 161,
+   "v14": {
+    "nonqual_claims": 18,
+    "qual_admitted": 81,
+    "qual_claims": 143,
+    "qual_nec_correct": 76,
+    "qual_nec_scored": 81,
+    "qual_preferred_marked_required": 2
+   },
+   "v15": {
+    "nonqual_claims": 18,
+    "qual_admitted": 81,
+    "qual_claims": 143,
+    "qual_nec_correct": 76,
+    "qual_nec_scored": 81,
+    "qual_preferred_marked_required": 2
+   }
+  },
+  "m11g9_dev": {
+   "claims": 122,
+   "located": 122,
+   "v14": {
+    "nonqual_admitted": 1,
+    "nonqual_admitted_required": 1,
+    "nonqual_claims": 53,
+    "qual_admitted": 33,
+    "qual_claims": 69,
+    "qual_nec_correct": 33,
+    "qual_nec_scored": 33,
+    "qual_preferred_marked_required": 0
+   },
+   "v15": {
+    "nonqual_admitted": 1,
+    "nonqual_admitted_required": 1,
+    "nonqual_claims": 53,
+    "qual_admitted": 33,
+    "qual_claims": 69,
+    "qual_nec_correct": 33,
+    "qual_nec_scored": 33,
+    "qual_preferred_marked_required": 0
+   }
+  },
+  "m11g9_holdout": {
+   "claims": 100,
+   "located": 100,
+   "v14": {
+    "nonqual_admitted": 1,
+    "nonqual_admitted_required": 1,
+    "nonqual_claims": 44,
+    "qual_admitted": 30,
+    "qual_claims": 56,
+    "qual_nec_correct": 30,
+    "qual_nec_scored": 30,
+    "qual_preferred_marked_required": 0
+   },
+   "v15": {
+    "nonqual_admitted": 1,
+    "nonqual_admitted_required": 1,
+    "nonqual_claims": 44,
+    "qual_admitted": 30,
+    "qual_claims": 56,
+    "qual_nec_correct": 30,
+    "qual_nec_scored": 30,
+    "qual_preferred_marked_required": 0
+   }
+  }
+ },
+ "note": "previously inspected private postings -- NOT independent validation; integer counts only",
+ "concept_view": {
+  "m11d": {
+   "postings": 12,
+   "rows_v14": 57,
+   "registry_concept_rows_v14": 9,
+   "unresolved_concept_rows_v14": 5,
+   "placeholder_rows_v14": 25,
+   "unparsed_claims_v14": 148,
+   "denominator_rows_v14": 9,
+   "rows_v15": 57,
+   "registry_concept_rows_v15": 9,
+   "unresolved_concept_rows_v15": 5,
+   "placeholder_rows_v15": 25,
+   "unparsed_claims_v15": 148,
+   "denominator_rows_v15": 9,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "rows_v14": 110,
+   "registry_concept_rows_v14": 23,
+   "unresolved_concept_rows_v14": 17,
+   "placeholder_rows_v14": 32,
+   "unparsed_claims_v14": 212,
+   "denominator_rows_v14": 23,
+   "rows_v15": 110,
+   "registry_concept_rows_v15": 23,
+   "unresolved_concept_rows_v15": 17,
+   "placeholder_rows_v15": 32,
+   "unparsed_claims_v15": 212,
+   "denominator_rows_v15": 23,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "rows_v14": 122,
+   "registry_concept_rows_v14": 29,
+   "unresolved_concept_rows_v14": 25,
+   "placeholder_rows_v14": 35,
+   "unparsed_claims_v14": 178,
+   "denominator_rows_v14": 29,
+   "rows_v15": 122,
+   "registry_concept_rows_v15": 29,
+   "unresolved_concept_rows_v15": 25,
+   "placeholder_rows_v15": 35,
+   "unparsed_claims_v15": 178,
+   "denominator_rows_v15": 29,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "rows_v14": 89,
+   "registry_concept_rows_v14": 10,
+   "unresolved_concept_rows_v14": 24,
+   "placeholder_rows_v14": 26,
+   "unparsed_claims_v14": 160,
+   "denominator_rows_v14": 10,
+   "rows_v15": 89,
+   "registry_concept_rows_v15": 10,
+   "unresolved_concept_rows_v15": 24,
+   "placeholder_rows_v15": 26,
+   "unparsed_claims_v15": 160,
+   "denominator_rows_v15": 10,
+   "postings_changed": 0
+  }
+ }
+}

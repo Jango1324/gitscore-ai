@@ -3,7 +3,7 @@
 G22 changes no production code. These tests pin:
   * the frozen G22 control sets and the policy-design freeze record;
   * the research adapters' fidelity (BASE == unpatched production; patches always restored);
-  * the live v14 failures G22 documents (version-gated: they describe parser v14 only);
+  * the live v14 failures G22 documents (version-branched since M11-G22-Q / parser v15);
   * the measured behaviour of the candidate policies on the key near-neighbour controls;
   * the M10E-g3 evidence (frozen gold untouched);
   * reproducibility of the committed public report and the counts-only private aggregates.
@@ -35,7 +35,7 @@ from m11g15_or_scoring import candidate_profile  # noqa: E402
 
 DATA = ROOT / "evaluation" / "m11g22"
 V14 = JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
-only_v14 = pytest.mark.skipif(not V14, reason="documents the live parser v14 behaviour G22 measured")
+V15 = JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15"  # M11-G22-Q: canonical alias equivalence
 REQ = "Requirements:\n- "
 
 
@@ -140,9 +140,11 @@ def test_policies_never_change_admission_or_span_provenance():
                 assert c["text"][r.source_span.start:r.source_span.end] == r.original_text
 
 
-# ---- live v14 failures (documented, version-gated) -------------------------------------------------
-@only_v14
+# ---- live v14 failures (documented, version-branched) -----------------------------------------------
+# M11-G22-Q (v15) changes ONLY OR claims whose alternatives are whole aliases of one concept, so the
+# class-A / class-B failures below are unchanged in v15 and asserted on both versions.
 def test_v14_recognises_ordinary_verbs_as_registered_frameworks_and_counts_them():
+    assert V14 or V15
     parsed = parse_job_description_with_diagnostics(REQ + "Ability to react quickly to production incidents.")
     a = assess_job(match_job(candidate_profile(["framework.react"]), parsed.profile))
     (m,) = a.match_analysis.requirement_matches
@@ -150,7 +152,6 @@ def test_v14_recognises_ordinary_verbs_as_registered_frameworks_and_counts_them(
     assert a.counts_toward_alignment(m) and m.status.value == "supported" and a.alignment_score == 100
 
 
-@only_v14
 @pytest.mark.parametrize("text,fabricated", [
     (REQ + "Experience with SQL, attention to detail, and curiosity.", "unresolved:curiosity"),
     ("Experience with AWS is required. Alternatively, Docker experience is acceptable.", "unresolved:alternatively"),
@@ -159,17 +160,24 @@ def test_v14_recognises_ordinary_verbs_as_registered_frameworks_and_counts_them(
     (REQ + "Experience with Go, Docker, and Kubernetes.", "unresolved:go"),
 ])
 def test_v14_fabricates_unresolved_concepts_that_scoring_v2_excludes(text, fabricated):
+    assert V14 or V15
     parsed = parse_job_description_with_diagnostics(text)
     a = assess_job(match_job(candidate_profile([]), parsed.profile))
     (m,) = [m for m in a.match_analysis.requirement_matches if m.requirement.concept_id == fabricated]
     assert a.alignment_exclusion_reason(m).value == "unresolved_technology"
 
 
-@only_v14
 def test_v14_turns_equivalent_aliases_into_a_not_assessable_placeholder():
-    assert _rows(REQ + "Experience with Go or Golang.") == [((), "alternative_requirement", "required")]
-    assert _rows(REQ + "Experience with Postgres or PostgreSQL.") == [((), "alternative_requirement", "required")]
-    assert _rows(REQ + "Experience with Go.") == [((), "unresolved_requirement", "required")]
+    assert _rows(REQ + "Experience with Go.") == [((), "unresolved_requirement", "required")]  # no OR: unchanged
+    if V14:
+        assert _rows(REQ + "Experience with Go or Golang.") == [((), "alternative_requirement", "required")]
+        assert _rows(REQ + "Experience with Postgres or PostgreSQL.") == [((), "alternative_requirement", "required")]
+        return
+    # M11-G22-Q (v15) corrects exactly this defect: one canonical concept row each.
+    assert V15
+    assert _rows(REQ + "Experience with Go or Golang.") == [(("language.go",), "language", "required")]
+    assert _rows(REQ + "Experience with Postgres or PostgreSQL.") == \
+        [(("database.postgresql",), "database", "required")]
 
 
 # ---- candidate policies on near-neighbour controls ------------------------------------------------
@@ -243,7 +251,8 @@ def test_m10e_g3_frozen_gold_and_the_two_measured_dimensions():
     assert g3["technical_concepts_may_enter_scoring"] is False
     assert "SQL" not in g3["purpose_rationale"]  # no frozen gold field names a SQL requirement
     doc = f"{g3['section_context']}\n{g3['text']}"
-    if V14:  # row-existence projection passes; the concept-scoring field is violated by the SQL row
+    if V14 or V15:  # row-existence projection passes; the concept-scoring field is violated by the SQL row
+        # (M11-G22-Q leaves g3 untouched: it has no OR, so the outstanding SQL-scoring defect remains in v15)
         assert _rows(doc) == [(("language.sql",), "language", "required")]
     for p in (pol.A, pol.B, pol.C, pol.Q, pol.D, pol.DB, *ph.POSTHOC):
         assert _rows(doc, p) == _rows(doc), p.name  # no G22 candidate touches g3
@@ -251,11 +260,17 @@ def test_m10e_g3_frozen_gold_and_the_two_measured_dimensions():
 
 
 # ---- report reproducibility / publication safety ---------------------------------------------------
-@only_v14
-def test_public_report_is_reproducible_byte_identically():
+def test_public_report_is_reproducible_byte_identically(monkeypatch):
     import evaluate_m11g22_concept_precision as runner
     # G14 canonical contract: a core.autocrlf=true checkout holds the committed report with CRLF line endings
     committed = gi.canonical_bytes((DATA / "concept_precision_report.json").read_bytes())
+    if not V14:
+        # M11-G22-Q (v15): the committed report is a v14 measurement. Disabling ONLY the G22-Q equivalence
+        # step must reproduce it byte-identically -- i.e. v15 differs from v14 by that step alone on every
+        # G22 input. (The real pinned-v14 rerun is scripts/evaluate_m11g22q_v14_v15.py, in a clone of fad7c6d.)
+        assert V15
+        monkeypatch.setattr(alt_mod, "equivalent_alias_concept_id", lambda text, registry=None: None)
+        monkeypatch.setattr(runner, "JOB_DESCRIPTION_PARSER_VERSION", "job_description_parser:v14")
     assert runner.encode(runner.build_report()) == committed
 
 
@@ -277,7 +292,8 @@ def test_private_aggregates_are_integer_counts_only():
 
 
 def test_production_is_unchanged_and_never_imports_the_research_adapters():
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
+    # G22 itself changed no production code (v14); M11-G22-Q then bumped the parser to v15 (alternatives.py only).
+    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v14", "job_description_parser:v15")
     assert SCORING_VERSION == "github_evidence_alignment:v2"
     for py in (ROOT / "src").rglob("*.py"):
         assert "m11g22" not in py.read_text(encoding="utf-8"), py

@@ -77,8 +77,11 @@ def test_report_is_reproducible(report):
     if parser_mod.JOB_DESCRIPTION_PARSER_VERSION == G16_REPORT_PARSER_VERSION:
         assert live == report
         return
-    assert parser_mod.JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14")
-    v14 = parser_mod.JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
+    # M11-G22-Q (v15) changes no G16 control (no compound control is an alias equivalence; measured
+    # report delta v14 -> v15: none), so every v14 assertion below applies to v15 unchanged.
+    assert parser_mod.JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14",
+                                                         "job_description_parser:v15")
+    v14 = parser_mod.JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v14", "job_description_parser:v15")
     if SCORING_VERSION == "github_evidence_alignment:v1":
         for cid, modes in report["results"].items():
             assert live["results"][cid]["production"] == modes["D_structural_guard"], cid

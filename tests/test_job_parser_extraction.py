@@ -193,8 +193,16 @@ def test_mixed_unsafe_alternative_falls_back_to_unsafe_kind():
 def test_single_confirmed_concept_with_no_second_option_is_unsafe():
     # Degenerate case: both sides resolve to the SAME concept, leaving
     # fewer than two distinct options -- not a genuine alternative group.
+    from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
+
     result = classify_alternative_claim("Python or python")
-    assert result.kind == "unsafe"
+    if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14":
+        assert result.kind == "unsafe"  # v14: the non-assessable placeholder path
+        return
+    # M11-G22-Q (v15): still never an alternative GROUP -- both sides are whole registry aliases of
+    # one canonical concept, so the claim takes the ordinary single-concept path instead.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15"
+    assert result.kind == "not_technical" and result.concept_ids == ()
 
 
 def test_trailing_necessity_wording_does_not_pollute_the_alternative_name():

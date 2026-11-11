@@ -1577,6 +1577,8 @@ per claim:
   classify_alternative_claim()  (§19)
     "technical"      --> ONE JobRequirement, alternative_concept_ids set
     "unsafe"         --> ONE conservative alternative_requirement fallback
+                         (M11-G22-Q: unless every alternative is a whole alias of ONE
+                          registered concept -> returned as "not_technical" instead)
     "not_technical"  --> normal pipeline, exactly as if no "or" were present:
         find_concept_mentions()  -> known concepts (18.3/18.4)
         find_conservative_unknown_terms()  -> unresolved:<term> (18.5)
@@ -5566,3 +5568,31 @@ adversarial set 17 -> 11; the first v14 lost 2 genuine qualifications there
 (whole-claim negation; "preferred but not essential"), corrected by the
 clause-local negation scope with 0 losses and no other metric change. See
 `docs/evaluation/MILESTONE_11_G21_QUALIFICATION_INTENT_GUARD.md`.
+
+### Milestone 11-G22-Q — canonical alias equivalence (`jobs/parsing/alternatives.py`, parser v15)
+
+**Problem (M11-G22, Option Q).** An OR whose alternatives are only different
+registry aliases of ONE concept ("Kubernetes or k8s", "Go or Golang") left
+fewer than two distinct ids, so `_classify_segment_list` returned `unsafe`
+and the parser emitted a NOT_ASSESSABLE `alternative_requirement`
+placeholder for a requirement naming exactly one technology (G15-I1, G18-16,
+G13-o007 gold all say one scored requirement).
+
+**Fix.** `equivalent_alias_concept_id(text)` establishes the equivalence
+from canonical registry identity only: a literal "or", not G17-structurally
+mixed, >= 2 alternatives that are each a bare list item, each resolving
+independently (`_resolve_segment`) to the same REGISTERED id and each being
+that id's alias IN ITS ENTIRETY (`resolve_concept`; an embedded alias such as
+"Docker" in "Docker Compose" never qualifies), and a full-claim scan that
+finds that id and nothing else. `classify_alternative_claim` runs the
+unchanged v14 classification (`_classify_alternative_structure`) and converts
+ONLY an `unsafe` result with an established equivalence into `not_technical`,
+so the parser's ordinary single-concept path builds one `concept_id` row
+(text, span, necessity unchanged parser code). `technical` groups, G17
+containment, relation edges, candidate evidence: untouched / never consulted.
+`JOB_DESCRIPTION_PARSER_VERSION` `v14` -> `v15`; scoring v2, matcher,
+registry, schemas, API and frontend unchanged. Real pinned-v14 comparison:
+3 tracked placeholders recovered, 88/88 OR groups preserved, 0 new false
+SUPPORTED, 0 frozen-8c/M10 changes, 0 private-posting changes. G22's false
+registered / fabricated concepts and M10E-g3 are NOT addressed. See
+`docs/evaluation/MILESTONE_11_G22Q_CANONICAL_ALIAS_EQUIVALENCE.md`.

@@ -89,6 +89,19 @@ def test_report_is_reproducible(report):
     for volatile in ("controls_freeze_matched_by",):
         committed.pop(volatile, None)
         report = {k: v for k, v in report.items() if k != volatile}
+    from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION
+    if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15":
+        # M11-G22-Q (v15): o007 "Experience with Kubernetes or k8s" (gold: equivalent_aliases, one
+        # scored requirement) is now ONE assessable infra.kubernetes row instead of a dropped
+        # placeholder. These are the ONLY differences from the committed (v14) report; o012
+        # "Docker or Docker Compose" (gold: related, non-equivalent) is deliberately unchanged.
+        ref = committed["or_contract"]["production_reference"]
+        ref["per_control"]["m11g13-o007"].update(assessable_rows=1, supported_rows=1, correct_satisfaction=True,
+                                                 dropped_decidable_requirement=False)
+        ok, dropped = ref["correct_satisfaction_on_decidable"], ref["dropped_decidable_requirements"]
+        ok.update(count=ok["count"] + 1, ids=sorted(ok["ids"] + ["m11g13-o007"]))
+        dropped.update(count=dropped["count"] - 1, ids=[i for i in dropped["ids"] if i != "m11g13-o007"])
+        assert dropped["ids"] == ["m11g13-o008", "m11g13-o012"]
     assert json.loads(json.dumps(report)) == committed
 
 

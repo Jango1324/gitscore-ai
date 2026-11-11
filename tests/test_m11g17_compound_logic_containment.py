@@ -58,7 +58,9 @@ def _concept_sets(profile) -> list[set[str]]:
 def test_parser_version_is_v13():
     # G17 bumped v12 -> v13. M11-G21 then bumped v13 -> v14 (qualification-intent guard); G17's
     # containment code is untouched -- only the literal tracks the current version.
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
+    # M11-G22-Q then bumped v14 -> v15 (alternatives.py canonical alias equivalence); this test's
+    # own purpose is unaffected -- only the literal tracks the current version.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15"
 
 
 # 1. (A OR B) AND C cannot be satisfied by C alone -----------------------------

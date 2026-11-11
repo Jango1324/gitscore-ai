@@ -54,7 +54,9 @@ def unparsed(text: str) -> list[str]:
 
 # ---- versions --------------------------------------------------------------------------------------
 def test_parser_v14_and_scoring_v2():
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
+    # M11-G22-Q then bumped v14 -> v15 (alternatives.py only); G21's qualification-intent and
+    # necessity code is untouched -- only the literal tracks the current version.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15"
     assert SCORING_VERSION == "github_evidence_alignment:v2"
 
 
@@ -569,9 +571,18 @@ def test_first_v14_reverse_patch_applies_cleanly_to_exactly_the_three_production
     assert files == ["src/gitscore/jobs/parsing/necessity.py", "src/gitscore/jobs/parsing/parser.py",
                      "src/gitscore/jobs/parsing/qualification_intent.py"]
     subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
+    # The patch reverses the revised v14 production files. From parser v15 (M11-G22-Q) on, the working
+    # tree is no longer v14, so the revised v14 files are read from the PINNED last-v14 commit (the G22
+    # research commit, whose src/ is identical to the G21 commit de2a906) -- never a moving HEAD.
+    last_v14 = "fad7c6dc3dd8608e382478ed10156b414d86b7ae"
     for rel in files:
         (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
-        (tmp_path / rel).write_bytes((REPO_ROOT / rel).read_bytes().replace(b"\r\n", b"\n"))
+        if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14":
+            source = (REPO_ROOT / rel).read_bytes()
+        else:
+            source = subprocess.run(["git", "show", f"{last_v14}:{rel}"], cwd=REPO_ROOT, check=True,
+                                    capture_output=True).stdout
+        (tmp_path / rel).write_bytes(source.replace(b"\r\n", b"\n"))
     # a Windows autocrlf checkout gives the patch CRLF line endings; apply an LF copy
     (tmp_path / "first_v14.patch").write_bytes(patch.read_bytes().replace(b"\r\n", b"\n"))
     subprocess.run(["git", "apply", "first_v14.patch"], cwd=tmp_path, check=True)

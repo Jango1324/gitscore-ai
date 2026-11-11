@@ -175,8 +175,9 @@ def test_heading_component_would_change_frozen_heading_labels(report):
 
 # ---- production untouched -------------------------------------------------------------------------------
 def test_versions_unchanged():
-    # G20 itself was research-only on v13; M11-G21 then bumped the parser to v14.
-    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14")
+    # G20 itself was research-only on v13; M11-G21 then bumped the parser to v14, M11-G22-Q to v15.
+    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14",
+                                              "job_description_parser:v15")
     assert SCORING_VERSION == "github_evidence_alignment:v2"
 
 

@@ -84,15 +84,45 @@ def test_report_is_reproducible(report):
     # M11-G21 (v14): the qualification-intent guard declines exactly control 25 ("About us: we
     # use Python, Terraform and Docker.", gold: non_requirement). Every other section and every
     # other control must reproduce the frozen v13 report exactly.
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
+    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v14", "job_description_parser:v15")
+    # M11-G22-Q (v15) additionally changes exactly one control per section: the two alias
+    # equivalences G15-I1 "Kubernetes or k8s" and G18-16 "Go or Golang" (asserted below).
+    q_changed = ({"g15_controls": ("m11g15-I1", "infra.kubernetes"), "g18_controls": ("m11g18-16", "language.go")}
+                 if JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15" else {})
     for key in report:
-        if key not in ("parser_version", "g18_controls"):
+        if key not in ("parser_version", "g18_controls", *q_changed):
             assert live[key] == report[key], key
     frozen_g18, live_g18 = report["g18_controls"], live["g18_controls"]
     assert set(live_g18["results"]) == set(frozen_g18["results"])
     for cid, result in frozen_g18["results"].items():
-        if cid != "m11g18-25":
+        if cid not in ("m11g18-25", q_changed.get("g18_controls", (None,))[0]):
             assert live_g18["results"][cid] == result, cid
+    for section, (cid, concept) in q_changed.items():
+        frozen_s, live_s = report[section], live[section]
+        assert set(live_s["results"]) == set(frozen_s["results"])
+        for other, result in frozen_s["results"].items():
+            if section == "g15_controls" and other != cid:
+                assert live_s["results"][other] == result, other
+        (was,) = frozen_s["results"][cid]["rows"]
+        assert (was["category"], was["eligible_declared"]) == ("alternative_requirement", False)
+        (row,) = live_s["results"][cid]["rows"]
+        assert (row["members"], row["eligible_declared"], row["eligibility_reason"], row["necessity"],
+                row["covers_gold"]) == ([concept], True, "all_members_assessable", "required", ["g1"])
+        for cand, policies in live_s["results"][cid]["candidates"].items():
+            truth = cand in ("k8s_evidence", "go")
+            for name, policy in policies["policies"].items():
+                assert (policy["score"], policy["eligible"], policy["supported"]) == \
+                    ((100, 1, 1) if truth else (0, 1, 0)), (cid, cand, name)
+        scrub = (cid, "m11g18-25")  # 25 is G21's (v14) change; only these controls may move in any metric
+        for policy, metrics in frozen_s["metrics"].items():
+            for name, m in metrics.items():
+                got = live_s["metrics"][policy][name]
+                if isinstance(m, dict) and "ids" in m:
+                    assert got["count"] == len(got["ids"]), (section, policy, name)
+                    assert [i for i in got["ids"] if i.split("/")[0] not in scrub] == \
+                        [i for i in m["ids"] if i.split("/")[0] not in scrub], (section, policy, name)
+                else:
+                    assert got == m, (section, policy, name)
     c25 = live_g18["results"]["m11g18-25"]
     assert c25["rows"] == [] and frozen_g18["results"]["m11g18-25"]["rows"]
     for cand in c25["candidates"].values():

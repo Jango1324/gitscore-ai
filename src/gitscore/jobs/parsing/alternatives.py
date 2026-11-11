@@ -149,6 +149,23 @@ approved). Known residuals the detector cannot see: a mixed-kind comma
 list with no conjunction ("Python, Docker or Kubernetes") and a segment
 whose second concept is unrecognised (bare "Go" in prose).
 `JOB_DESCRIPTION_PARSER_VERSION` bumps `v12` -> `v13`.
+
+**Milestone 11-G22-Q -- canonical alias equivalence.** An OR whose every
+alternative is only a different registry alias of the SAME canonical
+concept ("Kubernetes or k8s", "Go or Golang", "Postgres or PostgreSQL")
+is not a choice between technologies, yet `_classify_segment_list` saw
+fewer than two distinct ids and returned `unsafe` -- a non-assessable
+placeholder for a requirement that names exactly one concept.
+`equivalent_alias_concept_id()` (below) establishes the equivalence from
+existing canonical identity only, and `classify_alternative_claim()` then
+returns `not_technical` for that one case, so the parser's ordinary
+single-concept path builds ONE `concept_id` row (span, text and necessity
+are computed by the parser exactly as before). Only an `unsafe` result
+is ever converted; a `technical` group (genuine alternatives, including
+"Kubernetes or k8s or Docker", already deduplicated) and every G17
+structurally mixed claim are untouched. No new alias, no relation edge
+(parent/related), and no candidate evidence is ever consulted.
+`JOB_DESCRIPTION_PARSER_VERSION` bumps `v14` -> `v15`.
 """
 from __future__ import annotations
 
@@ -159,6 +176,7 @@ from gitscore.concepts.registry import default_registry, resolve_concept, unreso
 from gitscore.jobs.parsing.concepts import (
     clean_list_fragment,
     find_concept_mentions,
+    find_conservative_unknown_terms,
     leading_token,
     looks_like_specific_technology_name,
 )
@@ -499,9 +517,74 @@ def _contain_mixed(result: AlternativeClaim, text: str, registry) -> Alternative
     return result
 
 
+def equivalent_alias_concept_id(text: str, registry=None) -> str | None:
+    """Milestone 11-G22-Q -- the ONE canonical concept id every OR
+    alternative of `text` is an alias of, or `None` when that cannot be
+    established. All of the following must hold:
+
+    1. the claim has a literal "or" and is NOT structurally mixed
+       (G17's `is_structurally_mixed` is checked first and always wins);
+    2. it splits into >= 2 alternatives, each of which is a bare list item
+       (`clean_list_fragment` accepts it -- an alternative carrying prose,
+       e.g. "react quickly to incidents", "Go for backend services", is
+       never equated);
+    3. each alternative resolves INDEPENDENTLY, through the existing
+       `_resolve_segment`, to exactly one REGISTERED concept (never an
+       `unresolved:` id), and that id is the same for all of them;
+    4. each alternative's cleaned term is, IN ITS ENTIRETY, a registry
+       alias of that concept (`resolve_concept`). An alias merely embedded
+       in a longer name is not enough: "Docker Compose" contains "Docker"
+       but is a different tool, so "Docker or Docker Compose" stays a
+       genuine alternative (likewise "shell scripting" is not an alias);
+    5. the full-claim scan the parser's single-concept path will run finds
+       that concept and nothing else (no other mention, no conservative
+       unknown term) -- so the resulting requirement is exactly one row
+       for this id.
+
+    Identity is the registry id itself: parent/related edges and
+    similarity are never consulted, and no candidate evidence is read.
+    """
+    registry = registry or default_registry()
+    if not contains_alternative_marker(text) or is_structurally_mixed(text, registry):
+        return None
+    segments = _split_alternative_segments(text)
+    if len(segments) < 2:
+        return None
+    canonical: str | None = None
+    for segment in segments:
+        core_term = clean_list_fragment(segment)
+        if core_term is None:
+            return None
+        resolved = _resolve_segment(segment, registry)
+        if resolved is None or len(resolved) != 1 or registry.get(resolved[0]) is None:
+            return None
+        whole_alias = resolve_concept(core_term, registry=registry)
+        if not whole_alias.matched or whole_alias.concept_id != resolved[0]:
+            return None
+        if canonical is None:
+            canonical = resolved[0]
+        elif resolved[0] != canonical:
+            return None
+    mentions = find_concept_mentions(text, registry=registry)
+    if {m.concept_id for m in mentions} != {canonical} or find_conservative_unknown_terms(text, mentions):
+        return None
+    return canonical
+
+
 def classify_alternative_claim(text: str, registry=None) -> AlternativeClaim:
     registry = registry or default_registry()
+    result = _classify_alternative_structure(text, registry)
+    # Milestone 11-G22-Q -- an `unsafe` result whose alternatives are all
+    # aliases of one canonical concept is routed to the ordinary
+    # single-concept path. Nothing else is converted.
+    if result.kind == "unsafe" and equivalent_alias_concept_id(text, registry) is not None:
+        return AlternativeClaim(kind="not_technical")
+    return result
 
+
+def _classify_alternative_structure(text: str, registry) -> AlternativeClaim:
+    """The v14 classification (unchanged): 10D trigger path, ordinary
+    bare-"or" path, G17 mixed containment."""
     # Milestone 10D -- Root Cause 4's explicit ANY-of trigger path is
     # tried FIRST: it has no literal-"or" requirement at all, and its
     # own list region must be judged on its own, not re-mixed with

@@ -38,6 +38,7 @@ def controls():
 # test_report_is_reproducible checks the explicit v12-vs-v13 relationship.
 G15_REPORT_PARSER_VERSION = "job_description_parser:v12"
 K1 = "m11g15-K1"
+I1 = "m11g15-I1"
 
 
 @pytest.fixture(scope="module")
@@ -87,10 +88,22 @@ def test_report_is_reproducible(report):
         return
     # M11-G21 (v14): the qualification-intent guard changes no G15 control, so the v13
     # assertions below apply to v14 unchanged.
-    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14")
+    assert JOB_DESCRIPTION_PARSER_VERSION in ("job_description_parser:v13", "job_description_parser:v14",
+                                              "job_description_parser:v15")
+    v15 = JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15"
     for cid, result in report["results"].items():
-        if cid != K1:
+        if cid != K1 and not (v15 and cid == I1):
             assert live["results"][cid] == result, cid
+    if v15:
+        # M11-G22-Q (v15): I1 "Kubernetes or k8s" (gold structure: alias) is ONE infra.kubernetes row
+        # instead of a not-assessable placeholder -- exactly the I1 gold, under every policy.
+        assert [r["category"] for r in report["results"][I1]["rows"]] == ["alternative_requirement"]
+        assert [(r["concepts"], r["covers_gold"], r["necessity"]) for r in live["results"][I1]["rows"]] == \
+            [(["infra.kubernetes"], ["g1"], "required")]
+        for cand, status, score in (("k8s_evidence", "supported", 100), ("neither", "not_observed", 0)):
+            for policy, got in live["results"][I1]["candidates"][cand]["policies"].items():
+                assert report["results"][I1]["candidates"][cand]["policies"][policy]["score"] is None, policy
+                assert (got["per_gold"]["g1"]["status"], got["score"], got["assessable"]) == (status, score, 1), policy
     assert live["frozen_8c_matrices"] == report["frozen_8c_matrices"]
     k1_live = live["results"][K1]["candidates"]["python_only"]["policies"]["A_production"]["per_gold"]["g1"]
     k1_v12 = report["results"][K1]["candidates"]["python_only"]["policies"]["A_production"]["per_gold"]["g1"]

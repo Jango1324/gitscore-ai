@@ -48,7 +48,9 @@ def test_parser_version_bumped_to_v10():
     # own purpose is unaffected -- only the literal tracks the current version.
     # M11-G21 then bumped v13 -> v14 (qualification_intent.py admission guard + necessity.refine_necessity);
     # this test's own purpose is unaffected -- only the literal tracks the current version.
-    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v14"
+    # M11-G22-Q then bumped v14 -> v15 (alternatives.py canonical alias equivalence); this test's
+    # own purpose is unaffected -- only the literal tracks the current version.
+    assert JOB_DESCRIPTION_PARSER_VERSION == "job_description_parser:v15"
 
 
 def _outcome(doc_text: str):

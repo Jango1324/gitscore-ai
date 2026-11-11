@@ -1,5 +1,64 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-10 — Milestone 11-G22-Q: canonical alias-equivalence correction (parser v15)
+
+**What changed:** One production logic change plus a version label, committed as "fix: canonicalize equivalent technology alternatives" after authorization.
+
+- **`src/gitscore/jobs/parsing/alternatives.py`:**
+  - new `equivalent_alias_concept_id()`;
+  - `classify_alternative_claim()` now runs the unchanged v14 classification (renamed `_classify_alternative_structure`) and converts only an `unsafe` result with an established equivalence into `not_technical`.
+- **`src/gitscore/jobs/parsing/parser.py`:** `JOB_DESCRIPTION_PARSER_VERSION` `v14` → `v15`, the label only.
+- **Unchanged:** scoring `github_evidence_alignment:v2`, matcher, extractors, registry, concepts.py, qualification_intent.py, necessity.py, segmentation.py, schemas, API and frontend.
+- **Tests:**
+  - `tests/test_m11g22q_canonical_alias_equivalence.py` (75 tests, written red-first against v14);
+  - explicit v15 branches in 14 existing test files.
+- **Evaluation:**
+  - `scripts/evaluate_m11g22q_v14_v15.py`;
+  - `scripts/evaluation_lib/m11g22q_parser_dump.py`;
+  - `evaluation/m11g22q/v14_v15_comparison.json`;
+  - `evaluation/m11g22q/private_v14_v15_aggregates.json` (counts only).
+- **Doc:** `docs/evaluation/MILESTONE_11_G22Q_CANONICAL_ALIAS_EQUIVALENCE.md`.
+
+**Why:** An OR between aliases of one concept ("Kubernetes or k8s", "Go or Golang") left fewer than two distinct ids. It was therefore classified `unsafe` and became a NOT_ASSESSABLE placeholder for a requirement that names exactly one technology. This contradicted the frozen gold of G15-I1, G18-16 and G13-o007, and G22's class-D controls. This is G22's Option Q, the only approved option.
+
+**How it works:** An equivalence is established from canonical registry identity only. All of these must hold:
+
+- the claim has a literal "or" and is not G17-structurally mixed;
+- there are at least two alternatives, and each is a bare list item;
+- each alternative resolves independently to the same registered id;
+- each alternative is that id's alias in its entirety (`resolve_concept`);
+- a full-claim scan finds only that id.
+
+The parser's ordinary path then builds one `concept_id` row with the original text, span and necessity. Relation edges, similarity and candidate evidence are never consulted.
+
+The "whole alias" condition was added during implementation. Without it, the real comparison merged G13-o012 "Docker or Docker Compose" (gold: related, non-equivalent) through the embedded "Docker".
+
+**Measured** (real pinned v14 `fad7c6d` in a clone vs v15 working tree; real parser, matcher, scoring v2 and API serializer):
+
+- 3 tracked placeholders recovered: G15-I1, G18-16 and G13-o007. Each now matches its frozen gold or expected scores.
+- 88/88 OR groups preserved. 0 other row or UnparsedClaim changes.
+- MatchStatus: not_assessable → supported ×2 and → not_observed ×2. No kept-row status change.
+- Denominators: G15 19 → 21, G18 50 → 52. 4 scores became defined; 0 became undefined.
+- 0 new false SUPPORTED. G16 claim-level false SUPPORTED stays 7 → 7.
+- 0 changes on frozen 8c v1/v1.1, M10, M10D, M10E, G6, G7, G16, G20 and G21.
+- G22 synthetic controls: EVAL exact 22 → 25 of 44 (DEV 29 → 30 of 45). False registered, fabricated `unresolved:` and false SUPPORTED are all unchanged.
+- 62 previously inspected private postings: 0 changed. These are not independent validation.
+- The pinned clone reproduces G22's committed report byte-identically.
+
+**Risks / limitations:**
+
+- **Divergence from G22's simulation:** e25 "Bash or shell scripting" is not recovered, because "shell scripting" is not a registry alias.
+- **Conservative recall:** when the first alternative carries lead-in prose ("3+ years of experience with Kubernetes or k8s") or a trailing "(preferred)", the claim stays a placeholder, as in v14.
+- **Registry aliases are trusted:** "PyTorch or Torch" becomes one PyTorch row.
+- **Out of scope and unchanged:** G22's false registered and fabricated concepts, bare "Go" and M10E-g3's counted SQL row.
+- **Research-only guards:** five `git diff --quiet HEAD -- src` guards (G13, G15, G16, G18, G20) failed while the production change was uncommitted. They pass once it is committed.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22q_canonical_alias_equivalence.py`
+- `python scripts/evaluate_m11g22q_v14_v15.py --private-corpora`
+- `python -m pytest tests`
+
 ## 2026-11-10 — Milestone 11-G22: technical concept recognition precision (research only; no production change)
 
 **What changed:** Research only. No `src/` change. The parser stays v14, scoring stays v2, and the matcher and extractors are unchanged. Committed as a research-only commit after authorization.

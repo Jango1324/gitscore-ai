@@ -6,6 +6,7 @@
 - Committed as a research-only commit ("test: evaluate technical concept recognition precision") after authorization. No Q, A, B, C2 or G option is implemented.
 - The DEV and EVAL freezes are registered in the G14 manifest at that commit, using their original pre-evaluation hashes (15 → 17 entries). Their freeze records keep their freeze-time note ("NOT registered … pending authorization"), which was true when they were written.
 - No LLM is called anywhere.
+- **Follow-up:** Option Q alone was later implemented as M11-G22-Q (parser v15). That change has its own doc, `MILESTONE_11_G22Q_CANONICAL_ALIAS_EQUIVALENCE.md`, and its real outcome differs from the simulation on e25. This G22 record and its frozen outputs are unchanged.
 
 **Honesty notes:**
 
