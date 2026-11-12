@@ -61,7 +61,15 @@ def test_controls_are_frozen_and_registered_with_their_original_hashes(split, sh
     assert (entry["freeze_record"], entry["historical_raw_sha256"], entry["canonical_sha256"],
             entry["historical_newline_form"], entry["canonical_length_bytes"]) == \
         (f"evaluation/m11g22r/{split}_hash_freeze.json", sha, sha, "lf", rec["length_bytes"])
-    assert len(manifest["entries"]) == 19
+    # Later research commits may only ADD entries (M11-G22-R2: 19 -> 21), so the historical fact is pinned exactly:
+    # the manifest at G22-R's commit had 19 entries, and every one of them is still present, field for field.
+    import subprocess
+    at_g22r = json.loads(subprocess.run(
+        ["git", "show", "13f79fe04ec7d962e3e94ddd0a1003b8dab999f8:evaluation/integrity/canonical_hash_manifest.json"],
+        cwd=ROOT, check=True, capture_output=True).stdout)
+    rel = f"evaluation/m11g22r/alias_evidence_controls_{split}.json"
+    assert len(at_g22r["entries"]) == 19 and at_g22r["entries"][rel] == entry
+    assert all(manifest["entries"][k] == v for k, v in at_g22r["entries"].items())
 
 
 def test_policy_design_freeze_matches_the_files_and_records_the_errata():

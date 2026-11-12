@@ -1,0 +1,129 @@
+{
+ "note": "previously inspected private postings -- NOT independent validation; integer counts only; job postings only (README policies cannot reach job parsing)",
+ "Dref_g22r_policy_d": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ },
+ "B_revised_context_rules": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ },
+ "C_alias_collocates": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ },
+ "D_hybrid_use_frames": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ },
+ "E_corroboration_interpretation": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ },
+ "F_conservative_fallback": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ },
+ "D2_posthoc_d_plus_lead_ins": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ }
+}

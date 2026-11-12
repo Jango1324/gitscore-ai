@@ -1,0 +1,921 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G22-R2 (README evidence context and confidence)",
+  "split": "eval",
+  "provenance": "author-created synthetic READMEs and repository artifacts; no real README, posting, employer or private material",
+  "authorship_disclosure": "Written by the same researcher who designs the G22-R2 candidate policies; NOT an independent validation set.",
+  "label_timing": "authored with DEV but kept unrun until the G22-R2 policy design freeze; same author, so only weakly held out",
+  "label_classes": [
+    "ordinary",
+    "reference",
+    "use",
+    "historical",
+    "future",
+    "negated",
+    "ambiguous"
+  ],
+  "controls": [
+    {
+      "id": "m11g22r2-e01",
+      "split": "eval",
+      "family": "ordinary",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# alerts\n\nHelps teams react faster to alerts.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e02",
+      "split": "eval",
+      "family": "ordinary_sentence_initial",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# parcels\n\nExpress delivery tracking for parcels.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e03",
+      "split": "eval",
+      "family": "ordinary",
+      "probe": "language.rust",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# photo-fix\n\nRemoves rust from vintage photos.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e04",
+      "split": "eval",
+      "family": "ordinary_capitalised",
+      "probe": "language.ruby",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# named\n\nNamed after Ruby, my grandmother.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.ruby": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e05",
+      "split": "eval",
+      "family": "ordinary_capitalised",
+      "probe": "language.java",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# trip\n\nPhotos from our trip to Java and Bali.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.java": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e06",
+      "split": "eval",
+      "family": "ordinary_sentence_initial",
+      "probe": "framework.flask",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# chem\n\nShake the flask before measuring.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.flask": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e07",
+      "split": "eval",
+      "family": "ordinary",
+      "probe": "data.library.pandas",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# adopt\n\nAdopt-a-panda donations site; pandas need bamboo.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "data.library.pandas": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e08",
+      "split": "eval",
+      "family": "ordinary",
+      "probe": "ml.framework.pytorch",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# night-hike\n\nBring a torch for the night hike.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "ml.framework.pytorch": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e09",
+      "split": "eval",
+      "family": "ordinary",
+      "probe": "language.swift",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# reply-bot\n\nA swift reply bot for support tickets.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.swift": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e10",
+      "split": "eval",
+      "family": "ordinary_sentence_initial",
+      "probe": "language.shell",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# tides\n\nShell collection photographed at low tide.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.shell": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e11",
+      "split": "eval",
+      "family": "ordinary_sentence_initial",
+      "probe": "language.python",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# everglades\n\nPython sightings in the Everglades, mapped.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.python": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e12",
+      "split": "eval",
+      "family": "ordinary_sentence_initial",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# stickers\n\nExpress yourself with custom stickers.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e13",
+      "split": "eval",
+      "family": "genuine_use",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# spa\n\nSingle-page app using React hooks.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "use"
+      },
+      "used": [
+        "framework.react"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e14",
+      "split": "eval",
+      "family": "genuine_use",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# auth-api\n\nREST API on Express with JWT auth.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "use"
+      },
+      "used": [
+        "framework.express"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e15",
+      "split": "eval",
+      "family": "genuine_use",
+      "probe": "language.rust",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# imgdiff\n\nFast image diffing in Rust.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "use"
+      },
+      "used": [
+        "language.rust"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e16",
+      "split": "eval",
+      "family": "genuine_use",
+      "probe": "language.ruby",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# invoices\n\nRuby gem for parsing invoices.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.ruby": "use"
+      },
+      "used": [
+        "language.ruby"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e17",
+      "split": "eval",
+      "family": "genuine_use",
+      "probe": "language.java",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# orders\n\nSpring Boot service in Java.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.java": "use"
+      },
+      "used": [
+        "language.java"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e18",
+      "split": "eval",
+      "family": "genuine_use",
+      "probe": "framework.flask",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# mini-api\n\nMinimal Flask API with SQLite.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.flask": "use"
+      },
+      "used": [
+        "framework.flask"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e19",
+      "split": "eval",
+      "family": "genuine_use_lowercase",
+      "probe": "data.library.pandas",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# csv-clean\n\nCleans CSV files with pandas.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "data.library.pandas": "use"
+      },
+      "used": [
+        "data.library.pandas"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e20",
+      "split": "eval",
+      "family": "genuine_use_lowercase",
+      "probe": "ml.framework.pytorch",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# cifar\n\nFine-tunes a torch model on CIFAR-10.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "ml.framework.pytorch": "use"
+      },
+      "used": [
+        "ml.framework.pytorch"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e21",
+      "split": "eval",
+      "family": "genuine_use",
+      "probe": "language.swift",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# dates\n\nSwift package for date formatting.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.swift": "use"
+      },
+      "used": [
+        "language.swift"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e22",
+      "split": "eval",
+      "family": "genuine_use_lowercase",
+      "probe": "language.shell",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# provision\n\nProvisioning shell scripts for Debian.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.shell": "use"
+      },
+      "used": [
+        "language.shell"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e23",
+      "split": "eval",
+      "family": "genuine_use_no_cue",
+      "probe": "language.python",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# plots\n\nShips a small python plotting helper.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.python": "use"
+      },
+      "used": [
+        "language.python"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e24",
+      "split": "eval",
+      "family": "future_hypothetical",
+      "probe": "language.rust",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# codec\n\nA C codec. Bindings for Rust are planned.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "future"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e25",
+      "split": "eval",
+      "family": "reference_only",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# router\n\nAPI design borrowed from Express.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "reference"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e26",
+      "split": "eval",
+      "family": "future",
+      "probe": "language.swift",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# notes-app\n\nWill be ported to Swift later.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.swift": "future"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e27",
+      "split": "eval",
+      "family": "future",
+      "probe": "framework.flask",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# v2-plan\n\nEvaluating Flask versus FastAPI for v2.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.fastapi": "future",
+        "framework.flask": "future"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e28",
+      "split": "eval",
+      "family": "historical",
+      "probe": "language.java",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# migrated\n\nOriginally written in Java; now pure Kotlin.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.java": "historical",
+        "language.kotlin": "use"
+      },
+      "used": [
+        "language.kotlin"
+      ],
+      "uncertain": [
+        "language.java"
+      ],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e29",
+      "split": "eval",
+      "family": "negated",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# vanilla\n\nWe no longer use React.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "negated"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e30",
+      "split": "eval",
+      "family": "quoted_ordinary",
+      "probe": "ml.framework.pytorch",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# motto\n\nOur motto: \"pass the torch\".\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "ml.framework.pytorch": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e31",
+      "split": "eval",
+      "family": "corroborated_language",
+      "probe": "language.ruby",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# rb-tool\n\nA Ruby script for renaming photos.\n",
+          "languages": {
+            "Ruby": 9000
+          },
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.ruby": "use"
+      },
+      "used": [
+        "language.ruby"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e32",
+      "split": "eval",
+      "family": "corroborated_manifest",
+      "probe": "data.library.pandas",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# eda\n\nAnalysis with pandas.\n",
+          "languages": {},
+          "files": {
+            "requirements.txt": "pandas==2.2.0\n"
+          }
+        }
+      ],
+      "concepts": {
+        "data.library.pandas": "use"
+      },
+      "used": [
+        "data.library.pandas"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e33",
+      "split": "eval",
+      "family": "corroborated_docker",
+      "probe": "infra.docker",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# svc\n\nContainerised with Docker.\n",
+          "languages": {},
+          "files": {
+            "Dockerfile": "FROM alpine:3.20\n"
+          }
+        }
+      ],
+      "concepts": {
+        "infra.docker": "use"
+      },
+      "used": [
+        "infra.docker"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e34",
+      "split": "eval",
+      "family": "readme_only_use",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# site\n\nThe frontend uses React.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "use"
+      },
+      "used": [
+        "framework.react"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e35",
+      "split": "eval",
+      "family": "multi_repo_use",
+      "probe": "language.rust",
+      "pair": null,
+      "repos": [
+        {
+          "name": "crate-a",
+          "readme": "# crate-a\n\nA Rust crate.\n",
+          "languages": {},
+          "files": {}
+        },
+        {
+          "name": "crate-b",
+          "readme": "# crate-b\n\nA Rust crate.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "use"
+      },
+      "used": [
+        "language.rust"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e36",
+      "split": "eval",
+      "family": "conflicting",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# gateway\n\nBuilt with Express.\n",
+          "languages": {},
+          "files": {
+            "package.json": "{\"dependencies\": {\"koa\": \"^2.15.0\"}}"
+          }
+        }
+      ],
+      "concepts": {
+        "framework.express": "ambiguous"
+      },
+      "used": [],
+      "uncertain": [
+        "framework.express"
+      ],
+      "note": "README claims Express; the manifest lists only Koa"
+    },
+    {
+      "id": "m11g22r2-e37",
+      "split": "eval",
+      "family": "ordinary_readme_corroborated_use",
+      "probe": "language.rust",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# toolbox\n\nKeeps tools free of rust.\n",
+          "languages": {
+            "Rust": 9000
+          },
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "ordinary"
+      },
+      "used": [
+        "language.rust"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e38",
+      "split": "eval",
+      "family": "pair_ordinary_sentence_initial",
+      "probe": "framework.express",
+      "pair": "express-initial",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# checkout\n\nExpress checkout for the shop.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e39",
+      "split": "eval",
+      "family": "pair_use_sentence_initial",
+      "probe": "framework.express",
+      "pair": "express-initial",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# logger\n\nExpress middleware for logging.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "use"
+      },
+      "used": [
+        "framework.express"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-e40",
+      "split": "eval",
+      "family": "pair_use",
+      "probe": "language.swift",
+      "pair": "swift-guide",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# knots\n\nA guide written in Swift for iOS developers.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.swift": "use"
+      },
+      "used": [
+        "language.swift"
+      ],
+      "uncertain": [],
+      "note": ""
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "milestone": "M11-G22-R2",
+  "frozen_at_utc": "2026-11-11T21:57:07Z",
+  "canonical_contract": "crlf-to-lf/v1",
+  "note": "Policy design (B, C, D, E, F; Dref = committed G22-R policy D) frozen after DEV design and BEFORE the EVAL controls were run by any GitScore code. Hashes are of the LF-canonical bytes.",
+  "files": {
+    "scripts/evaluation_lib/m11g22r2_policies.py": "7c40a44ec8676dfee30191231772cb5f584ac7fa4b9bfa40b2fcc3164c97371c",
+    "scripts/evaluation_lib/m11g22r2_harness.py": "7c5b9a59a96171331b51f0c6af2a01acc4c95260022b0f32be4f8b090113f699",
+    "scripts/evaluation_lib/m11g22r_policies.py": "e0efd597e8a37713d9ecca6e6f88277c94be9b9468215f483c5115b9d8ad6729",
+    "scripts/evaluation_lib/m11g22r_harness.py": "bce3687fce89d6be5d4221f3e4189e7dd04387b67ddf04af98de86ff09aa2ba9",
+    "scripts/evaluation_lib/m11g22_policies.py": "58a582b7053db888e440a4cc3ff864c003f4079b8a41aa74b694569bd4bbfb29"
+  },
+  "design_changes_made_on_dev_before_this_freeze": [
+    "E's snippet check limited to claim-of-use frame / version / inline code: provenance snippets are whitespace-collapsed, so heading structure cannot be recovered from them (the first version treated every snippet as a heading line and dropped nothing)"
+  ],
+  "authorship_disclosure": "EVAL was written by the same researcher before the policies; non-use frames were written from DEV phrasings only, but the author had seen EVAL's wording.",
+  "post_hoc_changes": []
+}

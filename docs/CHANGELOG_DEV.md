@@ -1,5 +1,52 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-11 — Milestone 11-G22-R2: README evidence context and confidence (research only; no production change)
+
+**What changed:** Research and design only, committed as a research-only commit ("test: evaluate README evidence context precision") after authorization.
+
+- **Unchanged:** `src/` and registry data; parser v15, scoring v2, matcher v1, `readme:v4`, registry 4.
+- **Controls:** new frozen synthetic README control sets, DEV (44) and EVAL (40), with use / reference / future / historical / negated / ordinary labels, G14 portable freezes registered in the canonical manifest at the research commit with their original freeze-time hashes (19 → 21 entries; the previous 19 unchanged), and a policy-design freeze taken before EVAL ran.
+- **Research code:** offline policy adapters A–F, a post-hoc variant D2 (not validated), a harness over the real evidence pipeline, a runner, and a pytest plugin that measures existing tests under each policy.
+- **Outputs:** a public report and counts-only private aggregates.
+- **Tests:** 21 research tests. G22-R's hard-coded "manifest has exactly 19 entries" assertion (`tests/test_m11g22r_ambiguous_alias_evidence.py`) now pins the manifest at G22-R's commit `13f79fe` (19 entries, all still present field for field) instead.
+- **Doc:** `docs/evaluation/MILESTONE_11_G22R2_README_EVIDENCE_CONTEXT.md`.
+
+**Accepted interpretation:** policy D is the recommended baseline for a future `readme:v5`, **not an approved production fix**. D2's blanket preposition cues are not authorized. Registry v4, aliases and G19 capability stay unchanged; matcher v1 and scoring v2 stay unchanged. A README claim is not proof of competence. Fresh, preferably independently authored validation is required before a production commit.
+
+**Why:** G22-R showed that `readme:v4` turns ordinary English, references and future plans into MODERATE README evidence. That evidence alone makes a requirement SUPPORTED.
+
+**How it works:** Policies wrap the existing per-occurrence filter `readme.is_non_implementation_mention`. Policy E additionally reinterprets the profile. The job parser, registry and capability are never touched (verified).
+
+**Measured** (false SUPPORTED, DEV / EVAL):
+
+| Policy | False SUPPORTED | Genuine use claims kept, EVAL |
+|---|---|---|
+| Current | 21 / 18 | 19/19 |
+| G22-R D (README side) | 8 / 6 | 14/19 |
+| D (per-alias collocates + non-use frames) | 0 / 1 | 16/19, with all ordinary text rejected |
+| E, F (corroboration / strict) | 0 / 0 | 5/19 |
+
+- D's non-use frames generalised to none of EVAL's phrasings; the collocates do the work.
+- D loses three genuine EVAL use claims: "image diffing in Rust", "python plotting helper" and "Analysis with pandas" (the last stays SUPPORTED via the manifest). These are separate from G22-R's own controls (baseline 21 / 20), where D loses "with pandas", "trained with torch" and "store in Rust".
+- **Real 8c (simulated, not deployed):** `readme:v4` credits torvalds with Java, Ruby, Rust and Swift from libgit2's list of other projects' bindings. Under D those would be removed and torvalds/systems_cpp_01 would go 67 → 33, a correction (post-hoc review, not independent gold). D has one genuine occurrence loss (Gifski Rust; the concept stays evidenced).
+- All 126 real README items are MODERATE; 32 have neither a use claim nor corroboration.
+
+**Risks / limitations:**
+
+- The synthetic controls were written by the same author, so they are not independent. EVAL is weakly held out.
+- **Unresolved by local rules:**
+  - capitalised homonyms next to generic collocates ("A Java coffee app");
+  - "in X" place versus use (D2 trade-off);
+  - unseen reference phrasing ("borrowed from Express");
+  - lowercase genuine mentions with no collocate.
+- D2 is post-hoc and not validated.
+- G21-n10 is a job-side case (G22 B head nouns) that README policies cannot reach.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22r2_readme_evidence_context.py`
+- `python scripts/evaluate_m11g22r2_readme_context.py --private-corpora`
+
 ## 2026-11-11 — Milestone 11-G22-R: ambiguous alias and README evidence audit (research only; no production change)
 
 **What changed:** Research only, committed as a research-only commit ("test: evaluate ambiguous alias README evidence") after authorization.

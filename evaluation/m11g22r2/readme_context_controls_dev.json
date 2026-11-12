@@ -1,0 +1,1005 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G22-R2 (README evidence context and confidence)",
+  "split": "dev",
+  "provenance": "author-created synthetic READMEs and repository artifacts; no real README, posting, employer or private material",
+  "authorship_disclosure": "Written by the same researcher who designs the G22-R2 candidate policies; NOT an independent validation set.",
+  "label_timing": "labels frozen before any production run; G22-R2 policies are designed against this set",
+  "label_classes": [
+    "ordinary",
+    "reference",
+    "use",
+    "historical",
+    "future",
+    "negated",
+    "ambiguous"
+  ],
+  "controls": [
+    {
+      "id": "m11g22r2-d01",
+      "split": "dev",
+      "family": "ordinary",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# oncall-kit\n\nChecklists that help you react quickly to incidents.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d02",
+      "split": "dev",
+      "family": "ordinary",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# city-rail\n\nTimetables for local and express trains in the city.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d03",
+      "split": "dev",
+      "family": "ordinary",
+      "probe": "language.rust",
+      "pair": "rust-free-of",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# bike-care\n\nKeeps bike chains free of rust.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d04",
+      "split": "dev",
+      "family": "ordinary_capitalised",
+      "probe": "language.ruby",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# museum\n\nShows the Ruby gemstone collection of the city museum.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.ruby": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d05",
+      "split": "dev",
+      "family": "ordinary_capitalised",
+      "probe": "language.java",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# travel-notes\n\nTravel notes: Java is an island in Indonesia.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.java": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d06",
+      "split": "dev",
+      "family": "ordinary",
+      "probe": "framework.flask",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# lab-stock\n\nInventory of every flask for experiments in our lab.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.flask": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d07",
+      "split": "dev",
+      "family": "ordinary_sentence_initial",
+      "probe": "data.library.pandas",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# forest-log\n\nPandas live in the forest; this app logs sightings.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "data.library.pandas": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d08",
+      "split": "dev",
+      "family": "ordinary",
+      "probe": "ml.framework.pytorch",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# maintainers\n\nMaintainers pass the torch each spring.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "ml.framework.pytorch": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d09",
+      "split": "dev",
+      "family": "ordinary_sentence_initial",
+      "probe": "language.swift",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# birds\n\nSwift and swallow migration tracker.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.swift": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d10",
+      "split": "dev",
+      "family": "ordinary",
+      "probe": "language.shell",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# museum-photos\n\nEach shell in the museum is photographed twice.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.shell": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d11",
+      "split": "dev",
+      "family": "ordinary",
+      "probe": "language.python",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# reptiles\n\nFeeding log for Monty the python.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.python": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d12",
+      "split": "dev",
+      "family": "ordinary",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# feedback\n\nPlease express interest by opening an issue.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d13",
+      "split": "dev",
+      "family": "genuine_use",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# ui-kit\n\nA library built on React component architecture.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "use"
+      },
+      "used": [
+        "framework.react"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d14",
+      "split": "dev",
+      "family": "genuine_use",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# hooks-server\n\nA small Express.js server for webhooks.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "use"
+      },
+      "used": [
+        "framework.express"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d15",
+      "split": "dev",
+      "family": "genuine_use",
+      "probe": "language.rust",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# renamer\n\nA Rust command-line tool for renaming files.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "use"
+      },
+      "used": [
+        "language.rust"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d16",
+      "split": "dev",
+      "family": "genuine_use",
+      "probe": "language.ruby",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# digest\n\nA Ruby application that sends daily digests.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.ruby": "use"
+      },
+      "used": [
+        "language.ruby"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d17",
+      "split": "dev",
+      "family": "genuine_use",
+      "probe": "language.java",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# resizer\n\nA Java service that resizes images.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.java": "use"
+      },
+      "used": [
+        "language.java"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d18",
+      "split": "dev",
+      "family": "genuine_use",
+      "probe": "framework.flask",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# chores\n\nA Flask web application for tracking chores.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.flask": "use"
+      },
+      "used": [
+        "framework.flask"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d19",
+      "split": "dev",
+      "family": "genuine_use_lowercase",
+      "probe": "data.library.pandas",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# sales-batch\n\nBatch pandas DataFrame processing for sales exports.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "data.library.pandas": "use"
+      },
+      "used": [
+        "data.library.pandas"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d20",
+      "split": "dev",
+      "family": "genuine_use",
+      "probe": "ml.framework.pytorch",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# digits\n\nA PyTorch model for digit recognition.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "ml.framework.pytorch": "use"
+      },
+      "used": [
+        "ml.framework.pytorch"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d21",
+      "split": "dev",
+      "family": "genuine_use_lowercase",
+      "probe": "ml.framework.pytorch",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# tiny-cnn\n\nTrains a small CNN with torch and torchvision.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "ml.framework.pytorch": "use"
+      },
+      "used": [
+        "ml.framework.pytorch"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d22",
+      "split": "dev",
+      "family": "genuine_use_no_cue",
+      "probe": "language.python",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# audio-fx\n\nIncludes a python visualizer for the generated audio.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.python": "use"
+      },
+      "used": [
+        "language.python"
+      ],
+      "uncertain": [],
+      "note": "G22-R real-README case (AudioNoise) paraphrased"
+    },
+    {
+      "id": "m11g22r2-d23",
+      "split": "dev",
+      "family": "future_hypothetical",
+      "probe": "language.rust",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# mathlib\n\nA small math library. Rust bindings can be generated with bindgen.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "future"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d24",
+      "split": "dev",
+      "family": "reference_only",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# viewlet\n\nA tiny view layer inspired by React.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "reference"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d25",
+      "split": "dev",
+      "family": "future",
+      "probe": "language.java",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# ledger\n\nWe are migrating this tool to Java.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.java": "future"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d26",
+      "split": "dev",
+      "family": "future",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# planner\n\nConsidering Express for the backend next quarter.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "future"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d27",
+      "split": "dev",
+      "family": "historical",
+      "probe": "language.ruby",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# legacy\n\nThis project previously used Ruby.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.ruby": "historical"
+      },
+      "used": [],
+      "uncertain": [
+        "language.ruby"
+      ],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d28",
+      "split": "dev",
+      "family": "negated",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# plain-ui\n\nThis project does not use React.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "negated"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d29",
+      "split": "dev",
+      "family": "quoted_ordinary",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# logs\n\nThe error message said \"react quickly or lose data\".\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d30",
+      "split": "dev",
+      "family": "corroborated_manifest",
+      "probe": "framework.flask",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# notes-api\n\nBuilt with Flask.\n",
+          "languages": {},
+          "files": {
+            "requirements.txt": "flask==3.0.0\n"
+          }
+        }
+      ],
+      "concepts": {
+        "framework.flask": "use"
+      },
+      "used": [
+        "framework.flask"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d31",
+      "split": "dev",
+      "family": "corroborated_language",
+      "probe": "language.rust",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# fsearch\n\nA Rust tool for searching files.\n",
+          "languages": {
+            "Rust": 9000
+          },
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "use"
+      },
+      "used": [
+        "language.rust"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d32",
+      "split": "dev",
+      "family": "corroborated_docker",
+      "probe": "infra.docker",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# deploy\n\nRuns in Docker.\n",
+          "languages": {},
+          "files": {
+            "Dockerfile": "FROM alpine:3.20\n"
+          }
+        }
+      ],
+      "concepts": {
+        "infra.docker": "use"
+      },
+      "used": [
+        "infra.docker"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d33",
+      "split": "dev",
+      "family": "readme_only_use",
+      "probe": "framework.express",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# backend\n\nBackend written in Express.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "use"
+      },
+      "used": [
+        "framework.express"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d34",
+      "split": "dev",
+      "family": "multi_repo_use",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "web-a",
+          "readme": "# web-a\n\nUses React for the UI.\n",
+          "languages": {},
+          "files": {}
+        },
+        {
+          "name": "web-b",
+          "readme": "# web-b\n\nUses React for the UI.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.react": "use"
+      },
+      "used": [
+        "framework.react"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d35",
+      "split": "dev",
+      "family": "conflicting",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# shop\n\nBuilt with React.\n",
+          "languages": {},
+          "files": {
+            "package.json": "{\"dependencies\": {\"vue\": \"^3.4.0\"}}"
+          }
+        }
+      ],
+      "concepts": {
+        "framework.react": "ambiguous"
+      },
+      "used": [],
+      "uncertain": [
+        "framework.react"
+      ],
+      "note": "README claims React; the manifest lists only Vue"
+    },
+    {
+      "id": "m11g22r2-d36",
+      "split": "dev",
+      "family": "ordinary_readme_corroborated_use",
+      "probe": "framework.react",
+      "pair": null,
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# dash\n\nHelps operators react quickly to alerts.\n",
+          "languages": {},
+          "files": {
+            "package.json": "{\"dependencies\": {\"react\": \"^18.3.0\"}}"
+          }
+        }
+      ],
+      "concepts": {
+        "framework.react": "ordinary"
+      },
+      "used": [
+        "framework.react"
+      ],
+      "uncertain": [],
+      "note": "README occurrence is ordinary; React use is established by the manifest"
+    },
+    {
+      "id": "m11g22r2-d37",
+      "split": "dev",
+      "family": "pair_use",
+      "probe": "language.rust",
+      "pair": "rust-free-of",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# safe-io\n\nWritten in Rust, free of unsafe code.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.rust": "use"
+      },
+      "used": [
+        "language.rust"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d38",
+      "split": "dev",
+      "family": "pair_ordinary",
+      "probe": "framework.express",
+      "pair": "express-and",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# rail-b\n\nLocal and express services every hour.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d39",
+      "split": "dev",
+      "family": "pair_use",
+      "probe": "framework.express",
+      "pair": "express-and",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# api-b\n\nA Node and Express backend.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "framework.express": "use"
+      },
+      "used": [
+        "framework.express"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d40",
+      "split": "dev",
+      "family": "pair_ordinary_capitalised",
+      "probe": "language.java",
+      "pair": "java-cap",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# coffee\n\nJava coffee recipes from our cafe.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.java": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d41",
+      "split": "dev",
+      "family": "pair_use",
+      "probe": "language.java",
+      "pair": "java-cap",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# android\n\nA Java and Kotlin Android app.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.java": "use",
+        "language.kotlin": "use"
+      },
+      "used": [
+        "language.java",
+        "language.kotlin"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d42",
+      "split": "dev",
+      "family": "pair_ordinary",
+      "probe": "language.ruby",
+      "pair": "ruby",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# jewels\n\nA ruby ring photographed in macro.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.ruby": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d43",
+      "split": "dev",
+      "family": "pair_use",
+      "probe": "language.ruby",
+      "pair": "ruby",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# rails-app\n\nA Ruby on Rails app for book clubs.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "language.ruby": "use"
+      },
+      "used": [
+        "language.ruby"
+      ],
+      "uncertain": [],
+      "note": ""
+    },
+    {
+      "id": "m11g22r2-d44",
+      "split": "dev",
+      "family": "pair_ordinary",
+      "probe": "ml.framework.pytorch",
+      "pair": "torch",
+      "repos": [
+        {
+          "name": "r1",
+          "readme": "# hike\n\nBring a torch and water for the trail.\n",
+          "languages": {},
+          "files": {}
+        }
+      ],
+      "concepts": {
+        "ml.framework.pytorch": "ordinary"
+      },
+      "used": [],
+      "uncertain": [],
+      "note": ""
+    }
+  ]
+}

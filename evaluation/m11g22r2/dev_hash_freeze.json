@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g22r2/readme_context_controls_dev.json",
+  "sha256": "18c21a505a472182b2d3fd5bc23d29957a1806834108ed58e7aef19d7307b12b",
+  "sha256_lf_normalized": "18c21a505a472182b2d3fd5bc23d29957a1806834108ed58e7aef19d7307b12b",
+  "length_bytes": 22876,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-11T21:54:40Z",
+  "note": "Labels frozen BEFORE any GitScore parser, extractor, matcher or G22-R2 policy ran on this set. NOT registered in the canonical manifest (pending authorization)."
+}
