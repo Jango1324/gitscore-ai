@@ -1,0 +1,12 @@
+{
+  "author": "separate Claude subagent instance (same model family as the policy author; NOT human-independent)",
+  "author_inputs": "classification task, alias/concept list, artifact rules (5% language floor; parsed manifests), output schema, required case coverage; NO Policy D rules, collocates, frames, code, tests or results; instructed to use no tool except writing its two output files",
+  "author_tool_calls": "Write x2, plus one disclosed Edit removing a JSON trailing comma in val1-060; no read/search/command",
+  "pre_freeze_checks": "schema validation and a plain registry alias text scan for label completeness (0 unlabelled mentions, 0 labels without a mention); no extractor, matcher or policy ran; no label edited",
+  "raw_author_files_sha256": {
+    "val1": "575ad42db5d0ac73327fed078ed97410066622a45c21f41ddb1150fbe6bd13d8",
+    "val2": "aeada38576c9eb28ca49c818072c3dfffaf73deef855d855578c1288f201c75f"
+  },
+  "frozen_at_utc": "2026-11-12T04:41:36Z",
+  "val2_status": "reserve: frozen unrun; may be run only after a revised policy (if any) is itself frozen"
+}

@@ -1,0 +1,1730 @@
+{
+ "schema_version": 1,
+ "milestone": "M11-G22-R3 (README context guard validation)",
+ "split": "val1",
+ "provenance": "author-created synthetic READMEs and repository artifacts; no real README, posting, employer or private material",
+ "authorship_disclosure": "Authored by a separate Claude subagent instance given only the task, the alias/concept list, the artifact rules and the output schema; it was never shown Policy D's rules, collocates, non-use frames, code, tests or results and had no repository access. It is the same model family as the policy author, so this is NOT human-independent validation. Labels are frozen exactly as authored.",
+ "author_note": "Hand-written invented READMEs covering technical and ordinary-English senses of each alias, with artifacts added only where they change the truth; 'used' counts README use claims plus manifest entries and language bytes of at least 5%, and does not infer a language from a framework.",
+ "label_timing": "labels frozen BEFORE any GitScore extractor, matcher or README policy ran on this set",
+ "label_classes": [
+  "ambiguous",
+  "future",
+  "historical",
+  "negated",
+  "ordinary",
+  "reference",
+  "use"
+ ],
+ "controls": [
+  {
+   "id": "m11g22r3-val1-001",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "framework.react",
+   "pair": "react-respond",
+   "repos": [
+    {
+     "name": "pulseboard",
+     "readme": "# pulseboard\n\nDashboard tiles for internal metrics, written in React. Every tile is a function component; data fetching goes through a single `useSeries` hook.\n\n## Install\n\n```\nnpm install pulseboard\n```\n\n## Usage\n\n```jsx\n<MetricTile title='p95 latency' series={latency} />\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "The component kit is explicitly written in React."
+  },
+  {
+   "id": "m11g22r3-val1-002",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.react",
+   "pair": "react-respond",
+   "repos": [
+    {
+     "name": "pagerline",
+     "readme": "# pagerline\n\nAlert router for small on-call rotations. Pagerline folds duplicate alerts into one incident so whoever is on call can react to the real problem instead of scrolling through forty copies of it.\n\n## Features\n\n- fingerprint-based deduplication\n- escalation policies defined in YAML\n- email and chat notifiers\n\n## Running\n\n```\nmake build\n./pagerline --config alerts.yaml\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "'react to the real problem' means respond; a technical-sounding tool but no UI library."
+  },
+  {
+   "id": "m11g22r3-val1-003",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "framework.express",
+   "pair": "express-delivery",
+   "repos": [
+    {
+     "name": "relaybox",
+     "readme": "# relaybox\n\nA minimal webhook relay. Incoming hooks are verified, queued in memory and forwarded to one or more targets.\n\nThe server is a plain Express app: each provider gets its own router under `src/routes/`, and signature checks are ordinary Express middleware.\n\n```\nnpm install\nnpm start   # listens on :8080\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "use"
+   },
+   "used": [
+    "framework.express"
+   ],
+   "uncertain": [],
+   "note": "The server is described as an Express app with Express middleware."
+  },
+  {
+   "id": "m11g22r3-val1-004",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.express",
+   "pair": "express-delivery",
+   "repos": [
+    {
+     "name": "parcelwatch",
+     "readme": "# parcelwatch\n\nCommand-line tracker for parcels. Paste a tracking number and parcelwatch polls the courier page every ten minutes, printing a line when the status changes.\n\nUseful when you paid for express delivery and want to know the moment it is out for the van.\n\n## Options\n\n- `--interval` polling interval in minutes\n- `--notify` desktop notification on change",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "'express delivery' is a shipping tier, not the web framework."
+  },
+  {
+   "id": "m11g22r3-val1-005",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "language.rust",
+   "pair": "rust-corrosion",
+   "repos": [
+    {
+     "name": "ferrolog",
+     "readme": "# ferrolog\n\nStructured log shipper written in Rust. Tails files, parses JSON lines and batches them to an HTTP endpoint with backpressure.\n\n## Install\n\n```\ncargo install ferrolog\n```\n\nAsync IO is handled by tokio; memory stays under 20 MB at 50k lines/s on a laptop.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "Explicitly written in Rust, installed with cargo."
+  },
+  {
+   "id": "m11g22r3-val1-006",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.rust",
+   "pair": "rust-corrosion",
+   "repos": [
+    {
+     "name": "hullscan",
+     "readme": "# hullscan\n\nOffline-first inspection app for marine surveyors. Photograph a hull plate, outline areas of rust, pitting or paint loss, and export a condition report.\n\n## Features\n\n- region tagging with severity levels\n- on-device classifier that suggests a label for each outlined region\n- PDF export with photo appendix",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Rust here is corrosion on a hull plate."
+  },
+  {
+   "id": "m11g22r3-val1-007",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "language.ruby",
+   "pair": "ruby-gemstone",
+   "repos": [
+    {
+     "name": "gemwarden",
+     "readme": "# gemwarden\n\nAudits a `Gemfile.lock` for yanked or vulnerable versions and prints a short report.\n\nRequires Ruby 3.1 or newer.\n\n```\ngem install gemwarden\ngemwarden check\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "use"
+   },
+   "used": [
+    "language.ruby"
+   ],
+   "uncertain": [],
+   "note": "A gem that requires Ruby 3.1 to run."
+  },
+  {
+   "id": "m11g22r3-val1-008",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.ruby",
+   "pair": "ruby-gemstone",
+   "repos": [
+    {
+     "name": "lapidary-catalogue",
+     "readme": "# lapidary-catalogue\n\nInventory site for a small gemstone dealer. Each stone is recorded with carat weight, cut, clarity and origin, and the public page lets buyers filter by type: sapphire, ruby, emerald, spinel.\n\n## Data\n\nStock lives in `stones.csv`; the site is regenerated nightly from that file.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Ruby is listed as a gemstone type."
+  },
+  {
+   "id": "m11g22r3-val1-009",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "language.java",
+   "pair": "java-island",
+   "repos": [
+    {
+     "name": "ledgerline",
+     "readme": "# ledgerline\n\nDouble-entry bookkeeping library for Java 17+. Accounts, journals and balance checks with no reflection and no runtime dependencies.\n\n## Maven\n\n```xml\n<dependency>\n  <groupId>dev.ledgerline</groupId>\n  <artifactId>ledgerline-core</artifactId>\n  <version>1.2.0</version>\n</dependency>\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "note": "A library for Java 17+ distributed via Maven."
+  },
+  {
+   "id": "m11g22r3-val1-010",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.java",
+   "pair": "java-island",
+   "repos": [
+    {
+     "name": "islandhop",
+     "readme": "# islandhop\n\nTrip planner for ferry routes in the Indonesian archipelago. Pick a start port on Java, add stops on Bali or Lombok, and islandhop stitches together a timetable with transfer times.\n\n## Data sources\n\nTimetables are entered by hand in `routes/` as YAML.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Java is the island alongside Bali and Lombok."
+  },
+  {
+   "id": "m11g22r3-val1-011",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "language.swift",
+   "pair": "swift-fast",
+   "repos": [
+    {
+     "name": "tidepool",
+     "readme": "# tidepool\n\nParses tide-table files into typed `TideEvent` values. Pure Swift, no Foundation networking.\n\n## Installation\n\nAdd the package in Xcode or in `Package.swift`:\n\n```\n.package(url: \"https://example.com/tidepool.git\", from: \"0.4.0\")\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "note": "'Pure Swift' package added via Package.swift."
+  },
+  {
+   "id": "m11g22r3-val1-012",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.swift",
+   "pair": "swift-fast",
+   "repos": [
+    {
+     "name": "courierly",
+     "readme": "# courierly\n\nDispatch board for bike courier cooperatives. The whole interface is designed around a swift handoff: dispatch drags a job onto a rider, the rider taps once to accept, and the board updates for everyone.\n\n## Running locally\n\n```\nnpm install\nnpm run dev\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "'a swift handoff' is the adjective meaning quick."
+  },
+  {
+   "id": "m11g22r3-val1-013",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "framework.flask",
+   "pair": "flask-labware",
+   "repos": [
+    {
+     "name": "notebin",
+     "readme": "# notebin\n\nA tiny self-hosted pastebin. Pastes expire after a configurable time and are stored as plain files on disk.\n\nIt is a single-file Flask app. To run it:\n\n```\npip install -r requirements.txt\nflask --app notebin run\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use"
+   },
+   "used": [
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "note": "A single-file Flask app run with the flask command; both mentions are use."
+  },
+  {
+   "id": "m11g22r3-val1-014",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.flask",
+   "pair": "flask-labware",
+   "repos": [
+    {
+     "name": "titrate",
+     "readme": "# titrate\n\nStep timer for wet-lab protocols. Load a protocol and titrate walks you through it one step at a time, with timers and reagent volumes: 'swirl the flask gently for 30 s', 'incubate on ice for 10 min'.\n\n## Protocol format\n\nProtocols are plain Markdown lists; durations are detected automatically.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "The flask is lab glassware in a protocol step."
+  },
+  {
+   "id": "m11g22r3-val1-015",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "ml.framework.pytorch",
+   "pair": "torch-flashlight",
+   "repos": [
+    {
+     "name": "segmint",
+     "readme": "# segmint\n\nSemantic segmentation baselines for aerial imagery. Models are implemented in PyTorch, and training uses `torch.compile` when the installed version supports it.\n\n## Train\n\n```\npython train.py --config configs/unet_small.yaml\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use",
+    "language.python": "use"
+   },
+   "used": [
+    "ml.framework.pytorch",
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "Models implemented in PyTorch using torch.compile; training is run with python."
+  },
+  {
+   "id": "m11g22r3-val1-016",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "ml.framework.pytorch",
+   "pair": "torch-flashlight",
+   "repos": [
+    {
+     "name": "cavemap",
+     "readme": "# cavemap\n\nOffline survey sketching for cavers. Record shots from a laser distance meter, sketch passage walls on the tablet and get a plan view on the spot.\n\nNight mode drops the display to a deep red so it doesn't wreck your dark adaptation or fight with your head torch.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "A head torch is a headlamp."
+  },
+  {
+   "id": "m11g22r3-val1-017",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "data.library.pandas",
+   "pair": "pandas-animal",
+   "repos": [
+    {
+     "name": "tidyledger",
+     "readme": "# tidyledger\n\nReconciliation scripts for small finance teams. Bank exports and invoice lists are loaded into pandas DataFrames, joined on reference numbers, and anything unmatched is written to `exceptions.xlsx`.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "use"
+   },
+   "used": [
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "note": "Data is loaded into pandas DataFrames by the scripts."
+  },
+  {
+   "id": "m11g22r3-val1-018",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "data.library.pandas",
+   "pair": "pandas-animal",
+   "repos": [
+    {
+     "name": "bamboo-watch",
+     "readme": "# bamboo-watch\n\nLabelling tool for camera-trap photos from a mountain reserve. Volunteers tag each frame with the species they see; the reserve uses the counts to estimate how many red pandas use each valley.\n\n## Exports\n\nCounts are exported per camera and per month as CSV.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Red pandas are the animals being counted."
+  },
+  {
+   "id": "m11g22r3-val1-019",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "language.python",
+   "pair": "python-snake",
+   "repos": [
+    {
+     "name": "csvsmith",
+     "readme": "# csvsmith\n\nSchema checks for CSV files: column types, required fields, allowed values. Written in Python, supports Python 3.9 and newer.\n\n```\npip install csvsmith\ncsvsmith check data.csv --schema schema.toml\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "Explicitly written in Python."
+  },
+  {
+   "id": "m11g22r3-val1-020",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.python",
+   "pair": "python-snake",
+   "repos": [
+    {
+     "name": "shedlog",
+     "readme": "# shedlog\n\nCare log for reptile keepers. Track feedings, sheds, weights and enclosure temperatures for each animal, whether it is a ball python, a corn snake or a leopard gecko.\n\n## Reminders\n\nshedlog can send a weekly reminder when a feeding is overdue.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "A ball python is a snake."
+  },
+  {
+   "id": "m11g22r3-val1-021",
+   "split": "val1",
+   "family": "near_neighbour_technical",
+   "probe": "language.shell",
+   "pair": "shell-seashell",
+   "repos": [
+    {
+     "name": "dotkit",
+     "readme": "# dotkit\n\nMy dotfiles plus a handful of shell scripts that bootstrap a fresh laptop: package install, git config, editor settings.\n\n```\ngit clone https://example.com/dotkit ~/.dotkit\n~/.dotkit/install.sh\n```",
+     "languages": {
+      "Shell": 14000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use"
+   },
+   "used": [
+    "language.shell"
+   ],
+   "uncertain": [],
+   "note": "The repo is shell scripts, confirmed by Shell language bytes."
+  },
+  {
+   "id": "m11g22r3-val1-022",
+   "split": "val1",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.shell",
+   "pair": "shell-seashell",
+   "repos": [
+    {
+     "name": "conchology-db",
+     "readme": "# conchology-db\n\nCollection database for a natural history museum's mollusc holdings. Each specimen records species, collection site, collector and the drawer it lives in, and the public view shows a photo of every shell in the collection.\n\n## Import\n\nLegacy spreadsheets can be imported with `make import`.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "A shell here is a mollusc specimen."
+  },
+  {
+   "id": "m11g22r3-val1-023",
+   "split": "val1",
+   "family": "named_phrase",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "pixdiff",
+     "readme": "# pixdiff\n\nFast image diffing in Rust. Give it two PNGs and it writes a heatmap of changed pixels plus a similarity score, which makes it handy for visual regression tests in CI.\n\n```\npixdiff before.png after.png -o diff.png\n```",
+     "languages": {
+      "Rust": 48000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "'image diffing in Rust' describes the tool's implementation; Rust bytes agree."
+  },
+  {
+   "id": "m11g22r3-val1-024",
+   "split": "val1",
+   "family": "named_phrase",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "plotnik",
+     "readme": "# plotnik\n\nA python plotting helper for paper figures. Wraps matplotlib with column-width presets, consistent fonts and colour-blind-safe palettes.\n\n```\nimport plotnik\nplotnik.figure(width='single')\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "A python plotting helper wrapping matplotlib is a Python library."
+  },
+  {
+   "id": "m11g22r3-val1-025",
+   "split": "val1",
+   "family": "named_phrase",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "commute-study",
+     "readme": "# commute-study\n\nData and code for a small survey of cycling commute times.\n\n## Data\n\nRaw responses are in `data/raw/`; cleaned files in `data/clean/`.\n\n## Analysis with pandas\n\nAll cleaning and summary tables are produced by `analysis.py`, which loads the responses into DataFrames and writes the tables in `results/`.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "use"
+   },
+   "used": [
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "note": "The 'Analysis with pandas' section describes this repo's own analysis script."
+  },
+  {
+   "id": "m11g22r3-val1-026",
+   "split": "val1",
+   "family": "named_phrase",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "leafspot",
+     "readme": "# leafspot\n\nDetects leaf spot disease in field photos of tomato plants.\n\n## Weights\n\nThe released weights were trained with torch 2.1 using `train.py` in this repository; see `configs/` for the exact settings.\n\n## Inference\n\nRun `predict.py --image photo.jpg`.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use"
+   },
+   "used": [
+    "ml.framework.pytorch"
+   ],
+   "uncertain": [],
+   "note": "Weights were trained with torch by this repository's own train.py."
+  },
+  {
+   "id": "m11g22r3-val1-027",
+   "split": "val1",
+   "family": "named_phrase",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "shardkv",
+     "readme": "# shardkv\n\nAn embedded key-value store in Rust with a log-structured layout and snapshot reads.\n\n## Status\n\nExperimental. Not crash-tested under power loss yet.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "'key-value store in Rust' states the implementation language."
+  },
+  {
+   "id": "m11g22r3-val1-028",
+   "split": "val1",
+   "family": "named_phrase",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "minirouter",
+     "readme": "# minirouter\n\nA micro web framework for Python. Routing API design borrowed from Express: `app.get(path, handler)`, middleware chains with `next()`, and per-router error handlers.\n\n```\npip install minirouter\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "reference",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "Express is only the design inspiration for a Python framework."
+  },
+  {
+   "id": "m11g22r3-val1-029",
+   "split": "val1",
+   "family": "named_phrase",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "chainlog",
+     "readme": "# chainlog\n\nMaintenance log for bicycles. Track kilometres per component and get a nudge when the chain needs cleaning and oiling to keep it running smoothly and free of rust.\n\n## Sync\n\nData stays on the phone unless you enable encrypted backup.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "'free of rust' refers to a corrosion-free bike chain."
+  },
+  {
+   "id": "m11g22r3-val1-030",
+   "split": "val1",
+   "family": "named_phrase",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "platformboard",
+     "readme": "# platformboard\n\nDeparture board for a commuter rail line, meant for a cheap screen in a station cafe. Shows the next local and express trains, platform changes and delays, refreshed every 30 seconds from the operator's open feed.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "'local and express trains' are rail service types."
+  },
+  {
+   "id": "m11g22r3-val1-031",
+   "split": "val1",
+   "family": "explicit_use",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "harborq",
+     "readme": "# harborq\n\nDashboard for inspecting and retrying background jobs.\n\n## Stack\n\n- Express 4 serves the API under `/api`\n- React 18 for the dashboard in `client/`\n\n## Development\n\n```\nnpm run dev\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "use",
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.express",
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "The stack section explicitly lists Express and React."
+  },
+  {
+   "id": "m11g22r3-val1-032",
+   "split": "val1",
+   "family": "explicit_use",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "steplog",
+     "readme": "# steplog\n\nA pedometer journal for iPhone. This project is written in Swift and targets iOS 16 and later; HealthKit is used only with explicit permission.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "note": "Explicitly written in Swift."
+  },
+  {
+   "id": "m11g22r3-val1-033",
+   "split": "val1",
+   "family": "explicit_use",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "glyphcount",
+     "readme": "# glyphcount\n\nCounts grapheme clusters, words and lines in large text files. Implemented in Ruby with no dependencies beyond the standard library.\n\n```\nruby glyphcount.rb corpus.txt\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "use"
+   },
+   "used": [
+    "language.ruby"
+   ],
+   "uncertain": [],
+   "note": "Implemented in Ruby and run with the ruby interpreter; both mentions are use."
+  },
+  {
+   "id": "m11g22r3-val1-034",
+   "split": "val1",
+   "family": "implied_use",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "formwell",
+     "readme": "# formwell\n\nReact hooks for form validation. Declare a schema, get field props and errors back.\n\n```jsx\nconst { field, errors } = useFormwell(schema);\nreturn <input {...field('email')} />;\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "A library of React hooks necessarily uses React."
+  },
+  {
+   "id": "m11g22r3-val1-035",
+   "split": "val1",
+   "family": "implied_use",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "exifkit",
+     "readme": "# exifkit\n\nSwift package for reading EXIF and GPS metadata from HEIC and JPEG files on Apple platforms. Zero dependencies; values come back as strongly typed structs.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "note": "Describing itself as a Swift package implies it is written in Swift."
+  },
+  {
+   "id": "m11g22r3-val1-036",
+   "split": "val1",
+   "family": "implied_use",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "throttlekit",
+     "readme": "# throttlekit\n\nPer-route rate limits for Flask apps. Register the extension with `throttlekit.init_app(app)` and decorate views with `@limit('10/minute')`.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use"
+   },
+   "used": [
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "note": "A Flask extension registered via init_app builds on Flask."
+  },
+  {
+   "id": "m11g22r3-val1-037",
+   "split": "val1",
+   "family": "historical",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "pagecrawl",
+     "readme": "# pagecrawl\n\nSite crawler that checks for broken links and missing alt text.\n\n## History\n\nPagecrawl was originally written in Ruby. Version 2 is a single Go binary; the old Ruby code is kept on the `legacy` branch and is no longer maintained.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "historical"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Ruby was the original implementation, replaced in version 2."
+  },
+  {
+   "id": "m11g22r3-val1-038",
+   "split": "val1",
+   "family": "historical",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "orderdesk-api",
+     "readme": "# orderdesk-api\n\nBackend for the order desk tablet app.\n\n## Changelog highlights\n\n- **3.0**: moved off Flask to a plain ASGI application; startup time dropped by half.\n- **2.4**: added idempotency keys to order creation.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "historical"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Version 3.0 moved off Flask."
+  },
+  {
+   "id": "m11g22r3-val1-039",
+   "split": "val1",
+   "family": "historical",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "routejoin",
+     "readme": "# routejoin\n\nJoins GPS traces to a road network and reports per-segment speeds.\n\n## Design notes\n\nThe first prototype used pandas for the joins, but memory blew up on city-scale data, so the joins were rewritten on DuckDB and that dependency was dropped.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "historical"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "pandas was used in a prototype and has been dropped."
+  },
+  {
+   "id": "m11g22r3-val1-040",
+   "split": "val1",
+   "family": "future",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "libquant",
+     "readme": "# libquant\n\nA small C library for colour quantisation of images.\n\n## Roadmap\n\n- [x] median-cut and k-means modes\n- [ ] Swift bindings\n- [ ] WebAssembly build",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Swift bindings are an unchecked roadmap item."
+  },
+  {
+   "id": "m11g22r3-val1-041",
+   "split": "val1",
+   "family": "future",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "gradlab",
+     "readme": "# gradlab\n\nExperiments with optimisers on toy problems, currently on JAX.\n\n## Planned\n\nWe plan to add a PyTorch backend once the JAX side stabilises. Nothing is implemented yet.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "A PyTorch backend is planned and explicitly not implemented."
+  },
+  {
+   "id": "m11g22r3-val1-042",
+   "split": "val1",
+   "family": "future",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "vaultsync",
+     "readme": "# vaultsync\n\nEncrypted folder sync between two machines over SSH.\n\nOnly the command-line tool ships today. Python bindings are on the roadmap but have not been started.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Python bindings are roadmap only."
+  },
+  {
+   "id": "m11g22r3-val1-043",
+   "split": "val1",
+   "family": "negated",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "onepage-todo",
+     "readme": "# onepage-todo\n\nA to-do list in one file. No React, no bundler, no build step: open the file in any browser and it works. Items are kept in local storage.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "negated"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "'No React' explicitly excludes it."
+  },
+  {
+   "id": "m11g22r3-val1-044",
+   "split": "val1",
+   "family": "negated",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "csvpeek",
+     "readme": "# csvpeek\n\nPrints a quick summary of a CSV file: column types, null counts, top values.\n\nDeliberately does not depend on pandas or NumPy; everything uses the standard `csv` module so it starts instantly.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "negated"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Explicitly does not depend on pandas."
+  },
+  {
+   "id": "m11g22r3-val1-045",
+   "split": "val1",
+   "family": "negated",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tinyhooks",
+     "readme": "# tinyhooks\n\nVerifies and dispatches webhooks using only Node's built-in `http` module. This is not an Express middleware and does not need Express installed.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "negated"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Both Express mentions state it is not used."
+  },
+  {
+   "id": "m11g22r3-val1-046",
+   "split": "val1",
+   "family": "inspiration_or_comparison",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "lazyiter",
+     "readme": "# lazyiter\n\nChainable lazy iterators for TypeScript, inspired by Ruby's Enumerable: `map`, `select`, `each_slice` and friends, evaluated only when you consume them.\n\n```\nnpm install lazyiter\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "reference",
+    "language.typescript": "use"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "note": "Ruby's Enumerable is the inspiration; the library is TypeScript."
+  },
+  {
+   "id": "m11g22r3-val1-047",
+   "split": "val1",
+   "family": "inspiration_or_comparison",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "colagg",
+     "readme": "# colagg\n\nColumnar aggregation engine for event logs.\n\n## Performance\n\nOn the benchmark in `bench/` it runs about four times faster than an equivalent pandas groupby on the same machine.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "pandas is only the benchmark comparison."
+  },
+  {
+   "id": "m11g22r3-val1-048",
+   "split": "val1",
+   "family": "inspiration_or_comparison",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "lambdaroute",
+     "readme": "# lambdaroute\n\nThink of it as Express for serverless functions: the same `(req, res, next)` middleware signature, but every route is deployed as its own function and there is no long-running server.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Express is an analogy, not a dependency."
+  },
+  {
+   "id": "m11g22r3-val1-049",
+   "split": "val1",
+   "family": "other_project_docs",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "reconciler-notes",
+     "readme": "# reconciler-notes\n\nMy reading notes on how the React reconciler schedules and commits work, chapter by chapter. There is no code here, only Markdown and a few diagrams.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Notes documenting React's internals, with no code of its own."
+  },
+  {
+   "id": "m11g22r3-val1-050",
+   "split": "val1",
+   "family": "other_project_docs",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "quarry-docs",
+     "readme": "# quarry-docs\n\nSource for the documentation site of Quarry, a Java persistence library. The library itself lives in the `quarry-core` repository; this repo only holds the Markdown pages and the site configuration.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Java describes the documented library in another repository."
+  },
+  {
+   "id": "m11g22r3-val1-051",
+   "split": "val1",
+   "family": "other_project_docs",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "gizmo-guia",
+     "readme": "# gizmo-guia\n\nSpanish translation of the user guide for Gizmo, an open-source Swift networking library maintained by another team. Pull requests with translation fixes are welcome; library bugs should be reported upstream.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "A translation of another team's Swift library guide."
+  },
+  {
+   "id": "m11g22r3-val1-052",
+   "split": "val1",
+   "family": "quoted_third_party",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "flowsheet",
+     "readme": "# flowsheet\n\nA no-code tool for scheduling spreadsheet clean-ups.\n\n## What beta users said\n\n> 'Replaced a folder of fragile Python scripts our analyst used to run every Monday.' (operations lead, logistics firm)",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Python appears only in a quoted user testimonial about their old scripts."
+  },
+  {
+   "id": "m11g22r3-val1-053",
+   "split": "val1",
+   "family": "quoted_third_party",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "grepbundle",
+     "readme": "# grepbundle\n\nDesktop search front end that bundles the `fastgrep` binary.\n\n## Third-party notice\n\nFrom the fastgrep README:\n\n> fastgrep is written in Rust and is distributed under the MIT licence.\n\nThis repository contains only the front end and a build script that downloads the release binary.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Rust is quoted from a bundled third-party tool's README."
+  },
+  {
+   "id": "m11g22r3-val1-054",
+   "split": "val1",
+   "family": "quoted_third_party",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "jobsift",
+     "readme": "# jobsift\n\nParses job postings into structured fields. Example input:\n\n> Backend Engineer, 5+ years with Java, experience with message queues, hybrid in Rotterdam.\n\nOutput: title, seniority, skills list, location.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Java is part of a quoted sample job posting."
+  },
+  {
+   "id": "m11g22r3-val1-055",
+   "split": "val1",
+   "family": "readme_plus_manifest",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "quickcart",
+     "readme": "# quickcart\n\nStorefront demo with a cart, checkout form and order confirmation page.\n\n```\nnpm install\nnpm run dev\n```",
+     "languages": {},
+     "files": {
+      "package.json": "{\"dependencies\": {\"react\": \"^18.2.0\", \"react-dom\": \"^18.2.0\"}}"
+     }
+    }
+   ],
+   "concepts": {},
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "README never names React but package.json depends on it."
+  },
+  {
+   "id": "m11g22r3-val1-056",
+   "split": "val1",
+   "family": "readme_plus_manifest",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "triage-desk",
+     "readme": "# triage-desk\n\nHelps support teams react quickly to urgent tickets by surfacing the ones with angry keywords and approaching SLA deadlines.\n\n```\nnpm install\nnpm run dev\n```",
+     "languages": {},
+     "files": {
+      "package.json": "{\"dependencies\": {\"react\": \"^18.3.1\", \"vite\": \"^5.2.0\"}}"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.react": "ordinary"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "The README's 'react quickly' is ordinary, but package.json proves React is used."
+  },
+  {
+   "id": "m11g22r3-val1-057",
+   "split": "val1",
+   "family": "readme_plus_manifest",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "shortlink",
+     "readme": "# shortlink\n\nURL shortener API built on Flask. Links are kept in a key-value file and redirects are served with a 301.\n\n```\npip install -r requirements.txt\ngunicorn shortlink:app\n```",
+     "languages": {
+      "Python": 31000
+     },
+     "files": {
+      "requirements.txt": "flask==3.0.3\ngunicorn==22.0.0\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use"
+   },
+   "used": [
+    "framework.flask",
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "Strong README claim matched by flask in requirements.txt; Python bytes confirm the language."
+  },
+  {
+   "id": "m11g22r3-val1-058",
+   "split": "val1",
+   "family": "readme_plus_manifest",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "lantern",
+     "readme": "# lantern\n\nA torch-lit dungeon crawler prototype where enemies learn to flank the player. Enemy policies are trained offline with `train.py` and loaded at startup.",
+     "languages": {},
+     "files": {
+      "requirements.txt": "torch>=2.1\npandas\n"
+     }
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "ordinary"
+   },
+   "used": [
+    "ml.framework.pytorch",
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "note": "'torch-lit' is ordinary, but requirements.txt shows torch and pandas are used."
+  },
+  {
+   "id": "m11g22r3-val1-059",
+   "split": "val1",
+   "family": "readme_plus_language",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "quadtile",
+     "readme": "# quadtile\n\nA Rust implementation of quadtree tiling for map rendering, with a C ABI for embedding in other programs.",
+     "languages": {
+      "Rust": 91000,
+      "Shell": 1200
+     },
+     "files": {}
+    },
+    {
+     "name": "quadtile-site",
+     "readme": "# quadtile-site\n\nLanding page and interactive examples for quadtile.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "README claims a Rust implementation and Rust dominates the language bytes; Shell is under 5%."
+  },
+  {
+   "id": "m11g22r3-val1-060",
+   "split": "val1",
+   "family": "readme_plus_language",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "oxide-atlas",
+     "readme": "# oxide-atlas\n\nMaps corrosion hotspots from drone imagery of steel bridges. Upload a flight, and the tool marks rust streaks, flaking paint and section loss on an annotated map.",
+     "languages": {
+      "Rust": 70000,
+      "Shell": 1500
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "The README's rust is corrosion, but the code is overwhelmingly Rust by bytes."
+  },
+  {
+   "id": "m11g22r3-val1-061",
+   "split": "val1",
+   "family": "readme_plus_language",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "ruby",
+     "readme": "# ruby\n\nPersonal budgeting tool, named after my cat Ruby, who kept sitting on the receipts.\n\n```\nbin/ruby import statements.csv\n```",
+     "languages": {
+      "Ruby": 40000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary"
+   },
+   "used": [
+    "language.ruby"
+   ],
+   "uncertain": [],
+   "note": "Every ruby mention is the tool's or cat's name, but language bytes show the code is Ruby."
+  },
+  {
+   "id": "m11g22r3-val1-062",
+   "split": "val1",
+   "family": "readme_plus_language",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "skycast",
+     "readme": "# skycast\n\nSwift client for a public weather forecast API with async/await support and typed responses.",
+     "languages": {
+      "Swift": 30000,
+      "Shell": 4000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift",
+    "language.shell"
+   ],
+   "uncertain": [],
+   "note": "Swift client confirmed by Swift bytes; Shell is about 12% of bytes so it also counts."
+  },
+  {
+   "id": "m11g22r3-val1-063",
+   "split": "val1",
+   "family": "readme_only_use",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "loomqueue",
+     "readme": "# loomqueue\n\nIn-process task queue written in Java 21 on top of virtual threads. No external broker required.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "note": "Explicit README claim with no artifacts."
+  },
+  {
+   "id": "m11g22r3-val1-064",
+   "split": "val1",
+   "family": "readme_only_use",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "logsweep",
+     "readme": "# logsweep\n\nDeletes rotated logs older than N days.\n\n```\npython3 logsweep.py --dir /var/log/myapp --days 14\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "The tool is a .py script run with python3."
+  },
+  {
+   "id": "m11g22r3-val1-065",
+   "split": "val1",
+   "family": "readme_only_use",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "certwatch",
+     "readme": "# certwatch\n\nA Bash script that checks TLS certificate expiry for a list of hosts and posts a warning to a webhook when any expire within 14 days.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use"
+   },
+   "used": [
+    "language.shell"
+   ],
+   "uncertain": [],
+   "note": "The project is a Bash script."
+  },
+  {
+   "id": "m11g22r3-val1-066",
+   "split": "val1",
+   "family": "multi_mention",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "incidentroom",
+     "readme": "# incidentroom\n\nA shared timeline for incidents, so responders can react to what others are doing instead of repeating work.\n\n## Frontend\n\nThe UI is a React app in `web/`, talking to the API over websockets.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "First mention is ordinary, the later 'React app' is use; strongest class is use."
+  },
+  {
+   "id": "m11g22r3-val1-067",
+   "split": "val1",
+   "family": "multi_mention",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "patina",
+     "readme": "# patina\n\nA Rust library for tracking schema drift between database snapshots.\n\n## Why the name?\n\nA patina is the thin layer that forms on metal over time and, on bronze, protects it from rust and further decay. Schemas drift the same way.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "'A Rust library' is use; the later rust is corrosion; strongest class is use."
+  },
+  {
+   "id": "m11g22r3-val1-068",
+   "split": "val1",
+   "family": "multi_mention",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "cupcount",
+     "readme": "# cupcount\n\nTracks your daily coffee intake. Every cup of java you log updates a caffeine curve for the day.\n\n## Building\n\ncupcount is a Java desktop app; build and run it with `./gradlew run`.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "note": "'cup of java' is coffee but 'a Java desktop app' is use; strongest class is use."
+  },
+  {
+   "id": "m11g22r3-val1-069",
+   "split": "val1",
+   "family": "conflicting",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "fastindex",
+     "readme": "# fastindex\n\nFull-text indexer written in Rust. Builds an inverted index over a folder of documents and answers phrase queries.",
+     "languages": {
+      "Python": 60000,
+      "Shell": 2000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [
+    "language.rust"
+   ],
+   "note": "README claims Rust but the repository contains only Python (and under-5% Shell) bytes."
+  },
+  {
+   "id": "m11g22r3-val1-070",
+   "split": "val1",
+   "family": "conflicting",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "formsvc",
+     "readme": "# formsvc\n\nForm submission service with spam filtering and email forwarding.\n\n## Migration\n\nWe no longer use Flask; all endpoints now run on a plain ASGI app.",
+     "languages": {},
+     "files": {
+      "requirements.txt": "flask==2.3.2\nuvicorn\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "historical"
+   },
+   "used": [],
+   "uncertain": [
+    "framework.flask"
+   ],
+   "note": "README says Flask was dropped but requirements.txt still pins it."
+  },
+  {
+   "id": "m11g22r3-val1-071",
+   "split": "val1",
+   "family": "conflicting",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "slimcsv",
+     "readme": "# slimcsv\n\nSmall CSV utilities: split, merge, dedupe. No pandas dependency.",
+     "languages": {},
+     "files": {
+      "requirements.txt": "pandas>=2.0\nclick\n"
+     }
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "negated"
+   },
+   "used": [],
+   "uncertain": [
+    "data.library.pandas"
+   ],
+   "note": "README denies a pandas dependency that requirements.txt declares."
+  },
+  {
+   "id": "m11g22r3-val1-072",
+   "split": "val1",
+   "family": "ordinary",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "laptop-provision",
+     "readme": "# laptop-provision\n\nSwift onboarding is the goal: a new hire should have a working, encrypted laptop within an hour of unboxing it. This repository holds the device profiles and the checklist our IT team follows.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Capitalised 'Swift' at sentence start means quick."
+  },
+  {
+   "id": "m11g22r3-val1-073",
+   "split": "val1",
+   "family": "ordinary",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "pipewright",
+     "readme": "# pipewright\n\nExpress your data pipeline as a short YAML file and pipewright schedules it, retries failed steps and keeps a run history.\n\n```\npipewright run pipeline.yaml\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Capitalised 'Express' is the verb meaning to state."
+  },
+  {
+   "id": "m11g22r3-val1-074",
+   "split": "val1",
+   "family": "ordinary",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "shelfscan",
+     "readme": "# shelfscan\n\nBarcode scanner for small bookshops. Torch mode turns on the phone's flashlight for dim back rooms, and each scan is added to the stock count.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Torch mode is the phone flashlight."
+  },
+  {
+   "id": "m11g22r3-val1-075",
+   "split": "val1",
+   "family": "conflicting",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "scratch-2023",
+     "readme": "# scratch-2023\n\nScratch repo for the year. Things I poked at: python, flask, a bit of rust. Mostly half-finished.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "ambiguous",
+    "framework.flask": "ambiguous",
+    "language.rust": "ambiguous"
+   },
+   "used": [],
+   "uncertain": [
+    "language.python",
+    "framework.flask",
+    "language.rust"
+   ],
+   "note": "A topic list with no artifacts; cannot tell what the repo actually contains."
+  }
+ ]
+}

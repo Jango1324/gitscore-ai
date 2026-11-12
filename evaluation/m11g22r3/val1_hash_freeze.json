@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g22r3/validation_controls_val1.json",
+  "sha256": "575c57c1698160d949eb879b5e4161a90af72dcf6a8cd99ed98ba5d64fb9d0ae",
+  "sha256_lf_normalized": "575c57c1698160d949eb879b5e4161a90af72dcf6a8cd99ed98ba5d64fb9d0ae",
+  "length_bytes": 51250,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-12T04:41:36Z",
+  "note": "Labels frozen BEFORE any GitScore extractor, matcher or README policy ran on this set. NOT registered in the canonical manifest (pending authorization)."
+}

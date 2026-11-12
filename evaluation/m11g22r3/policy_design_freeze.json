@@ -1,0 +1,41 @@
+{
+  "milestone": "M11-G22-R3",
+  "frozen_at_utc": "2026-11-12T04:45:31Z",
+  "canonical_contract": "crlf-to-lf/v1",
+  "note": "R3 policy design frozen BEFORE the reserve VAL-2 set was run by any GitScore code. Hashes are of LF-canonical bytes.",
+  "files": {
+    "scripts/evaluation_lib/m11g22r3_policies.py": "c945c5c26879d48990bc7cc5d1d430cf70175e61ccabe88e599276b7ef300d79",
+    "scripts/evaluation_lib/m11g22r2_policies.py": "7c40a44ec8676dfee30191231772cb5f584ac7fa4b9bfa40b2fcc3164c97371c",
+    "scripts/evaluation_lib/m11g22r_policies.py": "e0efd597e8a37713d9ecca6e6f88277c94be9b9468215f483c5115b9d8ad6729",
+    "scripts/evaluation_lib/m11g22_policies.py": "58a582b7053db888e440a4cc3ff864c003f4079b8a41aa74b694569bd4bbfb29",
+    "scripts/evaluation_lib/m11g22r2_harness.py": "7c5b9a59a96171331b51f0c6af2a01acc4c95260022b0f32be4f8b090113f699",
+    "scripts/evaluation_lib/m11g22r_harness.py": "bce3687fce89d6be5d4221f3e4189e7dd04387b67ddf04af98de86ff09aa2ba9"
+  },
+  "val2_controls_sha256": "fadc95eb858c949620a50216ab83af443c43a1c7025e89e42c797d76a951c759",
+  "design_sets": [
+    "G22-R2 DEV",
+    "G22-R2 EVAL",
+    "G22-R DEV",
+    "G22-R EVAL",
+    "G22-R3 VAL-1 (after its single unchanged-D run)",
+    "frozen 8c fixtures",
+    "G22-R2 difficult cases"
+  ],
+  "design_timeline": [
+    "D (G22-R2, unchanged) run once on VAL-1: false SUPPORTED 35 -> 9, genuine README use 26/36, corroborated 10/10",
+    "R3 v1 drafted: scope to ambiguous aliases; plural-tolerant collocate window; software head noun / '<library> for'; major version",
+    "R3 v1 on seen sets admitted 'free of rust ... tools' (G22-R2 e37, G22-R e29) via the plural window; plural tolerance narrowed to the head noun immediately after the alias",
+    "R3 final on seen sets: identical to D on G22-R2 DEV/EVAL, G22-R DEV/EVAL, 8c and difficult cases; VAL-1 use 33/36, false SUPPORTED 9; capability and job parsing identical"
+  ],
+  "acceptance_criteria_on_val2_declared_before_run": {
+    "1_false_supported_reduction": "R3 false SUPPORTED <= 50% of readme:v4's on VAL-2",
+    "2_no_new_false_supported": "every R3 false SUPPORTED control is also false SUPPORTED under readme:v4",
+    "3_corroborated": "all artifact-corroborated used probes stay SUPPORTED",
+    "4_genuine_use_items": "R3 keeps >= 85% of the genuine README use items readme:v4 extracts, and >= D's count",
+    "5_requirement_recall": "R3 keeps >= 90% of readme:v4's true SUPPORTED probes",
+    "6_ordinary": "R3 false SUPPORTED caused by ordinary-English probes <= 1",
+    "7_non_ambiguous": "no README item of a non-ambiguous alias differs from readme:v4",
+    "if_any_fails": "do NOT implement readme:v5; STOP and recommend further research"
+  },
+  "post_hoc_changes": []
+}

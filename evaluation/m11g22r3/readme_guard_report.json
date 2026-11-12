@@ -1,0 +1,8530 @@
+{
+ "versions": {
+  "parser": "job_description_parser:v15",
+  "scoring": "github_evidence_alignment:v2",
+  "matcher": "requirement_matcher:v1",
+  "readme_extractor": "readme:v4",
+  "registry": 4
+ },
+ "note": "research only: real parser v15 / evidence pipeline readme:v4 / matcher v1 / scoring v2; README policies are offline adapters; no production or registry change; no LLM",
+ "decision": {
+  "readme_v5_implemented": false,
+  "reason": "Neither D unchanged nor the revised R3 met the recall criteria frozen before VAL-2 ran (>= 85% of readme:v4's genuine README use items and >= 90% of its true SUPPORTED probes). Precision criteria passed. Per the frozen rule, readme:v5 is not implemented."
+ },
+ "freezes": {
+  "val1": {
+   "sha256": "575c57c1698160d949eb879b5e4161a90af72dcf6a8cd99ed98ba5d64fb9d0ae",
+   "frozen_at_utc": "2026-11-12T04:41:36Z",
+   "verified": true,
+   "controls": 75
+  },
+  "val2": {
+   "sha256": "fadc95eb858c949620a50216ab83af443c43a1c7025e89e42c797d76a951c759",
+   "frozen_at_utc": "2026-11-12T04:41:36Z",
+   "verified": true,
+   "controls": 51
+  },
+  "policy_design": {
+   "frozen_at_utc": "2026-11-12T04:45:31Z",
+   "files_verified": true,
+   "val2_hash_matches": true,
+   "frozen_after_val_sets": true
+  },
+  "g22r2": {
+   "dev": {
+    "sha256": "18c21a505a472182b2d3fd5bc23d29957a1806834108ed58e7aef19d7307b12b",
+    "verified": true
+   },
+   "eval": {
+    "sha256": "3a59672a55745927ab945e671f9b867854bb81f08c418271e9669136893bfa0e",
+    "verified": true
+   },
+   "policy_design": {
+    "scripts/evaluation_lib/m11g22r2_policies.py": {
+     "sha256": "7c40a44ec8676dfee30191231772cb5f584ac7fa4b9bfa40b2fcc3164c97371c",
+     "verified": true
+    },
+    "scripts/evaluation_lib/m11g22r2_harness.py": {
+     "sha256": "7c5b9a59a96171331b51f0c6af2a01acc4c95260022b0f32be4f8b090113f699",
+     "verified": true
+    },
+    "scripts/evaluation_lib/m11g22r_policies.py": {
+     "sha256": "e0efd597e8a37713d9ecca6e6f88277c94be9b9468215f483c5115b9d8ad6729",
+     "verified": true
+    },
+    "scripts/evaluation_lib/m11g22r_harness.py": {
+     "sha256": "bce3687fce89d6be5d4221f3e4189e7dd04387b67ddf04af98de86ff09aa2ba9",
+     "verified": true
+    },
+    "scripts/evaluation_lib/m11g22_policies.py": {
+     "sha256": "58a582b7053db888e440a4cc3ff864c003f4079b8a41aa74b694569bd4bbfb29",
+     "verified": true
+    }
+   }
+  }
+ },
+ "provenance": {
+  "author": "separate Claude subagent instance (same model family as the policy author; NOT human-independent)",
+  "author_inputs": "classification task, alias/concept list, artifact rules (5% language floor; parsed manifests), output schema, required case coverage; NO Policy D rules, collocates, frames, code, tests or results; instructed to use no tool except writing its two output files",
+  "author_tool_calls": "Write x2, plus one disclosed Edit removing a JSON trailing comma in val1-060; no read/search/command",
+  "pre_freeze_checks": "schema validation and a plain registry alias text scan for label completeness (0 unlabelled mentions, 0 labels without a mention); no extractor, matcher or policy ran; no label edited",
+  "raw_author_files_sha256": {
+   "val1": "575ad42db5d0ac73327fed078ed97410066622a45c21f41ddb1150fbe6bd13d8",
+   "val2": "aeada38576c9eb28ca49c818072c3dfffaf73deef855d855578c1288f201c75f"
+  },
+  "frozen_at_utc": "2026-11-12T04:41:36Z",
+  "val2_status": "reserve: frozen unrun; may be run only after a revised policy (if any) is itself frozen"
+ },
+ "policies": {
+  "A_current_readme_v4": "production readme:v4",
+  "D_hybrid_use_frames": "C + explicit non-use frames for every alias",
+  "D2_posthoc_d_plus_lead_ins": "POST-HOC (after EVAL): D + with/in/using/on/via lead-ins; not validated",
+  "R3_context_guard": "D's precision components scoped to the 11 ambiguous aliases + structural recall cues (collocate head noun incl. plural, software head noun / '<library> for', major version)"
+ },
+ "val1": {
+  "A_current_readme_v4": {
+   "role": "baseline (production readme:v4)",
+   "aggregate": {
+    "false_supported": 35,
+    "false_supported_by_probe_class": {
+     "future": 3,
+     "historical": 3,
+     "negated": 3,
+     "ordinary": 16,
+     "reference": 10
+    },
+    "false_readme_evidence_ordinary": 20,
+    "nonuse_readme_evidence": {
+     "reference": 10,
+     "historical": 3,
+     "future": 3,
+     "negated": 4
+    },
+    "ordinary_correctly_rejected": [
+     0,
+     20
+    ],
+    "use_claims_retained": [
+     36,
+     36
+    ],
+    "genuine_use_lost": 0,
+    "corroborated_supported": [
+     10,
+     10
+    ],
+    "true_supported": 36,
+    "missed_true_supported": 0,
+    "true_not_supported": 0,
+    "uncertain": {
+     "supported": 4,
+     "not_supported": 0
+    },
+    "numerator": 75,
+    "denominator": 75,
+    "readme_items_by_label_class": {
+     "ambiguous": 3,
+     "future": 3,
+     "historical": 3,
+     "negated": 4,
+     "ordinary": 20,
+     "reference": 10,
+     "use": 36
+    },
+    "unlabelled_readme_concepts": []
+   }
+  },
+  "D_hybrid_use_frames": {
+   "role": "validation (unseen by D's design)",
+   "aggregate": {
+    "false_supported": 9,
+    "false_supported_by_probe_class": {
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "reference": 4
+    },
+    "false_readme_evidence_ordinary": 2,
+    "nonuse_readme_evidence": {
+     "reference": 4,
+     "historical": 2,
+     "future": 1,
+     "negated": 2
+    },
+    "ordinary_correctly_rejected": [
+     18,
+     20
+    ],
+    "use_claims_retained": [
+     26,
+     36
+    ],
+    "genuine_use_lost": 10,
+    "corroborated_supported": [
+     10,
+     10
+    ],
+    "true_supported": 31,
+    "missed_true_supported": 5,
+    "true_not_supported": 26,
+    "uncertain": {
+     "supported": 4,
+     "not_supported": 0
+    },
+    "numerator": 44,
+    "denominator": 75,
+    "readme_items_by_label_class": {
+     "ambiguous": 2,
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "ordinary": 2,
+     "reference": 4,
+     "use": 26
+    },
+    "unlabelled_readme_concepts": []
+   },
+   "changed_controls": [
+    {
+     "id": "m11g22r3-val1-002",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-004",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-006",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-008",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-009",
+     "family": "near_neighbour_technical",
+     "probe": "language.java",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-010",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-012",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-014",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-016",
+     "family": "near_neighbour_ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-018",
+     "family": "near_neighbour_ordinary",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-020",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-022",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-023",
+     "family": "named_phrase",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-024",
+     "family": "named_phrase",
+     "probe": "language.python",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-027",
+     "family": "named_phrase",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-028",
+     "family": "named_phrase",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "false_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-029",
+     "family": "named_phrase",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-030",
+     "family": "named_phrase",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-031",
+     "family": "explicit_use",
+     "probe": "framework.express",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-036",
+     "family": "implied_use",
+     "probe": "framework.flask",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-039",
+     "family": "historical",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "historical"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-040",
+     "family": "future",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "future"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-042",
+     "family": "future",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "future"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-043",
+     "family": "negated",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "negated"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-046",
+     "family": "inspiration_or_comparison",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-047",
+     "family": "inspiration_or_comparison",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-049",
+     "family": "other_project_docs",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-050",
+     "family": "other_project_docs",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-051",
+     "family": "other_project_docs",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-054",
+     "family": "quoted_third_party",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-056",
+     "family": "readme_plus_manifest",
+     "probe": "framework.react",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-058",
+     "family": "readme_plus_manifest",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-059",
+     "family": "readme_plus_language",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-062",
+     "family": "readme_plus_language",
+     "probe": "language.swift",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-067",
+     "family": "multi_mention",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-071",
+     "family": "conflicting",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "uncertain_supported",
+      "uncertain_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "negated"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-072",
+     "family": "ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-073",
+     "family": "ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-074",
+     "family": "ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-075",
+     "family": "conflicting",
+     "probe": "language.python",
+     "outcome": [
+      "uncertain_supported",
+      "uncertain_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ambiguous"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    }
+   ],
+   "readme_items_removed_by_concept_and_label": {
+    "data.library.pandas|historical": 1,
+    "data.library.pandas|negated": 1,
+    "data.library.pandas|ordinary": 1,
+    "data.library.pandas|reference": 1,
+    "framework.express|ordinary": 3,
+    "framework.flask|ordinary": 1,
+    "framework.flask|use": 1,
+    "framework.react|negated": 1,
+    "framework.react|ordinary": 2,
+    "framework.react|reference": 1,
+    "framework.react|use": 1,
+    "language.java|ordinary": 1,
+    "language.java|reference": 2,
+    "language.java|use": 1,
+    "language.python|future": 1,
+    "language.python|ordinary": 1,
+    "language.python|use": 2,
+    "language.ruby|ordinary": 1,
+    "language.ruby|reference": 1,
+    "language.rust|ambiguous": 1,
+    "language.rust|ordinary": 2,
+    "language.rust|use": 4,
+    "language.shell|ordinary": 1,
+    "language.swift|future": 1,
+    "language.swift|ordinary": 2,
+    "language.swift|reference": 1,
+    "language.swift|use": 1,
+    "ml.framework.pytorch|ordinary": 3
+   },
+   "status_changes": {
+    "supported->not_observed": 31
+   },
+   "new_false_supported_vs_readme_v4": [],
+   "residual_false_supported": [
+    [
+     "m11g22r3-val1-028",
+     "framework.express",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-037",
+     "language.ruby",
+     "historical"
+    ],
+    [
+     "m11g22r3-val1-038",
+     "framework.flask",
+     "historical"
+    ],
+    [
+     "m11g22r3-val1-041",
+     "ml.framework.pytorch",
+     "future"
+    ],
+    [
+     "m11g22r3-val1-044",
+     "data.library.pandas",
+     "negated"
+    ],
+    [
+     "m11g22r3-val1-045",
+     "framework.express",
+     "negated"
+    ],
+    [
+     "m11g22r3-val1-048",
+     "framework.express",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-052",
+     "language.python",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-053",
+     "language.rust",
+     "reference"
+    ]
+   ],
+   "missed_true_supported": [
+    [
+     "m11g22r3-val1-009",
+     "language.java"
+    ],
+    [
+     "m11g22r3-val1-024",
+     "language.python"
+    ],
+    [
+     "m11g22r3-val1-027",
+     "language.rust"
+    ],
+    [
+     "m11g22r3-val1-036",
+     "framework.flask"
+    ],
+    [
+     "m11g22r3-val1-067",
+     "language.rust"
+    ]
+   ],
+   "genuine_use_items_lost": [
+    [
+     "m11g22r3-val1-009",
+     "language.java",
+     "missed"
+    ],
+    [
+     "m11g22r3-val1-023",
+     "language.rust",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val1-024",
+     "language.python",
+     "missed"
+    ],
+    [
+     "m11g22r3-val1-027",
+     "language.rust",
+     "missed"
+    ],
+    [
+     "m11g22r3-val1-028",
+     "language.python",
+     "false_supported"
+    ],
+    [
+     "m11g22r3-val1-031",
+     "framework.react",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val1-036",
+     "framework.flask",
+     "missed"
+    ],
+    [
+     "m11g22r3-val1-059",
+     "language.rust",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val1-062",
+     "language.swift",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val1-067",
+     "language.rust",
+     "missed"
+    ]
+   ],
+   "non_ambiguous_items_changed": 0
+  },
+  "D2_posthoc_d_plus_lead_ins": {
+   "role": "comparison only (D2 is post-hoc from G22-R2; never authorized)",
+   "aggregate": {
+    "false_supported": 11,
+    "false_supported_by_probe_class": {
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "ordinary": 1,
+     "reference": 5
+    },
+    "false_readme_evidence_ordinary": 3,
+    "nonuse_readme_evidence": {
+     "reference": 5,
+     "historical": 2,
+     "future": 1,
+     "negated": 2
+    },
+    "ordinary_correctly_rejected": [
+     17,
+     20
+    ],
+    "use_claims_retained": [
+     28,
+     36
+    ],
+    "genuine_use_lost": 8,
+    "corroborated_supported": [
+     10,
+     10
+    ],
+    "true_supported": 32,
+    "missed_true_supported": 4,
+    "true_not_supported": 24,
+    "uncertain": {
+     "supported": 4,
+     "not_supported": 0
+    },
+    "numerator": 47,
+    "denominator": 75,
+    "readme_items_by_label_class": {
+     "ambiguous": 2,
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "ordinary": 3,
+     "reference": 5,
+     "use": 28
+    },
+    "unlabelled_readme_concepts": []
+   },
+   "changed_controls": [
+    {
+     "id": "m11g22r3-val1-002",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-004",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-006",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-008",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-009",
+     "family": "near_neighbour_technical",
+     "probe": "language.java",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-012",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-014",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-016",
+     "family": "near_neighbour_ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-018",
+     "family": "near_neighbour_ordinary",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-020",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-022",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-024",
+     "family": "named_phrase",
+     "probe": "language.python",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-028",
+     "family": "named_phrase",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "false_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-029",
+     "family": "named_phrase",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-030",
+     "family": "named_phrase",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-031",
+     "family": "explicit_use",
+     "probe": "framework.express",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-036",
+     "family": "implied_use",
+     "probe": "framework.flask",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-039",
+     "family": "historical",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "historical"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-040",
+     "family": "future",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "future"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-042",
+     "family": "future",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "future"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-043",
+     "family": "negated",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "negated"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-046",
+     "family": "inspiration_or_comparison",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-047",
+     "family": "inspiration_or_comparison",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-049",
+     "family": "other_project_docs",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-050",
+     "family": "other_project_docs",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-051",
+     "family": "other_project_docs",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-056",
+     "family": "readme_plus_manifest",
+     "probe": "framework.react",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-058",
+     "family": "readme_plus_manifest",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-059",
+     "family": "readme_plus_language",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-062",
+     "family": "readme_plus_language",
+     "probe": "language.swift",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-067",
+     "family": "multi_mention",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-071",
+     "family": "conflicting",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "uncertain_supported",
+      "uncertain_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "negated"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-072",
+     "family": "ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-073",
+     "family": "ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-074",
+     "family": "ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-075",
+     "family": "conflicting",
+     "probe": "language.python",
+     "outcome": [
+      "uncertain_supported",
+      "uncertain_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ambiguous"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    }
+   ],
+   "readme_items_removed_by_concept_and_label": {
+    "data.library.pandas|historical": 1,
+    "data.library.pandas|negated": 1,
+    "data.library.pandas|ordinary": 1,
+    "data.library.pandas|reference": 1,
+    "framework.express|ordinary": 3,
+    "framework.flask|ordinary": 1,
+    "framework.flask|use": 1,
+    "framework.react|negated": 1,
+    "framework.react|ordinary": 2,
+    "framework.react|reference": 1,
+    "framework.react|use": 1,
+    "language.java|reference": 1,
+    "language.java|use": 1,
+    "language.python|future": 1,
+    "language.python|ordinary": 1,
+    "language.python|use": 2,
+    "language.ruby|ordinary": 1,
+    "language.ruby|reference": 1,
+    "language.rust|ambiguous": 1,
+    "language.rust|ordinary": 2,
+    "language.rust|use": 2,
+    "language.shell|ordinary": 1,
+    "language.swift|future": 1,
+    "language.swift|ordinary": 2,
+    "language.swift|reference": 1,
+    "language.swift|use": 1,
+    "ml.framework.pytorch|ordinary": 3
+   },
+   "status_changes": {
+    "supported->not_observed": 28
+   },
+   "new_false_supported_vs_readme_v4": [],
+   "residual_false_supported": [
+    [
+     "m11g22r3-val1-010",
+     "language.java",
+     "ordinary"
+    ],
+    [
+     "m11g22r3-val1-028",
+     "framework.express",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-037",
+     "language.ruby",
+     "historical"
+    ],
+    [
+     "m11g22r3-val1-038",
+     "framework.flask",
+     "historical"
+    ],
+    [
+     "m11g22r3-val1-041",
+     "ml.framework.pytorch",
+     "future"
+    ],
+    [
+     "m11g22r3-val1-044",
+     "data.library.pandas",
+     "negated"
+    ],
+    [
+     "m11g22r3-val1-045",
+     "framework.express",
+     "negated"
+    ],
+    [
+     "m11g22r3-val1-048",
+     "framework.express",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-052",
+     "language.python",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-053",
+     "language.rust",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-054",
+     "language.java",
+     "reference"
+    ]
+   ],
+   "missed_true_supported": [
+    [
+     "m11g22r3-val1-009",
+     "language.java"
+    ],
+    [
+     "m11g22r3-val1-024",
+     "language.python"
+    ],
+    [
+     "m11g22r3-val1-036",
+     "framework.flask"
+    ],
+    [
+     "m11g22r3-val1-067",
+     "language.rust"
+    ]
+   ],
+   "genuine_use_items_lost": [
+    [
+     "m11g22r3-val1-009",
+     "language.java",
+     "missed"
+    ],
+    [
+     "m11g22r3-val1-024",
+     "language.python",
+     "missed"
+    ],
+    [
+     "m11g22r3-val1-028",
+     "language.python",
+     "false_supported"
+    ],
+    [
+     "m11g22r3-val1-031",
+     "framework.react",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val1-036",
+     "framework.flask",
+     "missed"
+    ],
+    [
+     "m11g22r3-val1-059",
+     "language.rust",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val1-062",
+     "language.swift",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val1-067",
+     "language.rust",
+     "missed"
+    ]
+   ],
+   "non_ambiguous_items_changed": 0
+  },
+  "R3_context_guard": {
+   "role": "DESIGN SET for R3 (R3 was written after D's VAL-1 run): NOT validation",
+   "aggregate": {
+    "false_supported": 9,
+    "false_supported_by_probe_class": {
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "reference": 4
+    },
+    "false_readme_evidence_ordinary": 2,
+    "nonuse_readme_evidence": {
+     "reference": 4,
+     "historical": 2,
+     "future": 1,
+     "negated": 2
+    },
+    "ordinary_correctly_rejected": [
+     18,
+     20
+    ],
+    "use_claims_retained": [
+     33,
+     36
+    ],
+    "genuine_use_lost": 3,
+    "corroborated_supported": [
+     10,
+     10
+    ],
+    "true_supported": 34,
+    "missed_true_supported": 2,
+    "true_not_supported": 26,
+    "uncertain": {
+     "supported": 4,
+     "not_supported": 0
+    },
+    "numerator": 47,
+    "denominator": 75,
+    "readme_items_by_label_class": {
+     "ambiguous": 2,
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "ordinary": 2,
+     "reference": 4,
+     "use": 33
+    },
+    "unlabelled_readme_concepts": []
+   },
+   "changed_controls": [
+    {
+     "id": "m11g22r3-val1-002",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-004",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-006",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-008",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-010",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-012",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-014",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-016",
+     "family": "near_neighbour_ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-018",
+     "family": "near_neighbour_ordinary",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-020",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-022",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-023",
+     "family": "named_phrase",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-024",
+     "family": "named_phrase",
+     "probe": "language.python",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-027",
+     "family": "named_phrase",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-029",
+     "family": "named_phrase",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-030",
+     "family": "named_phrase",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-039",
+     "family": "historical",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "historical"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-040",
+     "family": "future",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "future"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-042",
+     "family": "future",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "future"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-043",
+     "family": "negated",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "negated"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-046",
+     "family": "inspiration_or_comparison",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-047",
+     "family": "inspiration_or_comparison",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-049",
+     "family": "other_project_docs",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-050",
+     "family": "other_project_docs",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-051",
+     "family": "other_project_docs",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-054",
+     "family": "quoted_third_party",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-056",
+     "family": "readme_plus_manifest",
+     "probe": "framework.react",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-058",
+     "family": "readme_plus_manifest",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-071",
+     "family": "conflicting",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "uncertain_supported",
+      "uncertain_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "negated"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-072",
+     "family": "ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-073",
+     "family": "ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-074",
+     "family": "ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val1-075",
+     "family": "conflicting",
+     "probe": "language.python",
+     "outcome": [
+      "uncertain_supported",
+      "uncertain_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ambiguous"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    }
+   ],
+   "readme_items_removed_by_concept_and_label": {
+    "data.library.pandas|historical": 1,
+    "data.library.pandas|negated": 1,
+    "data.library.pandas|ordinary": 1,
+    "data.library.pandas|reference": 1,
+    "framework.express|ordinary": 3,
+    "framework.flask|ordinary": 1,
+    "framework.react|negated": 1,
+    "framework.react|ordinary": 2,
+    "framework.react|reference": 1,
+    "language.java|ordinary": 1,
+    "language.java|reference": 2,
+    "language.python|future": 1,
+    "language.python|ordinary": 1,
+    "language.python|use": 1,
+    "language.ruby|ordinary": 1,
+    "language.ruby|reference": 1,
+    "language.rust|ambiguous": 1,
+    "language.rust|ordinary": 2,
+    "language.rust|use": 2,
+    "language.shell|ordinary": 1,
+    "language.swift|future": 1,
+    "language.swift|ordinary": 2,
+    "language.swift|reference": 1,
+    "ml.framework.pytorch|ordinary": 3
+   },
+   "status_changes": {
+    "supported->not_observed": 28
+   },
+   "new_false_supported_vs_readme_v4": [],
+   "residual_false_supported": [
+    [
+     "m11g22r3-val1-028",
+     "framework.express",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-037",
+     "language.ruby",
+     "historical"
+    ],
+    [
+     "m11g22r3-val1-038",
+     "framework.flask",
+     "historical"
+    ],
+    [
+     "m11g22r3-val1-041",
+     "ml.framework.pytorch",
+     "future"
+    ],
+    [
+     "m11g22r3-val1-044",
+     "data.library.pandas",
+     "negated"
+    ],
+    [
+     "m11g22r3-val1-045",
+     "framework.express",
+     "negated"
+    ],
+    [
+     "m11g22r3-val1-048",
+     "framework.express",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-052",
+     "language.python",
+     "reference"
+    ],
+    [
+     "m11g22r3-val1-053",
+     "language.rust",
+     "reference"
+    ]
+   ],
+   "missed_true_supported": [
+    [
+     "m11g22r3-val1-024",
+     "language.python"
+    ],
+    [
+     "m11g22r3-val1-027",
+     "language.rust"
+    ]
+   ],
+   "genuine_use_items_lost": [
+    [
+     "m11g22r3-val1-023",
+     "language.rust",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val1-024",
+     "language.python",
+     "missed"
+    ],
+    [
+     "m11g22r3-val1-027",
+     "language.rust",
+     "missed"
+    ]
+   ],
+   "non_ambiguous_items_changed": 0
+  }
+ },
+ "val2": {
+  "A_current_readme_v4": {
+   "role": "baseline (production readme:v4)",
+   "aggregate": {
+    "false_supported": 24,
+    "false_supported_by_probe_class": {
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "ordinary": 13,
+     "reference": 6
+    },
+    "false_readme_evidence_ordinary": 15,
+    "nonuse_readme_evidence": {
+     "reference": 6,
+     "historical": 2,
+     "future": 1,
+     "negated": 2
+    },
+    "ordinary_correctly_rejected": [
+     0,
+     15
+    ],
+    "use_claims_retained": [
+     23,
+     23
+    ],
+    "genuine_use_lost": 0,
+    "corroborated_supported": [
+     6,
+     6
+    ],
+    "true_supported": 24,
+    "missed_true_supported": 0,
+    "true_not_supported": 1,
+    "uncertain": {
+     "supported": 2,
+     "not_supported": 0
+    },
+    "numerator": 50,
+    "denominator": 51,
+    "readme_items_by_label_class": {
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "ordinary": 15,
+     "reference": 6,
+     "use": 23
+    },
+    "unlabelled_readme_concepts": []
+   }
+  },
+  "D_hybrid_use_frames": {
+   "role": "unseen",
+   "aggregate": {
+    "false_supported": 7,
+    "false_supported_by_probe_class": {
+     "future": 1,
+     "historical": 1,
+     "negated": 2,
+     "reference": 3
+    },
+    "false_readme_evidence_ordinary": 0,
+    "nonuse_readme_evidence": {
+     "reference": 3,
+     "historical": 1,
+     "future": 1,
+     "negated": 2
+    },
+    "ordinary_correctly_rejected": [
+     15,
+     15
+    ],
+    "use_claims_retained": [
+     17,
+     23
+    ],
+    "genuine_use_lost": 6,
+    "corroborated_supported": [
+     6,
+     6
+    ],
+    "true_supported": 20,
+    "missed_true_supported": 4,
+    "true_not_supported": 18,
+    "uncertain": {
+     "supported": 2,
+     "not_supported": 0
+    },
+    "numerator": 29,
+    "denominator": 51,
+    "readme_items_by_label_class": {
+     "future": 1,
+     "historical": 1,
+     "negated": 2,
+     "reference": 3,
+     "use": 17
+    },
+    "unlabelled_readme_concepts": []
+   },
+   "changed_controls": [
+    {
+     "id": "m11g22r3-val2-002",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-004",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-006",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-008",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-009",
+     "family": "near_neighbour_technical",
+     "probe": "language.java",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-010",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-011",
+     "family": "near_neighbour_technical",
+     "probe": "language.swift",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-012",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-014",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-016",
+     "family": "near_neighbour_ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-018",
+     "family": "near_neighbour_ordinary",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-019",
+     "family": "near_neighbour_technical",
+     "probe": "language.python",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-020",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-022",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-023",
+     "family": "explicit_use",
+     "probe": "framework.express",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-028",
+     "family": "historical",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "historical"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-034",
+     "family": "inspiration_or_comparison",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-035",
+     "family": "other_project_docs",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-038",
+     "family": "quoted_third_party",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-040",
+     "family": "readme_plus_manifest",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-041",
+     "family": "readme_plus_manifest",
+     "probe": "framework.express",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-042",
+     "family": "readme_plus_language",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-045",
+     "family": "readme_only_use",
+     "probe": "language.swift",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-050",
+     "family": "ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-051",
+     "family": "ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    }
+   ],
+   "readme_items_removed_by_concept_and_label": {
+    "data.library.pandas|ordinary": 1,
+    "data.library.pandas|use": 1,
+    "framework.express|ordinary": 2,
+    "framework.express|reference": 1,
+    "framework.flask|ordinary": 1,
+    "framework.flask|reference": 1,
+    "framework.react|ordinary": 2,
+    "framework.react|use": 1,
+    "language.java|ordinary": 1,
+    "language.java|use": 1,
+    "language.python|ordinary": 1,
+    "language.python|use": 1,
+    "language.ruby|ordinary": 1,
+    "language.rust|ordinary": 2,
+    "language.rust|reference": 1,
+    "language.shell|ordinary": 2,
+    "language.swift|ordinary": 1,
+    "language.swift|use": 2,
+    "ml.framework.pytorch|historical": 1,
+    "ml.framework.pytorch|ordinary": 1
+   },
+   "status_changes": {
+    "supported->not_observed": 21
+   },
+   "new_false_supported_vs_readme_v4": [],
+   "residual_false_supported": [
+    [
+     "m11g22r3-val2-027",
+     "language.ruby",
+     "historical"
+    ],
+    [
+     "m11g22r3-val2-030",
+     "language.python",
+     "future"
+    ],
+    [
+     "m11g22r3-val2-031",
+     "framework.flask",
+     "negated"
+    ],
+    [
+     "m11g22r3-val2-032",
+     "framework.react",
+     "negated"
+    ],
+    [
+     "m11g22r3-val2-033",
+     "data.library.pandas",
+     "reference"
+    ],
+    [
+     "m11g22r3-val2-036",
+     "ml.framework.pytorch",
+     "reference"
+    ],
+    [
+     "m11g22r3-val2-037",
+     "language.swift",
+     "reference"
+    ]
+   ],
+   "missed_true_supported": [
+    [
+     "m11g22r3-val2-009",
+     "language.java"
+    ],
+    [
+     "m11g22r3-val2-011",
+     "language.swift"
+    ],
+    [
+     "m11g22r3-val2-019",
+     "language.python"
+    ],
+    [
+     "m11g22r3-val2-045",
+     "language.swift"
+    ]
+   ],
+   "genuine_use_items_lost": [
+    [
+     "m11g22r3-val2-009",
+     "language.java",
+     "missed"
+    ],
+    [
+     "m11g22r3-val2-011",
+     "language.swift",
+     "missed"
+    ],
+    [
+     "m11g22r3-val2-019",
+     "language.python",
+     "missed"
+    ],
+    [
+     "m11g22r3-val2-023",
+     "framework.react",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val2-040",
+     "data.library.pandas",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val2-045",
+     "language.swift",
+     "missed"
+    ]
+   ],
+   "non_ambiguous_items_changed": 0
+  },
+  "D2_posthoc_d_plus_lead_ins": {
+   "role": "comparison only (post-hoc, unauthorized)",
+   "aggregate": {
+    "false_supported": 8,
+    "false_supported_by_probe_class": {
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "reference": 3
+    },
+    "false_readme_evidence_ordinary": 0,
+    "nonuse_readme_evidence": {
+     "reference": 3,
+     "historical": 2,
+     "future": 1,
+     "negated": 2
+    },
+    "ordinary_correctly_rejected": [
+     15,
+     15
+    ],
+    "use_claims_retained": [
+     19,
+     23
+    ],
+    "genuine_use_lost": 4,
+    "corroborated_supported": [
+     6,
+     6
+    ],
+    "true_supported": 21,
+    "missed_true_supported": 3,
+    "true_not_supported": 17,
+    "uncertain": {
+     "supported": 2,
+     "not_supported": 0
+    },
+    "numerator": 31,
+    "denominator": 51,
+    "readme_items_by_label_class": {
+     "future": 1,
+     "historical": 2,
+     "negated": 2,
+     "reference": 3,
+     "use": 19
+    },
+    "unlabelled_readme_concepts": []
+   },
+   "changed_controls": [
+    {
+     "id": "m11g22r3-val2-002",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-004",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-006",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-008",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-009",
+     "family": "near_neighbour_technical",
+     "probe": "language.java",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-010",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-011",
+     "family": "near_neighbour_technical",
+     "probe": "language.swift",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-012",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-014",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-016",
+     "family": "near_neighbour_ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-018",
+     "family": "near_neighbour_ordinary",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-019",
+     "family": "near_neighbour_technical",
+     "probe": "language.python",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-020",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-022",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-023",
+     "family": "explicit_use",
+     "probe": "framework.express",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-034",
+     "family": "inspiration_or_comparison",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-035",
+     "family": "other_project_docs",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-038",
+     "family": "quoted_third_party",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-041",
+     "family": "readme_plus_manifest",
+     "probe": "framework.express",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-042",
+     "family": "readme_plus_language",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-050",
+     "family": "ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-051",
+     "family": "ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    }
+   ],
+   "readme_items_removed_by_concept_and_label": {
+    "data.library.pandas|ordinary": 1,
+    "framework.express|ordinary": 2,
+    "framework.express|reference": 1,
+    "framework.flask|ordinary": 1,
+    "framework.flask|reference": 1,
+    "framework.react|ordinary": 2,
+    "framework.react|use": 1,
+    "language.java|ordinary": 1,
+    "language.java|use": 1,
+    "language.python|ordinary": 1,
+    "language.python|use": 1,
+    "language.ruby|ordinary": 1,
+    "language.rust|ordinary": 2,
+    "language.rust|reference": 1,
+    "language.shell|ordinary": 2,
+    "language.swift|ordinary": 1,
+    "language.swift|use": 1,
+    "ml.framework.pytorch|ordinary": 1
+   },
+   "status_changes": {
+    "supported->not_observed": 19
+   },
+   "new_false_supported_vs_readme_v4": [],
+   "residual_false_supported": [
+    [
+     "m11g22r3-val2-027",
+     "language.ruby",
+     "historical"
+    ],
+    [
+     "m11g22r3-val2-028",
+     "ml.framework.pytorch",
+     "historical"
+    ],
+    [
+     "m11g22r3-val2-030",
+     "language.python",
+     "future"
+    ],
+    [
+     "m11g22r3-val2-031",
+     "framework.flask",
+     "negated"
+    ],
+    [
+     "m11g22r3-val2-032",
+     "framework.react",
+     "negated"
+    ],
+    [
+     "m11g22r3-val2-033",
+     "data.library.pandas",
+     "reference"
+    ],
+    [
+     "m11g22r3-val2-036",
+     "ml.framework.pytorch",
+     "reference"
+    ],
+    [
+     "m11g22r3-val2-037",
+     "language.swift",
+     "reference"
+    ]
+   ],
+   "missed_true_supported": [
+    [
+     "m11g22r3-val2-009",
+     "language.java"
+    ],
+    [
+     "m11g22r3-val2-011",
+     "language.swift"
+    ],
+    [
+     "m11g22r3-val2-019",
+     "language.python"
+    ]
+   ],
+   "genuine_use_items_lost": [
+    [
+     "m11g22r3-val2-009",
+     "language.java",
+     "missed"
+    ],
+    [
+     "m11g22r3-val2-011",
+     "language.swift",
+     "missed"
+    ],
+    [
+     "m11g22r3-val2-019",
+     "language.python",
+     "missed"
+    ],
+    [
+     "m11g22r3-val2-023",
+     "framework.react",
+     "true_supported"
+    ]
+   ],
+   "non_ambiguous_items_changed": 0
+  },
+  "R3_context_guard": {
+   "role": "held-out validation: run once after R3 and its acceptance criteria were frozen",
+   "aggregate": {
+    "false_supported": 8,
+    "false_supported_by_probe_class": {
+     "future": 1,
+     "historical": 1,
+     "negated": 2,
+     "reference": 4
+    },
+    "false_readme_evidence_ordinary": 0,
+    "nonuse_readme_evidence": {
+     "reference": 4,
+     "historical": 1,
+     "future": 1,
+     "negated": 2
+    },
+    "ordinary_correctly_rejected": [
+     15,
+     15
+    ],
+    "use_claims_retained": [
+     18,
+     23
+    ],
+    "genuine_use_lost": 5,
+    "corroborated_supported": [
+     6,
+     6
+    ],
+    "true_supported": 21,
+    "missed_true_supported": 3,
+    "true_not_supported": 17,
+    "uncertain": {
+     "supported": 2,
+     "not_supported": 0
+    },
+    "numerator": 31,
+    "denominator": 51,
+    "readme_items_by_label_class": {
+     "future": 1,
+     "historical": 1,
+     "negated": 2,
+     "reference": 4,
+     "use": 18
+    },
+    "unlabelled_readme_concepts": []
+   },
+   "changed_controls": [
+    {
+     "id": "m11g22r3-val2-002",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-004",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-006",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.rust",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-008",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.ruby",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.ruby": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-010",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.java",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.java": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-011",
+     "family": "near_neighbour_technical",
+     "probe": "language.swift",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-012",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.swift",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-014",
+     "family": "near_neighbour_ordinary",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-016",
+     "family": "near_neighbour_ordinary",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-018",
+     "family": "near_neighbour_ordinary",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-019",
+     "family": "near_neighbour_technical",
+     "probe": "language.python",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-020",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.python",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.python": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-022",
+     "family": "near_neighbour_ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-023",
+     "family": "explicit_use",
+     "probe": "framework.express",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-028",
+     "family": "historical",
+     "probe": "ml.framework.pytorch",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "ml.framework.pytorch": "historical"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-035",
+     "family": "other_project_docs",
+     "probe": "framework.flask",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.flask": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-038",
+     "family": "quoted_third_party",
+     "probe": "framework.express",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "reference"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-040",
+     "family": "readme_plus_manifest",
+     "probe": "data.library.pandas",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "data.library.pandas": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-041",
+     "family": "readme_plus_manifest",
+     "probe": "framework.express",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.express": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-042",
+     "family": "readme_plus_language",
+     "probe": "language.rust",
+     "outcome": [
+      "true_supported",
+      "true_supported"
+     ],
+     "status": [
+      "supported",
+      "supported"
+     ],
+     "score": [
+      100,
+      100
+     ],
+     "numerator": [
+      1,
+      1
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.rust": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-045",
+     "family": "readme_only_use",
+     "probe": "language.swift",
+     "outcome": [
+      "true_supported",
+      "missed"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.swift": "use"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-050",
+     "family": "ordinary",
+     "probe": "language.shell",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "language.shell": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    },
+    {
+     "id": "m11g22r3-val2-051",
+     "family": "ordinary",
+     "probe": "framework.react",
+     "outcome": [
+      "false_supported",
+      "true_not_supported"
+     ],
+     "status": [
+      "supported",
+      "not_observed"
+     ],
+     "score": [
+      100,
+      0
+     ],
+     "numerator": [
+      1,
+      0
+     ],
+     "denominator": [
+      1,
+      1
+     ],
+     "readme_items_removed": {
+      "framework.react": "ordinary"
+     },
+     "readme_items_added": {},
+     "non_ambiguous_item_changed": false
+    }
+   ],
+   "readme_items_removed_by_concept_and_label": {
+    "data.library.pandas|ordinary": 1,
+    "data.library.pandas|use": 1,
+    "framework.express|ordinary": 2,
+    "framework.express|reference": 1,
+    "framework.flask|ordinary": 1,
+    "framework.flask|reference": 1,
+    "framework.react|ordinary": 2,
+    "framework.react|use": 1,
+    "language.java|ordinary": 1,
+    "language.python|ordinary": 1,
+    "language.python|use": 1,
+    "language.ruby|ordinary": 1,
+    "language.rust|ordinary": 2,
+    "language.shell|ordinary": 2,
+    "language.swift|ordinary": 1,
+    "language.swift|use": 2,
+    "ml.framework.pytorch|historical": 1,
+    "ml.framework.pytorch|ordinary": 1
+   },
+   "status_changes": {
+    "supported->not_observed": 19
+   },
+   "new_false_supported_vs_readme_v4": [],
+   "residual_false_supported": [
+    [
+     "m11g22r3-val2-027",
+     "language.ruby",
+     "historical"
+    ],
+    [
+     "m11g22r3-val2-030",
+     "language.python",
+     "future"
+    ],
+    [
+     "m11g22r3-val2-031",
+     "framework.flask",
+     "negated"
+    ],
+    [
+     "m11g22r3-val2-032",
+     "framework.react",
+     "negated"
+    ],
+    [
+     "m11g22r3-val2-033",
+     "data.library.pandas",
+     "reference"
+    ],
+    [
+     "m11g22r3-val2-034",
+     "language.rust",
+     "reference"
+    ],
+    [
+     "m11g22r3-val2-036",
+     "ml.framework.pytorch",
+     "reference"
+    ],
+    [
+     "m11g22r3-val2-037",
+     "language.swift",
+     "reference"
+    ]
+   ],
+   "missed_true_supported": [
+    [
+     "m11g22r3-val2-011",
+     "language.swift"
+    ],
+    [
+     "m11g22r3-val2-019",
+     "language.python"
+    ],
+    [
+     "m11g22r3-val2-045",
+     "language.swift"
+    ]
+   ],
+   "genuine_use_items_lost": [
+    [
+     "m11g22r3-val2-011",
+     "language.swift",
+     "missed"
+    ],
+    [
+     "m11g22r3-val2-019",
+     "language.python",
+     "missed"
+    ],
+    [
+     "m11g22r3-val2-023",
+     "framework.react",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val2-040",
+     "data.library.pandas",
+     "true_supported"
+    ],
+    [
+     "m11g22r3-val2-045",
+     "language.swift",
+     "missed"
+    ]
+   ],
+   "non_ambiguous_items_changed": 0
+  }
+ },
+ "acceptance": {
+  "R3_on_val2": {
+   "checks": {
+    "1_false_supported_reduction": [
+     8,
+     24,
+     true
+    ],
+    "2_no_new_false_supported": [
+     0,
+     0,
+     true
+    ],
+    "3_corroborated": [
+     6,
+     6,
+     true
+    ],
+    "4_genuine_use_items": [
+     18,
+     23,
+     false
+    ],
+    "5_requirement_recall": [
+     21,
+     24,
+     false
+    ],
+    "6_ordinary": [
+     0,
+     1,
+     true
+    ],
+    "7_non_ambiguous": [
+     0,
+     0,
+     true
+    ]
+   },
+   "passed": false
+  },
+  "D_on_val2": {
+   "checks": {
+    "1_false_supported_reduction": [
+     7,
+     24,
+     true
+    ],
+    "2_no_new_false_supported": [
+     0,
+     0,
+     true
+    ],
+    "3_corroborated": [
+     6,
+     6,
+     true
+    ],
+    "4_genuine_use_items": [
+     17,
+     23,
+     false
+    ],
+    "5_requirement_recall": [
+     20,
+     24,
+     false
+    ],
+    "6_ordinary": [
+     0,
+     1,
+     true
+    ],
+    "7_non_ambiguous": [
+     0,
+     0,
+     true
+    ]
+   },
+   "passed": false
+  },
+  "D_on_val1": {
+   "checks": {
+    "1_false_supported_reduction": [
+     9,
+     35,
+     true
+    ],
+    "2_no_new_false_supported": [
+     0,
+     0,
+     true
+    ],
+    "3_corroborated": [
+     10,
+     10,
+     true
+    ],
+    "4_genuine_use_items": [
+     26,
+     36,
+     false
+    ],
+    "5_requirement_recall": [
+     31,
+     36,
+     false
+    ],
+    "6_ordinary": [
+     0,
+     1,
+     true
+    ],
+    "7_non_ambiguous": [
+     0,
+     0,
+     true
+    ]
+   },
+   "passed": false
+  }
+ },
+ "named_phrases": [
+  {
+   "phrase": "image diffing in Rust",
+   "id": "m11g22r3-val1-023",
+   "probe": "language.rust",
+   "author_label": "use",
+   "used": true,
+   "outcome": {
+    "A_current_readme_v4": "true_supported",
+    "D_hybrid_use_frames": "true_supported",
+    "D2_posthoc_d_plus_lead_ins": "true_supported",
+    "R3_context_guard": "true_supported"
+   },
+   "readme_item_kept": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "phrase": "python plotting helper",
+   "id": "m11g22r3-val1-024",
+   "probe": "language.python",
+   "author_label": "use",
+   "used": true,
+   "outcome": {
+    "A_current_readme_v4": "true_supported",
+    "D_hybrid_use_frames": "missed",
+    "D2_posthoc_d_plus_lead_ins": "missed",
+    "R3_context_guard": "missed"
+   },
+   "readme_item_kept": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "phrase": "Analysis with pandas",
+   "id": "m11g22r3-val1-025",
+   "probe": "data.library.pandas",
+   "author_label": "use",
+   "used": true,
+   "outcome": {
+    "A_current_readme_v4": "true_supported",
+    "D_hybrid_use_frames": "true_supported",
+    "D2_posthoc_d_plus_lead_ins": "true_supported",
+    "R3_context_guard": "true_supported"
+   },
+   "readme_item_kept": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "phrase": "trained with torch",
+   "id": "m11g22r3-val1-026",
+   "probe": "ml.framework.pytorch",
+   "author_label": "use",
+   "used": true,
+   "outcome": {
+    "A_current_readme_v4": "true_supported",
+    "D_hybrid_use_frames": "true_supported",
+    "D2_posthoc_d_plus_lead_ins": "true_supported",
+    "R3_context_guard": "true_supported"
+   },
+   "readme_item_kept": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "phrase": "store in Rust",
+   "id": "m11g22r3-val1-027",
+   "probe": "language.rust",
+   "author_label": "use",
+   "used": true,
+   "outcome": {
+    "A_current_readme_v4": "true_supported",
+    "D_hybrid_use_frames": "missed",
+    "D2_posthoc_d_plus_lead_ins": "true_supported",
+    "R3_context_guard": "missed"
+   },
+   "readme_item_kept": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "phrase": "API design borrowed from Express",
+   "id": "m11g22r3-val1-028",
+   "probe": "framework.express",
+   "author_label": "reference",
+   "used": false,
+   "outcome": {
+    "A_current_readme_v4": "false_supported",
+    "D_hybrid_use_frames": "false_supported",
+    "D2_posthoc_d_plus_lead_ins": "false_supported",
+    "R3_context_guard": "false_supported"
+   },
+   "readme_item_kept": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "phrase": "free of rust",
+   "id": "m11g22r3-val1-029",
+   "probe": "language.rust",
+   "author_label": "ordinary",
+   "used": false,
+   "outcome": {
+    "A_current_readme_v4": "false_supported",
+    "D_hybrid_use_frames": "true_not_supported",
+    "D2_posthoc_d_plus_lead_ins": "true_not_supported",
+    "R3_context_guard": "true_not_supported"
+   },
+   "readme_item_kept": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "phrase": "local and express trains",
+   "id": "m11g22r3-val1-030",
+   "probe": "framework.express",
+   "author_label": "ordinary",
+   "used": false,
+   "outcome": {
+    "A_current_readme_v4": "false_supported",
+    "D_hybrid_use_frames": "true_not_supported",
+    "D2_posthoc_d_plus_lead_ins": "true_not_supported",
+    "R3_context_guard": "true_not_supported"
+   },
+   "readme_item_kept": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  }
+ ],
+ "g22r2_controls": {
+  "dev": {
+   "A_current_readme_v4": {
+    "readme_items_by_label_class": {
+     "ambiguous": 1,
+     "future": 3,
+     "historical": 1,
+     "ordinary": 18,
+     "reference": 1,
+     "use": 20
+    },
+    "false_readme_evidence_ordinary": 18,
+    "nonuse_readme_evidence": {
+     "reference": 1,
+     "historical": 1,
+     "future": 3,
+     "negated": 0
+    },
+    "ordinary_correctly_rejected": [
+     0,
+     18
+    ],
+    "use_claims_retained": [
+     20,
+     20
+    ],
+    "genuine_use_lost": 0,
+    "corroborated_supported": [
+     4,
+     4
+    ],
+    "false_supported": 21,
+    "false_supported_by_probe_class": {
+     "future": 3,
+     "ordinary": 17,
+     "reference": 1
+    },
+    "true_supported": 20,
+    "missed_true_supported": 0,
+    "true_not_supported": 1,
+    "uncertain": {
+     "supported": 2,
+     "not_supported": 0
+    },
+    "numerator": 43,
+    "denominator": 44,
+    "unlabelled_readme_concepts": []
+   },
+   "D_hybrid_use_frames": {
+    "readme_items_by_label_class": {
+     "ambiguous": 1,
+     "use": 20
+    },
+    "false_readme_evidence_ordinary": 0,
+    "nonuse_readme_evidence": {
+     "reference": 0,
+     "historical": 0,
+     "future": 0,
+     "negated": 0
+    },
+    "ordinary_correctly_rejected": [
+     18,
+     18
+    ],
+    "use_claims_retained": [
+     20,
+     20
+    ],
+    "genuine_use_lost": 0,
+    "corroborated_supported": [
+     4,
+     4
+    ],
+    "false_supported": 0,
+    "false_supported_by_probe_class": {},
+    "true_supported": 20,
+    "missed_true_supported": 0,
+    "true_not_supported": 22,
+    "uncertain": {
+     "supported": 1,
+     "not_supported": 1
+    },
+    "numerator": 21,
+    "denominator": 44,
+    "unlabelled_readme_concepts": []
+   },
+   "R3_context_guard": {
+    "readme_items_by_label_class": {
+     "ambiguous": 1,
+     "use": 20
+    },
+    "false_readme_evidence_ordinary": 0,
+    "nonuse_readme_evidence": {
+     "reference": 0,
+     "historical": 0,
+     "future": 0,
+     "negated": 0
+    },
+    "ordinary_correctly_rejected": [
+     18,
+     18
+    ],
+    "use_claims_retained": [
+     20,
+     20
+    ],
+    "genuine_use_lost": 0,
+    "corroborated_supported": [
+     4,
+     4
+    ],
+    "false_supported": 0,
+    "false_supported_by_probe_class": {},
+    "true_supported": 20,
+    "missed_true_supported": 0,
+    "true_not_supported": 22,
+    "uncertain": {
+     "supported": 1,
+     "not_supported": 1
+    },
+    "numerator": 21,
+    "denominator": 44,
+    "unlabelled_readme_concepts": []
+   }
+  },
+  "eval": {
+   "A_current_readme_v4": {
+    "readme_items_by_label_class": {
+     "ambiguous": 1,
+     "future": 4,
+     "historical": 1,
+     "ordinary": 15,
+     "reference": 1,
+     "use": 19
+    },
+    "false_readme_evidence_ordinary": 15,
+    "nonuse_readme_evidence": {
+     "reference": 1,
+     "historical": 1,
+     "future": 4,
+     "negated": 0
+    },
+    "ordinary_correctly_rejected": [
+     0,
+     15
+    ],
+    "use_claims_retained": [
+     19,
+     19
+    ],
+    "genuine_use_lost": 0,
+    "corroborated_supported": [
+     4,
+     4
+    ],
+    "false_supported": 18,
+    "false_supported_by_probe_class": {
+     "future": 3,
+     "ordinary": 14,
+     "reference": 1
+    },
+    "true_supported": 19,
+    "missed_true_supported": 0,
+    "true_not_supported": 1,
+    "uncertain": {
+     "supported": 2,
+     "not_supported": 0
+    },
+    "numerator": 39,
+    "denominator": 40,
+    "unlabelled_readme_concepts": []
+   },
+   "D_hybrid_use_frames": {
+    "readme_items_by_label_class": {
+     "ambiguous": 1,
+     "future": 1,
+     "historical": 1,
+     "reference": 1,
+     "use": 16
+    },
+    "false_readme_evidence_ordinary": 0,
+    "nonuse_readme_evidence": {
+     "reference": 1,
+     "historical": 1,
+     "future": 1,
+     "negated": 0
+    },
+    "ordinary_correctly_rejected": [
+     15,
+     15
+    ],
+    "use_claims_retained": [
+     16,
+     19
+    ],
+    "genuine_use_lost": 3,
+    "corroborated_supported": [
+     4,
+     4
+    ],
+    "false_supported": 1,
+    "false_supported_by_probe_class": {
+     "reference": 1
+    },
+    "true_supported": 17,
+    "missed_true_supported": 2,
+    "true_not_supported": 18,
+    "uncertain": {
+     "supported": 2,
+     "not_supported": 0
+    },
+    "numerator": 20,
+    "denominator": 40,
+    "unlabelled_readme_concepts": []
+   },
+   "R3_context_guard": {
+    "readme_items_by_label_class": {
+     "ambiguous": 1,
+     "future": 1,
+     "historical": 1,
+     "reference": 1,
+     "use": 16
+    },
+    "false_readme_evidence_ordinary": 0,
+    "nonuse_readme_evidence": {
+     "reference": 1,
+     "historical": 1,
+     "future": 1,
+     "negated": 0
+    },
+    "ordinary_correctly_rejected": [
+     15,
+     15
+    ],
+    "use_claims_retained": [
+     16,
+     19
+    ],
+    "genuine_use_lost": 3,
+    "corroborated_supported": [
+     4,
+     4
+    ],
+    "false_supported": 1,
+    "false_supported_by_probe_class": {
+     "reference": 1
+    },
+    "true_supported": 17,
+    "missed_true_supported": 2,
+    "true_not_supported": 18,
+    "uncertain": {
+     "supported": 2,
+     "not_supported": 0
+    },
+    "numerator": 20,
+    "denominator": 40,
+    "unlabelled_readme_concepts": []
+   }
+  }
+ },
+ "g22r_frozen_controls": {
+  "reproduced_g22r": {
+   "dev:BASE": {
+    "false_supported": 21,
+    "readme_genuine_recall": [
+     14,
+     14
+    ],
+    "readme_false_extractions_raw": 18,
+    "readme_false_extractions_errata_adjusted": 17
+   },
+   "dev:D_alias_metadata_split": {
+    "false_supported": 5,
+    "readme_genuine_recall": [
+     14,
+     14
+    ],
+    "readme_false_extractions_raw": 3,
+    "readme_false_extractions_errata_adjusted": 2
+   },
+   "dev:R_readme_only_insufficient": {
+    "false_supported": 1,
+    "readme_genuine_recall": [
+     9,
+     14
+    ],
+    "readme_false_extractions_raw": 1,
+    "readme_false_extractions_errata_adjusted": 0
+   },
+   "eval:BASE": {
+    "false_supported": 20,
+    "readme_genuine_recall": [
+     12,
+     12
+    ],
+    "readme_false_extractions_raw": 16,
+    "readme_false_extractions_errata_adjusted": 16
+   },
+   "eval:D_alias_metadata_split": {
+    "false_supported": 7,
+    "readme_genuine_recall": [
+     12,
+     12
+    ],
+    "readme_false_extractions_raw": 5,
+    "readme_false_extractions_errata_adjusted": 5
+   },
+   "eval:R_readme_only_insufficient": {
+    "false_supported": 1,
+    "readme_genuine_recall": [
+     8,
+     12
+    ],
+    "readme_false_extractions_raw": 0,
+    "readme_false_extractions_errata_adjusted": 0
+   }
+  },
+  "A_current_readme_v4": {
+   "dev": {
+    "readme_false_extractions": 18,
+    "readme_mention_without_use_extractions": 3,
+    "readme_genuine_recall": [
+     14,
+     14
+    ],
+    "false_supported": 21,
+    "false_supported_by_cause": {
+     "false_readme_extraction": 14,
+     "job_false_concept": 4,
+     "readme_mention_without_use": 3
+    },
+    "true_supported": 12,
+    "missed_true_supported": 0,
+    "numerator": 33,
+    "denominator": 40,
+    "readme_false_extractions_errata_adjusted": 17
+   },
+   "eval": {
+    "readme_false_extractions": 16,
+    "readme_mention_without_use_extractions": 4,
+    "readme_genuine_recall": [
+     12,
+     12
+    ],
+    "false_supported": 20,
+    "false_supported_by_cause": {
+     "false_readme_extraction": 14,
+     "job_false_concept": 3,
+     "readme_mention_without_use": 3
+    },
+    "true_supported": 11,
+    "missed_true_supported": 0,
+    "numerator": 31,
+    "denominator": 36,
+    "readme_false_extractions_errata_adjusted": 16
+   }
+  },
+  "D_hybrid_use_frames": {
+   "dev": {
+    "readme_false_extractions": 2,
+    "readme_mention_without_use_extractions": 0,
+    "readme_genuine_recall": [
+     12,
+     14
+    ],
+    "false_supported": 2,
+    "false_supported_by_cause": {
+     "false_readme_extraction": 1,
+     "job_false_concept": 1
+    },
+    "true_supported": 11,
+    "missed_true_supported": 1,
+    "numerator": 13,
+    "denominator": 40,
+    "readme_false_extractions_errata_adjusted": 1
+   },
+   "eval": {
+    "readme_false_extractions": 0,
+    "readme_mention_without_use_extractions": 3,
+    "readme_genuine_recall": [
+     11,
+     12
+    ],
+    "false_supported": 3,
+    "false_supported_by_cause": {
+     "job_false_concept": 1,
+     "readme_mention_without_use": 2
+    },
+    "true_supported": 11,
+    "missed_true_supported": 0,
+    "numerator": 14,
+    "denominator": 36,
+    "readme_false_extractions_errata_adjusted": 0
+   }
+  },
+  "R3_context_guard": {
+   "dev": {
+    "readme_false_extractions": 2,
+    "readme_mention_without_use_extractions": 0,
+    "readme_genuine_recall": [
+     12,
+     14
+    ],
+    "false_supported": 2,
+    "false_supported_by_cause": {
+     "false_readme_extraction": 1,
+     "job_false_concept": 1
+    },
+    "true_supported": 11,
+    "missed_true_supported": 1,
+    "numerator": 13,
+    "denominator": 40,
+    "readme_false_extractions_errata_adjusted": 1
+   },
+   "eval": {
+    "readme_false_extractions": 0,
+    "readme_mention_without_use_extractions": 3,
+    "readme_genuine_recall": [
+     11,
+     12
+    ],
+    "false_supported": 3,
+    "false_supported_by_cause": {
+     "job_false_concept": 1,
+     "readme_mention_without_use": 2
+    },
+    "true_supported": 11,
+    "missed_true_supported": 0,
+    "numerator": 14,
+    "denominator": 36,
+    "readme_false_extractions_errata_adjusted": 0
+   }
+  }
+ },
+ "historical_8c_simulated": {
+  "readme_items_base": 126,
+  "policies": {
+   "D_hybrid_use_frames": {
+    "readme_items_removed": [
+     [
+      "sindresorhus",
+      "Gifski",
+      "language.rust",
+      "use: build requirement of this app",
+      false
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.java",
+      "reference: other projects' language bindings list",
+      true
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.python",
+      "reference: other projects' language bindings list",
+      false
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.ruby",
+      "reference: other projects' language bindings list",
+      true
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.rust",
+      "reference: other projects' language bindings list",
+      true
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.swift",
+      "reference: other projects' language bindings list",
+      true
+     ]
+    ],
+    "readme_items_added": [],
+    "readme_items_moved_to_another_occurrence": 3,
+    "concepts_lost_entirely": [
+     [
+      "torvalds",
+      "language.java"
+     ],
+     [
+      "torvalds",
+      "language.ruby"
+     ],
+     [
+      "torvalds",
+      "language.rust"
+     ],
+     [
+      "torvalds",
+      "language.swift"
+     ]
+    ],
+    "removed_reviewed_reference": 5,
+    "removed_reviewed_use": 1,
+    "removed_unreviewed": 0,
+    "score_changes": {
+     "8c_v1:torvalds/systems_cpp_01": [
+      [
+       2,
+       3,
+       67
+      ],
+      [
+       1,
+       3,
+       33
+      ]
+     ],
+     "8c_v1_1:torvalds/systems_cpp_01": [
+      [
+       2,
+       3,
+       67
+      ],
+      [
+       1,
+       3,
+       33
+      ]
+     ]
+    },
+    "status_changed_pairs": [
+     "8c_v1:torvalds/systems_cpp_01",
+     "8c_v1_1:torvalds/systems_cpp_01"
+    ],
+    "became_undefined": []
+   },
+   "R3_context_guard": {
+    "readme_items_removed": [
+     [
+      "sindresorhus",
+      "Gifski",
+      "language.rust",
+      "use: build requirement of this app",
+      false
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.java",
+      "reference: other projects' language bindings list",
+      true
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.python",
+      "reference: other projects' language bindings list",
+      false
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.ruby",
+      "reference: other projects' language bindings list",
+      true
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.rust",
+      "reference: other projects' language bindings list",
+      true
+     ],
+     [
+      "torvalds",
+      "libgit2",
+      "language.swift",
+      "reference: other projects' language bindings list",
+      true
+     ]
+    ],
+    "readme_items_added": [],
+    "readme_items_moved_to_another_occurrence": 3,
+    "concepts_lost_entirely": [
+     [
+      "torvalds",
+      "language.java"
+     ],
+     [
+      "torvalds",
+      "language.ruby"
+     ],
+     [
+      "torvalds",
+      "language.rust"
+     ],
+     [
+      "torvalds",
+      "language.swift"
+     ]
+    ],
+    "removed_reviewed_reference": 5,
+    "removed_reviewed_use": 1,
+    "removed_unreviewed": 0,
+    "score_changes": {
+     "8c_v1:torvalds/systems_cpp_01": [
+      [
+       2,
+       3,
+       67
+      ],
+      [
+       1,
+       3,
+       33
+      ]
+     ],
+     "8c_v1_1:torvalds/systems_cpp_01": [
+      [
+       2,
+       3,
+       67
+      ],
+      [
+       1,
+       3,
+       33
+      ]
+     ]
+    },
+    "status_changed_pairs": [
+     "8c_v1:torvalds/systems_cpp_01",
+     "8c_v1_1:torvalds/systems_cpp_01"
+    ],
+    "became_undefined": []
+   }
+  }
+ },
+ "difficult_cases": [
+  {
+   "case": "free of rust (ordinary)",
+   "text": "Keeps bike chains free of rust.",
+   "concept": "language.rust",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "free of unsafe code (use)",
+   "text": "Written in Rust, free of unsafe code.",
+   "concept": "language.rust",
+   "genuine_use": true,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "case": "local and express trains",
+   "text": "Timetables for local and express trains.",
+   "concept": "framework.express",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "Node and Express (use)",
+   "text": "A Node and Express backend.",
+   "concept": "framework.express",
+   "genuine_use": true,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "case": "capitalised Ruby, ordinary",
+   "text": "Shows the Ruby gemstone collection.",
+   "concept": "language.ruby",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "capitalised Ruby + app collocate (TRAP)",
+   "text": "Ruby, our app's mascot, says hello.",
+   "concept": "language.ruby",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "case": "capitalised Java, ordinary",
+   "text": "Travel notes: Java is an island.",
+   "concept": "language.java",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "capitalised Java + app collocate (TRAP)",
+   "text": "A Java coffee app for our cafe.",
+   "concept": "language.java",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "case": "python visualizer (use)",
+   "text": "Includes a python visualizer for the audio.",
+   "concept": "language.python",
+   "genuine_use": true,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "case": "python plotting helper (use)",
+   "text": "Ships a small python plotting helper.",
+   "concept": "language.python",
+   "genuine_use": true,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "inspired by React (reference)",
+   "text": "A tiny view layer inspired by React.",
+   "concept": "framework.react",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "borrowed from Express (reference)",
+   "text": "API design borrowed from Express.",
+   "concept": "framework.express",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": true,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": true
+   }
+  },
+  {
+   "case": "bindings can be generated (future)",
+   "text": "Rust bindings can be generated with bindgen.",
+   "concept": "language.rust",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "bindings are planned (future)",
+   "text": "Bindings for Rust are planned.",
+   "concept": "language.rust",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "in Rust (use, no frame/collocate)",
+   "text": "Fast image diffing in Rust.",
+   "concept": "language.rust",
+   "genuine_use": true,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "in Java, ordinary (D2 TRAP)",
+   "text": "Photos taken in Java last summer.",
+   "concept": "language.java",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "trained with torch (use)",
+   "text": "Image classifier trained with torch.",
+   "concept": "ml.framework.pytorch",
+   "genuine_use": true,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": true,
+    "R3_context_guard": false
+   }
+  },
+  {
+   "case": "with a torch, ordinary (D2 TRAP)",
+   "text": "Explore the cave with a torch.",
+   "concept": "ml.framework.pytorch",
+   "genuine_use": false,
+   "extracted": {
+    "A_current_readme_v4": true,
+    "D_hybrid_use_frames": false,
+    "D2_posthoc_d_plus_lead_ins": false,
+    "R3_context_guard": false
+   }
+  }
+ ],
+ "capability_contract": {
+  "A_current_readme_v4": {
+   "aliases_checked": 64,
+   "valid_context_not_extracted": [],
+   "capability": {
+    "language.python": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.javascript": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.typescript": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.java": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.c": [
+     "assessable",
+     [
+      "repository_language"
+     ]
+    ],
+    "language.cpp": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.csharp": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.go": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.rust": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.ruby": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.php": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.sql": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.swift": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.kotlin": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.shell": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.html": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.css": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.jupyter_notebook": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "database.postgresql": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "database.redis": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "ml.framework.pytorch": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "ml.framework.tensorflow": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "data.library.pandas": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.react": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.react_native": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.nextjs": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.express": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.nestjs": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.fastapi": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.flask": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "orm.prisma": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "infra.docker": [
+     "assessable",
+     [
+      "docker_files",
+      "readme_mention"
+     ]
+    ],
+    "infra.kubernetes": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "cloud.aws": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "platform.cuda": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "robotics.ros2": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "embedded.rtos.freertos": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "hdl.verilog": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "toolchain.llvm": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ]
+   }
+  },
+  "D_hybrid_use_frames": {
+   "aliases_checked": 64,
+   "valid_context_not_extracted": [],
+   "capability": {
+    "language.python": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.javascript": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.typescript": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.java": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.c": [
+     "assessable",
+     [
+      "repository_language"
+     ]
+    ],
+    "language.cpp": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.csharp": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.go": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.rust": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.ruby": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.php": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.sql": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.swift": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.kotlin": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.shell": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.html": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.css": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.jupyter_notebook": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "database.postgresql": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "database.redis": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "ml.framework.pytorch": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "ml.framework.tensorflow": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "data.library.pandas": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.react": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.react_native": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.nextjs": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.express": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.nestjs": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.fastapi": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.flask": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "orm.prisma": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "infra.docker": [
+     "assessable",
+     [
+      "docker_files",
+      "readme_mention"
+     ]
+    ],
+    "infra.kubernetes": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "cloud.aws": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "platform.cuda": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "robotics.ros2": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "embedded.rtos.freertos": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "hdl.verilog": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "toolchain.llvm": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ]
+   }
+  },
+  "R3_context_guard": {
+   "aliases_checked": 64,
+   "valid_context_not_extracted": [],
+   "capability": {
+    "language.python": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.javascript": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.typescript": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.java": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.c": [
+     "assessable",
+     [
+      "repository_language"
+     ]
+    ],
+    "language.cpp": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.csharp": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.go": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.rust": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.ruby": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.php": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.sql": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.swift": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.kotlin": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.shell": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.html": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.css": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "language.jupyter_notebook": [
+     "assessable",
+     [
+      "readme_mention",
+      "repository_language"
+     ]
+    ],
+    "database.postgresql": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "database.redis": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "ml.framework.pytorch": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "ml.framework.tensorflow": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "data.library.pandas": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.react": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.react_native": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.nextjs": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.express": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.nestjs": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.fastapi": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "framework.flask": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "orm.prisma": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "infra.docker": [
+     "assessable",
+     [
+      "docker_files",
+      "readme_mention"
+     ]
+    ],
+    "infra.kubernetes": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "cloud.aws": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "platform.cuda": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "robotics.ros2": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "embedded.rtos.freertos": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "hdl.verilog": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ],
+    "toolchain.llvm": [
+     "assessable",
+     [
+      "readme_mention"
+     ]
+    ]
+   }
+  }
+ },
+ "invariants": {
+  "D_hybrid_use_frames": {
+   "capability_identical_for_all_concepts": true,
+   "job_parsing_identical_on_all_corpora": true
+  },
+  "R3_context_guard": {
+   "capability_identical_for_all_concepts": true,
+   "job_parsing_identical_on_all_corpora": true
+  }
+ }
+}

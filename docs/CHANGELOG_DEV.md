@@ -1,5 +1,45 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-12 — Milestone 11-G22-R3: README context guard validation (research only; readme:v5 NOT implemented)
+
+**What changed:** Validation and research only, accepted and committed as a research-only commit ("test: validate README evidence guard recall tradeoffs") after authorization. The decision to stop without `readme:v5` was approved. Production is unchanged.
+
+- **Unchanged:** `src/` and registry data; parser v15, scoring v2, matcher v1, `readme:v4`, registry 4.
+- **Validation sets:** two fresh README validation sets, VAL-1 (75) and VAL-2 (51), written by a separate Claude subagent blind to Policy D (rules, collocates, code, tests, results) and with no repository access. They are frozen with G14 portable hashes and registered in the canonical manifest at the research commit with their original freeze-time hashes (21 → 23; the previous 21 unchanged). Not human-independent; disclosed in `author_provenance.json`.
+- **Revised policy:** a narrowly revised research policy R3, designed on the seen sets and frozen with seven acceptance criteria before VAL-2 ran.
+- **Outputs:** a deterministic report, counts-only private aggregates, 21 research tests and the milestone doc. Limitation notes added to `docs/ARCHITECTURE.md` §27.5 and `docs/PIPELINE.md`.
+
+**Why:** G22-R2 recommended Policy D as the `readme:v5` baseline but its controls were self-authored. G22-R3 had to validate it on fresh data before any production change.
+
+**Measured:**
+
+| | VAL-1: `readme:v4` → D | VAL-2: `readme:v4` → D / R3 |
+|---|---|---|
+| False SUPPORTED | 35 → 9 | 24 → 7 / 8 |
+| Ordinary-English false SUPPORTED | 16 → 0 | 13 → 0 / 0 |
+| Genuine README use items kept | 26/36 | 17/23 / 18/23 |
+| True SUPPORTED probes kept | 31/36 | 20/24 / 21/24 |
+| Corroborated cases kept | 10/10 | 6/6 / 6/6 |
+
+- Precision criteria pass, with no new false SUPPORTED and no non-ambiguous item changed.
+- The genuine-use recall criteria (≥ 85% of README use items, ≥ 90% of true SUPPORTED probes) **fail** for D on both sets and for R3 on held-out VAL-2. Per the rule frozen before VAL-2 ran, **`readme:v5` is not implemented**.
+- Capability is identical for all 39 concepts, and all 64 README-safe aliases are extracted in a valid technical context. Job parsing is identical on all corpora; private postings show 0 changes.
+- The 8c impact (torvalds/systems_cpp_01 67 → 33) is a hypothetical, simulated research-adapter result and is not deployed: production still gives 67.
+- No `readme:v5`, D, D2 or R3 was implemented; R3's recall losses prevented implementation. VAL-2 has been run once and cannot be reused as an untouched holdout.
+
+**Risks / limitations:**
+
+- The validation author is the same model family as the policy author.
+- VAL-2 is now seen, so further revision needs a new fresh set, preferably human-authored.
+- **Open residual classes:**
+  - non-use phrasings (history, negation, comparison, quoted text);
+  - genuine use without a technical cue ("Pure Python", "One-line Swift API", "python plotting helper").
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22r3_readme_context_guard.py`
+- `python scripts/evaluate_m11g22r3_readme_guard.py --private-corpora`
+
 ## 2026-11-11 — Milestone 11-G22-R2: README evidence context and confidence (research only; no production change)
 
 **What changed:** Research and design only, committed as a research-only commit ("test: evaluate README evidence context precision") after authorization.

@@ -3837,6 +3837,17 @@ effect of fixing a false positive, not a regression.
 - Heading detection only recognizes ATX (`# heading`) markdown syntax,
   not Setext (`heading\n===`) -- not observed in any real fixture
   README during this milestone, but a theoretical gap.
+- **Ordinary-English ambiguous aliases (open; Milestones 11-G22-R / R2 /
+  R3).** `readme:v4` turns ordinary English ("react quickly", "free of
+  rust", "express trains"), references, history, plans and negations
+  around 11 ambiguous aliases (react, express, rust, ruby, java, swift,
+  flask, torch, pandas, python, shell) into MODERATE README evidence, and
+  one such item is enough for SUPPORTED. G22-R3 validated a per-alias
+  context guard on fresh, separately authored sets. It removes nearly all
+  ordinary-English false SUPPORTED, but loses 22-28% of genuine README
+  use claims, so it failed its pre-declared recall criteria and
+  `readme:v5` was NOT implemented. Production is unchanged; see
+  `docs/evaluation/MILESTONE_11_G22R3_README_CONTEXT_GUARD.md`.
 
 See `docs/evaluation/MILESTONE_8D3_EVIDENCE_ATTRIBUTION.md` for the full
 before/after detail, provenance trace, and positive/negative control

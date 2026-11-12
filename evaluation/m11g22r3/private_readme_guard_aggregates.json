@@ -1,0 +1,39 @@
+{
+ "note": "previously inspected private postings -- NOT independent validation; integer counts only; job postings only (README policies cannot reach job parsing)",
+ "D_hybrid_use_frames": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ },
+ "R3_context_guard": {
+  "m11d": {
+   "postings": 12,
+   "postings_changed": 0
+  },
+  "m11f": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g5": {
+   "postings": 18,
+   "postings_changed": 0
+  },
+  "m11g9": {
+   "postings": 14,
+   "postings_changed": 0
+  }
+ }
+}

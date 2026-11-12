@@ -351,6 +351,15 @@ Every other extractor, the matcher, the assessment formula, the job
 parser, and M5B ranking / 8D.2 job-aware retrieval are unaffected --
 this is a README-extraction-only, additive precision fix.
 
+**Open limitation (Milestones 11-G22-R / R2 / R3; production still
+`readme:v4`).** Ordinary-English uses of 11 ambiguous aliases (react,
+express, rust, ruby, java, swift, flask, torch, pandas, python, shell)
+still become README evidence, and one README item is enough for a
+SUPPORTED requirement. A per-alias context guard was validated in G22-R3
+but failed its pre-declared genuine-use recall criteria, so no
+`readme:v5` exists; see
+`docs/evaluation/MILESTONE_11_G22R3_README_CONTEXT_GUARD.md`.
+
 ## Job-fit pipeline (Milestone 7A/7B) — built on top of V2, not V1
 
 Given the `CandidateEvidenceProfile` above plus a parsed job posting,
