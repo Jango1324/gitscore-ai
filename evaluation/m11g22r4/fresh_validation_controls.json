@@ -1,0 +1,4863 @@
+{
+ "schema_version": 1,
+ "milestone": "M11-G22-R4 (high-recall README evidence guard research)",
+ "split": "fresh",
+ "provenance": "author-created synthetic READMEs and repository artifacts; no real README, posting, employer or private material",
+ "authorship_disclosure": "Authored by a separate Claude subagent instance given only the task, the declared evidence-validity policy, the registry vocabulary, the artifact rules and the output schema; it was never shown any R4, D or R3 rule, code, test, design set or result, and it could use only the Write tool. It is the same model family as the policy author, so this is NOT human-independent validation. Labels are frozen exactly as authored.",
+ "author_notes": [
+  "Part 1: near-neighbour pairs for react, express, swift, rust, ruby, shell, torch, python (fresh-001..fresh-032). Each pair shares domain and phrasing; one case uses the target technology, the other uses the word in an ordinary sense (often alongside a different, genuinely used technology).",
+  "Part 2: near-neighbour pairs for flask, pandas, java (fresh-033..fresh-044), mixed READMEs (fresh-045..fresh-054), and the first ten non-use cases (fresh-055..fresh-064: negated, historical, future, third-party lists).",
+  "Part 3: remaining non-use cases (fresh-065..fresh-074: third-party docs/translations/lists, quotations, comparisons, negation/future alongside real use), structure cases (fresh-075..fresh-084: version strings, headings, task lists, code blocks, install commands, badges, tables, one deliberately ambiguous case), and artifact combinations (fresh-085..fresh-096)."
+ ],
+ "declared_evidence_validity_policy": "valid iff (1) the word refers to the technology in context and (2) the text attributes CURRENT use to THIS repository (written in / built with / depends on / requires / ships code in / is a library, plugin, client or bindings for it maintained here); not valid: ordinary sense, negation, historical, future / hypothetical, other projects' use, comparison / inspiration / reference",
+ "label_timing": "labels frozen BEFORE any GitScore extractor, matcher or README policy ran on this set; AFTER the R4 policy design freeze",
+ "label_classes": [
+  "ambiguous",
+  "future",
+  "historical",
+  "negated",
+  "ordinary",
+  "reference",
+  "use"
+ ],
+ "controls": [
+  {
+   "id": "m11g22r4-fresh-001",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "framework.react",
+   "pair": "react-titration",
+   "repos": [
+    {
+     "name": "titration-viz",
+     "readme": "# titration-viz\n\nInteractive titration curves for intro chemistry classes, rendered in the browser with React.\n\nPick an acid and a base, set concentrations, and watch the pH curve update as you drag the burette slider.\n\n## Running locally\n\n```\nnpm install\nnpm run dev\n```\n\nThe UI is a handful of React components; the equilibrium math lives in `src/chem/`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "titration-viz",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Interactive titration curves for intro chemistry classes, rendered in the browser with React."
+    },
+    {
+     "repo": "titration-viz",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The UI is a handful of React components; the equilibrium math lives in `src/chem/`."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The app is rendered with React and its UI is made of React components."
+  },
+  {
+   "id": "m11g22r4-fresh-002",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.react",
+   "pair": "react-titration",
+   "repos": [
+    {
+     "name": "titration-sim",
+     "readme": "# titration-sim\n\nA command-line titration simulator for intro chemistry classes.\n\nPick an acid and a base, set concentrations, and the tool prints the pH after every millilitre added. It models how strong and weak acids react with sodium hydroxide, including the buffer region and the equivalence point.\n\n## Running\n\n```\npython3 titrate.py --acid acetic --base naoh --conc 0.1\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "ordinary",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "titration-sim",
+     "word": "react",
+     "concept": "framework.react",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "It models how strong and weak acids react with sodium hydroxide, including the buffer region and the equivalence point."
+    },
+    {
+     "repo": "titration-sim",
+     "word": "python3",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "python3 titrate.py --acid acetic --base naoh --conc 0.1"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'react' describes a chemical reaction; the tool is a Python script run with python3, with no React involved."
+  },
+  {
+   "id": "m11g22r4-fresh-003",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "framework.react",
+   "pair": "react-reflex",
+   "repos": [
+    {
+     "name": "reflex-meter",
+     "readme": "# reflex-meter\n\nA reaction-time tester for the browser. The screen turns green at a random moment and you click as fast as you can.\n\nFrontend: React + Vite. Scores are kept in localStorage, nothing leaves your machine.\n\n- median and best of five attempts\n- colour-blind friendly mode\n- keyboard and touch input\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "reflex-meter",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Frontend: React + Vite."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Terse stack line states the frontend is React."
+  },
+  {
+   "id": "m11g22r4-fresh-004",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.react",
+   "pair": "react-reflex",
+   "repos": [
+    {
+     "name": "reflex-box",
+     "readme": "# reflex-box\n\nA reaction-time tester built from an Arduino Nano, an LED ring and one big arcade button. The ring turns green at a random moment and players hit the button as fast as they can react.\n\nFirmware is plain Arduino C; flash it with the Arduino IDE.\n\n- median and best of five attempts\n- two-player duel mode\n- results shown on a small OLED\n",
+     "languages": {
+      "C++": 4200
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "ordinary"
+   },
+   "used": [
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp"
+   ],
+   "occurrences": [
+    {
+     "repo": "reflex-box",
+     "word": "react",
+     "concept": "framework.react",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "The ring turns green at a random moment and players hit the button as fast as they can react."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'react' is the human reflex being measured; the repository is Arduino firmware (C++ by language statistics)."
+  },
+  {
+   "id": "m11g22r4-fresh-005",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "framework.express",
+   "pair": "express-parcel",
+   "repos": [
+    {
+     "name": "parcel-quote-api",
+     "readme": "# parcel-quote-api\n\nREST service that returns delivery quotes for standard, priority and overnight shipping.\n\nIt's a small Express app with three routes:\n\n| Route | Description |\n|---|---|\n| `GET /quote` | price for a parcel |\n| `GET /zones` | list of delivery zones |\n| `GET /health` | liveness probe |\n\nStart it with `npm start` (listens on port 8080).\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "use"
+   },
+   "used": [
+    "framework.express"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "parcel-quote-api",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "It's a small Express app with three routes:"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The service is described as an Express app with routes."
+  },
+  {
+   "id": "m11g22r4-fresh-006",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.express",
+   "pair": "express-parcel",
+   "repos": [
+    {
+     "name": "parcel-quote-cli",
+     "readme": "# parcel-quote-cli\n\nCommand-line calculator that prices a parcel for standard, priority and express shipping.\n\nIt reads the carrier's zone table from a CSV and prints three quotes:\n\n| Tier | Typical transit |\n|---|---|\n| standard | 3-5 days |\n| priority | 2 days |\n| express | next morning |\n\nWritten in Go; run `go build` and then `./parcel-quote --weight 2.5 --zip 94110`.\n",
+     "languages": {
+      "Go": 3000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary"
+   },
+   "used": [
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "parcel-quote-cli",
+     "word": "express",
+     "concept": "framework.express",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Command-line calculator that prices a parcel for standard, priority and express shipping."
+    },
+    {
+     "repo": "parcel-quote-cli",
+     "word": "express",
+     "concept": "framework.express",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "| express | next morning |"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'express' is a shipping tier; the tool is written in Go (the bare word Go is not a mention, but language statistics show Go)."
+  },
+  {
+   "id": "m11g22r4-fresh-007",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "framework.express",
+   "pair": "express-journal",
+   "repos": [
+    {
+     "name": "mood-journal-server",
+     "readme": "# mood-journal-server\n\nBackend for a private mood journal. Users write short daily entries and tag them with how they felt.\n\nStack: Node 20, Express, PostgreSQL.\n\n## Setup\n\n1. `cp .env.example .env` and fill in the database URL\n2. `npm install`\n3. `npm run migrate && npm start`\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "use",
+    "database.postgresql": "use"
+   },
+   "used": [
+    "framework.express",
+    "database.postgresql"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "mood-journal-server",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Stack: Node 20, Express, PostgreSQL."
+    },
+    {
+     "repo": "mood-journal-server",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Stack: Node 20, Express, PostgreSQL."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Stack list names Express and PostgreSQL as the backend's components."
+  },
+  {
+   "id": "m11g22r4-fresh-008",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.express",
+   "pair": "express-journal",
+   "repos": [
+    {
+     "name": "mood-journal",
+     "readme": "# mood-journal\n\nA private mood journal for people who find it hard to express feelings out loud. Write a few lines each day and tag them with how you felt.\n\nStack: Python 3.12, Flask, SQLite.\n\n## Setup\n\n1. `cp .env.example .env`\n2. `pip install -r requirements.txt`\n3. `flask --app journal run`\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary",
+    "language.python": "use",
+    "framework.flask": "use"
+   },
+   "used": [
+    "language.python",
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "mood-journal",
+     "word": "express",
+     "concept": "framework.express",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "A private mood journal for people who find it hard to express feelings out loud."
+    },
+    {
+     "repo": "mood-journal",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Stack: Python 3.12, Flask, SQLite."
+    },
+    {
+     "repo": "mood-journal",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Stack: Python 3.12, Flask, SQLite."
+    },
+    {
+     "repo": "mood-journal",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "3. `flask --app journal run`"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'express' is the verb (to express feelings); the app is built with Python and Flask."
+  },
+  {
+   "id": "m11g22r4-fresh-009",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.swift",
+   "pair": "swift-birds",
+   "repos": [
+    {
+     "name": "nestbox-log",
+     "readme": "# nestbox-log\n\nAn iPhone app for volunteers who monitor nest boxes during the breeding season. Record visits, egg counts and fledging dates offline and sync when you're back on Wi-Fi.\n\nWritten in Swift with SwiftUI; requires Xcode 16.\n\n## Species presets\n\nPresets ship for blue tit, great tit, pied flycatcher and tree sparrow.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "nestbox-log",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Written in Swift with SwiftUI; requires Xcode 16."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The bird-monitoring app is written in Swift."
+  },
+  {
+   "id": "m11g22r4-fresh-010",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.swift",
+   "pair": "swift-birds",
+   "repos": [
+    {
+     "name": "tower-nest-survey",
+     "readme": "# tower-nest-survey\n\nData and analysis scripts for a five-year survey of common swift colonies in church towers.\n\nThe common swift spends almost its whole life on the wing and only lands to breed, so counts are made at dusk when birds return to the nest holes.\n\n## Contents\n\n- `data/visits.csv` - one row per evening watch\n- `analysis/` - R scripts for occupancy models\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "tower-nest-survey",
+     "word": "swift",
+     "concept": "language.swift",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Data and analysis scripts for a five-year survey of common swift colonies in church towers."
+    },
+    {
+     "repo": "tower-nest-survey",
+     "word": "swift",
+     "concept": "language.swift",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "The common swift spends almost its whole life on the wing and only lands to breed, so counts are made at dusk when birds return to the nest holes."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'swift' is the bird species being surveyed; the analysis is in R, which is not in the vocabulary."
+  },
+  {
+   "id": "m11g22r4-fresh-011",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.swift",
+   "pair": "swift-banking",
+   "repos": [
+    {
+     "name": "iban-check-ios",
+     "readme": "# iban-check-ios\n\nA tiny iOS utility that validates IBAN numbers and BIC codes before you paste them into your banking app.\n\n- checksum validation for 80+ countries\n- camera scan of printed IBANs\n- share extension\n\nThe whole thing is about 900 lines of Swift, no third-party packages.\n",
+     "languages": {
+      "Swift": 41000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.swift"
+   ],
+   "occurrences": [
+    {
+     "repo": "iban-check-ios",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The whole thing is about 900 lines of Swift, no third-party packages."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The utility is about 900 lines of Swift; language statistics agree."
+  },
+  {
+   "id": "m11g22r4-fresh-012",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.swift",
+   "pair": "swift-banking",
+   "repos": [
+    {
+     "name": "iban-check",
+     "readme": "# iban-check\n\nValidate IBAN numbers and SWIFT/BIC codes before you send a transfer.\n\n- checksum validation for 80+ countries\n- SWIFT code lookup against the published bank directory\n- zero dependencies\n\nThe whole thing is about 400 lines of TypeScript and runs in Node or the browser.\n",
+     "languages": {
+      "TypeScript": 15000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "ordinary",
+    "language.typescript": "use"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "iban-check",
+     "word": "SWIFT",
+     "concept": "language.swift",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Validate IBAN numbers and SWIFT/BIC codes before you send a transfer."
+    },
+    {
+     "repo": "iban-check",
+     "word": "SWIFT",
+     "concept": "language.swift",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "- SWIFT code lookup against the published bank directory"
+    },
+    {
+     "repo": "iban-check",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The whole thing is about 400 lines of TypeScript and runs in Node or the browser."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "SWIFT here is the interbank messaging/BIC code system, a different thing from the Swift language; the tool is TypeScript."
+  },
+  {
+   "id": "m11g22r4-fresh-013",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.rust",
+   "pair": "rust-girders",
+   "repos": [
+    {
+     "name": "corrosion-scan",
+     "readme": "# corrosion-scan\n\nFlags corroded patches on photos of steel bridge girders so inspectors can prioritise site visits.\n\nA single static binary written in Rust - point it at a folder of JPEGs and it writes a CSV of suspect regions.\n\n```\ncargo install --path .\ncorrosion-scan ./photos > findings.csv\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "corrosion-scan",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A single static binary written in Rust - point it at a folder of JPEGs and it writes a CSV of suspect regions."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The corrosion detector is a binary written in Rust."
+  },
+  {
+   "id": "m11g22r4-fresh-014",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.rust",
+   "pair": "rust-girders",
+   "repos": [
+    {
+     "name": "girder-rust-dataset",
+     "readme": "# girder-rust-dataset\n\n2,400 labelled photos of steel bridge girders with polygons around every patch of rust, flaking paint and pitting.\n\nLabels were drawn by two inspectors and reconciled; see `LABELING.md` for the rules (for example, surface rust smaller than a thumbnail is not annotated).\n\nA baseline segmentation notebook is in `baseline/`; it needs Python 3.10+ and the packages listed there.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "girder-rust-dataset",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "# girder-rust-dataset"
+    },
+    {
+     "repo": "girder-rust-dataset",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "2,400 labelled photos of steel bridge girders with polygons around every patch of rust, flaking paint and pitting."
+    },
+    {
+     "repo": "girder-rust-dataset",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Labels were drawn by two inspectors and reconciled; see `LABELING.md` for the rules (for example, surface rust smaller than a thumbnail is not annotated)."
+    },
+    {
+     "repo": "girder-rust-dataset",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A baseline segmentation notebook is in `baseline/`; it needs Python 3.10+ and the packages listed there."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Every 'rust' (including the title) means corrosion; the only code in the repo is a baseline that needs Python."
+  },
+  {
+   "id": "m11g22r4-fresh-015",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.rust",
+   "pair": "rust-wheat",
+   "repos": [
+    {
+     "name": "spore-forecast",
+     "readme": "# spore-forecast\n\nDaily risk maps for wheat stem rust, driven by weather forecasts and wind trajectories.\n\nThe trajectory model is implemented in Rust for speed; a nightly job renders the maps as PNG tiles.\n\n## Build\n\nNeeds a stable Rust toolchain (1.78 or newer).\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "spore-forecast",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Daily risk maps for wheat stem rust, driven by weather forecasts and wind trajectories."
+    },
+    {
+     "repo": "spore-forecast",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The trajectory model is implemented in Rust for speed; a nightly job renders the maps as PNG tiles."
+    },
+    {
+     "repo": "spore-forecast",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Needs a stable Rust toolchain (1.78 or newer)."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The first 'rust' is the crop disease, but the model is implemented in Rust and the build needs a Rust toolchain."
+  },
+  {
+   "id": "m11g22r4-fresh-016",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.rust",
+   "pair": "rust-wheat",
+   "repos": [
+    {
+     "name": "spore-watch",
+     "readme": "# spore-watch\n\nDaily risk maps for wheat stem rust and yellow rust, driven by weather forecasts and field reports from agronomists.\n\nThe risk scores are computed with pandas from the station data; a nightly job renders the maps as PNG tiles.\n\n## Build\n\nNeeds Python 3.11 or newer; install with `pip install -e .`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary",
+    "data.library.pandas": "use",
+    "language.python": "use"
+   },
+   "used": [
+    "data.library.pandas",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "spore-watch",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Daily risk maps for wheat stem rust and yellow rust, driven by weather forecasts and field reports from agronomists."
+    },
+    {
+     "repo": "spore-watch",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Daily risk maps for wheat stem rust and yellow rust, driven by weather forecasts and field reports from agronomists."
+    },
+    {
+     "repo": "spore-watch",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The risk scores are computed with pandas from the station data; a nightly job renders the maps as PNG tiles."
+    },
+    {
+     "repo": "spore-watch",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Needs Python 3.11 or newer; install with `pip install -e .`."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Both 'rust' mentions are wheat diseases; the code uses pandas and Python."
+  },
+  {
+   "id": "m11g22r4-fresh-017",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.ruby",
+   "pair": "ruby-gems",
+   "repos": [
+    {
+     "name": "gem-ledger",
+     "readme": "# gem-ledger\n\nInventory and appraisal tracking for small jewellery workshops: stones in, stones set, certificates attached.\n\nA Rails 7 app (Ruby 3.3). Each stone records carat weight, cut, colour grade and origin.\n\n```\nbundle install\nbin/rails db:setup\nbin/rails server\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "use"
+   },
+   "used": [
+    "language.ruby"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "gem-ledger",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A Rails 7 app (Ruby 3.3)."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Parenthetical version string says the Rails app runs on Ruby 3.3."
+  },
+  {
+   "id": "m11g22r4-fresh-018",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.ruby",
+   "pair": "ruby-gems",
+   "repos": [
+    {
+     "name": "stone-ledger",
+     "readme": "# stone-ledger\n\nInventory and appraisal tracking for small jewellery workshops: stones in, stones set, certificates attached.\n\nEach stone records carat weight, cut, colour grade and origin, so a pigeon-blood ruby from Mogok and a heated sapphire from Sri Lanka are never confused.\n\nPlain PHP 8.2 and MySQL; drop it on any shared host.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary",
+    "language.php": "use"
+   },
+   "used": [
+    "language.php"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "stone-ledger",
+     "word": "ruby",
+     "concept": "language.ruby",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Each stone records carat weight, cut, colour grade and origin, so a pigeon-blood ruby from Mogok and a heated sapphire from Sri Lanka are never confused."
+    },
+    {
+     "repo": "stone-ledger",
+     "word": "PHP",
+     "concept": "language.php",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Plain PHP 8.2 and MySQL; drop it on any shared host."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'ruby' is a gemstone in the inventory; the app is written in PHP."
+  },
+  {
+   "id": "m11g22r4-fresh-019",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.ruby",
+   "pair": "ruby-bot",
+   "repos": [
+    {
+     "name": "standup-bot",
+     "readme": "# standup-bot\n\nPosts the daily stand-up prompt to your team channel at 9:30 and collects replies into a thread.\n\nA small Ruby script running on a cron schedule; it only needs the `slack-ruby-client` gem.\n\n## Configure\n\nSet `SLACK_TOKEN` and `CHANNEL_ID`, then run `ruby standup.rb`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "use"
+   },
+   "used": [
+    "language.ruby"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "standup-bot",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A small Ruby script running on a cron schedule; it only needs the `slack-ruby-client` gem."
+    },
+    {
+     "repo": "standup-bot",
+     "word": "ruby",
+     "concept": "language.ruby",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A small Ruby script running on a cron schedule; it only needs the `slack-ruby-client` gem."
+    },
+    {
+     "repo": "standup-bot",
+     "word": "ruby",
+     "concept": "language.ruby",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Set `SLACK_TOKEN` and `CHANNEL_ID`, then run `ruby standup.rb`."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The bot is a Ruby script, depends on a Ruby gem and is run with the ruby interpreter."
+  },
+  {
+   "id": "m11g22r4-fresh-020",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.ruby",
+   "pair": "ruby-bot",
+   "repos": [
+    {
+     "name": "chore-rota-bot",
+     "readme": "# Ruby, the chore bot\n\nRuby posts the household chore rota to the family group chat every Sunday evening and nags whoever hasn't ticked off their task by Wednesday.\n\nShe's named after our very bossy cat.\n\n## Configure\n\nSet `CHAT_TOKEN` and `GROUP_ID`, then run `python chores.py`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "chore-rota-bot",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "# Ruby, the chore bot"
+    },
+    {
+     "repo": "chore-rota-bot",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Ruby posts the household chore rota to the family group chat every Sunday evening and nags whoever hasn't ticked off their task by Wednesday."
+    },
+    {
+     "repo": "chore-rota-bot",
+     "word": "python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Set `CHAT_TOKEN` and `GROUP_ID`, then run `python chores.py`."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Ruby is the bot's name (after a cat); the bot itself is a Python script."
+  },
+  {
+   "id": "m11g22r4-fresh-021",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.shell",
+   "pair": "shell-molluscs",
+   "repos": [
+    {
+     "name": "specimen-photo-tools",
+     "readme": "# specimen-photo-tools\n\nHelpers for the mollusc collection's photo workflow: rename RAW files to catalogue numbers, generate web-size JPEGs and push nightly backups to the NAS.\n\nEverything is plain POSIX shell plus `exiftool` and `rsync`; no Python required.\n\n```\n./rename.sh incoming/ --prefix MOL\n./backup.sh\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use",
+    "language.python": "negated"
+   },
+   "used": [
+    "language.shell"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "specimen-photo-tools",
+     "word": "shell",
+     "concept": "language.shell",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Everything is plain POSIX shell plus `exiftool` and `rsync`; no Python required."
+    },
+    {
+     "repo": "specimen-photo-tools",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "negated",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Everything is plain POSIX shell plus `exiftool` and `rsync`; no Python required."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The helpers are written in POSIX shell; Python is explicitly not required."
+  },
+  {
+   "id": "m11g22r4-fresh-022",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.shell",
+   "pair": "shell-molluscs",
+   "repos": [
+    {
+     "name": "mollusc-catalogue",
+     "readme": "# mollusc-catalogue\n\nCatalogue of the department's mollusc collection: 6,800 lots, each with locality, collector, date and shell measurements.\n\nPhotos are named by catalogue number and stored separately; this repo holds the data and the cleaning scripts.\n\nShell length is measured along the axis of coiling, and damaged specimens are flagged rather than dropped.\n",
+     "languages": {
+      "Python": 5200
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "ordinary"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "mollusc-catalogue",
+     "word": "shell",
+     "concept": "language.shell",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Catalogue of the department's mollusc collection: 6,800 lots, each with locality, collector, date and shell measurements."
+    },
+    {
+     "repo": "mollusc-catalogue",
+     "word": "Shell",
+     "concept": "language.shell",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Shell length is measured along the axis of coiling, and damaged specimens are flagged rather than dropped."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'shell' refers to mollusc shells; the cleaning scripts are Python according to language statistics."
+  },
+  {
+   "id": "m11g22r4-fresh-023",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.shell",
+   "pair": "shell-turtles",
+   "repos": [
+    {
+     "name": "nest-patrol-sync",
+     "readme": "# nest-patrol-sync\n\nSyncs sea turtle nest records from the volunteers' field tablets to the project server every night.\n\nIt's one Bash script (`sync.sh`) driven by cron; it needs `curl`, `jq` and a POSIX environment.\n\nNest records include GPS position, species, clutch size and expected hatch date.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use"
+   },
+   "used": [
+    "language.shell"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "nest-patrol-sync",
+     "word": "Bash",
+     "concept": "language.shell",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "It's one Bash script (`sync.sh`) driven by cron; it needs `curl`, `jq` and a POSIX environment."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The repository is a single Bash script."
+  },
+  {
+   "id": "m11g22r4-fresh-024",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.shell",
+   "pair": "shell-turtles",
+   "repos": [
+    {
+     "name": "nest-patrol",
+     "readme": "# nest-patrol\n\nField app for sea turtle nest monitoring. Volunteers record GPS position, species, clutch size and expected hatch date.\n\nFor stranded turtles the form also captures carapace length and any shell damage (cracks, boat-strike marks, barnacle load).\n\nBuilt with Kotlin for Android tablets; works fully offline.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "ordinary",
+    "language.kotlin": "use"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "nest-patrol",
+     "word": "shell",
+     "concept": "language.shell",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "For stranded turtles the form also captures carapace length and any shell damage (cracks, boat-strike marks, barnacle load)."
+    },
+    {
+     "repo": "nest-patrol",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Built with Kotlin for Android tablets; works fully offline."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'shell' is a turtle's shell; the app is built with Kotlin."
+  },
+  {
+   "id": "m11g22r4-fresh-025",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "ml.framework.pytorch",
+   "pair": "torch-caves",
+   "repos": [
+    {
+     "name": "cave-denoise",
+     "readme": "# cave-denoise\n\nDenoises underground photos taken with a single headlamp as the only light source.\n\nThe model is a small U-Net trained with torch 2.x; weights are in `weights/` and inference runs fine on a laptop CPU.\n\n```\npip install -r requirements.txt\npython denoise.py --in raw/ --out clean/\n```\n",
+     "languages": {},
+     "files": {
+      "requirements.txt": "torch>=2.1\nnumpy\npillow\n"
+     }
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use",
+    "language.python": "use"
+   },
+   "used": [
+    "ml.framework.pytorch",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "ml.framework.pytorch"
+   ],
+   "occurrences": [
+    {
+     "repo": "cave-denoise",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The model is a small U-Net trained with torch 2.x; weights are in `weights/` and inference runs fine on a laptop CPU."
+    },
+    {
+     "repo": "cave-denoise",
+     "word": "python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "python denoise.py --in raw/ --out clean/"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The model is trained with torch 2.x and requirements.txt lists torch."
+  },
+  {
+   "id": "m11g22r4-fresh-026",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "ml.framework.pytorch",
+   "pair": "torch-caves",
+   "repos": [
+    {
+     "name": "cave-kit",
+     "readme": "# cave-kit\n\nPre-trip checklist generator for caving clubs. Enter the cave, group size and expected duration and it prints a kit list for each person.\n\nEvery list includes a helmet, a primary headlamp and a backup torch, plus spare batteries sized to the trip length.\n\nRun it with Python 3: `python3 kit.py --people 6 --hours 5`\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "ordinary",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "cave-kit",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Every list includes a helmet, a primary headlamp and a backup torch, plus spare batteries sized to the trip length."
+    },
+    {
+     "repo": "cave-kit",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Run it with Python 3: `python3 kit.py --people 6 --hours 5`"
+    },
+    {
+     "repo": "cave-kit",
+     "word": "python3",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Run it with Python 3: `python3 kit.py --people 6 --hours 5`"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'torch' is a hand-held light on a kit list; the tool is a Python script."
+  },
+  {
+   "id": "m11g22r4-fresh-027",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "ml.framework.pytorch",
+   "pair": "torch-welding",
+   "repos": [
+    {
+     "name": "weld-seam-inspector",
+     "readme": "# weld-seam-inspector\n\nClassifies weld seams from bead photos as good, porous, undercut or cold lap.\n\n- backbone: ResNet-18 fine-tuned in torch\n- export to ONNX for the shop-floor tablet\n- 94% accuracy on the held-out set\n\nTraining data was collected on two MIG cells over six months.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use"
+   },
+   "used": [
+    "ml.framework.pytorch"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "weld-seam-inspector",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- backbone: ResNet-18 fine-tuned in torch"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Feature bullet says the model was fine-tuned in torch, i.e. PyTorch."
+  },
+  {
+   "id": "m11g22r4-fresh-028",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "ml.framework.pytorch",
+   "pair": "torch-welding",
+   "repos": [
+    {
+     "name": "weld-log",
+     "readme": "# weld-log\n\nShift log for manual MIG welding cells: wire feed speed, voltage, gas flow and torch angle for every seam, entered on a tablet at the bench.\n\n- one-tap entry for repeat jobs\n- export to CSV for the quality team\n- flags readings outside the procedure spec\n\nThe app is a single-page React frontend talking to a small FastAPI service.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "ordinary",
+    "framework.react": "use",
+    "framework.fastapi": "use"
+   },
+   "used": [
+    "framework.react",
+    "framework.fastapi"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "weld-log",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Shift log for manual MIG welding cells: wire feed speed, voltage, gas flow and torch angle for every seam, entered on a tablet at the bench."
+    },
+    {
+     "repo": "weld-log",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The app is a single-page React frontend talking to a small FastAPI service."
+    },
+    {
+     "repo": "weld-log",
+     "word": "FastAPI",
+     "concept": "framework.fastapi",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The app is a single-page React frontend talking to a small FastAPI service."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'torch angle' is a welding parameter; the app uses React and FastAPI, not PyTorch."
+  },
+  {
+   "id": "m11g22r4-fresh-029",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.python",
+   "pair": "python-vivarium",
+   "repos": [
+    {
+     "name": "vivarium-monitor",
+     "readme": "# vivarium-monitor\n\nTemperature and humidity logging for reptile enclosures using a Raspberry Pi and DHT22 sensors.\n\nPython 3 service, runs under systemd; readings go to a local SQLite file and a tiny web dashboard.\n\nAlerts are sent when the basking spot drifts outside the range you configure per enclosure.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "vivarium-monitor",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Python 3 service, runs under systemd; readings go to a local SQLite file and a tiny web dashboard."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Terse description: the logger is a Python 3 service."
+  },
+  {
+   "id": "m11g22r4-fresh-030",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.python",
+   "pair": "python-vivarium",
+   "repos": [
+    {
+     "name": "vivarium-guard",
+     "readme": "# vivarium-guard\n\nTemperature and humidity alarms for reptile enclosures. Ships with presets for a ball python, a corn snake and a leopard gecko.\n\nThe firmware runs on an ESP32; alerts go out over MQTT.\n\nA ball python needs a basking spot around 31-32 C and humidity of 55-60%, so the default alarm band is set a little wider than that.\n",
+     "languages": {
+      "C++": 8800
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "ordinary"
+   },
+   "used": [
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp"
+   ],
+   "occurrences": [
+    {
+     "repo": "vivarium-guard",
+     "word": "python",
+     "concept": "language.python",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Ships with presets for a ball python, a corn snake and a leopard gecko."
+    },
+    {
+     "repo": "vivarium-guard",
+     "word": "python",
+     "concept": "language.python",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "A ball python needs a basking spot around 31-32 C and humidity of 55-60%, so the default alarm band is set a little wider than that."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'ball python' is the snake; the firmware is C++ per language statistics."
+  },
+  {
+   "id": "m11g22r4-fresh-031",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.python",
+   "pair": "python-invasive",
+   "repos": [
+    {
+     "name": "everglades-sightings",
+     "readme": "# everglades-sightings\n\nCollects and maps reports of invasive Burmese python sightings submitted by park staff and the public.\n\nThe ingest pipeline and the map generator are both written in Python; see `pipeline/` and `maps/`.\n\n## Requirements\n\n- Python 3.11+\n- GDAL 3.6\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "everglades-sightings",
+     "word": "python",
+     "concept": "language.python",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Collects and maps reports of invasive Burmese python sightings submitted by park staff and the public."
+    },
+    {
+     "repo": "everglades-sightings",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The ingest pipeline and the map generator are both written in Python; see `pipeline/` and `maps/`."
+    },
+    {
+     "repo": "everglades-sightings",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Python 3.11+"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The first mention is the snake, but the pipeline is written in Python and requires Python 3.11+."
+  },
+  {
+   "id": "m11g22r4-fresh-032",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.python",
+   "pair": "python-invasive",
+   "repos": [
+    {
+     "name": "invasive-reports",
+     "readme": "# invasive-reports\n\nCollects and maps reports of invasive species sightings, from Burmese python and Argentine tegu to lionfish, submitted by park staff and the public.\n\nThe ingest service and map generator are written in Java 21 with Spring Boot; see `ingest/` and `maps/`.\n\n## Requirements\n\n- JDK 21\n- GDAL 3.6\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "ordinary",
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "invasive-reports",
+     "word": "python",
+     "concept": "language.python",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Collects and maps reports of invasive species sightings, from Burmese python and Argentine tegu to lionfish, submitted by park staff and the public."
+    },
+    {
+     "repo": "invasive-reports",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The ingest service and map generator are written in Java 21 with Spring Boot; see `ingest/` and `maps/`."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'Burmese python' is an invasive snake; the code is Java."
+  },
+  {
+   "id": "m11g22r4-fresh-033",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "framework.flask",
+   "pair": "flask-glassware",
+   "repos": [
+    {
+     "name": "glassware-inventory",
+     "readme": "# glassware-inventory\n\nKeeps track of beakers, burettes and volumetric glassware across the teaching labs, including which items are out for calibration.\n\nA Flask app with server-rendered templates and a SQLite database. Barcode scanning works from any phone browser.\n\n```\npip install -r requirements.txt\nflask --app inventory run\n```\n",
+     "languages": {},
+     "files": {
+      "requirements.txt": "flask==3.0.3\ngunicorn\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use"
+   },
+   "used": [
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.flask"
+   ],
+   "occurrences": [
+    {
+     "repo": "glassware-inventory",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A Flask app with server-rendered templates and a SQLite database."
+    },
+    {
+     "repo": "glassware-inventory",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "flask --app inventory run"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The inventory is a Flask app, run with the flask CLI, and requirements.txt lists flask."
+  },
+  {
+   "id": "m11g22r4-fresh-034",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.flask",
+   "pair": "flask-glassware",
+   "repos": [
+    {
+     "name": "glassware-tracker",
+     "readme": "# glassware-tracker\n\nKeeps track of beakers, burettes and every volumetric flask across the teaching labs, including which items are out for calibration.\n\nScan the barcode on a flask or pipette to check it in or out; the record shows its tolerance class and last calibration date.\n\nNode service built on Express, with a SQLite database.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "ordinary",
+    "framework.express": "use"
+   },
+   "used": [
+    "framework.express"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "glassware-tracker",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Keeps track of beakers, burettes and every volumetric flask across the teaching labs, including which items are out for calibration."
+    },
+    {
+     "repo": "glassware-tracker",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Scan the barcode on a flask or pipette to check it in or out; the record shows its tolerance class and last calibration date."
+    },
+    {
+     "repo": "glassware-tracker",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Node service built on Express, with a SQLite database."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'flask' is lab glassware being tracked; the service is built on Express."
+  },
+  {
+   "id": "m11g22r4-fresh-035",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "framework.flask",
+   "pair": "flask-coffee",
+   "repos": [
+    {
+     "name": "brew-diary",
+     "readme": "# brew-diary\n\nLog every pour-over: dose, grind setting, water temperature, bloom time and how it tasted.\n\nServer: Flask + SQLAlchemy. Front end is plain HTML with a sprinkle of htmx.\n\nCharts show how your ratings move as you change one variable at a time.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use",
+    "language.html": "use"
+   },
+   "used": [
+    "framework.flask",
+    "language.html"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "brew-diary",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Server: Flask + SQLAlchemy."
+    },
+    {
+     "repo": "brew-diary",
+     "word": "HTML",
+     "concept": "language.html",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Front end is plain HTML with a sprinkle of htmx."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Stack line says the server is Flask."
+  },
+  {
+   "id": "m11g22r4-fresh-036",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "framework.flask",
+   "pair": "flask-coffee",
+   "repos": [
+    {
+     "name": "heat-retention-bench",
+     "readme": "# heat-retention-bench\n\nMeasures how well a vacuum flask keeps coffee hot. A thermocouple logs the temperature every minute for 12 hours and the tool fits a cooling curve.\n\nPour 500 ml at 92 C, seal the flask, start logging; the report compares the result with other bottles you have tested.\n\nThe logger and report generator are written in Rust.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "ordinary",
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "heat-retention-bench",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Measures how well a vacuum flask keeps coffee hot."
+    },
+    {
+     "repo": "heat-retention-bench",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Pour 500 ml at 92 C, seal the flask, start logging; the report compares the result with other bottles you have tested."
+    },
+    {
+     "repo": "heat-retention-bench",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The logger and report generator are written in Rust."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'vacuum flask' is the bottle under test; the code is Rust."
+  },
+  {
+   "id": "m11g22r4-fresh-037",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "data.library.pandas",
+   "pair": "pandas-bamboo",
+   "repos": [
+    {
+     "name": "bamboo-forage-study",
+     "readme": "# bamboo-forage-study\n\nAnalysis code for a study of bamboo shoot availability across three reserve sites over four seasons.\n\nTransect counts are cleaned and aggregated with pandas, and the figures are made with matplotlib.\n\nOpen `analysis.ipynb` to reproduce every figure in the report.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "use",
+    "language.jupyter_notebook": "use"
+   },
+   "used": [
+    "data.library.pandas",
+    "language.jupyter_notebook"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "bamboo-forage-study",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Transect counts are cleaned and aggregated with pandas, and the figures are made with matplotlib."
+    },
+    {
+     "repo": "bamboo-forage-study",
+     "word": "ipynb",
+     "concept": "language.jupyter_notebook",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Open `analysis.ipynb` to reproduce every figure in the report."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The analysis aggregates data with pandas and ships a notebook."
+  },
+  {
+   "id": "m11g22r4-fresh-038",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "data.library.pandas",
+   "pair": "pandas-bamboo",
+   "repos": [
+    {
+     "name": "panda-enclosure-log",
+     "readme": "# panda-enclosure-log\n\nKeeper app for logging feeding and behaviour of the giant pandas at the zoo's bamboo house.\n\nKeepers record bamboo offered and eaten, time spent resting and any stereotypic pacing; both pandas are logged separately.\n\nA Swift app for iPad, synced with CloudKit.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "ordinary",
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "panda-enclosure-log",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Keeper app for logging feeding and behaviour of the giant pandas at the zoo's bamboo house."
+    },
+    {
+     "repo": "panda-enclosure-log",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Keepers record bamboo offered and eaten, time spent resting and any stereotypic pacing; both pandas are logged separately."
+    },
+    {
+     "repo": "panda-enclosure-log",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A Swift app for iPad, synced with CloudKit."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'pandas' are the zoo animals; the app is written in Swift."
+  },
+  {
+   "id": "m11g22r4-fresh-039",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "data.library.pandas",
+   "pair": "pandas-netball",
+   "repos": [
+    {
+     "name": "netball-league-stats",
+     "readme": "# netball-league-stats\n\nWeekly standings, goal percentages and player-of-the-match tallies for a community netball league.\n\nResults come in as a shared spreadsheet; a script loads it into pandas, recomputes the table and publishes a static page.\n\nRun `make table` after each round.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "use"
+   },
+   "used": [
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "netball-league-stats",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Results come in as a shared spreadsheet; a script loads it into pandas, recomputes the table and publishes a static page."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The repo's script loads results into pandas to compute standings."
+  },
+  {
+   "id": "m11g22r4-fresh-040",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "data.library.pandas",
+   "pair": "pandas-netball",
+   "repos": [
+    {
+     "name": "netball-league-site",
+     "readme": "# netball-league-site\n\nWeekly standings, goal percentages and player-of-the-match tallies for the under-14 community netball league.\n\nThis season's teams: the Kestrels, the Otters, the Pandas and the Comets. The Pandas joined from the neighbouring league this year.\n\nA static site generated with Hugo; results are typed into `data/results.yaml` after each round.\n",
+     "languages": {
+      "HTML": 3000,
+      "CSS": 900
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "ordinary"
+   },
+   "used": [
+    "language.html",
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.html",
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "netball-league-site",
+     "word": "Pandas",
+     "concept": "data.library.pandas",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "This season's teams: the Kestrels, the Otters, the Pandas and the Comets."
+    },
+    {
+     "repo": "netball-league-site",
+     "word": "Pandas",
+     "concept": "data.library.pandas",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "The Pandas joined from the neighbouring league this year."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'the Pandas' is a team name; the site is static HTML/CSS generated with Hugo."
+  },
+  {
+   "id": "m11g22r4-fresh-041",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.java",
+   "pair": "java-roastery",
+   "repos": [
+    {
+     "name": "roast-profiler",
+     "readme": "# roast-profiler\n\nReads bean and exhaust temperatures from a drum roaster's thermocouples over USB and plots the roast curve live.\n\nDesktop app in Java 17 (JavaFX). Saved roasts can be exported as CSV or overlaid for comparison.\n\nTested with a 1 kg shop roaster and a home popcorn-popper conversion.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "roast-profiler",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Desktop app in Java 17 (JavaFX)."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The roast profiler is a Java 17 desktop app."
+  },
+  {
+   "id": "m11g22r4-fresh-042",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.java",
+   "pair": "java-roastery",
+   "repos": [
+    {
+     "name": "green-bean-stock",
+     "readme": "# green-bean-stock\n\nStock control for a small coffee roastery: green bean lots, moisture readings and roast batches.\n\nCurrent origins in the warehouse include Java, Sumatra, Huila and Yirgacheffe; each lot keeps its importer, harvest date and cupping notes.\n\nBuilt with Django and PostgreSQL.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "ordinary",
+    "database.postgresql": "use"
+   },
+   "used": [
+    "database.postgresql"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "green-bean-stock",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Current origins in the warehouse include Java, Sumatra, Huila and Yirgacheffe; each lot keeps its importer, harvest date and cupping notes."
+    },
+    {
+     "repo": "green-bean-stock",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Built with Django and PostgreSQL."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Java is a coffee origin listed with other growing regions; the app uses Django and PostgreSQL (Python is not inferred from Django)."
+  },
+  {
+   "id": "m11g22r4-fresh-043",
+   "split": "fresh",
+   "family": "near_neighbour_technical",
+   "probe": "language.java",
+   "pair": "java-office-coffee",
+   "repos": [
+    {
+     "name": "coffee-queue-android",
+     "readme": "# coffee-queue-android\n\nLets people on our floor queue for the one good espresso machine instead of standing around it.\n\nAndroid app written in Java (minSdk 26). Notifications fire when you're next in line.\n\nOpen the project in Android Studio and run the `app` configuration.\n",
+     "languages": {
+      "Java": 52000,
+      "Kotlin": 1800
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.java"
+   ],
+   "occurrences": [
+    {
+     "repo": "coffee-queue-android",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Android app written in Java (minSdk 26)."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The app is written in Java and Java dominates the language statistics; Kotlin is under 5% and does not count."
+  },
+  {
+   "id": "m11g22r4-fresh-044",
+   "split": "fresh",
+   "family": "near_neighbour_ordinary",
+   "probe": "language.java",
+   "pair": "java-office-coffee",
+   "repos": [
+    {
+     "name": "coffee-rota-bot",
+     "readme": "# coffee-rota-bot\n\nDecides whose turn it is to brew the morning pot of java for the office and posts it to chat at 8:45.\n\nSkips people who are on leave and keeps the rota fair over a rolling four-week window.\n\nWritten in TypeScript; deploy it as a scheduled function.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "ordinary",
+    "language.typescript": "use"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "coffee-rota-bot",
+     "word": "java",
+     "concept": "language.java",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Decides whose turn it is to brew the morning pot of java for the office and posts it to chat at 8:45."
+    },
+    {
+     "repo": "coffee-rota-bot",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Written in TypeScript; deploy it as a scheduled function."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'pot of java' is slang for coffee; the bot is TypeScript."
+  },
+  {
+   "id": "m11g22r4-fresh-045",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "snake-id",
+     "readme": "# snake-id\n\nPhoto classifier for snakes found in gardens across southern Africa. Upload a picture and it suggests a species with a confidence score; it is especially careful to separate an African rock python from the harmless brown house snake.\n\nThe classifier and API are written in Python and served with FastAPI.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "framework.fastapi": "use"
+   },
+   "used": [
+    "language.python",
+    "framework.fastapi"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "snake-id",
+     "word": "python",
+     "concept": "language.python",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Upload a picture and it suggests a species with a confidence score; it is especially careful to separate an African rock python from the harmless brown house snake."
+    },
+    {
+     "repo": "snake-id",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The classifier and API are written in Python and served with FastAPI."
+    },
+    {
+     "repo": "snake-id",
+     "word": "FastAPI",
+     "concept": "framework.fastapi",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The classifier and API are written in Python and served with FastAPI."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Ordinary snake sense comes first, then the classifier is said to be written in Python."
+  },
+  {
+   "id": "m11g22r4-fresh-046",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "allergy-diary",
+     "readme": "# allergy-diary\n\nA React web app for tracking food reactions.\n\nLog meals and symptoms; after a few weeks it highlights foods your body seems to react to.\n\nNot medical advice; share the export with your doctor.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "allergy-diary",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A React web app for tracking food reactions."
+    },
+    {
+     "repo": "allergy-diary",
+     "word": "react",
+     "concept": "framework.react",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Log meals and symptoms; after a few weeks it highlights foods your body seems to react to."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The tagline says it is a React web app; the later 'react to' is the bodily sense."
+  },
+  {
+   "id": "m11g22r4-fresh-047",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "egg-candling",
+     "readme": "# egg-candling\n\nCounts fertile eggs on incubator trays from candling photos and flags cracked or thin-shell eggs.\n\nThe image pipeline is Python; deployment helpers are Bash scripts in `deploy/`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use",
+    "language.python": "use"
+   },
+   "used": [
+    "language.shell",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "egg-candling",
+     "word": "shell",
+     "concept": "language.shell",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Counts fertile eggs on incubator trays from candling photos and flags cracked or thin-shell eggs."
+    },
+    {
+     "repo": "egg-candling",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The image pipeline is Python; deployment helpers are Bash scripts in `deploy/`."
+    },
+    {
+     "repo": "egg-candling",
+     "word": "Bash",
+     "concept": "language.shell",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The image pipeline is Python; deployment helpers are Bash scripts in `deploy/`."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "'thin-shell' describes eggs, but the repo ships Bash deployment scripts."
+  },
+  {
+   "id": "m11g22r4-fresh-048",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "anniversary-gifts",
+     "readme": "# anniversary-gifts\n\nSuggests gift ideas by wedding anniversary: paper for the first, tin for the tenth, ruby for the fortieth.\n\nBuilt with Next.js and deployed as a static export.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary",
+    "framework.nextjs": "use"
+   },
+   "used": [
+    "framework.nextjs"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "anniversary-gifts",
+     "word": "ruby",
+     "concept": "language.ruby",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Suggests gift ideas by wedding anniversary: paper for the first, tin for the tenth, ruby for the fortieth."
+    },
+    {
+     "repo": "anniversary-gifts",
+     "word": "Next.js",
+     "concept": "framework.nextjs",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Built with Next.js and deployed as a static export."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'ruby' is the fortieth-anniversary gift; the site is built with Next.js."
+  },
+  {
+   "id": "m11g22r4-fresh-049",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "hull-survey",
+     "readme": "# hull-survey\n\nRust library and CLI for turning ultrasonic thickness readings from a ship's hull into a plate-by-plate condition report.\n\nPlates are graded by remaining thickness; rust staining alone does not lower a grade.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "hull-survey",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Rust library and CLI for turning ultrasonic thickness readings from a ship's hull into a plate-by-plate condition report."
+    },
+    {
+     "repo": "hull-survey",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Plates are graded by remaining thickness; rust staining alone does not lower a grade."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Tagline says it is a Rust library and CLI; 'rust staining' is corrosion."
+  },
+  {
+   "id": "m11g22r4-fresh-050",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "volcano-alerts",
+     "readme": "# volcano-alerts\n\nAggregates public volcanic activity bulletins for Indonesia and pushes alert-level changes to subscribers.\n\nCoverage starts with the volcanoes of Java and Sumatra.\n\nThe service is a Java 21 application; build it with `./gradlew build`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "volcano-alerts",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Coverage starts with the volcanoes of Java and Sumatra."
+    },
+    {
+     "repo": "volcano-alerts",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The service is a Java 21 application; build it with `./gradlew build`."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "First 'Java' is the island; the service itself is a Java 21 application."
+  },
+  {
+   "id": "m11g22r4-fresh-051",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "relay-route-planner",
+     "readme": "# relay-route-planner\n\nPlans the route of a ceremonial torch relay through a region, balancing leg length, road closures and runner availability.\n\nLeg duration estimates come from a small PyTorch model trained on previous relays.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use"
+   },
+   "used": [
+    "ml.framework.pytorch"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "relay-route-planner",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Plans the route of a ceremonial torch relay through a region, balancing leg length, road closures and runner availability."
+    },
+    {
+     "repo": "relay-route-planner",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Leg duration estimates come from a small PyTorch model trained on previous relays."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "'torch relay' is ordinary, but the planner relies on a PyTorch model."
+  },
+  {
+   "id": "m11g22r4-fresh-052",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "distillery-batches",
+     "readme": "# distillery-batches\n\nBatch records for a craft gin distillery: botanicals, still runs, cuts and proof readings.\n\nSamples are drawn into a numbered flask at each cut and the readings are entered on a tablet.\n\nThe tablet UI is served by Flask from the office mini-PC.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use"
+   },
+   "used": [
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "distillery-batches",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Samples are drawn into a numbered flask at each cut and the readings are entered on a tablet."
+    },
+    {
+     "repo": "distillery-batches",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The tablet UI is served by Flask from the office mini-PC."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "A sample flask is glassware, but the UI is served by Flask."
+  },
+  {
+   "id": "m11g22r4-fresh-053",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "parcel-locker-app",
+     "readme": "# parcel-locker-app\n\nAndroid app for opening smart parcel lockers with a one-time code. Pickup is swift: scan the locker's QR code and the door unlocks in under two seconds.\n\nWritten in Kotlin with Jetpack Compose.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "ordinary",
+    "language.kotlin": "use"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "parcel-locker-app",
+     "word": "swift",
+     "concept": "language.swift",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Pickup is swift: scan the locker's QR code and the door unlocks in under two seconds."
+    },
+    {
+     "repo": "parcel-locker-app",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Written in Kotlin with Jetpack Compose."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'swift' means quick; a mobile app context makes it tempting, but the app is Kotlin."
+  },
+  {
+   "id": "m11g22r4-fresh-054",
+   "split": "fresh",
+   "family": "mixed",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "feedback-wall",
+     "readme": "# feedback-wall\n\nAnonymous feedback board for workshops: attendees can express what worked and what didn't without signing in.\n\nAPI: Express on Node 20. Frontend: plain HTML and CSS.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "use",
+    "language.html": "use",
+    "language.css": "use"
+   },
+   "used": [
+    "framework.express",
+    "language.html",
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "feedback-wall",
+     "word": "express",
+     "concept": "framework.express",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Anonymous feedback board for workshops: attendees can express what worked and what didn't without signing in."
+    },
+    {
+     "repo": "feedback-wall",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "API: Express on Node 20."
+    },
+    {
+     "repo": "feedback-wall",
+     "word": "HTML",
+     "concept": "language.html",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Frontend: plain HTML and CSS."
+    },
+    {
+     "repo": "feedback-wall",
+     "word": "CSS",
+     "concept": "language.css",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Frontend: plain HTML and CSS."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Verb 'express' first, then the API is stated to run on Express."
+  },
+  {
+   "id": "m11g22r4-fresh-055",
+   "split": "fresh",
+   "family": "negated",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "plain-dashboard",
+     "readme": "# plain-dashboard\n\nA server-status dashboard with no React, no build step and no bundler: just one HTML file and 200 lines of vanilla JavaScript.\n\nOpen `index.html` in a browser and point it at your metrics endpoint.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "negated",
+    "language.html": "use",
+    "language.javascript": "use"
+   },
+   "used": [
+    "language.html",
+    "language.javascript"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "plain-dashboard",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "negated",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A server-status dashboard with no React, no build step and no bundler: just one HTML file and 200 lines of vanilla JavaScript."
+    },
+    {
+     "repo": "plain-dashboard",
+     "word": "HTML",
+     "concept": "language.html",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A server-status dashboard with no React, no build step and no bundler: just one HTML file and 200 lines of vanilla JavaScript."
+    },
+    {
+     "repo": "plain-dashboard",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A server-status dashboard with no React, no build step and no bundler: just one HTML file and 200 lines of vanilla JavaScript."
+    },
+    {
+     "repo": "plain-dashboard",
+     "word": "html",
+     "concept": "language.html",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Open `index.html` in a browser and point it at your metrics endpoint."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "React is explicitly excluded; the dashboard is one HTML file with vanilla JavaScript."
+  },
+  {
+   "id": "m11g22r4-fresh-056",
+   "split": "fresh",
+   "family": "negated",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "csv-slim",
+     "readme": "# csv-slim\n\nFilters and reshapes large CSV files in constant memory.\n\nIt deliberately does not use pandas, so it runs on machines where installing a scientific stack is not an option. Standard library only, Python 3.9+.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "negated",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "csv-slim",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "negated",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "It deliberately does not use pandas, so it runs on machines where installing a scientific stack is not an option."
+    },
+    {
+     "repo": "csv-slim",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Standard library only, Python 3.9+."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The README explicitly says it does not use pandas."
+  },
+  {
+   "id": "m11g22r4-fresh-057",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "release-notes-gen",
+     "readme": "# release-notes-gen\n\nGenerates release notes from merged pull requests and conventional commit messages.\n\nThis project was originally a Ruby gem; in 2024 it was rewritten in Go and the Ruby version is no longer maintained.\n\nInstall with `go install`.\n",
+     "languages": {
+      "Go": 21000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "historical"
+   },
+   "used": [
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "release-notes-gen",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "This project was originally a Ruby gem; in 2024 it was rewritten in Go and the Ruby version is no longer maintained."
+    },
+    {
+     "repo": "release-notes-gen",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "This project was originally a Ruby gem; in 2024 it was rewritten in Go and the Ruby version is no longer maintained."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Ruby was the original implementation, replaced by Go; no current Ruby use."
+  },
+  {
+   "id": "m11g22r4-fresh-058",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "leaf-counter",
+     "readme": "# leaf-counter\n\nCounts leaves on seedling trays from top-down photos.\n\nEarlier versions trained the counting model in torch; since v2.0 the model is trained and served with TensorFlow, and the old training code has been removed.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "historical",
+    "ml.framework.tensorflow": "use"
+   },
+   "used": [
+    "ml.framework.tensorflow"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "leaf-counter",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Earlier versions trained the counting model in torch; since v2.0 the model is trained and served with TensorFlow, and the old training code has been removed."
+    },
+    {
+     "repo": "leaf-counter",
+     "word": "TensorFlow",
+     "concept": "ml.framework.tensorflow",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Earlier versions trained the counting model in torch; since v2.0 the model is trained and served with TensorFlow, and the old training code has been removed."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "torch was used only in earlier versions and the code was removed; TensorFlow is current."
+  },
+  {
+   "id": "m11g22r4-fresh-059",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "ticket-router",
+     "readme": "# ticket-router\n\nRoutes incoming support tickets to the right queue based on product, language and customer tier.\n\nThe first prototype was a Java servlet. The current service is also Java (Spring Boot 3, Java 21), but the servlet code is gone.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "ticket-router",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The first prototype was a Java servlet."
+    },
+    {
+     "repo": "ticket-router",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The current service is also Java (Spring Boot 3, Java 21), but the servlet code is gone."
+    },
+    {
+     "repo": "ticket-router",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The current service is also Java (Spring Boot 3, Java 21), but the servlet code is gone."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The historical prototype mention is invalid, but the current service is also Java."
+  },
+  {
+   "id": "m11g22r4-fresh-060",
+   "split": "fresh",
+   "family": "future",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "image-thumbs",
+     "readme": "# image-thumbs\n\nThumbnail service for the photo archive, currently a Python worker reading from a queue.\n\n## Roadmap\n\n- [ ] Port the resize hot path to Rust\n- [ ] WebP output\n- [x] EXIF orientation fix\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "language.rust": "future"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "image-thumbs",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Thumbnail service for the photo archive, currently a Python worker reading from a queue."
+    },
+    {
+     "repo": "image-thumbs",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "future",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- [ ] Port the resize hot path to Rust"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Rust appears only as an unchecked roadmap item."
+  },
+  {
+   "id": "m11g22r4-fresh-061",
+   "split": "fresh",
+   "family": "future",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "seed-swap",
+     "readme": "# seed-swap\n\nA community seed library catalogue. Right now it's a static list generated from a spreadsheet.\n\nWe would like to add a small Flask backend later so members can reserve packets online; help welcome.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "seed-swap",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "future",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "We would like to add a small Flask backend later so members can reserve packets online; help welcome."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A Flask backend is only wished for."
+  },
+  {
+   "id": "m11g22r4-fresh-062",
+   "split": "fresh",
+   "family": "future",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "bus-times-widget",
+     "readme": "# bus-times-widget\n\nAndroid home-screen widget showing the next departures from your saved stops. Written in Kotlin.\n\nAn iOS version in Swift would be lovely, but nobody on the team owns a Mac, so it is not planned for now.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.kotlin": "use",
+    "language.swift": "future"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "bus-times-widget",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Written in Kotlin."
+    },
+    {
+     "repo": "bus-times-widget",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "future",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "An iOS version in Swift would be lovely, but nobody on the team owns a Mac, so it is not planned for now."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A Swift version is hypothetical and explicitly not planned."
+  },
+  {
+   "id": "m11g22r4-fresh-063",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "rate-limit-core",
+     "readme": "# rate-limit-core\n\nFramework-agnostic token-bucket rate limiter with Redis-backed storage.\n\n## Related projects\n\nThe community maintains adapters in separate repositories:\n\n- `rate-limit-express` - middleware for Express\n- `rate-limit-koa` - middleware for Koa\n- `rate-limit-fastify` - plugin for Fastify\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.redis": "use",
+    "framework.express": "reference"
+   },
+   "used": [
+    "database.redis"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "rate-limit-core",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Framework-agnostic token-bucket rate limiter with Redis-backed storage."
+    },
+    {
+     "repo": "rate-limit-core",
+     "word": "express",
+     "concept": "framework.express",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- `rate-limit-express` - middleware for Express"
+    },
+    {
+     "repo": "rate-limit-core",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- `rate-limit-express` - middleware for Express"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The Express adapter lives in a separate community repository; this core is framework-agnostic."
+  },
+  {
+   "id": "m11g22r4-fresh-064",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tinyhash",
+     "readme": "# tinyhash\n\nA fast non-cryptographic hash function, reference implementation in C.\n\n## Bindings by others\n\nThese are maintained outside this repository and we can't vouch for them:\n\n- Ruby: `tinyhash-rb`\n- Python: `pytinyhash`\n- Swift: `TinyHashKit`\n",
+     "languages": {
+      "C": 12000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "reference",
+    "language.python": "reference",
+    "language.swift": "reference"
+   },
+   "used": [
+    "language.c"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.c"
+   ],
+   "occurrences": [
+    {
+     "repo": "tinyhash",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Ruby: `tinyhash-rb`"
+    },
+    {
+     "repo": "tinyhash",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Python: `pytinyhash`"
+    },
+    {
+     "repo": "tinyhash",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Swift: `TinyHashKit`"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The Ruby binding is maintained by others outside this repository; the repo itself is C."
+  },
+  {
+   "id": "m11g22r4-fresh-065",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "interpreter-notes",
+     "readme": "# interpreter-notes\n\nMy reading notes on how the reference Python interpreter implements its garbage collector, dictionaries and the GIL.\n\nThese are prose notes and diagrams only; there is no code here.\n\n- `gc.md` - generational collection and reference counting\n- `dict.md` - compact dict layout\n- `gil.md` - the global interpreter lock\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "interpreter-notes",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "My reading notes on how the reference Python interpreter implements its garbage collector, dictionaries and the GIL."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Notes about someone else's Python interpreter, explicitly with no code in the repo."
+  },
+  {
+   "id": "m11g22r4-fresh-066",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "react-docs-cy",
+     "readme": "# react-docs-cy\n\nWelsh translation of the official React documentation.\n\nThis repository contains only translated Markdown pages; the documentation site itself is built and hosted upstream.\n\nTo contribute, pick an untranslated page from the tracking issue and open a pull request.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "react-docs-cy",
+     "word": "react",
+     "concept": "framework.react",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "# react-docs-cy"
+    },
+    {
+     "repo": "react-docs-cy",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Welsh translation of the official React documentation."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A translation of another project's documentation; the repo holds only Markdown and the site is built upstream."
+  },
+  {
+   "id": "m11g22r4-fresh-067",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "quote-of-the-day",
+     "readme": "# quote-of-the-day\n\nA terminal greeter that prints a random programming quote when you open a new tab.\n\nSample output:\n\n> \"Rust is the language I reach for when I want the compiler to argue with me before production does.\" - anonymous forum post\n\nInstall with `pip install qotd-term`. Quotes live in `quotes.txt`; PRs adding more are welcome.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "quote-of-the-day",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> \"Rust is the language I reach for when I want the compiler to argue with me before production does.\" - anonymous forum post"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Rust appears only inside a quoted sample output from a third party; nothing indicates the greeter uses Rust (and pip is not a vocabulary word, so no language is inferred)."
+  },
+  {
+   "id": "m11g22r4-fresh-068",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "changelog-digest",
+     "readme": "# changelog-digest\n\nSummarises upstream changelogs for the dependencies your team cares about and posts a weekly digest.\n\nExample digest entry:\n\n> Flask 3.1.0: \"Drop support for Python 3.8.\"\n\nThe digest bot itself is a single Go binary.\n",
+     "languages": {
+      "Go": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "reference",
+    "language.python": "reference"
+   },
+   "used": [
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "changelog-digest",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> Flask 3.1.0: \"Drop support for Python 3.8.\""
+    },
+    {
+     "repo": "changelog-digest",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> Flask 3.1.0: \"Drop support for Python 3.8.\""
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Flask and Python appear only in a quoted example of another project's changelog; the bot is a Go binary."
+  },
+  {
+   "id": "m11g22r4-fresh-069",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tiny-router",
+     "readme": "# tiny-router\n\nA minimal HTTP router for Deno with zero dependencies.\n\nThe routing API will feel familiar if you have used Express, and in our benchmarks it handles about 3x the requests per second of Express on the same hardware.\n",
+     "languages": {
+      "TypeScript": 18000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "reference"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "tiny-router",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The routing API will feel familiar if you have used Express, and in our benchmarks it handles about 3x the requests per second of Express on the same hardware."
+    },
+    {
+     "repo": "tiny-router",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The routing API will feel familiar if you have used Express, and in our benchmarks it handles about 3x the requests per second of Express on the same hardware."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Express is only a familiarity analogy and a benchmark comparison; the router has zero dependencies."
+  },
+  {
+   "id": "m11g22r4-fresh-070",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "kiln-lang",
+     "readme": "# kiln-lang\n\nA small scripting language for configuring build pipelines.\n\nThe syntax is inspired by Ruby: blocks, optional parentheses and implicit returns. The interpreter itself is written in Rust.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "reference",
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "kiln-lang",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The syntax is inspired by Ruby: blocks, optional parentheses and implicit returns."
+    },
+    {
+     "repo": "kiln-lang",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The interpreter itself is written in Rust."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Ruby is only the syntactic inspiration; the interpreter is written in Rust."
+  },
+  {
+   "id": "m11g22r4-fresh-071",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "pipe-dsl",
+     "readme": "# pipe-dsl\n\nCompose data transformations the way you compose commands in a Unix shell: small steps joined with `|`.\n\n```\nread(\"orders.csv\") | where(total > 100) | count()\n```\n\nImplemented as a Kotlin library; add it from Maven Central.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "reference",
+    "language.kotlin": "use"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "pipe-dsl",
+     "word": "shell",
+     "concept": "language.shell",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Compose data transformations the way you compose commands in a Unix shell: small steps joined with `|`."
+    },
+    {
+     "repo": "pipe-dsl",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Implemented as a Kotlin library; add it from Maven Central."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The Unix shell is an analogy for the DSL's piping style; the library is Kotlin."
+  },
+  {
+   "id": "m11g22r4-fresh-072",
+   "split": "fresh",
+   "family": "negated",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "docs-site",
+     "readme": "# docs-site\n\nDocumentation site for the Larch CLI.\n\nThe pages are static HTML generated at build time, so readers download no React.\n\nThe interactive playground on the home page is the exception: it is a small React island hydrated on that page only.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.html": "use",
+    "framework.react": "use"
+   },
+   "used": [
+    "language.html",
+    "framework.react"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "docs-site",
+     "word": "HTML",
+     "concept": "language.html",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The pages are static HTML generated at build time, so readers download no React."
+    },
+    {
+     "repo": "docs-site",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "negated",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The pages are static HTML generated at build time, so readers download no React."
+    },
+    {
+     "repo": "docs-site",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The interactive playground on the home page is the exception: it is a small React island hydrated on that page only."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Most pages ship no React, but the playground is explicitly a React island in this repo."
+  },
+  {
+   "id": "m11g22r4-fresh-073",
+   "split": "fresh",
+   "family": "future",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "survey-cleaner",
+     "readme": "# survey-cleaner\n\nCleans raw exports from the field survey tablets: fixes encodings, drops test submissions, standardises village names.\n\nCurrently a set of Python scripts run by hand. Planned: wrap them in a proper Python package with a CLI.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "survey-cleaner",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Currently a set of Python scripts run by hand."
+    },
+    {
+     "repo": "survey-cleaner",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "future",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Planned: wrap them in a proper Python package with a CLI."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The packaging plan is future, but the current scripts are already Python."
+  },
+  {
+   "id": "m11g22r4-fresh-074",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "awesome-tabular",
+     "readme": "# awesome-tabular\n\nA curated list of tools for working with tables.\n\n## Dataframes\n\n- pandas - the classic Python dataframe library\n- Polars - fast dataframes with a lazy query engine\n\n## Spreadsheets\n\n- LibreOffice Calc\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "reference",
+    "language.python": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "awesome-tabular",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- pandas - the classic Python dataframe library"
+    },
+    {
+     "repo": "awesome-tabular",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- pandas - the classic Python dataframe library"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A curated list of other projects; listing pandas is not use."
+  },
+  {
+   "id": "m11g22r4-fresh-075",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "invoice-pdf",
+     "readme": "# invoice-pdf\n\nGenerates invoice PDFs from JSON.\n\n## Requirements\n\n- Java 21\n- Maven 3.9\n\n## Build\n\n```\nmvn package\njava -jar target/invoice-pdf.jar sample.json\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "invoice-pdf",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Java 21"
+    },
+    {
+     "repo": "invoice-pdf",
+     "word": "java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "java -jar target/invoice-pdf.jar sample.json"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Requirements list Java 21 and the build produces a jar run with java."
+  },
+  {
+   "id": "m11g22r4-fresh-076",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tide-tables",
+     "readme": "# tide-tables\n\nOffline tide predictions for UK harbours, for iPhone and iPad.\n\n## Building\n\nOpen `TideTables.xcodeproj` and run the `TideTables` scheme.\n\n## Style guides\n\n### Swift\n\nRun `swift format -i -r Sources/` before committing.\n\n### Commit messages\n\nImperative mood, under 72 characters.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "tide-tables",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "### Swift"
+    },
+    {
+     "repo": "tide-tables",
+     "word": "swift",
+     "concept": "language.swift",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Run `swift format -i -r Sources/` before committing."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The only evidence is a contributor style-guide heading and a swift format command over the repo's Sources, which together imply the code is Swift."
+  },
+  {
+   "id": "m11g22r4-fresh-077",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "audio-tagger",
+     "readme": "# audio-tagger\n\nTags bird calls in dawn-chorus recordings.\n\n## Progress\n\n- [x] Spectrogram extraction\n- [x] Baseline CNN in PyTorch\n- [ ] Export to ONNX\n- [ ] Replace the CNN with a torch transformer encoder\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use"
+   },
+   "used": [
+    "ml.framework.pytorch"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "audio-tagger",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- [x] Baseline CNN in PyTorch"
+    },
+    {
+     "repo": "audio-tagger",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "future",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- [ ] Replace the CNN with a torch transformer encoder"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "A checked task says the baseline CNN is in PyTorch; the unchecked torch item is future."
+  },
+  {
+   "id": "m11g22r4-fresh-078",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "rain-gauge",
+     "readme": "# rain-gauge\n\nDaily rainfall totals from a network of backyard gauges.\n\n## Quick look\n\n```\nimport pandas as pd\ndf = pd.read_csv(\"daily.csv\", parse_dates=[\"date\"])\ndf.groupby(\"gauge\").rain_mm.sum()\n```\n\nThe nightly aggregation script in `scripts/aggregate.py` does the same thing for every station.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "use"
+   },
+   "used": [
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "rain-gauge",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "import pandas as pd"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The only mention is inside a code block, but the following line says the repo's aggregation script does the same pandas work."
+  },
+  {
+   "id": "m11g22r4-fresh-079",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "linkshort",
+     "readme": "# linkshort\n\nSelf-hosted link shortener.\n\n## Install\n\n```\npython3 -m venv .venv\n. .venv/bin/activate\npip install flask gunicorn\ngunicorn 'linkshort:create_app()'\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "framework.flask": "use"
+   },
+   "used": [
+    "language.python",
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "linkshort",
+     "word": "python3",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "python3 -m venv .venv"
+    },
+    {
+     "repo": "linkshort",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "pip install flask gunicorn"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Install steps set up a Python venv and install flask as a dependency before serving the app's factory."
+  },
+  {
+   "id": "m11g22r4-fresh-080",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "geohash-tool",
+     "readme": "# geohash-tool\n\n![rust 1.80+](https://img.shields.io/badge/rust-1.80%2B-orange) ![license MIT](https://img.shields.io/badge/license-MIT-blue)\n\nEncode, decode and find neighbours of geohashes from the command line.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "geohash-tool",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "![rust 1.80+](https://img.shields.io/badge/rust-1.80%2B-orange) ![license MIT](https://img.shields.io/badge/license-MIT-blue)"
+    },
+    {
+     "repo": "geohash-tool",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "![rust 1.80+](https://img.shields.io/badge/rust-1.80%2B-orange) ![license MIT](https://img.shields.io/badge/license-MIT-blue)"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "A minimum-toolchain badge (rust 1.80+) states the tool requires Rust to build."
+  },
+  {
+   "id": "m11g22r4-fresh-081",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "birthstone-api",
+     "readme": "# birthstone-api\n\nReturns the birthstone, colour and a short description for any month.\n\n## Example\n\n```\nGET /stones/july\n{\"month\": \"july\", \"stone\": \"Ruby\", \"colour\": \"deep red\"}\n```\n\n## Tech\n\nGo standard library only; one binary, no database.\n",
+     "languages": {
+      "Go": 6000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary"
+   },
+   "used": [
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "birthstone-api",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "{\"month\": \"july\", \"stone\": \"Ruby\", \"colour\": \"deep red\"}"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'Ruby' is a birthstone value inside a code block; the Tech section says the API is Go."
+  },
+  {
+   "id": "m11g22r4-fresh-082",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "pdf-merge",
+     "readme": "# pdf-merge\n\nMerge, split and reorder PDF pages from the command line.\n\n## Install\n\n```bash\npip install pdf-merge-cli\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "pdf-merge",
+     "word": "bash",
+     "concept": "language.shell",
+     "class": "reference",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "```bash"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'bash' is only a code-fence syntax-highlighting tag for an install command; it does not say the project is written in or ships shell code."
+  },
+  {
+   "id": "m11g22r4-fresh-083",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "courier-hooks",
+     "readme": "# courier-hooks\n\nWebhook receiver for parcel courier status updates (picked up, in transit, delivered).\n\nSupports Express.\n\nSee `examples/` for sample payloads.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ambiguous"
+   },
+   "used": [],
+   "uncertain": [
+    "framework.express"
+   ],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "courier-hooks",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "ambiguous",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Supports Express."
+    }
+   ],
+   "expected_target_status": "UNCERTAIN",
+   "expected_effect": {
+    "probe_status": "uncertain",
+    "score": null
+   },
+   "note": "In a courier context 'Express' could be the express delivery service level or the Express web framework (as middleware); the terse line does not settle which."
+  },
+  {
+   "id": "m11g22r4-fresh-084",
+   "split": "fresh",
+   "family": "structure",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "kiosk-agent",
+     "readme": "# kiosk-agent\n\nAgent that keeps library self-checkout kiosks updated and reports their health.\n\n## Compatibility\n\n| Component | Version |\n|---|---|\n| Python | 3.10 - 3.13 |\n| OS | Debian 12 |\n\n## Usage\n\n`kiosk-agent --config /etc/kiosk.toml`\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "kiosk-agent",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "| Python | 3.10 - 3.13 |"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The compatibility table lists the Python versions the agent runs on, i.e. it requires Python."
+  },
+  {
+   "id": "m11g22r4-fresh-085",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tariff-report",
+     "readme": "# tariff-report\n\nBuilds the monthly electricity tariff comparison report from supplier price sheets.\n\nRun `make report`.\n",
+     "languages": {},
+     "files": {
+      "requirements.txt": "pandas==2.2.2\nopenpyxl\njinja2\n"
+     }
+    }
+   ],
+   "concepts": {},
+   "used": [
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "data.library.pandas"
+   ],
+   "occurrences": [],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The README names no technology, but requirements.txt lists pandas."
+  },
+  {
+   "id": "m11g22r4-fresh-086",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "embed-widget",
+     "readme": "# embed-widget\n\nA comment widget you can embed on any page with one script tag. It does not use React, so it won't clash with the host page's framework.\n",
+     "languages": {},
+     "files": {
+      "package.json": "{\n  \"name\": \"embed-widget\",\n  \"version\": \"0.9.0\",\n  \"dependencies\": {\n    \"react\": \"^18.3.1\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.react": "negated"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.react"
+   ],
+   "occurrences": [
+    {
+     "repo": "embed-widget",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "negated",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "It does not use React, so it won't clash with the host page's framework."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Conflict: the README denies React, but package.json lists react as a dependency, which counts as use under the artifact rule."
+  },
+  {
+   "id": "m11g22r4-fresh-087",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "chess-clock",
+     "readme": "# chess-clock\n\nA Java chess clock for tournament directors, with Fischer and Bronstein increments.\n",
+     "languages": {
+      "Kotlin": 20000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java",
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.kotlin"
+   ],
+   "occurrences": [
+    {
+     "repo": "chess-clock",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A Java chess clock for tournament directors, with Fischer and Bronstein increments."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The README claims a Java implementation (a valid README use mention) even though language statistics show only Kotlin; Java is used but not corroborated."
+  },
+  {
+   "id": "m11g22r4-fresh-088",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "jewel-quiz",
+     "readme": "# jewel-quiz\n\nA quiz game about gemstones: identify the stone from a photo. Is that red stone a ruby, a spinel or a garnet?\n\nPlay at your own pace; scores stay on your device.\n",
+     "languages": {
+      "Ruby": 18000,
+      "HTML": 4000,
+      "CSS": 2500
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary"
+   },
+   "used": [
+    "language.ruby",
+    "language.html",
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.ruby",
+    "language.html",
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "jewel-quiz",
+     "word": "ruby",
+     "concept": "language.ruby",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Is that red stone a ruby, a spinel or a garnet?"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The README's 'ruby' is the gemstone, but language statistics show the repo is mostly Ruby code."
+  },
+  {
+   "id": "m11g22r4-fresh-089",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "site-builder",
+     "readme": "# site-builder\n\nGenerates the club website from Markdown.\n\nWritten in TypeScript.\n",
+     "languages": {
+      "TypeScript": 40000,
+      "Ruby": 900
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.typescript": "use"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "site-builder",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Written in TypeScript."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Ruby is about 2% of bytes, below the 5% threshold, and the README does not mention it."
+  },
+  {
+   "id": "m11g22r4-fresh-090",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "label-printer-api",
+     "readme": "# label-printer-api\n\nHTTP API that sends shipping labels to the warehouse thermal printers.\n\nA Flask service; run it with `docker compose up`.\n",
+     "languages": {
+      "Python": 3000
+     },
+     "files": {
+      "Dockerfile": "FROM python:3.12-slim\nCOPY . /app\nRUN pip install -r /app/requirements.txt\nCMD [\"gunicorn\", \"app:app\"]\n",
+      "requirements.txt": "flask\ngunicorn\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use",
+    "infra.docker": "use"
+   },
+   "used": [
+    "framework.flask",
+    "infra.docker",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.flask",
+    "infra.docker",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "label-printer-api",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A Flask service; run it with `docker compose up`."
+    },
+    {
+     "repo": "label-printer-api",
+     "word": "docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A Flask service; run it with `docker compose up`."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "README, requirements.txt and a root Dockerfile all agree: a Flask service run in Docker."
+  },
+  {
+   "id": "m11g22r4-fresh-091",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "firefly-counter",
+     "readme": "# firefly-counter\n\nCounts firefly flashes in long-exposure night videos.\n\nFilm at dusk without a torch or phone light nearby; stray light ruins the background model.\n",
+     "languages": {},
+     "files": {
+      "pyproject.toml": "[project]\nname = \"firefly-counter\"\nversion = \"0.3.0\"\ndependencies = [\n  \"torch>=2.2\",\n  \"opencv-python\",\n]\n"
+     }
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "ordinary"
+   },
+   "used": [
+    "ml.framework.pytorch"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "ml.framework.pytorch"
+   ],
+   "occurrences": [
+    {
+     "repo": "firefly-counter",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Film at dusk without a torch or phone light nearby; stray light ruins the background model."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The README's 'torch' is a flashlight (and the 'without' is not a technology negation), but pyproject.toml depends on torch."
+  },
+  {
+   "id": "m11g22r4-fresh-092",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "webhook-relay",
+     "readme": "# webhook-relay\n\nReceives webhooks from the payment provider and forwards them to internal services with retries.\n\nConfigure targets in `relay.yaml`.\n",
+     "languages": {},
+     "files": {
+      "package.json": "{\n  \"name\": \"webhook-relay\",\n  \"version\": \"1.4.0\",\n  \"dependencies\": {\n    \"express\": \"^4.19.2\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"^5.4.0\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {},
+   "used": [
+    "framework.express"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.express"
+   ],
+   "occurrences": [],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Nothing in the README, but package.json depends on express (the typescript devDependency is not one of the recognised packages)."
+  },
+  {
+   "id": "m11g22r4-fresh-093",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "meter-reader",
+     "readme": "# meter-reader\n\nReads water meter dials from photos with OCR.\n\nWe plan to move the reporting step to pandas once the CSV format settles.\n",
+     "languages": {},
+     "files": {
+      "requirements.txt": "pytesseract\npillow\nnumpy\n"
+     }
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "meter-reader",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "future",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "We plan to move the reporting step to pandas once the CSV format settles."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "pandas is only planned and requirements.txt does not list it."
+  },
+  {
+   "id": "m11g22r4-fresh-094",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "harbour-app-ios",
+     "readme": "# harbour-app-ios\n\niOS client for the marina berth booking system, built in Swift.\n",
+     "languages": {},
+     "files": {}
+    },
+    {
+     "name": "harbour-api",
+     "readme": "# harbour-api\n\nBerth booking API for the marina. Booking confirmations are swift: most requests are approved automatically within a minute.\n\nRuns on Express with PostgreSQL.\n",
+     "languages": {
+      "JavaScript": 22000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use",
+    "framework.express": "use",
+    "database.postgresql": "use"
+   },
+   "used": [
+    "language.swift",
+    "framework.express",
+    "database.postgresql",
+    "language.javascript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.javascript"
+   ],
+   "occurrences": [
+    {
+     "repo": "harbour-app-ios",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "iOS client for the marina berth booking system, built in Swift."
+    },
+    {
+     "repo": "harbour-api",
+     "word": "swift",
+     "concept": "language.swift",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Booking confirmations are swift: most requests are approved automatically within a minute."
+    },
+    {
+     "repo": "harbour-api",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Runs on Express with PostgreSQL."
+    },
+    {
+     "repo": "harbour-api",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Runs on Express with PostgreSQL."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Two repositories: the iOS client is built in Swift; in the API repo 'swift' only means fast."
+  },
+  {
+   "id": "m11g22r4-fresh-095",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "oyster-reef-monitor",
+     "readme": "# oyster-reef-monitor\n\nWater quality loggers for an oyster reef restoration site. Each logger records temperature, salinity and dissolved oxygen every 15 minutes.\n\nSpat settlement is counted on recycled shell bags placed along the reef.\n",
+     "languages": {
+      "Python": 9000,
+      "Shell": 1200
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "ordinary"
+   },
+   "used": [
+    "language.python",
+    "language.shell"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python",
+    "language.shell"
+   ],
+   "occurrences": [
+    {
+     "repo": "oyster-reef-monitor",
+     "word": "shell",
+     "concept": "language.shell",
+     "class": "ordinary",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "Spat settlement is counted on recycled shell bags placed along the reef."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The README's 'shell bags' are oyster shells, but Shell is about 12% of the repository's bytes."
+  },
+  {
+   "id": "m11g22r4-fresh-096",
+   "split": "fresh",
+   "family": "artifacts",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "dns-probe",
+     "readme": "# dns-probe\n\nChecks that your DNS records match a declared zone file and reports drift.\n\n- single binary, no runtime dependencies\n- JSON or table output\n- Bash completion script in `completions/`\n",
+     "languages": {
+      "Go": 30000,
+      "Shell": 400
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use"
+   },
+   "used": [
+    "language.shell",
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "dns-probe",
+     "word": "Bash",
+     "concept": "language.shell",
+     "class": "use",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Bash completion script in `completions/`"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The repo ships a Bash completion script (valid README use) even though Shell is under 5% of bytes, so it is used but not corroborated."
+  }
+ ]
+}

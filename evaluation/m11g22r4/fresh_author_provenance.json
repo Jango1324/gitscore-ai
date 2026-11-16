@@ -1,0 +1,22 @@
+{
+  "author": "separate Claude subagent instance (same model family as the policy author; NOT human-independent)",
+  "author_inputs": "classification task, declared evidence-validity policy, registry vocabulary with matching semantics, artifact rules (5% language floor; parsed root manifests; Docker presence), output schema, coverage targets; NO R4/D/R3 rules, code, tests, design sets or results",
+  "author_tool_calls": "Write x3 (one per part file); no read/search/command; author reported no post-write edits",
+  "raw_author_files_sha256": {
+    "fresh_part1.json": "58c54c088de242f5cea9d8cb1317be7dc5668ded2262c865fd845ee8efd82cae",
+    "fresh_part2.json": "315a50436e3c0475678abb2f4afa5f5d1992ebdd65bfff4c4019a3b8da56abdd",
+    "fresh_part3.json": "7b14274ebf562dee4467827ffe0f6f5d4608fd460590399fd2e0f5f5e84a9ad9"
+  },
+  "raw_hashes_recorded_at_utc": "2026-11-15T23:22:01Z (before the policy design freeze)",
+  "policy_design_frozen_at_utc": "2026-11-15T23:23:29Z",
+  "fresh_converted_and_frozen_at_utc": "2026-11-15T23:24:07Z",
+  "leakage_disclosure": "the author's hand-back message (read by the policy author before the design freeze) named about ten case-level details; no policy change was made after it",
+  "pre_freeze_checks": {
+    "counts": {
+      "unlabelled_mentions": 0,
+      "labels_without_mention": 0,
+      "cases": 96
+    },
+    "issues": []
+  }
+}

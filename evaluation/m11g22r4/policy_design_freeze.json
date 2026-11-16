@@ -1,0 +1,100 @@
+{
+  "milestone": "M11-G22-R4",
+  "frozen_at_utc": "2026-11-15T23:23:29Z",
+  "canonical_contract": "crlf-to-lf/v1",
+  "note": "R4 inverse-guard design frozen BEFORE the fresh validation set was opened, converted, schema-checked or run by any GitScore code. Hashes are of LF-canonical bytes.",
+  "files": {
+    "scripts/evaluation_lib/m11g22r4_policies.py": "e56c518c127a60ee8d457bb24962f8dbd36aa0d970b0177121a63f498b963ce4",
+    "scripts/evaluation_lib/m11g22r2_policies.py": "7c40a44ec8676dfee30191231772cb5f584ac7fa4b9bfa40b2fcc3164c97371c",
+    "scripts/evaluation_lib/m11g22r_policies.py": "e0efd597e8a37713d9ecca6e6f88277c94be9b9468215f483c5115b9d8ad6729",
+    "scripts/evaluation_lib/m11g22_policies.py": "58a582b7053db888e440a4cc3ff864c003f4079b8a41aa74b694569bd4bbfb29",
+    "scripts/evaluation_lib/m11g22r2_harness.py": "7c5b9a59a96171331b51f0c6af2a01acc4c95260022b0f32be4f8b090113f699",
+    "scripts/evaluation_lib/m11g22r_harness.py": "bce3687fce89d6be5d4221f3e4189e7dd04387b67ddf04af98de86ff09aa2ba9",
+    "scripts/evaluation_lib/m11g22r3_policies.py": "c945c5c26879d48990bc7cc5d1d430cf70175e61ccabe88e599276b7ef300d79",
+    "scripts/evaluation_lib/m11g22r4_build_dev_controls.py": "9d43cbd6dbb23dc0f1ecb535bf0a2b4cab50130e27bc6f9c8fbbfc25cf696ecd"
+  },
+  "chosen_candidate": "P4_hybrid_overrides",
+  "comparison_policies": [
+    "A_current_readme_v4 (P0)",
+    "P1_ordinary_english",
+    "P2_plus_negation",
+    "P3_plus_attribution",
+    "D_hybrid_use_frames (G22-R2, unchanged)",
+    "R3_context_guard (G22-R3, unchanged)"
+  ],
+  "selection_rationale": [
+    "P4 is the only candidate that kept 100% of readme:v4's genuine README use items and true SUPPORTED probes on every seen set (R4 DEV 31/31, G22-R2 DEV 20/20 and EVAL 19/19, VAL-1 36/36, VAL-2 23/23; G22-R README recall 14/14 and 12/12) while cutting false SUPPORTED to 3 / 0 / 0 / 4 / 3 on those sets.",
+    "P1-P3 lose 'A Java and Kotlin Android app' (determiner rule); P4's registry-sibling override restores it. P3 equals P4 on every other seen control.",
+    "D and R3 lost genuine use on fresh data (VAL-1, VAL-2); default-accept plus bounded rejection is the hypothesis under test.",
+    "All seen-set numbers are DESIGN results, not validation."
+  ],
+  "exact_rejection_rules": {
+    "scope": "only occurrences whose surface lowercases to one of the 11 README-ambiguous aliases (react express swift rust ruby shell torch python java flask pandas); every other alias = readme:v4 exactly; the production 8D.3 filter still applies first; a rejected occurrence falls through to the next occurrence / alias (production code)",
+    "implementation": "scripts/evaluation_lib/m11g22r4_policies.py explain(text, start, end, level); P4 = level 4",
+    "P1_homonym": "per-alias lexicon HOMONYM, consulted only in a fixed position: adjacent modifier before; adjacent head noun after; 3-word after-window (pandas animal nouns only); bounded before/after frames (verb, adjective, transit, corrosion, carry senses; some also require the alias to be lowercase as an ADDITIONAL necessary condition); coordinated homonym sibling; personal / pet name frame; determiner-headed count noun (a/an/another, or lowercase the/each/every/possessive, at most one gap word outside a stop list, alias followed by punctuation / conjunction / preposition / pronoun / auxiliary; python swift shell torch flask ruby java only; never 'Ruby on Rails')",
+    "P2_negation": "negator (no/not/without/never/nor/neither/n't forms) within 3 words before the alias in the same clause (clause cut at , ; : ( ) dashes but however although though whereas while) unless the gap holds an exception / causal word; or '<alias>-free'; or '<alias> [<=2 words] is/are/was not|isn't used/required/needed/necessary/involved/included/installed/supported/bundled/a dependency'",
+    "P3_attribution": "reference / comparison frame immediately before (inspired by, modelled on, borrowed from, ported from, port/clone/fork/rewrite of, alternative to, replacement for, similar to, think of it as, comparing, than, as X as, compared to, versus/vs, instead of, rather than, in place of, + <=2 determiners/qualifiers); 'like' + determiners or a short list; historical frames (originally/initially/formerly/previously, began life as, moved/migrated/switched/ported off|from, old/former/previous, until vN, first prototype used, no longer, used to); future frames (plan/hope/intend to, would like to, aim to, going to, eventually, someday, in the future, todo, wishlist, will be ported to with <=3-word gap in clause; considering / evaluating / investigating / migrating..to / can be generated for: immediately before); after-frames ('<alias> [bindings|port|support|...] would/could/will be' except installed/used/required/needed/downloaded/built/compiled/fetched, 'can be generated', 'is/are planned|coming|on the roadmap|not yet available...'); unchecked task-list line '- [ ]'; other-project docs ('notes|cheat sheet|translation|summary|documentation|docs|reading notes|reading group on|about|of|for [how|the]'; 'the [official] <alias> documentation|docs|handbook|book|internals|foundation|community|conference|core team'; '<alias> ... maintained|written|developed|owned|published by another|other|a different|a separate|a third|someone'); blockquote line introduced by a line ending ':' or under a said/testimonial/quote/feedback/review/excerpt/notice heading; '[project](https://...) (<alias>)'; list item with an external URL (itself or nested sub-items) under a bindings/ports/wrappers/implementations/community/third-party/ecosystem/used by/who uses/showcase/in the wild/projects using/other languages heading (ATX or setext)",
+    "P4_overrides": "a P1 rejection is withdrawn if: code span/fence; version string immediately after; claim-of-use frame immediately before (G22-R2 _USE_FRAME); coordinated with a registry technology (G22-R2 _registry_list_sibling); software head noun immediately after. A P3 'like' rejection is withdrawn if a claim-of-use verb opens the clause before 'like'. P2 and all other P3 rules are never overridden.",
+    "sentence_model": "research-only paragraph-aware sentence span: soft-wrapped newlines join; blank lines, list items, headings, blockquotes, tables, fences and setext underlines break; e.g./i.e./vs./etc./cf. do not end a sentence"
+  },
+  "acceptance_gates_on_fresh_set_declared_before_run": {
+    "G1_genuine_readme_use_retention": "P4 keeps >= 95% of the genuine README use items (concept-level README items labelled 'use') that readme:v4 extracts",
+    "G2_true_supported_retention": "P4 keeps >= 95% of readme:v4's true SUPPORTED probes",
+    "G3_false_supported_reduction": "P4 false SUPPORTED <= 50% of readme:v4's (at least 50% fewer)",
+    "G4_no_new_false_supported": "every P4 false SUPPORTED control is also false SUPPORTED under readme:v4",
+    "G5_corroborated": "every artifact-corroborated used probe stays SUPPORTED",
+    "G6_non_ambiguous": "no README item of a non-ambiguous alias differs from readme:v4",
+    "G7_g19_capability": "G19 capability identical for all 39 concepts and all 64 README-safe aliases still extracted from 'This project is built with <alias>.'",
+    "G8_no_job_side_regression": "job parsing identical on every G22 corpus (G22-Q, G22, G21, G20, G17, G16, G15, M10/M10E) under P4",
+    "uncertain_handling": "controls whose probe is labelled uncertain are excluded from G2-G5 (G22-R2/R3 harness convention) and reported separately",
+    "decision_rule": "ALL gates must pass for a positive research recommendation; if any fails, P4 as frozen is not recommended for readme:v5; thresholds are not changed after the run; any revision needs a NEW fresh set"
+  },
+  "threshold_justification": "The milestone brief's suggested high-recall gates are adopted unchanged; no different threshold was found to be scientifically justified.",
+  "secondary_metrics": [
+    "false README evidence (items labelled non-use)",
+    "false SUPPORTED by root-cause class",
+    "occurrence level: author-labelled valid use occurrences rejected and invalid occurrences rejected, each with its rule reason",
+    "non-ambiguous evidence changes",
+    "MatchStatus changes",
+    "numerator / denominator changes",
+    "undefined score changes",
+    "G19 capability changes",
+    "D and R3 on the same fresh set (comparison only)"
+  ],
+  "known_limitations": [
+    "Long-tail homonym senses outside the lexicon stay false ('Swift onboarding is the goal', 'React, record, repeat', 'ruby for the fortieth', 'a start port on Java', 'the python every ten days').",
+    "Other-project documentation without a bounded frame stays false ('documentation site of Quarry, a Java persistence library').",
+    "Non-ambiguous aliases are out of scope by gate G6, so 'plan to add a PyTorch backend', 'Inspired by FastAPI' and 'No Docker needed' stay false.",
+    "'Java coffee ... app' is rejected by the 'Java coffee' head-noun rule even when a reader would call it ambiguous.",
+    "'Photos taken in Java last summer' and 'Ruby, our app's mascot' are kept (no bounded rule).",
+    "The homonym lexicon is alias-specific metadata that would need a production home; the sentence model and setext-heading index differ from production readme_context.",
+    "The fresh set's author is the same model family as the policy author; it is not human-independent."
+  ],
+  "design_sets_seen": [
+    "G22-R DEV",
+    "G22-R EVAL",
+    "G22-R2 DEV",
+    "G22-R2 EVAL",
+    "G22-R3 VAL-1",
+    "G22-R3 VAL-2 (run once by R3; seen)",
+    "frozen 8c fixtures",
+    "G22-R2 difficult cases",
+    "R4 DEV near-neighbour controls (policy-author written)"
+  ],
+  "design_timeline": [
+    "R4 DEV controls (60) written by the policy author and hash-frozen before any R4 policy ran on them.",
+    "Fresh-set author (a separate subagent) launched BEFORE the R4 policies were drafted; it was given no policy, rule, code or result.",
+    "P1-P4 v1 drafted from the historical false-SUPPORTED taxonomy and linguistic homonym senses; run on all seen sets.",
+    "Change 1: the P4 software-head override dropped 'service(s)/project(s)/dashboard' after it re-admitted 'Local and express services' (G22-R2 d38).",
+    "Change 2: 'as X as' comparison added after R4 DEV 'twice as fast as Express'.",
+    "Change 3: a paragraph-aware sentence model replaced G22-R's newline-splitting sentence after torvalds/libgit2's hard-wrapped 'like .NET,\\nNode.js, or Ruby' escaped the comparison frame (8c audit).",
+    "Change 4: the roadmap-heading rule was REMOVED after it rejected a completed 'Python SDK' roadmap item in Jango1324/hive (8c audit); unchecked task items and future frames were kept.",
+    "Fresh author finished; raw-file hashes recorded at 2026-11-15T23:22:01Z (below). Its hand-back message, read by the policy author, named some case-level details (SWIFT/BIC banking codes; 'Supports Express.' in a courier context; a ```bash fence tag; slack-ruby-client; index.html; analysis.ipynb; a version badge; a README denying React with React in package.json; a README claiming Java with Kotlin-only stats). NO policy change was made after that message; this freeze was written immediately after it, without opening the files."
+  ],
+  "fresh_raw_author_files_sha256_before_freeze": {
+    "fresh_part1.json": "58c54c088de242f5cea9d8cb1317be7dc5668ded2262c865fd845ee8efd82cae",
+    "fresh_part2.json": "315a50436e3c0475678abb2f4afa5f5d1992ebdd65bfff4c4019a3b8da56abdd",
+    "fresh_part3.json": "7b14274ebf562dee4467827ffe0f6f5d4608fd460590399fd2e0f5f5e84a9ad9"
+  },
+  "post_hoc_changes": []
+}

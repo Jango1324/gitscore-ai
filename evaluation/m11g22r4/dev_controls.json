@@ -1,0 +1,1371 @@
+{
+ "schema_version": 1,
+ "milestone": "M11-G22-R4 (high-recall README evidence guard research)",
+ "split": "dev",
+ "authorship": "written by the R4 policy author; DEVELOPMENT data only, never validation",
+ "label_timing": "labels hash-frozen BEFORE any R4 candidate policy was run on this set",
+ "label_classes": [
+  "ambiguous",
+  "future",
+  "historical",
+  "negated",
+  "ordinary",
+  "reference",
+  "use"
+ ],
+ "controls": [
+  {
+   "id": "m11g22r4-dev-001",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.rust",
+   "pair": "express-train",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# railsim\n\nExpress train simulator built in Rust. Models a single line with stopping and fast services.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary",
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "Rust is the implementation"
+  },
+  {
+   "id": "m11g22r4-dev-002",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "framework.express",
+   "pair": "express-train",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# railsim\n\nExpress train simulator built in Rust. Models a single line with stopping and fast services.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary",
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "'Express train' is transit"
+  },
+  {
+   "id": "m11g22r4-dev-003",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "framework.express",
+   "pair": "express-train-2",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# platform-board\n\nDeparture board for local and express trains at one station.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-004",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.python",
+   "pair": "rust-removal",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# derust\n\nRust removal tool written in Python: photograph a part and it estimates how much sanding is needed.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-005",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.rust",
+   "pair": "rust-removal",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# derust\n\nRust removal tool written in Python: photograph a part and it estimates how much sanding is needed.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "rust = corrosion"
+  },
+  {
+   "id": "m11g22r4-dev-006",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.rust",
+   "pair": "rust-free",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# gate-log\n\nMaintenance log that keeps the farm gates painted and free of rust.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-007",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.java",
+   "pair": "java-coffee",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# brewdesk\n\nCoffee ordering application written in Java for small cafes.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-008",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.java",
+   "pair": "java-coffee-amb",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# brewdesk\n\nJava coffee ordering application for small cafes.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "ambiguous"
+   },
+   "used": [],
+   "uncertain": [
+    "language.java"
+   ],
+   "note": "'Java coffee' could be the bean origin or the language"
+  },
+  {
+   "id": "m11g22r4-dev-009",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.java",
+   "pair": "java-island",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# ferry-notes\n\nJava is an island; these notes list the ferries that reach it.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-010",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.ruby",
+   "pair": "ruby-gem",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# gemcat\n\nA Ruby gemstone catalog built in Ruby, with a small Sinatra front end.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "use"
+   },
+   "used": [
+    "language.ruby"
+   ],
+   "uncertain": [],
+   "note": "second Ruby is the language"
+  },
+  {
+   "id": "m11g22r4-dev-011",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.ruby",
+   "pair": "ruby-gem-2",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# gemcat\n\nA ruby gemstone photographed under four kinds of light.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-012",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.python",
+   "pair": "pure-python",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# tomlette\n\nPure Python TOML parser with no dependencies.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-013",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.python",
+   "pair": "python-snake",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# vivarium\n\nThe keeper feeds the python every ten days and logs its weight.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-014",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.swift",
+   "pair": "swift-api",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# keychainify\n\nOne-line Swift API for storing secrets in the keychain.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-015",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.swift",
+   "pair": "swift-response",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# triage\n\nA swift response to every bug report, routed to the right person.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-016",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "framework.react",
+   "pair": "react-ui",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# fleetboard\n\nReact-based UI for monitoring delivery vans.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-017",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "framework.react",
+   "pair": "react-quick",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# fleetboard\n\nLets dispatchers react quickly when a delivery van breaks down.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-018",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "framework.flask",
+   "pair": "flask-app",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# glassware\n\nFlask application that tracks which lab glassware is on loan.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use"
+   },
+   "used": [
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-019",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "framework.flask",
+   "pair": "flask-glass",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# glassware\n\nRecords which lab flask is on which bench, and when it was last washed.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-020",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "ml.framework.pytorch",
+   "pair": "torch-train",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# tinyvision\n\nTorch training framework for small vision models.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use"
+   },
+   "used": [
+    "ml.framework.pytorch"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-021",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "ml.framework.pytorch",
+   "pair": "torch-carry",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# nightshift\n\nRota app for night shifts; remember to carry a torch on the loading dock.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-022",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.rust",
+   "pair": "rust-bindings-gen",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# ccodec\n\nA C audio codec. Bindings for Rust can be generated with bindgen.\n",
+     "languages": {
+      "C": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "hypothetical bindings"
+  },
+  {
+   "id": "m11g22r4-dev-023",
+   "split": "dev",
+   "family": "near_pair",
+   "probe": "language.rust",
+   "pair": "rust-bindings-real",
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# ccodec\n\nA C audio codec. The Rust bindings in `bindings/rust` are maintained here and published to crates.io.\n",
+     "languages": {
+      "C": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "bindings in repo"
+  },
+  {
+   "id": "m11g22r4-dev-024",
+   "split": "dev",
+   "family": "named_phrase",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# pixdiff\n\nFast image diffing in Rust.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-025",
+   "split": "dev",
+   "family": "named_phrase",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# audiokit\n\nShips a small python plotting helper for the waveforms.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-026",
+   "split": "dev",
+   "family": "named_phrase",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# catdog\n\nImage classifier trained with torch.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use"
+   },
+   "used": [
+    "ml.framework.pytorch"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-027",
+   "split": "dev",
+   "family": "named_phrase",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# kvlite\n\nA tiny key-value store in Rust.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-028",
+   "split": "dev",
+   "family": "named_phrase",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# salesviz\n\nAnalysis with pandas and a few matplotlib charts.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "use"
+   },
+   "used": [
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-029",
+   "split": "dev",
+   "family": "ordinary",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# feedback-wall\n\nA place where students can express what they found hardest.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-030",
+   "split": "dev",
+   "family": "ordinary",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# titration\n\nSimulates how bases react with acids, one drop at a time.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-031",
+   "split": "dev",
+   "family": "ordinary",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# pets\n\nPhotos of my dog, Ruby, and her favourite walks.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-032",
+   "split": "dev",
+   "family": "ordinary",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# tidepool\n\nIdentify a crab, a starfish or a shell from one photo.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-033",
+   "split": "dev",
+   "family": "ordinary",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# zoo-feed\n\nFeeding rota for the giant pandas and the otters.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-034",
+   "split": "dev",
+   "family": "ordinary",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# budget\n\nNo need to shell out for an expensive licence.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "ordinary"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-035",
+   "split": "dev",
+   "family": "use_terse",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# ledgerline\n\nDouble-entry bookkeeping for Java 21.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-036",
+   "split": "dev",
+   "family": "use_terse",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# statusboard\n\nReact 18 dashboard for build health.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-037",
+   "split": "dev",
+   "family": "use_terse",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# csvkit-swift\n\nStreaming CSV reader (Swift) for large exports.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-038",
+   "split": "dev",
+   "family": "use_terse",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# slugs\n\nTiny Ruby gem that turns titles into URL slugs.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "use"
+   },
+   "used": [
+    "language.ruby"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-039",
+   "split": "dev",
+   "family": "use_terse",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# authkit\n\nSession middleware for Express.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "use"
+   },
+   "used": [
+    "framework.express"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-040",
+   "split": "dev",
+   "family": "use_terse",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# dotfiles\n\nMy shell setup: aliases, prompt and a few helper functions.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use"
+   },
+   "used": [
+    "language.shell"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-041",
+   "split": "dev",
+   "family": "negated",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# onefile\n\nA to-do list in one HTML file, deliberately without React.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "negated",
+    "language.html": "use"
+   },
+   "used": [
+    "language.html"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-042",
+   "split": "dev",
+   "family": "negated",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# shipit\n\nSingle static binary; Python is not required on the target machine.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "negated"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-043",
+   "split": "dev",
+   "family": "historical",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# booking\n\nOriginally a Flask app; it now runs on FastAPI.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "historical",
+    "framework.fastapi": "use"
+   },
+   "used": [
+    "framework.fastapi"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-044",
+   "split": "dev",
+   "family": "historical",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# crawler\n\nPorted from Ruby to Go in 2024; the old Ruby code was removed.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "historical"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "Go itself is not a README alias"
+  },
+  {
+   "id": "m11g22r4-dev-045",
+   "split": "dev",
+   "family": "future",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# notes\n\nAn Android notes app. A Swift port is planned for next year.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-046",
+   "split": "dev",
+   "family": "future",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# imgtool\n\n## Roadmap\n\n- [x] PNG support\n- [ ] Rust rewrite of the decoder\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-047",
+   "split": "dev",
+   "family": "comparison",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# tinyroute\n\nA router for Deno; roughly twice as fast as Express in our benchmarks.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-048",
+   "split": "dev",
+   "family": "comparison",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# logframe\n\nThink of it as pandas for log files, but streaming.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-049",
+   "split": "dev",
+   "family": "third_party",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# libfoo\n\nA C library for parsing foo files.\n\n## Bindings by the community\n\n- [pyfoo](https://example.invalid/pyfoo) - Python bindings\n- [rbfoo](https://example.invalid/rbfoo) - Ruby bindings\n",
+     "languages": {
+      "C": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "reference",
+    "language.ruby": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "other people's bindings"
+  },
+  {
+   "id": "m11g22r4-dev-050",
+   "split": "dev",
+   "family": "quotation",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# notices\n\nThird-party licence notices.\n\nFrom the fastzip README:\n\n> fastzip is written in Rust and is MIT licensed.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-051",
+   "split": "dev",
+   "family": "multi_mention",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# grepx\n\nA faster grep.\n\n## Related projects\n\n- ripgrep (Rust)\n\n## Development\n\nThis tool is written in Rust; run `cargo build`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-052",
+   "split": "dev",
+   "family": "multi_mention",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# pager\n\nHelps on-call teams react to alerts before customers notice. The dashboard is a React app.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "first mention verb, second use"
+  },
+  {
+   "id": "m11g22r4-dev-053",
+   "split": "dev",
+   "family": "multi_mention",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# parcels-api\n\nTracks express and standard parcels. The API is an Express server on Node 20.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "use"
+   },
+   "used": [
+    "framework.express"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-054",
+   "split": "dev",
+   "family": "artifacts",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# labtimer\n\nShake the flask, start the timer, log the colour change.\n",
+     "languages": {},
+     "files": {
+      "requirements.txt": "flask==3.0.0\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "ordinary"
+   },
+   "used": [
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "note": "used via manifest only"
+  },
+  {
+   "id": "m11g22r4-dev-055",
+   "split": "dev",
+   "family": "artifacts",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# chainlube\n\nReminds you to keep the chain free of rust.\n",
+     "languages": {
+      "Rust": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "used via language stats only"
+  },
+  {
+   "id": "m11g22r4-dev-056",
+   "split": "dev",
+   "family": "artifacts",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# hello-flask\n\nRuns as a Flask app inside Docker: `docker compose up`.\n",
+     "languages": {},
+     "files": {
+      "docker-compose.yml": "services: {}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use",
+    "infra.docker": "use"
+   },
+   "used": [
+    "framework.flask",
+    "infra.docker"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r4-dev-057",
+   "split": "dev",
+   "family": "artifacts",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# csvtidy\n\nThis project does not use pandas.\n",
+     "languages": {},
+     "files": {
+      "requirements.txt": "pandas==2.2.0\n"
+     }
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "negated"
+   },
+   "used": [
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "note": "conflict: manifest proves use"
+  },
+  {
+   "id": "m11g22r4-dev-058",
+   "split": "dev",
+   "family": "artifacts",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# skyline\n\nA weather widget written in Swift.\n",
+     "languages": {
+      "Python": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "note": "README claim counts as use even though stats disagree"
+  },
+  {
+   "id": "m11g22r4-dev-059",
+   "split": "dev",
+   "family": "non_ambiguous",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# minirest\n\nInspired by FastAPI, but for Go.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.fastapi": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "readme:v4 extracts it; the R4 guard must not change non-ambiguous evidence"
+  },
+  {
+   "id": "m11g22r4-dev-060",
+   "split": "dev",
+   "family": "non_ambiguous",
+   "probe": "infra.docker",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# runner\n\nNo Docker needed.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "infra.docker": "negated"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "readme:v4 extracts it; non-ambiguous evidence must be unchanged"
+  }
+ ]
+}

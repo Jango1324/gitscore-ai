@@ -3848,6 +3848,11 @@ effect of fixing a false positive, not a regression.
   use claims, so it failed its pre-declared recall criteria and
   `readme:v5` was NOT implemented. Production is unchanged; see
   `docs/evaluation/MILESTONE_11_G22R3_README_CONTEXT_GUARD.md`.
+  G22-R4 then tested the inverse design (default-accept, reject only on
+  a bounded local signal). It kept 100% of genuine README use on a fresh
+  held-out set but cut false SUPPORTED by only 43%, missing its frozen
+  50% gate, so `readme:v5` is still not implemented; see
+  `docs/evaluation/MILESTONE_11_G22R4_HIGH_RECALL_README_GUARD.md`.
 
 See `docs/evaluation/MILESTONE_8D3_EVIDENCE_ATTRIBUTION.md` for the full
 before/after detail, provenance trace, and positive/negative control

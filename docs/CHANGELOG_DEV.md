@@ -1,5 +1,78 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-15 — Milestone 11-G22-R4: high-recall (inverse) README evidence guard research (research only; readme:v5 NOT implemented)
+
+**What changed:** Research and evaluation only, accepted and committed as a research-only commit ("test: evaluate
+high-recall README evidence guards") after authorization. P4's failure of its frozen G3 gate is final. Production is
+unchanged.
+
+- **Unchanged:** `src/` and registry data; parser v15, scoring v2, matcher v1, `readme:v4`, registry 4.
+- **Inverse candidates:** offline adapters P1–P4 that DEFAULT-ACCEPT an ambiguous-alias README occurrence and reject
+  it only on a bounded local signal:
+  - P1: homonym sense in a fixed structural slot;
+  - P2: + bounded negation;
+  - P3: + reference / historical / future / third-party attribution;
+  - P4: + two narrow positive overrides.
+  Scope is the 11 ambiguous aliases; everything else stays `readme:v4`.
+- **New data:**
+  - 60 policy-author DEV near-neighbour controls;
+  - a fresh 96-control validation set written by a separate Claude subagent (Write-only, blind to every policy) and
+    frozen after the policy design freeze. Not human-independent; disclosed in `fresh_author_provenance.json`.
+- **Freezes:** G14-compatible records for DEV, fresh and the policy design. The DEV and fresh control sets are
+  registered in the canonical manifest at the research commit with their original freeze-time hashes (23 → 25; the
+  previous 23 unchanged field for field). The freeze records keep their freeze-time "NOT registered … pending
+  authorization" note.
+
+**Why:** G22-R3's positive-cue guards (D, R3) lost 22–28% of genuine README use on fresh data. R4 tests whether the
+inverse design improves the precision–recall trade-off without touching the matcher or scoring.
+
+**Result (fresh set, run once):**
+
+| | False SUPPORTED | Genuine README use | True SUPPORTED |
+|---|---|---|---|
+| `readme:v4` | 42 | 88/88 | 50/50 |
+| **P4 (frozen)** | **24 (−43%)** | **88/88** | **50/50** |
+| D | 14 | 75/88 | 41/50 |
+| R3 | 15 | 76/88 | 42/50 |
+
+- P4 also preserved all corroborated cases, made no non-ambiguous change, kept G19 capability and left job parsing
+  identical.
+- P4 **failed the frozen ≥ 50% false-SUPPORTED reduction gate** (24 > 21), so it is not recommended; no threshold was
+  changed. Seven of eight gates passed.
+- **Residuals:** the 24 are 14 ordinary + 7 reference + 2 historical + 1 future. The ```` ```bash ```` fence case is
+  one of the 7 reference (out of scope: `bash` is non-ambiguous).
+- **Two recall denominators:** 88/88 counts concept-level README use items (64 ambiguous + 24 non-ambiguous); 0 of
+  68 counts wrongly rejected individual ambiguous-alias use occurrences.
+- **Fresh set provenance:** a frozen held-out set, not a fully blind independent validation (same model family;
+  partial exposure through the hand-back note). It is now seen.
+- Neither guard family meets all gates.
+- **Simulated 8c effect:** torvalds/systems_cpp_01 67 → 33 under P3/P4. libgit2 Python is now kept via its genuine
+  "used by our test framework" occurrence, and Gifski Rust is kept. Production is still 67.
+
+**Files:**
+
+- `docs/evaluation/MILESTONE_11_G22R4_HIGH_RECALL_README_GUARD.md`
+- `evaluation/m11g22r4/*`
+- `scripts/evaluate_m11g22r4_high_recall_guard.py`
+- `scripts/evaluation_lib/m11g22r4_{policies,build_dev_controls,build_fresh_controls,pytest_policy}.py`
+- `tests/test_m11g22r4_high_recall_readme_guard.py`
+- `evaluation/integrity/canonical_hash_manifest.json` (+2 entries)
+- limitation notes in `docs/ARCHITECTURE.md` and `docs/PIPELINE.md`
+
+**Risks / limitations:**
+
+- The fresh author is the same model family as the policy author.
+- The policy author read about ten case-level details from the author's hand-back note before the freeze; no policy
+  change followed.
+- A default-accept guard must reject every invalid occurrence: 7 of 24 residuals leaked through a later mention.
+- The homonym lexicon's coverage is open-ended.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22r4_high_recall_readme_guard.py`
+- `python scripts/evaluate_m11g22r4_high_recall_guard.py --fresh --private-corpora` (deterministic; refuses to run if
+  a frozen policy file changed)
+
 ## 2026-11-12 — Milestone 11-G22-R3: README context guard validation (research only; readme:v5 NOT implemented)
 
 **What changed:** Validation and research only, accepted and committed as a research-only commit ("test: validate README evidence guard recall tradeoffs") after authorization. The decision to stop without `readme:v5` was approved. Production is unchanged.

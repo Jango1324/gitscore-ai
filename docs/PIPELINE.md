@@ -358,7 +358,10 @@ still become README evidence, and one README item is enough for a
 SUPPORTED requirement. A per-alias context guard was validated in G22-R3
 but failed its pre-declared genuine-use recall criteria, so no
 `readme:v5` exists; see
-`docs/evaluation/MILESTONE_11_G22R3_README_CONTEXT_GUARD.md`.
+`docs/evaluation/MILESTONE_11_G22R3_README_CONTEXT_GUARD.md`. An inverse,
+high-recall guard (G22-R4) kept all genuine use but missed its frozen
+false-SUPPORTED reduction gate; see
+`docs/evaluation/MILESTONE_11_G22R4_HIGH_RECALL_README_GUARD.md`.
 
 ## Job-fit pipeline (Milestone 7A/7B) — built on top of V2, not V1
 

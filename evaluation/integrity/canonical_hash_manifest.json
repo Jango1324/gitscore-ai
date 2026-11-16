@@ -156,6 +156,22 @@
       "canonical_length_bytes": 32929,
       "attested_from_commit": "staged-for-commit-on-parent-9552543b415c3faa19d0420b98b67141bf9cea09"
     },
+    "evaluation/m11g22r4/dev_controls.json": {
+      "freeze_record": "evaluation/m11g22r4/dev_hash_freeze.json",
+      "historical_raw_sha256": "8e1034770d543e25a843700cfee11294d1c45058065aa2c348cab6955374cd3e",
+      "historical_newline_form": "lf",
+      "canonical_sha256": "8e1034770d543e25a843700cfee11294d1c45058065aa2c348cab6955374cd3e",
+      "canonical_length_bytes": 27873,
+      "attested_from_commit": "staged-for-commit-on-parent-8241a24b9e0d07ebd33835bd1a20d3cddab6e429"
+    },
+    "evaluation/m11g22r4/fresh_validation_controls.json": {
+      "freeze_record": "evaluation/m11g22r4/fresh_hash_freeze.json",
+      "historical_raw_sha256": "8d003c6ef6f873a43d6618a7775d575b780d1d5eccfcf3b6c99966667d3b92ed",
+      "historical_newline_form": "lf",
+      "canonical_sha256": "8d003c6ef6f873a43d6618a7775d575b780d1d5eccfcf3b6c99966667d3b92ed",
+      "canonical_length_bytes": 149538,
+      "attested_from_commit": "staged-for-commit-on-parent-8241a24b9e0d07ebd33835bd1a20d3cddab6e429"
+    },
     "evaluation/m11g3/full_posting_controls.json": {
       "freeze_record": "evaluation/m11g3/controls_hash_freeze.json",
       "historical_raw_sha256": "2ecec618a87642266e2b798b1226d1fc8febb2b8cb835b1b2becd2b9e8cc9692",
