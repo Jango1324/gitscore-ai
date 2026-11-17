@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g22r5/fresh_validation_controls.json",
+  "sha256": "697fde84c5632bba991f5e76903aad750405bac3931f9c9d119f61710ca0f4c3",
+  "sha256_lf_normalized": "697fde84c5632bba991f5e76903aad750405bac3931f9c9d119f61710ca0f4c3",
+  "length_bytes": 190985,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-16T21:31:42Z",
+  "note": "Labels frozen BEFORE any GitScore extractor, matcher or README policy ran on this set, and AFTER the R5 policy design freeze. NOT registered in the canonical manifest (pending authorization)."
+}

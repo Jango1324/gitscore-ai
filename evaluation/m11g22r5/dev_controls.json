@@ -1,0 +1,1221 @@
+{
+ "schema_version": 1,
+ "milestone": "M11-G22-R5 (attribution-aware README evidence research)",
+ "split": "dev",
+ "authorship": "written by the R5 policy author; DEVELOPMENT data only, never validation",
+ "label_timing": "labels hash-frozen BEFORE any R5 candidate was run on this set",
+ "label_classes": [
+  "ambiguous",
+  "future",
+  "historical",
+  "negated",
+  "ordinary",
+  "reference",
+  "use"
+ ],
+ "controls": [
+  {
+   "id": "m11g22r5-dev-001",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "invalid_only",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# minirest\n\nA tiny REST router for Go, inspired by FastAPI.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.fastapi": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-002",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "invalid_only",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# tensor-cheatsheet\n\nPrintable cheat sheet of common PyTorch tensor operations, typeset in LaTeX.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "notes about someone else's software"
+  },
+  {
+   "id": "m11g22r5-dev-003",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "invalid_only",
+   "probe": "infra.kubernetes",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# k8s-notes\n\nMy study notes on how the Kubernetes scheduler places pods.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "infra.kubernetes": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-004",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "invalid_only",
+   "probe": "database.postgresql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# pg-docs-es\n\nSpanish translation of the official PostgreSQL documentation.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.postgresql": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-005",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "invalid_only",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# keyval\n\nAn embedded key-value store for Go; a drop-in replacement for Redis in tests.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.redis": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-006",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "invalid_only",
+   "probe": "ml.framework.tensorflow",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# vision-zoo\n\nA C++ inference runtime. Models trained elsewhere are converted with a TensorFlow tool maintained by another team.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.tensorflow": "reference",
+    "language.cpp": "use"
+   },
+   "used": [
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-007",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "bindings_by_others",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# libfoo\n\nA C library for parsing foo files.\n\n## Language bindings\n\n- [pyfoo](https://example.invalid/pyfoo) - Python\n- [rbfoo](https://example.invalid/rbfoo) - Ruby\n",
+     "languages": {
+      "C": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "reference",
+    "language.ruby": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "other people's bindings"
+  },
+  {
+   "id": "m11g22r5-dev-008",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "bindings_by_others_linkref",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# libbar\n\nA C library. Bindings like [rugged-bar][1] (Ruby) are maintained by the community.\n\n[1]: https://example.invalid/rugged-bar\n",
+     "languages": {
+      "C": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "link-reference style"
+  },
+  {
+   "id": "m11g22r5-dev-009",
+   "split": "dev",
+   "family": "third_party",
+   "scenario": "bindings_in_repo",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# libbaz\n\nA C library for parsing baz files.\n\n## Bindings\n\nThe Python bindings in `bindings/python` are part of this repository and tested in CI.\n",
+     "languages": {
+      "C": 9000,
+      "Python": 2000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "bindings maintained here"
+  },
+  {
+   "id": "m11g22r5-dev-010",
+   "split": "dev",
+   "family": "comparison",
+   "scenario": "invalid_only",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# tinyroute\n\nA router for Deno; roughly twice as fast as Express in our benchmarks.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.express": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-011",
+   "split": "dev",
+   "family": "comparison",
+   "scenario": "invalid_only",
+   "probe": "framework.nextjs",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# pagekit\n\nA static site generator written in Go. Think of it as Next.js without the JavaScript runtime.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.nextjs": "reference",
+    "language.javascript": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-012",
+   "split": "dev",
+   "family": "comparison",
+   "scenario": "invalid_only",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# webby\n\nA web framework for Nim, similar to Flask.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-013",
+   "split": "dev",
+   "family": "comparison",
+   "scenario": "like_with_use_verb",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# board\n\nBuilt with modern tools like React and Vite.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "use verb opens the clause"
+  },
+  {
+   "id": "m11g22r5-dev-014",
+   "split": "dev",
+   "family": "historical",
+   "scenario": "invalid_only",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# booking\n\nOriginally a Flask app; it now runs on FastAPI.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "historical",
+    "framework.fastapi": "use"
+   },
+   "used": [
+    "framework.fastapi"
+   ],
+   "uncertain": [],
+   "note": "migration: old historical, new current"
+  },
+  {
+   "id": "m11g22r5-dev-015",
+   "split": "dev",
+   "family": "historical",
+   "scenario": "current_after_migration",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# booking\n\nOriginally a Flask app; it now runs on FastAPI.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "historical",
+    "framework.fastapi": "use"
+   },
+   "used": [
+    "framework.fastapi"
+   ],
+   "uncertain": [],
+   "note": "same README, current target"
+  },
+  {
+   "id": "m11g22r5-dev-016",
+   "split": "dev",
+   "family": "historical",
+   "scenario": "invalid_only",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# sessions\n\nWe moved off Redis in 2024; sessions now live in the database.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.redis": "historical"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-017",
+   "split": "dev",
+   "family": "historical",
+   "scenario": "invalid_only",
+   "probe": "ml.framework.tensorflow",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# counter\n\nUntil v2.0 this package depended on TensorFlow for its tiny classifier; the model is now plain NumPy.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.tensorflow": "historical"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-018",
+   "split": "dev",
+   "family": "historical",
+   "scenario": "mixed_hist_current",
+   "probe": "database.postgresql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# ledger\n\nThe first prototype used SQLite. Production data now lives in PostgreSQL, and the old PostgreSQL 12 cluster was upgraded in place.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.postgresql": "use"
+   },
+   "used": [
+    "database.postgresql"
+   ],
+   "uncertain": [],
+   "note": "current use first; a later 'old PostgreSQL' mention"
+  },
+  {
+   "id": "m11g22r5-dev-019",
+   "split": "dev",
+   "family": "future",
+   "scenario": "invalid_only",
+   "probe": "infra.kubernetes",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# deployer\n\nRuns as a single binary. We plan to add Kubernetes manifests once the API settles.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "infra.kubernetes": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-020",
+   "split": "dev",
+   "family": "future",
+   "scenario": "invalid_only",
+   "probe": "platform.cuda",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# raytrace\n\nA CPU ray tracer. CUDA support is on the roadmap.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "platform.cuda": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-021",
+   "split": "dev",
+   "family": "future",
+   "scenario": "task_list",
+   "probe": "language.typescript",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# toolkit\n\n## TODO\n\n- [x] CLI\n- [ ] TypeScript type definitions\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.typescript": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-022",
+   "split": "dev",
+   "family": "future",
+   "scenario": "hypothetical",
+   "probe": "language.go",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# api-spec\n\nOpenAPI spec for our service. Clients can be generated for Golang or Kotlin.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.go": "future",
+    "language.kotlin": "future"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-023",
+   "split": "dev",
+   "family": "future",
+   "scenario": "task_done",
+   "probe": "language.typescript",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# toolkit\n\n## Roadmap\n\n- [x] TypeScript type definitions\n- [ ] Web UI\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.typescript": "use"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "note": "completed roadmap item is current"
+  },
+  {
+   "id": "m11g22r5-dev-024",
+   "split": "dev",
+   "family": "quotation",
+   "scenario": "invalid_only",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# notices\n\nThird-party notices.\n\nFrom the cachelib README:\n\n> cachelib stores entries in Redis and is MIT licensed.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.redis": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-025",
+   "split": "dev",
+   "family": "quotation",
+   "scenario": "project_quote",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# fastcsv\n\nStreaming CSV tools.\n\n> **Note:** this project requires Python 3.11 or newer.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "a project note in a blockquote is valid"
+  },
+  {
+   "id": "m11g22r5-dev-026",
+   "split": "dev",
+   "family": "quotation",
+   "scenario": "testimonial",
+   "probe": "infra.docker",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# shipit\n\nOne-command deploys.\n\n## What users say\n\n> 'Replaced our pile of Docker scripts in an afternoon.'\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "infra.docker": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "the user's Docker scripts"
+  },
+  {
+   "id": "m11g22r5-dev-027",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "invalid_then_valid",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# grepx\n\nA faster grep, inspired by ripgrep's Rust implementation. This tool is also written in Rust.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-028",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "valid_then_invalid",
+   "probe": "infra.docker",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# webapp\n\nShips as a Docker image. Unlike the old Docker Compose v1 setup, deploys are one command.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "infra.docker": "use"
+   },
+   "used": [
+    "infra.docker"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-029",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "several_invalid",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# minirest\n\nInspired by FastAPI. Benchmarks against FastAPI are in `bench/`. A FastAPI-style decorator API is planned.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.fastapi": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-030",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "several_valid",
+   "probe": "database.postgresql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# shop\n\nUses PostgreSQL for orders. Migrations target PostgreSQL 16.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.postgresql": "use"
+   },
+   "used": [
+    "database.postgresql"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-031",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "invalid_other_section",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# grepx\n\nA faster grep.\n\n## Related projects\n\n- ripgrep (Rust)\n\n## Development\n\nThis tool is written in Rust; run `cargo build`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-032",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "valid_in_project_quote",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# queue\n\nA job queue.\n\n> **Requirement:** this service needs a running Redis 7 instance.\n\nInspired by Sidekiq.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.redis": "use"
+   },
+   "used": [
+    "database.redis"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-033",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "mixed_hist_current",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# crawler\n\nPreviously a Python script; ported to Golang in 2024. The Python test harness in `tests/` is still used in CI.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "language.go": "use"
+   },
+   "used": [
+    "language.python",
+    "language.go"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-034",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "readme_invalid_plus_artifact",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# api\n\nOriginally a Flask app.\n",
+     "languages": {},
+     "files": {
+      "requirements.txt": "flask==3.0.0\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "historical"
+   },
+   "used": [
+    "framework.flask"
+   ],
+   "uncertain": [],
+   "note": "README history, but the manifest still lists flask"
+  },
+  {
+   "id": "m11g22r5-dev-035",
+   "split": "dev",
+   "family": "multi_mention",
+   "scenario": "overlap_then_valid",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# app\n\nA React Native mobile app. The web dashboard uses React.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react_native": "use",
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react_native",
+    "framework.react"
+   ],
+   "uncertain": [],
+   "note": "production loses React through overlap resolution (8D.1)"
+  },
+  {
+   "id": "m11g22r5-dev-036",
+   "split": "dev",
+   "family": "markdown",
+   "scenario": "setext_after_related",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# grepx\n\nRelated projects\n----------------\n\n- ripgrep (Rust)\n\nDevelopment\n-----------\n\nThis tool is written in Rust.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "setext headings"
+  },
+  {
+   "id": "m11g22r5-dev-037",
+   "split": "dev",
+   "family": "markdown",
+   "scenario": "atx_related_then_setext_dev",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# grepx\n\n## Related projects\n\n- ripgrep (Rust)\n\nDevelopment\n-----------\n\nThis tool is written in Rust.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "note": "production keeps the 'related projects' section open across the setext heading"
+  },
+  {
+   "id": "m11g22r5-dev-038",
+   "split": "dev",
+   "family": "markdown",
+   "scenario": "setext_related_only",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# grepx\n\nA faster grep in Go.\n\nRelated projects\n================\n\n- ripgrep (Rust)\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "setext related section"
+  },
+  {
+   "id": "m11g22r5-dev-039",
+   "split": "dev",
+   "family": "markdown",
+   "scenario": "nested_list_bindings",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# libgit-lite\n\nLanguage Bindings\n=================\n\n* Java\n    * jgit-lite <https://example.invalid/jgit-lite>\n* Rust\n    * git-lite-rs <https://example.invalid/glrs>\n",
+     "languages": {
+      "C": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "reference",
+    "language.rust": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "libgit2-style list"
+  },
+  {
+   "id": "m11g22r5-dev-040",
+   "split": "dev",
+   "family": "markdown",
+   "scenario": "fence_other_project",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# report-tool\n\nA report generator written in Go.\n\nUpstream example (from the polars docs):\n\n```python\nimport pandas as pd\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "reference",
+    "language.python": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "code copied from another project's docs"
+  },
+  {
+   "id": "m11g22r5-dev-041",
+   "split": "dev",
+   "family": "markdown",
+   "scenario": "fence_install_own",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# notes-api\n\n## Install\n\n```bash\npip install fastapi uvicorn\n```\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.fastapi": "use",
+    "language.shell": "ambiguous"
+   },
+   "used": [
+    "framework.fastapi"
+   ],
+   "uncertain": [
+    "language.shell"
+   ],
+   "note": "install command for this project"
+  },
+  {
+   "id": "m11g22r5-dev-042",
+   "split": "dev",
+   "family": "markdown",
+   "scenario": "copied_upstream_readme",
+   "probe": "framework.nextjs",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# my-blog\n\nPersonal blog, built with Hugo.\n\n---\n\n*The section below is copied from the upstream theme's README.*\n\n> This theme also ships a Next.js starter.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.nextjs": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "copied upstream documentation"
+  },
+  {
+   "id": "m11g22r5-dev-043",
+   "split": "dev",
+   "family": "markdown",
+   "scenario": "subsection_of_alternatives",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# minirest\n\n## Alternatives\n\n### FastAPI\n\nMore mature, but Python-only.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.fastapi": "reference",
+    "language.python": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "note": "subsection of an alternatives section"
+  },
+  {
+   "id": "m11g22r5-dev-044",
+   "split": "dev",
+   "family": "use",
+   "scenario": "valid_only",
+   "probe": "infra.docker",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# hello\n\nRun it with `docker compose up`.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "infra.docker": "use"
+   },
+   "used": [
+    "infra.docker"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-045",
+   "split": "dev",
+   "family": "use",
+   "scenario": "valid_only",
+   "probe": "infra.kubernetes",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# chart\n\nHelm chart that deploys the app to Kubernetes.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "infra.kubernetes": "use"
+   },
+   "used": [
+    "infra.kubernetes"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-046",
+   "split": "dev",
+   "family": "use",
+   "scenario": "valid_only",
+   "probe": "cloud.aws",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# infra\n\nTerraform modules for our AWS accounts.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "cloud.aws": "use"
+   },
+   "used": [
+    "cloud.aws"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-047",
+   "split": "dev",
+   "family": "use",
+   "scenario": "valid_only",
+   "probe": "platform.cuda",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# kernels\n\nHand-written CUDA kernels for sparse attention.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "platform.cuda": "use"
+   },
+   "used": [
+    "platform.cuda"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-048",
+   "split": "dev",
+   "family": "use",
+   "scenario": "valid_only",
+   "probe": "ml.framework.tensorflow",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# tfserve\n\nServes TensorFlow models over gRPC.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.tensorflow": "use"
+   },
+   "used": [
+    "ml.framework.tensorflow"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-049",
+   "split": "dev",
+   "family": "use",
+   "scenario": "valid_only",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# keychainify\n\nOne-line Swift API for the keychain.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "note": ""
+  },
+  {
+   "id": "m11g22r5-dev-050",
+   "split": "dev",
+   "family": "use",
+   "scenario": "valid_than_trap",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# fastjson\n\nA JSON parser written in Python, faster than the standard library on large files.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "note": "'than' after the alias must not matter"
+  },
+  {
+   "id": "m11g22r5-dev-051",
+   "split": "dev",
+   "family": "use",
+   "scenario": "valid_old_trap",
+   "probe": "database.postgresql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "r1",
+     "readme": "# migrator\n\nUpgrades databases from the previous PostgreSQL major version to the next one; requires PostgreSQL 15+.\n",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.postgresql": "use"
+   },
+   "used": [
+    "database.postgresql"
+   ],
+   "uncertain": [],
+   "note": "'previous PostgreSQL' then a requirement"
+  }
+ ]
+}

@@ -1,0 +1,96 @@
+{
+  "milestone": "M11-G22-R5",
+  "frozen_at_utc": "2026-11-16T21:26:14Z",
+  "canonical_contract": "crlf-to-lf/v1",
+  "note": "R5 attribution-only candidate design frozen BEFORE the R5 fresh validation set was received, opened, converted or run by any GitScore code. Hashes are of LF-canonical bytes.",
+  "fresh_set_state_at_freeze": {
+    "author_finished": false,
+    "author_dir_listing": [
+      "fresh_part1.json"
+    ],
+    "statement": "the separately instructed author was still running; nothing from it had been received"
+  },
+  "files": {
+    "scripts/evaluation_lib/m11g22r5_policies.py": "6e9bfbb3db0c98cfd7bf879cafb3a1fb3186d523b5ee74b4e6cac1bbc6c20767",
+    "scripts/evaluation_lib/m11g22r4_policies.py": "e56c518c127a60ee8d457bb24962f8dbd36aa0d970b0177121a63f498b963ce4",
+    "scripts/evaluation_lib/m11g22r2_policies.py": "7c40a44ec8676dfee30191231772cb5f584ac7fa4b9bfa40b2fcc3164c97371c",
+    "scripts/evaluation_lib/m11g22r_policies.py": "e0efd597e8a37713d9ecca6e6f88277c94be9b9468215f483c5115b9d8ad6729",
+    "scripts/evaluation_lib/m11g22_policies.py": "58a582b7053db888e440a4cc3ff864c003f4079b8a41aa74b694569bd4bbfb29",
+    "scripts/evaluation_lib/m11g22r2_harness.py": "7c5b9a59a96171331b51f0c6af2a01acc4c95260022b0f32be4f8b090113f699",
+    "scripts/evaluation_lib/m11g22r_harness.py": "bce3687fce89d6be5d4221f3e4189e7dd04387b67ddf04af98de86ff09aa2ba9",
+    "scripts/evaluation_lib/m11g22r3_policies.py": "c945c5c26879d48990bc7cc5d1d430cf70175e61ccabe88e599276b7ef300d79",
+    "scripts/evaluation_lib/m11g22r5_build_dev_controls.py": "64b987cca861fa21de19115824669b5cafac74bb6da8d3a83a49215ec4a371d5"
+  },
+  "selected_candidate": "D_S_setext_sections",
+  "evaluated_on_fresh_for_comparison": [
+    "A_current_readme_v4 (production)",
+    "A_third_party",
+    "B_plus_historical",
+    "C_plus_future",
+    "D_plus_markdown",
+    "D_ambiguous_only",
+    "O_overlap_fallthrough (multi-occurrence finding, not attribution)",
+    "P4_hybrid_overrides (G22-R4, unchanged)"
+  ],
+  "selection_rationale": [
+    "D_S >= D >= C >= B >= A on every seen set; D_S additionally recovers genuine use that production loses when a setext heading ends a non-implementation section (R5 DEV dev-037), and recognises setext non-implementation sections.",
+    "D_S keeps 100% of genuine README use and true SUPPORTED on every seen set (R5 DEV 27/28 vs production 26/28; R4 DEV 31/31; R4 fresh 88/88; G22-R2 20/20, 19/19; VAL-1 36/36; VAL-2 23/23; G22-R README recall 14/14, 12/12), with 0 new false SUPPORTED and all corroborated probes kept.",
+    "Attribution-specific false SUPPORTED on the seen sets: 82 -> 17 pooled (R5 DEV 24->5, R4 DEV 9->0, R4 fresh 16->10, G22-R2 4->0 and 4->0, VAL-1 16->1, VAL-2 9->1).",
+    "All seen-set numbers are DESIGN results."
+  ],
+  "attribution_taxonomy": {
+    "third_party_projects_and_documentation (A)": "other projects, their docs / notes / translations, ports, clones, alternatives, inspiration, comparison, 'like X'",
+    "historical (B)": "use that is no longer current",
+    "future_or_hypothetical (C)": "plans, wishes, roadmap / todo items, 'can be generated'",
+    "markdown_quote_and_section (D)": "attributed blockquotes; links annotating external projects (inline or reference-style); linked list items under bindings / ports / community headings; (D_S) setext-aware section boundaries for production's 8D.3 heading denylist",
+    "out_of_scope": "ordinary-English homonyms, explicit negation, mentions without use (B-type 'works with X')"
+  },
+  "exact_rules": {
+    "implementation": "scripts/evaluation_lib/m11g22r5_policies.py explain(text, start, end, 'D') + SetextContext replacing production's ReadmeContext inside the unchanged is_non_implementation_mention",
+    "scope": "every README-safe alias (all 64); production 8D.3 still applies first; fall-through, one item per concept and MODERATE confidence unchanged",
+    "reused_verbatim_from_r4": "_REF_BEFORE, _LIKE_BEFORE + use-verb override, _DOC_BEFORE, _DOC_THE_BEFORE + _DOC_AFTER, _OWNED_ELSEWHERE, _HIST_BEFORE, _FUT_WEAK, _FUT_AFTER, _TASK_OPEN, _attributed_blockquote, _LINKED_PAREN, _third_party_list_item, paragraph-aware sentence model, ATX+setext enclosing_heading",
+    "r5_changes_made_on_seen_data": [
+      "_FUT_STRONG5: TODO / to-do marker requires a colon (R4 DEV dev-041 'A to-do list in one HTML file')",
+      "unchecked task item counts as future only under a planning heading (8c jango1324/Mentoria setup checklist under 'Database')",
+      "reference-style link annotation '[project][ref] (X)' with an external-URL definition (R5 DEV dev-008)",
+      "Markdown rules never fire inside a fenced code block",
+      "D_S: setext/fence-aware heading index swapped into production's heading denylist"
+    ],
+    "excluded": "P1 homonym lexicon, P2 negation, P4 homonym overrides, positive technical-noun cues, blanket prepositions, capitalisation, registry changes"
+  },
+  "acceptance_gates_on_fresh_set_declared_before_run": {
+    "G1_genuine_readme_use_retention": "D_S keeps >= 95% of the genuine README use items (concept-level README items labelled 'use') that readme:v4 extracts",
+    "G2_true_supported_retention": "D_S keeps >= 95% of readme:v4's true SUPPORTED probes",
+    "G3_no_new_false_supported": "every D_S false SUPPORTED control is also false SUPPORTED under readme:v4",
+    "G4_corroborated": "every artifact-corroborated used probe stays SUPPORTED",
+    "G5_no_non_attribution_change": "(a) no non-README evidence item changes in any control; (b) every README item D_S ADDS is labelled 'use'. Documented exception: removal of README items labelled ordinary / negated / ambiguous is permitted and reported (removal of 'use' items is governed by G1)",
+    "G6_g19_capability": "G19 capability identical for all 39 concepts and all 64 README-safe aliases extracted from 'This project is built with <alias>.'",
+    "G7_no_parser_regression": "job parsing identical on every G22 corpus (G22-Q, G22, G21, G20, G17, G16, G15, M10/M10E) under D_S",
+    "G8_attribution_false_supported_reduction": "D_S attribution-specific false SUPPORTED (false SUPPORTED controls whose probe label is reference / historical / future) <= 50% of readme:v4's (at least 50% fewer)",
+    "G8_target_justification": "seen sets pooled 82 -> 17 (-79%) but those sets shaped the rules; the G22-R4 fresh set, whose rules were frozen before it ran, gives 16 -> 10 (-37.5%), the most honest out-of-sample estimate. 50% ('halve the attribution errors') is a meaningful target between the two, fixed before any fresh result exists.",
+    "uncertain_handling": "probes labelled uncertain are excluded from G2-G4 and G8 and reported separately; probes the job parser cannot resolve are 'unscoreable' and excluded from probe metrics",
+    "also_reported_not_gated": "overall false SUPPORTED; false README evidence (overall / attribution); occurrence-level genuine-use and invalid-occurrence rejection; provenance (moved snippet) changes; MatchStatus, numerator / denominator, undefined scores",
+    "decision_rule": "ALL gates must pass for a positive research finding; if any fails, STOP and preserve the failure; thresholds are not changed after the run; any revision needs a NEW fresh set"
+  },
+  "known_limitations": [
+    "Ordinary-English homonyms are out of scope, so overall false SUPPORTED falls only modestly.",
+    "Lexical attribution frames are closed lists; unseen phrasings ('cheat sheet of common X', 'maintained by the community', an italic 'copied from upstream' note before a quote) stay false.",
+    "Fenced code is never attributed (copied upstream code stays evidence).",
+    "Level-aware section inheritance is not implemented: a '### X' subsection of '## Alternatives' escapes the denylist (inheriting would also discard '### Why we chose X').",
+    "A repository-name title heading that contains the alias ('# k8s-notes') is evidence under every policy.",
+    "Overlap blocking (8D.1 'React Native' then 'uses React') is not an attribution problem; O is a separate finding, not part of D_S.",
+    "The fresh set's author is an AI subagent of the same model family; not human-independent."
+  ],
+  "expected_rollout_scope": "if ever implemented: readme_context.py only (one more is_non_implementation_mention signal + a setext-aware ReadmeContext + paragraph-aware sentence span), readme.py version bump readme:v4 -> v5; no registry, matcher, scoring, schema or API change",
+  "evaluation_methodology": "real parser v15 / evidence pipeline / matcher v1 / scoring v2 via the G22-R2 harness; probe 'Experience with <display>.'; candidate applied by wrapping production's per-occurrence filter (plus the context swap for D_S); occurrence-level labels aligned by (repo, concept, order) after longest-alias overlap resolution; one held-out run",
+  "design_sets_seen": [
+    "G22-R DEV/EVAL",
+    "G22-R2 DEV/EVAL",
+    "G22-R3 VAL-1/VAL-2",
+    "G22-R4 DEV",
+    "G22-R4 fresh (seen since R4)",
+    "frozen 8c fixtures",
+    "R5 DEV (policy-author written)"
+  ],
+  "post_hoc_changes": []
+}

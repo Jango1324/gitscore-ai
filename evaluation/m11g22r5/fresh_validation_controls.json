@@ -1,0 +1,6264 @@
+{
+ "schema_version": 1,
+ "milestone": "M11-G22-R5 (attribution-aware README evidence research)",
+ "split": "fresh",
+ "provenance": "author-created synthetic READMEs and repository artifacts; no real README, posting, employer or private material",
+ "authorship_disclosure": "Authored by a separate Claude subagent instance given only the task, the declared evidence-validity policy, the registry vocabulary, the artifact rules and the output schema. It was never shown any G22-R/R2/R3/R4/R5 rule, code, test, control set or result, could use only the Write tool, and was instructed to reply with file paths and case counts only. It is the same model family as the policy author, so this is NOT human-independent validation. Labels are frozen exactly as authored.",
+ "author_notes": [
+  "Part 1 of 3: cases r5-001..r5-032. Sentences are the exact line (for headings, list items, table rows, code lines, quote lines) or the exact sentence (for prose paragraphs). Concept-level class ties broken by first occurrence.",
+  "Part 2 of 3: cases r5-033..r5-064. Sentences are the exact line (for headings, list items, table rows, code lines) or the exact sentence (for prose and multi-sentence quote lines). Concept-level class ties broken by first occurrence.",
+  "Part 3 of 3: cases r5-065..r5-096. Sentences are the exact line (for headings, list items including indentation, table rows, code lines, link reference definitions) or the exact sentence (for prose). Concept-level class ties broken by first occurrence."
+ ],
+ "declared_evidence_validity_policy": "valid iff (1) the word refers to the technology and (2) the text attributes CURRENT use to THIS repository; not valid: other projects' use, third-party documentation or quotations, comparison / inspiration, historical, future / hypothetical, negation, ordinary sense",
+ "label_timing": "labels frozen BEFORE any GitScore extractor, matcher or README policy ran on this set; AFTER the R5 policy design freeze",
+ "label_classes": [
+  "ambiguous",
+  "future",
+  "historical",
+  "negated",
+  "ordinary",
+  "reference",
+  "use"
+ ],
+ "attribution_kinds": [
+  "future_or_hypothetical",
+  "historical",
+  "negation",
+  "not_technology",
+  "quotation",
+  "reference_or_comparison",
+  "third_party_docs",
+  "third_party_project",
+  "this_project",
+  "unclear"
+ ],
+ "controls": [
+  {
+   "id": "m11g22r5-r5-001",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "awesome-microframeworks",
+     "readme": "# Awesome Microframeworks\n\nA curated list of small web frameworks. This repository contains only this list; it has no code.\n\n## Python\n\n- Flask - a lightweight WSGI framework.\n- Bottle - a single-file framework.\n\n## JavaScript\n\n- Express - minimal routing for Node.\n- Koa - a smaller successor to Express by the same team.\n\n## Contributing\n\nOpen a pull request with one link per line.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "reference",
+    "framework.flask": "reference",
+    "language.javascript": "reference",
+    "framework.express": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "awesome-microframeworks",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "## Python"
+    },
+    {
+     "repo": "awesome-microframeworks",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Flask - a lightweight WSGI framework."
+    },
+    {
+     "repo": "awesome-microframeworks",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "## JavaScript"
+    },
+    {
+     "repo": "awesome-microframeworks",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Express - minimal routing for Node."
+    },
+    {
+     "repo": "awesome-microframeworks",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Koa - a smaller successor to Express by the same team."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A curated list of other projects with no code of its own; every technology mention describes listed third-party frameworks."
+  },
+  {
+   "id": "m11g22r5-r5-002",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "vit-reading-notes",
+     "readme": "# Reading Notes: Vision Transformers\n\nPersonal study notes summarising papers and their official code releases. Nothing here is runnable.\n\n## ViT\n\nThe official implementation is written in JAX; a popular community port uses PyTorch.\n\n## DeiT\n\nThe authors released their training recipe in PyTorch, built on the timm library.\n\nNotes are plain Markdown files, one per paper.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "vit-reading-notes",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The official implementation is written in JAX; a popular community port uses PyTorch."
+    },
+    {
+     "repo": "vit-reading-notes",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The authors released their training recipe in PyTorch, built on the timm library."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Study notes about papers; PyTorch is used by the summarised authors' code releases, not by this notes repository."
+  },
+  {
+   "id": "m11g22r5-r5-003",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "framework.react",
+   "pair": "p-fork-react",
+   "repos": [
+    {
+     "name": "chartwell",
+     "readme": "# chartwell\n\nA charting core written in TypeScript with no UI framework dependency.\n\n## Wrappers\n\nCommunity members maintain wrappers in their own repositories:\n\n- chartwell-react (React components, maintained by a community contributor)\n- chartwell-vue (Vue components)\n\nThese wrappers are not part of this repository and are not tested here.",
+     "languages": {
+      "TypeScript": 48000,
+      "JavaScript": 1200
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.typescript": "use",
+    "framework.react": "reference"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "chartwell",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A charting core written in TypeScript with no UI framework dependency."
+    },
+    {
+     "repo": "chartwell",
+     "word": "react",
+     "concept": "framework.react",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- chartwell-react (React components, maintained by a community contributor)"
+    },
+    {
+     "repo": "chartwell",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- chartwell-react (React components, maintained by a community contributor)"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The React wrapper is maintained by others in a separate repository; this core is TypeScript with no UI framework. JavaScript is below 5% of bytes."
+  },
+  {
+   "id": "m11g22r5-r5-004",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "framework.react",
+   "pair": "p-fork-react",
+   "repos": [
+    {
+     "name": "chartwell-react",
+     "readme": "# chartwell-react\n\nReact components for the chartwell charting core. This package lives in this repository and is published from here.\n\n## Install\n\n```\nnpm install chartwell chartwell-react\n```\n\nThe core library itself is maintained in a separate repository.",
+     "languages": {
+      "TypeScript": 22000
+     },
+     "files": {
+      "package.json": "{\n  \"name\": \"chartwell-react\",\n  \"peerDependencies\": {\n    \"react\": \"^18.2.0\"\n  },\n  \"devDependencies\": {\n    \"react\": \"^18.2.0\",\n    \"typescript\": \"^5.4.0\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.react": "use"
+   },
+   "used": [
+    "framework.react",
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.react",
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "chartwell-react",
+     "word": "react",
+     "concept": "framework.react",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "# chartwell-react"
+    },
+    {
+     "repo": "chartwell-react",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "React components for the chartwell charting core."
+    },
+    {
+     "repo": "chartwell-react",
+     "word": "react",
+     "concept": "framework.react",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "npm install chartwell chartwell-react"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "This repository is the React component wrapper itself, and package.json lists react as a devDependency."
+  },
+  {
+   "id": "m11g22r5-r5-005",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tickline-protocol",
+     "readme": "# Tickline Protocol\n\nThis repository holds the specification for the Tickline job-queue wire protocol, written as Markdown and ABNF.\n\n## Known implementations\n\nThese are independent projects; we do not maintain them.\n\n| Name | Storage | Language |\n|------|---------|----------|\n| tickd | Redis | Rust |\n| quill-queue | PostgreSQL | Java |\n| minitick | in-memory | Python |\n\nIf you build an implementation, open an issue so we can list it.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.redis": "reference",
+    "language.rust": "reference",
+    "database.postgresql": "reference",
+    "language.java": "reference",
+    "language.python": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "tickline-protocol",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| tickd | Redis | Rust |"
+    },
+    {
+     "repo": "tickline-protocol",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| tickd | Redis | Rust |"
+    },
+    {
+     "repo": "tickline-protocol",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| quill-queue | PostgreSQL | Java |"
+    },
+    {
+     "repo": "tickline-protocol",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| quill-queue | PostgreSQL | Java |"
+    },
+    {
+     "repo": "tickline-protocol",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| minitick | in-memory | Python |"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A protocol specification; the table lists independent implementations by others, explicitly not maintained here."
+  },
+  {
+   "id": "m11g22r5-r5-006",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "language.kotlin",
+   "pair": null,
+   "repos": [
+    {
+     "name": "coroutines-guide-es",
+     "readme": "# coroutines-guide-es\n\nA Spanish translation of the official Kotlin coroutines guide.\n\nThe original guide and all code samples belong to their authors; this repository only contains translated Markdown.\n\n## Status\n\n- Chapters 1-4 translated\n- Chapters 5-8 in review\n\nTranslations are licensed under the same terms as the original documentation.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.kotlin": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "coroutines-guide-es",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A Spanish translation of the official Kotlin coroutines guide."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A translation of someone else's documentation; the repository contains only translated Markdown."
+  },
+  {
+   "id": "m11g22r5-r5-007",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "infra.kubernetes",
+   "pair": null,
+   "repos": [
+    {
+     "name": "logfold",
+     "readme": "# logfold\n\nlogfold merges rotated log files into a single searchable archive. It is written in Rust and runs as a single binary.\n\n## Usage\n\n```\nlogfold merge ./logs --out archive.lf\n```\n\n## Third-party notices\n\nThe glob matcher is adapted from an MIT-licensed crate. Its original README states:\n\n> This crate was extracted from a log shipper that runs as a sidecar on Kubernetes clusters.\n\nThe full licence text is in NOTICE.",
+     "languages": {
+      "Rust": 31000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use",
+    "infra.kubernetes": "reference"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.rust"
+   ],
+   "occurrences": [
+    {
+     "repo": "logfold",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "It is written in Rust and runs as a single binary."
+    },
+    {
+     "repo": "logfold",
+     "word": "Kubernetes",
+     "concept": "infra.kubernetes",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> This crate was extracted from a log shipper that runs as a sidecar on Kubernetes clusters."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Kubernetes appears only in a copied upstream notice about a different project; logfold itself is a single Rust binary."
+  },
+  {
+   "id": "m11g22r5-r5-008",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "language.php",
+   "pair": "p-port-php",
+   "repos": [
+    {
+     "name": "slugify-port",
+     "readme": "# slugify-port\n\nA Python port of a well-known PHP slug library. The original PHP code is not included here.\n\n## Install\n\n```\npip install slugify-port\n```\n\n## Example\n\n```\nfrom slugify_port import slugify\nslugify(\"Hello World\")  # 'hello-world'\n```",
+     "languages": {
+      "Python": 8400
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "language.php": "reference"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "slugify-port",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A Python port of a well-known PHP slug library."
+    },
+    {
+     "repo": "slugify-port",
+     "word": "PHP",
+     "concept": "language.php",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A Python port of a well-known PHP slug library."
+    },
+    {
+     "repo": "slugify-port",
+     "word": "PHP",
+     "concept": "language.php",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The original PHP code is not included here."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "This is a Python port; the PHP library is the original third-party project and its code is not included."
+  },
+  {
+   "id": "m11g22r5-r5-009",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "language.php",
+   "pair": "p-port-php",
+   "repos": [
+    {
+     "name": "slugkit",
+     "readme": "# slugkit\n\nslugkit turns arbitrary strings into URL-safe slugs. It is a PHP 8 library installed with Composer.\n\n```\ncomposer require example/slugkit\n```\n\n## Ports\n\nOther people have ported slugkit to other languages. These ports live in their own repositories:\n\n- slugify-port (Python)\n- slugkit-rs (Rust)\n\nWe cannot answer questions about the ports.",
+     "languages": {
+      "PHP": 15000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.php": "use",
+    "language.python": "reference",
+    "language.rust": "reference"
+   },
+   "used": [
+    "language.php"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.php"
+   ],
+   "occurrences": [
+    {
+     "repo": "slugkit",
+     "word": "PHP",
+     "concept": "language.php",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "It is a PHP 8 library installed with Composer."
+    },
+    {
+     "repo": "slugkit",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- slugify-port (Python)"
+    },
+    {
+     "repo": "slugkit",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- slugkit-rs (Rust)"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "slugkit is itself a PHP library; the Python and Rust mentions are ports maintained by others."
+  },
+  {
+   "id": "m11g22r5-r5-010",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "language.cpp",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tinyini",
+     "readme": "# tinyini\n\nA small INI file parser written in C99 with no dependencies.\n\n## Building\n\n```\nmake\nmake test\n```\n\n## Bindings\n\nBindings are maintained outside this repository:\n\n- tinyini-hpp, a header-only C++ wrapper\n- pytinyini, Python bindings via cffi\n\nPlease report binding bugs to their own trackers.",
+     "languages": {
+      "C": 21000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.cpp": "reference",
+    "language.python": "reference"
+   },
+   "used": [
+    "language.c"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.c"
+   ],
+   "occurrences": [
+    {
+     "repo": "tinyini",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- tinyini-hpp, a header-only C++ wrapper"
+    },
+    {
+     "repo": "tinyini",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- pytinyini, Python bindings via cffi"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The C++ wrapper and Python bindings are explicitly maintained outside this repository; the library is C (language stats)."
+  },
+  {
+   "id": "m11g22r5-r5-011",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "framework.nextjs",
+   "pair": null,
+   "repos": [
+    {
+     "name": "glyphette-icons",
+     "readme": "# Glyphette Icons\n\nAn open SVG icon set with 900 icons drawn on a 24px grid.\n\n## Used by\n\nThese projects use Glyphette (they are not affiliated with us):\n\n- A documentation theme built with Next.js\n- A Flutter starter kit\n- A Ruby on Rails admin template\n\n## Licence\n\nIcons are released under CC BY 4.0.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.nextjs": "reference",
+    "language.ruby": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "glyphette-icons",
+     "word": "Next.js",
+     "concept": "framework.nextjs",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- A documentation theme built with Next.js"
+    },
+    {
+     "repo": "glyphette-icons",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- A Ruby on Rails admin template"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A 'used by' list of unaffiliated projects; the icon set itself is just SVG files."
+  },
+  {
+   "id": "m11g22r5-r5-012",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "dataframe-cheatsheet",
+     "readme": "# dataframe-cheatsheet\n\nA printable one-page cheat sheet comparing common pandas operations with their SQL equivalents.\n\nThe sheet is a PDF generated from a LaTeX source in this repository.\n\n| Task | pandas | SQL |\n|------|--------|-----|\n| filter rows | df[df.x > 1] | WHERE x > 1 |\n| group | df.groupby('k') | GROUP BY k |\n\nThis is a study aid, not a library.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "reference",
+    "language.sql": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "dataframe-cheatsheet",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A printable one-page cheat sheet comparing common pandas operations with their SQL equivalents."
+    },
+    {
+     "repo": "dataframe-cheatsheet",
+     "word": "SQL",
+     "concept": "language.sql",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A printable one-page cheat sheet comparing common pandas operations with their SQL equivalents."
+    },
+    {
+     "repo": "dataframe-cheatsheet",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| Task | pandas | SQL |"
+    },
+    {
+     "repo": "dataframe-cheatsheet",
+     "word": "SQL",
+     "concept": "language.sql",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| Task | pandas | SQL |"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A cheat sheet documenting other software, built from LaTeX; it does not run pandas or SQL."
+  },
+  {
+   "id": "m11g22r5-r5-013",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "pocket-ledger-android",
+     "readme": "# Pocket Ledger for Android\n\nA budgeting app for Android written in Kotlin with Jetpack Compose.\n\n## Building\n\nOpen the project in Android Studio and run the `app` configuration.\n\n## Related projects\n\n- Pocket Ledger iOS, a separate Swift app maintained by another volunteer team\n- ledger-sync, a server written in Golang\n\nNeither is part of this repository.",
+     "languages": {
+      "Kotlin": 64000,
+      "Java": 900
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.kotlin": "use",
+    "language.swift": "reference",
+    "language.go": "reference"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.kotlin"
+   ],
+   "occurrences": [
+    {
+     "repo": "pocket-ledger-android",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A budgeting app for Android written in Kotlin with Jetpack Compose."
+    },
+    {
+     "repo": "pocket-ledger-android",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Pocket Ledger iOS, a separate Swift app maintained by another volunteer team"
+    },
+    {
+     "repo": "pocket-ledger-android",
+     "word": "Golang",
+     "concept": "language.go",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- ledger-sync, a server written in Golang"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The Swift app is a related project maintained by another team; this repository is a Kotlin Android app (Java is under 5%)."
+  },
+  {
+   "id": "m11g22r5-r5-014",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "hdl.verilog",
+   "pair": null,
+   "repos": [
+    {
+     "name": "digital-design-notes",
+     "readme": "# digital-design-notes\n\nMy lecture notes for an undergraduate digital design course, written in Markdown.\n\n## Contents\n\n1. Boolean algebra\n2. Finite state machines\n3. Timing and pipelining\n\nThe course labs were done in Verilog, but lab code is kept in the university's private repository and is not shared here.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "hdl.verilog": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "digital-design-notes",
+     "word": "Verilog",
+     "concept": "hdl.verilog",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The course labs were done in Verilog, but lab code is kept in the university's private repository and is not shared here."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The Verilog lab code lives in a different, private repository; this one holds only Markdown notes."
+  },
+  {
+   "id": "m11g22r5-r5-015",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "robotics.ros2",
+   "pair": null,
+   "repos": [
+    {
+     "name": "gridbot-sim",
+     "readme": "# gridbot-sim\n\nA tiny 2D grid robot simulator for teaching path planning, written in C++ with SDL2.\n\n## Not ROS-based\n\ngridbot-sim is standalone. If you need a full robotics stack, see these projects instead:\n\n- Gazebo-based ROS 2 tutorials maintained by the community\n- A ROS2 navigation stack tutorial series\n\n## Build\n\n```\ncmake -B build && cmake --build build\n```",
+     "languages": {
+      "C++": 18000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.cpp": "use",
+    "robotics.ros2": "reference"
+   },
+   "used": [
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp"
+   ],
+   "occurrences": [
+    {
+     "repo": "gridbot-sim",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A tiny 2D grid robot simulator for teaching path planning, written in C++ with SDL2."
+    },
+    {
+     "repo": "gridbot-sim",
+     "word": "ROS 2",
+     "concept": "robotics.ros2",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Gazebo-based ROS 2 tutorials maintained by the community"
+    },
+    {
+     "repo": "gridbot-sim",
+     "word": "ROS2",
+     "concept": "robotics.ros2",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- A ROS2 navigation stack tutorial series"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The simulator is explicitly not ROS-based; ROS 2 appears only in a list of alternative community projects."
+  },
+  {
+   "id": "m11g22r5-r5-016",
+   "split": "fresh",
+   "family": "third_party",
+   "probe": "cloud.aws",
+   "pair": null,
+   "repos": [
+    {
+     "name": "inkpress",
+     "readme": "# inkpress\n\nA minimal static site generator written in Go. (Go is the only runtime dependency.)\n\n## Community guides\n\nThe following tutorials were written by users and are hosted on their own blogs. We have not reviewed them:\n\n- Hosting an inkpress site on AWS S3 and CloudFront\n- Publishing with GitHub Pages\n- Running the dev server inside Docker\n\n## Quick start\n\n```\ninkpress new mysite\ninkpress serve\n```",
+     "languages": {
+      "Go": 27000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "cloud.aws": "reference",
+    "infra.docker": "reference"
+   },
+   "used": [
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "inkpress",
+     "word": "AWS",
+     "concept": "cloud.aws",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Hosting an inkpress site on AWS S3 and CloudFront"
+    },
+    {
+     "repo": "inkpress",
+     "word": "Docker",
+     "concept": "infra.docker",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Running the dev server inside Docker"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "AWS and Docker appear only in titles of unreviewed community tutorials hosted elsewhere, not in this project's own deployment."
+  },
+  {
+   "id": "m11g22r5-r5-017",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tramline",
+     "readme": "# tramline\n\nA tiny routing layer for Python's asyncio, with an API inspired by Express middleware chains.\n\n```\nfrom tramline import App\napp = App()\n\n@app.use\nasync def log(req, nxt):\n    return await nxt(req)\n```\n\nRequires Python 3.11 or newer.",
+     "languages": {
+      "Python": 12000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "framework.express": "reference"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "tramline",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A tiny routing layer for Python's asyncio, with an API inspired by Express middleware chains."
+    },
+    {
+     "repo": "tramline",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A tiny routing layer for Python's asyncio, with an API inspired by Express middleware chains."
+    },
+    {
+     "repo": "tramline",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Requires Python 3.11 or newer."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Express is only the inspiration for the API style; the project is a Python library."
+  },
+  {
+   "id": "m11g22r5-r5-018",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "quickroute",
+     "readme": "# quickroute\n\nAn HTTP router for Rust services.\n\n## Benchmarks\n\nRequests per second on a 4-core VM (hello-world endpoint):\n\n| Framework | req/s |\n|-----------|-------|\n| quickroute | 182,000 |\n| FastAPI (uvicorn, 4 workers) | 41,000 |\n| Express | 36,000 |\n\nThe comparison servers are in a separate benchmarks repository.",
+     "languages": {
+      "Rust": 40000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use",
+    "framework.fastapi": "reference",
+    "framework.express": "reference"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.rust"
+   ],
+   "occurrences": [
+    {
+     "repo": "quickroute",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "An HTTP router for Rust services."
+    },
+    {
+     "repo": "quickroute",
+     "word": "FastAPI",
+     "concept": "framework.fastapi",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| FastAPI (uvicorn, 4 workers) | 41,000 |"
+    },
+    {
+     "repo": "quickroute",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| Express | 36,000 |"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "FastAPI and Express are benchmark competitors whose servers live in another repository."
+  },
+  {
+   "id": "m11g22r5-r5-019",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "kestrel-kv",
+     "readme": "# kestrel-kv\n\nA drop-in replacement for Redis for small deployments, written in Golang.\n\nkestrel-kv speaks the RESP protocol, so existing Redis clients connect to it unchanged.\n\n## Run\n\n```\nkestrel-kv --port 6379\n```",
+     "languages": {
+      "Go": 30000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.redis": "reference",
+    "language.go": "use"
+   },
+   "used": [
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "kestrel-kv",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A drop-in replacement for Redis for small deployments, written in Golang."
+    },
+    {
+     "repo": "kestrel-kv",
+     "word": "Golang",
+     "concept": "language.go",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A drop-in replacement for Redis for small deployments, written in Golang."
+    },
+    {
+     "repo": "kestrel-kv",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "kestrel-kv speaks the RESP protocol, so existing Redis clients connect to it unchanged."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A replacement for Redis does not use Redis; the mentions describe compatibility only."
+  },
+  {
+   "id": "m11g22r5-r5-020",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "language.typescript",
+   "pair": null,
+   "repos": [
+    {
+     "name": "yamlguard",
+     "readme": "# yamlguard\n\nStatic checks for YAML configuration files. Think of it as what TypeScript does for JavaScript, but for your deployment configs.\n\n## Install\n\n```\npip install yamlguard\n```\n\nyamlguard is written in Python and has no compiled extensions.",
+     "languages": {
+      "Python": 9900
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.typescript": "reference",
+    "language.javascript": "reference",
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "yamlguard",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Think of it as what TypeScript does for JavaScript, but for your deployment configs."
+    },
+    {
+     "repo": "yamlguard",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Think of it as what TypeScript does for JavaScript, but for your deployment configs."
+    },
+    {
+     "repo": "yamlguard",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "yamlguard is written in Python and has no compiled extensions."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "TypeScript and JavaScript appear only in an analogy; the tool is written in Python."
+  },
+  {
+   "id": "m11g22r5-r5-021",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "framework.nestjs",
+   "pair": "p-nest-compare",
+   "repos": [
+    {
+     "name": "modulus",
+     "readme": "# modulus\n\nA dependency-injection framework for Python web apps. Its module and provider concepts mirror NestJS, so developers coming from NestJS will feel at home.\n\nmodulus itself has no JavaScript dependencies.\n\n## Install\n\n```\npip install modulus-di\n```",
+     "languages": {
+      "Python": 14000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "framework.nestjs": "reference",
+    "language.javascript": "negated"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "modulus",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A dependency-injection framework for Python web apps."
+    },
+    {
+     "repo": "modulus",
+     "word": "NestJS",
+     "concept": "framework.nestjs",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Its module and provider concepts mirror NestJS, so developers coming from NestJS will feel at home."
+    },
+    {
+     "repo": "modulus",
+     "word": "NestJS",
+     "concept": "framework.nestjs",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Its module and provider concepts mirror NestJS, so developers coming from NestJS will feel at home."
+    },
+    {
+     "repo": "modulus",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "negated",
+     "attribution_kind": "negation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "modulus itself has no JavaScript dependencies."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "NestJS is named only as the design model for a Python framework, and JavaScript is explicitly negated."
+  },
+  {
+   "id": "m11g22r5-r5-022",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "framework.nestjs",
+   "pair": "p-nest-compare",
+   "repos": [
+    {
+     "name": "orders-api",
+     "readme": "# orders-api\n\nOrder management API built with NestJS and TypeScript. The module layout follows the same ideas as Spring Boot, if you are coming from Java.\n\n## Run\n\n```\nnpm install\nnpm run start:dev\n```",
+     "languages": {
+      "TypeScript": 38000,
+      "JavaScript": 900
+     },
+     "files": {
+      "package.json": "{\n  \"name\": \"orders-api\",\n  \"dependencies\": {\n    \"@nestjs/core\": \"^10.3.0\",\n    \"@nestjs/common\": \"^10.3.0\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"^5.4.0\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.nestjs": "use",
+    "language.typescript": "use",
+    "language.java": "reference"
+   },
+   "used": [
+    "framework.nestjs",
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.nestjs",
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "orders-api",
+     "word": "NestJS",
+     "concept": "framework.nestjs",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Order management API built with NestJS and TypeScript."
+    },
+    {
+     "repo": "orders-api",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Order management API built with NestJS and TypeScript."
+    },
+    {
+     "repo": "orders-api",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The module layout follows the same ideas as Spring Boot, if you are coming from Java."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Built with NestJS and TypeScript, corroborated by @nestjs/core in package.json; Java is only a comparison for readers."
+  },
+  {
+   "id": "m11g22r5-r5-023",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "toolchain.llvm",
+   "pair": "p-llvm",
+   "repos": [
+    {
+     "name": "pebble-cc",
+     "readme": "# pebble-cc\n\nA teaching compiler for a tiny C subset, written in OCaml. It emits x86-64 assembly directly.\n\nThe pass structure is loosely modelled on LLVM, but pebble-cc does not link against or generate code for LLVM; every pass is hand-written so students can read it.\n\n## Build\n\n```\ndune build\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "toolchain.llvm": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "pebble-cc",
+     "word": "LLVM",
+     "concept": "toolchain.llvm",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The pass structure is loosely modelled on LLVM, but pebble-cc does not link against or generate code for LLVM; every pass is hand-written so students can read it."
+    },
+    {
+     "repo": "pebble-cc",
+     "word": "LLVM",
+     "concept": "toolchain.llvm",
+     "class": "negated",
+     "attribution_kind": "negation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The pass structure is loosely modelled on LLVM, but pebble-cc does not link against or generate code for LLVM; every pass is hand-written so students can read it."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "LLVM is a design model and is explicitly not linked or targeted."
+  },
+  {
+   "id": "m11g22r5-r5-024",
+   "split": "fresh",
+   "family": "comparison",
+   "probe": "cloud.aws",
+   "pair": null,
+   "repos": [
+    {
+     "name": "bucketd",
+     "readme": "# bucketd\n\nA self-hosted object store with an S3-compatible API. bucketd runs on your own hardware and never contacts Amazon Web Services.\n\nBecause the API is compatible, tools such as the aws command-line client can be pointed at bucketd with --endpoint-url.\n\nWritten in Rust; storage is plain files on disk.",
+     "languages": {
+      "Rust": 26000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "cloud.aws": "negated",
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.rust"
+   ],
+   "occurrences": [
+    {
+     "repo": "bucketd",
+     "word": "Amazon Web Services",
+     "concept": "cloud.aws",
+     "class": "negated",
+     "attribution_kind": "negation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "bucketd runs on your own hardware and never contacts Amazon Web Services."
+    },
+    {
+     "repo": "bucketd",
+     "word": "aws",
+     "concept": "cloud.aws",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Because the API is compatible, tools such as the aws command-line client can be pointed at bucketd with --endpoint-url."
+    },
+    {
+     "repo": "bucketd",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Written in Rust; storage is plain files on disk."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The store is S3-compatible and self-hosted, explicitly never contacting AWS; the aws CLI mention is about client compatibility."
+  },
+  {
+   "id": "m11g22r5-r5-025",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "framework.flask",
+   "pair": "p-migrate-flask",
+   "repos": [
+    {
+     "name": "shelfie",
+     "readme": "# shelfie\n\nA book-tracking web app.\n\n## History\n\nshelfie started as a Flask app in 2021. In 2024 the backend was rewritten with FastAPI, and the Flask code was deleted.\n\n## Running\n\n```\nuvicorn shelfie.main:app --reload\n```",
+     "languages": {
+      "Python": 22000,
+      "HTML": 3000
+     },
+     "files": {
+      "requirements.txt": "fastapi==0.111.0\nuvicorn==0.30.1\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "historical",
+    "framework.fastapi": "use"
+   },
+   "used": [
+    "framework.fastapi",
+    "language.python",
+    "language.html"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.fastapi",
+    "language.python",
+    "language.html"
+   ],
+   "occurrences": [
+    {
+     "repo": "shelfie",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "shelfie started as a Flask app in 2021."
+    },
+    {
+     "repo": "shelfie",
+     "word": "FastAPI",
+     "concept": "framework.fastapi",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "In 2024 the backend was rewritten with FastAPI, and the Flask code was deleted."
+    },
+    {
+     "repo": "shelfie",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "In 2024 the backend was rewritten with FastAPI, and the Flask code was deleted."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Flask was the original framework but its code was deleted; the current backend is FastAPI, which requirements.txt confirms."
+  },
+  {
+   "id": "m11g22r5-r5-026",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "framework.flask",
+   "pair": "p-migrate-flask",
+   "repos": [
+    {
+     "name": "pantry-api",
+     "readme": "# pantry-api\n\nREST API for the pantry inventory app.\n\nThe first version ran on Express. It was ported to Flask in early 2025 and the Node code is gone.\n\n## Running locally\n\n```\nflask --app pantry run\n```",
+     "languages": {
+      "Python": 17000
+     },
+     "files": {
+      "requirements.txt": "flask==3.0.3\nSQLAlchemy==2.0.30\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.express": "historical",
+    "framework.flask": "use"
+   },
+   "used": [
+    "framework.flask",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.flask",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "pantry-api",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The first version ran on Express."
+    },
+    {
+     "repo": "pantry-api",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "It was ported to Flask in early 2025 and the Node code is gone."
+    },
+    {
+     "repo": "pantry-api",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "flask --app pantry run"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The API was migrated from Express (historical) to Flask (current), confirmed by requirements.txt."
+  },
+  {
+   "id": "m11g22r5-r5-027",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "scorekeeper",
+     "readme": "# scorekeeper\n\nScoreboard service for amateur leagues, written in Kotlin.\n\n## Legacy branch\n\nThe `legacy-java` branch contains the original Java implementation. It is frozen and receives no fixes.\n\n## Build\n\n```\n./gradlew build\n```",
+     "languages": {
+      "Kotlin": 41000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.kotlin": "use",
+    "language.java": "historical"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.kotlin"
+   ],
+   "occurrences": [
+    {
+     "repo": "scorekeeper",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Scoreboard service for amateur leagues, written in Kotlin."
+    },
+    {
+     "repo": "scorekeeper",
+     "word": "java",
+     "concept": "language.java",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The `legacy-java` branch contains the original Java implementation."
+    },
+    {
+     "repo": "scorekeeper",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The `legacy-java` branch contains the original Java implementation."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Java exists only in a frozen legacy branch; the current code is Kotlin."
+  },
+  {
+   "id": "m11g22r5-r5-028",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "database.postgresql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "metric-sink",
+     "readme": "# metric-sink\n\nCollects application metrics and stores them in SQLite.\n\n## Changelog highlights\n\n- v2.0: dropped the PostgreSQL backend; SQLite is now the only store.\n- v1.4: added CSV export.\n\nIf you still need Postgres support, pin version 1.x.",
+     "languages": {
+      "Python": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.postgresql": "historical"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "metric-sink",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- v2.0: dropped the PostgreSQL backend; SQLite is now the only store."
+    },
+    {
+     "repo": "metric-sink",
+     "word": "Postgres",
+     "concept": "database.postgresql",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "If you still need Postgres support, pin version 1.x."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "PostgreSQL support was dropped in v2.0 and survives only in old versions."
+  },
+  {
+   "id": "m11g22r5-r5-029",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "language.javascript",
+   "pair": null,
+   "repos": [
+    {
+     "name": "formwright",
+     "readme": "# formwright\n\nForm validation helpers for the browser.\n\nformwright was written in plain JavaScript until v3. Since v3 the whole codebase is TypeScript and ships type declarations.\n\n```\nnpm install formwright\n```",
+     "languages": {
+      "TypeScript": 30000,
+      "JavaScript": 600
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.javascript": "historical",
+    "language.typescript": "use"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "formwright",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "formwright was written in plain JavaScript until v3."
+    },
+    {
+     "repo": "formwright",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Since v3 the whole codebase is TypeScript and ships type declarations."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The codebase moved from JavaScript to TypeScript at v3; JavaScript is under 5% of current bytes."
+  },
+  {
+   "id": "m11g22r5-r5-030",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "infra.docker",
+   "pair": null,
+   "repos": [
+    {
+     "name": "homelab-scripts",
+     "readme": "# homelab-scripts\n\nSmall maintenance scripts for my home server, written in Bash.\n\nEarlier versions of this setup ran every service in Docker; I moved everything to plain systemd units in 2025 and removed the compose files.\n\n## Scripts\n\n- `backup.sh` - nightly rsync backup\n- `update.sh` - apt upgrade with logging",
+     "languages": {
+      "Shell": 4200
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use",
+    "infra.docker": "historical"
+   },
+   "used": [
+    "language.shell"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.shell"
+   ],
+   "occurrences": [
+    {
+     "repo": "homelab-scripts",
+     "word": "Bash",
+     "concept": "language.shell",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Small maintenance scripts for my home server, written in Bash."
+    },
+    {
+     "repo": "homelab-scripts",
+     "word": "Docker",
+     "concept": "infra.docker",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Earlier versions of this setup ran every service in Docker; I moved everything to plain systemd units in 2025 and removed the compose files."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Docker was used by earlier versions and was removed; current scripts are Bash."
+  },
+  {
+   "id": "m11g22r5-r5-031",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "ml.framework.tensorflow",
+   "pair": null,
+   "repos": [
+    {
+     "name": "leafscan",
+     "readme": "# leafscan\n\nPlant disease classifier trained on leaf photos.\n\n## Framework\n\nThe original model (2022) was trained with TensorFlow. The current training and inference code uses PyTorch, and the TensorFlow checkpoints are no longer supported.\n\n## Train\n\n```\npython train.py --epochs 30\n```",
+     "languages": {
+      "Python": 25000
+     },
+     "files": {
+      "requirements.txt": "torch==2.3.1\ntorchvision==0.18.1\n"
+     }
+    }
+   ],
+   "concepts": {
+    "ml.framework.tensorflow": "historical",
+    "ml.framework.pytorch": "use",
+    "language.python": "use"
+   },
+   "used": [
+    "ml.framework.pytorch",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "ml.framework.pytorch",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "leafscan",
+     "word": "TensorFlow",
+     "concept": "ml.framework.tensorflow",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The original model (2022) was trained with TensorFlow."
+    },
+    {
+     "repo": "leafscan",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The current training and inference code uses PyTorch, and the TensorFlow checkpoints are no longer supported."
+    },
+    {
+     "repo": "leafscan",
+     "word": "TensorFlow",
+     "concept": "ml.framework.tensorflow",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The current training and inference code uses PyTorch, and the TensorFlow checkpoints are no longer supported."
+    },
+    {
+     "repo": "leafscan",
+     "word": "python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "python train.py --epochs 30"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "TensorFlow was used for the 2022 model only; current code uses PyTorch, confirmed by requirements.txt."
+  },
+  {
+   "id": "m11g22r5-r5-032",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "invoice-mailer",
+     "readme": "# invoice-mailer\n\nSends monthly invoices by email.\n\n> Note: this project was a Ruby script until 2023. It is now a small Golang service; the Ruby version is archived in the `ruby-archive` tag.\n\n## Configuration\n\nSet SMTP_HOST and SMTP_USER before starting the service.",
+     "languages": {
+      "Go": 11000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "historical",
+    "language.go": "use"
+   },
+   "used": [
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "invoice-mailer",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> Note: this project was a Ruby script until 2023."
+    },
+    {
+     "repo": "invoice-mailer",
+     "word": "Golang",
+     "concept": "language.go",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "It is now a small Golang service; the Ruby version is archived in the `ruby-archive` tag."
+    },
+    {
+     "repo": "invoice-mailer",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "It is now a small Golang service; the Ruby version is archived in the `ruby-archive` tag."
+    },
+    {
+     "repo": "invoice-mailer",
+     "word": "ruby",
+     "concept": "language.ruby",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "It is now a small Golang service; the Ruby version is archived in the `ruby-archive` tag."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Ruby was the pre-2023 implementation, now only in an archive tag; the service is currently Go."
+  },
+  {
+   "id": "m11g22r5-r5-033",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "language.cpp",
+   "pair": null,
+   "repos": [
+    {
+     "name": "packetsieve",
+     "readme": "# packetsieve\n\nA network packet filter for Linux.\n\n## Rewrite\n\nVersions up to 0.9 were written in C++. Version 1.0 is a complete rewrite in Rust; the C++ sources were removed from the tree.\n\n## Build\n\n```\ncargo build --release\n```",
+     "languages": {
+      "Rust": 52000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.cpp": "historical",
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.rust"
+   ],
+   "occurrences": [
+    {
+     "repo": "packetsieve",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Versions up to 0.9 were written in C++."
+    },
+    {
+     "repo": "packetsieve",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Version 1.0 is a complete rewrite in Rust; the C++ sources were removed from the tree."
+    },
+    {
+     "repo": "packetsieve",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Version 1.0 is a complete rewrite in Rust; the C++ sources were removed from the tree."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "C++ was used up to 0.9 and its sources were removed; the current code is Rust."
+  },
+  {
+   "id": "m11g22r5-r5-034",
+   "split": "fresh",
+   "family": "historical",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "geo-lookup",
+     "readme": "# geo-lookup\n\nIP-to-region lookup service written in Rust.\n\nWe used to cache lookups in Redis, but the in-process LRU cache made that unnecessary and the Redis dependency was removed in v0.6.\n\n## Run\n\n```\ncargo run --release -- --db ./regions.mmdb\n```",
+     "languages": {
+      "Rust": 19000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use",
+    "database.redis": "historical"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.rust"
+   ],
+   "occurrences": [
+    {
+     "repo": "geo-lookup",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "IP-to-region lookup service written in Rust."
+    },
+    {
+     "repo": "geo-lookup",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "We used to cache lookups in Redis, but the in-process LRU cache made that unnecessary and the Redis dependency was removed in v0.6."
+    },
+    {
+     "repo": "geo-lookup",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "We used to cache lookups in Redis, but the in-process LRU cache made that unnecessary and the Redis dependency was removed in v0.6."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Redis caching was removed in v0.6; the service now uses an in-process cache."
+  },
+  {
+   "id": "m11g22r5-r5-035",
+   "split": "fresh",
+   "family": "future",
+   "probe": "framework.react_native",
+   "pair": null,
+   "repos": [
+    {
+     "name": "habit-loop",
+     "readme": "# habit-loop\n\nA habit tracker web app built with React and TypeScript.\n\n## Roadmap\n\n- [x] Streak tracking\n- [x] Dark mode\n- [ ] Mobile app with React Native\n- [ ] Offline sync",
+     "languages": {
+      "TypeScript": 33000,
+      "CSS": 4000
+     },
+     "files": {
+      "package.json": "{\n  \"name\": \"habit-loop\",\n  \"dependencies\": {\n    \"react\": \"^18.3.1\",\n    \"react-dom\": \"^18.3.1\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"^5.4.5\",\n    \"vite\": \"^5.2.0\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.react": "use",
+    "language.typescript": "use",
+    "framework.react_native": "future"
+   },
+   "used": [
+    "framework.react",
+    "language.typescript",
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.react",
+    "language.typescript",
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "habit-loop",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A habit tracker web app built with React and TypeScript."
+    },
+    {
+     "repo": "habit-loop",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A habit tracker web app built with React and TypeScript."
+    },
+    {
+     "repo": "habit-loop",
+     "word": "React Native",
+     "concept": "framework.react_native",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- [ ] Mobile app with React Native"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "React Native appears only as an unchecked roadmap item; the current app is React with TypeScript."
+  },
+  {
+   "id": "m11g22r5-r5-036",
+   "split": "fresh",
+   "family": "future",
+   "probe": "infra.kubernetes",
+   "pair": null,
+   "repos": [
+    {
+     "name": "queue-dash",
+     "readme": "# queue-dash\n\nA dashboard for inspecting background job queues.\n\n## Deployment\n\nqueue-dash ships a Dockerfile and a docker-compose.yml for local and single-host use.\n\nKubernetes manifests are not provided yet. Helm chart support is planned for a later release; contributions are welcome.",
+     "languages": {
+      "Python": 15000,
+      "HTML": 2500,
+      "CSS": 400
+     },
+     "files": {
+      "Dockerfile": "FROM python:3.12-slim\nWORKDIR /app\nCOPY . /app\nRUN pip install .\nCMD [\"python\", \"-m\", \"queue_dash\"]\n",
+      "docker-compose.yml": "services:\n  dash:\n    build: .\n    ports:\n      - \"8000:8000\"\n"
+     }
+    }
+   ],
+   "concepts": {
+    "infra.docker": "use",
+    "infra.kubernetes": "future"
+   },
+   "used": [
+    "infra.docker",
+    "language.python",
+    "language.html"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "infra.docker",
+    "language.python",
+    "language.html"
+   ],
+   "occurrences": [
+    {
+     "repo": "queue-dash",
+     "word": "Dockerfile",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "queue-dash ships a Dockerfile and a docker-compose.yml for local and single-host use."
+    },
+    {
+     "repo": "queue-dash",
+     "word": "docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "queue-dash ships a Dockerfile and a docker-compose.yml for local and single-host use."
+    },
+    {
+     "repo": "queue-dash",
+     "word": "Kubernetes",
+     "concept": "infra.kubernetes",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Kubernetes manifests are not provided yet."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Kubernetes support is not provided yet and only planned; Docker files ship today. CSS is under 5%."
+  },
+  {
+   "id": "m11g22r5-r5-037",
+   "split": "fresh",
+   "family": "future",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tidepool",
+     "readme": "# tidepool\n\nTide-table widget for Android, written in Kotlin.\n\n## FAQ\n\n**Is there an iOS version?**\n\nNot yet. An iOS port in Swift would be welcome if someone wants to start one.",
+     "languages": {
+      "Kotlin": 23000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.kotlin": "use",
+    "language.swift": "future"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.kotlin"
+   ],
+   "occurrences": [
+    {
+     "repo": "tidepool",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Tide-table widget for Android, written in Kotlin."
+    },
+    {
+     "repo": "tidepool",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "An iOS port in Swift would be welcome if someone wants to start one."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A Swift iOS port is only wished for; nothing exists."
+  },
+  {
+   "id": "m11g22r5-r5-038",
+   "split": "fresh",
+   "family": "future",
+   "probe": "platform.cuda",
+   "pair": null,
+   "repos": [
+    {
+     "name": "raymarch-lite",
+     "readme": "# raymarch-lite\n\nA CPU path tracer written in C++ for learning purposes.\n\n## Ideas\n\n- A CUDA backend could make rendering much faster.\n- Add a denoiser.\n\nNone of these are being worked on right now.",
+     "languages": {
+      "C++": 34000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.cpp": "use",
+    "platform.cuda": "future"
+   },
+   "used": [
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp"
+   ],
+   "occurrences": [
+    {
+     "repo": "raymarch-lite",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A CPU path tracer written in C++ for learning purposes."
+    },
+    {
+     "repo": "raymarch-lite",
+     "word": "CUDA",
+     "concept": "platform.cuda",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- A CUDA backend could make rendering much faster."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A CUDA backend is only an idea not being worked on; the tracer runs on the CPU."
+  },
+  {
+   "id": "m11g22r5-r5-039",
+   "split": "fresh",
+   "family": "future",
+   "probe": "cloud.aws",
+   "pair": null,
+   "repos": [
+    {
+     "name": "snapvault",
+     "readme": "# snapvault\n\nEncrypted backups to a local NAS.\n\n## Planned\n\nWe intend to add AWS S3 as an optional remote target in v2. Until then, only local and SFTP destinations work.\n\n## Usage\n\n```\nsnapvault backup ~/Documents --to /mnt/nas\n```",
+     "languages": {
+      "Python": 13000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "cloud.aws": "future"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "snapvault",
+     "word": "AWS",
+     "concept": "cloud.aws",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "We intend to add AWS S3 as an optional remote target in v2."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "AWS S3 support is planned for v2; only local and SFTP targets work now."
+  },
+  {
+   "id": "m11g22r5-r5-040",
+   "split": "fresh",
+   "family": "future",
+   "probe": "language.typescript",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tinytabs",
+     "readme": "# tinytabs\n\nAccessible tab component in plain JavaScript, no build step.\n\nTypeScript type definitions are on the wish list; for now there are none.\n\n```\n<script src=\"tinytabs.js\"></script>\n```",
+     "languages": {
+      "JavaScript": 7000,
+      "CSS": 900
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.javascript": "use",
+    "language.typescript": "future"
+   },
+   "used": [
+    "language.javascript",
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.javascript",
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "tinytabs",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Accessible tab component in plain JavaScript, no build step."
+    },
+    {
+     "repo": "tinytabs",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "TypeScript type definitions are on the wish list; for now there are none."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "TypeScript definitions are only wished for; the component is plain JavaScript."
+  },
+  {
+   "id": "m11g22r5-r5-041",
+   "split": "fresh",
+   "family": "future",
+   "probe": "robotics.ros2",
+   "pair": null,
+   "repos": [
+    {
+     "name": "arm-kinematics",
+     "readme": "# arm-kinematics\n\nForward and inverse kinematics for 6-DOF arms, as a header-only C++ library.\n\n## Roadmap\n\n1. Collision checking\n2. A ROS 2 wrapper node (help wanted)\n3. Python bindings\n\n## Usage\n\nInclude `kinematics.hpp` and link nothing else.",
+     "languages": {
+      "C++": 16000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.cpp": "use",
+    "robotics.ros2": "future",
+    "language.python": "future"
+   },
+   "used": [
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp"
+   ],
+   "occurrences": [
+    {
+     "repo": "arm-kinematics",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Forward and inverse kinematics for 6-DOF arms, as a header-only C++ library."
+    },
+    {
+     "repo": "arm-kinematics",
+     "word": "ROS 2",
+     "concept": "robotics.ros2",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "2. A ROS 2 wrapper node (help wanted)"
+    },
+    {
+     "repo": "arm-kinematics",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "3. Python bindings"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The ROS 2 wrapper and Python bindings are roadmap items; the library today is header-only C++."
+  },
+  {
+   "id": "m11g22r5-r5-042",
+   "split": "fresh",
+   "family": "future",
+   "probe": "embedded.rtos.freertos",
+   "pair": "p-freertos",
+   "repos": [
+    {
+     "name": "sensor-node-fw",
+     "readme": "# sensor-node-fw\n\nBare-metal firmware for an STM32 environmental sensor node. Everything runs in a single super-loop with interrupts.\n\n## Future work\n\n- Port the scheduler to FreeRTOS once we add the radio stack.\n- Low-power sleep modes.",
+     "languages": {
+      "C": 28000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "embedded.rtos.freertos": "future"
+   },
+   "used": [
+    "language.c"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.c"
+   ],
+   "occurrences": [
+    {
+     "repo": "sensor-node-fw",
+     "word": "FreeRTOS",
+     "concept": "embedded.rtos.freertos",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- Port the scheduler to FreeRTOS once we add the radio stack."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The firmware is bare-metal today; moving to FreeRTOS is listed as future work."
+  },
+  {
+   "id": "m11g22r5-r5-043",
+   "split": "fresh",
+   "family": "future",
+   "probe": "framework.nextjs",
+   "pair": null,
+   "repos": [
+    {
+     "name": "docsmith",
+     "readme": "# docsmith\n\nGenerates API reference pages from OpenAPI files as static pages.\n\n## Integrations\n\nOutput is plain files you can host anywhere. A Next.js plugin has been requested in issue #41; contributions to support Next.js are welcome, but nothing exists yet.",
+     "languages": {
+      "TypeScript": 24000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.nextjs": "future"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "docsmith",
+     "word": "Next.js",
+     "concept": "framework.nextjs",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A Next.js plugin has been requested in issue #41; contributions to support Next.js are welcome, but nothing exists yet."
+    },
+    {
+     "repo": "docsmith",
+     "word": "Next.js",
+     "concept": "framework.nextjs",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A Next.js plugin has been requested in issue #41; contributions to support Next.js are welcome, but nothing exists yet."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "A Next.js plugin is only requested; contributions are welcome but nothing exists."
+  },
+  {
+   "id": "m11g22r5-r5-044",
+   "split": "fresh",
+   "family": "future",
+   "probe": "language.csharp",
+   "pair": "p-future-csharp",
+   "repos": [
+    {
+     "name": "fastnoise-c",
+     "readme": "# fastnoise-c\n\nCoherent noise generation (Perlin, simplex, cellular) in portable C.\n\n## Language bindings\n\nWe plan to provide official C# bindings for Unity users. They are not started; follow issue #12 for progress.",
+     "languages": {
+      "C": 19000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.csharp": "future"
+   },
+   "used": [
+    "language.c"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.c"
+   ],
+   "occurrences": [
+    {
+     "repo": "fastnoise-c",
+     "word": "C#",
+     "concept": "language.csharp",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "We plan to provide official C# bindings for Unity users."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "C# bindings are planned but not started."
+  },
+  {
+   "id": "m11g22r5-r5-045",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "lintroll",
+     "readme": "# lintroll\n\nA fast linter for Markdown files, written in Rust.\n\n## Why another linter?\n\nFrom the release notes of the linter we used before:\n\n> Version 4 requires Python 3.12 and drops support for older interpreters.\n\nWe wanted a single static binary with no interpreter at all, so lintroll was born.",
+     "languages": {
+      "Rust": 21000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use",
+    "language.python": "reference"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.rust"
+   ],
+   "occurrences": [
+    {
+     "repo": "lintroll",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A fast linter for Markdown files, written in Rust."
+    },
+    {
+     "repo": "lintroll",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "attribution_kind": "quotation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> Version 4 requires Python 3.12 and drops support for older interpreters."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Python appears in quoted release notes of a different linter; lintroll is a Rust binary with no interpreter."
+  },
+  {
+   "id": "m11g22r5-r5-046",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "infra.docker",
+   "pair": null,
+   "repos": [
+    {
+     "name": "ledgerd",
+     "readme": "# ledgerd\n\nDouble-entry accounting server.\n\n> **Warning**\n> ledgerd is only distributed as a Docker image. Native installs are not supported.\n\n## Quick start\n\n```\ndocker run -p 8080:8080 example/ledgerd:latest\n```",
+     "languages": {
+      "Go": 30000
+     },
+     "files": {
+      "Dockerfile": "FROM golang:1.22 AS build\nWORKDIR /src\nCOPY . .\nRUN go build -o /ledgerd ./cmd/ledgerd\n\nFROM gcr.io/distroless/base\nCOPY --from=build /ledgerd /ledgerd\nENTRYPOINT [\"/ledgerd\"]\n"
+     }
+    }
+   ],
+   "concepts": {
+    "infra.docker": "use"
+   },
+   "used": [
+    "infra.docker",
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "infra.docker",
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "ledgerd",
+     "word": "Docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "> ledgerd is only distributed as a Docker image."
+    },
+    {
+     "repo": "ledgerd",
+     "word": "docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "docker run -p 8080:8080 example/ledgerd:latest"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The blockquote is the project's own warning that it ships as a Docker image; a root Dockerfile confirms."
+  },
+  {
+   "id": "m11g22r5-r5-047",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "statebox",
+     "readme": "# statebox\n\nA tiny state container for Svelte stores.\n\n## What people say\n\n> \"I used to reach for a React context for everything; now my Svelte apps don't need any of that.\" - a happy user\n\n## Install\n\n```\nnpm install statebox\n```",
+     "languages": {
+      "TypeScript": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.react": "reference"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "statebox",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "reference",
+     "attribution_kind": "quotation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> \"I used to reach for a React context for everything; now my Svelte apps don't need any of that.\" - a happy user"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "React appears only in a user testimonial about their own past habits; statebox targets Svelte."
+  },
+  {
+   "id": "m11g22r5-r5-048",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "language.sql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "csvkit-lite",
+     "readme": "# csvkit-lite\n\nCommand-line helpers for CSV files.\n\n## Known limitation\n\nA user reported in issue #88:\n\n> \"I expected `csvq` to accept SQL like the other tool I use at work.\"\n\ncsvkit-lite does not parse SQL; filtering uses simple column expressions instead.\n\n```\ncsvq data.csv --where \"price > 10\"\n```",
+     "languages": {
+      "Python": 6000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.sql": "reference"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "csvkit-lite",
+     "word": "SQL",
+     "concept": "language.sql",
+     "class": "reference",
+     "attribution_kind": "quotation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> \"I expected `csvq` to accept SQL like the other tool I use at work.\""
+    },
+    {
+     "repo": "csvkit-lite",
+     "word": "SQL",
+     "concept": "language.sql",
+     "class": "negated",
+     "attribution_kind": "negation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "csvkit-lite does not parse SQL; filtering uses simple column expressions instead."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "SQL appears in a quoted user expectation about another tool and is then explicitly negated."
+  },
+  {
+   "id": "m11g22r5-r5-049",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "database.postgresql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tenant-router",
+     "readme": "# tenant-router\n\nRoutes requests to per-tenant databases.\n\n> **Note**\n> tenant-router stores its routing table in PostgreSQL. You need a running Postgres 14+ instance before starting it.\n\n## Configuration\n\nSet DATABASE_URL to the connection string.",
+     "languages": {
+      "TypeScript": 14000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.postgresql": "use"
+   },
+   "used": [
+    "database.postgresql",
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "tenant-router",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "> tenant-router stores its routing table in PostgreSQL."
+    },
+    {
+     "repo": "tenant-router",
+     "word": "Postgres",
+     "concept": "database.postgresql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "You need a running Postgres 14+ instance before starting it."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The quoted note is the project's own and states it stores data in PostgreSQL and requires a running instance."
+  },
+  {
+   "id": "m11g22r5-r5-050",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "pydantic-forms",
+     "readme": "# pydantic-forms\n\nRender web forms from Pydantic models. pydantic-forms is a pure Python package.\n\n## Compatibility note\n\nThe upstream changelog for one popular web framework says:\n\n> FastAPI 0.100 adopts Pydantic v2; projects pinned to v1 must upgrade.\n\npydantic-forms works with Pydantic v2 only and is framework-agnostic: it returns strings of markup that any web app can serve.",
+     "languages": {
+      "Python": 8000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "framework.fastapi": "reference"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "pydantic-forms",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "pydantic-forms is a pure Python package."
+    },
+    {
+     "repo": "pydantic-forms",
+     "word": "FastAPI",
+     "concept": "framework.fastapi",
+     "class": "reference",
+     "attribution_kind": "quotation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> FastAPI 0.100 adopts Pydantic v2; projects pinned to v1 must upgrade."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "FastAPI appears only in a quoted upstream changelog; the package is framework-agnostic."
+  },
+  {
+   "id": "m11g22r5-r5-051",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "language.kotlin",
+   "pair": null,
+   "repos": [
+    {
+     "name": "beacon-sdk-android",
+     "readme": "# beacon-sdk-android\n\n> This SDK is written entirely in Kotlin and targets Android API 24 and above.\n\n## Install\n\nAdd the dependency to your Gradle file:\n\n```\nimplementation(\"com.example:beacon-sdk:2.1.0\")\n```\n\n## Java interop\n\nAll public classes are annotated for Java callers, so the SDK can be used from Java apps too.",
+     "languages": {
+      "Kotlin": 27000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.kotlin": "use",
+    "language.java": "reference"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.kotlin"
+   ],
+   "occurrences": [
+    {
+     "repo": "beacon-sdk-android",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "> This SDK is written entirely in Kotlin and targets Android API 24 and above."
+    },
+    {
+     "repo": "beacon-sdk-android",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "## Java interop"
+    },
+    {
+     "repo": "beacon-sdk-android",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "All public classes are annotated for Java callers, so the SDK can be used from Java apps too."
+    },
+    {
+     "repo": "beacon-sdk-android",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "All public classes are annotated for Java callers, so the SDK can be used from Java apps too."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The blockquote describes this SDK as written entirely in Kotlin; Java is only about interoperability with callers' apps."
+  },
+  {
+   "id": "m11g22r5-r5-052",
+   "split": "fresh",
+   "family": "quotation",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "hashbench",
+     "readme": "# hashbench\n\nBenchmarks for hash functions in Python.\n\nThe idea came from a line in another project's README:\n\n> \"Our Rust implementation beats every C++ hash map we tried.\"\n\nWe wanted to check that kind of claim for Python dictionaries, so every benchmark here is pure Python.",
+     "languages": {
+      "Python": 7000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "language.rust": "reference",
+    "language.cpp": "reference"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "hashbench",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Benchmarks for hash functions in Python."
+    },
+    {
+     "repo": "hashbench",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "reference",
+     "attribution_kind": "quotation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> \"Our Rust implementation beats every C++ hash map we tried.\""
+    },
+    {
+     "repo": "hashbench",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "reference",
+     "attribution_kind": "quotation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "> \"Our Rust implementation beats every C++ hash map we tried.\""
+    },
+    {
+     "repo": "hashbench",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "We wanted to check that kind of claim for Python dictionaries, so every benchmark here is pure Python."
+    },
+    {
+     "repo": "hashbench",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "We wanted to check that kind of claim for Python dictionaries, so every benchmark here is pure Python."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Rust and C++ appear only in a quote from another project's README; every benchmark here is pure Python."
+  },
+  {
+   "id": "m11g22r5-r5-053",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "routekit-go",
+     "readme": "# routekit-go\n\nHTTP middleware helpers written in Golang.\n\nThe API borrows ideas from Express: chained middleware and `next()` callbacks. If you know Express, the examples below will look familiar, but there is no JavaScript involved.",
+     "languages": {
+      "Go": 9000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.go": "use",
+    "framework.express": "reference",
+    "language.javascript": "negated"
+   },
+   "used": [
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "routekit-go",
+     "word": "Golang",
+     "concept": "language.go",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "HTTP middleware helpers written in Golang."
+    },
+    {
+     "repo": "routekit-go",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The API borrows ideas from Express: chained middleware and `next()` callbacks."
+    },
+    {
+     "repo": "routekit-go",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "If you know Express, the examples below will look familiar, but there is no JavaScript involved."
+    },
+    {
+     "repo": "routekit-go",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "negated",
+     "attribution_kind": "negation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "If you know Express, the examples below will look familiar, but there is no JavaScript involved."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Both Express mentions are design comparisons for a Go library, and JavaScript is explicitly excluded."
+  },
+  {
+   "id": "m11g22r5-r5-054",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "ml.framework.tensorflow",
+   "pair": null,
+   "repos": [
+    {
+     "name": "model-zoo-index",
+     "readme": "# model-zoo-index\n\nAn index of pretrained image models published by other labs, with links and licence notes.\n\n| Model | Framework | Licence |\n|-------|-----------|---------|\n| EffNet-B0 | TensorFlow | Apache-2.0 |\n| ResNet-50 | PyTorch | BSD |\n| MobileViT | TensorFlow | MIT |\n\nThe index is a single YAML file; this repository contains no model code.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "ml.framework.tensorflow": "reference",
+    "ml.framework.pytorch": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "model-zoo-index",
+     "word": "TensorFlow",
+     "concept": "ml.framework.tensorflow",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| EffNet-B0 | TensorFlow | Apache-2.0 |"
+    },
+    {
+     "repo": "model-zoo-index",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| ResNet-50 | PyTorch | BSD |"
+    },
+    {
+     "repo": "model-zoo-index",
+     "word": "TensorFlow",
+     "concept": "ml.framework.tensorflow",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "| MobileViT | TensorFlow | MIT |"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "An index of models published by other labs; the repository contains no model code."
+  },
+  {
+   "id": "m11g22r5-r5-055",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "data.library.pandas",
+   "pair": null,
+   "repos": [
+    {
+     "name": "sales-report",
+     "readme": "# sales-report\n\nWeekly sales report generator. Loads CSV exports with pandas and writes an Excel summary.\n\n## Requirements\n\n- Python 3.10+\n- pandas 2.x\n\n## Run\n\n```\npython report.py exports/ --out summary.xlsx\n```",
+     "languages": {
+      "Python": 5400
+     },
+     "files": {
+      "requirements.txt": "pandas==2.2.2\nopenpyxl==3.1.3\n"
+     }
+    }
+   ],
+   "concepts": {
+    "data.library.pandas": "use",
+    "language.python": "use"
+   },
+   "used": [
+    "data.library.pandas",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "data.library.pandas",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "sales-report",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Loads CSV exports with pandas and writes an Excel summary."
+    },
+    {
+     "repo": "sales-report",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Python 3.10+"
+    },
+    {
+     "repo": "sales-report",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- pandas 2.x"
+    },
+    {
+     "repo": "sales-report",
+     "word": "python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "python report.py exports/ --out summary.xlsx"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Every mention describes this generator's own dependencies and run command; requirements.txt lists pandas."
+  },
+  {
+   "id": "m11g22r5-r5-056",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.php",
+   "pair": null,
+   "repos": [
+    {
+     "name": "guestbook",
+     "readme": "# guestbook\n\nA retro guestbook in PHP with MySQL storage.\n\n## Requirements\n\n- PHP 8.1 or newer\n- A web server that can run PHP scripts\n\nCopy the files to your web root and open `install.php`.",
+     "languages": {
+      "PHP": 12000,
+      "CSS": 1500
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.php": "use"
+   },
+   "used": [
+    "language.php",
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.php",
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "guestbook",
+     "word": "PHP",
+     "concept": "language.php",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A retro guestbook in PHP with MySQL storage."
+    },
+    {
+     "repo": "guestbook",
+     "word": "PHP",
+     "concept": "language.php",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- PHP 8.1 or newer"
+    },
+    {
+     "repo": "guestbook",
+     "word": "PHP",
+     "concept": "language.php",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- A web server that can run PHP scripts"
+    },
+    {
+     "repo": "guestbook",
+     "word": "php",
+     "concept": "language.php",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Copy the files to your web root and open `install.php`."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "All PHP mentions describe this guestbook's implementation and requirements; language stats agree."
+  },
+  {
+   "id": "m11g22r5-r5-057",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.typescript",
+   "pair": null,
+   "repos": [
+    {
+     "name": "ts-snippets",
+     "readme": "# ts-snippets\n\nAt first I followed a TypeScript course from an online school; their exercises are not included here.\n\n## This repository\n\nMy own solutions to everyday utility problems, written in TypeScript and tested with Vitest.\n\n```\nnpm test\n```",
+     "languages": {
+      "TypeScript": 6000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.typescript": "use"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "ts-snippets",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "At first I followed a TypeScript course from an online school; their exercises are not included here."
+    },
+    {
+     "repo": "ts-snippets",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "My own solutions to everyday utility problems, written in TypeScript and tested with Vitest."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The first mention is a third-party course whose material is excluded; the second states this repository is written in TypeScript."
+  },
+  {
+   "id": "m11g22r5-r5-058",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "ratelimit-mw",
+     "readme": "# ratelimit-mw\n\nMost rate limiters I found online (for example, the ones in the popular Node packages) assume Redis is already running.\n\nratelimit-mw also uses Redis: it keeps a sliding-window counter per client key in Redis sorted sets.\n\n## Requirements\n\n- Python 3.9+\n- A Redis server (6.2 or newer)",
+     "languages": {
+      "Python": 4800
+     },
+     "files": {
+      "requirements.txt": "redis==5.0.4\n"
+     }
+    }
+   ],
+   "concepts": {
+    "database.redis": "use",
+    "language.python": "use"
+   },
+   "used": [
+    "database.redis",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "database.redis",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "ratelimit-mw",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Most rate limiters I found online (for example, the ones in the popular Node packages) assume Redis is already running."
+    },
+    {
+     "repo": "ratelimit-mw",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "ratelimit-mw also uses Redis: it keeps a sliding-window counter per client key in Redis sorted sets."
+    },
+    {
+     "repo": "ratelimit-mw",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "ratelimit-mw also uses Redis: it keeps a sliding-window counter per client key in Redis sorted sets."
+    },
+    {
+     "repo": "ratelimit-mw",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Python 3.9+"
+    },
+    {
+     "repo": "ratelimit-mw",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- A Redis server (6.2 or newer)"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The first Redis mention is about other packages, but the project then states it uses Redis and requires a Redis server; requirements.txt agrees."
+  },
+  {
+   "id": "m11g22r5-r5-059",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tinynotes",
+     "readme": "# tinynotes\n\nA personal note-taking web app built with Flask.\n\n```\nflask --app tinynotes run\n```\n\n## Alternatives\n\nIf you want something bigger, look at projects built on Django, or at the many Flask note apps listed on awesome lists.",
+     "languages": {
+      "Python": 7000,
+      "HTML": 2100
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "framework.flask": "use"
+   },
+   "used": [
+    "framework.flask",
+    "language.python",
+    "language.html"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python",
+    "language.html"
+   ],
+   "occurrences": [
+    {
+     "repo": "tinynotes",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A personal note-taking web app built with Flask."
+    },
+    {
+     "repo": "tinynotes",
+     "word": "flask",
+     "concept": "framework.flask",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "flask --app tinynotes run"
+    },
+    {
+     "repo": "tinynotes",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "If you want something bigger, look at projects built on Django, or at the many Flask note apps listed on awesome lists."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The app is built with Flask; the later Flask mention refers to alternative apps by others."
+  },
+  {
+   "id": "m11g22r5-r5-060",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.java",
+   "pair": null,
+   "repos": [
+    {
+     "name": "chess-clock",
+     "readme": "# chess-clock\n\nA desktop chess clock written in Java with Swing.\n\n## Building\n\nRequires a Java 17 JDK.\n\n```\njavac -d out src/*.java\n```\n\n## See also\n\n- blitz-clock, a JavaScript web clock by another author\n- A Java port of the Fischer increment rules maintained in a separate repository",
+     "languages": {
+      "Java": 18000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.java": "use",
+    "language.javascript": "reference"
+   },
+   "used": [
+    "language.java"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.java"
+   ],
+   "occurrences": [
+    {
+     "repo": "chess-clock",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A desktop chess clock written in Java with Swing."
+    },
+    {
+     "repo": "chess-clock",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Requires a Java 17 JDK."
+    },
+    {
+     "repo": "chess-clock",
+     "word": "java",
+     "concept": "language.java",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "javac -d out src/*.java"
+    },
+    {
+     "repo": "chess-clock",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- blitz-clock, a JavaScript web clock by another author"
+    },
+    {
+     "repo": "chess-clock",
+     "word": "Java",
+     "concept": "language.java",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- A Java port of the Fischer increment rules maintained in a separate repository"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The clock is written in Java; the later Java and JavaScript mentions are other people's projects."
+  },
+  {
+   "id": "m11g22r5-r5-061",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "cloud.aws",
+   "pair": null,
+   "repos": [
+    {
+     "name": "cloud-cost-notes",
+     "readme": "# cloud-cost-notes\n\nNotes from a study group comparing public cloud pricing. Nothing here is deployed anywhere.\n\n## Compute\n\nAWS charges per second for most Linux instances; other providers bill per minute.\n\n## Storage\n\nAmazon Web Services offers several S3 storage classes; we summarised the published prices as of March 2026.\n\n## Disclaimer\n\nThese are summaries of vendor documentation, not advice.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "cloud.aws": "reference"
+   },
+   "used": [],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "cloud-cost-notes",
+     "word": "AWS",
+     "concept": "cloud.aws",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "AWS charges per second for most Linux instances; other providers bill per minute."
+    },
+    {
+     "repo": "cloud-cost-notes",
+     "word": "Amazon Web Services",
+     "concept": "cloud.aws",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Amazon Web Services offers several S3 storage classes; we summarised the published prices as of March 2026."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Pricing notes summarising vendor documentation; nothing is deployed."
+  },
+  {
+   "id": "m11g22r5-r5-062",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "notepad-lite",
+     "readme": "# notepad-lite\n\nA small text editor written in C#.\n\n## Background\n\nThe first prototype was written in Rust, then abandoned. A friend has since started a Rust port in a separate repository, and someday I might add a Rust plugin API.\n\n## Build\n\n```\ndotnet build\n```",
+     "languages": {
+      "C#": 21000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.csharp": "use",
+    "language.rust": "historical"
+   },
+   "used": [
+    "language.csharp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.csharp"
+   ],
+   "occurrences": [
+    {
+     "repo": "notepad-lite",
+     "word": "C#",
+     "concept": "language.csharp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A small text editor written in C#."
+    },
+    {
+     "repo": "notepad-lite",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The first prototype was written in Rust, then abandoned."
+    },
+    {
+     "repo": "notepad-lite",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A friend has since started a Rust port in a separate repository, and someday I might add a Rust plugin API."
+    },
+    {
+     "repo": "notepad-lite",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "future",
+     "attribution_kind": "future_or_hypothetical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "A friend has since started a Rust port in a separate repository, and someday I might add a Rust plugin API."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "Rust appears as an abandoned prototype, a friend's separate port, and a hypothetical future API; the editor is C#."
+  },
+  {
+   "id": "m11g22r5-r5-063",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "infra.docker",
+   "pair": null,
+   "repos": [
+    {
+     "name": "photo-dedupe",
+     "readme": "# photo-dedupe\n\nFind duplicate photos by perceptual hash.\n\n## Run with Docker\n\nThe recommended way to run photo-dedupe is the Docker image built from the Dockerfile in this repository:\n\n```\ndocker build -t photo-dedupe .\ndocker run -v ~/Pictures:/data photo-dedupe /data\n```",
+     "languages": {
+      "Python": 9000
+     },
+     "files": {
+      "Dockerfile": "FROM python:3.12-slim\nWORKDIR /app\nCOPY . .\nRUN pip install .\nENTRYPOINT [\"photo-dedupe\"]\n"
+     }
+    }
+   ],
+   "concepts": {
+    "infra.docker": "use"
+   },
+   "used": [
+    "infra.docker",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "infra.docker",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "photo-dedupe",
+     "word": "Docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "## Run with Docker"
+    },
+    {
+     "repo": "photo-dedupe",
+     "word": "Docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The recommended way to run photo-dedupe is the Docker image built from the Dockerfile in this repository:"
+    },
+    {
+     "repo": "photo-dedupe",
+     "word": "Dockerfile",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The recommended way to run photo-dedupe is the Docker image built from the Dockerfile in this repository:"
+    },
+    {
+     "repo": "photo-dedupe",
+     "word": "docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "docker build -t photo-dedupe ."
+    },
+    {
+     "repo": "photo-dedupe",
+     "word": "docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "docker run -v ~/Pictures:/data photo-dedupe /data"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "All Docker mentions describe this project's own image and Dockerfile, which exists at the root."
+  },
+  {
+   "id": "m11g22r5-r5-064",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "tiny-diffusion",
+     "readme": "# tiny-diffusion\n\nA minimal denoising diffusion model in PyTorch, written for teaching.\n\n## Setup\n\n```\npip install torch torchvision\n```\n\n## Notes\n\nAll layers are plain `torch.nn` modules; there are no custom CUDA kernels, but training uses a GPU if PyTorch can find one.",
+     "languages": {
+      "Python": 6200
+     },
+     "files": {
+      "requirements.txt": "torch==2.3.1\ntorchvision==0.18.1\n"
+     }
+    }
+   ],
+   "concepts": {
+    "ml.framework.pytorch": "use",
+    "platform.cuda": "negated"
+   },
+   "used": [
+    "ml.framework.pytorch",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "ml.framework.pytorch",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "tiny-diffusion",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A minimal denoising diffusion model in PyTorch, written for teaching."
+    },
+    {
+     "repo": "tiny-diffusion",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "pip install torch torchvision"
+    },
+    {
+     "repo": "tiny-diffusion",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "All layers are plain `torch.nn` modules; there are no custom CUDA kernels, but training uses a GPU if PyTorch can find one."
+    },
+    {
+     "repo": "tiny-diffusion",
+     "word": "CUDA",
+     "concept": "platform.cuda",
+     "class": "negated",
+     "attribution_kind": "negation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "All layers are plain `torch.nn` modules; there are no custom CUDA kernels, but training uses a GPU if PyTorch can find one."
+    },
+    {
+     "repo": "tiny-diffusion",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "All layers are plain `torch.nn` modules; there are no custom CUDA kernels, but training uses a GPU if PyTorch can find one."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Several mentions describe the model's own PyTorch implementation and install step; CUDA kernels are explicitly absent."
+  },
+  {
+   "id": "m11g22r5-r5-065",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "framework.nextjs",
+   "pair": null,
+   "repos": [
+    {
+     "name": "storefront",
+     "readme": "# storefront\n\n## Inspiration\n\nThe checkout flow is modelled on a public Next.js commerce demo published by another team.\n\n## Stack\n\nThis repository is a Next.js 14 app using the App Router, written in TypeScript.\n\n```\nnpm run dev\n```",
+     "languages": {
+      "TypeScript": 41000,
+      "CSS": 2000
+     },
+     "files": {
+      "package.json": "{\n  \"name\": \"storefront\",\n  \"dependencies\": {\n    \"next\": \"14.2.3\",\n    \"react\": \"^18.3.1\",\n    \"react-dom\": \"^18.3.1\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"^5.4.5\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.nextjs": "use",
+    "language.typescript": "use"
+   },
+   "used": [
+    "framework.nextjs",
+    "language.typescript",
+    "framework.react"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.nextjs",
+    "framework.react",
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "storefront",
+     "word": "Next.js",
+     "concept": "framework.nextjs",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The checkout flow is modelled on a public Next.js commerce demo published by another team."
+    },
+    {
+     "repo": "storefront",
+     "word": "Next.js",
+     "concept": "framework.nextjs",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "This repository is a Next.js 14 app using the App Router, written in TypeScript."
+    },
+    {
+     "repo": "storefront",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "This repository is a Next.js 14 app using the App Router, written in TypeScript."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The Inspiration section refers to another team's demo, but the Stack section states this repository is a Next.js app; package.json lists next and react. CSS is under 5%."
+  },
+  {
+   "id": "m11g22r5-r5-066",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.css",
+   "pair": null,
+   "repos": [
+    {
+     "name": "minigrid",
+     "readme": "# minigrid\n\nA responsive grid layout.\n\n## Other grid systems\n\nBootstrap's grid and Bulma's columns are both larger CSS frameworks maintained elsewhere.\n\n## What minigrid is\n\nminigrid is 2 KB of plain CSS with no build step. Add one stylesheet link to your page:\n\n```\n<link rel=\"stylesheet\" href=\"minigrid.css\">\n```",
+     "languages": {
+      "CSS": 2100
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.css": "use"
+   },
+   "used": [
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "minigrid",
+     "word": "CSS",
+     "concept": "language.css",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Bootstrap's grid and Bulma's columns are both larger CSS frameworks maintained elsewhere."
+    },
+    {
+     "repo": "minigrid",
+     "word": "CSS",
+     "concept": "language.css",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "minigrid is 2 KB of plain CSS with no build step."
+    },
+    {
+     "repo": "minigrid",
+     "word": "css",
+     "concept": "language.css",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "<link rel=\"stylesheet\" href=\"minigrid.css\">"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The first section mentions other CSS frameworks; the later section states minigrid itself is plain CSS."
+  },
+  {
+   "id": "m11g22r5-r5-067",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.cpp",
+   "pair": null,
+   "repos": [
+    {
+     "name": "fastlog",
+     "readme": "# fastlog\n\n> **Important:** fastlog is a C++ library and requires a C++ compiler that supports the 2020 standard.\n\nA low-latency logging library for trading and game engines.\n\n## Usage\n\n```\n#include <fastlog/fastlog.hpp>\nFASTLOG_INFO(\"started\");\n```",
+     "languages": {
+      "C++": 25000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.cpp": "use"
+   },
+   "used": [
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp"
+   ],
+   "occurrences": [
+    {
+     "repo": "fastlog",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "> **Important:** fastlog is a C++ library and requires a C++ compiler that supports the 2020 standard."
+    },
+    {
+     "repo": "fastlog",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "> **Important:** fastlog is a C++ library and requires a C++ compiler that supports the 2020 standard."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The blockquote is the project's own notice that fastlog is a C++ library requiring a C++ compiler."
+  },
+  {
+   "id": "m11g22r5-r5-068",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "framework.express",
+   "pair": null,
+   "repos": [
+    {
+     "name": "webhook-relay",
+     "readme": "# webhook-relay\n\nForwards incoming webhooks to internal services.\n\n> Maintainer's note: webhook-relay is an Express app. Keep new routes in `routes/` and register them in `app.js`.\n\n## Start\n\n```\nnpm install\nnode app.js\n```",
+     "languages": {
+      "JavaScript": 5000
+     },
+     "files": {
+      "package.json": "{\n  \"name\": \"webhook-relay\",\n  \"dependencies\": {\n    \"express\": \"^4.19.2\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.express": "use"
+   },
+   "used": [
+    "framework.express",
+    "language.javascript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.express",
+    "language.javascript"
+   ],
+   "occurrences": [
+    {
+     "repo": "webhook-relay",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "> Maintainer's note: webhook-relay is an Express app."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The quoted maintainer's note describes this repository as an Express app; package.json lists express."
+  },
+  {
+   "id": "m11g22r5-r5-069",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.python",
+   "pair": null,
+   "repos": [
+    {
+     "name": "feedparse-cli",
+     "readme": "# feedparse-cli\n\nCommand-line RSS reader.\n\nThis tool originally targeted Python 2.7. Since version 3.0 it requires Python 3.10 or newer, and Python 2 support has been removed.\n\n```\npython3 -m feedparse_cli https://example.org/feed.xml\n```",
+     "languages": {
+      "Python": 8800
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "feedparse-cli",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "This tool originally targeted Python 2.7."
+    },
+    {
+     "repo": "feedparse-cli",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Since version 3.0 it requires Python 3.10 or newer, and Python 2 support has been removed."
+    },
+    {
+     "repo": "feedparse-cli",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Since version 3.0 it requires Python 3.10 or newer, and Python 2 support has been removed."
+    },
+    {
+     "repo": "feedparse-cli",
+     "word": "python3",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "python3 -m feedparse_cli https://example.org/feed.xml"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Python 2 support is historical, but the tool currently requires and runs on Python 3."
+  },
+  {
+   "id": "m11g22r5-r5-070",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "event-board",
+     "readme": "# event-board\n\nCommunity event listings.\n\n## Frontend history\n\nThe original frontend was a single-page app bootstrapped with Create React App. In 2025 we migrated it to Next.js; the pages are still React components.\n\n## Develop\n\n```\nnpm install\nnpm run dev\n```",
+     "languages": {
+      "JavaScript": 20000,
+      "CSS": 3000
+     },
+     "files": {
+      "package.json": "{\n  \"name\": \"event-board\",\n  \"dependencies\": {\n    \"next\": \"15.0.3\",\n    \"react\": \"^18.3.1\",\n    \"react-dom\": \"^18.3.1\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.react": "use",
+    "framework.nextjs": "use"
+   },
+   "used": [
+    "framework.react",
+    "framework.nextjs",
+    "language.javascript",
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.react",
+    "framework.nextjs",
+    "language.javascript",
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "event-board",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "historical",
+     "attribution_kind": "historical",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The original frontend was a single-page app bootstrapped with Create React App."
+    },
+    {
+     "repo": "event-board",
+     "word": "Next.js",
+     "concept": "framework.nextjs",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "In 2025 we migrated it to Next.js; the pages are still React components."
+    },
+    {
+     "repo": "event-board",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "In 2025 we migrated it to Next.js; the pages are still React components."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Create React App is the historical setup, but the current Next.js pages are still React components; package.json lists react and next."
+  },
+  {
+   "id": "m11g22r5-r5-071",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "framework.flask",
+   "pair": null,
+   "repos": [
+    {
+     "name": "health-ping",
+     "readme": "# health-ping\n\nTiny uptime endpoint for internal services.\n\nThe API style is inspired by Flask's minimal hello-world example.\n\n## Run\n\n```\npip install -r requirements.txt\npython app.py\n```",
+     "languages": {
+      "Python": 1200
+     },
+     "files": {
+      "requirements.txt": "flask==3.0.3\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.flask": "reference",
+    "language.python": "use"
+   },
+   "used": [
+    "framework.flask",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.flask",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "health-ping",
+     "word": "Flask",
+     "concept": "framework.flask",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "The API style is inspired by Flask's minimal hello-world example."
+    },
+    {
+     "repo": "health-ping",
+     "word": "python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "python app.py"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The README mention of Flask is only an inspiration, but requirements.txt lists flask, so it is used by artifact evidence."
+  },
+  {
+   "id": "m11g22r5-r5-072",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "database.postgresql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "audit-trail",
+     "readme": "# audit-trail\n\nAppend-only audit log service.\n\n## Background\n\nWe evaluated an open-source audit tool built on Postgres but found it too heavy, so we wrote our own.\n\n## Setup\n\nInstall dependencies and set AUDIT_DSN.",
+     "languages": {
+      "Python": 10500
+     },
+     "files": {
+      "requirements.txt": "psycopg2==2.9.9\nfastapi==0.111.0\n"
+     }
+    }
+   ],
+   "concepts": {
+    "database.postgresql": "reference"
+   },
+   "used": [
+    "database.postgresql",
+    "framework.fastapi",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "database.postgresql",
+    "framework.fastapi",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "audit-trail",
+     "word": "Postgres",
+     "concept": "database.postgresql",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "We evaluated an open-source audit tool built on Postgres but found it too heavy, so we wrote our own."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The README's Postgres mention describes a rejected third-party tool, but requirements.txt lists psycopg2, which is artifact evidence of PostgreSQL use."
+  },
+  {
+   "id": "m11g22r5-r5-073",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.swift",
+   "pair": null,
+   "repos": [
+    {
+     "name": "quick-tally",
+     "readme": "# Quick Tally\n\nA swift way to count things: tap to increment, long-press to reset.\n\nQuick Tally is an iOS app written in Swift with SwiftUI.\n\n## Build\n\nOpen `QuickTally.xcodeproj` in Xcode and press Run.",
+     "languages": {
+      "Swift": 14000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.swift": "use"
+   },
+   "used": [
+    "language.swift"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.swift"
+   ],
+   "occurrences": [
+    {
+     "repo": "quick-tally",
+     "word": "swift",
+     "concept": "language.swift",
+     "class": "ordinary",
+     "attribution_kind": "not_technology",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "A swift way to count things: tap to increment, long-press to reset."
+    },
+    {
+     "repo": "quick-tally",
+     "word": "Swift",
+     "concept": "language.swift",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Quick Tally is an iOS app written in Swift with SwiftUI."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The first 'swift' is the ordinary adjective; the second states the app is written in Swift."
+  },
+  {
+   "id": "m11g22r5-r5-074",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "corrosion-watch",
+     "readme": "# corrosion-watch\n\nAn ESP32 sensor board that estimates how quickly rust forms on outdoor steel, using humidity and temperature readings.\n\nFirmware is in `firmware/` (Arduino sketches) and the analysis notebook is in `analysis/`.\n\n## Wiring\n\nSee `docs/wiring.md`.",
+     "languages": {
+      "C++": 7000,
+      "Jupyter Notebook": 15000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "ordinary"
+   },
+   "used": [
+    "language.cpp",
+    "language.jupyter_notebook"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp",
+    "language.jupyter_notebook"
+   ],
+   "occurrences": [
+    {
+     "repo": "corrosion-watch",
+     "word": "rust",
+     "concept": "language.rust",
+     "class": "ordinary",
+     "attribution_kind": "not_technology",
+     "technical_in_context": false,
+     "project_use_indicated": false,
+     "sentence": "An ESP32 sensor board that estimates how quickly rust forms on outdoor steel, using humidity and temperature readings."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "'rust' here means iron oxide, not the programming language."
+  },
+  {
+   "id": "m11g22r5-r5-075",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "dotfiles",
+     "readme": "# dotfiles\n\nMy personal configuration for zsh, tmux and Neovim.\n\n## Install\n\nRun `./install` from your shell. It symlinks everything into your home directory.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "ambiguous"
+   },
+   "used": [],
+   "uncertain": [
+    "language.shell"
+   ],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "dotfiles",
+     "word": "shell",
+     "concept": "language.shell",
+     "class": "ambiguous",
+     "attribution_kind": "unclear",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "Run `./install` from your shell."
+    }
+   ],
+   "expected_target_status": "UNCERTAIN",
+   "expected_effect": {
+    "probe_status": "uncertain",
+    "score": null
+   },
+   "note": "The install script is run from a shell, but the README never says what language the script is written in and there are no language statistics."
+  },
+  {
+   "id": "m11g22r5-r5-076",
+   "split": "fresh",
+   "family": "multi_mention",
+   "probe": "framework.react",
+   "pair": null,
+   "repos": [
+    {
+     "name": "htmx-todo",
+     "readme": "# htmx-todo\n\nA to-do app built with htmx and server-rendered HTML templates. No React, no client-side build step.\n\n## Backend\n\nThe server is written in Golang and stores items in SQLite.\n\n```\ngo run .\n```",
+     "languages": {
+      "Go": 6000,
+      "HTML": 2000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.html": "use",
+    "framework.react": "negated",
+    "language.go": "use"
+   },
+   "used": [
+    "language.html",
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.html",
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "htmx-todo",
+     "word": "HTML",
+     "concept": "language.html",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A to-do app built with htmx and server-rendered HTML templates."
+    },
+    {
+     "repo": "htmx-todo",
+     "word": "React",
+     "concept": "framework.react",
+     "class": "negated",
+     "attribution_kind": "negation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "No React, no client-side build step."
+    },
+    {
+     "repo": "htmx-todo",
+     "word": "Golang",
+     "concept": "language.go",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The server is written in Golang and stores items in SQLite."
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "React is explicitly negated; the app uses server-rendered HTML templates and a Go backend."
+  },
+  {
+   "id": "m11g22r5-r5-077",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "language.ruby",
+   "pair": null,
+   "repos": [
+    {
+     "name": "gemcellar-lite",
+     "readme": "Gemcellar Lite\n==============\n\nA caching proxy for RubyGems, written in Ruby.\n\nInstallation\n------------\n\n    gem install gemcellar-lite\n\nUsage\n-----\n\n    gemcellar-lite serve --port 9292",
+     "languages": {
+      "Ruby": 16000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.ruby": "use"
+   },
+   "used": [
+    "language.ruby"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.ruby"
+   ],
+   "occurrences": [
+    {
+     "repo": "gemcellar-lite",
+     "word": "Ruby",
+     "concept": "language.ruby",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A caching proxy for RubyGems, written in Ruby."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Setext-heading README stating the proxy is written in Ruby; language stats agree."
+  },
+  {
+   "id": "m11g22r5-r5-078",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "language.kotlin",
+   "pair": null,
+   "repos": [
+    {
+     "name": "budget-cli",
+     "readme": "Related Projects\n================\n\n* **ktor-starter** - a Kotlin server template by another author\n* **compose-gallery** - Jetpack Compose samples\n\nThis Project\n============\n\n`budget-cli` is a terminal budgeting tool written in Kotlin and compiled with Kotlin/Native.\n\n    ./gradlew linkReleaseExecutableNative",
+     "languages": {
+      "Kotlin": 12000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.kotlin": "use"
+   },
+   "used": [
+    "language.kotlin"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.kotlin"
+   ],
+   "occurrences": [
+    {
+     "repo": "budget-cli",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "* **ktor-starter** - a Kotlin server template by another author"
+    },
+    {
+     "repo": "budget-cli",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "`budget-cli` is a terminal budgeting tool written in Kotlin and compiled with Kotlin/Native."
+    },
+    {
+     "repo": "budget-cli",
+     "word": "Kotlin",
+     "concept": "language.kotlin",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "`budget-cli` is a terminal budgeting tool written in Kotlin and compiled with Kotlin/Native."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The first setext section lists another author's project; the later 'This Project' section states the tool is written in Kotlin."
+  },
+  {
+   "id": "m11g22r5-r5-079",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "database.redis",
+   "pair": null,
+   "repos": [
+    {
+     "name": "chatroom-server",
+     "readme": "# chatroom-server\n\n## Stack\n\n- Backend\n  - Node.js with Express\n  - Redis for pub/sub between instances\n- Frontend\n  - plain HTML and CSS\n- Not used\n  - We do not use PostgreSQL; messages are not persisted.\n\n## Start\n\n```\nnpm start\n```",
+     "languages": {
+      "JavaScript": 9000,
+      "HTML": 1800,
+      "CSS": 1200
+     },
+     "files": {
+      "package.json": "{\n  \"name\": \"chatroom-server\",\n  \"dependencies\": {\n    \"express\": \"^4.19.2\",\n    \"redis\": \"^4.6.13\",\n    \"ws\": \"^8.17.0\"\n  }\n}\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.express": "use",
+    "database.redis": "use",
+    "language.html": "use",
+    "language.css": "use",
+    "database.postgresql": "negated"
+   },
+   "used": [
+    "framework.express",
+    "database.redis",
+    "language.html",
+    "language.css",
+    "language.javascript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.express",
+    "database.redis",
+    "language.javascript",
+    "language.html",
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "chatroom-server",
+     "word": "Express",
+     "concept": "framework.express",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "  - Node.js with Express"
+    },
+    {
+     "repo": "chatroom-server",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "  - Redis for pub/sub between instances"
+    },
+    {
+     "repo": "chatroom-server",
+     "word": "HTML",
+     "concept": "language.html",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "  - plain HTML and CSS"
+    },
+    {
+     "repo": "chatroom-server",
+     "word": "CSS",
+     "concept": "language.css",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "  - plain HTML and CSS"
+    },
+    {
+     "repo": "chatroom-server",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "negated",
+     "attribution_kind": "negation",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "  - We do not use PostgreSQL; messages are not persisted."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The nested stack list states Redis is used for pub/sub; package.json lists redis. PostgreSQL sits under a 'Not used' sub-list and is negated."
+  },
+  {
+   "id": "m11g22r5-r5-080",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "language.jupyter_notebook",
+   "pair": null,
+   "repos": [
+    {
+     "name": "climate-eda",
+     "readme": "# climate-eda\n\nExploratory analysis of regional temperature records. The full analysis is in a Jupyter Notebook, [analysis.ipynb][nb].\n\nData wrangling uses [pandas][pd]; plots use Matplotlib.\n\n[nb]: ./analysis.ipynb\n[pd]: https://pandas.example.org",
+     "languages": {
+      "Jupyter Notebook": 64000,
+      "Python": 1500
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.jupyter_notebook": "use",
+    "data.library.pandas": "use"
+   },
+   "used": [
+    "language.jupyter_notebook",
+    "data.library.pandas"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.jupyter_notebook"
+   ],
+   "occurrences": [
+    {
+     "repo": "climate-eda",
+     "word": "Jupyter Notebook",
+     "concept": "language.jupyter_notebook",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The full analysis is in a Jupyter Notebook, [analysis.ipynb][nb]."
+    },
+    {
+     "repo": "climate-eda",
+     "word": "ipynb",
+     "concept": "language.jupyter_notebook",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The full analysis is in a Jupyter Notebook, [analysis.ipynb][nb]."
+    },
+    {
+     "repo": "climate-eda",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Data wrangling uses [pandas][pd]; plots use Matplotlib."
+    },
+    {
+     "repo": "climate-eda",
+     "word": "ipynb",
+     "concept": "language.jupyter_notebook",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "[nb]: ./analysis.ipynb"
+    },
+    {
+     "repo": "climate-eda",
+     "word": "pandas",
+     "concept": "data.library.pandas",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "[pd]: https://pandas.example.org"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The analysis lives in this repository's notebook, referenced in prose and in link reference definitions; Python is under 5% of bytes."
+  },
+  {
+   "id": "m11g22r5-r5-081",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "ml.framework.pytorch",
+   "pair": null,
+   "repos": [
+    {
+     "name": "gradlite",
+     "readme": "# gradlite\n\nAutomatic differentiation in about 500 lines of pure Python, with no dependencies.\n\n## Compared to the big frameworks\n\nIn PyTorch you would write:\n\n```\nimport torch\nx = torch.tensor(2.0, requires_grad=True)\n(x * x).backward()\n```\n\nIn gradlite the same thing is:\n\n```\nfrom gradlite import Value\nx = Value(2.0)\n(x * x).backward()\n```",
+     "languages": {
+      "Python": 5000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.python": "use",
+    "ml.framework.pytorch": "reference"
+   },
+   "used": [
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "gradlite",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Automatic differentiation in about 500 lines of pure Python, with no dependencies."
+    },
+    {
+     "repo": "gradlite",
+     "word": "PyTorch",
+     "concept": "ml.framework.pytorch",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "In PyTorch you would write:"
+    },
+    {
+     "repo": "gradlite",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "import torch"
+    },
+    {
+     "repo": "gradlite",
+     "word": "torch",
+     "concept": "ml.framework.pytorch",
+     "class": "reference",
+     "attribution_kind": "reference_or_comparison",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "x = torch.tensor(2.0, requires_grad=True)"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "The fenced PyTorch code is a comparison example, not this project's code; gradlite has no dependencies."
+  },
+  {
+   "id": "m11g22r5-r5-082",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "database.postgresql",
+   "pair": null,
+   "repos": [
+    {
+     "name": "schema-seed",
+     "readme": "# schema-seed\n\nSeeds a development database with fake but realistic data.\n\n## Prerequisites\n\nA local PostgreSQL server and the psql client.\n\n## Usage\n\n```\ncreatedb devdb\npsql devdb -f schema.sql\nschema-seed --dsn postgres://localhost/devdb --rows 10000\n```",
+     "languages": {
+      "Rust": 15000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "database.postgresql": "use",
+    "language.sql": "use"
+   },
+   "used": [
+    "database.postgresql",
+    "language.sql",
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.rust"
+   ],
+   "occurrences": [
+    {
+     "repo": "schema-seed",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A local PostgreSQL server and the psql client."
+    },
+    {
+     "repo": "schema-seed",
+     "word": "psql",
+     "concept": "database.postgresql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A local PostgreSQL server and the psql client."
+    },
+    {
+     "repo": "schema-seed",
+     "word": "psql",
+     "concept": "database.postgresql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "psql devdb -f schema.sql"
+    },
+    {
+     "repo": "schema-seed",
+     "word": "sql",
+     "concept": "language.sql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "psql devdb -f schema.sql"
+    },
+    {
+     "repo": "schema-seed",
+     "word": "postgres",
+     "concept": "database.postgresql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "schema-seed --dsn postgres://localhost/devdb --rows 10000"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Prerequisites and the fenced usage block show the tool requires PostgreSQL and loads this repository's SQL schema."
+  },
+  {
+   "id": "m11g22r5-r5-083",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "language.shell",
+   "pair": null,
+   "repos": [
+    {
+     "name": "backup-rotator",
+     "readme": "# backup-rotator\n\nRotates nightly database dumps and keeps a configurable number of copies.\n\n## Requirements\n\n- Bash 4 or newer\n- `gzip` and `find`\n\n## Installation\n\nCopy `rotate.sh` to `/usr/local/bin` and make it executable.\n\n## Configuration\n\nEdit the variables at the top of the script:\n\n- `KEEP_DAYS` - how many daily dumps to keep\n- `DUMP_DIR` - where dumps are written\n\n## Scheduling\n\nAdd a cron entry such as `0 3 * * * /usr/local/bin/rotate.sh`.\n\n## Alternatives\n\nlogrotate can do something similar, and a friend's Python version lives in another repository.\n\n## License\n\nMIT",
+     "languages": {
+      "Shell": 3500
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.shell": "use",
+    "language.python": "reference"
+   },
+   "used": [
+    "language.shell"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.shell"
+   ],
+   "occurrences": [
+    {
+     "repo": "backup-rotator",
+     "word": "Bash",
+     "concept": "language.shell",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Bash 4 or newer"
+    },
+    {
+     "repo": "backup-rotator",
+     "word": "Python",
+     "concept": "language.python",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "logrotate can do something similar, and a friend's Python version lives in another repository."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "A long multi-section README whose requirements list Bash for this script; the Python mention is a friend's separate repository."
+  },
+  {
+   "id": "m11g22r5-r5-084",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "infra.kubernetes",
+   "pair": null,
+   "repos": [
+    {
+     "name": "kubectl-podage",
+     "readme": "# kubectl-podage\n\nA kubectl plugin that lists pods sorted by age. It talks to any Kubernetes cluster your kubeconfig points at.\n\n## Install\n\n```\ngo install example.com/kubectl-podage@latest\n```\n\n## Usage\n\n```\nkubectl podage -n default\n```\n\nTested against k8s 1.28 through 1.31.",
+     "languages": {
+      "Go": 8000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "infra.kubernetes": "use"
+   },
+   "used": [
+    "infra.kubernetes",
+    "language.go"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.go"
+   ],
+   "occurrences": [
+    {
+     "repo": "kubectl-podage",
+     "word": "Kubernetes",
+     "concept": "infra.kubernetes",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "It talks to any Kubernetes cluster your kubeconfig points at."
+    },
+    {
+     "repo": "kubectl-podage",
+     "word": "k8s",
+     "concept": "infra.kubernetes",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Tested against k8s 1.28 through 1.31."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The repository is a plugin for Kubernetes that talks to clusters and is tested against Kubernetes versions."
+  },
+  {
+   "id": "m11g22r5-r5-085",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "language.javascript",
+   "pair": null,
+   "repos": [
+    {
+     "name": "undo-stack",
+     "readme": "# undo-stack\n\n## Prior art\n\n- immer (JavaScript) - immutable state with patches\n- a C# command-pattern library from an old blog post\n\n## About undo-stack\n\nundo-stack is a dependency-free JavaScript module for undo/redo history in editors.\n\n```\nimport { UndoStack } from 'undo-stack'\n```",
+     "languages": {
+      "JavaScript": 4000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.javascript": "use",
+    "language.csharp": "reference"
+   },
+   "used": [
+    "language.javascript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.javascript"
+   ],
+   "occurrences": [
+    {
+     "repo": "undo-stack",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- immer (JavaScript) - immutable state with patches"
+    },
+    {
+     "repo": "undo-stack",
+     "word": "C#",
+     "concept": "language.csharp",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- a C# command-pattern library from an old blog post"
+    },
+    {
+     "repo": "undo-stack",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "undo-stack is a dependency-free JavaScript module for undo/redo history in editors."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The Prior art section names other projects; the later About section states this module is JavaScript."
+  },
+  {
+   "id": "m11g22r5-r5-086",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "language.csharp",
+   "pair": null,
+   "repos": [
+    {
+     "name": "inventory-desk",
+     "readme": "# inventory-desk\n\n![build](https://img.example.org/badge/build-passing-green) ![lang](https://img.example.org/badge/lang-dotnet-blue)\n\n| Layer | Technology |\n|-------|------------|\n| UI | WPF |\n| Logic | C# |\n| Storage | SQLite |\n\nA desktop inventory manager for small shops.",
+     "languages": {
+      "C#": 30000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.csharp": "use"
+   },
+   "used": [
+    "language.csharp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.csharp"
+   ],
+   "occurrences": [
+    {
+     "repo": "inventory-desk",
+     "word": "C#",
+     "concept": "language.csharp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "| Logic | C# |"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The project's own stack table lists C# for the logic layer; language stats agree."
+  },
+  {
+   "id": "m11g22r5-r5-087",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "framework.nestjs",
+   "pair": null,
+   "repos": [
+    {
+     "name": "api-guard",
+     "readme": "# api-guard\n\nRequest validation middleware for Fastify, written in TypeScript.\n\nSee also:\n\n- [nest-guard][1], a similar package for NestJS\n- [koa-guard][2]\n\n[1]: https://github.example.org/someone/nest-guard\n[2]: https://github.example.org/someone/koa-guard",
+     "languages": {
+      "TypeScript": 7000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.typescript": "use",
+    "framework.nestjs": "reference"
+   },
+   "used": [
+    "language.typescript"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "api-guard",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Request validation middleware for Fastify, written in TypeScript."
+    },
+    {
+     "repo": "api-guard",
+     "word": "NestJS",
+     "concept": "framework.nestjs",
+     "class": "reference",
+     "attribution_kind": "third_party_project",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- [nest-guard][1], a similar package for NestJS"
+    }
+   ],
+   "expected_target_status": "NOT_SUPPORTED",
+   "expected_effect": {
+    "probe_status": "not_observed",
+    "score": 0
+   },
+   "note": "NestJS appears only in a 'See also' link to someone else's similar package; this one targets Fastify."
+  },
+  {
+   "id": "m11g22r5-r5-088",
+   "split": "fresh",
+   "family": "markdown",
+   "probe": "language.html",
+   "pair": null,
+   "repos": [
+    {
+     "name": "personal-site",
+     "readme": "# personal-site\n\nMy homepage, hand-written in HTML and CSS with no framework.\n\n## Deploy\n\nPushed to GitHub Pages on every commit to main.",
+     "languages": {
+      "HTML": 5000,
+      "CSS": 3000
+     },
+     "files": {}
+    },
+    {
+     "name": "notes-archive",
+     "readme": "# notes-archive\n\nArchived course notes.\n\n## Web Development 101 (summary)\n\n- HTML elements and semantics\n- CSS selectors and specificity\n- JavaScript events\n\nThese are summaries of lecture slides written by the instructor.",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.html": "use",
+    "language.css": "use",
+    "language.javascript": "reference"
+   },
+   "used": [
+    "language.html",
+    "language.css"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.html",
+    "language.css"
+   ],
+   "occurrences": [
+    {
+     "repo": "personal-site",
+     "word": "HTML",
+     "concept": "language.html",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "My homepage, hand-written in HTML and CSS with no framework."
+    },
+    {
+     "repo": "personal-site",
+     "word": "CSS",
+     "concept": "language.css",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "My homepage, hand-written in HTML and CSS with no framework."
+    },
+    {
+     "repo": "notes-archive",
+     "word": "HTML",
+     "concept": "language.html",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- HTML elements and semantics"
+    },
+    {
+     "repo": "notes-archive",
+     "word": "CSS",
+     "concept": "language.css",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- CSS selectors and specificity"
+    },
+    {
+     "repo": "notes-archive",
+     "word": "JavaScript",
+     "concept": "language.javascript",
+     "class": "reference",
+     "attribution_kind": "third_party_docs",
+     "technical_in_context": true,
+     "project_use_indicated": false,
+     "sentence": "- JavaScript events"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "personal-site is hand-written HTML and CSS; the notes-archive repository only summarises an instructor's slides."
+  },
+  {
+   "id": "m11g22r5-r5-089",
+   "split": "fresh",
+   "family": "use",
+   "probe": "framework.fastapi",
+   "pair": null,
+   "repos": [
+    {
+     "name": "geocode-api",
+     "readme": "# geocode-api\n\n**Fast, typed geocoding API powered by FastAPI and Postgres.**\n\n```\nuvicorn geocode.main:app\n```",
+     "languages": {
+      "Python": 11000
+     },
+     "files": {
+      "pyproject.toml": "[project]\nname = \"geocode-api\"\nversion = \"0.3.0\"\ndependencies = [\"fastapi>=0.110\", \"uvicorn>=0.29\", \"psycopg2>=2.9\"]\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.fastapi": "use",
+    "database.postgresql": "use"
+   },
+   "used": [
+    "framework.fastapi",
+    "database.postgresql",
+    "language.python"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.fastapi",
+    "database.postgresql",
+    "language.python"
+   ],
+   "occurrences": [
+    {
+     "repo": "geocode-api",
+     "word": "FastAPI",
+     "concept": "framework.fastapi",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "**Fast, typed geocoding API powered by FastAPI and Postgres.**"
+    },
+    {
+     "repo": "geocode-api",
+     "word": "Postgres",
+     "concept": "database.postgresql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "**Fast, typed geocoding API powered by FastAPI and Postgres.**"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The tagline says the API is powered by FastAPI and Postgres; pyproject.toml lists fastapi and psycopg2."
+  },
+  {
+   "id": "m11g22r5-r5-090",
+   "split": "fresh",
+   "family": "use",
+   "probe": "orm.prisma",
+   "pair": null,
+   "repos": [
+    {
+     "name": "clinic-booking",
+     "readme": "# clinic-booking\n\nAppointment booking for small clinics.\n\n## Tech stack\n\n- NestJS (TypeScript) REST API\n- Prisma ORM with PostgreSQL\n- Redis for session storage\n- Docker Compose for local development\n\n## Getting started\n\n```\ndocker compose up -d\nnpx prisma migrate dev\nnpm run start:dev\n```",
+     "languages": {
+      "TypeScript": 52000
+     },
+     "files": {
+      "package.json": "{\n  \"name\": \"clinic-booking\",\n  \"dependencies\": {\n    \"@nestjs/core\": \"^10.3.8\",\n    \"@nestjs/common\": \"^10.3.8\",\n    \"@prisma/client\": \"^5.14.0\",\n    \"redis\": \"^4.6.13\"\n  },\n  \"devDependencies\": {\n    \"prisma\": \"^5.14.0\",\n    \"typescript\": \"^5.4.5\"\n  }\n}\n",
+      "docker-compose.yml": "services:\n  db:\n    image: postgres:16\n  cache:\n    image: redis:7\n"
+     }
+    }
+   ],
+   "concepts": {
+    "framework.nestjs": "use",
+    "language.typescript": "use",
+    "orm.prisma": "use",
+    "database.postgresql": "use",
+    "database.redis": "use",
+    "infra.docker": "use"
+   },
+   "used": [
+    "framework.nestjs",
+    "language.typescript",
+    "orm.prisma",
+    "database.postgresql",
+    "database.redis",
+    "infra.docker"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "framework.nestjs",
+    "orm.prisma",
+    "database.redis",
+    "infra.docker",
+    "language.typescript"
+   ],
+   "occurrences": [
+    {
+     "repo": "clinic-booking",
+     "word": "NestJS",
+     "concept": "framework.nestjs",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- NestJS (TypeScript) REST API"
+    },
+    {
+     "repo": "clinic-booking",
+     "word": "TypeScript",
+     "concept": "language.typescript",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- NestJS (TypeScript) REST API"
+    },
+    {
+     "repo": "clinic-booking",
+     "word": "Prisma",
+     "concept": "orm.prisma",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Prisma ORM with PostgreSQL"
+    },
+    {
+     "repo": "clinic-booking",
+     "word": "PostgreSQL",
+     "concept": "database.postgresql",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Prisma ORM with PostgreSQL"
+    },
+    {
+     "repo": "clinic-booking",
+     "word": "Redis",
+     "concept": "database.redis",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Redis for session storage"
+    },
+    {
+     "repo": "clinic-booking",
+     "word": "Docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "- Docker Compose for local development"
+    },
+    {
+     "repo": "clinic-booking",
+     "word": "docker",
+     "concept": "infra.docker",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "docker compose up -d"
+    },
+    {
+     "repo": "clinic-booking",
+     "word": "prisma",
+     "concept": "orm.prisma",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "npx prisma migrate dev"
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The stack list and setup commands describe this project's own use of Prisma; package.json lists prisma and @prisma/client."
+  },
+  {
+   "id": "m11g22r5-r5-091",
+   "split": "fresh",
+   "family": "use",
+   "probe": "language.rust",
+   "pair": null,
+   "repos": [
+    {
+     "name": "wavecut",
+     "readme": "# wavecut\n\nCut silence out of audio recordings.\n\n## Building from source\n\nYou need a recent Rust toolchain (install it with rustup).\n\n```\ncargo install --path .\n```",
+     "languages": {
+      "Rust": 9500
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.rust": "use"
+   },
+   "used": [
+    "language.rust"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.rust"
+   ],
+   "occurrences": [
+    {
+     "repo": "wavecut",
+     "word": "Rust",
+     "concept": "language.rust",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "You need a recent Rust toolchain (install it with rustup)."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Building the project requires the Rust toolchain; language stats agree."
+  },
+  {
+   "id": "m11g22r5-r5-092",
+   "split": "fresh",
+   "family": "use",
+   "probe": "platform.cuda",
+   "pair": null,
+   "repos": [
+    {
+     "name": "fastconv",
+     "readme": "# fastconv\n\nHand-tuned CUDA kernels for depthwise convolutions, with a small C++ host library.\n\nAn NVIDIA GPU and the CUDA toolkit 12.x are required to build and run the tests.",
+     "languages": {
+      "C++": 8000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "platform.cuda": "use",
+    "language.cpp": "use"
+   },
+   "used": [
+    "platform.cuda",
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp"
+   ],
+   "occurrences": [
+    {
+     "repo": "fastconv",
+     "word": "CUDA",
+     "concept": "platform.cuda",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Hand-tuned CUDA kernels for depthwise convolutions, with a small C++ host library."
+    },
+    {
+     "repo": "fastconv",
+     "word": "C++",
+     "concept": "language.cpp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Hand-tuned CUDA kernels for depthwise convolutions, with a small C++ host library."
+    },
+    {
+     "repo": "fastconv",
+     "word": "CUDA",
+     "concept": "platform.cuda",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "An NVIDIA GPU and the CUDA toolkit 12.x are required to build and run the tests."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The repository ships CUDA kernels and requires the CUDA toolkit to build."
+  },
+  {
+   "id": "m11g22r5-r5-093",
+   "split": "fresh",
+   "family": "use",
+   "probe": "hdl.verilog",
+   "pair": null,
+   "repos": [
+    {
+     "name": "uart-core",
+     "readme": "# uart-core\n\nA synthesizable UART transmitter and receiver in Verilog, with testbenches for Icarus Verilog.\n\n## Simulate\n\n```\nmake sim\n```",
+     "languages": {},
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "hdl.verilog": "use"
+   },
+   "used": [
+    "hdl.verilog"
+   ],
+   "uncertain": [],
+   "corroborated": [],
+   "occurrences": [
+    {
+     "repo": "uart-core",
+     "word": "Verilog",
+     "concept": "hdl.verilog",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A synthesizable UART transmitter and receiver in Verilog, with testbenches for Icarus Verilog."
+    },
+    {
+     "repo": "uart-core",
+     "word": "Verilog",
+     "concept": "hdl.verilog",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "A synthesizable UART transmitter and receiver in Verilog, with testbenches for Icarus Verilog."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The UART core is written in Verilog and its testbenches target a Verilog simulator."
+  },
+  {
+   "id": "m11g22r5-r5-094",
+   "split": "fresh",
+   "family": "use",
+   "probe": "embedded.rtos.freertos",
+   "pair": "p-freertos",
+   "repos": [
+    {
+     "name": "sensor-node-fw",
+     "readme": "# sensor-node-fw\n\nFirmware for an STM32 environmental sensor node, built on FreeRTOS.\n\nEach sensor runs in its own FreeRTOS task; readings are sent over LoRa every 60 seconds.\n\n## Build\n\n```\nmake flash\n```",
+     "languages": {
+      "C": 31000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "embedded.rtos.freertos": "use"
+   },
+   "used": [
+    "embedded.rtos.freertos",
+    "language.c"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.c"
+   ],
+   "occurrences": [
+    {
+     "repo": "sensor-node-fw",
+     "word": "FreeRTOS",
+     "concept": "embedded.rtos.freertos",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Firmware for an STM32 environmental sensor node, built on FreeRTOS."
+    },
+    {
+     "repo": "sensor-node-fw",
+     "word": "FreeRTOS",
+     "concept": "embedded.rtos.freertos",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Each sensor runs in its own FreeRTOS task; readings are sent over LoRa every 60 seconds."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The firmware is built on FreeRTOS and runs each sensor as a FreeRTOS task."
+  },
+  {
+   "id": "m11g22r5-r5-095",
+   "split": "fresh",
+   "family": "use",
+   "probe": "language.csharp",
+   "pair": "p-future-csharp",
+   "repos": [
+    {
+     "name": "fastnoise-c",
+     "readme": "# fastnoise-c\n\nCoherent noise generation (Perlin, simplex, cellular) in portable C.\n\n## Language bindings\n\nOfficial C# bindings for Unity users live in the `bindings/csharp` folder of this repository and are built by CI.",
+     "languages": {
+      "C": 19000,
+      "C#": 4000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "language.csharp": "use"
+   },
+   "used": [
+    "language.csharp",
+    "language.c"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.c",
+    "language.csharp"
+   ],
+   "occurrences": [
+    {
+     "repo": "fastnoise-c",
+     "word": "C#",
+     "concept": "language.csharp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Official C# bindings for Unity users live in the `bindings/csharp` folder of this repository and are built by CI."
+    },
+    {
+     "repo": "fastnoise-c",
+     "word": "csharp",
+     "concept": "language.csharp",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "Official C# bindings for Unity users live in the `bindings/csharp` folder of this repository and are built by CI."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "The C# bindings live in this repository and are built by CI; C# is over 5% of bytes."
+  },
+  {
+   "id": "m11g22r5-r5-096",
+   "split": "fresh",
+   "family": "use",
+   "probe": "toolchain.llvm",
+   "pair": "p-llvm",
+   "repos": [
+    {
+     "name": "pebble-cc",
+     "readme": "# pebble-cc\n\nA teaching compiler for a tiny C subset. The front end is hand-written; code generation goes through LLVM, so you need LLVM 17 development libraries installed to build it.\n\n## Build\n\n```\ncmake -B build\ncmake --build build\n```",
+     "languages": {
+      "C++": 14000
+     },
+     "files": {}
+    }
+   ],
+   "concepts": {
+    "toolchain.llvm": "use"
+   },
+   "used": [
+    "toolchain.llvm",
+    "language.cpp"
+   ],
+   "uncertain": [],
+   "corroborated": [
+    "language.cpp"
+   ],
+   "occurrences": [
+    {
+     "repo": "pebble-cc",
+     "word": "LLVM",
+     "concept": "toolchain.llvm",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The front end is hand-written; code generation goes through LLVM, so you need LLVM 17 development libraries installed to build it."
+    },
+    {
+     "repo": "pebble-cc",
+     "word": "LLVM",
+     "concept": "toolchain.llvm",
+     "class": "use",
+     "attribution_kind": "this_project",
+     "technical_in_context": true,
+     "project_use_indicated": true,
+     "sentence": "The front end is hand-written; code generation goes through LLVM, so you need LLVM 17 development libraries installed to build it."
+    }
+   ],
+   "expected_target_status": "SUPPORTED",
+   "expected_effect": {
+    "probe_status": "supported",
+    "score": 100
+   },
+   "note": "Code generation goes through LLVM and the LLVM libraries are required to build."
+  }
+ ]
+}

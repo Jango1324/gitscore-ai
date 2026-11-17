@@ -1,0 +1,21 @@
+{
+  "author": "separate Claude subagent instance (same model family as the policy author; NOT human-independent)",
+  "author_saw_previous_examples": false,
+  "author_inputs": "classification task, declared evidence-validity policy, registry vocabulary with matching semantics, artifact rules, output schema, coverage targets; NO G22-R/R2/R3/R4/R5 rules, code, tests, control sets or results",
+  "author_reply_restriction": "file paths and case counts only; no case content",
+  "raw_author_files_sha256": {
+    "fresh_part1.json": "56831670d773554e3fbb6e479975de454abc2aeacf8d13a84c503bb473a52740",
+    "fresh_part2.json": "c217abee624b9ed953bb6d3b2683916801175573b8020d01a6434a859e309905",
+    "fresh_part3.json": "cb5ae02366ff9bfedaadf19b02a678aac3e881c3fb905b71f36ed0ffeb58ee39"
+  },
+  "policy_design_frozen_at_utc": "2026-11-16T21:26:14Z",
+  "fresh_converted_and_frozen_at_utc": "2026-11-16T21:31:42Z",
+  "pre_freeze_checks": {
+    "counts": {
+      "cases": 96,
+      "labels_without_mention": 0,
+      "unlabelled_mentions": 0
+    },
+    "issues": []
+  }
+}

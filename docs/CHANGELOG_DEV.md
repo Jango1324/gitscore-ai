@@ -1,5 +1,72 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-16 — Milestone 11-G22-R5: attribution-aware README evidence research (research only; readme:v5 NOT implemented)
+
+**What changed:** Research and evaluation only, accepted and committed as a research-only commit ("test: evaluate
+README attribution guard limitations") after authorization. D_S's G8 failure is final, and D_S is not approved for
+production. Production is unchanged.
+
+- **Unchanged:** `src/`, `frontend/` and registry data; parser v15, scoring v2, matcher v1, `readme:v4`, registry 4.
+- **Attribution-only candidates:** offline adapters A → B → C → D → D_S, built from G22-R4's attribution rules reused
+  verbatim (hash-pinned). No homonym lexicon and no negation. They apply to every README-safe alias.
+  - A: third-party projects, documentation and references;
+  - B: + historical;
+  - C: + future;
+  - D: + Markdown quote and section attribution;
+  - D_S: + a setext- and fence-aware heading index for the 8D.3 denylist.
+- **Comparison variants:** D_ambiguous_only, and O (overlap-aware fall-through, a non-attribution finding).
+- **New data:**
+  - 51 policy-author DEV controls covering the ten multi-occurrence scenarios and Markdown structure;
+  - a fresh 96-control set from a separately instructed Claude subagent: Write-only, never shown earlier controls or
+    rules, reply limited to paths and counts. It was frozen after the design freeze and is not human-independent.
+- **Freezes:** G14-compatible records for DEV, fresh and the policy design. The DEV and fresh control sets are
+  registered in the canonical manifest at the research commit with their original freeze-time hashes (25 → 27; the
+  previous 25 unchanged field for field). The policy-design freeze is provenance, not a registered control set.
+- **The public report holds no manifest state,** so later registrations cannot change it. It reproduced byte for
+  byte after registration.
+
+**Why:** test whether a narrow project-attribution guard, separated from the failed R4 homonym rules, cuts false
+README evidence while keeping genuine use.
+
+**Result (fresh set, run once):**
+
+| | Attribution false SUPPORTED | Overall false SUPPORTED |
+|---|---|---|
+| `readme:v4` | 49 | 52 |
+| **D_S (frozen)** | **39 (−20%)** | **42** |
+
+- **Recall preserved:** use 95/95, true SUPPORTED 42/42, corroborated 33/33.
+- **Safety gates passed:** no new false SUPPORTED, no non-README change, G19 capability and job parsing identical.
+- **Frozen gate G8 (≥ 50% attribution reduction) FAILED;** the failure is preserved.
+- **Occurrence level:** 0 of 139 genuine-use occurrences rejected, but only 25 of 119 invalid attribution occurrences
+  caught. The misses are document-level lists and notes repositories, plus open-ended historical and future phrasing.
+- **Simulated 8c:** torvalds/systems_cpp_01 67 → 33. libgit2 Python is kept via its test-framework mention, and
+  Gifski Rust is kept. Production is still 67.
+- **Production defects found (not fixed):**
+  - setext headings do not end a non-implementation section, so genuine evidence is discarded;
+  - 8D.1 overlap resolution drops "React" when its first occurrence sits inside "React Native".
+
+**Files:**
+
+- `docs/evaluation/MILESTONE_11_G22R5_ATTRIBUTION_AWARE_README.md`
+- `evaluation/m11g22r5/*` (8 files)
+- `scripts/evaluate_m11g22r5_attribution_readme.py`
+- `scripts/evaluation_lib/m11g22r5_{policies,build_dev_controls,build_fresh_controls,pytest_policy}.py`
+- `tests/test_m11g22r5_attribution_readme.py`
+- `evaluation/integrity/canonical_hash_manifest.json` (+2 entries)
+
+**Risks / limitations:**
+
+- The fresh author is the same model family.
+- Two AI-authored fresh sets show that closed-list frames do not generalise (−37.5%, −20%).
+- Level-aware section inheritance and document-level genre are not addressed.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22r5_attribution_readme.py`
+- `python scripts/evaluate_m11g22r5_attribution_readme.py --fresh --private-corpora` (deterministic; refuses to run if
+  a frozen policy file changed)
+
 ## 2026-11-15 — Milestone 11-G22-R4: high-recall (inverse) README evidence guard research (research only; readme:v5 NOT implemented)
 
 **What changed:** Research and evaluation only, accepted and committed as a research-only commit ("test: evaluate

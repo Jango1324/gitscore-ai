@@ -1,0 +1,9 @@
+{
+  "frozen_file": "evaluation/m11g22r5/dev_controls.json",
+  "sha256": "c415966a0112ed2324c7285805594eafa41d73fc7bc9699fcaa74f80fb3a9718",
+  "sha256_lf_normalized": "c415966a0112ed2324c7285805594eafa41d73fc7bc9699fcaa74f80fb3a9718",
+  "length_bytes": 26812,
+  "canonical_contract": "crlf-to-lf/v1",
+  "frozen_at_utc": "2026-11-16T21:18:36Z",
+  "note": "Policy-author DEV controls, frozen BEFORE any R5 candidate ran on them. DEV only. NOT registered in the canonical manifest (pending authorization)."
+}
