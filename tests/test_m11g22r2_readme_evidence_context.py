@@ -28,9 +28,22 @@ import m11g22r2_posthoc as ph  # noqa: E402
 from gitscore.assessment import SCORING_VERSION  # noqa: E402
 from gitscore.concepts.registry import CONCEPT_REGISTRY_VERSION  # noqa: E402
 from gitscore.evidence.extraction import readme as readme_mod  # noqa: E402
-from gitscore.evidence.extraction.readme import EXTRACTOR_VERSION  # noqa: E402
+from gitscore.evidence.extraction.readme import EXTRACTOR_VERSION as _PRODUCTION_EXTRACTOR_VERSION  # noqa: E402
 from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION  # noqa: E402
 from gitscore.matching import MATCHER_VERSION  # noqa: E402
+import readme_v4_pin  # noqa: E402
+
+# Milestone 11-G22-S1: production README extraction is readme:v5 (setext heading boundaries only). This research
+# measured readme:v4, which `readme_v4_pin` reproduces exactly; EXTRACTOR_VERSION here is therefore the MEASURED
+# version, and every test in this module runs pinned to it (autouse fixture below). Production's own version is pinned
+# in tests/test_m11g22s1_setext_heading_boundaries.py.
+EXTRACTOR_VERSION = readme_v4_pin.EXTRACTOR_VERSION if readme_v4_pin.reproduces_v4() else _PRODUCTION_EXTRACTOR_VERSION
+
+
+@pytest.fixture(autouse=True)
+def _pinned_readme_v4():
+    with readme_v4_pin.pinned():
+        yield
 
 DATA = ROOT / "evaluation" / "m11g22r2"
 LIVE = (JOB_DESCRIPTION_PARSER_VERSION, EXTRACTOR_VERSION, MATCHER_VERSION, SCORING_VERSION) == (

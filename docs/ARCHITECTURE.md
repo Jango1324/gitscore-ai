@@ -3834,9 +3834,16 @@ effect of fixing a false positive, not a regression.
   pattern even outside any excluded section. Not fixed here -- it is a
   different root cause (alias-vs-proper-noun collision, not
   attribution-context), left for a future milestone.
-- Heading detection only recognizes ATX (`# heading`) markdown syntax,
-  not Setext (`heading\n===`) -- not observed in any real fixture
-  README during this milestone, but a theoretical gap.
+- ~~Heading detection only recognizes ATX (`# heading`) markdown syntax,
+  not Setext (`heading\n===`).~~ **Resolved in Milestone 11-G22-S1
+  (`readme:v5`).** `readme_context._heading_spans()` now indexes setext
+  headings (a paragraph underlined with `=` or `-`, CommonMark rules:
+  not after a blank line, list item or blockquote; never inside fenced
+  code) as well as ATX ones. A setext heading therefore ends a preceding
+  denylisted section (whose genuine evidence v4 discarded) and a setext
+  denylisted section is recognised. Section semantics, the denylist and
+  the adjacency cues are unchanged; `readme:v5` is this structural fix
+  ONLY. See `docs/evaluation/MILESTONE_11_G22S1_SETEXT_HEADING_BOUNDARIES.md`.
 - **Ordinary-English ambiguous aliases (open; Milestones 11-G22-R / R2 /
   R3).** `readme:v4` turns ordinary English ("react quickly", "free of
   rust", "express trains"), references, history, plans and negations
@@ -3845,14 +3852,18 @@ effect of fixing a false positive, not a regression.
   one such item is enough for SUPPORTED. G22-R3 validated a per-alias
   context guard on fresh, separately authored sets. It removes nearly all
   ordinary-English false SUPPORTED, but loses 22-28% of genuine README
-  use claims, so it failed its pre-declared recall criteria and
-  `readme:v5` was NOT implemented. Production is unchanged; see
+  use claims, so it failed its pre-declared recall criteria and the
+  guard was NOT implemented; see
   `docs/evaluation/MILESTONE_11_G22R3_README_CONTEXT_GUARD.md`.
   G22-R4 then tested the inverse design (default-accept, reject only on
   a bounded local signal). It kept 100% of genuine README use on a fresh
   held-out set but cut false SUPPORTED by only 43%, missing its frozen
-  50% gate, so `readme:v5` is still not implemented; see
-  `docs/evaluation/MILESTONE_11_G22R4_HIGH_RECALL_README_GUARD.md`.
+  50% gate, so it was not implemented either; see
+  `docs/evaluation/MILESTONE_11_G22R4_HIGH_RECALL_README_GUARD.md` (and
+  G22-R5's attribution-only guard,
+  `docs/evaluation/MILESTONE_11_G22R5_ATTRIBUTION_AWARE_README.md`). The
+  label `readme:v5` was later used for the G22-S1 setext heading fix
+  only; none of these guards is in production.
 
 See `docs/evaluation/MILESTONE_8D3_EVIDENCE_ATTRIBUTION.md` for the full
 before/after detail, provenance trace, and positive/negative control

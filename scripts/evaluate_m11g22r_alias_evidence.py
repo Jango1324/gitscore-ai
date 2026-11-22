@@ -36,7 +36,8 @@ from evaluation_lib.loaders import list_candidate_names, load_candidate_fixture,
 from gitscore.assessment import SCORING_VERSION, assess_job  # noqa: E402
 from gitscore.concepts.registry import default_registry  # noqa: E402
 from gitscore.evidence.capability import concept_capability  # noqa: E402
-from gitscore.evidence.extraction.readme import EXTRACTOR_VERSION as README_EXTRACTOR_VERSION  # noqa: E402
+import readme_v4_pin  # noqa: E402
+from readme_v4_pin import EXTRACTOR_VERSION as README_EXTRACTOR_VERSION  # noqa: E402  (measured: readme:v4)
 from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION, parse_job_description_with_diagnostics  # noqa: E402
 from gitscore.matching import MATCHER_VERSION, match_job  # noqa: E402
 
@@ -304,7 +305,7 @@ def build_report(run_tests: bool = True) -> dict:
     }
 
 
-def main() -> None:
+def _main() -> None:
     if JOB_DESCRIPTION_PARSER_VERSION != "job_description_parser:v15" or SCORING_VERSION != "github_evidence_alignment:v2":
         raise SystemExit("G22-R describes parser v15 / scoring v2")
     report = build_report(run_tests="--skip-test-runs" not in sys.argv)
@@ -337,6 +338,13 @@ def main() -> None:
         (OUT / "private_alias_aggregates.json").write_bytes((json.dumps(agg, indent=1) + "\n").encode("utf-8"))
         for label in ("G22_A", "G22_B"):
             print("[private]", label, {k: v["postings_changed"] for k, v in agg[label].items()})
+
+
+def main() -> None:
+    # Milestone 11-G22-S1: production README extraction is readme:v5 (setext heading boundaries only). This research
+    # measured readme:v4; it is reproduced exactly by running pinned to readme:v4 (scripts/evaluation_lib/readme_v4_pin.py).
+    with readme_v4_pin.pinned():
+        _main()
 
 
 if __name__ == "__main__":

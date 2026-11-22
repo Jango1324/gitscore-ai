@@ -168,11 +168,13 @@ def _code_fence_spans(text: str) -> list[tuple[int, int]]:
     return [(fence_starts[i], fence_starts[i + 1]) for i in range(0, len(fence_starts) - 1, 2)]
 
 
-def _heading_spans(text: str) -> list[tuple[int, str]]:
+def _atx_heading_spans(text: str) -> list[tuple[int, str]]:
     """`(offset, normalized_heading_text)` for every ATX heading in
     `text`, in document order, excluding any heading-shaped line that
     falls inside a fenced code block (e.g. a shell comment like
     `# do this` inside a ```bash block is not a markdown heading).
+
+    This is exactly the `readme:v4` heading index (unchanged in v5).
     """
     fence_spans = _code_fence_spans(text)
 
@@ -184,6 +186,77 @@ def _heading_spans(text: str) -> list[tuple[int, str]]:
         for match in _HEADING_LINE.finditer(text)
         if not _in_fence(match.start())
     ]
+
+
+# Milestone 11-G22-S1 -- setext headings (CommonMark): a paragraph of one or
+# more non-blank text lines immediately followed by an underline of `=`
+# (level 1) or `-` (level 2) characters, indented at most three spaces,
+# with only trailing whitespace after it.
+_SETEXT_UNDERLINE = re.compile(r"^ {0,3}(?:=+|-+)[ \t]*$")
+# Lines that start a block which is NOT a plain paragraph. A `---` line under
+# such a block (a list item, a blockquote, a lazy continuation of either) is
+# a thematic break, never an underline; `===` there is ordinary text.
+_NON_PARAGRAPH_START = re.compile(r"^ {0,3}(?:[-+*](?:[ \t]|$)|\d{1,9}[.)](?:[ \t]|$)|>|<|~~~)")
+_ATX_START = re.compile(r"^ {0,3}#{1,6}(?:[ \t]|$)")
+_THEMATIC_BREAK = re.compile(r"^ {0,3}(?:(?:-[ \t]*){3,}|(?:\*[ \t]*){3,}|(?:_[ \t]*){3,})$")
+
+
+def _setext_heading_spans(text: str) -> list[tuple[int, str]]:
+    """`(offset, normalized_heading_text)` for every setext heading, in
+    document order. `offset` is the start of the heading's first text line;
+    multi-line heading text is joined with single spaces. Lines inside a
+    fenced code block (the same fence spans `_atx_heading_spans` uses) are
+    never heading text or underlines. Original text is never modified:
+    line endings (LF or CRLF) are only stripped for matching.
+    """
+    fence_spans = _code_fence_spans(text)
+    headings: list[tuple[int, str]] = []
+    para_start: int | None = None  # offset of the open paragraph's first line
+    para_lines: list[str] = []
+    para_can_be_heading = False
+    offset = 0
+    for raw_line in text.split("\n"):
+        line = raw_line[:-1] if raw_line.endswith("\r") else raw_line
+        line_start, offset = offset, offset + len(raw_line) + 1
+        if any(start <= line_start < end for start, end in fence_spans) or line.lstrip().startswith("```"):
+            para_start, para_lines, para_can_be_heading = None, [], False
+            continue
+        if not line.strip():
+            para_start, para_lines, para_can_be_heading = None, [], False
+            continue
+        if para_start is not None and _SETEXT_UNDERLINE.match(line):
+            if para_can_be_heading:
+                headings.append((para_start, _normalize_heading(" ".join(s.strip() for s in para_lines))))
+            para_start, para_lines, para_can_be_heading = None, [], False
+            continue
+        if _ATX_START.match(line) or _THEMATIC_BREAK.match(line):
+            para_start, para_lines, para_can_be_heading = None, [], False
+            continue
+        if _NON_PARAGRAPH_START.match(line):
+            # a list item / blockquote / HTML or ~~~ block; its lazy
+            # continuation lines can never become setext heading text
+            para_start, para_lines, para_can_be_heading = line_start, [line], False
+            continue
+        if para_start is None:
+            if len(line) - len(line.lstrip(" ")) >= 4:
+                continue  # indented code block, not a paragraph
+            para_start, para_lines, para_can_be_heading = line_start, [line], True
+        else:
+            para_lines.append(line)
+    return headings
+
+
+def _heading_spans(text: str) -> list[tuple[int, str]]:
+    """Every ATX and setext heading, in document order (readme:v5).
+
+    Milestone 11-G22-S1: readme:v4 indexed ATX headings only, so a setext
+    heading (`Development` / `-----------`) never ended a preceding
+    denylisted section -- its genuine evidence was discarded -- and a setext
+    `Related projects` section was never recognised. Section semantics are
+    unchanged: a section still runs from its heading to the next heading of
+    any level.
+    """
+    return sorted(_atx_heading_spans(text) + _setext_heading_spans(text))
 
 
 class ReadmeContext:

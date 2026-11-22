@@ -31,7 +31,9 @@ import m11g22r3_policies as p3  # noqa: E402
 from gitscore.assessment import SCORING_VERSION  # noqa: E402
 from gitscore.concepts.registry import CONCEPT_REGISTRY_VERSION, default_registry  # noqa: E402
 from gitscore.evidence.capability import concept_capability  # noqa: E402
-from gitscore.evidence.extraction.readme import EXTRACTOR_VERSION, evidence_from_readme  # noqa: E402
+import readme_v4_pin  # noqa: E402
+from gitscore.evidence.extraction.readme import evidence_from_readme  # noqa: E402
+from readme_v4_pin import EXTRACTOR_VERSION  # noqa: E402  (measured: readme:v4)
 from gitscore.jobs.parsing.parser import JOB_DESCRIPTION_PARSER_VERSION  # noqa: E402
 from gitscore.matching import MATCHER_VERSION  # noqa: E402
 
@@ -241,7 +243,7 @@ def build_private() -> dict:
         return r2.build_private()
 
 
-def main() -> None:
+def _main() -> None:
     if (JOB_DESCRIPTION_PARSER_VERSION, SCORING_VERSION, EXTRACTOR_VERSION, MATCHER_VERSION) != \
             ("job_description_parser:v15", "github_evidence_alignment:v2", "readme:v4", "requirement_matcher:v1"):
         raise SystemExit("G22-R3 describes parser v15 / scoring v2 / readme:v4 / matcher v1")
@@ -260,6 +262,13 @@ def main() -> None:
         agg = build_private()
         (OUT / "private_readme_guard_aggregates.json").write_bytes((json.dumps(agg, indent=1) + "\n").encode("utf-8"))
         print("[private]", {k: {kk: vv["postings_changed"] for kk, vv in v.items()} for k, v in agg.items() if k != "note"})
+
+
+def main() -> None:
+    # Milestone 11-G22-S1: production README extraction is readme:v5 (setext heading boundaries only). This research
+    # measured readme:v4; it is reproduced exactly by running pinned to readme:v4 (scripts/evaluation_lib/readme_v4_pin.py).
+    with readme_v4_pin.pinned():
+        _main()
 
 
 if __name__ == "__main__":

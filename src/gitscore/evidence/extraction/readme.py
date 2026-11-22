@@ -55,6 +55,17 @@ every occurrence of one alias is excluded, to the concept's next alias
 -- "no safe evidence found yet" no longer means "give up on this
 concept entirely." `EXTRACTOR_VERSION` bumped 3 -> 4 for this behavior
 change.
+
+Milestone 11-G22-S1 -- `readme:v5` = the setext heading boundary
+correction ONLY. `readme_context`'s heading index now recognises setext
+headings (`Development` / `-----------`) as well as ATX ones, so a setext
+heading ends a preceding denylisted section (whose genuine evidence v4
+discarded) and a setext denylisted section (`Related projects` /
+`================`) is recognised. Nothing else changed: same denylist,
+same adjacency cues, same aliases, same fall-through and deduplication.
+`readme:v5` does NOT implement any of the README guard policies researched
+and rejected in Milestones 11-G22-R..R5 (D, R3, P4, D_S). `EXTRACTOR_VERSION`
+bumped 4 -> 5 for this behavior change.
 """
 from __future__ import annotations
 
@@ -66,7 +77,7 @@ from gitscore.evidence.extraction.readme_context import build_context, is_non_im
 from gitscore.evidence.models import Evidence, RepositoryIdentity
 from gitscore.evidence.types import ConfidenceLevel, EvidenceType
 
-EXTRACTOR_VERSION = "readme:v4"
+EXTRACTOR_VERSION = "readme:v5"
 
 # How much surrounding text to keep on each side of a match, so the
 # stored observation is a short, inspectable snippet -- never the whole

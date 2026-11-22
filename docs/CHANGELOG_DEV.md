@@ -1,5 +1,70 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-22 — Milestone 11-G22-S1: setext heading section boundaries (readme:v4 → readme:v5)
+
+**What changed:**
+
+- **`readme_context._heading_spans()`** now indexes setext headings (a paragraph underlined with `=` or `-`, per
+  CommonMark) as well as ATX headings. The v4 ATX index is kept verbatim as `_atx_heading_spans()`.
+- **`readme.py`:** `EXTRACTOR_VERSION` is now `readme:v5`.
+- **Scope of `readme:v5`:** the setext boundary correction **only**. None of the rejected G22-R..R5 guard policies is
+  implemented.
+- **Unchanged:** parser v15, scoring v2, matcher v1, registry 4, the other extractors, API and frontend.
+
+**Why:** with an ATX-only index, a setext heading never ended a preceding denylisted section. Genuine evidence
+after it was discarded ("## Related projects" … "Development\n-----" … "uses Python"), and setext denylisted sections
+went unrecognised.
+
+**How it works:**
+
+- A line scan finds paragraph-plus-underline pairs.
+- It rejects thematic breaks and dashes after list items or blockquotes, blank-separated or four-space-indented
+  underlines, and anything inside existing fence spans.
+- Original text is never modified; CRLF is handled.
+- Both heading lists are merged in document order, with the "nearest preceding heading" rule unchanged.
+
+**Effect** (real pipeline, v4 vs v5):
+
+- **Frozen 8c:** 0 changes (evidence, provenance, status, scores; torvalds/systems_cpp_01 stays 67).
+- **G22 control sets:** changes only on setext controls: G22-R5 DEV 1 recovered (missed → true SUPPORTED), 1
+  excluded (false SUPPORTED → not supported) and 1 provenance move; G22-R5 fresh 1 provenance move. No genuine
+  evidence lost.
+- **G19 capability:** identical.
+
+**Historical compatibility:**
+
+- `scripts/evaluation_lib/readme_v4_pin.py` reproduces `readme:v4` exactly. This was verified against a checkout of
+  the previous HEAD.
+- The G22-R..R5 research tests run pinned, with historical assertions intact and no new skips.
+- Their runners run pinned.
+- The G22-R, R2, R3 and R5 reports and all private aggregates reproduce byte for byte. G22-R4's report differs only
+  in its manifest-count field (25 → 27, from the R5 registration).
+
+**Files:**
+
+- `src/gitscore/evidence/extraction/{readme_context,readme}.py`
+- `tests/test_m11g22s1_setext_heading_boundaries.py` (new)
+- `tests/test_evidence_extraction_readme.py` (version pin)
+- the five G22 research test modules (explicit v4 pin)
+- `scripts/evaluation_lib/readme_v4_pin.py`, `scripts/evaluate_m11g22s1_setext_boundaries.py`,
+  `evaluation/m11g22s1/setext_boundary_comparison.json`
+- the five G22 runners (pinned `main`)
+- `docs/evaluation/MILESTONE_11_G22S1_SETEXT_HEADING_BOUNDARIES.md`, `docs/ARCHITECTURE.md`, `docs/PIPELINE.md`
+
+**Risks / limitations:**
+
+- No level-aware section inheritance.
+- YAML front matter follows plain CommonMark.
+- Fence detection is unchanged (column-0 ``` only).
+- The overlap loss, homonyms and attribution phrasing are untouched.
+
+**Rollback:** revert the two `src/` files and the S1/version-pin tests. The pin is a no-op under v4.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22s1_setext_heading_boundaries.py tests/test_evidence_extraction_readme.py`
+- `python scripts/evaluate_m11g22s1_setext_boundaries.py`
+
 ## 2026-11-16 — Milestone 11-G22-R5: attribution-aware README evidence research (research only; readme:v5 NOT implemented)
 
 **What changed:** Research and evaluation only, accepted and committed as a research-only commit ("test: evaluate

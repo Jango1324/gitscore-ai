@@ -351,13 +351,21 @@ Every other extractor, the matcher, the assessment formula, the job
 parser, and M5B ranking / 8D.2 job-aware retrieval are unaffected --
 this is a README-extraction-only, additive precision fix.
 
-**Open limitation (Milestones 11-G22-R / R2 / R3; production still
-`readme:v4`).** Ordinary-English uses of 11 ambiguous aliases (react,
+**Milestone 11-G22-S1 (`readme:v5`): setext heading boundaries.** The
+8D.3 section denylist now sees setext headings (`Development` /
+`-----------`) as well as ATX ones, so a setext heading ends a preceding
+"Related projects"-style section (v4 wrongly kept the following genuine
+evidence inside it) and a setext denylisted section is excluded. This is
+a structural Markdown fix only -- no other README behaviour changed; see
+`docs/evaluation/MILESTONE_11_G22S1_SETEXT_HEADING_BOUNDARIES.md`.
+
+**Open limitation (Milestones 11-G22-R .. R5; still open in
+`readme:v5`).** Ordinary-English uses of 11 ambiguous aliases (react,
 express, rust, ruby, java, swift, flask, torch, pandas, python, shell)
 still become README evidence, and one README item is enough for a
 SUPPORTED requirement. A per-alias context guard was validated in G22-R3
-but failed its pre-declared genuine-use recall criteria, so no
-`readme:v5` exists; see
+but failed its pre-declared genuine-use recall criteria, so it was not
+implemented (the later `readme:v5` label is the setext fix only); see
 `docs/evaluation/MILESTONE_11_G22R3_README_CONTEXT_GUARD.md`. An inverse,
 high-recall guard (G22-R4) kept all genuine use but missed its frozen
 false-SUPPORTED reduction gate; see

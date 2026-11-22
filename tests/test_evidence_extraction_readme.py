@@ -253,4 +253,7 @@ def test_future_intention_without_implementation_is_excluded():
 
 
 def test_extractor_version_bumped_for_8d3():
-    assert EXTRACTOR_VERSION == "readme:v4"
+    # Version history: Milestone 8D.3 bumped readme:v3 -> readme:v4 (its attribution filter is unchanged and still
+    # present); Milestone 11-G22-S1 bumped readme:v4 -> readme:v5 for the setext heading boundary correction only
+    # (tests/test_m11g22s1_setext_heading_boundaries.py).
+    assert EXTRACTOR_VERSION == "readme:v5"
