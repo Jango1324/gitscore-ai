@@ -3297,6 +3297,23 @@ callers of this mechanism were updated to use it:
   behavior change). Not exercised by any of the 4 real candidate
   fixtures (none mention "React Native"), confirmed via test coverage
   instead (`tests/test_evidence_extraction_readme.py`).
+  **Correction (Milestone 11-G22-S2, `readme:v6`):** unlike the job
+  parser and `ranking/job_relevance.py`, the README extractor did NOT
+  collect all matches first -- it chose ONE occurrence per concept (the
+  first non-excluded one) and only then resolved overlaps. When that
+  occurrence was the "React" inside "React Native", `framework.react`
+  was dropped even if a separate, genuine "... uses React" followed.
+  Since v6 the selection loop skips an occurrence covered by a strictly
+  longer match of another concept (`readme._inside_longer_other_concept_match`,
+  the same 8D.1 precedence) and keeps scanning. The shared
+  `select_longest_overlapping_matches()` is unchanged. One accepted
+  same-position difference from v5: the 8D.3 following-cue window
+  starts at a match's end, so a cue could exclude "React Native" while
+  the "React" inside it escaped, and v5 emitted React evidence sourced
+  only from the words "React Native". v6 never does, whether or not
+  that mention is excluded; a separate valid "React" is still
+  recovered. See
+  `docs/evaluation/MILESTONE_11_G22S2_OCCURRENCE_OVERLAP.md`.
 
 This generalizes to any FUTURE overlapping alias pair without further
 code changes — not just this one collision.

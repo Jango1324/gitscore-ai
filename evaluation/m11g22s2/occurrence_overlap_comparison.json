@@ -1,0 +1,260 @@
+{
+ "versions": {
+  "before": "readme:v5",
+  "after": "readme:v6"
+ },
+ "note": "real pipeline (README extractor, evidence aggregation, matcher v1, scoring v2); readme:v5 via readme_v5_pin (v6 minus the occurrence-overlap predicate); public synthetic controls and public 8c fixtures only; no LLM",
+ "labelled_sets": {
+  "g22r2_dev": {
+   "controls": 44,
+   "readme_items_recovered": [],
+   "readme_items_newly_excluded": [],
+   "provenance_moved": [],
+   "match_status_changes": [],
+   "outcome_changes": [],
+   "false_supported": [
+    21,
+    21
+   ],
+   "true_supported": [
+    20,
+    20
+   ]
+  },
+  "g22r2_eval": {
+   "controls": 40,
+   "readme_items_recovered": [],
+   "readme_items_newly_excluded": [],
+   "provenance_moved": [],
+   "match_status_changes": [],
+   "outcome_changes": [],
+   "false_supported": [
+    18,
+    18
+   ],
+   "true_supported": [
+    19,
+    19
+   ]
+  },
+  "g22r3_val1": {
+   "controls": 75,
+   "readme_items_recovered": [],
+   "readme_items_newly_excluded": [],
+   "provenance_moved": [],
+   "match_status_changes": [],
+   "outcome_changes": [],
+   "false_supported": [
+    35,
+    35
+   ],
+   "true_supported": [
+    36,
+    36
+   ]
+  },
+  "g22r3_val2": {
+   "controls": 51,
+   "readme_items_recovered": [],
+   "readme_items_newly_excluded": [],
+   "provenance_moved": [],
+   "match_status_changes": [],
+   "outcome_changes": [],
+   "false_supported": [
+    24,
+    24
+   ],
+   "true_supported": [
+    24,
+    24
+   ]
+  },
+  "g22r4_dev": {
+   "controls": 60,
+   "readme_items_recovered": [],
+   "readme_items_newly_excluded": [],
+   "provenance_moved": [],
+   "match_status_changes": [],
+   "outcome_changes": [],
+   "false_supported": [
+    29,
+    29
+   ],
+   "true_supported": [
+    29,
+    29
+   ]
+  },
+  "g22r4_fresh": {
+   "controls": 96,
+   "readme_items_recovered": [],
+   "readme_items_newly_excluded": [],
+   "provenance_moved": [],
+   "match_status_changes": [],
+   "outcome_changes": [],
+   "false_supported": [
+    42,
+    42
+   ],
+   "true_supported": [
+    50,
+    50
+   ]
+  },
+  "g22r5_dev": {
+   "controls": 51,
+   "readme_items_recovered": [
+    [
+     "m11g22r5-dev-035",
+     "r1",
+     "framework.react"
+    ]
+   ],
+   "readme_items_newly_excluded": [],
+   "provenance_moved": [],
+   "match_status_changes": [
+    [
+     "m11g22r5-dev-035",
+     "not_observed",
+     "supported"
+    ]
+   ],
+   "outcome_changes": [
+    [
+     "m11g22r5-dev-035",
+     "framework.react",
+     "use",
+     "missed",
+     "true_supported"
+    ]
+   ],
+   "false_supported": [
+    23,
+    23
+   ],
+   "true_supported": [
+    24,
+    25
+   ]
+  },
+  "g22r5_fresh": {
+   "controls": 96,
+   "readme_items_recovered": [],
+   "readme_items_newly_excluded": [],
+   "provenance_moved": [],
+   "match_status_changes": [],
+   "outcome_changes": [],
+   "false_supported": [
+    52,
+    52
+   ],
+   "true_supported": [
+    42,
+    42
+   ]
+  }
+ },
+ "g22r_controls": {
+  "changed_controls": []
+ },
+ "fixtures_8c": {
+  "jango1324": {
+   "items": [
+    60,
+    60
+   ],
+   "added": [],
+   "removed": [],
+   "provenance_moved": []
+  },
+  "karpathy": {
+   "items": [
+    86,
+    86
+   ],
+   "added": [],
+   "removed": [],
+   "provenance_moved": []
+  },
+  "sindresorhus": {
+   "items": [
+    66,
+    66
+   ],
+   "added": [],
+   "removed": [],
+   "provenance_moved": []
+  },
+  "torvalds": {
+   "items": [
+    32,
+    32
+   ],
+   "added": [],
+   "removed": [],
+   "provenance_moved": []
+  }
+ },
+ "matrix_8c_changes": {},
+ "matrix_8c_pairs": 24,
+ "undefined_score_changes": [],
+ "capability_identical": true,
+ "concepts": 39,
+ "react_occurrences_8c": {
+  "jango1324/Jango1324": {
+   "occurrences": [
+    [
+     786,
+     791,
+     "react"
+    ],
+    [
+     1274,
+     1279,
+     "react"
+    ]
+   ],
+   "readme_items_v5": [
+    "framework.react"
+   ],
+   "readme_items_v6": [
+    "framework.react"
+   ]
+  },
+  "karpathy/llm-council": {
+   "occurrences": [
+    [
+     2981,
+     2986,
+     "react"
+    ],
+    [
+     2995,
+     3000,
+     "react"
+    ]
+   ],
+   "readme_items_v5": [
+    "framework.react"
+   ],
+   "readme_items_v6": [
+    "framework.react"
+   ]
+  },
+  "sindresorhus/ky": {
+   "occurrences": [
+    [
+     60167,
+     60172,
+     "react"
+    ]
+   ],
+   "readme_items_v5": [
+    "framework.react"
+   ],
+   "readme_items_v6": [
+    "framework.react"
+   ]
+  }
+ }
+}

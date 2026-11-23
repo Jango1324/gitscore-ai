@@ -151,7 +151,8 @@ def test_readme_v5_was_not_implemented(report):
     # by G22-S1 for the setext heading boundary correction ONLY (no R3 rule; checked below by the src/ scan); this
     # research's measured configuration stays readme:v4 (EXTRACTOR_VERSION, pinned via readme_v4_pin).
     assert report["decision"]["readme_v5_implemented"] is False
-    assert _PRODUCTION_EXTRACTOR_VERSION in ("readme:v4", "readme:v5")
+    # G22-S2 then made production readme:v6 (the occurrence-overlap correction only; again no R3 rule).
+    assert _PRODUCTION_EXTRACTOR_VERSION in ("readme:v4", "readme:v5", "readme:v6")
     assert (EXTRACTOR_VERSION, JOB_DESCRIPTION_PARSER_VERSION, MATCHER_VERSION, SCORING_VERSION,
             CONCEPT_REGISTRY_VERSION) == ("readme:v4", "job_description_parser:v15", "requirement_matcher:v1",
                                           "github_evidence_alignment:v2", 4)

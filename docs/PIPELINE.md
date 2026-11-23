@@ -359,8 +359,18 @@ evidence inside it) and a setext denylisted section is excluded. This is
 a structural Markdown fix only -- no other README behaviour changed; see
 `docs/evaluation/MILESTONE_11_G22S1_SETEXT_HEADING_BOUNDARIES.md`.
 
+**Milestone 11-G22-S2 (`readme:v6`): independent occurrences across
+overlapping aliases.** README selection now skips an occurrence that
+lies inside a strictly longer alias of another concept ("React" inside
+"React Native") and keeps scanning, so a later independent mention
+("... uses React") is no longer lost. The "React" inside a "React
+Native" mention is never React evidence, even when a following cue
+excludes the React Native mention (v5 could leak React there). Alias
+precedence, exclusions and deduplication are unchanged; see
+`docs/evaluation/MILESTONE_11_G22S2_OCCURRENCE_OVERLAP.md`.
+
 **Open limitation (Milestones 11-G22-R .. R5; still open in
-`readme:v5`).** Ordinary-English uses of 11 ambiguous aliases (react,
+`readme:v6`).** Ordinary-English uses of 11 ambiguous aliases (react,
 express, rust, ruby, java, swift, flask, torch, pandas, python, shell)
 still become README evidence, and one README item is enough for a
 SUPPORTED requirement. A per-alias context guard was validated in G22-R3

@@ -66,6 +66,26 @@ same adjacency cues, same aliases, same fall-through and deduplication.
 `readme:v5` does NOT implement any of the README guard policies researched
 and rejected in Milestones 11-G22-R..R5 (D, R3, P4, D_S). `EXTRACTOR_VERSION`
 bumped 4 -> 5 for this behavior change.
+
+Milestone 11-G22-S2 -- `readme:v6` = the independent-occurrence overlap
+correction on top of v5's setext handling. readme:v5 picked ONE occurrence
+per concept (its first non-excluded one) and only then resolved overlaps,
+so when that occurrence sat inside a longer alias of another concept
+("react" inside "React Native") the concept was dropped even if a separate,
+genuine mention followed ("... the web dashboard uses React"). Selection now
+skips an occurrence covered by a strictly longer match of another concept
+and keeps scanning -- the same "most-specific alias wins" precedence, but
+applied per occurrence, as `jobs/parsing/concepts.py` and
+`ranking/job_relevance.py` already do. Same-concept alias precedence,
+exclusions, deduplication and snippets are unchanged. One same-position
+outcome deliberately differs from v5: the 8D.3 following-cue window starts
+at a match's END, so a cue can exclude "React Native" while the shorter
+"React" inside it escapes; v5 then emitted React evidence whose only source
+was the words "React Native" (e.g. "... React Native client ... is not
+supported"). v6 never treats that inner "React" as React evidence, whether
+or not the React Native mention is itself excluded; a separate, valid
+"React" elsewhere is still selected under the unchanged context rules.
+`EXTRACTOR_VERSION` bumped 5 -> 6.
 """
 from __future__ import annotations
 
@@ -77,7 +97,7 @@ from gitscore.evidence.extraction.readme_context import build_context, is_non_im
 from gitscore.evidence.models import Evidence, RepositoryIdentity
 from gitscore.evidence.types import ConfidenceLevel, EvidenceType
 
-EXTRACTOR_VERSION = "readme:v5"
+EXTRACTOR_VERSION = "readme:v6"
 
 # How much surrounding text to keep on each side of a match, so the
 # stored observation is a short, inspectable snippet -- never the whole
@@ -90,6 +110,25 @@ def _bounded_snippet(text: str, start: int, end: int) -> str:
     window_end = min(len(text), end + _SNIPPET_RADIUS)
     snippet = text[window_start:window_end]
     return re.sub(r"\s+", " ", snippet).strip()
+
+
+def _inside_longer_other_concept_match(
+    start: int, end: int, concept_id: str, all_occurrences: list[tuple[int, int, str]]
+) -> bool:
+    """Milestone 11-G22-S2 -- is `[start, end)` (an occurrence of
+    `concept_id`) overlapped by a STRICTLY LONGER occurrence of a DIFFERENT
+    concept? This is the same-position precedence 8D.1's
+    `select_longest_overlapping_matches()` already applies ("react" inside
+    "React Native" belongs to `framework.react_native`), evaluated per
+    occurrence instead of after one occurrence per concept has been
+    chosen. Same-concept overlaps ("react" inside "React.js") are left to
+    the existing alias order; equal-length overlaps never shadow (as in
+    8D.1). It never suppresses an occurrence at a different position.
+    """
+    return any(
+        other_concept != concept_id and o_start < end and o_end > start and (o_end - o_start) > (end - start)
+        for o_start, o_end, other_concept in all_occurrences
+    )
 
 
 def evidence_from_readme(
@@ -115,6 +154,16 @@ def evidence_from_readme(
 
     registry = default_registry()
     context = build_context(readme_text)
+    # Milestone 11-G22-S2: every occurrence of every README-safe alias, so a
+    # concept's occurrence can be checked against OTHER concepts' longer
+    # overlapping matches BEFORE it is selected (see
+    # `_inside_longer_other_concept_match`).
+    all_occurrences = [
+        (match.start(), match.end(), concept.concept_id)
+        for concept in registry.all_concepts()
+        for alias in concept.readme_safe_aliases()
+        for match in alias_pattern(alias).finditer(readme_text)
+    ]
     candidates: list[tuple[int, int, tuple]] = []
     for concept in registry.all_concepts():
         for alias in concept.readme_safe_aliases():
@@ -126,8 +175,20 @@ def evidence_from_readme(
             # is skipped; a later, genuine occurrence of the SAME alias
             # still counts, and if every occurrence of this alias is
             # excluded, the next alias is still tried below.
+            #
+            # Milestone 11-G22-S2: also skip an occurrence that lies inside
+            # a strictly longer match of ANOTHER concept at the same place
+            # ("react" inside "React Native") and keep scanning. readme:v5
+            # selected that occurrence and then dropped it in the 8D.1
+            # overlap resolution below, so a later independent mention
+            # ("... uses React") was never considered and the concept was
+            # lost.
             selected = None
             for match in alias_pattern(alias).finditer(readme_text):
+                if _inside_longer_other_concept_match(
+                    match.start(), match.end(), concept.concept_id, all_occurrences
+                ):
+                    continue
                 if not is_non_implementation_mention(readme_text, match.start(), match.end(), context):
                     selected = match
                     break

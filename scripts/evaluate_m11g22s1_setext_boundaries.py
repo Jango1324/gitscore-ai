@@ -175,6 +175,15 @@ def main() -> None:
         Path(sys.argv[sys.argv.index("--dump") + 1]).write_text(json.dumps(measure(), indent=1, ensure_ascii=False),
                                                                  encoding="utf-8")
         return
+    # Milestone 11-G22-S2: production is readme:v6; this S1 comparison measured readme:v5 and runs pinned to it
+    # (scripts/evaluation_lib/readme_v5_pin.py). `--dump` above always measures the current, unpinned environment.
+    import readme_v5_pin
+
+    with readme_v5_pin.pinned():
+        _compare_and_write()
+
+
+def _compare_and_write() -> None:
     if readme_mod.EXTRACTOR_VERSION != "readme:v5":
         raise SystemExit("G22-S1 compares readme:v4 (pinned) against production readme:v5")
     v5 = measure()

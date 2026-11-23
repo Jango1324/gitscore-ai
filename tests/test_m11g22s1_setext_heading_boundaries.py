@@ -15,10 +15,29 @@ The 8D.3 heading denylist itself, the adjacency cues and every alias are unchang
 """
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+
 import pytest
 
 from gitscore.evidence.extraction import readme_context as rc
-from gitscore.evidence.extraction.readme import EXTRACTOR_VERSION, evidence_from_readme
+from gitscore.evidence.extraction.readme import EXTRACTOR_VERSION as _PRODUCTION_EXTRACTOR_VERSION
+from gitscore.evidence.extraction.readme import evidence_from_readme
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts" / "evaluation_lib"))
+import readme_v5_pin  # noqa: E402
+
+# Milestone 11-G22-S2: production README extraction is readme:v6 (v5 + the occurrence-overlap correction). These S1
+# tests measured readme:v5, which `readme_v5_pin` reproduces exactly; EXTRACTOR_VERSION here is therefore the MEASURED
+# version, and every test in this module runs pinned to it (autouse fixture below). Production's own version is pinned
+# in tests/test_m11g22s2_occurrence_overlap.py.
+EXTRACTOR_VERSION = readme_v5_pin.EXTRACTOR_VERSION if readme_v5_pin.reproduces_v5() else _PRODUCTION_EXTRACTOR_VERSION
+
+
+@pytest.fixture(autouse=True)
+def _pinned_readme_v5():
+    with readme_v5_pin.pinned():
+        yield
 
 
 def _concepts(text: str) -> set[str]:

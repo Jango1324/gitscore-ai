@@ -12,7 +12,11 @@ runners describe that configuration. `pinned()` restores exactly `readme:v4` for
     from production's own, unchanged ATX-only helper `_atx_heading_spans` -- the literal v4 heading index;
   * evidence is labelled `readme:v4` (`readme.EXTRACTOR_VERSION`, read at call time by `evidence_from_readme`).
 
-Nothing in `src/` imports this module. Outside a `with pinned()` block production behaves as `readme:v5`.
+Nothing in `src/` imports this module. Outside a `with pinned()` block production behaves as its own version.
+
+Milestone 11-G22-S2: production is now `readme:v6` (v5 + the independent-occurrence overlap correction). From v6 the
+pin first applies `readme_v5_pin` (the v5 occurrence selection), then the v4 heading index above -- v4 = v6 minus the
+S2 predicate minus the S1 setext index. Both layers are restored on exit, in reverse order.
 """
 from __future__ import annotations
 
@@ -24,7 +28,7 @@ from gitscore.evidence.extraction import readme_context as rc
 V4 = "readme:v4"
 EXTRACTOR_VERSION = V4  # what the historical research measured
 # production versions this pin knows how to map back to v4 exactly
-_REPRODUCIBLE_FROM = ("readme:v4", "readme:v5")
+_REPRODUCIBLE_FROM = ("readme:v4", "readme:v5", "readme:v6")
 PRODUCTION_VERSION_AT_IMPORT = readme_mod.EXTRACTOR_VERSION
 
 
@@ -48,11 +52,14 @@ def pinned():
         return
     if current not in _REPRODUCIBLE_FROM:
         raise RuntimeError(f"readme_v4_pin cannot reproduce readme:v4 from {current!r}; extend it explicitly")
-    saved = (readme_mod.EXTRACTOR_VERSION, readme_mod.build_context, rc.build_context)
-    readme_mod.EXTRACTOR_VERSION = V4
-    readme_mod.build_context = ReadmeV4Context
-    rc.build_context = ReadmeV4Context
-    try:
-        yield
-    finally:
-        readme_mod.EXTRACTOR_VERSION, readme_mod.build_context, rc.build_context = saved
+    import readme_v5_pin  # local: only needed when production is newer than v5
+
+    with readme_v5_pin.pinned():  # no-op when production (or an outer pin) is already v5
+        saved = (readme_mod.EXTRACTOR_VERSION, readme_mod.build_context, rc.build_context)
+        readme_mod.EXTRACTOR_VERSION = V4
+        readme_mod.build_context = ReadmeV4Context
+        rc.build_context = ReadmeV4Context
+        try:
+            yield
+        finally:
+            readme_mod.EXTRACTOR_VERSION, readme_mod.build_context, rc.build_context = saved

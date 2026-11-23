@@ -1,5 +1,72 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-22 — Milestone 11-G22-S2: concept occurrence overlap correction (readme:v5 → readme:v6)
+
+**What changed:**
+
+- **Selection loop:** `readme.evidence_from_readme()` now skips an occurrence that lies inside a strictly longer
+  match of ANOTHER concept (`_inside_longer_other_concept_match`, the existing 8D.1 precedence applied per
+  occurrence) and keeps scanning.
+- **Version:** `EXTRACTOR_VERSION` is now `readme:v6`, the independent-occurrence overlap correction on top of v5's
+  setext handling.
+- **Unchanged:**
+  - `concepts/matching.py`, the job parser, repository ranking, the registry, the matcher and scoring;
+  - other extractors, the evidence schema, API and frontend.
+
+**Why:** v5 chose one occurrence per concept before resolving overlaps. In "A React Native app. The web dashboard uses
+React." React's chosen occurrence was the "React" inside "React Native"; it was dropped, and the genuine later
+mention was never considered. The job parser and ranking already resolved overlaps across all occurrences.
+
+**How it works:**
+
+- every alias occurrence is collected once;
+- an occurrence covered by a strictly longer different-concept occurrence is skipped;
+- same-concept alias precedence, equal-length behaviour, 8D.3 / S1 exclusions, fall-through, deduplication and
+  snippets are unchanged.
+- **Accepted same-position difference from v5 (Gate 1 decision):** the 8D.3 following-cue window starts at a match's
+  end, so a cue in the 7 characters past "React" could exclude "React Native" while the "React" inside it escaped.
+  v5 then emitted React evidence sourced only from the words "React Native" (e.g. `"A React Native client. " +
+  21×"y" + " and it is not supported."`). v6 emits neither concept there, and a separate valid "React" is still
+  recovered. The 60-character window is unchanged. None of the measured G22 or 8c inputs contain this pattern, and
+  it is pinned by six regression tests.
+
+**Effect** (real pipeline, v5 vs v6):
+
+- **G22 control sets:** the only change is G22-R5 DEV dev-035, where React is recovered (missed → true SUPPORTED).
+  No new false SUPPORTED, no genuine evidence lost.
+- **Frozen 8c:** 0 changes (systems_cpp_01 stays 67; the 8c READMEs mention React but never React Native).
+- **G19:** identical.
+
+**Historical compatibility:**
+
+- New `scripts/evaluation_lib/readme_v5_pin.py`. The v4 pin composes with it.
+- Both pins are verified exact against genuine checkouts of `4c6277a` (v5) and `9502676` (v4).
+- The S1 tests and S1 comparison run pinned to v5; the G22-R..R5 research stays pinned to v4.
+- Historical reports reproduce byte for byte. G22-R4's manifest-count field remains the documented exception.
+
+**Files:**
+
+- `src/gitscore/evidence/extraction/readme.py`
+- `tests/test_m11g22s2_occurrence_overlap.py` (new, 48 tests)
+- `tests/test_evidence_extraction_readme.py`, `tests/test_m11g22s1_setext_heading_boundaries.py`,
+  `tests/test_m11g22r3_readme_context_guard.py`
+- `scripts/evaluation_lib/readme_v5_pin.py` (new), `scripts/evaluation_lib/readme_v4_pin.py`
+- `scripts/evaluate_m11g22s2_occurrence_overlap.py` (new), `scripts/evaluate_m11g22s1_setext_boundaries.py`
+- `evaluation/m11g22s2/occurrence_overlap_comparison.json` (new)
+- `docs/evaluation/MILESTONE_11_G22S2_OCCURRENCE_OVERLAP.md`, `docs/ARCHITECTURE.md`, `docs/PIPELINE.md`
+
+**Risks / limitations:**
+
+- The 8D.3 60-character negation window can still exclude a nearby independent mention (unchanged, pinned by a test).
+- The equal-length overlap rule is unchanged.
+
+**Rollback:** revert `readme.py` and the S2 / version-pin test lines. The pins are no-ops under v5.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g22s2_occurrence_overlap.py tests/test_m11g22s1_setext_heading_boundaries.py`
+- `python scripts/evaluate_m11g22s2_occurrence_overlap.py`
+
 ## 2026-11-22 — Milestone 11-G22-S1: setext heading section boundaries (readme:v4 → readme:v5)
 
 **What changed:**
