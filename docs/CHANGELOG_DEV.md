@@ -1,5 +1,60 @@
 # GitScore AI — Dev Changelog
 
+## 2026-11-22 — Milestone 11-G23: candidate-profile heading recovery (research only; EVAL gate failed)
+
+**What changed:** research artifacts only. **No production change:** parser v15, scoring v2, matcher v1,
+`readme:v6`, registry 4. The two G23 control sets are registered in G14 (27 → 29). EVAL's freeze-time raw
+hash is a CRLF form, reconstructed exactly from the canonical bytes; the policy design freeze is not registered.
+
+- **Controls:**
+  - `evaluation/m11g23/labelling_guide.md`;
+  - DEV controls: 61, self-authored;
+  - EVAL controls: 62, written blind by an AI subagent from the guide only;
+  - hash freezes and a policy design freeze.
+- **Research harness:** `scripts/evaluation_lib/m11g23_*.py` — a segmentation replica with policy hooks, installed
+  by a restoring context manager; the P0 replica is byte-identical to production.
+- **Runner:** `scripts/evaluate_m11g23_candidate_profile_headings.py`.
+- **Outputs:**
+  - the public report;
+  - counts-only private aggregates;
+  - non-confirmatory post-hoc diagnostics.
+- **Tests:** `tests/test_m11g23_candidate_profile_headings.py`.
+
+**Why:** v15 drops candidate qualifications under candidate-profile headings in three ways:
+- "About you" is SKIP, so content is silently dropped;
+- "What you bring" / "Who you are" are UNKNOWN, so content becomes an UnparsedClaim;
+- bare sentence-case, wrapped or nested headings are not headings at all.
+
+**Result:**
+
+- **Selected policy:** P4 = closed candidate-profile heading vocabulary + bare lines + two-line headings +
+  attribute sub-heading inheritance.
+- **DEV:** strict recall 21 → 67 of 81.
+- **The single frozen EVAL run FAILED gate G1:** 53 → 62 of 145 (+0.062 absolute, needed +0.20 and +15 units).
+- **Every safety gate passed:**
+  - 0 new false admissions;
+  - necessity 0.944;
+  - 0 regressions;
+  - G17 / G22-Q / G19 intact;
+  - every non-candidate-profile historical section unchanged, including the frozen 8c matrices and M10E-g3.
+- **Post-hoc (non-confirmatory):** of the 83 qualifications P4 still misses on EVAL, 45 are concept/vocabulary gaps
+  and 29 are heading phrasings outside the closed vocabulary. The vocabulary does not generalise.
+
+**Risks / limitations:**
+
+- **G6/G7 divergence:** any candidate-profile policy diverges from 19 G6 + 2 G7 frozen heading labels and 11 G6 body
+  necessity labels (G6's "stay UNKNOWN" design).
+- **G21 gap:** recovering headings exposes the G21 "No prior <tech> experience is required" negation gap.
+- **P4 defect:** P4 has a recorded erratum (bare "About you" is not rescued).
+- **Exposed holdout:** EVAL is now exposed.
+
+**How to test:**
+
+- `python -m pytest tests/test_m11g23_candidate_profile_headings.py`
+- `python scripts/evaluate_m11g23_candidate_profile_headings.py --eval` reproduces the report.
+
+**Details:** `docs/evaluation/MILESTONE_11_G23_CANDIDATE_PROFILE_HEADINGS.md`.
+
 ## 2026-11-22 — Milestone 11-G22-S2: concept occurrence overlap correction (readme:v5 → readme:v6)
 
 **What changed:**

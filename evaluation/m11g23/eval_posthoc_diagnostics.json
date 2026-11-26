@@ -1,0 +1,1517 @@
+{
+ "status": "POST-HOC, NON-CONFIRMATORY: written after the single frozen EVAL run failed gate G1; EVAL is an exposed holdout from here on. No policy, label, gate or selection was changed.",
+ "selected_policy": "P4_narrow_hybrid",
+ "unrecovered_qualification_units": 83,
+ "by_mechanism": {
+  "concept_or_vocabulary": 45,
+  "heading_or_section": 29,
+  "necessity": 6,
+  "not_admitted_unsectioned": 3
+ },
+ "heading_attributable_upper_bound": {
+  "note": "even a perfect heading policy could recover at most the heading_or_section units, and only if their concepts and necessity are then also right",
+  "p0_recovered": 53,
+  "selected_recovered": 62,
+  "of": 145,
+  "heading_or_section_units_still_lost": 29
+ },
+ "headings_in_controls_with_heading_losses": {
+  "m11g23-eval-003": [
+   {
+    "line": "THE PERSON WE'RE LOOKING FOR",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "HOW TO APPLY",
+    "p0": "SKIP",
+    "selected": "SKIP"
+   }
+  ],
+  "m11g23-eval-018": [
+   {
+    "line": "What makes you a great fit:",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   }
+  ],
+  "m11g23-eval-023": [
+   {
+    "line": "About you",
+    "p0": null,
+    "selected": null
+   }
+  ],
+  "m11g23-eval-024": [
+   {
+    "line": "**Optional extras**",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "**Core skills**",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   }
+  ],
+  "m11g23-eval-028": [
+   {
+    "line": "## About you",
+    "p0": "SKIP",
+    "selected": "REQUIRED"
+   },
+   {
+    "line": "### Technical skills",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "### Ways of working",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "## Benefits",
+    "p0": "SKIP",
+    "selected": "SKIP"
+   }
+  ],
+  "m11g23-eval-031": [
+   {
+    "line": "Required qualifications",
+    "p0": null,
+    "selected": null
+   },
+   {
+    "line": "Responsibilities",
+    "p0": "RESPONSIBILITY",
+    "selected": "RESPONSIBILITY"
+   },
+   {
+    "line": "Preferred qualifications",
+    "p0": null,
+    "selected": null
+   }
+  ],
+  "m11g23-eval-032": [
+   {
+    "line": "About you",
+    "p0": null,
+    "selected": null
+   },
+   {
+    "line": "About the team",
+    "p0": null,
+    "selected": null
+   },
+   {
+    "line": "You'll also need",
+    "p0": null,
+    "selected": null
+   }
+  ],
+  "m11g23-eval-033": [
+   {
+    "line": "Skills we need:",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "Skills we'd love:",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "What you'll get:",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "More about you:",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   }
+  ],
+  "m11g23-eval-035": [
+   {
+    "line": "Who we’re hoping",
+    "p0": null,
+    "selected": null
+   },
+   {
+    "line": "to meet",
+    "p0": null,
+    "selected": null
+   }
+  ],
+  "m11g23-eval-037": [
+   {
+    "line": "YOU’LL BE A GREAT FIT",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "IF YOU HAVE",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "WHAT’S IN IT FOR YOU",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   }
+  ],
+  "m11g23-eval-038": [
+   {
+    "line": "Here is what we think will help you succeed in this role and enjoy working with us over the long term",
+    "p0": null,
+    "selected": null
+   },
+   {
+    "line": "A few words about the benefits package that we offer every full-time employee",
+    "p0": null,
+    "selected": null
+   }
+  ],
+  "m11g23-eval-039": [
+   {
+    "line": "Experience",
+    "p0": null,
+    "selected": null
+   },
+   {
+    "line": "Experience at Acme",
+    "p0": null,
+    "selected": null
+   }
+  ],
+  "m11g23-eval-040": [
+   {
+    "line": "OUR STACK (AND WHAT WE EXPECT YOU TO ALREADY KNOW FROM IT)",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   },
+   {
+    "line": "OUR STACK (THINGS YOU WILL PICK UP HERE)",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   }
+  ],
+  "m11g23-eval-045": [
+   {
+    "line": "About you",
+    "p0": null,
+    "selected": null
+   }
+  ],
+  "m11g23-eval-048": [
+   {
+    "line": "**What we expect**",
+    "p0": "UNKNOWN",
+    "selected": "UNKNOWN"
+   }
+  ],
+  "m11g23-eval-058": [
+   {
+    "line": "About you",
+    "p0": null,
+    "selected": null
+   }
+  ],
+  "m11g23-eval-060": [
+   {
+    "line": "About you",
+    "p0": null,
+    "selected": null
+   },
+   {
+    "line": "How to apply",
+    "p0": null,
+    "selected": null
+   }
+  ]
+ },
+ "selected_policy_defect": {
+  "erratum": "The frozen P4 never rescues a BARE sentence-case 'About you' line: `_is_bare_cp_line` accepts it, but `candidate_profile_kind(content, UNKNOWN)` then rejects it because production's `^about` root gives the line the SKIP family. DEV never exercised it (every DEV 'About you' had a colon or Markdown). Recorded, NOT fixed: fixing it and re-running EVAL would be tuning against an exposed holdout.",
+  "eval_controls_with_bare_about_you": [
+   "m11g23-eval-001",
+   "m11g23-eval-010",
+   "m11g23-eval-016",
+   "m11g23-eval-023",
+   "m11g23-eval-025",
+   "m11g23-eval-032",
+   "m11g23-eval-045",
+   "m11g23-eval-051",
+   "m11g23-eval-058",
+   "m11g23-eval-060"
+  ]
+ },
+ "fabricated_concepts_selected": [
+  {
+   "control": "m11g23-eval-042",
+   "span": "You'll need a working knowledge of SQL, too.",
+   "fabricated": [
+    "unresolved:too"
+   ]
+  }
+ ],
+ "lost_units": [
+  {
+   "control": "m11g23-eval-002",
+   "family": "A",
+   "span": "Familiarity with async networking libraries.",
+   "mechanism": "necessity",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-003",
+   "family": "A",
+   "span": "You write idiomatic TypeScript and have built single-page apps with React.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "language.typescript",
+    "framework.react"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-003",
+   "family": "A",
+   "span": "You have deployed workloads on AWS.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "cloud.aws"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-004",
+   "family": "B",
+   "span": "BS in Computer Science or a related field.",
+   "mechanism": "necessity",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-004",
+   "family": "B",
+   "span": "Experience with Kotlin and Spring Boot.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "represented",
+   "gold_tech": [
+    "language.kotlin",
+    "unresolved:spring_boot"
+   ],
+   "represented_tech": [
+    "language.kotlin"
+   ],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-005",
+   "family": "B",
+   "span": "Ability to read hardware schematics.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-006",
+   "family": "B",
+   "span": "Strong Go skills are essential.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "language.go"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-006",
+   "family": "B",
+   "span": "Experience with Terraform is preferred.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "unresolved:terraform"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "preferred"
+   ]
+  },
+  {
+   "control": "m11g23-eval-009",
+   "family": "C",
+   "span": "Experience leading on-call rotations.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-011",
+   "family": "D",
+   "span": "Experience with Django or a similar web framework.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "unresolved:django"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-012",
+   "family": "D",
+   "span": "Has operated container platforms in production.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-013",
+   "family": "E",
+   "span": "Commercial experience with Swift and iOS development.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "represented",
+   "gold_tech": [
+    "language.swift",
+    "unresolved:ios"
+   ],
+   "represented_tech": [
+    "language.swift"
+   ],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-015",
+   "family": "E",
+   "span": "Shell scripting on Linux servers.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "represented",
+   "gold_tech": [
+    "language.shell",
+    "unresolved:linux"
+   ],
+   "represented_tech": [
+    "language.shell"
+   ],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-017",
+   "family": "F",
+   "span": "You have production experience with Node.js and Express.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "represented",
+   "gold_tech": [
+    "unresolved:nodejs",
+    "framework.express"
+   ],
+   "represented_tech": [
+    "framework.express"
+   ],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-017",
+   "family": "F",
+   "span": "You communicate clearly in writing.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-018",
+   "family": "F",
+   "span": "Deep experience with TensorFlow or PyTorch.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "ml.framework.tensorflow",
+    "ml.framework.pytorch"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-018",
+   "family": "F",
+   "span": "Strong analytical skills.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-020",
+   "family": "G",
+   "span": "At least five years building distributed systems.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-020",
+   "family": "G",
+   "span": "Exposure to Kafka.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "PREFERRED",
+   "gold_section": "preferred",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:kafka"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-020",
+   "family": "G",
+   "span": "Experience with gRPC service design.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "PREFERRED",
+   "gold_section": "preferred",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "unresolved:grpc"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "preferred"
+   ]
+  },
+  {
+   "control": "m11g23-eval-021",
+   "family": "G",
+   "span": "Experience testing UIs with Jest.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:jest"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-021",
+   "family": "G",
+   "span": "You know your way around Storybook.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "PREFERRED",
+   "gold_section": "preferred",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:storybook"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-022",
+   "family": "H",
+   "span": "Experience building Android apps.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:android"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-022",
+   "family": "H",
+   "span": "Familiarity with Jetpack Compose would be great.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:jetpack_compose"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-022",
+   "family": "H",
+   "span": "Any exposure to Rust is optional.",
+   "mechanism": "necessity",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "represented",
+   "gold_tech": [
+    "language.rust"
+   ],
+   "represented_tech": [
+    "language.rust"
+   ],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-023",
+   "family": "H",
+   "span": "Knowledge of dbt is not required, but it is a plus.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:dbt"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-023",
+   "family": "H",
+   "span": "Experience with Airflow is helpful.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "unresolved:airflow"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "preferred"
+   ]
+  },
+  {
+   "control": "m11g23-eval-024",
+   "family": "H",
+   "span": "If you have worked with CUDA, tell us about it.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "preferred",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "platform.cuda"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-024",
+   "family": "H",
+   "span": "Modern C++ (17 or later) is mandatory.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "language.cpp"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-026",
+   "family": "I",
+   "span": "You have written production code in at least one functional language.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-028",
+   "family": "J",
+   "span": "Comfortable giving and receiving code review feedback.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-029",
+   "family": "J",
+   "span": "Go and Bash.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "represented",
+   "gold_tech": [
+    "language.go",
+    "language.shell"
+   ],
+   "represented_tech": [
+    "language.shell"
+   ],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-030",
+   "family": "J",
+   "span": "Some exposure to Swift.",
+   "mechanism": "necessity",
+   "section_kind": "REQUIRED",
+   "gold_section": "preferred",
+   "outcome": "represented",
+   "gold_tech": [
+    "language.swift"
+   ],
+   "represented_tech": [
+    "language.swift"
+   ],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-031",
+   "family": "K",
+   "span": "Degree in electrical engineering or equivalent experience.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-031",
+   "family": "K",
+   "span": "Experience writing Verilog for FPGA designs.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "hdl.verilog"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-031",
+   "family": "K",
+   "span": "Familiarity with SystemVerilog assertions.",
+   "mechanism": "heading_or_section",
+   "section_kind": "RESPONSIBILITY",
+   "gold_section": "preferred",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:systemverilog"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-031",
+   "family": "K",
+   "span": "Experience with Python test benches.",
+   "mechanism": "heading_or_section",
+   "section_kind": "RESPONSIBILITY",
+   "gold_section": "preferred",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "language.python"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-032",
+   "family": "K",
+   "span": "The right to work in Canada.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-032",
+   "family": "K",
+   "span": "A clean driving licence for occasional site visits.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-033",
+   "family": "K",
+   "span": "Strong MySQL administration skills.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:mysql"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-033",
+   "family": "K",
+   "span": "Experience with Elasticsearch.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "preferred",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:elasticsearch"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-034",
+   "family": "L",
+   "span": "Hands-on experience with Linux system administration.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:linux"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-034",
+   "family": "L",
+   "span": "Working knowledge of Ansible.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:ansible"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-035",
+   "family": "L",
+   "span": "Someone who has written Go services that handle real traffic.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [
+    "language.go"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-035",
+   "family": "L",
+   "span": "Experience with Prometheus metrics.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "unresolved:prometheus"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-036",
+   "family": "L",
+   "span": "Experience with WebAssembly.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": null,
+   "gold_section": "preferred",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "unresolved:webassembly"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-036",
+   "family": "L",
+   "span": "Rust on embedded targets.",
+   "mechanism": "necessity",
+   "section_kind": null,
+   "gold_section": "preferred",
+   "outcome": "represented",
+   "gold_tech": [
+    "language.rust"
+   ],
+   "represented_tech": [
+    "language.rust"
+   ],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-037",
+   "family": "L",
+   "span": "Shipped mobile apps built with Flutter.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [
+    "unresolved:flutter"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-037",
+   "family": "L",
+   "span": "Experience with Dart null safety.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:dart"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-038",
+   "family": "M",
+   "span": "Several years of experience with Scala.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:scala"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-038",
+   "family": "M",
+   "span": "Familiarity with Apache Spark.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "unresolved:apache_spark"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-039",
+   "family": "M",
+   "span": "You have built ETL jobs that run on Airflow.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [
+    "unresolved:airflow"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-040",
+   "family": "M",
+   "span": "Strong TypeScript.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "language.typescript"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-040",
+   "family": "M",
+   "span": "Comfortable with Prisma migrations.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "orm.prisma"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-041",
+   "family": "N",
+   "span": "You are comfortable owning features from database schema to deployed UI.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-042",
+   "family": "N",
+   "span": "You come from a background in data engineering.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-042",
+   "family": "N",
+   "span": "You'll need a working knowledge of SQL, too.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "represented",
+   "gold_tech": [
+    "language.sql"
+   ],
+   "represented_tech": [
+    "language.sql"
+   ],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-043",
+   "family": "N",
+   "span": "Spring Boot",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:spring_boot"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-044",
+   "family": "O",
+   "span": "An engineer who has operated production databases.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-045",
+   "family": "O",
+   "span": "You have strong software engineering fundamentals.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-047",
+   "family": "P",
+   "span": "You're familiar with .NET dependency injection.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": null,
+   "gold_section": "none",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:net"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-047",
+   "family": "P",
+   "span": "You should have shipped at least one desktop application.",
+   "mechanism": "not_admitted_unsectioned",
+   "section_kind": null,
+   "gold_section": "none",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-048",
+   "family": "P",
+   "span": "You’re comfortable with Bash and the Unix command line.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "language.shell",
+    "unresolved:unix"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-048",
+   "family": "P",
+   "span": "You know how to write efficient SQL.",
+   "mechanism": "heading_or_section",
+   "section_kind": "UNKNOWN",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "language.sql"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-048",
+   "family": "P",
+   "span": "You have led a small team before.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-049",
+   "family": "P",
+   "span": "Candidates must hold an active security clearance.",
+   "mechanism": "not_admitted_unsectioned",
+   "section_kind": null,
+   "gold_section": "none",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-049",
+   "family": "P",
+   "span": "You are confident presenting to non-technical stakeholders.",
+   "mechanism": "not_admitted_unsectioned",
+   "section_kind": null,
+   "gold_section": "none",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-051",
+   "family": "Q",
+   "span": "AWS or a comparable cloud provider is a plus.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "cloud.aws"
+   ],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "preferred"
+   ]
+  },
+  {
+   "control": "m11g23-eval-052",
+   "family": "Q",
+   "span": "PyTorch or TensorFlow for perception models.",
+   "mechanism": "necessity",
+   "section_kind": null,
+   "gold_section": "preferred",
+   "outcome": "represented",
+   "gold_tech": [
+    "ml.framework.pytorch",
+    "ml.framework.tensorflow"
+   ],
+   "represented_tech": [
+    "ml.framework.pytorch",
+    "ml.framework.tensorflow"
+   ],
+   "gold_nec": "preferred",
+   "row_necessities": [
+    "required"
+   ]
+  },
+  {
+   "control": "m11g23-eval-054",
+   "family": "R",
+   "span": "Strong JS fundamentals.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "language.javascript"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-054",
+   "family": "R",
+   "span": "Production TS experience.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "language.typescript"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-057",
+   "family": "S",
+   "span": "Fluent spoken and written German.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-057",
+   "family": "S",
+   "span": "At least seven years of industry experience.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-058",
+   "family": "S",
+   "span": "You hold a valid professional engineering licence.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-058",
+   "family": "S",
+   "span": "You have ten years of experience in the banking sector.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-059",
+   "family": "S",
+   "span": "Excellent stakeholder management skills.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-059",
+   "family": "S",
+   "span": "A recognised project management certification.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-059",
+   "family": "S",
+   "span": "Bilingual in English and French.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-059",
+   "family": "S",
+   "span": "Previous experience in the public sector.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "PREFERRED",
+   "gold_section": "preferred",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "preferred",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-060",
+   "family": "T",
+   "span": "You write clear READMEs and documentation for the tools you build.",
+   "mechanism": "heading_or_section",
+   "section_kind": null,
+   "gold_section": "required",
+   "outcome": "missed_entirely",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-061",
+   "family": "T",
+   "span": "Experience maintaining open-source projects.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-061",
+   "family": "T",
+   "span": "Proficiency with Git.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_visible",
+   "gold_tech": [
+    "unresolved:git"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": []
+  },
+  {
+   "control": "m11g23-eval-062",
+   "family": "T",
+   "span": "Has a strong portfolio of Rust projects, public or private.",
+   "mechanism": "concept_or_vocabulary",
+   "section_kind": "REQUIRED",
+   "gold_section": "required",
+   "outcome": "declined_placeholder",
+   "gold_tech": [
+    "language.rust"
+   ],
+   "represented_tech": [],
+   "gold_nec": "required",
+   "row_necessities": [
+    "required"
+   ]
+  }
+ ]
+}

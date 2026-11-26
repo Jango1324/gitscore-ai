@@ -1,0 +1,833 @@
+{
+ "P0_v15": {
+  "g22_private": {
+   "m11d": {
+    "denominator_rows": 9,
+    "placeholder_rows": 25,
+    "postings": 12,
+    "registry_concept_rows": 9,
+    "rows": 57,
+    "unparsed_claims": 148,
+    "unresolved_concept_rows": 5
+   },
+   "m11f": {
+    "denominator_rows": 23,
+    "placeholder_rows": 32,
+    "postings": 18,
+    "registry_concept_rows": 23,
+    "rows": 110,
+    "unparsed_claims": 212,
+    "unresolved_concept_rows": 17
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "placeholder_rows": 35,
+    "postings": 18,
+    "registry_concept_rows": 29,
+    "rows": 122,
+    "unparsed_claims": 178,
+    "unresolved_concept_rows": 25
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "placeholder_rows": 26,
+    "postings": 14,
+    "registry_concept_rows": 10,
+    "rows": 89,
+    "unparsed_claims": 160,
+    "unresolved_concept_rows": 24
+   }
+  },
+  "private_labeled": {
+   "m11d": {
+    "claims": 165,
+    "live": {
+     "admission_precision": 0.9661,
+     "false_admission_rate": 0.0714,
+     "nonqual_admitted": 2,
+     "nonqual_admitted_required": 2,
+     "nonqual_claims": 28,
+     "qual_admitted": 57,
+     "qual_claims": 136,
+     "qual_nec_correct": 54,
+     "qual_nec_scored": 57,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.4191
+    },
+    "located": 164
+   },
+   "m11f": {
+    "claims": 103,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 10,
+     "qual_admitted": 41,
+     "qual_claims": 93,
+     "qual_nec_correct": 40,
+     "qual_nec_scored": 41,
+     "qual_preferred_marked_required": 1,
+     "qualification_recall": 0.4409
+    },
+    "located": 103
+   },
+   "m11g5": {
+    "claims": 161,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 18,
+     "qual_admitted": 81,
+     "qual_claims": 143,
+     "qual_nec_correct": 76,
+     "qual_nec_scored": 81,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.5664
+    },
+    "located": 161
+   },
+   "m11g9_dev": {
+    "claims": 122,
+    "live": {
+     "admission_precision": 0.9706,
+     "false_admission_rate": 0.0189,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 53,
+     "qual_admitted": 33,
+     "qual_claims": 69,
+     "qual_nec_correct": 33,
+     "qual_nec_scored": 33,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.4783
+    },
+    "located": 122
+   },
+   "m11g9_holdout": {
+    "claims": 100,
+    "live": {
+     "admission_precision": 0.9677,
+     "false_admission_rate": 0.0227,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 44,
+     "qual_admitted": 30,
+     "qual_claims": 56,
+     "qual_nec_correct": 30,
+     "qual_nec_scored": 30,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.5357
+    },
+    "located": 100
+   },
+   "note": "previously inspected private postings with pre-existing claim annotations; NOT independent of the repository's history, but not used to design any G20 policy; integer counts only"
+  },
+  "private_unlabeled": {
+   "m11d": {
+    "denominator_rows": 9,
+    "postings": 12,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 2,
+    "preferred_rows": 21,
+    "required_rows": 36,
+    "rows": 57,
+    "unparsed_claims": 148
+   },
+   "m11f": {
+    "denominator_rows": 23,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 8,
+    "postings_with_no_rows": 1,
+    "preferred_rows": 9,
+    "required_rows": 101,
+    "rows": 110,
+    "unparsed_claims": 212
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 6,
+    "postings_with_no_rows": 1,
+    "preferred_rows": 26,
+    "required_rows": 96,
+    "rows": 122,
+    "unparsed_claims": 178
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "postings": 14,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 14,
+    "required_rows": 75,
+    "rows": 89,
+    "unparsed_claims": 160
+   }
+  }
+ },
+ "P1_cp_headings": {
+  "g22_private": {
+   "m11d": {
+    "denominator_rows": 9,
+    "placeholder_rows": 25,
+    "postings": 12,
+    "registry_concept_rows": 9,
+    "rows": 57,
+    "unparsed_claims": 148,
+    "unresolved_concept_rows": 5
+   },
+   "m11f": {
+    "denominator_rows": 25,
+    "placeholder_rows": 32,
+    "postings": 18,
+    "registry_concept_rows": 25,
+    "rows": 112,
+    "unparsed_claims": 216,
+    "unresolved_concept_rows": 17
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "placeholder_rows": 36,
+    "postings": 18,
+    "registry_concept_rows": 29,
+    "rows": 127,
+    "unparsed_claims": 176,
+    "unresolved_concept_rows": 25
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "placeholder_rows": 26,
+    "postings": 14,
+    "registry_concept_rows": 10,
+    "rows": 89,
+    "unparsed_claims": 160,
+    "unresolved_concept_rows": 24
+   }
+  },
+  "private_labeled": {
+   "m11d": {
+    "claims": 165,
+    "live": {
+     "admission_precision": 0.9661,
+     "false_admission_rate": 0.0714,
+     "nonqual_admitted": 2,
+     "nonqual_admitted_required": 2,
+     "nonqual_claims": 28,
+     "qual_admitted": 57,
+     "qual_claims": 136,
+     "qual_nec_correct": 54,
+     "qual_nec_scored": 57,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.4191
+    },
+    "located": 164
+   },
+   "m11f": {
+    "claims": 103,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 10,
+     "qual_admitted": 42,
+     "qual_claims": 93,
+     "qual_nec_correct": 41,
+     "qual_nec_scored": 42,
+     "qual_preferred_marked_required": 1,
+     "qualification_recall": 0.4516
+    },
+    "located": 103
+   },
+   "m11g5": {
+    "claims": 161,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 18,
+     "qual_admitted": 85,
+     "qual_claims": 143,
+     "qual_nec_correct": 80,
+     "qual_nec_scored": 85,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.5944
+    },
+    "located": 161
+   },
+   "m11g9_dev": {
+    "claims": 122,
+    "live": {
+     "admission_precision": 0.9706,
+     "false_admission_rate": 0.0189,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 53,
+     "qual_admitted": 33,
+     "qual_claims": 69,
+     "qual_nec_correct": 33,
+     "qual_nec_scored": 33,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.4783
+    },
+    "located": 122
+   },
+   "m11g9_holdout": {
+    "claims": 100,
+    "live": {
+     "admission_precision": 0.9677,
+     "false_admission_rate": 0.0227,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 44,
+     "qual_admitted": 30,
+     "qual_claims": 56,
+     "qual_nec_correct": 30,
+     "qual_nec_scored": 30,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.5357
+    },
+    "located": 100
+   },
+   "note": "previously inspected private postings with pre-existing claim annotations; NOT independent of the repository's history, but not used to design any G20 policy; integer counts only"
+  },
+  "private_unlabeled": {
+   "m11d": {
+    "denominator_rows": 9,
+    "postings": 12,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 2,
+    "preferred_rows": 21,
+    "required_rows": 36,
+    "rows": 57,
+    "unparsed_claims": 148
+   },
+   "m11f": {
+    "denominator_rows": 25,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 9,
+    "required_rows": 103,
+    "rows": 112,
+    "unparsed_claims": 216
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 6,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 26,
+    "required_rows": 101,
+    "rows": 127,
+    "unparsed_claims": 176
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "postings": 14,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 14,
+    "required_rows": 75,
+    "rows": 89,
+    "unparsed_claims": 160
+   }
+  }
+ },
+ "P2_section_aware": {
+  "g22_private": {
+   "m11d": {
+    "denominator_rows": 9,
+    "placeholder_rows": 26,
+    "postings": 12,
+    "registry_concept_rows": 9,
+    "rows": 59,
+    "unparsed_claims": 145,
+    "unresolved_concept_rows": 5
+   },
+   "m11f": {
+    "denominator_rows": 28,
+    "placeholder_rows": 33,
+    "postings": 18,
+    "registry_concept_rows": 28,
+    "rows": 121,
+    "unparsed_claims": 214,
+    "unresolved_concept_rows": 21
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "placeholder_rows": 36,
+    "postings": 18,
+    "registry_concept_rows": 29,
+    "rows": 127,
+    "unparsed_claims": 176,
+    "unresolved_concept_rows": 25
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "placeholder_rows": 26,
+    "postings": 14,
+    "registry_concept_rows": 10,
+    "rows": 89,
+    "unparsed_claims": 160,
+    "unresolved_concept_rows": 24
+   }
+  },
+  "private_labeled": {
+   "m11d": {
+    "claims": 165,
+    "live": {
+     "admission_precision": 0.9672,
+     "false_admission_rate": 0.0714,
+     "nonqual_admitted": 2,
+     "nonqual_admitted_required": 2,
+     "nonqual_claims": 28,
+     "qual_admitted": 59,
+     "qual_claims": 136,
+     "qual_nec_correct": 56,
+     "qual_nec_scored": 59,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.4338
+    },
+    "located": 164
+   },
+   "m11f": {
+    "claims": 103,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 10,
+     "qual_admitted": 42,
+     "qual_claims": 93,
+     "qual_nec_correct": 41,
+     "qual_nec_scored": 42,
+     "qual_preferred_marked_required": 1,
+     "qualification_recall": 0.4516
+    },
+    "located": 103
+   },
+   "m11g5": {
+    "claims": 161,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 18,
+     "qual_admitted": 85,
+     "qual_claims": 143,
+     "qual_nec_correct": 80,
+     "qual_nec_scored": 85,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.5944
+    },
+    "located": 161
+   },
+   "m11g9_dev": {
+    "claims": 122,
+    "live": {
+     "admission_precision": 0.9706,
+     "false_admission_rate": 0.0189,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 53,
+     "qual_admitted": 33,
+     "qual_claims": 69,
+     "qual_nec_correct": 33,
+     "qual_nec_scored": 33,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.4783
+    },
+    "located": 122
+   },
+   "m11g9_holdout": {
+    "claims": 100,
+    "live": {
+     "admission_precision": 0.9677,
+     "false_admission_rate": 0.0227,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 44,
+     "qual_admitted": 30,
+     "qual_claims": 56,
+     "qual_nec_correct": 30,
+     "qual_nec_scored": 30,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.5357
+    },
+    "located": 100
+   },
+   "note": "previously inspected private postings with pre-existing claim annotations; NOT independent of the repository's history, but not used to design any G20 policy; integer counts only"
+  },
+  "private_unlabeled": {
+   "m11d": {
+    "denominator_rows": 9,
+    "postings": 12,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 2,
+    "preferred_rows": 21,
+    "required_rows": 38,
+    "rows": 59,
+    "unparsed_claims": 145
+   },
+   "m11f": {
+    "denominator_rows": 28,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 6,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 9,
+    "required_rows": 112,
+    "rows": 121,
+    "unparsed_claims": 214
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 6,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 26,
+    "required_rows": 101,
+    "rows": 127,
+    "unparsed_claims": 176
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "postings": 14,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 14,
+    "required_rows": 75,
+    "rows": 89,
+    "unparsed_claims": 160
+   }
+  }
+ },
+ "P3_cp_headings_intent": {
+  "g22_private": {
+   "m11d": {
+    "denominator_rows": 9,
+    "placeholder_rows": 25,
+    "postings": 12,
+    "registry_concept_rows": 9,
+    "rows": 57,
+    "unparsed_claims": 148,
+    "unresolved_concept_rows": 5
+   },
+   "m11f": {
+    "denominator_rows": 25,
+    "placeholder_rows": 32,
+    "postings": 18,
+    "registry_concept_rows": 25,
+    "rows": 112,
+    "unparsed_claims": 215,
+    "unresolved_concept_rows": 17
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "placeholder_rows": 36,
+    "postings": 18,
+    "registry_concept_rows": 29,
+    "rows": 127,
+    "unparsed_claims": 176,
+    "unresolved_concept_rows": 25
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "placeholder_rows": 26,
+    "postings": 14,
+    "registry_concept_rows": 10,
+    "rows": 89,
+    "unparsed_claims": 160,
+    "unresolved_concept_rows": 24
+   }
+  },
+  "private_labeled": {
+   "m11d": {
+    "claims": 165,
+    "live": {
+     "admission_precision": 0.9661,
+     "false_admission_rate": 0.0714,
+     "nonqual_admitted": 2,
+     "nonqual_admitted_required": 2,
+     "nonqual_claims": 28,
+     "qual_admitted": 57,
+     "qual_claims": 136,
+     "qual_nec_correct": 54,
+     "qual_nec_scored": 57,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.4191
+    },
+    "located": 164
+   },
+   "m11f": {
+    "claims": 103,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 10,
+     "qual_admitted": 42,
+     "qual_claims": 93,
+     "qual_nec_correct": 41,
+     "qual_nec_scored": 42,
+     "qual_preferred_marked_required": 1,
+     "qualification_recall": 0.4516
+    },
+    "located": 103
+   },
+   "m11g5": {
+    "claims": 161,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 18,
+     "qual_admitted": 85,
+     "qual_claims": 143,
+     "qual_nec_correct": 80,
+     "qual_nec_scored": 85,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.5944
+    },
+    "located": 161
+   },
+   "m11g9_dev": {
+    "claims": 122,
+    "live": {
+     "admission_precision": 0.9706,
+     "false_admission_rate": 0.0189,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 53,
+     "qual_admitted": 33,
+     "qual_claims": 69,
+     "qual_nec_correct": 33,
+     "qual_nec_scored": 33,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.4783
+    },
+    "located": 122
+   },
+   "m11g9_holdout": {
+    "claims": 100,
+    "live": {
+     "admission_precision": 0.9677,
+     "false_admission_rate": 0.0227,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 44,
+     "qual_admitted": 30,
+     "qual_claims": 56,
+     "qual_nec_correct": 30,
+     "qual_nec_scored": 30,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.5357
+    },
+    "located": 100
+   },
+   "note": "previously inspected private postings with pre-existing claim annotations; NOT independent of the repository's history, but not used to design any G20 policy; integer counts only"
+  },
+  "private_unlabeled": {
+   "m11d": {
+    "denominator_rows": 9,
+    "postings": 12,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 2,
+    "preferred_rows": 21,
+    "required_rows": 36,
+    "rows": 57,
+    "unparsed_claims": 148
+   },
+   "m11f": {
+    "denominator_rows": 25,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 9,
+    "required_rows": 103,
+    "rows": 112,
+    "unparsed_claims": 215
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 6,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 26,
+    "required_rows": 101,
+    "rows": 127,
+    "unparsed_claims": 176
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "postings": 14,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 14,
+    "required_rows": 75,
+    "rows": 89,
+    "unparsed_claims": 160
+   }
+  }
+ },
+ "P4_narrow_hybrid": {
+  "g22_private": {
+   "m11d": {
+    "denominator_rows": 9,
+    "placeholder_rows": 26,
+    "postings": 12,
+    "registry_concept_rows": 9,
+    "rows": 59,
+    "unparsed_claims": 145,
+    "unresolved_concept_rows": 5
+   },
+   "m11f": {
+    "denominator_rows": 28,
+    "placeholder_rows": 33,
+    "postings": 18,
+    "registry_concept_rows": 28,
+    "rows": 121,
+    "unparsed_claims": 214,
+    "unresolved_concept_rows": 21
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "placeholder_rows": 36,
+    "postings": 18,
+    "registry_concept_rows": 29,
+    "rows": 127,
+    "unparsed_claims": 176,
+    "unresolved_concept_rows": 25
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "placeholder_rows": 26,
+    "postings": 14,
+    "registry_concept_rows": 10,
+    "rows": 89,
+    "unparsed_claims": 160,
+    "unresolved_concept_rows": 24
+   }
+  },
+  "private_labeled": {
+   "m11d": {
+    "claims": 165,
+    "live": {
+     "admission_precision": 0.9672,
+     "false_admission_rate": 0.0714,
+     "nonqual_admitted": 2,
+     "nonqual_admitted_required": 2,
+     "nonqual_claims": 28,
+     "qual_admitted": 59,
+     "qual_claims": 136,
+     "qual_nec_correct": 56,
+     "qual_nec_scored": 59,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.4338
+    },
+    "located": 164
+   },
+   "m11f": {
+    "claims": 103,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 10,
+     "qual_admitted": 42,
+     "qual_claims": 93,
+     "qual_nec_correct": 41,
+     "qual_nec_scored": 42,
+     "qual_preferred_marked_required": 1,
+     "qualification_recall": 0.4516
+    },
+    "located": 103
+   },
+   "m11g5": {
+    "claims": 161,
+    "live": {
+     "admission_precision": 1.0,
+     "false_admission_rate": 0.0,
+     "nonqual_claims": 18,
+     "qual_admitted": 85,
+     "qual_claims": 143,
+     "qual_nec_correct": 80,
+     "qual_nec_scored": 85,
+     "qual_preferred_marked_required": 2,
+     "qualification_recall": 0.5944
+    },
+    "located": 161
+   },
+   "m11g9_dev": {
+    "claims": 122,
+    "live": {
+     "admission_precision": 0.9706,
+     "false_admission_rate": 0.0189,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 53,
+     "qual_admitted": 33,
+     "qual_claims": 69,
+     "qual_nec_correct": 33,
+     "qual_nec_scored": 33,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.4783
+    },
+    "located": 122
+   },
+   "m11g9_holdout": {
+    "claims": 100,
+    "live": {
+     "admission_precision": 0.9677,
+     "false_admission_rate": 0.0227,
+     "nonqual_admitted": 1,
+     "nonqual_admitted_required": 1,
+     "nonqual_claims": 44,
+     "qual_admitted": 30,
+     "qual_claims": 56,
+     "qual_nec_correct": 30,
+     "qual_nec_scored": 30,
+     "qual_preferred_marked_required": 0,
+     "qualification_recall": 0.5357
+    },
+    "located": 100
+   },
+   "note": "previously inspected private postings with pre-existing claim annotations; NOT independent of the repository's history, but not used to design any G20 policy; integer counts only"
+  },
+  "private_unlabeled": {
+   "m11d": {
+    "denominator_rows": 9,
+    "postings": 12,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 2,
+    "preferred_rows": 21,
+    "required_rows": 38,
+    "rows": 59,
+    "unparsed_claims": 145
+   },
+   "m11f": {
+    "denominator_rows": 28,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 6,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 9,
+    "required_rows": 112,
+    "rows": 121,
+    "unparsed_claims": 214
+   },
+   "m11g5": {
+    "denominator_rows": 29,
+    "postings": 18,
+    "postings_with_no_eligible_requirement": 6,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 26,
+    "required_rows": 101,
+    "rows": 127,
+    "unparsed_claims": 176
+   },
+   "m11g9": {
+    "denominator_rows": 10,
+    "postings": 14,
+    "postings_with_no_eligible_requirement": 7,
+    "postings_with_no_rows": 0,
+    "preferred_rows": 14,
+    "required_rows": 75,
+    "rows": 89,
+    "unparsed_claims": 160
+   }
+  }
+ },
+ "note": "integer / ratio totals only; no posting text, ids, paths or per-posting vectors"
+}

@@ -1,0 +1,127 @@
+{
+ "milestone": "M11-G23",
+ "kind": "policy_design_freeze",
+ "design_files_sha256": {
+  "scripts/evaluation_lib/m11g23_policies.py": "bba557894ac6c3f793d49a4713e08114eda28fb56b57d070c88b6d91de17d4a3",
+  "scripts/evaluation_lib/m11g23_harness.py": "b3c6955f9137e3bd8121b453021e00d7518a683d7299a2e2796aeb9382c49f7f",
+  "scripts/evaluation_lib/m11g23_eval.py": "ef1e3d642999a86dc7655b5d347f642ed76011f44671e95493a4339c64f1a522",
+  "scripts/evaluation_lib/m11g23_historical.py": "7f75e2be6e43bed75d88243328fa103d75557c5b3ce00cc064e7291cf409e3dc",
+  "scripts/evaluation_lib/m11g23_dump_under_policy.py": "a3057a69f03c898abe2e73316f86705dfbeb98afd0003cba7f282b75dee9e691",
+  "scripts/evaluation_lib/m11g23_validate_controls.py": "ca53065c8f859782be71f7769aca5f6fd46265c44ddb9b4a909159b9dde37a2f",
+  "scripts/evaluation_lib/m11g23_build_dev_controls.py": "c5bfe5589ade3262becc8df1052d5d7210857f6df74bb3b0cb951deedf2ef9d9",
+  "scripts/evaluate_m11g23_candidate_profile_headings.py": "9eb126b02cf54a9b8aae99159e299838a344d7fb40f6d92f3e679d5df4caedd3"
+ },
+ "frozen_inputs_sha256": {
+  "evaluation/m11g23/labelling_guide.md": "069f6b123cc0dacd25b42749e6e1b4f680d7c03a3c0da0b194b4bbc224084a18",
+  "evaluation/m11g23/controls_dev.json": "2419157032ee343890b8403fcf90df6c595cf8acac66e2985833e29448791173",
+  "evaluation/m11g23/controls_eval.json": "38c5c38ea1a788a8a9ff7267043a349f8e140fe4ca6892ba03dbe8ae3b84c67f"
+ },
+ "policies": {
+  "P0_v15": "production parser v15 (replica, no hooks)",
+  "P1_cp_headings": "closed candidate-profile heading vocabulary -> REQUIRED (PREFERRED when the heading signals optionality); rescues only no-family UNKNOWN headings and the `^about` SKIP on 'About you'",
+  "P2_section_aware": "P1 + curly normalisation for every family, bare sentence-case candidate-profile lines, two-line candidate-profile headings, attribute sub-heading inheritance in REQUIRED/PREFERRED sections, list-section paragraph reset",
+  "P3_cp_headings_intent": "P1 headings; under a candidate-profile heading the section default applies only to a sentence G21 classifies as a qualification, else UNKNOWN-section handling",
+  "P4_narrow_hybrid": "P2 restricted to the components with a measured DEV / historical benefit: P1 headings + bare sentence-case candidate-profile lines + two-line candidate-profile headings + attribute sub-heading inheritance. Drops P2's all-family curly normalisation and paragraph reset (no measured effect) and P3's intent gate (recall loss with no precision gain on DEV, G20 or private aggregates)"
+ },
+ "selected_policy": "P4_narrow_hybrid",
+ "selection_rationale": "P4 = the smallest policy whose every component showed a measured DEV/historical benefit: P1 headings (+41 DEV units), bare sentence-case candidate-profile lines (-1 DEV false admission, +2 genuine private qualifications), two-line headings (+1), attribute sub-heading inheritance (+4). P2's curly-all and paragraph reset had no measured effect; P3's intent gate lost 7 genuine DEV units with no precision gain on DEV, G20 or the private aggregates. Not chosen for aggressiveness: P2 has identical DEV results and a larger change surface.",
+ "acceptance_gates": {
+  "G1_recall_gain_abs_min": 0.2,
+  "G1_units_gained_min": 15,
+  "G2a_new_severe_false_admissions_max": 0,
+  "G2b_new_false_admissions_per_recovered_max": 0.1,
+  "G3_necessity_accuracy_min": 0.9,
+  "G4_units_regressed_max": 0,
+  "G5_counted_non_technical_rows_max": 0,
+  "G6_historical_sections_unchanged": [
+   "corpora/g15",
+   "corpora/g16",
+   "corpora/g18",
+   "corpora/m10d",
+   "corpora/m10e",
+   "corpora/g7",
+   "corpora/8c_jobs",
+   "scoring",
+   "g13_or_contract",
+   "controls/g21_adversarial",
+   "negation_scope",
+   "g22_controls",
+   "g22_scoring",
+   "m10e_g3",
+   "m10e_row_existence_mismatches"
+  ],
+  "G7_g20_false_admission_units_not_increased": true
+ },
+ "gate_justification": {
+  "G1": "DEV strict recall gain 0.568 (21->67 of 81); the EVAL gate 0.20 / +15 units is ~35% of the DEV gain, allowing for vocabulary that does not generalise while still requiring a meaningful improvement",
+  "G2a": "the brief's minimum: no new severe false admission (a new registry row on a duty / employer / benefits / process unit); DEV: 0",
+  "G2b": "DEV: 1 new false admission per 46 recovered units (0.022, the documented G21 'No prior <tech> experience' negation gap); gate 0.10",
+  "G3": "DEV necessity accuracy 0.972 (69/71); gate 0.90",
+  "G4": "no unit P0 recovers may be lost (covers conventional headings B, G17 compound Q, G22-Q aliases R); DEV: 0",
+  "G5": "G19 capability semantics: scoring v2 must never count a non-technical row; DEV: 0",
+  "G6": "every non-candidate-profile historical section of the G22-Q dump (G15/G16/G18/M10D/M10E/G7/8c jobs, frozen 8c + fixture scoring, G13 OR-contract, G21 adversarial + negation scope, G22 controls + scoring, M10E-g3, M10E row existence) must be unchanged; DEV-phase: unchanged",
+  "G7": "G20 false-admission units must not increase on either G20 split; DEV-phase: 0->0 / 1->1"
+ },
+ "eval_protocol": "EVAL is run ONCE by `evaluate_m11g23_candidate_profile_headings.py --eval` after this freeze. Gates apply to the selected policy only; P1/P2/P3 are reported for information and cannot change the selection. No label, policy or gate edit after EVAL; corrections would be recorded as an erratum alongside the original measurement.",
+ "dev_summary": {
+  "P0_v15": {
+   "recovered": 21,
+   "of": 81,
+   "technical_recovered": 20,
+   "technical_of": 74
+  },
+  "P1_cp_headings": {
+   "recovered": 62,
+   "of": 81,
+   "technical_recovered": 57,
+   "technical_of": 74
+  },
+  "P2_section_aware": {
+   "recovered": 67,
+   "of": 81,
+   "technical_recovered": 62,
+   "technical_of": 74
+  },
+  "P3_cp_headings_intent": {
+   "recovered": 55,
+   "of": 81,
+   "technical_recovered": 52,
+   "technical_of": 74
+  },
+  "P4_narrow_hybrid": {
+   "recovered": 67,
+   "of": 81,
+   "technical_recovered": 62,
+   "technical_of": 74
+  }
+ },
+ "frozen_at_parent_commit": "1a6e8bf675b55ac7faa0bac1a878ca99d1367a80",
+ "frozen_utc": "2026-11-23T05:09:30+00:00",
+ "chronology": [
+  "labelling guide written",
+  "DEV labels written and frozen (controls_dev_hash_freeze.json)",
+  "EVAL author (AI subagent) started blind, in parallel",
+  "harness + P0-P3 drafted; P0 fidelity sweep (0 mismatches)",
+  "EVAL received and frozen on receipt (controls_eval_hash_freeze.json), before any policy ran on it",
+  "DEV + historical comparison of P0-P3; P2 component ablation; P4 defined",
+  "gates fixed and dry-run on DEV",
+  "THIS FREEZE",
+  "single EVAL run"
+ ],
+ "registered_in_g14_manifest": false,
+ "frozen_inputs_sha256_canonical_crlf_to_lf": {
+  "evaluation/m11g23/labelling_guide.md": "069f6b123cc0dacd25b42749e6e1b4f680d7c03a3c0da0b194b4bbc224084a18",
+  "evaluation/m11g23/controls_dev.json": "2419157032ee343890b8403fcf90df6c595cf8acac66e2985833e29448791173",
+  "evaluation/m11g23/controls_eval.json": "705276be60d64eecde9229565b8404691303075c3df04355a05170f8c76f3092"
+ },
+ "post_eval_amendments": [
+  {
+   "file": "scripts/evaluate_m11g23_candidate_profile_headings.py",
+   "original_sha256": "9eb126b02cf54a9b8aae99159e299838a344d7fb40f6d92f3e679d5df4caedd3",
+   "amended_sha256_canonical_crlf_to_lf": "fa6be2128a3478d86e33c92cb89803c762cfbe952e52c15b70046d3434e3126f",
+   "change": "`_sha()` now hashes CRLF->LF-normalised bytes instead of raw bytes (the EVAL control file was written with CRLF line endings by its author, so its raw hash depends on core.autocrlf)",
+   "effect": "only report.frozen_inputs['evaluation/m11g23/controls_eval.json'] changes (raw 38c5c38e... -> canonical 705276be...); every measured section of the report is identical to the single EVAL run (verified by comparison). No policy, gate, label or measurement logic changed; EVAL was not re-tuned."
+  }
+ ],
+ "canonical_hash_note": "canonical = SHA-256 after CRLF->LF (the G14 'crlf-to-lf/v1' convention); added after EVAL so the identity does not depend on core.autocrlf. The raw `sha256` above is the value recorded at freeze time and is unchanged."
+}

@@ -1,0 +1,3406 @@
+{
+  "schema_version": 1,
+  "milestone": "M11-G23",
+  "split": "eval",
+  "provenance": "Fully synthetic: every control text was invented for milestone M11-G23 and contains no real job-posting text, real employer, product or person names, or URLs (placeholder employers only).",
+  "authorship_disclosure": "Written by an AI subagent instructed only with evaluation/m11g23/labelling_guide.md (plus the concept registry and the structural validator), without access to the parser source, the candidate policies, the DEV set or any results.",
+  "label_timing": "All labels were written before any parser or policy was run on this text.",
+  "controls": [
+    {
+      "id": "m11g23-eval-001",
+      "family": "A",
+      "pair": null,
+      "text": "About you\n- Solid experience building backend services in Python.\n- Comfortable writing SQL against PostgreSQL.\n- Working knowledge of Docker.\n\nWhat we offer\n- Remote-first schedule with quarterly team meetups.",
+      "units": [
+        {
+          "span": "Solid experience building backend services in Python.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate-profile heading -> required"
+        },
+        {
+          "span": "Comfortable writing SQL against PostgreSQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql",
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "skill under About you"
+        },
+        {
+          "span": "Working knowledge of Docker.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.docker"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "knowledge under About you"
+        },
+        {
+          "span": "Remote-first schedule with quarterly team meetups.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-002",
+      "family": "A",
+      "pair": null,
+      "text": "## What you’ll bring\n* Three or more years shipping production code in Rust.\n* Familiarity with async networking libraries.\n* Hands-on experience profiling C++ services.\n\n## Our team\nWe are a group of nine engineers spread across four time zones.",
+      "units": [
+        {
+          "span": "Three or more years shipping production code in Rust.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "years of Rust under curly-apostrophe profile heading"
+        },
+        {
+          "span": "Familiarity with async networking libraries.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "knowledge, no named technology"
+        },
+        {
+          "span": "Hands-on experience profiling C++ services.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.cpp"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "experience clause"
+        },
+        {
+          "span": "We are a group of nine engineers spread across four time zones.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "team description"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-003",
+      "family": "A",
+      "pair": null,
+      "text": "THE PERSON WE'RE LOOKING FOR\nYou write idiomatic TypeScript and have built single-page apps with React. You have deployed workloads on AWS.\n\nHOW TO APPLY\nSend a short note describing a project you are proud of.",
+      "units": [
+        {
+          "span": "You write idiomatic TypeScript and have built single-page apps with React.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.typescript",
+            "framework.react"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "skill and experience in prose under ALL CAPS profile heading"
+        },
+        {
+          "span": "You have deployed workloads on AWS.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate experience"
+        },
+        {
+          "span": "Send a short note describing a project you are proud of.",
+          "kind": "process",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "process",
+          "ambiguous": false,
+          "note": "application instruction"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-004",
+      "family": "B",
+      "pair": null,
+      "text": "Requirements:\n- BS in Computer Science or a related field.\n- 4+ years of professional Java development.\n- Experience with Kotlin and Spring Boot.\n\nResponsibilities:\n- Maintain the payments ledger service.",
+      "units": [
+        {
+          "span": "BS in Computer Science or a related field.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "education"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "degree"
+        },
+        {
+          "span": "4+ years of professional Java development.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.java"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "years of Java"
+        },
+        {
+          "span": "Experience with Kotlin and Spring Boot.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.kotlin",
+            "unresolved:spring_boot"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "two technologies"
+        },
+        {
+          "span": "Maintain the payments ledger service.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-005",
+      "family": "B",
+      "pair": null,
+      "text": "**Minimum Qualifications**\n1. Proficiency in C and embedded debugging tools.\n2. Experience with FreeRTOS on small microcontrollers.\n3. Ability to read hardware schematics.\n\n**About Northwind Devices**\nNorthwind Devices builds sensors for greenhouse farming.",
+      "units": [
+        {
+          "span": "Proficiency in C and embedded debugging tools.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.c"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "C language named"
+        },
+        {
+          "span": "Experience with FreeRTOS on small microcontrollers.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "embedded.rtos.freertos"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "FreeRTOS experience"
+        },
+        {
+          "span": "Ability to read hardware schematics.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "ability, no named technology"
+        },
+        {
+          "span": "Northwind Devices builds sensors for greenhouse farming.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "employer description"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-006",
+      "family": "B",
+      "pair": null,
+      "text": "QUALIFICATIONS\nMust have hands-on experience with Kubernetes in production. Strong Go skills are essential. Experience with Terraform is preferred.\n\nBENEFITS\nTwenty-eight days of paid leave.",
+      "units": [
+        {
+          "span": "Must have hands-on experience with Kubernetes in production.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit must"
+        },
+        {
+          "span": "Strong Go skills are essential.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.go"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit essential"
+        },
+        {
+          "span": "Experience with Terraform is preferred.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:terraform"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit preferred marker overrides the required heading"
+        },
+        {
+          "span": "Twenty-eight days of paid leave.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-007",
+      "family": "C",
+      "pair": null,
+      "text": "What you'll do\n- Build and maintain internal dashboards.\n- Review pull requests from teammates.\n- Partner with designers on accessibility fixes.\n\nWhat you'll need\n- Experience writing accessible HTML and CSS.",
+      "units": [
+        {
+          "span": "Build and maintain internal dashboards.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        },
+        {
+          "span": "Review pull requests from teammates.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        },
+        {
+          "span": "Partner with designers on accessibility fixes.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        },
+        {
+          "span": "Experience writing accessible HTML and CSS.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.html",
+            "language.css"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "requirement heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-008",
+      "family": "C",
+      "pair": null,
+      "text": "## Responsibilities\nYou will own the ingestion pipeline end to end. You will be on call one week in six. You will write design documents for major changes.\n\n## Requirements\nSolid knowledge of Python and pandas.",
+      "units": [
+        {
+          "span": "You will own the ingestion pipeline end to end.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty in prose"
+        },
+        {
+          "span": "You will be on call one week in six.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        },
+        {
+          "span": "You will write design documents for major changes.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        },
+        {
+          "span": "Solid knowledge of Python and pandas.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python",
+            "data.library.pandas"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "knowledge under Requirements"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-009",
+      "family": "C",
+      "pair": null,
+      "text": "In this role, you will:\n• Lead weekly incident reviews.\n• Mentor two junior engineers.\n• Improve the reliability of our Redis caching layer.\n\nYou bring:\n• Experience leading on-call rotations.",
+      "units": [
+        {
+          "span": "Lead weekly incident reviews.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty, not a leadership qualification"
+        },
+        {
+          "span": "Mentor two junior engineers.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty, not a qualification"
+        },
+        {
+          "span": "Improve the reliability of our Redis caching layer.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "database.redis"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty naming Redis"
+        },
+        {
+          "span": "Experience leading on-call rotations.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "leadership",
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "experience under candidate-profile heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-010",
+      "family": "D",
+      "pair": null,
+      "text": "About us\nAcme Analytics helps small farms forecast harvest yields. We were founded in 2017 and have 60 employees. Our platform is written mostly in Python and Go.\n\nAbout you\nYou have built data models in SQL.",
+      "units": [
+        {
+          "span": "Acme Analytics helps small farms forecast harvest yields.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "employer description"
+        },
+        {
+          "span": "We were founded in 2017 and have 60 employees.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "employer facts"
+        },
+        {
+          "span": "Our platform is written mostly in Python and Go.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python",
+            "language.go"
+          ],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "employer statement about its tools"
+        },
+        {
+          "span": "You have built data models in SQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate experience under About you"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-011",
+      "family": "D",
+      "pair": null,
+      "text": "WHO WE ARE\nBrightline is a nonprofit building open educational tools.\nOur flagship app lets teachers build quizzes in minutes.\nWe publish all of our code under permissive licences.\n\nWHAT WE NEED\nExperience with Django or a similar web framework.",
+      "units": [
+        {
+          "span": "Brightline is a nonprofit building open educational tools.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "employer description"
+        },
+        {
+          "span": "Our flagship app lets teachers build quizzes in minutes.",
+          "kind": "product",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "product description"
+        },
+        {
+          "span": "We publish all of our code under permissive licences.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "employer practice"
+        },
+        {
+          "span": "Experience with Django or a similar web framework.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:django"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "requirement heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-012",
+      "family": "D",
+      "pair": null,
+      "text": "**The company**\nNorthwind Freight runs a fleet-tracking platform used by regional carriers. Our engineers ship to production several times a day, and we run everything on Kubernetes.\n\n**The ideal candidate**\nHas operated container platforms in production.",
+      "units": [
+        {
+          "span": "Northwind Freight runs a fleet-tracking platform used by regional carriers.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "employer description"
+        },
+        {
+          "span": "Our engineers ship to production several times a day, and we run everything on Kubernetes.",
+          "kind": "company",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "employer statement naming Kubernetes"
+        },
+        {
+          "span": "Has operated container platforms in production.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "generic category only, no named technology"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-013",
+      "family": "E",
+      "pair": null,
+      "text": "What we offer\n- Competitive salary and equity.\n- A yearly learning budget for books and conferences.\n- Four-day work week in August.\n\nWhat we're looking for\n- Commercial experience with Swift and iOS development.",
+      "units": [
+        {
+          "span": "Competitive salary and equity.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        },
+        {
+          "span": "A yearly learning budget for books and conferences.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        },
+        {
+          "span": "Four-day work week in August.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        },
+        {
+          "span": "Commercial experience with Swift and iOS development.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.swift",
+            "unresolved:ios"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate-profile heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-014",
+      "family": "E",
+      "pair": null,
+      "text": "## Perks\nHealth, dental and vision cover for you and your dependants. A new laptop of your choice on day one. Paid parental leave of twenty weeks.\n\n## Who you are\nAn engineer with strong fundamentals in C#.",
+      "units": [
+        {
+          "span": "Health, dental and vision cover for you and your dependants.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        },
+        {
+          "span": "A new laptop of your choice on day one.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        },
+        {
+          "span": "Paid parental leave of twenty weeks.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        },
+        {
+          "span": "An engineer with strong fundamentals in C#.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.csharp"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate-profile heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-015",
+      "family": "E",
+      "pair": null,
+      "text": "BENEFITS & PERKS\n• Home-office stipend.\n• Free AWS certification courses for anyone who wants them.\n\nREQUIRED SKILLS\n• Shell scripting on Linux servers.",
+      "units": [
+        {
+          "span": "Home-office stipend.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        },
+        {
+          "span": "Free AWS certification courses for anyone who wants them.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit naming AWS, not a requirement"
+        },
+        {
+          "span": "Shell scripting on Linux servers.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.shell",
+            "unresolved:linux"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "required skills heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-016",
+      "family": "F",
+      "pair": null,
+      "text": "About you\n- You are curious and kind.\n- You have three years of experience with Python.\n- You love a good puzzle.\n- You have used PyTorch to train models.",
+      "units": [
+        {
+          "span": "You are curious and kind.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "temperament"
+        },
+        {
+          "span": "You have three years of experience with Python.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "years of Python"
+        },
+        {
+          "span": "You love a good puzzle.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "enthusiasm"
+        },
+        {
+          "span": "You have used PyTorch to train models.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "ml.framework.pytorch"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "experience"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-017",
+      "family": "F",
+      "pair": null,
+      "text": "## Who you are\nYou thrive in ambiguity and enjoy owning problems end to end. You have production experience with Node.js and Express. You care deeply about your teammates. You communicate clearly in writing.",
+      "units": [
+        {
+          "span": "You thrive in ambiguity and enjoy owning problems end to end.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "attitude"
+        },
+        {
+          "span": "You have production experience with Node.js and Express.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:nodejs",
+            "framework.express"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Node.js is not JavaScript the language id"
+        },
+        {
+          "span": "You care deeply about your teammates.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "values"
+        },
+        {
+          "span": "You communicate clearly in writing.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "communication ability"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-018",
+      "family": "F",
+      "pair": null,
+      "text": "What makes you a great fit:\n- A genuine passion for climate tech.\n- A sense of humour.\n- Deep experience with TensorFlow or PyTorch.\n- Strong analytical skills.",
+      "units": [
+        {
+          "span": "A genuine passion for climate tech.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "enthusiasm"
+        },
+        {
+          "span": "A sense of humour.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "temperament"
+        },
+        {
+          "span": "Deep experience with TensorFlow or PyTorch.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "ml.framework.tensorflow",
+            "ml.framework.pytorch"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "OR requirement"
+        },
+        {
+          "span": "Strong analytical skills.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "skill phrased as skill"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-019",
+      "family": "G",
+      "pair": null,
+      "text": "Must have:\n- Python\n- PostgreSQL\n\nNice to have:\n- FastAPI\n- Redis",
+      "units": [
+        {
+          "span": "Python",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "bare item under must-have"
+        },
+        {
+          "span": "PostgreSQL",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "bare item under must-have"
+        },
+        {
+          "span": "FastAPI",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "framework.fastapi"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "nice-to-have heading"
+        },
+        {
+          "span": "Redis",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "database.redis"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "nice-to-have heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-020",
+      "family": "G",
+      "pair": null,
+      "text": "### Required\nAt least five years building distributed systems. Fluency in Java or Kotlin.\n\n### Preferred\nExposure to Kafka. Experience with gRPC service design.",
+      "units": [
+        {
+          "span": "At least five years building distributed systems.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "years, no technology"
+        },
+        {
+          "span": "Fluency in Java or Kotlin.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.java",
+            "language.kotlin"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "OR"
+        },
+        {
+          "span": "Exposure to Kafka.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:kafka"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "preferred heading"
+        },
+        {
+          "span": "Experience with gRPC service design.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:grpc"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "preferred heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-021",
+      "family": "G",
+      "pair": null,
+      "text": "WHAT YOU NEED\n- Solid React and TypeScript skills.\n- Experience testing UIs with Jest.\nBONUS POINTS\n- You have shipped a Next.js app to production.\n- You know your way around Storybook.",
+      "units": [
+        {
+          "span": "Solid React and TypeScript skills.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.react",
+            "language.typescript"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "required heading"
+        },
+        {
+          "span": "Experience testing UIs with Jest.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:jest"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "required heading"
+        },
+        {
+          "span": "You have shipped a Next.js app to production.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "framework.nextjs"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "bonus heading"
+        },
+        {
+          "span": "You know your way around Storybook.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:storybook"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "bonus heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-022",
+      "family": "H",
+      "pair": null,
+      "text": "Requirements\n- Experience building Android apps.\n- Kotlin experience is a plus but not required.\n- Familiarity with Jetpack Compose would be great.\n- Any exposure to Rust is optional.",
+      "units": [
+        {
+          "span": "Experience building Android apps.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:android"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "requirement heading"
+        },
+        {
+          "span": "Kotlin experience is a plus but not required.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "language.kotlin"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit a plus"
+        },
+        {
+          "span": "Familiarity with Jetpack Compose would be great.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:jetpack_compose"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit would be great"
+        },
+        {
+          "span": "Any exposure to Rust is optional.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit optional"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-023",
+      "family": "H",
+      "pair": null,
+      "text": "About you\nYou have strong SQL skills. Knowledge of dbt is not required, but it is a plus. Experience with Airflow is helpful.",
+      "units": [
+        {
+          "span": "You have strong SQL skills.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate-profile heading"
+        },
+        {
+          "span": "Knowledge of dbt is not required, but it is a plus.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:dbt"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "negated required with appreciative tail"
+        },
+        {
+          "span": "Experience with Airflow is helpful.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:airflow"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit helpful"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-024",
+      "family": "H",
+      "pair": null,
+      "text": "**Optional extras**\nIf you have worked with CUDA, tell us about it. Ideally you have written a custom LLVM pass at some point.\n\n**Core skills**\nModern C++ (17 or later) is mandatory.",
+      "units": [
+        {
+          "span": "If you have worked with CUDA, tell us about it.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "platform.cuda"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "optional experience under optional heading"
+        },
+        {
+          "span": "Ideally you have written a custom LLVM pass at some point.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "toolchain.llvm"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "explicit ideally"
+        },
+        {
+          "span": "Modern C++ (17 or later) is mandatory.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.cpp"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit mandatory"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-025",
+      "family": "I",
+      "pair": null,
+      "text": "About you\n- No prior Kotlin experience is required.\n- You will learn Terraform on the job.\n- You have shipped backend services in Java.\n\nOur history\nWe used Perl for our billing system until 2019.",
+      "units": [
+        {
+          "span": "No prior Kotlin experience is required.",
+          "kind": "negation",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.kotlin"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "negated requirement"
+        },
+        {
+          "span": "You will learn Terraform on the job.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:terraform"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "future learning"
+        },
+        {
+          "span": "You have shipped backend services in Java.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.java"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate experience"
+        },
+        {
+          "span": "We used Perl for our billing system until 2019.",
+          "kind": "tech_discussion",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:perl"
+          ],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "historical employer statement"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-026",
+      "family": "I",
+      "pair": null,
+      "text": "## What you'll learn\nYou'll pick up Elixir and our deployment tooling during onboarding. We pair new hires with a mentor for the first three months.\n\n## Who you are\nYou don't need to know Haskell already. You have written production code in at least one functional language.",
+      "units": [
+        {
+          "span": "You'll pick up Elixir and our deployment tooling during onboarding.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:elixir"
+          ],
+          "nt": [],
+          "section": "learning",
+          "ambiguous": false,
+          "note": "future learning"
+        },
+        {
+          "span": "We pair new hires with a mentor for the first three months.",
+          "kind": "team_practice",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "learning",
+          "ambiguous": false,
+          "note": "onboarding practice"
+        },
+        {
+          "span": "You don't need to know Haskell already.",
+          "kind": "negation",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:haskell"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "negated requirement under profile heading"
+        },
+        {
+          "span": "You have written production code in at least one functional language.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "no named technology"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-027",
+      "family": "I",
+      "pair": null,
+      "text": "The ideal candidate\nPrevious experience with COBOL is not needed. Our legacy reporting jobs were originally written in Fortran. The successful candidate has maintained large SQL codebases.\nOver time you will become our go-to person for Snowflake.",
+      "units": [
+        {
+          "span": "Previous experience with COBOL is not needed.",
+          "kind": "negation",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:cobol"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "negated"
+        },
+        {
+          "span": "Our legacy reporting jobs were originally written in Fortran.",
+          "kind": "tech_discussion",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:fortran"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "historical statement under profile heading"
+        },
+        {
+          "span": "The successful candidate has maintained large SQL codebases.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate experience"
+        },
+        {
+          "span": "Over time you will become our go-to person for Snowflake.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:snowflake"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "future growth, not current qualification"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-028",
+      "family": "J",
+      "pair": null,
+      "text": "## About you\n### Technical skills\n- Proficient in Python 3.\n- Experienced with Flask.\n### Ways of working\n- Comfortable giving and receiving code review feedback.\n## Benefits\n- Annual wellness allowance.",
+      "units": [
+        {
+          "span": "Proficient in Python 3.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "sub-heading inherits About you"
+        },
+        {
+          "span": "Experienced with Flask.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.flask"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "sub-heading inherits About you"
+        },
+        {
+          "span": "Comfortable giving and receiving code review feedback.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "ability under nested profile sub-heading"
+        },
+        {
+          "span": "Annual wellness allowance.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "new top-level heading ends profile"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-029",
+      "family": "J",
+      "pair": null,
+      "text": "What we're looking for\n\nTools\nDocker, Kubernetes and Helm.\n\nLanguages\nGo and Bash.\n\nWhat you'll do\nRun capacity planning for our clusters.",
+      "units": [
+        {
+          "span": "Docker, Kubernetes and Helm.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.docker",
+            "infra.kubernetes",
+            "unresolved:helm"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Tools sub-heading inherits profile meaning"
+        },
+        {
+          "span": "Go and Bash.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.go",
+            "language.shell"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Languages sub-heading inherits profile meaning"
+        },
+        {
+          "span": "Run capacity planning for our clusters.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty heading ends profile"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-030",
+      "family": "J",
+      "pair": null,
+      "text": "**Your profile**\n*Must-haves*\n- Experience with React Native.\n*Good to have*\n- Some exposure to Swift.\n**How we hire**\n- A 30-minute intro call with the hiring manager.",
+      "units": [
+        {
+          "span": "Experience with React Native.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.react_native"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "must-have sub-heading"
+        },
+        {
+          "span": "Some exposure to Swift.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "language.swift"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "good-to-have sub-heading"
+        },
+        {
+          "span": "A 30-minute intro call with the hiring manager.",
+          "kind": "process",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "process",
+          "ambiguous": false,
+          "note": "hiring process"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-031",
+      "family": "K",
+      "pair": null,
+      "text": "Required qualifications\n- Degree in electrical engineering or equivalent experience.\n- Experience writing Verilog for FPGA designs.\n\nResponsibilities\n- Own timing closure for the signal-processing block.\n\nPreferred qualifications\n- Familiarity with SystemVerilog assertions.\n- Experience with Python test benches.",
+      "units": [
+        {
+          "span": "Degree in electrical engineering or equivalent experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "education",
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "degree or equivalent"
+        },
+        {
+          "span": "Experience writing Verilog for FPGA designs.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "hdl.verilog"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "FPGA is a category"
+        },
+        {
+          "span": "Own timing closure for the signal-processing block.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        },
+        {
+          "span": "Familiarity with SystemVerilog assertions.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:systemverilog"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "second qualification section"
+        },
+        {
+          "span": "Experience with Python test benches.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "second qualification section"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-032",
+      "family": "K",
+      "pair": null,
+      "text": "About you\nYou have built REST APIs in PHP.\n\nAbout the team\nWe are six engineers who rotate support duty weekly.\n\nYou'll also need\nThe right to work in Canada.\nA clean driving licence for occasional site visits.",
+      "units": [
+        {
+          "span": "You have built REST APIs in PHP.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.php"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "REST is a style, not counted"
+        },
+        {
+          "span": "We are six engineers who rotate support duty weekly.",
+          "kind": "team_practice",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "company",
+          "ambiguous": false,
+          "note": "team description"
+        },
+        {
+          "span": "The right to work in Canada.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "legal"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "authorisation"
+        },
+        {
+          "span": "A clean driving licence for occasional site visits.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "legal"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "licence"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-033",
+      "family": "K",
+      "pair": null,
+      "text": "Skills we need:\nStrong MySQL administration skills.\n\nSkills we'd love:\nExperience with Elasticsearch.\n\nWhat you'll get:\nA generous pension contribution.\n\nMore about you:\nYou enjoy teaching others.",
+      "units": [
+        {
+          "span": "Strong MySQL administration skills.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:mysql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "required section"
+        },
+        {
+          "span": "Experience with Elasticsearch.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:elasticsearch"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "we'd love heading -> preferred"
+        },
+        {
+          "span": "A generous pension contribution.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        },
+        {
+          "span": "You enjoy teaching others.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "enthusiasm, not a skill"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-034",
+      "family": "L",
+      "pair": null,
+      "text": "What you’ll need\n- Hands-on experience with Linux system administration.\n- Working knowledge of Ansible.\n\nWhat you’ll do\n- Automate server provisioning.",
+      "units": [
+        {
+          "span": "Hands-on experience with Linux system administration.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:linux"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "curly apostrophe heading"
+        },
+        {
+          "span": "Working knowledge of Ansible.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:ansible"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "curly apostrophe heading"
+        },
+        {
+          "span": "Automate server provisioning.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-035",
+      "family": "L",
+      "pair": null,
+      "text": "Who we’re hoping\nto meet\n- Someone who has written Go services that handle real traffic.\n- Experience with Prometheus metrics.",
+      "units": [
+        {
+          "span": "Someone who has written Go services that handle real traffic.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.go"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "profile heading broken across two lines"
+        },
+        {
+          "span": "Experience with Prometheus metrics.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:prometheus"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "profile heading broken across two lines"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-036",
+      "family": "L",
+      "pair": null,
+      "text": "“Nice-to-haves” – not dealbreakers\n- Experience with WebAssembly.\n- Rust on embedded targets.\n\nThe essentials – what you’ll bring\n- Strong C skills.",
+      "units": [
+        {
+          "span": "Experience with WebAssembly.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "unresolved:webassembly"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "curly-quoted nice-to-have heading"
+        },
+        {
+          "span": "Rust on embedded targets.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "curly-quoted nice-to-have heading"
+        },
+        {
+          "span": "Strong C skills.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.c"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "en-dash profile heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-037",
+      "family": "L",
+      "pair": null,
+      "text": "YOU’LL BE A GREAT FIT\nIF YOU HAVE\n- Shipped mobile apps built with Flutter.\n- Experience with Dart null safety.\n\nWHAT’S IN IT FOR YOU\n- Equity in a growing company.",
+      "units": [
+        {
+          "span": "Shipped mobile apps built with Flutter.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:flutter"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "two-line ALL CAPS profile heading"
+        },
+        {
+          "span": "Experience with Dart null safety.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:dart"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "two-line ALL CAPS profile heading"
+        },
+        {
+          "span": "Equity in a growing company.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "benefit"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-038",
+      "family": "M",
+      "pair": null,
+      "text": "Here is what we think will help you succeed in this role and enjoy working with us over the long term\n- Several years of experience with Scala.\n- Familiarity with Apache Spark.\n- Patience when debugging flaky data jobs.\n\nA few words about the benefits package that we offer every full-time employee\n- Private health insurance.",
+      "units": [
+        {
+          "span": "Several years of experience with Scala.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:scala"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "long profile heading"
+        },
+        {
+          "span": "Familiarity with Apache Spark.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:apache_spark"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "long profile heading"
+        },
+        {
+          "span": "Patience when debugging flaky data jobs.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": true,
+          "note": "temperament tied to a task; could be read as a skill"
+        },
+        {
+          "span": "Private health insurance.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "long benefits heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-039",
+      "family": "M",
+      "pair": null,
+      "text": "Experience\nYou have built ETL jobs that run on Airflow.\n\nExperience at Acme\nAcme engineers get a dedicated week each quarter for exploration projects.",
+      "units": [
+        {
+          "span": "You have built ETL jobs that run on Airflow.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:airflow"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Experience heading is a requirements heading"
+        },
+        {
+          "span": "Acme engineers get a dedicated week each quarter for exploration projects.",
+          "kind": "benefits",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "benefits",
+          "ambiguous": false,
+          "note": "look-alike heading describing working life"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-040",
+      "family": "M",
+      "pair": null,
+      "text": "OUR STACK (AND WHAT WE EXPECT YOU TO ALREADY KNOW FROM IT)\n- Strong TypeScript.\n- Comfortable with Prisma migrations.\n\nOUR STACK (THINGS YOU WILL PICK UP HERE)\n- NestJS.\n- Redis streams.",
+      "units": [
+        {
+          "span": "Strong TypeScript.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.typescript"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "heading says expected to already know"
+        },
+        {
+          "span": "Comfortable with Prisma migrations.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "orm.prisma"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "heading says expected to already know"
+        },
+        {
+          "span": "NestJS.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "framework.nestjs"
+          ],
+          "nt": [],
+          "section": "learning",
+          "ambiguous": false,
+          "note": "things you will pick up"
+        },
+        {
+          "span": "Redis streams.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "database.redis"
+          ],
+          "nt": [],
+          "section": "learning",
+          "ambiguous": false,
+          "note": "things you will pick up"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-041",
+      "family": "N",
+      "pair": null,
+      "text": "About You\nYou have spent the last few years building web applications with Ruby. You are comfortable owning features from database schema to deployed UI. Ideally you have also worked with JavaScript on the front end.",
+      "units": [
+        {
+          "span": "You have spent the last few years building web applications with Ruby.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.ruby"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "prose under profile heading"
+        },
+        {
+          "span": "You are comfortable owning features from database schema to deployed UI.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "full-stack ability"
+        },
+        {
+          "span": "Ideally you have also worked with JavaScript on the front end.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "language.javascript"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit ideally"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-042",
+      "family": "N",
+      "pair": null,
+      "text": "## What you bring\nYou come from a background in data engineering. Experience with pandas and Jupyter Notebook is central to the role. You'll need a working knowledge of SQL, too.",
+      "units": [
+        {
+          "span": "You come from a background in data engineering.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "background, no named technology"
+        },
+        {
+          "span": "Experience with pandas and Jupyter Notebook is central to the role.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "data.library.pandas",
+            "language.jupyter_notebook"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "central -> required"
+        },
+        {
+          "span": "You'll need a working knowledge of SQL, too.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "need"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-043",
+      "family": "N",
+      "pair": null,
+      "text": "Your profile\n• 3+ years with Java\n• Spring Boot\n• Experience mentoring\nMost of our engineers also know a little Kotlin, and you will too after a few months here.",
+      "units": [
+        {
+          "span": "3+ years with Java",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.java"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "terse bullet"
+        },
+        {
+          "span": "Spring Boot",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:spring_boot"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "bare bullet"
+        },
+        {
+          "span": "Experience mentoring",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "leadership",
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "mentoring experience"
+        },
+        {
+          "span": "Most of our engineers also know a little Kotlin, and you will too after a few months here.",
+          "kind": "learning",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.kotlin"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "team statement plus future learning"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-044",
+      "family": "O",
+      "pair": null,
+      "text": "What you'll do\n- Build REST APIs in Go.\n- Migrate our legacy jobs from Python 2 to Python 3.\n- Tune PostgreSQL queries for the reporting service.\n\nWho you are\n- An engineer who has operated production databases.",
+      "units": [
+        {
+          "span": "Build REST APIs in Go.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.go"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty naming Go"
+        },
+        {
+          "span": "Migrate our legacy jobs from Python 2 to Python 3.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.python"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty naming Python"
+        },
+        {
+          "span": "Tune PostgreSQL queries for the reporting service.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty naming PostgreSQL"
+        },
+        {
+          "span": "An engineer who has operated production databases.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "databases is a category"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-045",
+      "family": "O",
+      "pair": null,
+      "text": "About you\nYou will design data pipelines in Spark and Scala. You will deploy everything with Docker. You have strong software engineering fundamentals.",
+      "units": [
+        {
+          "span": "You will design data pipelines in Spark and Scala.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "unresolved:spark",
+            "unresolved:scala"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "duty under profile heading"
+        },
+        {
+          "span": "You will deploy everything with Docker.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "infra.docker"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "duty under profile heading"
+        },
+        {
+          "span": "You have strong software engineering fundamentals.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "general engineering skill, no technology"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-046",
+      "family": "O",
+      "pair": null,
+      "text": "Day to day\nYou’ll triage bugs in our React Native app, write Kotlin modules for Android, and review TypeScript changes.\n\nRequirements\nA degree in a computing subject or equivalent practical experience.",
+      "units": [
+        {
+          "span": "You’ll triage bugs in our React Native app, write Kotlin modules for Android, and review TypeScript changes.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "framework.react_native",
+            "language.kotlin",
+            "unresolved:android",
+            "language.typescript"
+          ],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty naming several technologies"
+        },
+        {
+          "span": "A degree in a computing subject or equivalent practical experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "education",
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "degree or equivalent"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-047",
+      "family": "P",
+      "pair": null,
+      "text": "You have five years of experience with C#. You're familiar with .NET dependency injection. You should have shipped at least one desktop application.",
+      "units": [
+        {
+          "span": "You have five years of experience with C#.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.csharp"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "none",
+          "ambiguous": false,
+          "note": "unsectioned candidate attribute"
+        },
+        {
+          "span": "You're familiar with .NET dependency injection.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:net"
+          ],
+          "nt": [],
+          "section": "none",
+          "ambiguous": false,
+          "note": "unsectioned candidate attribute"
+        },
+        {
+          "span": "You should have shipped at least one desktop application.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "none",
+          "ambiguous": false,
+          "note": "should have -> required"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-048",
+      "family": "P",
+      "pair": null,
+      "text": "**What we expect**\n- You’re comfortable with Bash and the Unix command line.\n- You know how to write efficient SQL.\n- You have led a small team before.",
+      "units": [
+        {
+          "span": "You’re comfortable with Bash and the Unix command line.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.shell",
+            "unresolved:unix"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "curly you're"
+        },
+        {
+          "span": "You know how to write efficient SQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.sql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "candidate subject"
+        },
+        {
+          "span": "You have led a small team before.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "leadership",
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "leadership experience"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-049",
+      "family": "P",
+      "pair": null,
+      "text": "Candidates must hold an active security clearance. You've worked with Java in a regulated industry. You are confident presenting to non-technical stakeholders.",
+      "units": [
+        {
+          "span": "Candidates must hold an active security clearance.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "legal"
+          ],
+          "section": "none",
+          "ambiguous": false,
+          "note": "unsectioned must"
+        },
+        {
+          "span": "You've worked with Java in a regulated industry.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.java"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "none",
+          "ambiguous": false,
+          "note": "unsectioned candidate attribute"
+        },
+        {
+          "span": "You are confident presenting to non-technical stakeholders.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "none",
+          "ambiguous": false,
+          "note": "presentation ability"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-050",
+      "family": "Q",
+      "pair": null,
+      "text": "Requirements\n- Professional experience in Python or Go.\n- Docker and Kubernetes in production.\n- Either PostgreSQL or MySQL.",
+      "units": [
+        {
+          "span": "Professional experience in Python or Go.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python",
+            "language.go"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "OR"
+        },
+        {
+          "span": "Docker and Kubernetes in production.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.docker",
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "AND"
+        },
+        {
+          "span": "Either PostgreSQL or MySQL.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "database.postgresql",
+            "unresolved:mysql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "either/or"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-051",
+      "family": "Q",
+      "pair": null,
+      "text": "About you\nYou know JavaScript and TypeScript well. You have used Flask or FastAPI to build internal tools. AWS or a comparable cloud provider is a plus.",
+      "units": [
+        {
+          "span": "You know JavaScript and TypeScript well.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.javascript",
+            "language.typescript"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "AND"
+        },
+        {
+          "span": "You have used Flask or FastAPI to build internal tools.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.flask",
+            "framework.fastapi"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "OR"
+        },
+        {
+          "span": "AWS or a comparable cloud provider is a plus.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "explicit a plus"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-052",
+      "family": "Q",
+      "pair": null,
+      "text": "Must haves\n- C or C++ for embedded systems.\n- ROS2 and Python for robotics prototyping.\nNice to haves\n- PyTorch or TensorFlow for perception models.",
+      "units": [
+        {
+          "span": "C or C++ for embedded systems.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.c",
+            "language.cpp"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "OR"
+        },
+        {
+          "span": "ROS2 and Python for robotics prototyping.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "robotics.ros2",
+            "language.python"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "AND"
+        },
+        {
+          "span": "PyTorch or TensorFlow for perception models.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "ml.framework.pytorch",
+            "ml.framework.tensorflow"
+          ],
+          "nt": [],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "OR under nice-to-have"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-053",
+      "family": "R",
+      "pair": null,
+      "text": "What you bring\n- Golang in production.\n- Postgres query tuning.\n- Running services on k8s.\n\nOur tech stack\nWe run Golang services against Postgres, deployed with Helm.",
+      "units": [
+        {
+          "span": "Golang in production.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.go"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Golang alias"
+        },
+        {
+          "span": "Postgres query tuning.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "database.postgresql"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Postgres alias"
+        },
+        {
+          "span": "Running services on k8s.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.kubernetes"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "k8s alias"
+        },
+        {
+          "span": "We run Golang services against Postgres, deployed with Helm.",
+          "kind": "stack",
+          "qual": false,
+          "nec": null,
+          "tech": [
+            "language.go",
+            "database.postgresql",
+            "unresolved:helm"
+          ],
+          "nt": [],
+          "section": "stack",
+          "ambiguous": false,
+          "note": "employer stack description"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-054",
+      "family": "R",
+      "pair": null,
+      "text": "Requirements:\n- Strong JS fundamentals.\n- Production TS experience.\n- Experience with ReactJS hooks.",
+      "units": [
+        {
+          "span": "Strong JS fundamentals.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.javascript"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "JS alias"
+        },
+        {
+          "span": "Production TS experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.typescript"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "TS alias"
+        },
+        {
+          "span": "Experience with ReactJS hooks.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "framework.react"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "ReactJS alias"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-055",
+      "family": "R",
+      "pair": null,
+      "text": "Ideal candidate profile\nHas written Python3 automation scripts. Knows torch well enough to debug training loops. Can write a Dockerfile from scratch.",
+      "units": [
+        {
+          "span": "Has written Python3 automation scripts.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "python3 alias"
+        },
+        {
+          "span": "Knows torch well enough to debug training loops.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "ml.framework.pytorch"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "torch alias"
+        },
+        {
+          "span": "Can write a Dockerfile from scratch.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "infra.docker"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Dockerfile alias"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-056",
+      "family": "R",
+      "pair": null,
+      "text": "Must have\nC++/CUDA kernel experience.\nAmazon Web Services certification is a plus.\nNice to have\nExperience with Next.js and Express.js.",
+      "units": [
+        {
+          "span": "C++/CUDA kernel experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.cpp",
+            "platform.cuda"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "slash-joined technologies"
+        },
+        {
+          "span": "Amazon Web Services certification is a plus.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "cloud.aws"
+          ],
+          "nt": [
+            "education"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "long-form AWS alias; explicit a plus"
+        },
+        {
+          "span": "Experience with Next.js and Express.js.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [
+            "framework.nextjs",
+            "framework.express"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "dotted aliases; not JavaScript"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-057",
+      "family": "S",
+      "pair": null,
+      "text": "Qualifications\n- A master's degree in statistics or mathematics.\n- Fluent spoken and written German.\n- At least seven years of industry experience.\n- Eligibility for government security clearance.",
+      "units": [
+        {
+          "span": "A master's degree in statistics or mathematics.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "education"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "degree"
+        },
+        {
+          "span": "Fluent spoken and written German.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "spoken language"
+        },
+        {
+          "span": "At least seven years of industry experience.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "years, no technology"
+        },
+        {
+          "span": "Eligibility for government security clearance.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "legal"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "clearance"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-058",
+      "family": "S",
+      "pair": null,
+      "text": "About you\nYou hold a valid professional engineering licence. You have ten years of experience in the banking sector. You are willing to travel to client sites twice a month.",
+      "units": [
+        {
+          "span": "You hold a valid professional engineering licence.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "education",
+            "legal"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "licence"
+        },
+        {
+          "span": "You have ten years of experience in the banking sector.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "domain years"
+        },
+        {
+          "span": "You are willing to travel to client sites twice a month.",
+          "kind": "personality",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": true,
+          "note": "willingness / job condition rather than a skill"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-059",
+      "family": "S",
+      "pair": null,
+      "text": "WHAT YOU NEED TO SUCCEED\n• Excellent stakeholder management skills.\n• A recognised project management certification.\n• Bilingual in English and French.\n\nPreferred\n• Previous experience in the public sector.",
+      "units": [
+        {
+          "span": "Excellent stakeholder management skills.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "soft skill phrased as skill"
+        },
+        {
+          "span": "A recognised project management certification.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "education"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "certification"
+        },
+        {
+          "span": "Bilingual in English and French.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "spoken languages"
+        },
+        {
+          "span": "Previous experience in the public sector.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "preferred",
+          "ambiguous": false,
+          "note": "preferred heading"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-060",
+      "family": "T",
+      "pair": null,
+      "text": "About you\n- You write clear READMEs and documentation for the tools you build.\n- Experience with Python packaging.\n- A GitHub profile is welcome but not required.\n\nHow to apply\n- Include a link to a repository you are proud of, if you have one.",
+      "units": [
+        {
+          "span": "You write clear READMEs and documentation for the tools you build.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "soft_skill"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "technical writing ability"
+        },
+        {
+          "span": "Experience with Python packaging.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.python"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Python experience"
+        },
+        {
+          "span": "A GitHub profile is welcome but not required.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "preferred",
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": true,
+          "note": "optional portfolio item, arguably not a skill"
+        },
+        {
+          "span": "Include a link to a repository you are proud of, if you have one.",
+          "kind": "process",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "process",
+          "ambiguous": false,
+          "note": "application instruction"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-061",
+      "family": "T",
+      "pair": null,
+      "text": "What you'll do\n- Maintain our open-source repositories and triage GitHub issues.\n- Keep each project's README accurate.\n\nWhat we look for\n- Experience maintaining open-source projects.\n- Proficiency with Git.",
+      "units": [
+        {
+          "span": "Maintain our open-source repositories and triage GitHub issues.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty; GitHub as venue, not a skill"
+        },
+        {
+          "span": "Keep each project's README accurate.",
+          "kind": "responsibility",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "responsibility",
+          "ambiguous": false,
+          "note": "duty"
+        },
+        {
+          "span": "Experience maintaining open-source projects.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "experience, no named technology"
+        },
+        {
+          "span": "Proficiency with Git.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "unresolved:git"
+          ],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Git is a specific tool"
+        }
+      ]
+    },
+    {
+      "id": "m11g23-eval-062",
+      "family": "T",
+      "pair": null,
+      "text": "The ideal candidate\nHas a strong portfolio of Rust projects, public or private. We judge applicants on the role's requirements, not on star counts or commit graphs.\n\nRequirements\nExperience with Rust async runtimes.",
+      "units": [
+        {
+          "span": "Has a strong portfolio of Rust projects, public or private.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "Rust experience"
+        },
+        {
+          "span": "We judge applicants on the role's requirements, not on star counts or commit graphs.",
+          "kind": "process",
+          "qual": false,
+          "nec": null,
+          "tech": [],
+          "nt": [],
+          "section": "required",
+          "ambiguous": false,
+          "note": "assessment statement under profile heading"
+        },
+        {
+          "span": "Experience with Rust async runtimes.",
+          "kind": "qualification",
+          "qual": true,
+          "nec": "required",
+          "tech": [
+            "language.rust"
+          ],
+          "nt": [
+            "experience"
+          ],
+          "section": "required",
+          "ambiguous": false,
+          "note": "requirement heading"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4404 @@
+{
+ "milestone": "M11-G23",
+ "scope": "research only; production unchanged",
+ "versions": {
+  "parser": "job_description_parser:v15",
+  "scoring": "github_evidence_alignment:v2",
+  "matcher": "requirement_matcher:v1",
+  "readme": "readme:v6",
+  "registry": 4,
+  "registry_concepts": 39
+ },
+ "frozen_inputs": {
+  "evaluation/m11g23/labelling_guide.md": "069f6b123cc0dacd25b42749e6e1b4f680d7c03a3c0da0b194b4bbc224084a18",
+  "evaluation/m11g23/controls_dev.json": "2419157032ee343890b8403fcf90df6c595cf8acac66e2985833e29448791173",
+  "evaluation/m11g23/controls_eval.json": "705276be60d64eecde9229565b8404691303075c3df04355a05170f8c76f3092"
+ },
+ "selected_policy": "P4_narrow_hybrid",
+ "policies": {
+  "P0_v15": "production parser v15 (replica, no hooks)",
+  "P1_cp_headings": "closed candidate-profile heading vocabulary -> REQUIRED (PREFERRED when the heading signals optionality); rescues only no-family UNKNOWN headings and the `^about` SKIP on 'About you'",
+  "P2_section_aware": "P1 + curly normalisation for every family, bare sentence-case candidate-profile lines, two-line candidate-profile headings, attribute sub-heading inheritance in REQUIRED/PREFERRED sections, list-section paragraph reset",
+  "P3_cp_headings_intent": "P1 headings; under a candidate-profile heading the section default applies only to a sentence G21 classifies as a qualification, else UNKNOWN-section handling",
+  "P4_narrow_hybrid": "P2 restricted to the components with a measured DEV / historical benefit: P1 headings + bare sentence-case candidate-profile lines + two-line candidate-profile headings + attribute sub-heading inheritance. Drops P2's all-family curly normalisation and paragraph reset (no measured effect) and P3's intent gate (recall loss with no precision gain on DEV, G20 or private aggregates)"
+ },
+ "acceptance_gates": {
+  "G1_recall_gain_abs_min": 0.2,
+  "G1_units_gained_min": 15,
+  "G2a_new_severe_false_admissions_max": 0,
+  "G2b_new_false_admissions_per_recovered_max": 0.1,
+  "G3_necessity_accuracy_min": 0.9,
+  "G4_units_regressed_max": 0,
+  "G5_counted_non_technical_rows_max": 0,
+  "G6_historical_sections_unchanged": [
+   "corpora/g15",
+   "corpora/g16",
+   "corpora/g18",
+   "corpora/m10d",
+   "corpora/m10e",
+   "corpora/g7",
+   "corpora/8c_jobs",
+   "scoring",
+   "g13_or_contract",
+   "controls/g21_adversarial",
+   "negation_scope",
+   "g22_controls",
+   "g22_scoring",
+   "m10e_g3",
+   "m10e_row_existence_mismatches"
+  ],
+  "G7_g20_false_admission_units_not_increased": true
+ },
+ "fidelity": {
+  "dev_p0_replica_mismatches": 0,
+  "eval_p0_replica_mismatches": 0
+ },
+ "dev": {
+  "P0_v15": {
+   "metrics": {
+    "units": {
+     "total": 123,
+     "qualification": 81,
+     "technical_qualification": 74,
+     "non_qualification": 42,
+     "ambiguous": 0
+    },
+    "1_recall_strict": {
+     "recovered": 21,
+     "of": 81,
+     "technical_recovered": 20,
+     "technical_of": 74
+    },
+    "1b_represented_any": 23,
+    "2_incorrect_admissions": {
+     "units": 1,
+     "rows": 1,
+     "required_rows": 1,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 1,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 0
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 22,
+     "of_admitted_qual": 24,
+     "fabricated_concepts": 0
+    },
+    "4_necessity": {
+     "correct": 22,
+     "of": 23,
+     "preferred_gold_marked_required": 1,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 28,
+     "within_unit": null,
+     "units_span_exact": 25,
+     "units_span_within": 25,
+     "units_with_rows": 25
+    },
+    "outcomes": {
+     "missed_entirely": 23,
+     "represented": 23,
+     "declined_visible": 34,
+     "correctly_not_admitted": 41,
+     "declined_placeholder": 1,
+     "false_admission": 1
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 1,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 6,
+      "recovered": 6,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 2,
+      "recovered": 0,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 2,
+      "recovered": 0,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 1,
+      "recovered": 0,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 6,
+      "recovered": 3,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 4,
+      "recovered": 1,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "J": {
+      "qual_units": 5,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 7,
+      "recovered": 3,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 1,
+      "false_admitted": 1
+     },
+     "M": {
+      "qual_units": 1,
+      "recovered": 0,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 4,
+      "recovered": 0,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 2,
+      "recovered": 0,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "P": {
+      "qual_units": 5,
+      "recovered": 3,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 4,
+      "recovered": 0,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 5,
+      "recovered": 0,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 6,
+      "recovered": 0,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 4,
+      "recovered": 0,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 16,
+     "denominator_total": 24,
+     "numerator_total": 24,
+     "counted_non_technical_rows": 0
+    }
+   }
+  },
+  "P1_cp_headings": {
+   "metrics": {
+    "units": {
+     "total": 123,
+     "qualification": 81,
+     "technical_qualification": 74,
+     "non_qualification": 42,
+     "ambiguous": 0
+    },
+    "1_recall_strict": {
+     "recovered": 62,
+     "of": 81,
+     "technical_recovered": 57,
+     "technical_of": 74
+    },
+    "1b_represented_any": 66,
+    "2_incorrect_admissions": {
+     "units": 2,
+     "rows": 2,
+     "required_rows": 2,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 1,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 64,
+     "of_admitted_qual": 71,
+     "fabricated_concepts": 0
+    },
+    "4_necessity": {
+     "correct": 64,
+     "of": 66,
+     "preferred_gold_marked_required": 2,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 78,
+     "within_unit": null,
+     "units_span_exact": 73,
+     "units_span_within": 73,
+     "units_with_rows": 73
+    },
+    "outcomes": {
+     "represented": 66,
+     "correctly_not_admitted": 40,
+     "declined_visible": 10,
+     "declined_placeholder": 5,
+     "false_admission": 2
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 6,
+      "recovered": 6,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 2,
+      "recovered": 1,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 2,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 1,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 3,
+      "recovered": 3,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 6,
+      "recovered": 5,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 4,
+      "recovered": 1,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 5,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 7,
+      "recovered": 6,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 1,
+      "false_admitted": 1
+     },
+     "M": {
+      "qual_units": 1,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 4,
+      "recovered": 4,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 2,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "P": {
+      "qual_units": 5,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 4,
+      "recovered": 4,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 5,
+      "recovered": 4,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 6,
+      "recovered": 5,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 4,
+      "recovered": 2,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 43,
+     "denominator_total": 64,
+     "numerator_total": 64,
+     "counted_non_technical_rows": 0
+    }
+   },
+   "vs_P0_scoring": {
+    "full_denominator_delta": 40,
+    "full_numerator_delta": 40,
+    "full_rows_added": 50,
+    "full_score_changed": 27,
+    "full_undefined_changed": 27,
+    "none_denominator_delta": 40,
+    "none_numerator_delta": 0,
+    "none_rows_added": 50,
+    "none_score_changed": 27,
+    "none_undefined_changed": 27,
+    "full_score_changed_controls": [
+     "m11g23-dev-001",
+     "m11g23-dev-003",
+     "m11g23-dev-004",
+     "m11g23-dev-010",
+     "m11g23-dev-011",
+     "m11g23-dev-013",
+     "m11g23-dev-015",
+     "m11g23-dev-017",
+     "m11g23-dev-019",
+     "m11g23-dev-022",
+     "m11g23-dev-024",
+     "m11g23-dev-026",
+     "m11g23-dev-033",
+     "m11g23-dev-035",
+     "m11g23-dev-038",
+     "m11g23-dev-041",
+     "m11g23-dev-042",
+     "m11g23-dev-043",
+     "m11g23-dev-044",
+     "m11g23-dev-047",
+     "m11g23-dev-050",
+     "m11g23-dev-053",
+     "m11g23-dev-054",
+     "m11g23-dev-055",
+     "m11g23-dev-058",
+     "m11g23-dev-059",
+     "m11g23-dev-060"
+    ]
+   },
+   "vs_P0_units": {
+    "newly_recovered": [
+     "m11g23-dev-001/u0",
+     "m11g23-dev-001/u1",
+     "m11g23-dev-003/u0",
+     "m11g23-dev-003/u1",
+     "m11g23-dev-004/u0",
+     "m11g23-dev-004/u1",
+     "m11g23-dev-010/u1",
+     "m11g23-dev-011/u2",
+     "m11g23-dev-013/u2",
+     "m11g23-dev-015/u0",
+     "m11g23-dev-017/u1",
+     "m11g23-dev-019/u1",
+     "m11g23-dev-020/u0",
+     "m11g23-dev-022/u0",
+     "m11g23-dev-026/u0",
+     "m11g23-dev-033/u0",
+     "m11g23-dev-033/u2",
+     "m11g23-dev-034/u1",
+     "m11g23-dev-038/u0",
+     "m11g23-dev-041/u0",
+     "m11g23-dev-041/u1",
+     "m11g23-dev-042/u0",
+     "m11g23-dev-043/u0",
+     "m11g23-dev-044/u1",
+     "m11g23-dev-047/u0",
+     "m11g23-dev-047/u1",
+     "m11g23-dev-050/u0",
+     "m11g23-dev-050/u1",
+     "m11g23-dev-051/u0",
+     "m11g23-dev-052/u0",
+     "m11g23-dev-053/u0",
+     "m11g23-dev-053/u1",
+     "m11g23-dev-054/u0",
+     "m11g23-dev-055/u0",
+     "m11g23-dev-056/u0",
+     "m11g23-dev-056/u1",
+     "m11g23-dev-057/u1",
+     "m11g23-dev-058/u0",
+     "m11g23-dev-058/u1",
+     "m11g23-dev-059/u0",
+     "m11g23-dev-060/u0"
+    ],
+    "regressed": [],
+    "newly_false_admitted": [
+     "m11g23-dev-026/u1"
+    ]
+   }
+  },
+  "P2_section_aware": {
+   "metrics": {
+    "units": {
+     "total": 123,
+     "qualification": 81,
+     "technical_qualification": 74,
+     "non_qualification": 42,
+     "ambiguous": 0
+    },
+    "1_recall_strict": {
+     "recovered": 67,
+     "of": 81,
+     "technical_recovered": 62,
+     "technical_of": 74
+    },
+    "1b_represented_any": 71,
+    "2_incorrect_admissions": {
+     "units": 1,
+     "rows": 1,
+     "required_rows": 1,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 0,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 69,
+     "of_admitted_qual": 76,
+     "fabricated_concepts": 0
+    },
+    "4_necessity": {
+     "correct": 69,
+     "of": 71,
+     "preferred_gold_marked_required": 2,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 83,
+     "within_unit": null,
+     "units_span_exact": 77,
+     "units_span_within": 77,
+     "units_with_rows": 77
+    },
+    "outcomes": {
+     "represented": 71,
+     "correctly_not_admitted": 41,
+     "declined_visible": 5,
+     "declined_placeholder": 5,
+     "false_admission": 1
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 6,
+      "recovered": 6,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 2,
+      "recovered": 1,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 2,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 1,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 3,
+      "recovered": 3,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 6,
+      "recovered": 5,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 4,
+      "recovered": 1,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 5,
+      "recovered": 5,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 7,
+      "recovered": 6,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "M": {
+      "qual_units": 1,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 4,
+      "recovered": 4,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 2,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "P": {
+      "qual_units": 5,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 4,
+      "recovered": 4,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 5,
+      "recovered": 4,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 6,
+      "recovered": 5,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 4,
+      "recovered": 2,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 46,
+     "denominator_total": 70,
+     "numerator_total": 70,
+     "counted_non_technical_rows": 0
+    }
+   },
+   "vs_P0_scoring": {
+    "full_denominator_delta": 46,
+    "full_numerator_delta": 46,
+    "full_rows_added": 56,
+    "full_score_changed": 30,
+    "full_undefined_changed": 30,
+    "none_denominator_delta": 46,
+    "none_numerator_delta": 0,
+    "none_rows_added": 56,
+    "none_score_changed": 30,
+    "none_undefined_changed": 30,
+    "full_score_changed_controls": [
+     "m11g23-dev-001",
+     "m11g23-dev-003",
+     "m11g23-dev-004",
+     "m11g23-dev-010",
+     "m11g23-dev-011",
+     "m11g23-dev-013",
+     "m11g23-dev-015",
+     "m11g23-dev-017",
+     "m11g23-dev-019",
+     "m11g23-dev-022",
+     "m11g23-dev-024",
+     "m11g23-dev-026",
+     "m11g23-dev-030",
+     "m11g23-dev-031",
+     "m11g23-dev-033",
+     "m11g23-dev-035",
+     "m11g23-dev-037",
+     "m11g23-dev-038",
+     "m11g23-dev-041",
+     "m11g23-dev-042",
+     "m11g23-dev-043",
+     "m11g23-dev-044",
+     "m11g23-dev-047",
+     "m11g23-dev-050",
+     "m11g23-dev-053",
+     "m11g23-dev-054",
+     "m11g23-dev-055",
+     "m11g23-dev-058",
+     "m11g23-dev-059",
+     "m11g23-dev-060"
+    ]
+   },
+   "vs_P0_units": {
+    "newly_recovered": [
+     "m11g23-dev-001/u0",
+     "m11g23-dev-001/u1",
+     "m11g23-dev-003/u0",
+     "m11g23-dev-003/u1",
+     "m11g23-dev-004/u0",
+     "m11g23-dev-004/u1",
+     "m11g23-dev-010/u1",
+     "m11g23-dev-011/u2",
+     "m11g23-dev-013/u2",
+     "m11g23-dev-015/u0",
+     "m11g23-dev-017/u1",
+     "m11g23-dev-019/u1",
+     "m11g23-dev-020/u0",
+     "m11g23-dev-022/u0",
+     "m11g23-dev-026/u0",
+     "m11g23-dev-029/u0",
+     "m11g23-dev-029/u1",
+     "m11g23-dev-030/u0",
+     "m11g23-dev-031/u0",
+     "m11g23-dev-033/u0",
+     "m11g23-dev-033/u2",
+     "m11g23-dev-034/u1",
+     "m11g23-dev-037/u0",
+     "m11g23-dev-038/u0",
+     "m11g23-dev-041/u0",
+     "m11g23-dev-041/u1",
+     "m11g23-dev-042/u0",
+     "m11g23-dev-043/u0",
+     "m11g23-dev-044/u1",
+     "m11g23-dev-047/u0",
+     "m11g23-dev-047/u1",
+     "m11g23-dev-050/u0",
+     "m11g23-dev-050/u1",
+     "m11g23-dev-051/u0",
+     "m11g23-dev-052/u0",
+     "m11g23-dev-053/u0",
+     "m11g23-dev-053/u1",
+     "m11g23-dev-054/u0",
+     "m11g23-dev-055/u0",
+     "m11g23-dev-056/u0",
+     "m11g23-dev-056/u1",
+     "m11g23-dev-057/u1",
+     "m11g23-dev-058/u0",
+     "m11g23-dev-058/u1",
+     "m11g23-dev-059/u0",
+     "m11g23-dev-060/u0"
+    ],
+    "regressed": [],
+    "newly_false_admitted": [
+     "m11g23-dev-026/u1"
+    ]
+   }
+  },
+  "P3_cp_headings_intent": {
+   "metrics": {
+    "units": {
+     "total": 123,
+     "qualification": 81,
+     "technical_qualification": 74,
+     "non_qualification": 42,
+     "ambiguous": 0
+    },
+    "1_recall_strict": {
+     "recovered": 55,
+     "of": 81,
+     "technical_recovered": 52,
+     "technical_of": 74
+    },
+    "1b_represented_any": 59,
+    "2_incorrect_admissions": {
+     "units": 2,
+     "rows": 2,
+     "required_rows": 2,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 1,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 57,
+     "of_admitted_qual": 64,
+     "fabricated_concepts": 0
+    },
+    "4_necessity": {
+     "correct": 57,
+     "of": 59,
+     "preferred_gold_marked_required": 2,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 71,
+     "within_unit": null,
+     "units_span_exact": 66,
+     "units_span_within": 66,
+     "units_with_rows": 66
+    },
+    "outcomes": {
+     "represented": 59,
+     "declined_visible": 15,
+     "correctly_not_admitted": 40,
+     "declined_placeholder": 5,
+     "false_admission": 2,
+     "missed_entirely": 2
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 6,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 6,
+      "recovered": 6,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 2,
+      "recovered": 1,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 2,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 1,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 6,
+      "recovered": 5,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 4,
+      "recovered": 1,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 5,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 7,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 1,
+      "false_admitted": 1
+     },
+     "M": {
+      "qual_units": 1,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 4,
+      "recovered": 4,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 2,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "P": {
+      "qual_units": 5,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 4,
+      "recovered": 3,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 5,
+      "recovered": 4,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 6,
+      "recovered": 3,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 4,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 41,
+     "denominator_total": 60,
+     "numerator_total": 60,
+     "counted_non_technical_rows": 0
+    }
+   },
+   "vs_P0_scoring": {
+    "full_denominator_delta": 36,
+    "full_numerator_delta": 36,
+    "full_rows_added": 43,
+    "full_score_changed": 25,
+    "full_undefined_changed": 25,
+    "none_denominator_delta": 36,
+    "none_numerator_delta": 0,
+    "none_rows_added": 43,
+    "none_score_changed": 25,
+    "none_undefined_changed": 25,
+    "full_score_changed_controls": [
+     "m11g23-dev-001",
+     "m11g23-dev-003",
+     "m11g23-dev-004",
+     "m11g23-dev-010",
+     "m11g23-dev-011",
+     "m11g23-dev-013",
+     "m11g23-dev-015",
+     "m11g23-dev-017",
+     "m11g23-dev-022",
+     "m11g23-dev-024",
+     "m11g23-dev-026",
+     "m11g23-dev-033",
+     "m11g23-dev-035",
+     "m11g23-dev-038",
+     "m11g23-dev-041",
+     "m11g23-dev-042",
+     "m11g23-dev-043",
+     "m11g23-dev-044",
+     "m11g23-dev-047",
+     "m11g23-dev-050",
+     "m11g23-dev-053",
+     "m11g23-dev-054",
+     "m11g23-dev-055",
+     "m11g23-dev-058",
+     "m11g23-dev-059"
+    ]
+   },
+   "vs_P0_units": {
+    "newly_recovered": [
+     "m11g23-dev-001/u0",
+     "m11g23-dev-001/u1",
+     "m11g23-dev-003/u0",
+     "m11g23-dev-004/u0",
+     "m11g23-dev-004/u1",
+     "m11g23-dev-010/u1",
+     "m11g23-dev-011/u2",
+     "m11g23-dev-013/u2",
+     "m11g23-dev-015/u0",
+     "m11g23-dev-017/u1",
+     "m11g23-dev-020/u0",
+     "m11g23-dev-022/u0",
+     "m11g23-dev-026/u0",
+     "m11g23-dev-033/u0",
+     "m11g23-dev-033/u2",
+     "m11g23-dev-038/u0",
+     "m11g23-dev-041/u0",
+     "m11g23-dev-041/u1",
+     "m11g23-dev-042/u0",
+     "m11g23-dev-043/u0",
+     "m11g23-dev-044/u1",
+     "m11g23-dev-047/u0",
+     "m11g23-dev-047/u1",
+     "m11g23-dev-050/u0",
+     "m11g23-dev-050/u1",
+     "m11g23-dev-052/u0",
+     "m11g23-dev-053/u0",
+     "m11g23-dev-053/u1",
+     "m11g23-dev-054/u0",
+     "m11g23-dev-055/u0",
+     "m11g23-dev-056/u0",
+     "m11g23-dev-057/u1",
+     "m11g23-dev-058/u1",
+     "m11g23-dev-059/u0"
+    ],
+    "regressed": [],
+    "newly_false_admitted": [
+     "m11g23-dev-026/u1"
+    ]
+   }
+  },
+  "P4_narrow_hybrid": {
+   "metrics": {
+    "units": {
+     "total": 123,
+     "qualification": 81,
+     "technical_qualification": 74,
+     "non_qualification": 42,
+     "ambiguous": 0
+    },
+    "1_recall_strict": {
+     "recovered": 67,
+     "of": 81,
+     "technical_recovered": 62,
+     "technical_of": 74
+    },
+    "1b_represented_any": 71,
+    "2_incorrect_admissions": {
+     "units": 1,
+     "rows": 1,
+     "required_rows": 1,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 0,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 69,
+     "of_admitted_qual": 76,
+     "fabricated_concepts": 0
+    },
+    "4_necessity": {
+     "correct": 69,
+     "of": 71,
+     "preferred_gold_marked_required": 2,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 83,
+     "within_unit": null,
+     "units_span_exact": 77,
+     "units_span_within": 77,
+     "units_with_rows": 77
+    },
+    "outcomes": {
+     "represented": 71,
+     "correctly_not_admitted": 41,
+     "declined_visible": 5,
+     "declined_placeholder": 5,
+     "false_admission": 1
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 6,
+      "recovered": 6,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 2,
+      "recovered": 1,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 2,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 1,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 3,
+      "recovered": 3,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 6,
+      "recovered": 5,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 4,
+      "recovered": 1,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 5,
+      "recovered": 5,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 7,
+      "recovered": 6,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "M": {
+      "qual_units": 1,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 4,
+      "recovered": 4,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 2,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "P": {
+      "qual_units": 5,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 4,
+      "recovered": 4,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 5,
+      "recovered": 4,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 6,
+      "recovered": 5,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 4,
+      "recovered": 2,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 46,
+     "denominator_total": 70,
+     "numerator_total": 70,
+     "counted_non_technical_rows": 0
+    }
+   },
+   "vs_P0_scoring": {
+    "full_denominator_delta": 46,
+    "full_numerator_delta": 46,
+    "full_rows_added": 56,
+    "full_score_changed": 30,
+    "full_undefined_changed": 30,
+    "none_denominator_delta": 46,
+    "none_numerator_delta": 0,
+    "none_rows_added": 56,
+    "none_score_changed": 30,
+    "none_undefined_changed": 30,
+    "full_score_changed_controls": [
+     "m11g23-dev-001",
+     "m11g23-dev-003",
+     "m11g23-dev-004",
+     "m11g23-dev-010",
+     "m11g23-dev-011",
+     "m11g23-dev-013",
+     "m11g23-dev-015",
+     "m11g23-dev-017",
+     "m11g23-dev-019",
+     "m11g23-dev-022",
+     "m11g23-dev-024",
+     "m11g23-dev-026",
+     "m11g23-dev-030",
+     "m11g23-dev-031",
+     "m11g23-dev-033",
+     "m11g23-dev-035",
+     "m11g23-dev-037",
+     "m11g23-dev-038",
+     "m11g23-dev-041",
+     "m11g23-dev-042",
+     "m11g23-dev-043",
+     "m11g23-dev-044",
+     "m11g23-dev-047",
+     "m11g23-dev-050",
+     "m11g23-dev-053",
+     "m11g23-dev-054",
+     "m11g23-dev-055",
+     "m11g23-dev-058",
+     "m11g23-dev-059",
+     "m11g23-dev-060"
+    ]
+   },
+   "vs_P0_units": {
+    "newly_recovered": [
+     "m11g23-dev-001/u0",
+     "m11g23-dev-001/u1",
+     "m11g23-dev-003/u0",
+     "m11g23-dev-003/u1",
+     "m11g23-dev-004/u0",
+     "m11g23-dev-004/u1",
+     "m11g23-dev-010/u1",
+     "m11g23-dev-011/u2",
+     "m11g23-dev-013/u2",
+     "m11g23-dev-015/u0",
+     "m11g23-dev-017/u1",
+     "m11g23-dev-019/u1",
+     "m11g23-dev-020/u0",
+     "m11g23-dev-022/u0",
+     "m11g23-dev-026/u0",
+     "m11g23-dev-029/u0",
+     "m11g23-dev-029/u1",
+     "m11g23-dev-030/u0",
+     "m11g23-dev-031/u0",
+     "m11g23-dev-033/u0",
+     "m11g23-dev-033/u2",
+     "m11g23-dev-034/u1",
+     "m11g23-dev-037/u0",
+     "m11g23-dev-038/u0",
+     "m11g23-dev-041/u0",
+     "m11g23-dev-041/u1",
+     "m11g23-dev-042/u0",
+     "m11g23-dev-043/u0",
+     "m11g23-dev-044/u1",
+     "m11g23-dev-047/u0",
+     "m11g23-dev-047/u1",
+     "m11g23-dev-050/u0",
+     "m11g23-dev-050/u1",
+     "m11g23-dev-051/u0",
+     "m11g23-dev-052/u0",
+     "m11g23-dev-053/u0",
+     "m11g23-dev-053/u1",
+     "m11g23-dev-054/u0",
+     "m11g23-dev-055/u0",
+     "m11g23-dev-056/u0",
+     "m11g23-dev-056/u1",
+     "m11g23-dev-057/u1",
+     "m11g23-dev-058/u0",
+     "m11g23-dev-058/u1",
+     "m11g23-dev-059/u0",
+     "m11g23-dev-060/u0"
+    ],
+    "regressed": [],
+    "newly_false_admitted": [
+     "m11g23-dev-026/u1"
+    ]
+   }
+  }
+ },
+ "dev_p2_component_ablation_on_P1": {
+  "+curly_all": {
+   "recovered": 62,
+   "false_admitted_units": 2
+  },
+  "+bare_cp_lines": {
+   "recovered": 62,
+   "false_admitted_units": 1
+  },
+  "+wrapped": {
+   "recovered": 63,
+   "false_admitted_units": 2
+  },
+  "+inherit": {
+   "recovered": 66,
+   "false_admitted_units": 2
+  },
+  "+paragraph_reset": {
+   "recovered": 62,
+   "false_admitted_units": 2
+  }
+ },
+ "historical": {
+  "p0_replica_dump_equals_production": true,
+  "P1_cp_headings": {
+   "changed_public_sections": {
+    "controls/g20_dev": 46,
+    "controls/g20_holdout": 64,
+    "corpora/g6": 24
+   },
+   "g20_aggregate_p0_vs_policy": {
+    "g20_dev": {
+     "1_false_admissions": [
+      {
+       "units_with_any_row": 0,
+       "units_with_content_rows": 0,
+       "units_placeholder_only": 0,
+       "rows": 0,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0
+      },
+      {
+       "units_with_any_row": 0,
+       "units_with_content_rows": 0,
+       "units_placeholder_only": 0,
+       "rows": 0,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0
+      }
+     ],
+     "recall": [
+      {
+       "unit_recall": 0.8364,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.8889,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      },
+      {
+       "unit_recall": 0.9091,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.963,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      }
+     ],
+     "precision": [
+      {
+       "unit_admission_precision": 1.0,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.9153,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      },
+      {
+       "unit_admission_precision": 1.0,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.9231,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      }
+     ],
+     "necessity_accuracy": [
+      {
+       "correct": 46,
+       "scored": 46,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      },
+      {
+       "correct": 50,
+       "scored": 50,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      }
+     ]
+    },
+    "g20_holdout": {
+     "1_false_admissions": [
+      {
+       "units_with_any_row": 1,
+       "units_with_content_rows": 1,
+       "units_placeholder_only": 0,
+       "rows": 1,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0556
+      },
+      {
+       "units_with_any_row": 1,
+       "units_with_content_rows": 1,
+       "units_placeholder_only": 0,
+       "rows": 1,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0556
+      }
+     ],
+     "recall": [
+      {
+       "unit_recall": 0.7037,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.7742,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      },
+      {
+       "unit_recall": 0.8889,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.9677,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      }
+     ],
+     "precision": [
+      {
+       "unit_admission_precision": 0.9545,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.8214,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      },
+      {
+       "unit_admission_precision": 0.963,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.8529,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      }
+     ],
+     "necessity_accuracy": [
+      {
+       "correct": 19,
+       "scored": 19,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      },
+      {
+       "correct": 24,
+       "scored": 24,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      }
+     ]
+    }
+   },
+   "m10e_g3_live_unchanged": true,
+   "frozen_8c_and_fixture_scoring_unchanged": true,
+   "g6_g7_frozen_label_divergence": {
+    "g6": {
+     "controls": 44,
+     "heading_kind_divergences": [
+      {
+       "id": "m11g6-003-who-we-are-looking-for",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-004-who-we-are-looking-for-degree",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-005-what-were-looking-for",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-007-what-we-need-to-see",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-008-what-we-need-to-see-second",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-009-what-youll-bring",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-010-what-you-bring-contraction-free",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-027-the-ideal-candidate",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-028-you-might-be-a-fit",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-033-who-we-are-looking-for-nbsp",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-034-who-we-are-looking-for-em-dash",
+       "gold": "UNKNOWN",
+       "p0": "NOT_A_HEADING",
+       "policy": "NOT_A_HEADING"
+      },
+      {
+       "id": "m11g6-035-who-we-are-looking-for-markdown-atx",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-036-who-we-are-looking-for-markdown-bold",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-037-mixed-narrative-and-qualification",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-038-mixed-narrative-with-explicit-requirement",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-039-transition-defect-heading-then-required",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-040-transition-full-two-heading-document",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-043-what-were-looking-for-with-preferred",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-044-the-ideal-candidate-with-required",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      }
+     ],
+     "body_divergences": [
+      {
+       "id": "m11g6-005-what-were-looking-for",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-007-what-we-need-to-see",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-008-what-we-need-to-see-second",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-009-what-youll-bring",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-010-what-you-bring-contraction-free",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-020-preferred-qualifications-markdown",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g6-022-nice-to-haves-plural",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g6-027-the-ideal-candidate",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-028-you-might-be-a-fit",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-033-who-we-are-looking-for-nbsp",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-037-mixed-narrative-and-qualification",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-039-transition-defect-heading-then-required",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-040-transition-full-two-heading-document",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-043-what-were-looking-for-with-preferred",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      }
+     ]
+    },
+    "g7": {
+     "controls": 42,
+     "heading_kind_divergences": [
+      {
+       "id": "m11g7-018-severity-unknown-carryforward",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g7-024-mixed-qualifications-after-long-heading",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      }
+     ],
+     "body_divergences": [
+      {
+       "id": "m11g7-005-long-required-colon-10words",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-017-long-bulleted-item",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-019-severity-required-carryforward-HIGH",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-033-long-numbered-bullet",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-041-long-required-markdown-bold-10words",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      }
+     ]
+    }
+   },
+   "universal_tracked_text_parse_diff": {
+    "totals": {
+     "texts": 1052,
+     "files": 54,
+     "changed_texts": 10,
+     "row_changed_texts": 10
+    },
+    "changed_files": {
+     "evaluation/m11g12/validator_controls.json": {
+      "texts": 9,
+      "changed": 1,
+      "rows_changed": 1
+     },
+     "evaluation/m11g13/generalization_controls.json": {
+      "texts": 7,
+      "changed": 1,
+      "rows_changed": 1
+     },
+     "evaluation/m11g20/admission_controls_dev.json": {
+      "texts": 39,
+      "changed": 2,
+      "rows_changed": 2
+     },
+     "evaluation/m11g20/admission_controls_holdout.json": {
+      "texts": 20,
+      "changed": 3,
+      "rows_changed": 3
+     },
+     "evaluation/m11g20/admission_report.json": {
+      "texts": 19,
+      "changed": 2,
+      "rows_changed": 2
+     },
+     "evaluation/m11g3/full_posting_controls.json": {
+      "texts": 29,
+      "changed": 1,
+      "rows_changed": 1
+     }
+    }
+   }
+  },
+  "P2_section_aware": {
+   "changed_public_sections": {
+    "controls/g20_dev": 46,
+    "controls/g20_holdout": 64,
+    "corpora/g6": 25
+   },
+   "g20_aggregate_p0_vs_policy": {
+    "g20_dev": {
+     "1_false_admissions": [
+      {
+       "units_with_any_row": 0,
+       "units_with_content_rows": 0,
+       "units_placeholder_only": 0,
+       "rows": 0,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0
+      },
+      {
+       "units_with_any_row": 0,
+       "units_with_content_rows": 0,
+       "units_placeholder_only": 0,
+       "rows": 0,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0
+      }
+     ],
+     "recall": [
+      {
+       "unit_recall": 0.8364,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.8889,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      },
+      {
+       "unit_recall": 0.9091,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.963,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      }
+     ],
+     "precision": [
+      {
+       "unit_admission_precision": 1.0,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.9153,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      },
+      {
+       "unit_admission_precision": 1.0,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.9231,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      }
+     ],
+     "necessity_accuracy": [
+      {
+       "correct": 46,
+       "scored": 46,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      },
+      {
+       "correct": 50,
+       "scored": 50,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      }
+     ]
+    },
+    "g20_holdout": {
+     "1_false_admissions": [
+      {
+       "units_with_any_row": 1,
+       "units_with_content_rows": 1,
+       "units_placeholder_only": 0,
+       "rows": 1,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0556
+      },
+      {
+       "units_with_any_row": 1,
+       "units_with_content_rows": 1,
+       "units_placeholder_only": 0,
+       "rows": 1,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0556
+      }
+     ],
+     "recall": [
+      {
+       "unit_recall": 0.7037,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.7742,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      },
+      {
+       "unit_recall": 0.8889,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.9677,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      }
+     ],
+     "precision": [
+      {
+       "unit_admission_precision": 0.9545,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.8214,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      },
+      {
+       "unit_admission_precision": 0.963,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.8529,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      }
+     ],
+     "necessity_accuracy": [
+      {
+       "correct": 19,
+       "scored": 19,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      },
+      {
+       "correct": 24,
+       "scored": 24,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      }
+     ]
+    }
+   },
+   "m10e_g3_live_unchanged": true,
+   "frozen_8c_and_fixture_scoring_unchanged": true,
+   "g6_g7_frozen_label_divergence": {
+    "g6": {
+     "controls": 44,
+     "heading_kind_divergences": [
+      {
+       "id": "m11g6-003-who-we-are-looking-for",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-004-who-we-are-looking-for-degree",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-005-what-were-looking-for",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-006-what-were-looking-for-plus-plain",
+       "gold": "NOT_A_HEADING",
+       "p0": "NOT_A_HEADING",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-007-what-we-need-to-see",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-008-what-we-need-to-see-second",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-009-what-youll-bring",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-010-what-you-bring-contraction-free",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-027-the-ideal-candidate",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-028-you-might-be-a-fit",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-033-who-we-are-looking-for-nbsp",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-034-who-we-are-looking-for-em-dash",
+       "gold": "UNKNOWN",
+       "p0": "NOT_A_HEADING",
+       "policy": "NOT_A_HEADING"
+      },
+      {
+       "id": "m11g6-035-who-we-are-looking-for-markdown-atx",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-036-who-we-are-looking-for-markdown-bold",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-037-mixed-narrative-and-qualification",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-038-mixed-narrative-with-explicit-requirement",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-039-transition-defect-heading-then-required",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-040-transition-full-two-heading-document",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-043-what-were-looking-for-with-preferred",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-044-the-ideal-candidate-with-required",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      }
+     ],
+     "body_divergences": [
+      {
+       "id": "m11g6-005-what-were-looking-for",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-007-what-we-need-to-see",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-008-what-we-need-to-see-second",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-009-what-youll-bring",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-010-what-you-bring-contraction-free",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-020-preferred-qualifications-markdown",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g6-022-nice-to-haves-plural",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g6-027-the-ideal-candidate",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-028-you-might-be-a-fit",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-033-who-we-are-looking-for-nbsp",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-037-mixed-narrative-and-qualification",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-039-transition-defect-heading-then-required",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-040-transition-full-two-heading-document",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-043-what-were-looking-for-with-preferred",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      }
+     ]
+    },
+    "g7": {
+     "controls": 42,
+     "heading_kind_divergences": [
+      {
+       "id": "m11g7-018-severity-unknown-carryforward",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g7-024-mixed-qualifications-after-long-heading",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      }
+     ],
+     "body_divergences": [
+      {
+       "id": "m11g7-005-long-required-colon-10words",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-017-long-bulleted-item",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-019-severity-required-carryforward-HIGH",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-033-long-numbered-bullet",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-041-long-required-markdown-bold-10words",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      }
+     ]
+    }
+   },
+   "universal_tracked_text_parse_diff": {
+    "totals": {
+     "texts": 1052,
+     "files": 54,
+     "changed_texts": 12,
+     "row_changed_texts": 10
+    },
+    "changed_files": {
+     "evaluation/fixtures/candidates/jango1324.json": {
+      "texts": 20,
+      "changed": 1,
+      "rows_changed": 0
+     },
+     "evaluation/m11g12/validator_controls.json": {
+      "texts": 9,
+      "changed": 1,
+      "rows_changed": 1
+     },
+     "evaluation/m11g13/generalization_controls.json": {
+      "texts": 7,
+      "changed": 1,
+      "rows_changed": 1
+     },
+     "evaluation/m11g20/admission_controls_dev.json": {
+      "texts": 39,
+      "changed": 2,
+      "rows_changed": 2
+     },
+     "evaluation/m11g20/admission_controls_holdout.json": {
+      "texts": 20,
+      "changed": 3,
+      "rows_changed": 3
+     },
+     "evaluation/m11g20/admission_report.json": {
+      "texts": 19,
+      "changed": 2,
+      "rows_changed": 2
+     },
+     "evaluation/m11g22r5/fresh_validation_controls.json": {
+      "texts": 111,
+      "changed": 1,
+      "rows_changed": 0
+     },
+     "evaluation/m11g3/full_posting_controls.json": {
+      "texts": 29,
+      "changed": 1,
+      "rows_changed": 1
+     }
+    }
+   }
+  },
+  "P3_cp_headings_intent": {
+   "changed_public_sections": {
+    "controls/g20_dev": 46,
+    "controls/g20_holdout": 64,
+    "corpora/g6": 22
+   },
+   "g20_aggregate_p0_vs_policy": {
+    "g20_dev": {
+     "1_false_admissions": [
+      {
+       "units_with_any_row": 0,
+       "units_with_content_rows": 0,
+       "units_placeholder_only": 0,
+       "rows": 0,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0
+      },
+      {
+       "units_with_any_row": 0,
+       "units_with_content_rows": 0,
+       "units_placeholder_only": 0,
+       "rows": 0,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0
+      }
+     ],
+     "recall": [
+      {
+       "unit_recall": 0.8364,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.8889,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      },
+      {
+       "unit_recall": 0.9091,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.963,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      }
+     ],
+     "precision": [
+      {
+       "unit_admission_precision": 1.0,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.9153,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      },
+      {
+       "unit_admission_precision": 1.0,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.9231,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      }
+     ],
+     "necessity_accuracy": [
+      {
+       "correct": 46,
+       "scored": 46,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      },
+      {
+       "correct": 50,
+       "scored": 50,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      }
+     ]
+    },
+    "g20_holdout": {
+     "1_false_admissions": [
+      {
+       "units_with_any_row": 1,
+       "units_with_content_rows": 1,
+       "units_placeholder_only": 0,
+       "rows": 1,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0556
+      },
+      {
+       "units_with_any_row": 1,
+       "units_with_content_rows": 1,
+       "units_placeholder_only": 0,
+       "rows": 1,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0556
+      }
+     ],
+     "recall": [
+      {
+       "unit_recall": 0.7037,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.7742,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      },
+      {
+       "unit_recall": 0.8889,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.9677,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      }
+     ],
+     "precision": [
+      {
+       "unit_admission_precision": 0.9545,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.8214,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      },
+      {
+       "unit_admission_precision": 0.963,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.8529,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      }
+     ],
+     "necessity_accuracy": [
+      {
+       "correct": 19,
+       "scored": 19,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      },
+      {
+       "correct": 24,
+       "scored": 24,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      }
+     ]
+    }
+   },
+   "m10e_g3_live_unchanged": true,
+   "frozen_8c_and_fixture_scoring_unchanged": true,
+   "g6_g7_frozen_label_divergence": {
+    "g6": {
+     "controls": 44,
+     "heading_kind_divergences": [
+      {
+       "id": "m11g6-003-who-we-are-looking-for",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-004-who-we-are-looking-for-degree",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-005-what-were-looking-for",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-007-what-we-need-to-see",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-008-what-we-need-to-see-second",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-009-what-youll-bring",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-010-what-you-bring-contraction-free",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-027-the-ideal-candidate",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-028-you-might-be-a-fit",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-033-who-we-are-looking-for-nbsp",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-034-who-we-are-looking-for-em-dash",
+       "gold": "UNKNOWN",
+       "p0": "NOT_A_HEADING",
+       "policy": "NOT_A_HEADING"
+      },
+      {
+       "id": "m11g6-035-who-we-are-looking-for-markdown-atx",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-036-who-we-are-looking-for-markdown-bold",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-037-mixed-narrative-and-qualification",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-038-mixed-narrative-with-explicit-requirement",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-039-transition-defect-heading-then-required",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-040-transition-full-two-heading-document",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-043-what-were-looking-for-with-preferred",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-044-the-ideal-candidate-with-required",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      }
+     ],
+     "body_divergences": [
+      {
+       "id": "m11g6-005-what-were-looking-for",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-007-what-we-need-to-see",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-008-what-we-need-to-see-second",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-009-what-youll-bring",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-010-what-you-bring-contraction-free",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-020-preferred-qualifications-markdown",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g6-022-nice-to-haves-plural",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g6-027-the-ideal-candidate",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-028-you-might-be-a-fit",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-033-who-we-are-looking-for-nbsp",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-037-mixed-narrative-and-qualification",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-039-transition-defect-heading-then-required",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-040-transition-full-two-heading-document",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-043-what-were-looking-for-with-preferred",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      }
+     ]
+    },
+    "g7": {
+     "controls": 42,
+     "heading_kind_divergences": [
+      {
+       "id": "m11g7-018-severity-unknown-carryforward",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g7-024-mixed-qualifications-after-long-heading",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      }
+     ],
+     "body_divergences": [
+      {
+       "id": "m11g7-005-long-required-colon-10words",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-017-long-bulleted-item",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-019-severity-required-carryforward-HIGH",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-033-long-numbered-bullet",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-041-long-required-markdown-bold-10words",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      }
+     ]
+    }
+   },
+   "universal_tracked_text_parse_diff": {
+    "totals": {
+     "texts": 1052,
+     "files": 54,
+     "changed_texts": 9,
+     "row_changed_texts": 9
+    },
+    "changed_files": {
+     "evaluation/m11g12/validator_controls.json": {
+      "texts": 9,
+      "changed": 1,
+      "rows_changed": 1
+     },
+     "evaluation/m11g20/admission_controls_dev.json": {
+      "texts": 39,
+      "changed": 2,
+      "rows_changed": 2
+     },
+     "evaluation/m11g20/admission_controls_holdout.json": {
+      "texts": 20,
+      "changed": 3,
+      "rows_changed": 3
+     },
+     "evaluation/m11g20/admission_report.json": {
+      "texts": 19,
+      "changed": 2,
+      "rows_changed": 2
+     },
+     "evaluation/m11g3/full_posting_controls.json": {
+      "texts": 29,
+      "changed": 1,
+      "rows_changed": 1
+     }
+    }
+   }
+  },
+  "P4_narrow_hybrid": {
+   "changed_public_sections": {
+    "controls/g20_dev": 46,
+    "controls/g20_holdout": 64,
+    "corpora/g6": 25
+   },
+   "g20_aggregate_p0_vs_policy": {
+    "g20_dev": {
+     "1_false_admissions": [
+      {
+       "units_with_any_row": 0,
+       "units_with_content_rows": 0,
+       "units_placeholder_only": 0,
+       "rows": 0,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0
+      },
+      {
+       "units_with_any_row": 0,
+       "units_with_content_rows": 0,
+       "units_placeholder_only": 0,
+       "rows": 0,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0
+      }
+     ],
+     "recall": [
+      {
+       "unit_recall": 0.8364,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.8889,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      },
+      {
+       "unit_recall": 0.9091,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.963,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      }
+     ],
+     "precision": [
+      {
+       "unit_admission_precision": 1.0,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.9153,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      },
+      {
+       "unit_admission_precision": 1.0,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.9231,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      }
+     ],
+     "necessity_accuracy": [
+      {
+       "correct": 46,
+       "scored": 46,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      },
+      {
+       "correct": 50,
+       "scored": 50,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      }
+     ]
+    },
+    "g20_holdout": {
+     "1_false_admissions": [
+      {
+       "units_with_any_row": 1,
+       "units_with_content_rows": 1,
+       "units_placeholder_only": 0,
+       "rows": 1,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0556
+      },
+      {
+       "units_with_any_row": 1,
+       "units_with_content_rows": 1,
+       "units_placeholder_only": 0,
+       "rows": 1,
+       "unmapped_rows": 0,
+       "denominator": "non-qualification units",
+       "rate": 0.0556
+      }
+     ],
+     "recall": [
+      {
+       "unit_recall": 0.7037,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.7742,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      },
+      {
+       "unit_recall": 0.8889,
+       "unit_recall_definition": "non-ambiguous qualification units with >=1 legit content row / all such units",
+       "concept_recall": 0.9677,
+       "concept_recall_definition": "gold technologies on non-ambiguous qualification units present as a row member / all such gold technologies"
+      }
+     ],
+     "precision": [
+      {
+       "unit_admission_precision": 0.9545,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.8214,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      },
+      {
+       "unit_admission_precision": 0.963,
+       "unit_admission_precision_definition": "qualification units with >=1 row / all non-ambiguous units with >=1 row",
+       "row_precision": 0.8529,
+       "row_precision_definition": "legit rows (qualification unit; members all genuinely named, or acceptable non-technical category, or placeholder) / all rows on non-ambiguous units + unmapped rows"
+      }
+     ],
+     "necessity_accuracy": [
+      {
+       "correct": 19,
+       "scored": 19,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      },
+      {
+       "correct": 24,
+       "scored": 24,
+       "definition": "represented qualification units whose rows all carry the gold necessity"
+      }
+     ]
+    }
+   },
+   "m10e_g3_live_unchanged": true,
+   "frozen_8c_and_fixture_scoring_unchanged": true,
+   "g6_g7_frozen_label_divergence": {
+    "g6": {
+     "controls": 44,
+     "heading_kind_divergences": [
+      {
+       "id": "m11g6-003-who-we-are-looking-for",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-004-who-we-are-looking-for-degree",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-005-what-were-looking-for",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-006-what-were-looking-for-plus-plain",
+       "gold": "NOT_A_HEADING",
+       "p0": "NOT_A_HEADING",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-007-what-we-need-to-see",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-008-what-we-need-to-see-second",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-009-what-youll-bring",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-010-what-you-bring-contraction-free",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-027-the-ideal-candidate",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-028-you-might-be-a-fit",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-033-who-we-are-looking-for-nbsp",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-034-who-we-are-looking-for-em-dash",
+       "gold": "UNKNOWN",
+       "p0": "NOT_A_HEADING",
+       "policy": "NOT_A_HEADING"
+      },
+      {
+       "id": "m11g6-035-who-we-are-looking-for-markdown-atx",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-036-who-we-are-looking-for-markdown-bold",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-037-mixed-narrative-and-qualification",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-038-mixed-narrative-with-explicit-requirement",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-039-transition-defect-heading-then-required",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-040-transition-full-two-heading-document",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-043-what-were-looking-for-with-preferred",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g6-044-the-ideal-candidate-with-required",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      }
+     ],
+     "body_divergences": [
+      {
+       "id": "m11g6-005-what-were-looking-for",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-007-what-we-need-to-see",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-008-what-we-need-to-see-second",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-009-what-youll-bring",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-010-what-you-bring-contraction-free",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-020-preferred-qualifications-markdown",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g6-022-nice-to-haves-plural",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g6-027-the-ideal-candidate",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-028-you-might-be-a-fit",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-033-who-we-are-looking-for-nbsp",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-037-mixed-narrative-and-qualification",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-039-transition-defect-heading-then-required",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-040-transition-full-two-heading-document",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "UNKNOWN",
+       "policy_row_necessities": [
+        "REQUIRED"
+       ]
+      },
+      {
+       "id": "m11g6-043-what-were-looking-for-with-preferred",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "PREFERRED",
+       "policy_row_necessities": []
+      }
+     ]
+    },
+    "g7": {
+     "controls": 42,
+     "heading_kind_divergences": [
+      {
+       "id": "m11g7-018-severity-unknown-carryforward",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      },
+      {
+       "id": "m11g7-024-mixed-qualifications-after-long-heading",
+       "gold": "UNKNOWN",
+       "p0": "UNKNOWN",
+       "policy": "REQUIRED"
+      }
+     ],
+     "body_divergences": [
+      {
+       "id": "m11g7-005-long-required-colon-10words",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-017-long-bulleted-item",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-019-severity-required-carryforward-HIGH",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-033-long-numbered-bullet",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      },
+      {
+       "id": "m11g7-041-long-required-markdown-bold-10words",
+       "text_is_genuine_qualification": true,
+       "gold_necessity": "REQUIRED",
+       "policy_row_necessities": []
+      }
+     ]
+    }
+   },
+   "universal_tracked_text_parse_diff": {
+    "totals": {
+     "texts": 1052,
+     "files": 54,
+     "changed_texts": 10,
+     "row_changed_texts": 10
+    },
+    "changed_files": {
+     "evaluation/m11g12/validator_controls.json": {
+      "texts": 9,
+      "changed": 1,
+      "rows_changed": 1
+     },
+     "evaluation/m11g13/generalization_controls.json": {
+      "texts": 7,
+      "changed": 1,
+      "rows_changed": 1
+     },
+     "evaluation/m11g20/admission_controls_dev.json": {
+      "texts": 39,
+      "changed": 2,
+      "rows_changed": 2
+     },
+     "evaluation/m11g20/admission_controls_holdout.json": {
+      "texts": 20,
+      "changed": 3,
+      "rows_changed": 3
+     },
+     "evaluation/m11g20/admission_report.json": {
+      "texts": 19,
+      "changed": 2,
+      "rows_changed": 2
+     },
+     "evaluation/m11g3/full_posting_controls.json": {
+      "texts": 29,
+      "changed": 1,
+      "rows_changed": 1
+     }
+    }
+   }
+  },
+  "P0_v15_g6_g7_frozen_label_divergence": {
+   "g6": {
+    "controls": 44,
+    "heading_kind_divergences": [
+     {
+      "id": "m11g6-034-who-we-are-looking-for-em-dash",
+      "gold": "UNKNOWN",
+      "p0": "NOT_A_HEADING",
+      "policy": "NOT_A_HEADING"
+     }
+    ],
+    "body_divergences": [
+     {
+      "id": "m11g6-020-preferred-qualifications-markdown",
+      "text_is_genuine_qualification": true,
+      "gold_necessity": "PREFERRED",
+      "policy_row_necessities": []
+     },
+     {
+      "id": "m11g6-022-nice-to-haves-plural",
+      "text_is_genuine_qualification": true,
+      "gold_necessity": "PREFERRED",
+      "policy_row_necessities": []
+     },
+     {
+      "id": "m11g6-043-what-were-looking-for-with-preferred",
+      "text_is_genuine_qualification": true,
+      "gold_necessity": "PREFERRED",
+      "policy_row_necessities": []
+     }
+    ]
+   },
+   "g7": {
+    "controls": 42,
+    "heading_kind_divergences": [],
+    "body_divergences": [
+     {
+      "id": "m11g7-005-long-required-colon-10words",
+      "text_is_genuine_qualification": true,
+      "gold_necessity": "REQUIRED",
+      "policy_row_necessities": []
+     },
+     {
+      "id": "m11g7-017-long-bulleted-item",
+      "text_is_genuine_qualification": true,
+      "gold_necessity": "REQUIRED",
+      "policy_row_necessities": []
+     },
+     {
+      "id": "m11g7-019-severity-required-carryforward-HIGH",
+      "text_is_genuine_qualification": true,
+      "gold_necessity": "REQUIRED",
+      "policy_row_necessities": []
+     },
+     {
+      "id": "m11g7-033-long-numbered-bullet",
+      "text_is_genuine_qualification": true,
+      "gold_necessity": "REQUIRED",
+      "policy_row_necessities": []
+     },
+     {
+      "id": "m11g7-041-long-required-markdown-bold-10words",
+      "text_is_genuine_qualification": true,
+      "gold_necessity": "REQUIRED",
+      "policy_row_necessities": []
+     }
+    ]
+   }
+  }
+ },
+ "eval": {
+  "P0_v15": {
+   "metrics": {
+    "units": {
+     "total": 219,
+     "qualification": 145,
+     "technical_qualification": 110,
+     "non_qualification": 73,
+     "ambiguous": 3
+    },
+    "1_recall_strict": {
+     "recovered": 53,
+     "of": 145,
+     "technical_recovered": 49,
+     "technical_of": 110
+    },
+    "1b_represented_any": 61,
+    "2_incorrect_admissions": {
+     "units": 3,
+     "rows": 3,
+     "required_rows": 3,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 2,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 58,
+     "of_admitted_qual": 70,
+     "fabricated_concepts": 0
+    },
+    "4_necessity": {
+     "correct": 57,
+     "of": 61,
+     "preferred_gold_marked_required": 4,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 85,
+     "within_unit": null,
+     "units_span_exact": 73,
+     "units_span_within": 71,
+     "units_with_rows": 73
+    },
+    "outcomes": {
+     "represented": 61,
+     "correctly_not_admitted": 70,
+     "declined_visible": 53,
+     "declined_placeholder": 9,
+     "missed_entirely": 23,
+     "false_admission": 3
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 3,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 9,
+      "recovered": 4,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 3,
+      "recovered": 0,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 12,
+      "recovered": 6,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 10,
+      "recovered": 3,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 7,
+      "recovered": 2,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "M": {
+      "qual_units": 5,
+      "recovered": 0,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 9,
+      "recovered": 2,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 2
+     },
+     "P": {
+      "qual_units": 9,
+      "recovered": 2,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 9,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 12,
+      "recovered": 10,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 10,
+      "recovered": 2,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 35,
+     "denominator_total": 68,
+     "numerator_total": 68,
+     "counted_non_technical_rows": 0
+    }
+   }
+  },
+  "P1_cp_headings": {
+   "metrics": {
+    "units": {
+     "total": 219,
+     "qualification": 145,
+     "technical_qualification": 110,
+     "non_qualification": 73,
+     "ambiguous": 3
+    },
+    "1_recall_strict": {
+     "recovered": 60,
+     "of": 145,
+     "technical_recovered": 56,
+     "technical_of": 110
+    },
+    "1b_represented_any": 70,
+    "2_incorrect_admissions": {
+     "units": 3,
+     "rows": 3,
+     "required_rows": 3,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 2,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 66,
+     "of_admitted_qual": 81,
+     "fabricated_concepts": 1
+    },
+    "4_necessity": {
+     "correct": 66,
+     "of": 70,
+     "preferred_gold_marked_required": 4,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 99,
+     "within_unit": null,
+     "units_span_exact": 84,
+     "units_span_within": 82,
+     "units_with_rows": 84
+    },
+    "outcomes": {
+     "represented": 70,
+     "correctly_not_admitted": 70,
+     "declined_placeholder": 11,
+     "declined_visible": 50,
+     "false_admission": 3,
+     "missed_entirely": 15
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 5,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 9,
+      "recovered": 4,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 12,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 10,
+      "recovered": 3,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 7,
+      "recovered": 2,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "M": {
+      "qual_units": 5,
+      "recovered": 0,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 9,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 2
+     },
+     "P": {
+      "qual_units": 9,
+      "recovered": 2,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 9,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 12,
+      "recovered": 10,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 10,
+      "recovered": 2,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 40,
+     "denominator_total": 79,
+     "numerator_total": 79,
+     "counted_non_technical_rows": 0
+    }
+   },
+   "vs_P0_scoring": {
+    "full_denominator_delta": 11,
+    "full_numerator_delta": 11,
+    "full_rows_added": 14,
+    "full_score_changed": 5,
+    "full_undefined_changed": 5,
+    "none_denominator_delta": 11,
+    "none_numerator_delta": 0,
+    "none_rows_added": 14,
+    "none_score_changed": 5,
+    "none_undefined_changed": 5,
+    "full_score_changed_controls": [
+     "m11g23-eval-002",
+     "m11g23-eval-014",
+     "m11g23-eval-017",
+     "m11g23-eval-041",
+     "m11g23-eval-042"
+    ]
+   },
+   "vs_P0_units": {
+    "newly_recovered": [
+     "m11g23-eval-002/u0",
+     "m11g23-eval-002/u2",
+     "m11g23-eval-014/u3",
+     "m11g23-eval-021/u0",
+     "m11g23-eval-041/u0",
+     "m11g23-eval-041/u2",
+     "m11g23-eval-042/u1"
+    ],
+    "regressed": [],
+    "newly_false_admitted": []
+   }
+  },
+  "P2_section_aware": {
+   "metrics": {
+    "units": {
+     "total": 219,
+     "qualification": 145,
+     "technical_qualification": 110,
+     "non_qualification": 73,
+     "ambiguous": 3
+    },
+    "1_recall_strict": {
+     "recovered": 62,
+     "of": 145,
+     "technical_recovered": 58,
+     "technical_of": 110
+    },
+    "1b_represented_any": 72,
+    "2_incorrect_admissions": {
+     "units": 1,
+     "rows": 1,
+     "required_rows": 1,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 0,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 68,
+     "of_admitted_qual": 84,
+     "fabricated_concepts": 1
+    },
+    "4_necessity": {
+     "correct": 68,
+     "of": 72,
+     "preferred_gold_marked_required": 4,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 100,
+     "within_unit": null,
+     "units_span_exact": 85,
+     "units_span_within": 83,
+     "units_with_rows": 85
+    },
+    "outcomes": {
+     "represented": 72,
+     "correctly_not_admitted": 72,
+     "declined_placeholder": 12,
+     "declined_visible": 49,
+     "false_admission": 1,
+     "missed_entirely": 13
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 5,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 9,
+      "recovered": 4,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 12,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 10,
+      "recovered": 3,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 7,
+      "recovered": 4,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "M": {
+      "qual_units": 5,
+      "recovered": 0,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 9,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "P": {
+      "qual_units": 9,
+      "recovered": 2,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 9,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 12,
+      "recovered": 10,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 10,
+      "recovered": 2,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 40,
+     "denominator_total": 79,
+     "numerator_total": 79,
+     "counted_non_technical_rows": 0
+    }
+   },
+   "vs_P0_scoring": {
+    "full_denominator_delta": 11,
+    "full_numerator_delta": 11,
+    "full_rows_added": 17,
+    "full_rows_removed": 2,
+    "full_score_changed": 7,
+    "full_undefined_changed": 7,
+    "none_denominator_delta": 11,
+    "none_numerator_delta": 0,
+    "none_rows_added": 17,
+    "none_rows_removed": 2,
+    "none_score_changed": 7,
+    "none_undefined_changed": 7,
+    "full_score_changed_controls": [
+     "m11g23-eval-002",
+     "m11g23-eval-014",
+     "m11g23-eval-017",
+     "m11g23-eval-028",
+     "m11g23-eval-041",
+     "m11g23-eval-042",
+     "m11g23-eval-044"
+    ]
+   },
+   "vs_P0_units": {
+    "newly_recovered": [
+     "m11g23-eval-002/u0",
+     "m11g23-eval-002/u2",
+     "m11g23-eval-014/u3",
+     "m11g23-eval-021/u0",
+     "m11g23-eval-028/u0",
+     "m11g23-eval-028/u1",
+     "m11g23-eval-041/u0",
+     "m11g23-eval-041/u2",
+     "m11g23-eval-042/u1"
+    ],
+    "regressed": [],
+    "newly_false_admitted": []
+   }
+  },
+  "P3_cp_headings_intent": {
+   "metrics": {
+    "units": {
+     "total": 219,
+     "qualification": 145,
+     "technical_qualification": 110,
+     "non_qualification": 73,
+     "ambiguous": 3
+    },
+    "1_recall_strict": {
+     "recovered": 58,
+     "of": 145,
+     "technical_recovered": 54,
+     "technical_of": 110
+    },
+    "1b_represented_any": 68,
+    "2_incorrect_admissions": {
+     "units": 3,
+     "rows": 3,
+     "required_rows": 3,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 2,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 64,
+     "of_admitted_qual": 79,
+     "fabricated_concepts": 1
+    },
+    "4_necessity": {
+     "correct": 64,
+     "of": 68,
+     "preferred_gold_marked_required": 4,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 97,
+     "within_unit": null,
+     "units_span_exact": 82,
+     "units_span_within": 80,
+     "units_with_rows": 82
+    },
+    "outcomes": {
+     "represented": 68,
+     "correctly_not_admitted": 70,
+     "declined_visible": 49,
+     "declined_placeholder": 11,
+     "missed_entirely": 18,
+     "false_admission": 3
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 4,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 9,
+      "recovered": 4,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 3,
+      "recovered": 0,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 12,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 10,
+      "recovered": 3,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 7,
+      "recovered": 2,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "M": {
+      "qual_units": 5,
+      "recovered": 0,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 9,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 2
+     },
+     "P": {
+      "qual_units": 9,
+      "recovered": 2,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 9,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 12,
+      "recovered": 10,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 10,
+      "recovered": 2,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 39,
+     "denominator_total": 77,
+     "numerator_total": 77,
+     "counted_non_technical_rows": 0
+    }
+   },
+   "vs_P0_scoring": {
+    "full_denominator_delta": 9,
+    "full_numerator_delta": 9,
+    "full_rows_added": 12,
+    "full_score_changed": 4,
+    "full_undefined_changed": 4,
+    "none_denominator_delta": 9,
+    "none_numerator_delta": 0,
+    "none_rows_added": 12,
+    "none_score_changed": 4,
+    "none_undefined_changed": 4,
+    "full_score_changed_controls": [
+     "m11g23-eval-002",
+     "m11g23-eval-017",
+     "m11g23-eval-041",
+     "m11g23-eval-042"
+    ]
+   },
+   "vs_P0_units": {
+    "newly_recovered": [
+     "m11g23-eval-002/u2",
+     "m11g23-eval-021/u0",
+     "m11g23-eval-041/u0",
+     "m11g23-eval-041/u2",
+     "m11g23-eval-042/u1"
+    ],
+    "regressed": [],
+    "newly_false_admitted": []
+   }
+  },
+  "P4_narrow_hybrid": {
+   "metrics": {
+    "units": {
+     "total": 219,
+     "qualification": 145,
+     "technical_qualification": 110,
+     "non_qualification": 73,
+     "ambiguous": 3
+    },
+    "1_recall_strict": {
+     "recovered": 62,
+     "of": 145,
+     "technical_recovered": 58,
+     "technical_of": 110
+    },
+    "1b_represented_any": 72,
+    "2_incorrect_admissions": {
+     "units": 1,
+     "rows": 1,
+     "required_rows": 1,
+     "unmapped_rows": 0,
+     "by_class": {
+      "duty": 0,
+      "employer": 0,
+      "benefits": 0,
+      "process": 0,
+      "personality": 0,
+      "negated_historical_learning": 1
+     }
+    },
+    "3_concept_exact": {
+     "units_concept_ok": 68,
+     "of_admitted_qual": 84,
+     "fabricated_concepts": 1
+    },
+    "4_necessity": {
+     "correct": 68,
+     "of": 72,
+     "preferred_gold_marked_required": 4,
+     "required_gold_marked_preferred": 0
+    },
+    "7_span": {
+     "rows": 100,
+     "within_unit": null,
+     "units_span_exact": 85,
+     "units_span_within": 83,
+     "units_with_rows": 85
+    },
+    "outcomes": {
+     "represented": 72,
+     "correctly_not_admitted": 72,
+     "declined_placeholder": 12,
+     "declined_visible": 49,
+     "false_admission": 1,
+     "missed_entirely": 13
+    },
+    "by_family": {
+     "A": {
+      "qual_units": 8,
+      "recovered": 5,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "B": {
+      "qual_units": 9,
+      "recovered": 4,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "C": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 0
+     },
+     "D": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "E": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 8,
+      "false_admitted": 0
+     },
+     "F": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "G": {
+      "qual_units": 12,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "H": {
+      "qual_units": 10,
+      "recovered": 3,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "I": {
+      "qual_units": 3,
+      "recovered": 2,
+      "nonqual_units": 9,
+      "false_admitted": 1
+     },
+     "J": {
+      "qual_units": 7,
+      "recovered": 4,
+      "nonqual_units": 3,
+      "false_admitted": 0
+     },
+     "K": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     },
+     "L": {
+      "qual_units": 9,
+      "recovered": 1,
+      "nonqual_units": 2,
+      "false_admitted": 0
+     },
+     "M": {
+      "qual_units": 5,
+      "recovered": 0,
+      "nonqual_units": 5,
+      "false_admitted": 0
+     },
+     "N": {
+      "qual_units": 9,
+      "recovered": 5,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "O": {
+      "qual_units": 3,
+      "recovered": 1,
+      "nonqual_units": 6,
+      "false_admitted": 0
+     },
+     "P": {
+      "qual_units": 9,
+      "recovered": 2,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "Q": {
+      "qual_units": 9,
+      "recovered": 7,
+      "nonqual_units": 0,
+      "false_admitted": 0
+     },
+     "R": {
+      "qual_units": 12,
+      "recovered": 10,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "S": {
+      "qual_units": 10,
+      "recovered": 2,
+      "nonqual_units": 1,
+      "false_admitted": 0
+     },
+     "T": {
+      "qual_units": 6,
+      "recovered": 2,
+      "nonqual_units": 4,
+      "false_admitted": 0
+     }
+    },
+    "scoring_full_evidence": {
+     "defined_scores": 40,
+     "denominator_total": 79,
+     "numerator_total": 79,
+     "counted_non_technical_rows": 0
+    }
+   },
+   "vs_P0_scoring": {
+    "full_denominator_delta": 11,
+    "full_numerator_delta": 11,
+    "full_rows_added": 17,
+    "full_rows_removed": 2,
+    "full_score_changed": 7,
+    "full_undefined_changed": 7,
+    "none_denominator_delta": 11,
+    "none_numerator_delta": 0,
+    "none_rows_added": 17,
+    "none_rows_removed": 2,
+    "none_score_changed": 7,
+    "none_undefined_changed": 7,
+    "full_score_changed_controls": [
+     "m11g23-eval-002",
+     "m11g23-eval-014",
+     "m11g23-eval-017",
+     "m11g23-eval-028",
+     "m11g23-eval-041",
+     "m11g23-eval-042",
+     "m11g23-eval-044"
+    ]
+   },
+   "vs_P0_units": {
+    "newly_recovered": [
+     "m11g23-eval-002/u0",
+     "m11g23-eval-002/u2",
+     "m11g23-eval-014/u3",
+     "m11g23-eval-021/u0",
+     "m11g23-eval-028/u0",
+     "m11g23-eval-028/u1",
+     "m11g23-eval-041/u0",
+     "m11g23-eval-041/u2",
+     "m11g23-eval-042/u1"
+    ],
+    "regressed": [],
+    "newly_false_admitted": []
+   }
+  }
+ },
+ "eval_gates_selected": {
+  "G1_recall": {
+   "p0": [
+    53,
+    145
+   ],
+   "selected": [
+    62,
+    145
+   ],
+   "gain_abs": 0.0621,
+   "units_gained": 9,
+   "pass": false
+  },
+  "G2a_severe_false_admissions": {
+   "new": 0,
+   "units": [],
+   "pass": true
+  },
+  "G2b_false_admissions": {
+   "new": 0,
+   "units": [],
+   "per_recovered": 0.0,
+   "pass": true
+  },
+  "G3_necessity": {
+   "correct": 68,
+   "of": 72,
+   "accuracy": 0.9444,
+   "pass": true
+  },
+  "G4_no_regression": {
+   "regressed": 0,
+   "units": [],
+   "pass": true
+  },
+  "G5_g19_capability": {
+   "counted_non_technical_rows": 0,
+   "pass": true
+  },
+  "G6_historical": {
+   "changed_sections": [],
+   "pass": true
+  },
+  "G7_g20_false_admissions": {
+   "p0_vs_selected": {
+    "g20_dev": [
+     0,
+     0
+    ],
+    "g20_holdout": [
+     1,
+     1
+    ]
+   },
+   "pass": true
+  },
+  "all_pass": false
+ },
+ "eval_gates_note": "Gates apply to the SELECTED policy only; the other frozen policies are reported for information and were not used to choose after EVAL."
+}

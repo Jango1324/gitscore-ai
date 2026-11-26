@@ -1,0 +1,23 @@
+{
+ "milestone": "M11-G23",
+ "artifact": "evaluation/m11g23/controls_eval.json",
+ "sha256": "38c5c38ea1a788a8a9ff7267043a349f8e140fe4ca6892ba03dbe8ae3b84c67f",
+ "bytes": 103481,
+ "labelling_guide": "evaluation/m11g23/labelling_guide.md",
+ "labelling_guide_sha256": "069f6b123cc0dacd25b42749e6e1b4f680d7c03a3c0da0b194b4bbc224084a18",
+ "author": "AI subagent (general-purpose Claude agent, fresh context) instructed only with the labelling guide; no access to the parser source under src/gitscore/jobs, the G23 policies, the DEV set or any results",
+ "author_self_disclosure": "Written by an AI subagent instructed only with evaluation/m11g23/labelling_guide.md (plus the concept registry and the structural validator), without access to the parser source, the candidate policies, the DEV set or any results.",
+ "frozen_at_parent_commit": "1a6e8bf675b55ac7faa0bac1a878ca99d1367a80",
+ "frozen_utc": "2026-11-23T04:58:13+00:00",
+ "chronology": "labelling guide -> DEV frozen -> EVAL authored blind in parallel with harness/policy drafting -> this freeze on receipt, before any parser or policy ran on EVAL text",
+ "registered_in_g14_manifest": false,
+ "chronology_note": "Before this freeze, a P0 replica-vs-production segmentation fidelity sweep over every string in evaluation/**/*.json may have included this file while it was being written. That sweep ran no G23 policy, inspected no labels and printed a single integer (0 mismatches). No policy was run on EVAL text before the policy design freeze.",
+ "sha256_canonical_crlf_to_lf": "705276be60d64eecde9229565b8404691303075c3df04355a05170f8c76f3092",
+ "labelling_guide_sha256_canonical_crlf_to_lf": "069f6b123cc0dacd25b42749e6e1b4f680d7c03a3c0da0b194b4bbc224084a18",
+ "canonical_hash_note": "canonical = SHA-256 after CRLF->LF (the G14 'crlf-to-lf/v1' convention); added after EVAL so the identity does not depend on core.autocrlf. The raw `sha256` above is the value recorded at freeze time and is unchanged.",
+ "frozen_file": "evaluation/m11g23/controls_eval.json",
+ "length_bytes": 103481,
+ "sha256_lf_normalized": "705276be60d64eecde9229565b8404691303075c3df04355a05170f8c76f3092",
+ "canonical_contract": "crlf-to-lf/v1",
+ "g14_fields_note": "frozen_file / length_bytes / canonical_contract added on 2026-11-25 for G14 registration (G14 field names; values equal artifact / bytes recorded at freeze time). sha256_lf_normalized was NOT recorded at freeze time: it was first computed on 2026-11-23 after the single EVAL run (sha256_canonical_crlf_to_lf) and re-verified on 2026-11-25 under crlf-to-lf/v1 from the raw-frozen artifact. The freeze-time anchor is `sha256` (raw, CRLF). Every one of the 3406 line endings is CRLF (no lone CR or LF), so re-encoding the canonical bytes with CRLF reproduces the freeze-time raw sha256 exactly; the G14 manifest entry records historical_newline_form 'crlf' and verification re-checks that reconstruction."
+}
